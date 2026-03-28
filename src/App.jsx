@@ -1,27 +1,93 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
 
+// Multilingual passages - easy to extend
 const PASSAGES = {
-  easy: [
-    "The quick brown fox jumps over the lazy dog.",
-    "Hello world this is a typing practice app.",
-    "Learning to type faster is fun and rewarding.",
-  ],
-  medium: [
-    "JavaScript is a versatile programming language that powers modern web applications.",
-    "React makes building user interfaces easier with its component-based architecture.",
-    "TypeScript adds static typing to JavaScript for better code quality and maintainability.",
-  ],
-  hard: [
-    "Asynchronous programming allows developers to perform multiple operations concurrently without blocking the main thread.",
-    "The philosophy behind RESTful APIs emphasizes stateless communication, resource-oriented design, and uniform interfaces.",
-    "Machine learning algorithms process vast amounts of data to identify patterns and make predictions based on historical examples.",
-  ]
+  english: {
+    easy: [
+      "The quick brown fox jumps over the lazy dog.",
+      "Hello world this is a typing practice app.",
+      "Learning to type faster is fun and rewarding.",
+    ],
+    medium: [
+      "JavaScript is a versatile programming language that powers modern web applications.",
+      "React makes building user interfaces easier with its component-based architecture.",
+      "TypeScript adds static typing to JavaScript for better code quality and maintainability.",
+    ],
+    hard: [
+      "Asynchronous programming allows developers to perform multiple operations concurrently without blocking the main thread.",
+      "The philosophy behind RESTful APIs emphasizes stateless communication, resource-oriented design, and uniform interfaces.",
+      "Machine learning algorithms process vast amounts of data to identify patterns and make predictions based on historical examples.",
+    ]
+  },
+  urdu: {
+    easy: [
+      "تیز رفتار اور درست ٹائپنگ ایک قیمتی مہارت ہے۔",
+      "یہ ایپلیکیشن آپ کو ٹائپنگ کی رفتار بڑھانے میں مدد دے گی۔",
+      "روزانہ مشق کرنے سے آپ بہتر ہو جائیں گے۔",
+    ],
+    medium: [
+      "کمپیوٹر کی سائنس میں ٹائپنگ کی رفتار بہت اہم ہے۔",
+      "اردو میں ٹائپنگ سیکھنا آجکل بہت آسان ہو گیا ہے۔",
+      "اچھی ٹائپنگ کی مہارت کام کی دنیا میں بہت مفید ہے۔",
+    ],
+    hard: [
+      "جدید تکنالوجی کے دور میں ڈیجیٹل مہارتیں انتہائی ضروری ہو گئی ہیں۔",
+      "پروگرامنگ اور سفٹ ویئر ڈیولپمنٹ میں ٹائپنگ کی رفتار کامیابی کی کلید ہے۔",
+      "مختلف زبانوں میں ٹائپنگ کی مشق سے آپ کی لکھنے کی صلاحیت میں اضافہ ہوتا ہے۔",
+    ]
+  },
+  arabic: {
+    easy: [
+      "الكتابة السريعة مهارة قيمة جداً في العصر الحديث.",
+      "هذا التطبيق سيساعدك على تحسين مهارات الكتابة لديك.",
+      "الممارسة اليومية ستجعلك أفضل وأسرع في الكتابة.",
+    ],
+    medium: [
+      "في علوم الحاسوب، سرعة الكتابة مهمة جداً للمبرمجين.",
+      "تعلم الكتابة بسرعة في اللغة العربية أصبح أسهل من ذي قبل.",
+      "مهارات الكتابة الجيدة مفيدة جداً في عالم العمل الحديث.",
+    ],
+    hard: [
+      "في العصر الرقمي الحالي، أصبحت المهارات الرقمية ضرورية للجميع.",
+      "البرمجة وتطوير البرامج يتطلبان سرعة وكفاءة عالية في الكتابة.",
+      "ممارسة الكتابة في لغات مختلفة تحسن من قدرتك على التعبير والتواصل.",
+    ]
+  },
+  persian: {
+    easy: [
+      "نوشتن سریع یک مهارت بسیار ارزشمند است.",
+      "این برنامه به شما کمک خواهد کرد تا سرعت تایپ خود را بهبود بخشید.",
+      "تمرین روزانه شما را در تایپ بهتر و سریعتر می کند.",
+    ],
+    medium: [
+      "در علوم کامپیوتر، سرعت تایپ برای برنامه نویسان بسیار مهم است.",
+      "یادگیری تایپ سریع در زبان فارسی امروزه بسیار ساده شده است.",
+      "مهارات خوب در تایپ در دنیای کار امروزی بسیار مفید است.",
+    ],
+    hard: [
+      "در عصر دیجیتال امروزی، مهارات دیجیتالی برای همه ضروری شده اند.",
+      "برنامه نویسی و توسعه نرم افزار نیاز به سرعت و دقت بالایی دارد.",
+      "تمرین تایپ در زبان های مختلف مهارت ارتباطی شما را بهبود می بخشد.",
+    ]
+  }
+}
+
+// Language metadata
+const LANGUAGES = {
+  english: { name: 'English', dir: 'ltr', flag: '🇬🇧' },
+  urdu: { name: 'اردو', dir: 'rtl', flag: '🇵🇰' },
+  arabic: { name: 'العربية', dir: 'rtl', flag: '🇸🇦' },
+  persian: { name: 'فارسی', dir: 'rtl', flag: '🇮🇷' },
 }
 
 function App() {
   const [difficulty, setDifficulty] = useState('easy')
-  const [passage, setPassage] = useState(PASSAGES.easy[0])
+  const [language, setLanguage] = useState(() => {
+    const saved = localStorage.getItem('typingTutorLanguage')
+    return saved || 'english'
+  })
+  const [passage, setPassage] = useState('')
   const [typed, setTyped] = useState('')
   const [startTime, setStartTime] = useState(null)
   const [wpm, setWpm] = useState(0)
@@ -38,11 +104,19 @@ function App() {
   }, [isDark])
 
   useEffect(() => {
-    const newPassages = PASSAGES[difficulty]
-    const randomPassage = newPassages[Math.floor(Math.random() * newPassages.length)]
-    setPassage(randomPassage)
-    resetTest()
-  }, [difficulty])
+    localStorage.setItem('typingTutorLanguage', language)
+  }, [language])
+
+  // Set initial passage when language or difficulty changes
+  useEffect(() => {
+    const langPassages = PASSAGES[language]
+    if (langPassages) {
+      const difficultyPassages = langPassages[difficulty] || langPassages.easy
+      const randomPassage = difficultyPassages[Math.floor(Math.random() * difficultyPassages.length)]
+      setPassage(randomPassage)
+      resetTest()
+    }
+  }, [difficulty, language])
 
   useEffect(() => {
     if (typed.length === 0) return
@@ -71,13 +145,14 @@ function App() {
           wpm: finalWpm,
           accuracy: calculatedAccuracy,
           difficulty,
+          language,
           timestamp: new Date().toISOString()
         })
       } catch (error) {
         console.error('Error saving score:', error)
       }
     }
-  }, [typed, startTime, passage, difficulty, finished])
+  }, [typed, startTime, passage, difficulty, language, finished])
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -159,6 +234,7 @@ function App() {
   }
 
   const colors = getThemeColors()
+  const currentLangDir = LANGUAGES[language]?.dir || 'ltr'
 
   return (
     <div style={{
@@ -166,6 +242,7 @@ function App() {
       background: colors.bg,
       padding: '2rem',
       transition: 'background 0.3s ease',
+      direction: currentLangDir,
     }}>
       {/* Animated background elements */}
       <div style={{
@@ -208,14 +285,16 @@ function App() {
         maxWidth: '56rem',
         margin: '0 auto',
       }}>
-        {/* Header with Theme Toggle */}
+        {/* Header with Theme & Language Toggle */}
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           marginBottom: '3rem',
+          flexWrap: 'wrap',
+          gap: '1rem',
         }}>
-          <div style={{ flex: 1 }}>
+          <div style={{ flex: 1, minWidth: '200px' }}>
             <h1 style={{
               fontSize: '3.5rem',
               fontWeight: 900,
@@ -237,36 +316,66 @@ function App() {
             </p>
           </div>
 
-          {/* Dark Mode Toggle Button */}
-          <button
-            onClick={() => setIsDark(!isDark)}
-            style={{
-              background: colors.difficulty,
-              border: `2px solid ${isDark ? '#334155' : '#e2e8f0'}`,
-              color: colors.text,
-              width: '60px',
-              height: '60px',
-              borderRadius: '50%',
-              cursor: 'pointer',
-              fontSize: '1.5rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 0.3s ease',
-              boxShadow: colors.buttonShadow,
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = 'scale(1.1)'
-              e.target.style.borderColor = '#06b6d4'
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = 'scale(1)'
-              e.target.style.borderColor = isDark ? '#334155' : '#e2e8f0'
-            }}
-            title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-          >
-            {isDark ? '☀️' : '🌙'}
-          </button>
+          {/* Control Buttons */}
+          <div style={{
+            display: 'flex',
+            gap: '0.75rem',
+            alignItems: 'center',
+          }}>
+            {/* Language Selector */}
+            <select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              style={{
+                background: colors.difficulty,
+                border: `2px solid ${isDark ? '#334155' : '#e2e8f0'}`,
+                color: colors.text,
+                padding: '0.5rem 0.75rem',
+                borderRadius: '0.5rem',
+                cursor: 'pointer',
+                fontSize: '1rem',
+                fontWeight: 600,
+                transition: 'all 0.3s ease',
+              }}
+            >
+              {Object.entries(LANGUAGES).map(([key, lang]) => (
+                <option key={key} value={key}>
+                  {lang.flag} {lang.name}
+                </option>
+              ))}
+            </select>
+
+            {/* Dark Mode Toggle Button */}
+            <button
+              onClick={() => setIsDark(!isDark)}
+              style={{
+                background: colors.difficulty,
+                border: `2px solid ${isDark ? '#334155' : '#e2e8f0'}`,
+                color: colors.text,
+                width: '60px',
+                height: '60px',
+                borderRadius: '50%',
+                cursor: 'pointer',
+                fontSize: '1.5rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.3s ease',
+                boxShadow: colors.buttonShadow,
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.transform = 'scale(1.1)'
+                e.target.style.borderColor = '#06b6d4'
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform = 'scale(1)'
+                e.target.style.borderColor = isDark ? '#334155' : '#e2e8f0'
+              }}
+              title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            >
+              {isDark ? '☀️' : '🌙'}
+            </button>
+          </div>
         </div>
 
         {/* Difficulty Selection */}
@@ -341,6 +450,8 @@ function App() {
               border: `1px solid ${isDark ? 'rgba(71, 85, 105, 0.3)' : 'rgba(203, 213, 225, 0.3)'}`,
               backdropFilter: 'blur(10px)',
               transition: 'all 0.3s ease',
+              direction: currentLangDir,
+              textAlign: currentLangDir === 'rtl' ? 'right' : 'left',
             }}
           >
             <div
@@ -350,6 +461,7 @@ function App() {
                 fontFamily: 'monospace',
                 color: colors.passageText,
                 letterSpacing: '0.05em',
+                wordBreak: 'break-word',
               }}
             >
               {passage.split('').map((char, index) => (
@@ -409,6 +521,7 @@ function App() {
                   fontSize: '3rem',
                   fontWeight: 900,
                   color: 'white',
+                  margin: 0,
                 }}
               >
                 {wpm}
@@ -441,6 +554,7 @@ function App() {
                   fontSize: '3rem',
                   fontWeight: 900,
                   color: getAccuracyColor(),
+                  margin: 0,
                 }}
               >
                 {accuracy}%
@@ -473,6 +587,7 @@ function App() {
                   fontSize: '3rem',
                   fontWeight: 900,
                   color: 'white',
+                  margin: 0,
                 }}
               >
                 {typed.length}/{passage.length}
@@ -512,6 +627,8 @@ function App() {
               opacity: finished ? 0.6 : 1,
               cursor: finished ? 'not-allowed' : 'auto',
               transition: 'all 0.2s',
+              direction: currentLangDir,
+              textAlign: currentLangDir === 'rtl' ? 'right' : 'left',
             }}
             onFocus={(e) =>
               !finished && (e.target.style.borderColor = '#06b6d4')
@@ -623,6 +740,7 @@ function App() {
               boxShadow:
                 '0 25px 50px -12px rgba(16, 185, 129, 0.2)',
               animation: 'pulse-slow 3s ease-in-out infinite',
+              direction: currentLangDir,
             }}
           >
             <p

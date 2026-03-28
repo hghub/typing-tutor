@@ -27,7 +27,15 @@ function App() {
   const [wpm, setWpm] = useState(0)
   const [accuracy, setAccuracy] = useState(100)
   const [finished, setFinished] = useState(false)
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem('typingTutorTheme')
+    return saved !== null ? JSON.parse(saved) : true
+  })
   const inputRef = useRef(null)
+
+  useEffect(() => {
+    localStorage.setItem('typingTutorTheme', JSON.stringify(isDark))
+  }, [isDark])
 
   useEffect(() => {
     const newPassages = PASSAGES[difficulty]
@@ -110,7 +118,7 @@ function App() {
       return typed[index] === passage[index] ? '#10b981' : '#f87171'
     }
     if (index === typed.length) return '#06b6d4'
-    return '#475569'
+    return isDark ? '#475569' : '#cbd5e1'
   }
 
   const getAccuracyColor = () => {
@@ -119,11 +127,45 @@ function App() {
     return '#f87171'
   }
 
+  const getThemeColors = () => {
+    if (isDark) {
+      return {
+        bg: 'linear-gradient(to bottom right, #0f172a, #4c1d95, #0f172a)',
+        text: '#f1f5f9',
+        textSecondary: '#94a3b8',
+        card: 'rgba(30, 41, 59, 0.5)',
+        cardBg: 'rgba(15, 23, 42, 0.7)',
+        passageText: '#f1f5f9',
+        input: 'rgba(15, 23, 42, 0.8)',
+        inputBorder: '#475569',
+        difficulty: '#1e293b',
+        difficultyBorder: '#334155',
+        buttonShadow: '0 10px 25px rgba(6, 182, 212, 0.1)',
+      }
+    }
+    return {
+      bg: 'linear-gradient(to bottom right, #f8fafc, #f1f5f9, #e2e8f0)',
+      text: '#1e293b',
+      textSecondary: '#64748b',
+      card: 'rgba(248, 250, 252, 0.9)',
+      cardBg: 'rgba(241, 245, 249, 0.95)',
+      passageText: '#0f172a',
+      input: 'rgba(248, 250, 252, 0.95)',
+      inputBorder: '#cbd5e1',
+      difficulty: '#f1f5f9',
+      difficultyBorder: '#e2e8f0',
+      buttonShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
+    }
+  }
+
+  const colors = getThemeColors()
+
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(to bottom right, #0f172a, #4c1d95, #0f172a)',
+      background: colors.bg,
       padding: '2rem',
+      transition: 'background 0.3s ease',
     }}>
       {/* Animated background elements */}
       <div style={{
@@ -166,26 +208,74 @@ function App() {
         maxWidth: '56rem',
         margin: '0 auto',
       }}>
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h1 style={{
-            fontSize: '3.5rem',
-            fontWeight: 900,
-            background: 'linear-gradient(to right, #22d3ee, #60a5fa, #a855f7)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            marginBottom: '0.75rem',
-          }}>
-            TypeMaster
-          </h1>
-          <p style={{ color: '#94a3b8', fontSize: '1.125rem', fontWeight: 300 }}>
-            Master your typing speed and accuracy
-          </p>
+        {/* Header with Theme Toggle */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '3rem',
+        }}>
+          <div style={{ flex: 1 }}>
+            <h1 style={{
+              fontSize: '3.5rem',
+              fontWeight: 900,
+              background: 'linear-gradient(to right, #22d3ee, #60a5fa, #a855f7)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              margin: 0,
+            }}>
+              TypeMaster
+            </h1>
+            <p style={{
+              color: colors.textSecondary,
+              fontSize: '1.125rem',
+              fontWeight: 300,
+              margin: '0.5rem 0 0 0',
+            }}>
+              Master your typing speed and accuracy
+            </p>
+          </div>
+
+          {/* Dark Mode Toggle Button */}
+          <button
+            onClick={() => setIsDark(!isDark)}
+            style={{
+              background: colors.difficulty,
+              border: `2px solid ${isDark ? '#334155' : '#e2e8f0'}`,
+              color: colors.text,
+              width: '60px',
+              height: '60px',
+              borderRadius: '50%',
+              cursor: 'pointer',
+              fontSize: '1.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.3s ease',
+              boxShadow: colors.buttonShadow,
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.transform = 'scale(1.1)'
+              e.target.style.borderColor = '#06b6d4'
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = 'scale(1)'
+              e.target.style.borderColor = isDark ? '#334155' : '#e2e8f0'
+            }}
+            title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          >
+            {isDark ? '☀️' : '🌙'}
+          </button>
         </div>
 
         {/* Difficulty Selection */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '2.5rem' }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: '1rem',
+          marginBottom: '2.5rem',
+        }}>
           {['easy', 'medium', 'hard'].map((level) => (
             <button
               key={level}
@@ -198,12 +288,17 @@ function App() {
                 border: 'none',
                 cursor: 'pointer',
                 transition: 'all 0.3s',
-                background: difficulty === level 
-                  ? 'linear-gradient(to right, #06b6d4, #3b82f6)'
-                  : '#1e293b',
-                color: difficulty === level ? 'white' : '#cbd5e1',
+                background:
+                  difficulty === level
+                    ? 'linear-gradient(to right, #06b6d4, #3b82f6)'
+                    : colors.difficulty,
+                color:
+                  difficulty === level ? 'white' : colors.textSecondary,
                 borderWidth: '2px',
-                borderColor: difficulty === level ? 'transparent' : '#334155',
+                borderColor:
+                  difficulty === level
+                    ? 'transparent'
+                    : colors.difficultyBorder,
               }}
               onMouseEnter={(e) => {
                 if (difficulty !== level) {
@@ -213,8 +308,8 @@ function App() {
               }}
               onMouseLeave={(e) => {
                 if (difficulty !== level) {
-                  e.target.style.borderColor = '#334155'
-                  e.target.style.color = '#cbd5e1'
+                  e.target.style.borderColor = colors.difficultyBorder
+                  e.target.style.color = colors.textSecondary
                 }
               }}
             >
@@ -224,38 +319,55 @@ function App() {
         </div>
 
         {/* Main Content Card */}
-        <div style={{
-          background: 'rgba(30, 41, 59, 0.5)',
-          backdropFilter: 'blur(12px)',
-          borderRadius: '1.5rem',
-          border: '1px solid rgba(71, 85, 105, 0.5)',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-          padding: '2.5rem',
-          marginBottom: '2rem',
-        }}>
-          {/* Passage Display */}
-          <div style={{
-            background: 'rgba(15, 23, 42, 0.7)',
-            borderRadius: '1rem',
-            padding: '2rem',
+        <div
+          style={{
+            background: colors.card,
+            backdropFilter: 'blur(12px)',
+            borderRadius: '1.5rem',
+            border: `1px solid ${isDark ? 'rgba(71, 85, 105, 0.5)' : 'rgba(203, 213, 225, 0.5)'}`,
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+            padding: '2.5rem',
             marginBottom: '2rem',
-            border: '1px solid rgba(71, 85, 105, 0.3)',
-            backdropFilter: 'blur(10px)',
-          }}>
-            <div style={{
-              fontSize: '1.125rem',
-              lineHeight: '1.75',
-              fontFamily: 'monospace',
-              color: '#f1f5f9',
-              letterSpacing: '0.05em',
-            }}>
+            transition: 'all 0.3s ease',
+          }}
+        >
+          {/* Passage Display */}
+          <div
+            style={{
+              background: colors.cardBg,
+              borderRadius: '1rem',
+              padding: '2rem',
+              marginBottom: '2rem',
+              border: `1px solid ${isDark ? 'rgba(71, 85, 105, 0.3)' : 'rgba(203, 213, 225, 0.3)'}`,
+              backdropFilter: 'blur(10px)',
+              transition: 'all 0.3s ease',
+            }}
+          >
+            <div
+              style={{
+                fontSize: '1.125rem',
+                lineHeight: '1.75',
+                fontFamily: 'monospace',
+                color: colors.passageText,
+                letterSpacing: '0.05em',
+              }}
+            >
               {passage.split('').map((char, index) => (
-                <span key={index} style={{
-                  color: getCharColor(index),
-                  transition: 'color 75ms',
-                  backgroundColor: getCharColor(index) === '#06b6d4' ? '#06b6d4' : 'transparent',
-                  padding: getCharColor(index) === '#06b6d4' ? '0 2px' : '0',
-                }}>
+                <span
+                  key={index}
+                  style={{
+                    color: getCharColor(index),
+                    transition: 'color 75ms',
+                    backgroundColor:
+                      getCharColor(index) === '#06b6d4'
+                        ? '#06b6d4'
+                        : 'transparent',
+                    padding:
+                      getCharColor(index) === '#06b6d4'
+                        ? '0 2px'
+                        : '0',
+                  }}
+                >
                   {char}
                 </span>
               ))}
@@ -263,46 +375,106 @@ function App() {
           </div>
 
           {/* Stats Grid */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '1.5rem',
-            marginBottom: '2rem',
-          }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: '1.5rem',
+              marginBottom: '2rem',
+            }}
+          >
             {/* WPM */}
-            <div style={{
-              background: 'linear-gradient(to bottom right, #1e40af, #1e3a8a)',
-              borderRadius: '1rem',
-              padding: '1.5rem',
-              border: '1px solid rgba(59, 130, 246, 0.3)',
-              boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-            }}>
-              <p style={{ color: '#93c5fd', fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.5rem' }}>WPM</p>
-              <p style={{ fontSize: '3rem', fontWeight: 900, color: 'white' }}>{wpm}</p>
+            <div
+              style={{
+                background:
+                  'linear-gradient(to bottom right, #1e40af, #1e3a8a)',
+                borderRadius: '1rem',
+                padding: '1.5rem',
+                border: '1px solid rgba(59, 130, 246, 0.3)',
+                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+              }}
+            >
+              <p
+                style={{
+                  color: '#93c5fd',
+                  fontSize: '0.875rem',
+                  fontWeight: 600,
+                  marginBottom: '0.5rem',
+                }}
+              >
+                WPM
+              </p>
+              <p
+                style={{
+                  fontSize: '3rem',
+                  fontWeight: 900,
+                  color: 'white',
+                }}
+              >
+                {wpm}
+              </p>
             </div>
 
             {/* Accuracy */}
-            <div style={{
-              background: 'linear-gradient(to bottom right, #6b21a8, #581c87)',
-              borderRadius: '1rem',
-              padding: '1.5rem',
-              border: '1px solid rgba(168, 85, 247, 0.3)',
-              boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-            }}>
-              <p style={{ color: '#e9d5ff', fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.5rem' }}>Accuracy</p>
-              <p style={{ fontSize: '3rem', fontWeight: 900, color: getAccuracyColor() }}>{accuracy}%</p>
+            <div
+              style={{
+                background:
+                  'linear-gradient(to bottom right, #6b21a8, #581c87)',
+                borderRadius: '1rem',
+                padding: '1.5rem',
+                border: '1px solid rgba(168, 85, 247, 0.3)',
+                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+              }}
+            >
+              <p
+                style={{
+                  color: '#e9d5ff',
+                  fontSize: '0.875rem',
+                  fontWeight: 600,
+                  marginBottom: '0.5rem',
+                }}
+              >
+                Accuracy
+              </p>
+              <p
+                style={{
+                  fontSize: '3rem',
+                  fontWeight: 900,
+                  color: getAccuracyColor(),
+                }}
+              >
+                {accuracy}%
+              </p>
             </div>
 
             {/* Progress */}
-            <div style={{
-              background: 'linear-gradient(to bottom right, #0e7490, #164e63)',
-              borderRadius: '1rem',
-              padding: '1.5rem',
-              border: '1px solid rgba(34, 211, 238, 0.3)',
-              boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-            }}>
-              <p style={{ color: '#a5f3fc', fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.5rem' }}>Progress</p>
-              <p style={{ fontSize: '3rem', fontWeight: 900, color: 'white' }}>
+            <div
+              style={{
+                background:
+                  'linear-gradient(to bottom right, #0e7490, #164e63)',
+                borderRadius: '1rem',
+                padding: '1.5rem',
+                border: '1px solid rgba(34, 211, 238, 0.3)',
+                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+              }}
+            >
+              <p
+                style={{
+                  color: '#a5f3fc',
+                  fontSize: '0.875rem',
+                  fontWeight: 600,
+                  marginBottom: '0.5rem',
+                }}
+              >
+                Progress
+              </p>
+              <p
+                style={{
+                  fontSize: '3rem',
+                  fontWeight: 900,
+                  color: 'white',
+                }}
+              >
                 {typed.length}/{passage.length}
               </p>
             </div>
@@ -320,15 +492,19 @@ function App() {
                 e.preventDefault()
               }
             }}
-            placeholder={finished ? "Press 'Try Again' to continue" : "Click here and start typing..."}
+            placeholder={
+              finished
+                ? "Press 'Try Again' to continue"
+                : 'Click here and start typing...'
+            }
             disabled={finished}
             style={{
               width: '100%',
               padding: '1rem 1.5rem',
-              background: 'rgba(15, 23, 42, 0.8)',
-              border: '2px solid #475569',
+              background: colors.input,
+              border: `2px solid ${colors.inputBorder}`,
               borderRadius: '0.75rem',
-              color: '#f1f5f9',
+              color: colors.text,
               fontSize: '1rem',
               fontFamily: 'monospace',
               marginBottom: '2rem',
@@ -337,13 +513,24 @@ function App() {
               cursor: finished ? 'not-allowed' : 'auto',
               transition: 'all 0.2s',
             }}
-            onFocus={(e) => !finished && (e.target.style.borderColor = '#06b6d4')}
-            onBlur={(e) => !finished && (e.target.style.borderColor = '#475569')}
+            onFocus={(e) =>
+              !finished && (e.target.style.borderColor = '#06b6d4')
+            }
+            onBlur={(e) =>
+              !finished && (e.target.style.borderColor = colors.inputBorder)
+            }
             autoFocus
           />
 
           {/* Action Buttons */}
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <div
+            style={{
+              display: 'flex',
+              gap: '1rem',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
             <button
               onClick={resetTest}
               style={{
@@ -359,31 +546,45 @@ function App() {
               }}
               onMouseEnter={(e) => {
                 e.target.style.transform = 'scale(1.05)'
-                e.target.style.boxShadow = '0 25px 50px -12px rgba(6, 182, 212, 0.5)'
+                e.target.style.boxShadow =
+                  '0 25px 50px -12px rgba(6, 182, 212, 0.5)'
               }}
               onMouseLeave={(e) => {
                 e.target.style.transform = 'scale(1)'
-                e.target.style.boxShadow = '0 20px 25px -5px rgba(6, 182, 212, 0.3)'
+                e.target.style.boxShadow =
+                  '0 20px 25px -5px rgba(6, 182, 212, 0.3)'
               }}
             >
               {finished ? 'Try Again' : 'Reset'}
             </button>
             <button
               onClick={() => {
-                const scores = JSON.parse(localStorage.getItem('typingScores') || '[]')
+                const scores = JSON.parse(
+                  localStorage.getItem('typingScores') || '[]'
+                )
                 if (scores.length === 0) {
-                  alert('No typing sessions yet! Complete a test to see stats.')
+                  alert(
+                    'No typing sessions yet! Complete a test to see stats.'
+                  )
                   return
                 }
-                const avgWpm = Math.round(scores.reduce((sum, s) => sum + s.wpm, 0) / scores.length)
-                const avgAccuracy = Math.round(scores.reduce((sum, s) => sum + s.accuracy, 0) / scores.length)
-                const bestWpm = Math.max(...scores.map(s => s.wpm))
-                alert(`📊 Your Stats\n\nTotal Sessions: ${scores.length}\nAvg WPM: ${avgWpm}\nBest WPM: ${bestWpm}\nAvg Accuracy: ${avgAccuracy}%\n\nCheck console for detailed scores`)
+                const avgWpm = Math.round(
+                  scores.reduce((sum, s) => sum + s.wpm, 0) / scores.length
+                )
+                const avgAccuracy = Math.round(
+                  scores.reduce((sum, s) => sum + s.accuracy, 0) /
+                    scores.length
+                )
+                const bestWpm = Math.max(...scores.map((s) => s.wpm))
+                alert(
+                  `📊 Your Stats\n\nTotal Sessions: ${scores.length}\nAvg WPM: ${avgWpm}\nBest WPM: ${bestWpm}\nAvg Accuracy: ${avgAccuracy}%\n\nCheck console for detailed scores`
+                )
                 console.log('All your scores:', scores)
               }}
               style={{
                 padding: '0.75rem 2rem',
-                background: 'linear-gradient(to right, #a855f7, #ec4899)',
+                background:
+                  'linear-gradient(to right, #a855f7, #ec4899)',
                 color: 'white',
                 borderRadius: '0.75rem',
                 fontWeight: 600,
@@ -394,11 +595,13 @@ function App() {
               }}
               onMouseEnter={(e) => {
                 e.target.style.transform = 'scale(1.05)'
-                e.target.style.boxShadow = '0 25px 50px -12px rgba(168, 85, 247, 0.5)'
+                e.target.style.boxShadow =
+                  '0 25px 50px -12px rgba(168, 85, 247, 0.5)'
               }}
               onMouseLeave={(e) => {
                 e.target.style.transform = 'scale(1)'
-                e.target.style.boxShadow = '0 20px 25px -5px rgba(168, 85, 247, 0.3)'
+                e.target.style.boxShadow =
+                  '0 20px 25px -5px rgba(168, 85, 247, 0.3)'
               }}
             >
               View Stats
@@ -408,32 +611,61 @@ function App() {
 
         {/* Completion Card */}
         {finished && (
-          <div style={{
-            background: 'linear-gradient(to right, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2))',
-            backdropFilter: 'blur(12px)',
-            borderRadius: '1rem',
-            border: '2px solid rgba(16, 185, 129, 0.5)',
-            padding: '2rem',
-            textAlign: 'center',
-            boxShadow: '0 25px 50px -12px rgba(16, 185, 129, 0.2)',
-            animation: 'pulse-slow 3s ease-in-out infinite',
-          }}>
-            <p style={{
-              fontSize: '2rem',
-              fontWeight: 900,
-              background: 'linear-gradient(to right, #10b981, #06b6d4)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              marginBottom: '1rem',
-            }}>
+          <div
+            style={{
+              background:
+                'linear-gradient(to right, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2))',
+              backdropFilter: 'blur(12px)',
+              borderRadius: '1rem',
+              border: '2px solid rgba(16, 185, 129, 0.5)',
+              padding: '2rem',
+              textAlign: 'center',
+              boxShadow:
+                '0 25px 50px -12px rgba(16, 185, 129, 0.2)',
+              animation: 'pulse-slow 3s ease-in-out infinite',
+            }}
+          >
+            <p
+              style={{
+                fontSize: '2rem',
+                fontWeight: 900,
+                background:
+                  'linear-gradient(to right, #10b981, #06b6d4)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                marginBottom: '1rem',
+              }}
+            >
               Perfect!
             </p>
-            <p style={{ color: '#e2e8f0', fontSize: '1.125rem', marginBottom: '0.5rem' }}>
-              Final WPM: <span style={{ fontWeight: 900, color: '#10b981' }}>{wpm}</span>
+            <p
+              style={{
+                color: '#e2e8f0',
+                fontSize: '1.125rem',
+                marginBottom: '0.5rem',
+              }}
+            >
+              Final WPM:{' '}
+              <span
+                style={{
+                  fontWeight: 900,
+                  color: '#10b981',
+                }}
+              >
+                {wpm}
+              </span>
             </p>
             <p style={{ color: '#e2e8f0', fontSize: '1.125rem' }}>
-              Accuracy: <span style={{ fontWeight: 900, color: getAccuracyColor() }}>{accuracy}%</span>
+              Accuracy:{' '}
+              <span
+                style={{
+                  fontWeight: 900,
+                  color: getAccuracyColor(),
+                }}
+              >
+                {accuracy}%
+              </span>
             </p>
           </div>
         )}

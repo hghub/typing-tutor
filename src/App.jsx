@@ -7,6 +7,7 @@ import { LANGUAGES } from './constants/languages'
 import AnimatedBackground from './components/AnimatedBackground'
 import Header from './components/Header'
 import DifficultySelector from './components/DifficultySelector'
+import CustomPassagePanel from './components/CustomPassagePanel'
 import PassageDisplay from './components/PassageDisplay'
 import StatsGrid from './components/StatsGrid'
 import TypingInput from './components/TypingInput'
@@ -19,12 +20,21 @@ function App() {
   const [language, setLanguage] = useState(() => localStorage.getItem('typingTutorLanguage') || 'english')
 
   const { isDark, toggleTheme, colors } = useTheme()
-  const { passage, typed, wpm, accuracy, finished, inputRef, handleKeyDown, handleChange, resetTest } = useTypingTest({ difficulty, language })
+  const { passage, setPassage, typed, wpm, accuracy, finished, inputRef, handleKeyDown, handleChange, resetTest } = useTypingTest({ difficulty, language })
   const feedback = useFeedback()
 
   useEffect(() => {
     localStorage.setItem('typingTutorLanguage', language)
   }, [language])
+
+  const handleDifficultySelect = (level) => {
+    setDifficulty(level)
+  }
+
+  const handleCustomStart = (text) => {
+    setPassage(text)
+    resetTest()
+  }
 
   const currentLangDir = LANGUAGES[language]?.dir || 'ltr'
 
@@ -34,7 +44,11 @@ function App() {
 
       <div style={{ position: 'relative', maxWidth: '56rem', margin: '0 auto' }}>
         <Header language={language} onLanguageChange={setLanguage} isDark={isDark} onToggleTheme={toggleTheme} colors={colors} />
-        <DifficultySelector difficulty={difficulty} onSelect={setDifficulty} colors={colors} />
+        <DifficultySelector difficulty={difficulty} onSelect={handleDifficultySelect} colors={colors} />
+
+        {difficulty === 'custom' && (
+          <CustomPassagePanel colors={colors} isDark={isDark} onStart={handleCustomStart} />
+        )}
 
         <div style={{
           background: colors.card,

@@ -1,4 +1,4 @@
-const LEVELS = ['easy', 'medium', 'hard']
+const LEVELS = ['easy', 'medium', 'hard', 'custom']
 
 export default function DifficultySelector({ difficulty, onSelect, colors }) {
   return (

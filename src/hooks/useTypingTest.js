@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { PASSAGES } from '../constants/passages'
 import { saveScore } from '../utils/scores'
 
-export function useTypingTest({ difficulty, language }) {
+export function useTypingTest({ difficulty, language, customPassage }) {
   const [passage, setPassage] = useState('')
   const [typed, setTyped] = useState('')
   const [startTime, setStartTime] = useState(null)
@@ -12,6 +12,7 @@ export function useTypingTest({ difficulty, language }) {
   const inputRef = useRef(null)
 
   const pickPassage = (diff = difficulty, lang = language) => {
+    if (diff === 'custom') return // custom passage is set externally via setPassage
     const pool = (PASSAGES[lang]?.[diff] ?? PASSAGES[lang]?.easy) || []
     if (pool.length) setPassage(pool[Math.floor(Math.random() * pool.length)])
   }
@@ -77,5 +78,5 @@ export function useTypingTest({ difficulty, language }) {
 
   const handleChange = (e) => setTyped(e.target.value)
 
-  return { passage, typed, wpm, accuracy, finished, inputRef, handleKeyDown, handleChange, resetTest }
+  return { passage, setPassage, typed, wpm, accuracy, finished, inputRef, handleKeyDown, handleChange, resetTest }
 }

@@ -11,7 +11,13 @@ export function useTypingTest({ difficulty, language }) {
   const [finished, setFinished] = useState(false)
   const inputRef = useRef(null)
 
+  const pickPassage = (diff = difficulty, lang = language) => {
+    const pool = (PASSAGES[lang]?.[diff] ?? PASSAGES[lang]?.easy) || []
+    if (pool.length) setPassage(pool[Math.floor(Math.random() * pool.length)])
+  }
+
   const resetTest = () => {
+    pickPassage()
     setTyped('')
     setStartTime(null)
     setWpm(0)
@@ -21,13 +27,12 @@ export function useTypingTest({ difficulty, language }) {
   }
 
   useEffect(() => {
-    const langPassages = PASSAGES[language]
-    if (langPassages) {
-      const pool = langPassages[difficulty] || langPassages.easy
-      setPassage(pool[Math.floor(Math.random() * pool.length)])
-      resetTest()
-    }
-  // resetTest is intentionally excluded — its dependencies are stable setters + a ref
+    pickPassage()
+    setTyped('')
+    setStartTime(null)
+    setWpm(0)
+    setAccuracy(100)
+    setFinished(false)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [difficulty, language])
 

@@ -10,6 +10,14 @@ const STAT_CARDS = [
     valueColor: () => 'white',
   },
   {
+    key: 'cpm',
+    label: 'CPM',
+    labelColor: '#6ee7b7',
+    bg: 'linear-gradient(to bottom right, #065f46, #064e3b)',
+    border: 'rgba(16, 185, 129, 0.3)',
+    valueColor: () => 'white',
+  },
+  {
     key: 'accuracy',
     label: 'Accuracy',
     labelColor: '#e9d5ff',
@@ -27,15 +35,15 @@ const STAT_CARDS = [
   },
 ]
 
-export default function StatsGrid({ wpm, accuracy, typed, passage }) {
-  const values = { wpm, accuracy, progress: `${typed.length}/${passage.length}` }
+export default function StatsGrid({ wpm, cpm, accuracy, typed, passage }) {
+  const values = { wpm, cpm, accuracy, progress: `${typed.length}/${passage.length}` }
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', marginBottom: '2rem' }}>
       {STAT_CARDS.map(({ key, label, labelColor, bg, border, valueColor }) => (
-        <div key={key} style={{ background: bg, borderRadius: '1rem', padding: '1.5rem', border: `1px solid ${border}`, boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}>
+        <div key={key} style={{ background: bg, borderRadius: '1rem', padding: '1.25rem', border: `1px solid ${border}`, boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}>
           <p style={{ color: labelColor, fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.5rem' }}>{label}</p>
-          <p style={{ fontSize: '3rem', fontWeight: 900, color: valueColor(values[key]), margin: 0 }}>{values[key]}</p>
+          <p style={{ fontSize: '2.5rem', fontWeight: 900, color: valueColor(values[key]), margin: 0 }}>{values[key]}</p>
         </div>
       ))}
     </div>

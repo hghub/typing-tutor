@@ -20,7 +20,7 @@ function App() {
   const [language, setLanguage] = useState(() => localStorage.getItem('typingTutorLanguage') || 'english')
 
   const { isDark, toggleTheme, colors } = useTheme()
-  const { passage, setPassage, typed, wpm, accuracy, finished, inputRef, handleKeyDown, handleChange, resetTest } = useTypingTest({ difficulty, language })
+  const { passage, setPassage, typed, wpm, cpm, accuracy, finished, inputRef, handleKeyDown, handleChange, resetTest } = useTypingTest({ difficulty, language })
   const feedback = useFeedback()
 
   useEffect(() => {
@@ -61,12 +61,12 @@ function App() {
           transition: 'all 0.3s ease',
         }}>
           <PassageDisplay passage={passage} typed={typed} isDark={isDark} currentLangDir={currentLangDir} colors={colors} />
-          <StatsGrid wpm={wpm} accuracy={accuracy} typed={typed} passage={passage} />
+          <StatsGrid wpm={wpm} cpm={cpm} accuracy={accuracy} typed={typed} passage={passage} />
           <TypingInput typed={typed} finished={finished} inputRef={inputRef} handleChange={handleChange} handleKeyDown={handleKeyDown} colors={colors} currentLangDir={currentLangDir} />
           <ActionButtons finished={finished} onReset={resetTest} onFeedback={() => feedback.setShowFeedback(true)} />
         </div>
 
-        {finished && <CompletionCard wpm={wpm} accuracy={accuracy} currentLangDir={currentLangDir} />}
+        {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} />}
       </div>
 
       <FeedbackModal {...feedback} isDark={isDark} colors={colors} />

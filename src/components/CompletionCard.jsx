@@ -1,6 +1,6 @@
 import { getAccuracyColor } from '../utils/typing'
 
-export default function CompletionCard({ wpm, accuracy, currentLangDir }) {
+export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir }) {
   return (
     <div style={{
       background: 'linear-gradient(to right, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2))',
@@ -26,6 +26,9 @@ export default function CompletionCard({ wpm, accuracy, currentLangDir }) {
       </p>
       <p style={{ color: '#e2e8f0', fontSize: '1.125rem', marginBottom: '0.5rem' }}>
         Final WPM: <span style={{ fontWeight: 900, color: '#10b981' }}>{wpm}</span>
+      </p>
+      <p style={{ color: '#e2e8f0', fontSize: '1.125rem', marginBottom: '0.5rem' }}>
+        CPM: <span style={{ fontWeight: 900, color: '#34d399' }}>{cpm}</span>
       </p>
       <p style={{ color: '#e2e8f0', fontSize: '1.125rem' }}>
         Accuracy: <span style={{ fontWeight: 900, color: getAccuracyColor(accuracy) }}>{accuracy}%</span>

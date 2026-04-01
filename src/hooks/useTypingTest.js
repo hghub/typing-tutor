@@ -7,6 +7,7 @@ export function useTypingTest({ difficulty, language, customPassage }) {
   const [typed, setTyped] = useState('')
   const [startTime, setStartTime] = useState(null)
   const [wpm, setWpm] = useState(0)
+  const [cpm, setCpm] = useState(0)
   const [accuracy, setAccuracy] = useState(100)
   const [finished, setFinished] = useState(false)
   const inputRef = useRef(null)
@@ -22,6 +23,7 @@ export function useTypingTest({ difficulty, language, customPassage }) {
     setTyped('')
     setStartTime(null)
     setWpm(0)
+    setCpm(0)
     setAccuracy(100)
     setFinished(false)
     inputRef.current?.focus()
@@ -32,6 +34,7 @@ export function useTypingTest({ difficulty, language, customPassage }) {
     setTyped('')
     setStartTime(null)
     setWpm(0)
+    setCpm(0)
     setAccuracy(100)
     setFinished(false)
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,6 +48,7 @@ export function useTypingTest({ difficulty, language, customPassage }) {
 
     if (timeElapsed > 0) {
       setWpm(Math.max(0, Math.round(wordsTyped / timeElapsed)))
+      setCpm(Math.max(0, Math.round(typed.length / timeElapsed)))
     }
 
     let correct = 0
@@ -59,6 +63,7 @@ export function useTypingTest({ difficulty, language, customPassage }) {
       try {
         saveScore({
           wpm: Math.round(wordsTyped / (timeElapsed || 0.1)),
+          cpm: Math.round(typed.length / (timeElapsed || 0.1)),
           accuracy: calculatedAccuracy,
           difficulty,
           language,
@@ -78,5 +83,5 @@ export function useTypingTest({ difficulty, language, customPassage }) {
 
   const handleChange = (e) => setTyped(e.target.value)
 
-  return { passage, setPassage, typed, wpm, accuracy, finished, inputRef, handleKeyDown, handleChange, resetTest }
+  return { passage, setPassage, typed, wpm, cpm, accuracy, finished, inputRef, handleKeyDown, handleChange, resetTest }
 }

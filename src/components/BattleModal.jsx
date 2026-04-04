@@ -46,11 +46,19 @@ export default function BattleModal({
   const myWpmRef = useRef(myWpm)
   const stepRef = useRef(battleStep)
   const opponentNicknameRef = useRef(opponentNickname)
+  const opponentWpmRef = useRef(opponentWpm)
+  const opponentFinishedRef = useRef(opponentFinished)
 
   // Keep refs in sync
   useEffect(() => { myWpmRef.current = myWpm }, [myWpm])
   useEffect(() => { stepRef.current = battleStep }, [battleStep])
   useEffect(() => { opponentNicknameRef.current = opponentNickname }, [opponentNickname])
+  useEffect(() => { opponentWpmRef.current = opponentWpm }, [opponentWpm])
+  useEffect(() => { opponentFinishedRef.current = opponentFinished }, [opponentFinished])
+
+  // Cleanup channel on unmount to prevent memory leak
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => () => cleanup(), [])
 
   // Send live progress to opponent (throttle: every 3% change or so)
   const lastSentProgress = useRef(-1)
@@ -69,20 +77,19 @@ export default function BattleModal({
     if (!finished || battleStep !== 'typing' || !channelRef.current) return
     channelRef.current.send({
       type: 'broadcast', event: 'finished',
-      payload: { wpm: myWpm, userId, nickname: activeBattle?.nickname },
+      payload: { wpm: myWpmRef.current, userId, nickname: activeBattle?.nickname },
     }).catch(() => {})
-    // If opponent already finished before me
-    if (opponentFinished) resolveResult(myWpm, opponentWpm, false)
+    // If opponent already finished before me, resolve now using refs to avoid stale closure
+    if (opponentFinishedRef.current) resolveResult(myWpmRef.current, opponentWpmRef.current, false)
   }, [finished, battleStep])
 
   // When opponent finishes
   useEffect(() => {
     if (!opponentFinished || battleStep !== 'typing') return
     setOpponentProgress(100)
-    // I'm still going — show their bar at 100% but don't end yet
-    // If I've also finished, resolve now
-    if (finished) resolveResult(myWpmRef.current, opponentWpm, false)
-  }, [opponentFinished])
+    // If I've also finished, resolve now using refs to avoid stale closure
+    if (finished) resolveResult(myWpmRef.current, opponentWpmRef.current, false)
+  }, [opponentFinished, finished, battleStep])
 
   function resolveResult(myW, oppW, disconnected = false) {
     clearInterval(countdownRef.current)

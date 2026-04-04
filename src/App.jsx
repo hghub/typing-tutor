@@ -99,7 +99,7 @@ function App() {
       }
     }
     submitScore()
-  }, [finished])
+  }, [finished, identity.userId, wpm, cpm, accuracy, difficulty, language])
 
   const [isNewBest, setIsNewBest] = useState(false)
   const [customDir, setCustomDir] = useState('ltr')
@@ -209,7 +209,7 @@ function App() {
       // Re-apply correct passage after resetTest picks a random one
       setTimeout(() => {
         if (activeBattle?.passage_text) setPassage(activeBattle.passage_text)
-      }, 50)
+      }, 200)
     }
   }
 

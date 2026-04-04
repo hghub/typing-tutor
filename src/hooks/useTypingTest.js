@@ -39,6 +39,7 @@ export function useTypingTest({ difficulty, language }) {
   const [finished, setFinished] = useState(false)
   const [timeLeft, setTimeLeft] = useState(TIMER_DURATION)
   const [analysis, setAnalysis] = useState(null)
+  const [passageIndex, setPassageIndex] = useState(0)
 
   const timerRef = useRef(null)
   const inputRef = useRef(null)
@@ -51,7 +52,11 @@ export function useTypingTest({ difficulty, language }) {
   const pickPassage = (diff = difficulty, lang = language) => {
     if (diff === 'custom' || diff === 'timer') return
     const pool = (PASSAGES[lang]?.[diff] ?? PASSAGES[lang]?.easy) || []
-    if (pool.length) setPassage(pool[Math.floor(Math.random() * pool.length)])
+    if (pool.length) {
+      const idx = Math.floor(Math.random() * pool.length)
+      setPassageIndex(idx)
+      setPassage(pool[idx])
+    }
   }
 
   const buildTimerPassage = (lang = language) => {
@@ -228,5 +233,5 @@ export function useTypingTest({ difficulty, language }) {
 
   const handleChange = (e) => setTyped(e.target.value)
 
-  return { passage, setPassage, typed, wpm, cpm, accuracy, finished, timeLeft, isTimerMode, inputRef, handleKeyDown, handleChange, resetTest, analysis, FINGER_NAMES }
+  return { passage, setPassage, typed, wpm, cpm, accuracy, finished, timeLeft, isTimerMode, inputRef, handleKeyDown, handleChange, resetTest, analysis, passageIndex, FINGER_NAMES }
 }

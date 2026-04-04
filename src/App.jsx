@@ -25,8 +25,8 @@ import FeedbackModal from './components/FeedbackModal'
 import StatsModal from './components/StatsModal'
 import IdentityModal from './components/IdentityModal'
 import LeaderboardModal from './components/LeaderboardModal'
+import LearningPanel from './components/LearningPanel'
 import PrivacyPolicy from './components/PrivacyPolicy'
-import LevelUpModal from './components/LevelUpModal'
 import AchievementToast from './components/AchievementToast'
 
 function App() {
@@ -37,7 +37,7 @@ function App() {
   const [showPrivacy, setShowPrivacy] = useState(false)
 
   const { isDark, toggleTheme, colors } = useTheme()
-  const { passage, setPassage, typed, wpm, cpm, accuracy, finished, timeLeft, isTimerMode, inputRef, handleKeyDown, handleChange, resetTest, analysis } = useTypingTest({ difficulty, language })
+  const { passage, setPassage, typed, wpm, cpm, accuracy, finished, timeLeft, isTimerMode, inputRef, handleKeyDown, handleChange, resetTest, analysis, passageIndex } = useTypingTest({ difficulty, language })
   const feedback = useFeedback()
   const identity = useIdentity()
   const { soundOn, toggleSound, playClick } = useKeyboardSound()
@@ -160,6 +160,15 @@ function App() {
         {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} xpEarned={xpEarned} />}
         {finished && <TypingAnalysis analysis={analysis} isDark={isDark} colors={colors} />}
         {finished && <CareerReadiness wpm={wpm} accuracy={accuracy} isDark={isDark} colors={colors} />}
+        {finished && ['emails', 'coding', 'islamic', 'poetry', 'freelance', 'study'].includes(difficulty) && (
+          <LearningPanel
+            language={language}
+            difficulty={difficulty}
+            passageIndex={passageIndex}
+            isDark={isDark}
+            colors={colors}
+          />
+        )}
       </div>
 
       <FeedbackModal {...feedback} isDark={isDark} colors={colors} />

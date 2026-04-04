@@ -8,6 +8,7 @@ import { useKeyboardSound } from './hooks/useKeyboardSound'
 import { useXP } from './hooks/useXP'
 import { supabase } from './utils/supabase'
 import { LANGUAGES } from './constants/languages'
+import { PASSAGES } from './constants/passages'
 import AnimatedBackground from './components/AnimatedBackground'
 import Header from './components/Header'
 import XPBar from './components/XPBar'
@@ -45,6 +46,11 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('typingTutorLanguage', language)
+    // If current pack not available for new language, reset to easy
+    const available = Object.keys(PASSAGES[language] || {})
+    if (!['easy','medium','hard','timer','custom'].includes(difficulty) && !available.includes(difficulty)) {
+      setDifficulty('easy')
+    }
   }, [language])
 
   useEffect(() => {
@@ -107,7 +113,7 @@ function App() {
       <div style={{ position: 'relative', maxWidth: '56rem', margin: '0 auto' }}>
         <Header language={language} onLanguageChange={setLanguage} isDark={isDark} onToggleTheme={toggleTheme} colors={colors} />
         <XPBar xp={xp} level={level} streak={streak} colors={colors} isDark={isDark} />
-        <DifficultySelector difficulty={difficulty} onSelect={setDifficulty} colors={colors} />
+        <DifficultySelector difficulty={difficulty} onSelect={(d) => { setDifficulty(d) }} language={language} availablePacks={Object.keys(PASSAGES[language] || {})} colors={colors} />
 
         {difficulty === 'custom' && (
           <CustomPassagePanel colors={colors} isDark={isDark} onStart={handleCustomStart} />

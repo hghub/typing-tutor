@@ -11,29 +11,33 @@ const PACK_LABELS = {
   study: '📚 Study',
 }
 
-function PillButton({ id, label, isActive, colors, onClick }) {
+function PillButton({ id, label, isActive, disabled, colors, onClick }) {
   return (
     <button
-      onClick={() => onClick(id)}
+      onClick={() => !disabled && onClick(id)}
+      disabled={disabled}
+      title={disabled ? 'Not available for this language' : undefined}
       style={{
         padding: '0.65rem 1.25rem',
         borderRadius: '0.75rem',
         fontWeight: 600,
         border: `2px solid ${isActive ? 'transparent' : colors.difficultyBorder}`,
-        cursor: 'pointer',
+        cursor: disabled ? 'not-allowed' : 'pointer',
         transition: 'all 0.3s',
         background: isActive ? 'linear-gradient(to right, #06b6d4, #3b82f6)' : colors.difficulty,
-        color: isActive ? 'white' : colors.textSecondary,
+        color: isActive ? 'white' : disabled ? (colors.textSecondary + '55') : colors.textSecondary,
         fontSize: '0.875rem',
+        opacity: disabled ? 0.4 : 1,
+        textDecoration: disabled ? 'line-through' : 'none',
       }}
       onMouseEnter={(e) => {
-        if (!isActive) {
+        if (!isActive && !disabled) {
           e.currentTarget.style.borderColor = '#06b6d4'
           e.currentTarget.style.color = '#06b6d4'
         }
       }}
       onMouseLeave={(e) => {
-        if (!isActive) {
+        if (!isActive && !disabled) {
           e.currentTarget.style.borderColor = colors.difficultyBorder
           e.currentTarget.style.color = colors.textSecondary
         }
@@ -44,7 +48,7 @@ function PillButton({ id, label, isActive, colors, onClick }) {
   )
 }
 
-export default function DifficultySelector({ difficulty, onSelect, colors }) {
+export default function DifficultySelector({ difficulty, onSelect, availablePacks = [], colors }) {
   const labelStyle = {
     fontSize: '0.75rem',
     fontWeight: 700,
@@ -66,7 +70,7 @@ export default function DifficultySelector({ difficulty, onSelect, colors }) {
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap', justifyContent: 'center' }}>
         <span style={labelStyle}>Topic Packs</span>
         {PACKS.map((pack) => (
-          <PillButton key={pack} id={pack} label={PACK_LABELS[pack]} isActive={difficulty === pack} colors={colors} onClick={onSelect} />
+          <PillButton key={pack} id={pack} label={PACK_LABELS[pack]} isActive={difficulty === pack} disabled={!availablePacks.includes(pack)} colors={colors} onClick={onSelect} />
         ))}
       </div>
     </div>

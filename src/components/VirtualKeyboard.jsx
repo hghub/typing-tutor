@@ -160,13 +160,31 @@ export default function VirtualKeyboard({ nextChar, isDark, colors, language }) 
     }}>
       {/* Language label */}
       {layoutLabel && (
-        <div style={{ textAlign: 'center', marginBottom: '0.4rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: isUrdu ? '0.25rem' : '0.4rem' }}>
           <span style={{
             fontSize: '0.65rem', fontWeight: 700,
             color: layoutColor,
             background: layoutBg,
             padding: '0.15rem 0.6rem', borderRadius: '1rem', letterSpacing: '0.05em',
           }}>{layoutLabel}</span>
+        </div>
+      )}
+
+      {/* Urdu Phonetic install note */}
+      {isUrdu && (
+        <div style={{
+          textAlign: 'center', marginBottom: '0.4rem',
+          padding: '0.3rem 0.75rem',
+          background: 'rgba(167,139,250,0.08)',
+          border: '1px dashed rgba(167,139,250,0.35)',
+          borderRadius: '0.5rem', margin: '0 0.5rem 0.4rem',
+        }}>
+          <span style={{ fontSize: '0.62rem', color: '#a78bfa', lineHeight: 1.5 }}>
+            ⚠️ Requires <strong>Urdu Phonetic</strong> keyboard on Windows.{' '}
+            <span style={{ opacity: 0.8 }}>
+              Settings → Time &amp; Language → Language &amp; Region → Urdu (Pakistan) → Language options → Add keyboard → <strong>Urdu Phonetic</strong>
+            </span>
+          </span>
         </div>
       )}
 

@@ -1,5 +1,3 @@
-import { getScoreStats } from '../utils/scores'
-
 const btnBase = {
   padding: '0.75rem 2rem',
   color: 'white',
@@ -23,14 +21,7 @@ function ActionButton({ style, shadowColor, onClick, children }) {
   )
 }
 
-export default function ActionButtons({ finished, onReset, onFeedback }) {
-  const handleViewStats = () => {
-    const stats = getScoreStats()
-    if (!stats) { alert('No typing sessions yet! Complete a test to see stats.'); return }
-    alert(`📊 Your Stats\n\nTotal Sessions: ${stats.totalSessions}\nAvg WPM: ${stats.avgWpm}\nBest WPM: ${stats.bestWpm}\nAvg Accuracy: ${stats.avgAccuracy}%\n\nCheck console for detailed scores`)
-    console.log('All your scores:', stats.scores)
-  }
-
+export default function ActionButtons({ finished, onReset, onFeedback, onViewStats, onLeaderboard }) {
   return (
     <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
       <ActionButton
@@ -44,9 +35,17 @@ export default function ActionButtons({ finished, onReset, onFeedback }) {
       <ActionButton
         style={{ background: 'linear-gradient(to right, #a855f7, #ec4899)' }}
         shadowColor="rgba(168, 85, 247, 0.3)"
-        onClick={handleViewStats}
+        onClick={onViewStats}
       >
         View Stats
+      </ActionButton>
+
+      <ActionButton
+        style={{ background: 'linear-gradient(to right, #f59e0b, #22c55e)' }}
+        shadowColor="rgba(34, 197, 94, 0.3)"
+        onClick={onLeaderboard}
+      >
+        🏆 Leaderboard
       </ActionButton>
 
       <ActionButton

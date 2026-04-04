@@ -16,6 +16,7 @@ import StatsGrid from './components/StatsGrid'
 import TypingInput from './components/TypingInput'
 import ActionButtons from './components/ActionButtons'
 import CompletionCard from './components/CompletionCard'
+import TypingAnalysis from './components/TypingAnalysis'
 import FeedbackModal from './components/FeedbackModal'
 import StatsModal from './components/StatsModal'
 import IdentityModal from './components/IdentityModal'
@@ -30,7 +31,7 @@ function App() {
   const [showPrivacy, setShowPrivacy] = useState(false)
 
   const { isDark, toggleTheme, colors } = useTheme()
-  const { passage, setPassage, typed, wpm, cpm, accuracy, finished, timeLeft, isTimerMode, inputRef, handleKeyDown, handleChange, resetTest } = useTypingTest({ difficulty, language })
+  const { passage, setPassage, typed, wpm, cpm, accuracy, finished, timeLeft, isTimerMode, inputRef, handleKeyDown, handleChange, resetTest, analysis } = useTypingTest({ difficulty, language })
   const feedback = useFeedback()
   const identity = useIdentity()
   const { soundOn, toggleSound, playClick } = useKeyboardSound()
@@ -136,6 +137,7 @@ function App() {
         </div>
 
         {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} />}
+        {finished && <TypingAnalysis analysis={analysis} isDark={isDark} colors={colors} />}
       </div>
 
       <FeedbackModal {...feedback} isDark={isDark} colors={colors} />

@@ -220,6 +220,7 @@ function App() {
               nextChar={passage[typed.length] ?? null}
               isDark={isDark}
               colors={colors}
+              language={language}
             />
           )}
 

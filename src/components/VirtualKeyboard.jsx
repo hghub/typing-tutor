@@ -29,6 +29,18 @@ const ROWS = [
   ['z','x','c','v','b','n','m'],
 ]
 
+// Urdu Phonetic keyboard layout (most common in Pakistan)
+const URDU_LAYOUT = {
+  q:'ق', w:'و', e:'ع', r:'ر', t:'ت', y:'ے', u:'ء', i:'ی', o:'ہ', p:'پ',
+  a:'ا', s:'س', d:'د', f:'ف', g:'گ', h:'ح', j:'ج', k:'ک', l:'ل',
+  z:'ز', x:'ش', c:'چ', v:'ط', b:'ب', n:'ن', m:'م',
+}
+
+// Reverse map: Urdu char → English key
+const URDU_TO_KEY = Object.fromEntries(
+  Object.entries(URDU_LAYOUT).map(([k, v]) => [v, k])
+)
+
 const ROW_OFFSETS = ['0', '1.1rem', '2.2rem']
 
 function hexToRgb(hex) {
@@ -36,23 +48,29 @@ function hexToRgb(hex) {
   return `${parseInt(hex.slice(1,3),16)}, ${parseInt(hex.slice(3,5),16)}, ${parseInt(hex.slice(5,7),16)}`
 }
 
-export default function VirtualKeyboard({ nextChar, isDark, colors }) {
+export default function VirtualKeyboard({ nextChar, isDark, colors, language }) {
   const [legendOpen, setLegendOpen] = useState(false)
 
-  const lower = nextChar ? nextChar.toLowerCase() : null
-  const isUpper = nextChar ? /[A-Z]/.test(nextChar) : false
+  const isUrdu = language === 'urdu'
   const isSpace = nextChar === ' '
-  const finger = lower && FINGER_MAP[lower] ? FINGER_MAP[lower] : null
+
+  // For Urdu: map the Urdu char to its physical key; for English: use the char directly
+  const targetKey = isSpace ? null
+    : isUrdu ? (URDU_TO_KEY[nextChar] || null)
+    : (nextChar ? nextChar.toLowerCase() : null)
+
+  const isUpper = !isUrdu && nextChar && /[A-Z]/.test(nextChar)
+  const finger = targetKey && FINGER_MAP[targetKey] ? FINGER_MAP[targetKey] : null
   const fingerColor = finger ? FINGER_COLORS[finger] : null
   const fingerLabel = finger ? FINGER_LABELS[finger] : null
 
   const getKeyStyle = (key) => {
-    const isNext = !isSpace && lower === key
+    const isNext = !isSpace && targetKey === key
     const f = FINGER_MAP[key]
     const fc = FINGER_COLORS[f] || '#64748b'
     return {
-      width: '2.1rem',
-      height: '2.1rem',
+      width: isUrdu ? '2.3rem' : '2.1rem',
+      height: isUrdu ? '2.6rem' : '2.1rem',
       borderRadius: '0.4rem',
       border: `2px solid ${isNext ? fc : 'transparent'}`,
       background: isNext
@@ -62,9 +80,11 @@ export default function VirtualKeyboard({ nextChar, isDark, colors }) {
       fontWeight: isNext ? 800 : 600,
       fontSize: '0.75rem',
       display: 'flex',
+      flexDirection: isUrdu ? 'column' : 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      textTransform: 'uppercase',
+      gap: isUrdu ? '0.05rem' : 0,
+      textTransform: isUrdu ? 'none' : 'uppercase',
       cursor: 'default',
       userSelect: 'none',
       transition: 'all 0.1s',
@@ -73,6 +93,20 @@ export default function VirtualKeyboard({ nextChar, isDark, colors }) {
       zIndex: isNext ? 2 : 1,
       position: 'relative',
     }
+  }
+
+  const renderKey = (key) => {
+    if (isUrdu) {
+      return (
+        <div key={key} style={getKeyStyle(key)}>
+          <span style={{ fontSize: '0.5rem', opacity: 0.55, lineHeight: 1 }}>{key.toUpperCase()}</span>
+          <span style={{ fontSize: '1rem', lineHeight: 1, fontFamily: 'Noto Nastaliq Urdu, Jameel Noori Nastaleeq, serif' }}>
+            {URDU_LAYOUT[key] || key}
+          </span>
+        </div>
+      )
+    }
+    return <div key={key} style={getKeyStyle(key)}>{key}</div>
   }
 
   return (
@@ -84,6 +118,17 @@ export default function VirtualKeyboard({ nextChar, isDark, colors }) {
       borderRadius: '1rem',
       border: `1px solid ${isDark ? 'rgba(71,85,105,0.4)' : 'rgba(203,213,225,0.7)'}`,
     }}>
+      {/* Language label */}
+      {isUrdu && (
+        <div style={{ textAlign: 'center', marginBottom: '0.4rem' }}>
+          <span style={{
+            fontSize: '0.65rem', fontWeight: 700, color: '#a78bfa',
+            background: 'rgba(167,139,250,0.15)', padding: '0.15rem 0.6rem',
+            borderRadius: '1rem', letterSpacing: '0.05em',
+          }}>🇵🇰 Urdu Phonetic Layout</span>
+        </div>
+      )}
+
       {/* Finger hint */}
       <div style={{ textAlign: 'center', marginBottom: '0.65rem', minHeight: '1.6rem' }}>
         {finger && !isSpace && (
@@ -96,7 +141,13 @@ export default function VirtualKeyboard({ nextChar, isDark, colors }) {
             {isUpper && <span style={{ opacity: 0.8 }}>⇧ Shift +</span>}
             <span>{fingerLabel}</span>
             <span style={{ opacity: 0.7 }}>→</span>
-            <span style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>"{nextChar}"</span>
+            {isUrdu
+              ? <span style={{ fontFamily: 'Noto Nastaliq Urdu, serif', fontSize: '1.1rem' }}>"{nextChar}"</span>
+              : <span style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>"{nextChar}"</span>
+            }
+            {isUrdu && targetKey && (
+              <span style={{ opacity: 0.7, fontSize: '0.7rem' }}>(press {targetKey.toUpperCase()})</span>
+            )}
           </span>
         )}
         {isSpace && (
@@ -118,9 +169,7 @@ export default function VirtualKeyboard({ nextChar, isDark, colors }) {
           gap: '0.28rem', marginBottom: '0.28rem',
           paddingLeft: ROW_OFFSETS[ri],
         }}>
-          {row.map(key => (
-            <div key={key} style={getKeyStyle(key)}>{key}</div>
-          ))}
+          {row.map(key => renderKey(key))}
         </div>
       ))}
 

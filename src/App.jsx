@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, lazy, Suspense } from 'react'
 import './App.css'
 import { useTheme } from './hooks/useTheme'
 import { useTypingTest } from './hooks/useTypingTest'
@@ -19,20 +19,22 @@ import StatsGrid from './components/StatsGrid'
 import TypingInput from './components/TypingInput'
 import ActionButtons from './components/ActionButtons'
 import CompletionCard from './components/CompletionCard'
-import TypingAnalysis from './components/TypingAnalysis'
-import CareerReadiness from './components/CareerReadiness'
-import FeedbackModal from './components/FeedbackModal'
-import StatsModal from './components/StatsModal'
-import IdentityModal from './components/IdentityModal'
-import LeaderboardModal from './components/LeaderboardModal'
-import LearningPanel from './components/LearningPanel'
-import PrivacyPolicy from './components/PrivacyPolicy'
 import AchievementToast from './components/AchievementToast'
-import LevelUpModal from './components/LevelUpModal'
-import VirtualKeyboard from './components/VirtualKeyboard'
-import TournamentModal from './components/TournamentModal'
-import GroupChallengeModal from './components/GroupChallengeModal'
-import BattleModal from './components/BattleModal'
+
+// Lazy-loaded — only downloaded when user actually opens them
+const TypingAnalysis     = lazy(() => import('./components/TypingAnalysis'))
+const CareerReadiness    = lazy(() => import('./components/CareerReadiness'))
+const LearningPanel      = lazy(() => import('./components/LearningPanel'))
+const FeedbackModal      = lazy(() => import('./components/FeedbackModal'))
+const StatsModal         = lazy(() => import('./components/StatsModal'))
+const IdentityModal      = lazy(() => import('./components/IdentityModal'))
+const LeaderboardModal   = lazy(() => import('./components/LeaderboardModal'))
+const PrivacyPolicy      = lazy(() => import('./components/PrivacyPolicy'))
+const LevelUpModal       = lazy(() => import('./components/LevelUpModal'))
+const VirtualKeyboard    = lazy(() => import('./components/VirtualKeyboard'))
+const TournamentModal    = lazy(() => import('./components/TournamentModal'))
+const GroupChallengeModal = lazy(() => import('./components/GroupChallengeModal'))
+const BattleModal        = lazy(() => import('./components/BattleModal'))
 
 function App() {
   const [difficulty, setDifficulty] = useState('easy')
@@ -250,6 +252,7 @@ function App() {
   const currentLangDir = difficulty === 'custom' ? customDir : (LANGUAGES[language]?.dir || 'ltr')
 
   return (
+    <Suspense fallback={null}>
     <div style={{ minHeight: '100vh', background: colors.bg, padding: '2rem', transition: 'background 0.3s ease', direction: currentLangDir }}>
       <AnimatedBackground />
 
@@ -522,6 +525,7 @@ function App() {
         </p>
       </div>
     </div>
+    </Suspense>
   )
 }
 

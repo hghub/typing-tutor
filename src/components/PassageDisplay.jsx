@@ -23,14 +23,15 @@ export default function PassageDisplay({ passage, typed, isDark, currentLangDir,
       }}>
         {passage.split('').map((char, index) => {
           const color = getCharColor(index, typed, passage, isDark)
-          const isCursor = color === '#06b6d4'
+          const isCursor = index === typed.length
           return (
             <span
               key={index}
               style={{
-                color,
+                color: isCursor ? '#fff' : color,
                 transition: 'color 75ms',
                 backgroundColor: isCursor ? '#06b6d4' : 'transparent',
+                borderRadius: isCursor ? '2px' : '0',
                 padding: isCursor ? '0 2px' : '0',
               }}
             >

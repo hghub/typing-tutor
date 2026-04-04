@@ -120,7 +120,7 @@ export const PASSAGES = {
       "Tell me not in mournful numbers, life is but an empty dream! For the soul is dead that slumbers. — Henry Wadsworth Longfellow",
       "I have measured out my life with coffee spoons. — T. S. Eliot, The Love Song of J. Alfred Prufrock",
     ],
-    upwork: [
+    freelance: [
       "Thank you for considering my proposal. I have 5 years of experience in full-stack web development with React and Node.js.",
       "I reviewed your project requirements carefully and I am confident I can deliver a high-quality solution within your timeline.",
       "As a top-rated freelancer with a 99% Job Success Score, I bring both technical expertise and professional communication.",

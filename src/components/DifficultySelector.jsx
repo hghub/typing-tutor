@@ -1,13 +1,13 @@
 const MODES = ['easy', 'medium', 'hard', 'timer', 'custom']
 const MODE_LABELS = { easy: 'Easy', medium: 'Medium', hard: 'Hard', timer: '⏱ 60s', custom: '✏️ Custom' }
 
-const PACKS = ['emails', 'coding', 'islamic', 'poetry', 'upwork', 'study']
+const PACKS = ['emails', 'coding', 'islamic', 'poetry', 'freelance', 'study']
 const PACK_LABELS = {
   emails: '📧 Emails',
   coding: '💻 Coding',
   islamic: '🕌 Islamic',
   poetry: '📜 Poetry',
-  upwork: '💼 Upwork',
+  freelance: '✍️ Freelance Writing',
   study: '📚 Study',
 }
 

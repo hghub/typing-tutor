@@ -1,6 +1,16 @@
+import { useState } from 'react'
 import { getAccuracyColor } from '../utils/typing'
 
-export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isNewBest, colors, xpEarned }) {
+export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isNewBest, colors, xpEarned, onChallenge }) {
+  const [copied, setCopied] = useState(false)
+
+  const handleChallenge = () => {
+    if (onChallenge) {
+      onChallenge()
+      setCopied(true)
+      setTimeout(() => setCopied(false), 3000)
+    }
+  }
   return (
     <div style={{
       background: colors?.card || 'linear-gradient(to right, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2))',
@@ -61,6 +71,24 @@ export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isN
           ✨ +{xpEarned} XP earned
         </p>
       )}
+
+      {/* Challenge a Friend */}
+      <div style={{ marginTop: '1.25rem', display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+        <button
+          onClick={handleChallenge}
+          style={{
+            background: copied
+              ? 'linear-gradient(to right, #10b981, #06b6d4)'
+              : 'linear-gradient(to right, #f97316, #ef4444)',
+            color: 'white', border: 'none', borderRadius: '0.75rem',
+            padding: '0.55rem 1.25rem', fontWeight: 700, cursor: 'pointer',
+            fontSize: '0.88rem', transition: 'background 0.3s',
+            boxShadow: '0 4px 15px rgba(239,68,68,0.3)',
+          }}
+        >
+          {copied ? '✅ Link Copied!' : '⚔️ Challenge a Friend'}
+        </button>
+      </div>
     </div>
   )
 }

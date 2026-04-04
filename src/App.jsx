@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import { useTheme } from './hooks/useTheme'
 import { useTypingTest } from './hooks/useTypingTest'
@@ -28,6 +28,9 @@ import LeaderboardModal from './components/LeaderboardModal'
 import LearningPanel from './components/LearningPanel'
 import PrivacyPolicy from './components/PrivacyPolicy'
 import AchievementToast from './components/AchievementToast'
+import LevelUpModal from './components/LevelUpModal'
+import VirtualKeyboard from './components/VirtualKeyboard'
+import TournamentModal from './components/TournamentModal'
 
 function App() {
   const [difficulty, setDifficulty] = useState('easy')
@@ -35,6 +38,10 @@ function App() {
   const [showStats, setShowStats] = useState(false)
   const [showLeaderboard, setShowLeaderboard] = useState(false)
   const [showPrivacy, setShowPrivacy] = useState(false)
+  const [showKeyboard, setShowKeyboard] = useState(false)
+  const [showTournament, setShowTournament] = useState(false)
+  const [challengeData, setChallengeData] = useState(null)
+  const challengeApplied = useRef(false)
 
   const { isDark, toggleTheme, colors } = useTheme()
   const { passage, setPassage, typed, wpm, cpm, accuracy, finished, timeLeft, isTimerMode, inputRef, handleKeyDown, handleChange, resetTest, analysis, passageIndex } = useTypingTest({ difficulty, language })
@@ -82,6 +89,37 @@ function App() {
   const [isNewBest, setIsNewBest] = useState(false)
   const [customDir, setCustomDir] = useState('ltr')
 
+  // Detect challenge link on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const c = params.get('c')
+    if (c) {
+      try {
+        const data = JSON.parse(atob(c))
+        setChallengeData(data)
+        if (data.language) setLanguage(data.language)
+        if (data.difficulty) setDifficulty(data.difficulty)
+      } catch {
+        console.warn('Invalid challenge link')
+      }
+      window.history.replaceState({}, '', window.location.pathname)
+    }
+  }, [])
+
+  // Apply challenge passage once difficulty/language are set
+  useEffect(() => {
+    if (!challengeData || challengeApplied.current) return
+    const t = setTimeout(() => {
+      const pool = (PASSAGES[challengeData.language]?.[challengeData.difficulty] ?? PASSAGES.english?.easy) || []
+      const idx = (challengeData.passageIndex ?? 0) % Math.max(pool.length, 1)
+      if (pool[idx]) {
+        setPassage(pool[idx])
+        challengeApplied.current = true
+      }
+    }, 80)
+    return () => clearTimeout(t)
+  }, [challengeData, difficulty, language])
+
   const handleCustomStart = (text, dir) => {
     setCustomDir(dir || 'ltr')
     setPassage(text)
@@ -119,6 +157,25 @@ function App() {
           <CustomPassagePanel colors={colors} isDark={isDark} onStart={handleCustomStart} />
         )}
 
+        {/* Challenge banner */}
+        {challengeData && !finished && (
+          <div style={{
+            background: 'linear-gradient(to right, rgba(239,68,68,0.15), rgba(249,115,22,0.15))',
+            border: '1px solid rgba(239,68,68,0.4)', borderRadius: '1rem',
+            padding: '0.875rem 1.25rem', marginBottom: '1rem',
+            display: 'flex', alignItems: 'center', gap: '0.75rem',
+          }}>
+            <span style={{ fontSize: '1.5rem' }}>⚔️</span>
+            <div>
+              <p style={{ margin: 0, color: '#f97316', fontWeight: 800, fontSize: '0.95rem' }}>You've been challenged!</p>
+              <p style={{ margin: 0, color: colors.textSecondary, fontSize: '0.82rem' }}>
+                Beat <strong style={{ color: '#ef4444' }}>{challengeData.wpm} WPM</strong> / {challengeData.accuracy}% accuracy
+                &nbsp;·&nbsp;{challengeData.difficulty}&nbsp;·&nbsp;{challengeData.language}
+              </p>
+            </div>
+          </div>
+        )}
+
         <div style={{
           background: colors.card,
           backdropFilter: 'blur(12px)',
@@ -146,6 +203,16 @@ function App() {
           <PassageDisplay passage={passage} typed={typed} isDark={isDark} currentLangDir={currentLangDir} colors={colors} />
           <StatsGrid wpm={wpm} cpm={cpm} accuracy={accuracy} typed={typed} passage={passage} isTimerMode={isTimerMode} timeLeft={timeLeft} />
           <TypingInput typed={typed} finished={finished} inputRef={inputRef} handleChange={handleChange} handleKeyDown={handleTypingKeyDown} colors={colors} currentLangDir={currentLangDir} />
+
+          {/* Virtual Keyboard */}
+          {showKeyboard && !finished && (
+            <VirtualKeyboard
+              nextChar={passage[typed.length] ?? null}
+              isDark={isDark}
+              colors={colors}
+            />
+          )}
+
           <ActionButtons
             finished={finished}
             onReset={resetTest}
@@ -154,10 +221,18 @@ function App() {
             onLeaderboard={() => setShowLeaderboard(true)}
             soundOn={soundOn}
             onToggleSound={toggleSound}
+            showKeyboard={showKeyboard}
+            onToggleKeyboard={() => setShowKeyboard(v => !v)}
+            onTournament={() => setShowTournament(true)}
           />
         </div>
 
-        {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} xpEarned={xpEarned} />}
+        {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} xpEarned={xpEarned} onChallenge={() => {
+          const data = { wpm, accuracy, difficulty, language, passageIndex }
+          const encoded = btoa(JSON.stringify(data))
+          const url = `${window.location.origin}${window.location.pathname}?c=${encoded}`
+          navigator.clipboard.writeText(url).catch(() => {})
+        }} />}
         {finished && <TypingAnalysis analysis={analysis} isDark={isDark} colors={colors} />}
         {finished && <CareerReadiness wpm={wpm} accuracy={accuracy} isDark={isDark} colors={colors} />}
         {finished && ['emails', 'coding', 'islamic', 'poetry', 'freelance', 'study'].includes(difficulty) && (
@@ -195,6 +270,17 @@ function App() {
       {showPrivacy && <PrivacyPolicy onClose={() => setShowPrivacy(false)} isDark={isDark} colors={colors} />}
       <LevelUpModal levelData={newLevelUp} onClose={clearLevelUp} colors={colors} isDark={isDark} />
       <AchievementToast achievements={newAchievements} onClear={clearNewAchievements} />
+      <TournamentModal
+        show={showTournament}
+        onClose={() => setShowTournament(false)}
+        userId={identity.userId}
+        displayName={identity.userId}
+        lastWpm={finished ? wpm : 0}
+        lastAccuracy={finished ? accuracy : 0}
+        lastLanguage={language}
+        isDark={isDark}
+        colors={colors}
+      />
 
       {/* Footer */}
       <div style={{ textAlign: 'center', marginTop: '2rem', paddingBottom: '1rem' }}>

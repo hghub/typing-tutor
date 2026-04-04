@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react'
 import './App.css'
 import { useTheme } from './hooks/useTheme'
+import { useIsMobile } from './hooks/useIsMobile'
 import { useTypingTest } from './hooks/useTypingTest'
 import { useFeedback } from './hooks/useFeedback'
 import { useIdentity } from './hooks/useIdentity'
@@ -63,6 +64,7 @@ function App() {
   const { soundOn, toggleSound, playClick } = useKeyboardSound()
   const { xp, level, streak, achievements, newLevelUp, newAchievements, addXP, getLevelInfo, clearLevelUp, clearNewAchievements, LEVELS } = useXP()
   const [xpEarned, setXpEarned] = useState(0)
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     localStorage.setItem('typingTutorLanguage', language)
@@ -253,11 +255,11 @@ function App() {
 
   return (
     <Suspense fallback={null}>
-    <div style={{ minHeight: '100vh', background: colors.bg, padding: '2rem', transition: 'background 0.3s ease', direction: currentLangDir }}>
+    <div style={{ minHeight: '100vh', background: colors.bg, padding: isMobile ? '1rem 0.75rem' : '2rem', transition: 'background 0.3s ease', direction: currentLangDir }}>
       <AnimatedBackground />
 
       <div style={{ position: 'relative', maxWidth: '56rem', margin: '0 auto' }}>
-        <Header language={language} onLanguageChange={setLanguage} isDark={isDark} onToggleTheme={toggleTheme} colors={colors} />
+        <Header language={language} onLanguageChange={setLanguage} isDark={isDark} onToggleTheme={toggleTheme} colors={colors} isMobile={isMobile} />
         <XPBar xp={xp} level={level} streak={streak} colors={colors} isDark={isDark} />
         <DifficultySelector difficulty={difficulty} onSelect={(d) => { setDifficulty(d) }} language={language} availablePacks={Object.keys(PASSAGES[language] || {})} colors={colors} />
 
@@ -317,7 +319,7 @@ function App() {
           borderRadius: '1.5rem',
           border: `1px solid ${isDark ? 'rgba(71, 85, 105, 0.5)' : 'rgba(203, 213, 225, 0.5)'}`,
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-          padding: '2.5rem',
+          padding: isMobile ? '1.25rem 1rem' : '2.5rem',
           marginBottom: '2rem',
           transition: 'all 0.3s ease',
         }}>
@@ -339,8 +341,8 @@ function App() {
           <StatsGrid wpm={wpm} cpm={cpm} accuracy={accuracy} typed={typed} passage={passage} isTimerMode={isTimerMode} timeLeft={timeLeft} />
           <TypingInput typed={typed} finished={finished} inputRef={inputRef} handleChange={handleChange} handleKeyDown={handleTypingKeyDown} colors={colors} currentLangDir={currentLangDir} />
 
-          {/* Virtual Keyboard */}
-          {showKeyboard && !finished && (
+          {/* Virtual Keyboard — hidden on mobile (touch users don't need it) */}
+          {showKeyboard && !finished && !isMobile && (
             <VirtualKeyboard
               nextChar={passage[typed.length] ?? null}
               isDark={isDark}
@@ -362,6 +364,7 @@ function App() {
             onTournament={() => setShowTournament(true)}
             onGroupChallenge={() => setShowGroupChallenge(true)}
             onBattle={() => setShowBattle(true)}
+            isMobile={isMobile}
           />
         </div>
 

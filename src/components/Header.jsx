@@ -1,18 +1,18 @@
 import { LANGUAGES } from '../constants/languages'
 
-export default function Header({ language, onLanguageChange, isDark, onToggleTheme, colors }) {
+export default function Header({ language, onLanguageChange, isDark, onToggleTheme, colors, isMobile }) {
   return (
     <div style={{
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: '3rem',
+      marginBottom: isMobile ? '1.5rem' : '3rem',
       flexWrap: 'wrap',
       gap: '1rem',
     }}>
       <div style={{ flex: 1, minWidth: '200px' }}>
         <h1 style={{
-          fontSize: '3.5rem',
+          fontSize: isMobile ? '2.25rem' : '3.5rem',
           fontWeight: 900,
           background: 'linear-gradient(to right, #22d3ee, #60a5fa, #a855f7)',
           WebkitBackgroundClip: 'text',
@@ -22,7 +22,7 @@ export default function Header({ language, onLanguageChange, isDark, onToggleThe
         }}>
           TypeMaster
         </h1>
-        <p style={{ color: colors.textSecondary, fontSize: '1.125rem', fontWeight: 300, margin: '0.5rem 0 0 0' }}>
+        <p style={{ color: colors.textSecondary, fontSize: isMobile ? '0.875rem' : '1.125rem', fontWeight: 300, margin: '0.5rem 0 0 0' }}>
           Master your typing speed and accuracy
         </p>
       </div>
@@ -55,11 +55,11 @@ export default function Header({ language, onLanguageChange, isDark, onToggleThe
             background: colors.difficulty,
             border: `2px solid ${isDark ? '#334155' : '#e2e8f0'}`,
             color: colors.text,
-            width: '60px',
-            height: '60px',
+            width: isMobile ? '44px' : '60px',
+            height: isMobile ? '44px' : '60px',
             borderRadius: '50%',
             cursor: 'pointer',
-            fontSize: '1.5rem',
+            fontSize: isMobile ? '1.1rem' : '1.5rem',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',

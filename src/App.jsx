@@ -17,6 +17,7 @@ import TypingInput from './components/TypingInput'
 import ActionButtons from './components/ActionButtons'
 import CompletionCard from './components/CompletionCard'
 import TypingAnalysis from './components/TypingAnalysis'
+import CareerReadiness from './components/CareerReadiness'
 import FeedbackModal from './components/FeedbackModal'
 import StatsModal from './components/StatsModal'
 import IdentityModal from './components/IdentityModal'
@@ -138,6 +139,7 @@ function App() {
 
         {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} />}
         {finished && <TypingAnalysis analysis={analysis} isDark={isDark} colors={colors} />}
+        {finished && <CareerReadiness wpm={wpm} accuracy={accuracy} isDark={isDark} colors={colors} />}
       </div>
 
       <FeedbackModal {...feedback} isDark={isDark} colors={colors} />

@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { getAccuracyColor } from '../utils/typing'
 
-export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isNewBest, colors, xpEarned, onChallenge, challengeData, onSendResult }) {
+export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isNewBest, colors, xpEarned, onChallenge, challengeData, onSendResult, activeRoom, onSubmitToRoom }) {
   const [copied, setCopied] = useState(false)
   const [resultCopied, setResultCopied] = useState(false)
+  const [roomCopied, setRoomCopied] = useState(false)
 
   const handleChallenge = () => {
     if (onChallenge) {
@@ -18,6 +19,14 @@ export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isN
       onSendResult()
       setResultCopied(true)
       setTimeout(() => setResultCopied(false), 3000)
+    }
+  }
+
+  const handleSubmitToRoom = () => {
+    if (onSubmitToRoom) {
+      onSubmitToRoom()
+      setRoomCopied(true)
+      setTimeout(() => setRoomCopied(false), 3000)
     }
   }
 
@@ -141,6 +150,40 @@ export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isN
 
       {/* Buttons row */}
       <div style={{ marginTop: '1.25rem', display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+        {/* Submit to active group room */}
+        {activeRoom && !activeRoom.isCreator && (
+          <button
+            onClick={handleSubmitToRoom}
+            style={{
+              background: roomCopied
+                ? 'linear-gradient(to right, #10b981, #06b6d4)'
+                : 'linear-gradient(to right, #10b981, #3b82f6)',
+              color: 'white', border: 'none', borderRadius: '0.75rem',
+              padding: '0.55rem 1.25rem', fontWeight: 700, cursor: 'pointer',
+              fontSize: '0.88rem', transition: 'background 0.3s',
+              boxShadow: '0 4px 15px rgba(16,185,129,0.35)',
+            }}
+          >
+            {roomCopied ? '✅ Submitted!' : `📤 Submit to Room ${activeRoom.id}`}
+          </button>
+        )}
+        {/* Submit button for creator too */}
+        {activeRoom && activeRoom.isCreator && (
+          <button
+            onClick={handleSubmitToRoom}
+            style={{
+              background: roomCopied
+                ? 'linear-gradient(to right, #10b981, #06b6d4)'
+                : 'linear-gradient(to right, #10b981, #3b82f6)',
+              color: 'white', border: 'none', borderRadius: '0.75rem',
+              padding: '0.55rem 1.25rem', fontWeight: 700, cursor: 'pointer',
+              fontSize: '0.88rem', transition: 'background 0.3s',
+              boxShadow: '0 4px 15px rgba(16,185,129,0.35)',
+            }}
+          >
+            {roomCopied ? '✅ Submitted!' : `📤 Submit to Room ${activeRoom.id}`}
+          </button>
+        )}
         {/* Send result back — only shown when completing a challenge */}
         {challengeData && (
           <button

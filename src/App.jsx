@@ -31,6 +31,7 @@ import AchievementToast from './components/AchievementToast'
 import LevelUpModal from './components/LevelUpModal'
 import VirtualKeyboard from './components/VirtualKeyboard'
 import TournamentModal from './components/TournamentModal'
+import GroupChallengeModal from './components/GroupChallengeModal'
 
 function App() {
   const [difficulty, setDifficulty] = useState('easy')
@@ -40,9 +41,12 @@ function App() {
   const [showPrivacy, setShowPrivacy] = useState(false)
   const [showKeyboard, setShowKeyboard] = useState(false)
   const [showTournament, setShowTournament] = useState(false)
+  const [showGroupChallenge, setShowGroupChallenge] = useState(false)
+  const [activeRoom, setActiveRoom] = useState(null)
   const [challengeData, setChallengeData] = useState(null)
   const [resultData, setResultData] = useState(null)   // sender sees friend's result
   const challengeApplied = useRef(false)
+  const activeRoomApplied = useRef(false)
 
   const { isDark, toggleTheme, colors } = useTheme()
   const { passage, setPassage, typed, wpm, cpm, accuracy, finished, timeLeft, isTimerMode, inputRef, handleKeyDown, handleChange, resetTest, analysis, passageIndex } = useTypingTest({ difficulty, language })
@@ -130,10 +134,53 @@ function App() {
     return () => clearTimeout(t)
   }, [challengeData, difficulty, language])
 
+  // Load the room's specific passage when joining a room (skip for creator who is already on it)
+  useEffect(() => {
+    if (!activeRoom || activeRoom.isCreator || activeRoomApplied.current) return
+    if (activeRoom.language) setLanguage(activeRoom.language)
+    if (activeRoom.difficulty) setDifficulty(activeRoom.difficulty)
+    const t = setTimeout(() => {
+      const pool = (PASSAGES[activeRoom.language]?.[activeRoom.difficulty] ?? PASSAGES.english?.easy) || []
+      const idx = (activeRoom.passage_index ?? 0) % Math.max(pool.length, 1)
+      if (pool[idx]) {
+        setPassage(pool[idx])
+        resetTest()
+        activeRoomApplied.current = true
+      }
+    }, 80)
+    return () => clearTimeout(t)
+  }, [activeRoom, difficulty, language])
+
   const handleCustomStart = (text, dir) => {
     setCustomDir(dir || 'ltr')
     setPassage(text)
     resetTest()
+  }
+
+  const handleRoomJoin = (roomData) => {
+    activeRoomApplied.current = false
+    setActiveRoom(roomData)
+  }
+
+  const handleRoomLeave = () => {
+    setActiveRoom(null)
+    activeRoomApplied.current = false
+  }
+
+  const handleSubmitToRoom = async () => {
+    if (!activeRoom || !identity.userId || !finished) return
+    try {
+      await supabase.from('room_scores').upsert({
+        room_id: activeRoom.id,
+        user_id: identity.userId,
+        nickname: activeRoom.nickname,
+        wpm,
+        accuracy,
+      }, { onConflict: 'room_id,user_id' })
+    } catch (err) {
+      console.error('Failed to submit room score:', err)
+    }
+    setShowGroupChallenge(true) // open modal to show updated leaderboard
   }
 
   const handleTypingKeyDown = (e) => {
@@ -186,6 +233,33 @@ function App() {
           </div>
         )}
 
+        {/* Active group room banner */}
+        {activeRoom && (
+          <div style={{
+            background: 'linear-gradient(to right, rgba(16,185,129,0.15), rgba(6,182,212,0.15))',
+            border: '1px solid rgba(16,185,129,0.4)', borderRadius: '1rem',
+            padding: '0.75rem 1.25rem', marginBottom: '1rem',
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <span style={{ fontSize: '1.3rem' }}>👥</span>
+              <div>
+                <p style={{ margin: 0, color: '#10b981', fontWeight: 800, fontSize: '0.9rem' }}>
+                  Group Room: <span style={{ fontFamily: 'monospace', letterSpacing: '0.1em' }}>{activeRoom.id}</span>
+                </p>
+                <p style={{ margin: 0, color: colors.textSecondary, fontSize: '0.78rem' }}>
+                  {activeRoom.language} · {activeRoom.difficulty} · Playing as <strong>{activeRoom.nickname}</strong>
+                </p>
+              </div>
+            </div>
+            <button onClick={() => setShowGroupChallenge(true)} style={{
+              background: 'rgba(16,185,129,0.2)', border: '1px solid rgba(16,185,129,0.4)',
+              borderRadius: '0.5rem', padding: '0.35rem 0.75rem',
+              color: '#10b981', fontWeight: 700, cursor: 'pointer', fontSize: '0.78rem',
+            }}>View Room</button>
+          </div>
+        )}
+
         <div style={{
           background: colors.card,
           backdropFilter: 'blur(12px)',
@@ -235,10 +309,11 @@ function App() {
             showKeyboard={showKeyboard}
             onToggleKeyboard={() => setShowKeyboard(v => !v)}
             onTournament={() => setShowTournament(true)}
+            onGroupChallenge={() => setShowGroupChallenge(true)}
           />
         </div>
 
-        {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} xpEarned={xpEarned} challengeData={challengeData} onChallenge={() => {
+        {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} xpEarned={xpEarned} challengeData={challengeData} activeRoom={activeRoom} onSubmitToRoom={handleSubmitToRoom} onChallenge={() => {
           const data = { wpm, accuracy, difficulty, language, passageIndex }
           const encoded = btoa(JSON.stringify(data))
           const url = `${window.location.origin}${window.location.pathname}?c=${encoded}`
@@ -296,6 +371,21 @@ function App() {
         lastAccuracy={finished ? accuracy : 0}
         lastLanguage={language}
         lastDifficulty={difficulty}
+        isDark={isDark}
+        colors={colors}
+      />
+      <GroupChallengeModal
+        show={showGroupChallenge}
+        onClose={() => setShowGroupChallenge(false)}
+        activeRoom={activeRoom}
+        onRoomJoin={handleRoomJoin}
+        onRoomLeave={handleRoomLeave}
+        lastWpm={finished ? wpm : 0}
+        lastAccuracy={finished ? accuracy : 0}
+        lastPassageIndex={passageIndex}
+        lastLanguage={language}
+        lastDifficulty={difficulty}
+        userId={identity.userId}
         isDark={isDark}
         colors={colors}
       />

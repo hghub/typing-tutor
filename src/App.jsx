@@ -32,6 +32,7 @@ import LevelUpModal from './components/LevelUpModal'
 import VirtualKeyboard from './components/VirtualKeyboard'
 import TournamentModal from './components/TournamentModal'
 import GroupChallengeModal from './components/GroupChallengeModal'
+import BattleModal from './components/BattleModal'
 
 function App() {
   const [difficulty, setDifficulty] = useState('easy')
@@ -43,10 +44,15 @@ function App() {
   const [showTournament, setShowTournament] = useState(false)
   const [showGroupChallenge, setShowGroupChallenge] = useState(false)
   const [activeRoom, setActiveRoom] = useState(null)
+  // 1v1 battle state
+  const [showBattle, setShowBattle] = useState(false)
+  const [battleStep, setBattleStep] = useState('menu') // 'menu'|'waiting'|'countdown'|'typing'|'result'
+  const [activeBattle, setActiveBattle] = useState(null)
   const [challengeData, setChallengeData] = useState(null)
   const [resultData, setResultData] = useState(null)   // sender sees friend's result
   const challengeApplied = useRef(false)
   const activeRoomApplied = useRef(false)
+  const battleApplied = useRef(false)
 
   const { isDark, toggleTheme, colors } = useTheme()
   const { passage, setPassage, typed, wpm, cpm, accuracy, finished, timeLeft, isTimerMode, inputRef, handleKeyDown, handleChange, resetTest, analysis, passageIndex } = useTypingTest({ difficulty, language })
@@ -156,6 +162,22 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeRoom]) // only re-run when activeRoom itself changes, not language/difficulty
 
+  // Load battle passage for joiner when countdown ends (battleStep changes to 'typing')
+  useEffect(() => {
+    if (!activeBattle || activeBattle.isCreator || battleStep !== 'typing' || battleApplied.current) return
+    if (activeBattle.language) setLanguage(activeBattle.language)
+    if (activeBattle.difficulty) setDifficulty(activeBattle.difficulty)
+    const t = setTimeout(() => {
+      if (activeBattle.passage_text) {
+        setPassage(activeBattle.passage_text)
+        resetTest()
+        battleApplied.current = true
+      }
+    }, 100)
+    return () => clearTimeout(t)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeBattle, battleStep])
+
   const handleCustomStart = (text, dir) => {
     setCustomDir(dir || 'ltr')
     setPassage(text)
@@ -170,6 +192,17 @@ function App() {
   const handleRoomLeave = () => {
     setActiveRoom(null)
     activeRoomApplied.current = false
+  }
+
+  const handleBattleStart = () => {
+    // Called when countdown hits 0 — load the battle passage
+    battleApplied.current = false
+  }
+
+  const handleBattleEnd = () => {
+    setActiveBattle(null)
+    setBattleStep('menu')
+    battleApplied.current = false
   }
 
   const handleSubmitToRoom = async () => {
@@ -315,6 +348,7 @@ function App() {
             onToggleKeyboard={() => setShowKeyboard(v => !v)}
             onTournament={() => setShowTournament(true)}
             onGroupChallenge={() => setShowGroupChallenge(true)}
+            onBattle={() => setShowBattle(true)}
           />
         </div>
 
@@ -396,7 +430,26 @@ function App() {
         colors={colors}
       />
 
-      {/* Result link modal — shown to the original challenger */}
+      <BattleModal
+        show={showBattle}
+        onClose={() => setShowBattle(false)}
+        battleStep={battleStep}
+        setBattleStep={setBattleStep}
+        activeBattle={activeBattle}
+        setActiveBattle={setActiveBattle}
+        myProgress={passage ? Math.min(Math.round((typed.length / passage.length) * 100), 100) : 0}
+        myWpm={wpm}
+        finished={finished}
+        passage={passage}
+        currentPassage={passage}
+        currentLanguage={language}
+        currentDifficulty={difficulty}
+        onBattleStart={handleBattleStart}
+        onBattleEnd={handleBattleEnd}
+        userId={identity.userId}
+        isDark={isDark}
+        colors={colors}
+      />
       {resultData && (
         <div style={{
           position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)',

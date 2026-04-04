@@ -21,7 +21,7 @@ function ActionButton({ style, shadowColor, onClick, children }) {
   )
 }
 
-export default function ActionButtons({ finished, onReset, onFeedback, onViewStats, onLeaderboard, soundOn, onToggleSound, showKeyboard, onToggleKeyboard, onTournament, onGroupChallenge }) {
+export default function ActionButtons({ finished, onReset, onFeedback, onViewStats, onLeaderboard, soundOn, onToggleSound, showKeyboard, onToggleKeyboard, onTournament, onGroupChallenge, onBattle }) {
   return (
     <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
       <ActionButton style={{ background: 'linear-gradient(to right, #06b6d4, #3b82f6)' }} shadowColor="rgba(6, 182, 212, 0.3)" onClick={onReset}>
@@ -45,6 +45,9 @@ export default function ActionButtons({ finished, onReset, onFeedback, onViewSta
       </ActionButton>
       <ActionButton style={{ background: 'linear-gradient(to right, #10b981, #06b6d4)' }} shadowColor="rgba(16, 185, 129, 0.3)" onClick={onGroupChallenge}>
         👥 Group Challenge
+      </ActionButton>
+      <ActionButton style={{ background: 'linear-gradient(to right, #ef4444, #f97316)' }} shadowColor="rgba(239, 68, 68, 0.3)" onClick={onBattle}>
+        ⚔️ 1v1 Battle
       </ActionButton>
       <ActionButton style={{ background: soundOn ? 'linear-gradient(to right, #6366f1, #a855f7)' : 'linear-gradient(to right, #475569, #64748b)' }} shadowColor="rgba(99, 102, 241, 0.3)" onClick={onToggleSound}>
         {soundOn ? '🔊 Sound On' : '🔇 Sound Off'}

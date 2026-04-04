@@ -4,6 +4,7 @@ import { useTheme } from './hooks/useTheme'
 import { useTypingTest } from './hooks/useTypingTest'
 import { useFeedback } from './hooks/useFeedback'
 import { useIdentity } from './hooks/useIdentity'
+import { useKeyboardSound } from './hooks/useKeyboardSound'
 import { supabase } from './utils/supabase'
 import { LANGUAGES } from './constants/languages'
 import AnimatedBackground from './components/AnimatedBackground'
@@ -27,9 +28,10 @@ function App() {
   const [showLeaderboard, setShowLeaderboard] = useState(false)
 
   const { isDark, toggleTheme, colors } = useTheme()
-  const { passage, setPassage, typed, wpm, cpm, accuracy, finished, inputRef, handleKeyDown, handleChange, resetTest } = useTypingTest({ difficulty, language })
+  const { passage, setPassage, typed, wpm, cpm, accuracy, finished, timeLeft, isTimerMode, inputRef, handleKeyDown, handleChange, resetTest } = useTypingTest({ difficulty, language })
   const feedback = useFeedback()
   const identity = useIdentity()
+  const { soundOn, toggleSound, playClick } = useKeyboardSound()
 
   useEffect(() => {
     localStorage.setItem('typingTutorLanguage', language)
@@ -59,6 +61,15 @@ function App() {
     resetTest()
   }
 
+  const handleTypingKeyDown = (e) => {
+    if (e.key !== 'Backspace' && e.key !== 'Enter' && e.key.length === 1) {
+      const pos = typed.length
+      const isError = passage[pos] !== e.key
+      playClick(isError)
+    }
+    handleKeyDown(e)
+  }
+
   const currentLangDir = LANGUAGES[language]?.dir || 'ltr'
 
   return (
@@ -83,15 +94,31 @@ function App() {
           marginBottom: '2rem',
           transition: 'all 0.3s ease',
         }}>
+          {isTimerMode && (
+            <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+              <span style={{
+                display: 'inline-block',
+                fontSize: '2.5rem',
+                fontWeight: 800,
+                color: timeLeft <= 10 ? '#ef4444' : '#06b6d4',
+                transition: 'color 0.3s',
+                minWidth: '4rem',
+              }}>
+                {timeLeft}s
+              </span>
+            </div>
+          )}
           <PassageDisplay passage={passage} typed={typed} isDark={isDark} currentLangDir={currentLangDir} colors={colors} />
           <StatsGrid wpm={wpm} cpm={cpm} accuracy={accuracy} typed={typed} passage={passage} />
-          <TypingInput typed={typed} finished={finished} inputRef={inputRef} handleChange={handleChange} handleKeyDown={handleKeyDown} colors={colors} currentLangDir={currentLangDir} />
+          <TypingInput typed={typed} finished={finished} inputRef={inputRef} handleChange={handleChange} handleKeyDown={handleTypingKeyDown} colors={colors} currentLangDir={currentLangDir} />
           <ActionButtons
             finished={finished}
             onReset={resetTest}
-            onFeedback={() => feedback.setShowFeedback(true)}
+            onFeedback={() => { if (identity.userId && !feedback.feedbackName) feedback.setFeedbackName(identity.userId); feedback.setShowFeedback(true) }}
             onViewStats={() => setShowStats(true)}
             onLeaderboard={() => setShowLeaderboard(true)}
+            soundOn={soundOn}
+            onToggleSound={toggleSound}
           />
         </div>
 

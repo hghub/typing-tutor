@@ -37,11 +37,13 @@ export default function LeaderboardModal({ show, onClose, userId, isDark, colors
     return `#${i + 1}`
   }
 
-  const subtitle = tab === 'country' && userLocation.country
+  const subtitle = tab === 'country' && userLocation.country && userLocation.country !== 'Unknown'
     ? `Top 20 in ${userLocation.country}`
-    : tab === 'city' && userLocation.city
+    : tab === 'city' && userLocation.city && userLocation.city !== 'Unknown'
     ? `Top 20 in ${userLocation.city}`
-    : 'Top 20 worldwide'
+    : tab === 'global'
+    ? 'Top 20 worldwide'
+    : 'No location data — update your profile'
 
   return (
     <div

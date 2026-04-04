@@ -183,12 +183,25 @@ export default function StatsModal({ show, onClose, userId, isDark, colors }) {
           <h2 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 700, color: colors.text }}>
             📊 Your Stats
           </h2>
-          <button
-            onClick={onClose}
-            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.25rem', color: colors.textSecondary, lineHeight: 1, padding: '0.25rem' }}
-          >
-            ✕
-          </button>
+          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+            {stats && (
+              <button
+                onClick={() => {
+                  const rows = [['#','WPM','CPM','Accuracy','Difficulty','Language','Date']]
+                  stats.scores.forEach((s, i) => rows.push([i+1, s.wpm, s.cpm, s.accuracy+'%', s.difficulty, s.language, new Date(s.timestamp).toLocaleString()]))
+                  const csv = rows.map((r) => r.join(',')).join('\n')
+                  const a = document.createElement('a')
+                  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }))
+                  a.download = 'typing-stats.csv'
+                  a.click()
+                }}
+                style={{ background: 'linear-gradient(to right, #22c55e, #06b6d4)', color: 'white', border: 'none', borderRadius: '0.5rem', padding: '0.4rem 0.75rem', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer' }}
+              >
+                ⬇ Export CSV
+              </button>
+            )}
+            <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.25rem', color: colors.textSecondary, lineHeight: 1, padding: '0.25rem' }}>✕</button>
+          </div>
         </div>
 
         {loading ? (

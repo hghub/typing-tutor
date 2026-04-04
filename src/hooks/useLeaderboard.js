@@ -22,10 +22,13 @@ export function useLeaderboard(userId, show) {
         .from('users')
         .select('id, display_name, country, city')
 
-      if (activeTab === 'country' && location?.country) {
-        userQuery = userQuery.eq('country', location.country)
-      } else if (activeTab === 'city' && location?.city) {
-        userQuery = userQuery.eq('city', location.city)
+      if (activeTab === 'country' && location?.country && location.country !== 'Unknown') {
+        userQuery = userQuery.eq('country', location.country).neq('country', 'Unknown')
+      } else if (activeTab === 'city' && location?.city && location.city !== 'Unknown') {
+        userQuery = userQuery.eq('city', location.city).neq('city', 'Unknown')
+      } else if (activeTab !== 'global') {
+        // user has no location — show empty
+        setRows([]); setLoading(false); return
       }
 
       const { data: users, error: usersError } = await userQuery

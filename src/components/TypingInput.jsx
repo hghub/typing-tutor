@@ -1,4 +1,4 @@
-export default function TypingInput({ typed, finished, inputRef, handleChange, handleKeyDown, colors, currentLangDir }) {
+export default function TypingInput({ typed, finished, inputRef, handleChange, handleKeyDown, onKeyPress, colors, currentLangDir }) {
   return (
     <input
       ref={inputRef}
@@ -6,7 +6,8 @@ export default function TypingInput({ typed, finished, inputRef, handleChange, h
       value={typed}
       onChange={handleChange}
       onKeyDown={handleKeyDown}
-      onKeyPress={(e) => { if (e.key === 'Enter') e.preventDefault() }}
+      onKeyPress={onKeyPress}
+      onPaste={(e) => e.preventDefault()}
       placeholder={finished ? "Press 'Try Again' to continue" : 'Click here and start typing...'}
       disabled={finished}
       autoFocus

@@ -1,4 +1,6 @@
-const LEVELS = ['easy', 'medium', 'hard', 'custom']
+const LEVELS = ['easy', 'medium', 'hard', 'timer', 'custom']
+
+const LEVEL_LABELS = { easy: 'Easy', medium: 'Medium', hard: 'Hard', timer: '⏱ 60s', custom: 'Custom' }
 
 export default function DifficultySelector({ difficulty, onSelect, colors }) {
   return (
@@ -33,7 +35,7 @@ export default function DifficultySelector({ difficulty, onSelect, colors }) {
               }
             }}
           >
-            {level}
+          {LEVEL_LABELS[level]}
           </button>
         )
       })}

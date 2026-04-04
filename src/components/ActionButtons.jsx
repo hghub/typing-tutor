@@ -21,38 +21,22 @@ function ActionButton({ style, shadowColor, onClick, children }) {
   )
 }
 
-export default function ActionButtons({ finished, onReset, onFeedback, onViewStats, onLeaderboard }) {
+export default function ActionButtons({ finished, onReset, onFeedback, onViewStats, onLeaderboard, soundOn, onToggleSound }) {
   return (
     <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-      <ActionButton
-        style={{ background: 'linear-gradient(to right, #06b6d4, #3b82f6)' }}
-        shadowColor="rgba(6, 182, 212, 0.3)"
-        onClick={onReset}
-      >
+      <ActionButton style={{ background: 'linear-gradient(to right, #06b6d4, #3b82f6)' }} shadowColor="rgba(6, 182, 212, 0.3)" onClick={onReset}>
         {finished ? 'Try Again' : 'Reset'}
       </ActionButton>
-
-      <ActionButton
-        style={{ background: 'linear-gradient(to right, #a855f7, #ec4899)' }}
-        shadowColor="rgba(168, 85, 247, 0.3)"
-        onClick={onViewStats}
-      >
+      <ActionButton style={{ background: 'linear-gradient(to right, #a855f7, #ec4899)' }} shadowColor="rgba(168, 85, 247, 0.3)" onClick={onViewStats}>
         View Stats
       </ActionButton>
-
-      <ActionButton
-        style={{ background: 'linear-gradient(to right, #f59e0b, #22c55e)' }}
-        shadowColor="rgba(34, 197, 94, 0.3)"
-        onClick={onLeaderboard}
-      >
+      <ActionButton style={{ background: 'linear-gradient(to right, #f59e0b, #22c55e)' }} shadowColor="rgba(34, 197, 94, 0.3)" onClick={onLeaderboard}>
         🏆 Leaderboard
       </ActionButton>
-
-      <ActionButton
-        style={{ background: 'linear-gradient(to right, #f59e0b, #f97316)' }}
-        shadowColor="rgba(245, 158, 11, 0.3)"
-        onClick={onFeedback}
-      >
+      <ActionButton style={{ background: soundOn ? 'linear-gradient(to right, #6366f1, #a855f7)' : 'linear-gradient(to right, #475569, #64748b)' }} shadowColor="rgba(99, 102, 241, 0.3)" onClick={onToggleSound}>
+        {soundOn ? '🔊 Sound On' : '🔇 Sound Off'}
+      </ActionButton>
+      <ActionButton style={{ background: 'linear-gradient(to right, #f59e0b, #f97316)' }} shadowColor="rgba(245, 158, 11, 0.3)" onClick={onFeedback}>
         💡 Suggest a Feature
       </ActionButton>
     </div>

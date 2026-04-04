@@ -227,7 +227,7 @@ function App() {
           />
         </div>
 
-        {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} xpEarned={xpEarned} onChallenge={() => {
+        {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} xpEarned={xpEarned} challengeData={challengeData} onChallenge={() => {
           const data = { wpm, accuracy, difficulty, language, passageIndex }
           const encoded = btoa(JSON.stringify(data))
           const url = `${window.location.origin}${window.location.pathname}?c=${encoded}`

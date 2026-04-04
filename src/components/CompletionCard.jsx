@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { getAccuracyColor } from '../utils/typing'
 
-export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isNewBest, colors, xpEarned, onChallenge }) {
+export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isNewBest, colors, xpEarned, onChallenge, challengeData }) {
   const [copied, setCopied] = useState(false)
 
   const handleChallenge = () => {
@@ -11,20 +11,78 @@ export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isN
       setTimeout(() => setCopied(false), 3000)
     }
   }
+
+  const won = challengeData ? wpm > challengeData.wpm : null
+  const tied = challengeData ? wpm === challengeData.wpm : false
+
   return (
     <div style={{
       background: colors?.card || 'linear-gradient(to right, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2))',
       backdropFilter: 'blur(12px)',
       borderRadius: '1rem',
-      border: '2px solid rgba(16, 185, 129, 0.5)',
+      border: challengeData
+        ? `2px solid ${won ? 'rgba(16,185,129,0.7)' : tied ? 'rgba(245,158,11,0.7)' : 'rgba(239,68,68,0.7)'}`
+        : '2px solid rgba(16, 185, 129, 0.5)',
       padding: '2rem',
       textAlign: 'center',
       boxShadow: '0 25px 50px -12px rgba(16, 185, 129, 0.2)',
       animation: 'pulse-slow 3s ease-in-out infinite',
       direction: currentLangDir,
     }}>
+
+      {/* Challenge result banner */}
+      {challengeData && (
+        <div style={{
+          marginBottom: '1.25rem',
+          padding: '1rem 1.25rem',
+          borderRadius: '0.875rem',
+          background: won
+            ? 'linear-gradient(to right, rgba(16,185,129,0.15), rgba(6,182,212,0.15))'
+            : tied
+              ? 'rgba(245,158,11,0.12)'
+              : 'rgba(239,68,68,0.12)',
+          border: `1px solid ${won ? 'rgba(16,185,129,0.4)' : tied ? 'rgba(245,158,11,0.4)' : 'rgba(239,68,68,0.4)'}`,
+        }}>
+          <p style={{
+            fontSize: '1.8rem', margin: '0 0 0.35rem',
+            fontWeight: 900,
+            background: won
+              ? 'linear-gradient(to right, #10b981, #06b6d4)'
+              : tied
+                ? 'linear-gradient(to right, #f59e0b, #f97316)'
+                : 'linear-gradient(to right, #ef4444, #f97316)',
+            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
+          }}>
+            {won ? '🏆 You Won!' : tied ? '🤝 It\'s a Tie!' : '💪 You Lost'}
+          </p>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
+            <div>
+              <p style={{ margin: 0, color: colors?.textSecondary, fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.05em' }}>YOU</p>
+              <p style={{ margin: 0, fontWeight: 900, fontSize: '1.4rem', color: won ? '#10b981' : '#ef4444' }}>{wpm} <span style={{ fontSize: '0.8rem', fontWeight: 600 }}>WPM</span></p>
+              <p style={{ margin: 0, fontSize: '0.8rem', color: colors?.textSecondary }}>{accuracy}% acc</p>
+            </div>
+            <div style={{ alignSelf: 'center', color: colors?.textSecondary, fontSize: '1.2rem', fontWeight: 700 }}>vs</div>
+            <div>
+              <p style={{ margin: 0, color: colors?.textSecondary, fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.05em' }}>CHALLENGER</p>
+              <p style={{ margin: 0, fontWeight: 900, fontSize: '1.4rem', color: won ? '#ef4444' : '#10b981' }}>{challengeData.wpm} <span style={{ fontSize: '0.8rem', fontWeight: 600 }}>WPM</span></p>
+              <p style={{ margin: 0, fontSize: '0.8rem', color: colors?.textSecondary }}>{challengeData.accuracy}% acc</p>
+            </div>
+          </div>
+          {won && (
+            <p style={{ margin: '0.6rem 0 0', fontSize: '0.82rem', color: '#10b981', fontWeight: 600 }}>
+              You were {wpm - challengeData.wpm} WPM faster! 🔥
+            </p>
+          )}
+          {!won && !tied && (
+            <p style={{ margin: '0.6rem 0 0', fontSize: '0.82rem', color: '#ef4444', fontWeight: 600 }}>
+              {challengeData.wpm - wpm} WPM behind — try again!
+            </p>
+          )}
+        </div>
+      )}
+
       <p style={{
-        fontSize: '2rem',
+        fontSize: challengeData ? '1.4rem' : '2rem',
         fontWeight: 900,
         background: 'linear-gradient(to right, #10b981, #06b6d4)',
         WebkitBackgroundClip: 'text',
@@ -32,7 +90,7 @@ export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isN
         backgroundClip: 'text',
         marginBottom: '0.5rem',
       }}>
-        🎉 Complete!
+        {challengeData ? '📊 Your Stats' : '🎉 Complete!'}
       </p>
       {isNewBest && (
         <p style={{

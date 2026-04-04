@@ -11,7 +11,7 @@ function generateCode() {
 export default function GroupChallengeModal({
   show, onClose,
   activeRoom, onRoomJoin, onRoomLeave,
-  lastWpm, lastAccuracy, lastPassageIndex, lastLanguage, lastDifficulty,
+  lastWpm, lastAccuracy, lastPassageIndex, lastPassage, lastLanguage, lastDifficulty,
   userId, isDark, colors,
 }) {
   const [step, setStep] = useState('menu') // 'menu' | 'room'
@@ -68,13 +68,14 @@ export default function GroupChallengeModal({
     const { error: err } = await supabase.from('rooms').insert({
       id: code,
       passage_index: lastPassageIndex ?? 0,
+      passage_text: lastPassage ?? '',
       language: lastLanguage,
       difficulty: lastDifficulty,
       created_by: userId,
     })
     setLoading(false)
     if (err) { setError('Could not create room. Try again.'); return }
-    onRoomJoin({ id: code, passage_index: lastPassageIndex ?? 0, language: lastLanguage, difficulty: lastDifficulty, created_by: userId, nickname: nickname.trim(), isCreator: true })
+    onRoomJoin({ id: code, passage_index: lastPassageIndex ?? 0, passage_text: lastPassage ?? '', language: lastLanguage, difficulty: lastDifficulty, created_by: userId, nickname: nickname.trim(), isCreator: true })
     setStep('room')
     setSubmitted(false)
     setRoomClosed(false)

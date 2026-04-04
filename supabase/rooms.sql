@@ -4,12 +4,16 @@
 CREATE TABLE IF NOT EXISTS rooms (
   id TEXT PRIMARY KEY,               -- 6-char code e.g. 'ABC123'
   passage_index INTEGER NOT NULL,
+  passage_text TEXT,                 -- actual passage text so all users type exactly the same
   language TEXT NOT NULL DEFAULT 'english',
   difficulty TEXT NOT NULL DEFAULT 'easy',
   created_by TEXT NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   is_closed BOOLEAN DEFAULT FALSE
 );
+
+-- If the table already exists, add the passage_text column:
+-- ALTER TABLE rooms ADD COLUMN IF NOT EXISTS passage_text TEXT;
 
 CREATE TABLE IF NOT EXISTS room_scores (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,

@@ -139,17 +139,22 @@ function App() {
     if (!activeRoom || activeRoom.isCreator || activeRoomApplied.current) return
     if (activeRoom.language) setLanguage(activeRoom.language)
     if (activeRoom.difficulty) setDifficulty(activeRoom.difficulty)
+    // Use a 200ms delay so useTypingTest's [difficulty,language] effect fires first,
+    // then we override with the exact passage text from the room
     const t = setTimeout(() => {
-      const pool = (PASSAGES[activeRoom.language]?.[activeRoom.difficulty] ?? PASSAGES.english?.easy) || []
-      const idx = (activeRoom.passage_index ?? 0) % Math.max(pool.length, 1)
-      if (pool[idx]) {
-        setPassage(pool[idx])
-        resetTest()
-        activeRoomApplied.current = true
+      if (activeRoom.passage_text) {
+        setPassage(activeRoom.passage_text)
+      } else {
+        // fallback to index-based if passage_text missing (old rooms)
+        const pool = (PASSAGES[activeRoom.language]?.[activeRoom.difficulty] ?? PASSAGES.english?.easy) || []
+        const idx = (activeRoom.passage_index ?? 0) % Math.max(pool.length, 1)
+        if (pool[idx]) setPassage(pool[idx])
       }
-    }, 80)
+      activeRoomApplied.current = true
+    }, 200)
     return () => clearTimeout(t)
-  }, [activeRoom, difficulty, language])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeRoom]) // only re-run when activeRoom itself changes, not language/difficulty
 
   const handleCustomStart = (text, dir) => {
     setCustomDir(dir || 'ltr')
@@ -383,6 +388,7 @@ function App() {
         lastWpm={finished ? wpm : 0}
         lastAccuracy={finished ? accuracy : 0}
         lastPassageIndex={passageIndex}
+        lastPassage={passage}
         lastLanguage={language}
         lastDifficulty={difficulty}
         userId={identity.userId}

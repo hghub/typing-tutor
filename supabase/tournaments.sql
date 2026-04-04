@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS tournaments (
   wpm         integer     NOT NULL,
   accuracy    integer     NOT NULL DEFAULT 0,
   language    text        NOT NULL DEFAULT 'english',
+  difficulty  text        NOT NULL DEFAULT 'easy',    -- easy/medium/hard/timer/islamic/etc
   created_at  timestamptz DEFAULT now(),
 
   -- One entry per user per week (upsert-safe)
@@ -29,3 +30,6 @@ CREATE POLICY "Public update" ON tournaments FOR UPDATE USING (true);
 
 -- Index for fast weekly leaderboard queries
 CREATE INDEX IF NOT EXISTS idx_tournaments_week ON tournaments (week_id, wpm DESC);
+
+-- If you already created the table without the difficulty column, run this:
+-- ALTER TABLE tournaments ADD COLUMN IF NOT EXISTS difficulty text NOT NULL DEFAULT 'easy';

@@ -9,7 +9,40 @@ function getWeekId() {
   return `${now.getFullYear()}-W${String(week).padStart(2, '0')}`
 }
 
-export default function TournamentModal({ show, onClose, userId, displayName, lastWpm, lastAccuracy, lastLanguage, isDark, colors }) {
+const CATEGORY_COLORS = {
+  easy:      { bg: '#22c55e', label: 'Easy' },
+  medium:    { bg: '#f59e0b', label: 'Medium' },
+  hard:      { bg: '#ef4444', label: 'Hard' },
+  timer:     { bg: '#6366f1', label: '60s Timer' },
+  islamic:   { bg: '#a78bfa', label: 'Islamic' },
+  coding:    { bg: '#06b6d4', label: 'Coding' },
+  poetry:    { bg: '#ec4899', label: 'Poetry' },
+  emails:    { bg: '#10b981', label: 'Emails' },
+  freelance: { bg: '#f97316', label: 'Freelance' },
+  study:     { bg: '#3b82f6', label: 'Study' },
+}
+
+const LANG_FLAGS = {
+  english: '🇬🇧', arabic: '🇸🇦', urdu: '🇵🇰', persian: '🇮🇷',
+}
+
+function CategoryBadge({ language, difficulty }) {
+  const cat = CATEGORY_COLORS[difficulty] || { bg: '#64748b', label: difficulty || '—' }
+  const flag = LANG_FLAGS[language] || '🌐'
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.2rem', flexShrink: 0 }}>
+      <span style={{
+        background: cat.bg, color: 'white',
+        fontSize: '0.6rem', fontWeight: 700,
+        padding: '0.1rem 0.4rem', borderRadius: '0.3rem',
+        letterSpacing: '0.03em',
+      }}>{cat.label}</span>
+      <span style={{ fontSize: '0.85rem' }}>{flag}</span>
+    </span>
+  )
+}
+
+export default function TournamentModal({ show, onClose, userId, displayName, lastWpm, lastAccuracy, lastLanguage, lastDifficulty, isDark, colors }) {
   const [entries, setEntries] = useState([])
   const [loading, setLoading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -58,6 +91,7 @@ export default function TournamentModal({ show, onClose, userId, displayName, la
         wpm: lastWpm,
         accuracy: lastAccuracy || 0,
         language: lastLanguage || 'english',
+        difficulty: lastDifficulty || 'easy',
       }, { onConflict: 'week_id,user_id' })
       if (err) throw err
       setSubmitted(true)
@@ -127,10 +161,13 @@ export default function TournamentModal({ show, onClose, userId, displayName, la
             border: '1px solid rgba(245,158,11,0.35)', borderRadius: '1rem',
             padding: '1rem', marginBottom: '1.5rem',
           }}>
-            <p style={{ color: colors.text, fontSize: '0.9rem', margin: '0 0 0.75rem' }}>
-              Submit your score: <strong style={{ color: '#f59e0b' }}>{lastWpm} WPM</strong>
-              {' '}/ <strong style={{ color: '#10b981' }}>{lastAccuracy}%</strong> accuracy
-            </p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem', flexWrap: 'wrap' }}>
+              <span style={{ color: colors.text, fontSize: '0.9rem' }}>
+                Submit: <strong style={{ color: '#f59e0b' }}>{lastWpm} WPM</strong>
+                {' '}/ <strong style={{ color: '#10b981' }}>{lastAccuracy}%</strong>
+              </span>
+              <CategoryBadge language={lastLanguage} difficulty={lastDifficulty} />
+            </div>
             <button
               onClick={handleSubmit}
               disabled={submitting}
@@ -190,7 +227,7 @@ export default function TournamentModal({ show, onClose, userId, displayName, la
               const { icon, color } = rankBadge(i)
               return (
                 <div key={entry.id || i} style={{
-                  display: 'flex', alignItems: 'center', gap: '0.75rem',
+                  display: 'flex', alignItems: 'center', gap: '0.6rem',
                   padding: '0.6rem 0.875rem', marginBottom: '0.35rem',
                   background: isMe
                     ? 'rgba(245,158,11,0.12)'
@@ -200,15 +237,17 @@ export default function TournamentModal({ show, onClose, userId, displayName, la
                 }}>
                   <span style={{
                     minWidth: '2rem', textAlign: 'center', fontWeight: 800,
-                    fontSize: i < 3 ? '1.25rem' : '0.85rem', color,
+                    fontSize: i < 3 ? '1.25rem' : '0.85rem', color, flexShrink: 0,
                   }}>{icon}</span>
                   <span style={{
-                    flex: 1, color: colors.text, fontSize: '0.9rem',
+                    flex: 1, color: colors.text, fontSize: '0.88rem',
                     fontWeight: isMe ? 700 : 500,
                     overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                    minWidth: 0,
                   }}>{entry.display_name || entry.user_id}</span>
-                  <span style={{ color: '#f59e0b', fontWeight: 800, fontSize: '0.95rem' }}>{entry.wpm} WPM</span>
-                  <span style={{ color: '#10b981', fontSize: '0.8rem', minWidth: '3rem', textAlign: 'right' }}>{entry.accuracy}%</span>
+                  <CategoryBadge language={entry.language} difficulty={entry.difficulty} />
+                  <span style={{ color: '#f59e0b', fontWeight: 800, fontSize: '0.9rem', flexShrink: 0 }}>{entry.wpm} WPM</span>
+                  <span style={{ color: '#10b981', fontSize: '0.78rem', minWidth: '2.8rem', textAlign: 'right', flexShrink: 0 }}>{entry.accuracy}%</span>
                 </div>
               )
             })}

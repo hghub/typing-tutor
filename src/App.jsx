@@ -278,6 +278,7 @@ function App() {
         lastWpm={finished ? wpm : 0}
         lastAccuracy={finished ? accuracy : 0}
         lastLanguage={language}
+        lastDifficulty={difficulty}
         isDark={isDark}
         colors={colors}
       />

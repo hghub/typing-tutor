@@ -57,8 +57,10 @@ function App() {
   }, [finished])
 
   const [isNewBest, setIsNewBest] = useState(false)
+  const [customDir, setCustomDir] = useState('ltr')
 
-  const handleCustomStart = (text) => {
+  const handleCustomStart = (text, dir) => {
+    setCustomDir(dir || 'ltr')
     setPassage(text)
     resetTest()
   }
@@ -79,7 +81,7 @@ function App() {
     setIsNewBest(wpm > prevBest && scores.length > 0)
   }, [finished, wpm])
 
-  const currentLangDir = LANGUAGES[language]?.dir || 'ltr'
+  const currentLangDir = difficulty === 'custom' ? customDir : (LANGUAGES[language]?.dir || 'ltr')
 
   return (
     <div style={{ minHeight: '100vh', background: colors.bg, padding: '2rem', transition: 'background 0.3s ease', direction: currentLangDir }}>

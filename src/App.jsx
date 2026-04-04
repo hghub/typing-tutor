@@ -82,12 +82,16 @@ function App() {
     }
   }, [language])
 
+  const xpGranted = useRef(false)
   useEffect(() => {
-    if (finished && wpm > 0) {
+    if (!finished) { xpGranted.current = false; return }
+    if (wpm > 0 && !xpGranted.current) {
+      xpGranted.current = true
       const { earned } = addXP(wpm, accuracy, difficulty)
       setXpEarned(earned)
     }
-  }, [finished, wpm, accuracy, difficulty, addXP])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [finished])
 
   useEffect(() => {
     if (!finished || !identity.userId) return

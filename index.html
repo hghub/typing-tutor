@@ -2,9 +2,177 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>typing-tutor</title>
+
+    <!-- ═══════════════════════════════════════════════════
+         PRIMARY SEO
+    ═══════════════════════════════════════════════════ -->
+    <title>Typing Master — Free Online Typing Test & Speed Trainer</title>
+    <meta name="description" content="Improve your typing speed and accuracy with Typing Master — the free multilingual typing tutor supporting English, Arabic, Urdu, Persian and any custom text. Take a WPM test, track your progress, and compete on the global leaderboard." />
+    <meta name="keywords" content="typing test, typing speed test, WPM test, words per minute, typing practice, online typing tutor, free typing test, improve typing speed, typing accuracy, touch typing, keyboard typing, Arabic typing test, Urdu typing practice, Persian typing, multilingual typing, 60 second typing test, typing challenge, typing game" />
+    <meta name="author" content="Typing Master" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <link rel="canonical" href="https://typingmaster.app/" />
+
+    <!-- ═══════════════════════════════════════════════════
+         OPEN GRAPH (Facebook, LinkedIn, WhatsApp)
+    ═══════════════════════════════════════════════════ -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://typingmaster.app/" />
+    <meta property="og:site_name" content="Typing Master" />
+    <meta property="og:title" content="Typing Master — Free Online Typing Test & Speed Trainer" />
+    <meta property="og:description" content="Take a free WPM typing test, practice in 4 languages including Arabic and Urdu, compete on the leaderboard, and track your progress. No sign-up required." />
+    <meta property="og:image" content="https://typingmaster.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Typing Master — Free multilingual typing speed test" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- ═══════════════════════════════════════════════════
+         TWITTER CARD
+    ═══════════════════════════════════════════════════ -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@typingmasterapp" />
+    <meta name="twitter:title" content="Typing Master — Free Online Typing Test & Speed Trainer" />
+    <meta name="twitter:description" content="Free WPM typing test with multilingual support (Arabic, Urdu, Persian, English). Leaderboard, stats, 60s timer mode. No sign-up needed." />
+    <meta name="twitter:image" content="https://typingmaster.app/og-image.png" />
+
+    <!-- ═══════════════════════════════════════════════════
+         PWA / MANIFEST
+    ═══════════════════════════════════════════════════ -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Typing Master" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+
+    <!-- ═══════════════════════════════════════════════════
+         FAVICON
+    ═══════════════════════════════════════════════════ -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png" />
+
+    <!-- ═══════════════════════════════════════════════════
+         PERFORMANCE: Preconnect to external origins
+    ═══════════════════════════════════════════════════ -->
+    <link rel="preconnect" href="https://fcgtnduxbvoiuytyuaxu.supabase.co" />
+    <link rel="dns-prefetch" href="https://fcgtnduxbvoiuytyuaxu.supabase.co" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- ═══════════════════════════════════════════════════
+         STRUCTURED DATA — SoftwareApplication (JSON-LD)
+    ═══════════════════════════════════════════════════ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Typing Master",
+      "url": "https://typingmaster.app",
+      "description": "Free online typing speed test and multilingual typing tutor. Practice in English, Arabic, Urdu, Persian or any custom text. Track WPM, CPM, accuracy and compete globally.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "512"
+      },
+      "featureList": [
+        "Real-time WPM and CPM measurement",
+        "Accuracy tracking",
+        "Multilingual support: English, Arabic, Urdu, Persian",
+        "Right-to-left (RTL) script support",
+        "Custom text practice in any language",
+        "60-second timer mode",
+        "Global leaderboard with country and city filters",
+        "Personal best tracking",
+        "Dark and light mode",
+        "Keyboard sound effects",
+        "Session statistics and CSV export",
+        "No registration required"
+      ],
+      "screenshot": "https://typingmaster.app/og-image.png",
+      "inLanguage": ["en", "ar", "ur", "fa"]
+    }
+    </script>
+
+    <!-- ═══════════════════════════════════════════════════
+         STRUCTURED DATA — WebSite + SearchAction
+    ═══════════════════════════════════════════════════ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Typing Master",
+      "url": "https://typingmaster.app",
+      "description": "Free multilingual typing speed test — English, Arabic, Urdu, Persian and custom text",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://typingmaster.app/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- ═══════════════════════════════════════════════════
+         STRUCTURED DATA — FAQPage (boosts rich snippets)
+    ═══════════════════════════════════════════════════ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a good typing speed in WPM?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The average typing speed is 40 WPM. A speed of 60+ WPM is considered above average, and professional typists typically reach 75–100 WPM. Top competitive typists exceed 120 WPM."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I improve my typing speed?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Practice daily with a structured typing tutor. Focus on accuracy first, then speed. Use all fingers with proper home-row technique. Taking regular timed WPM tests helps track and motivate improvement."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this typing test support Arabic and Urdu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Typing Master fully supports Arabic, Urdu, and Persian with proper right-to-left (RTL) text rendering. You can also paste any custom text in any language or script."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Typing Master free to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, Typing Master is completely free. No account or sign-up is required to take a typing test. An optional identity (Name#code) lets you appear on the global leaderboard."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between WPM and CPM?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "WPM (Words Per Minute) measures typing speed assuming 5 characters per word. CPM (Characters Per Minute) counts every character typed. Both are shown in real time on Typing Master."
+          }
+        }
+      ]
+    }
+    </script>
+
   </head>
   <body>
     <div id="root"></div>

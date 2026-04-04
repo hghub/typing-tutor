@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Block crawling of internal assets (but allow indexing of pages)
+Disallow: /assets/
+
+# Sitemap location
+Sitemap: https://typingmaster.app/sitemap.xml
+
+# Crawl-delay for politeness
+Crawl-delay: 1

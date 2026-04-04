@@ -20,12 +20,14 @@ import FeedbackModal from './components/FeedbackModal'
 import StatsModal from './components/StatsModal'
 import IdentityModal from './components/IdentityModal'
 import LeaderboardModal from './components/LeaderboardModal'
+import PrivacyPolicy from './components/PrivacyPolicy'
 
 function App() {
   const [difficulty, setDifficulty] = useState('easy')
   const [language, setLanguage] = useState(() => localStorage.getItem('typingTutorLanguage') || 'english')
   const [showStats, setShowStats] = useState(false)
   const [showLeaderboard, setShowLeaderboard] = useState(false)
+  const [showPrivacy, setShowPrivacy] = useState(false)
 
   const { isDark, toggleTheme, colors } = useTheme()
   const { passage, setPassage, typed, wpm, cpm, accuracy, finished, timeLeft, isTimerMode, inputRef, handleKeyDown, handleChange, resetTest } = useTypingTest({ difficulty, language })
@@ -157,6 +159,19 @@ function App() {
         isDark={isDark}
         colors={colors}
       />
+      {showPrivacy && <PrivacyPolicy onClose={() => setShowPrivacy(false)} isDark={isDark} colors={colors} />}
+
+      {/* Footer */}
+      <div style={{ textAlign: 'center', marginTop: '2rem', paddingBottom: '1rem' }}>
+        <p style={{ color: colors.textSecondary, fontSize: '0.75rem', margin: 0 }}>
+          © {new Date().getFullYear()} Typing Master &nbsp;·&nbsp;
+          <button onClick={() => setShowPrivacy(true)} style={{
+            background: 'none', border: 'none', color: '#06b6d4',
+            cursor: 'pointer', fontSize: '0.75rem', textDecoration: 'underline', padding: 0,
+          }}>Privacy Policy</button>
+          &nbsp;·&nbsp; Free multilingual typing speed test
+        </p>
+      </div>
     </div>
   )
 }

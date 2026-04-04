@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { getAccuracyColor } from '../utils/typing'
 
-export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isNewBest, colors, xpEarned, onChallenge, challengeData, onSendResult, activeRoom, onSubmitToRoom }) {
+export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isNewBest, colors, xpEarned, onChallenge, challengeData, onSendResult, activeRoom, onSubmitToRoom, isKidsMode, onReset }) {
   const [copied, setCopied] = useState(false)
   const [resultCopied, setResultCopied] = useState(false)
   const [roomCopied, setRoomCopied] = useState(false)
@@ -32,6 +32,84 @@ export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isN
 
   const won = challengeData ? wpm > challengeData.wpm : null
   const tied = challengeData ? wpm === challengeData.wpm : false
+
+  if (isKidsMode) {
+    const stars = accuracy >= 95 ? 5 : accuracy >= 80 ? 4 : accuracy >= 60 ? 3 : accuracy >= 40 ? 2 : 1
+    const starColors = ['#f59e0b', '#f97316', '#ef4444', '#ec4899', '#8b5cf6']
+    return (
+      <div style={{
+        background: 'linear-gradient(135deg, rgba(16,185,129,0.15), rgba(139,92,246,0.15), rgba(236,72,153,0.15))',
+        backdropFilter: 'blur(12px)',
+        borderRadius: '1.5rem',
+        border: '3px solid rgba(236,72,153,0.5)',
+        padding: '2.5rem',
+        textAlign: 'center',
+        boxShadow: '0 25px 50px -12px rgba(139,92,246,0.25)',
+        direction: currentLangDir,
+      }}>
+        <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>🎉</div>
+        <p style={{
+          fontSize: '2rem',
+          fontWeight: 900,
+          background: 'linear-gradient(to right, #f97316, #ec4899, #8b5cf6)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          marginBottom: '1rem',
+        }}>
+          You did it! 🌟
+        </p>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.4rem', marginBottom: '1.25rem' }}>
+          {[1,2,3,4,5].map(s => (
+            <span key={s} style={{
+              fontSize: '2.5rem',
+              color: s <= stars ? starColors[s - 1] : (colors?.textSecondary || '#94a3b8'),
+              filter: s <= stars ? 'drop-shadow(0 0 6px currentColor)' : 'none',
+              transition: 'color 0.2s',
+            }}>★</span>
+          ))}
+        </div>
+        <p style={{ color: colors?.text || '#e2e8f0', fontSize: '1.25rem', fontWeight: 700, marginBottom: '0.5rem' }}>
+          You typed <span style={{ color: '#10b981', fontWeight: 900 }}>{wpm}</span> words per minute!
+        </p>
+        <p style={{ color: colors?.textSecondary || '#94a3b8', fontSize: '1rem', marginBottom: '1rem' }}>
+          Accuracy: <span style={{ fontWeight: 900, color: getAccuracyColor(accuracy) }}>{accuracy}%</span>
+        </p>
+        {xpEarned > 0 && (
+          <p style={{
+            display: 'inline-block',
+            background: 'linear-gradient(to right, #8b5cf6, #06b6d4)',
+            color: 'white',
+            fontWeight: 700,
+            fontSize: '0.95rem',
+            borderRadius: '2rem',
+            padding: '0.3rem 1rem',
+            marginBottom: '1.25rem',
+          }}>
+            ✨ +{xpEarned} XP earned
+          </p>
+        )}
+        <div style={{ marginTop: '1rem' }}>
+          <button
+            onClick={onReset}
+            style={{
+              background: 'linear-gradient(to right, #f97316, #ec4899)',
+              color: 'white',
+              border: 'none',
+              borderRadius: '0.875rem',
+              padding: '0.75rem 2rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+              fontSize: '1.1rem',
+              boxShadow: '0 4px 15px rgba(236,72,153,0.4)',
+            }}
+          >
+            Type Again! 🚀
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div style={{
@@ -219,3 +297,4 @@ export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isN
     </div>
   )
 }
+

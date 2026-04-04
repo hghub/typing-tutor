@@ -1,0 +1,35 @@
+export const KIDS_PASSAGES = {
+  english: [
+    "cat dog hen pig cow ant bee fox rat elk",
+    "big red hen sat on an egg in the sun",
+    "the cat sat on a mat by the door",
+    "a fat cat and a big dog ran to the park",
+    "my pet fish can swim and play all day",
+    "the red fox hid in the old oak tree",
+    "I see a frog on a log in the bog",
+    "we eat cake pie jam and figs for fun",
+    "the sun is hot the sky is blue and wide",
+    "Tom and Sam got a big kite to fly up high",
+  ],
+  urdu: [
+    "ماں باپ بھائی بہن دادا دادی",
+    "گھر باغ کتاب قلم میز کرسی",
+    "سیب آم کیلا انگور امرود",
+    "پانی آگ مٹی ہوا سورج چاند",
+    "بلی کتا مرغی بکری گائے مچھلی",
+  ],
+  arabic: [
+    "قطة كلب دجاجة بقرة سمكة",
+    "تفاح مانجو موز عنب برتقال",
+    "شمس قمر نجم سماء ماء نار",
+    "بيت مدرسة كتاب قلم باب",
+    "أم أب أخ أخت جد جدة",
+  ],
+  persian: [
+    "گربه سگ مرغ گاو ماهی",
+    "سیب انبه موز انگور پرتقال",
+    "خورشید ماه ستاره آسمان آب",
+    "خانه مدرسه کتاب قلم در",
+    "مادر پدر برادر خواهر پدربزرگ",
+  ],
+}

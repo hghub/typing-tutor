@@ -10,6 +10,8 @@ import { useXP } from './hooks/useXP'
 import { supabase } from './utils/supabase'
 import { LANGUAGES } from './constants/languages'
 import { PASSAGES } from './constants/passages'
+import { KIDS_PASSAGES } from './constants/kidsPassages'
+import { playCorrectSound, playWrongSound } from './utils/kidsSounds'
 import AnimatedBackground from './components/AnimatedBackground'
 import Header from './components/Header'
 import XPBar from './components/XPBar'
@@ -21,6 +23,8 @@ import TypingInput from './components/TypingInput'
 import ActionButtons from './components/ActionButtons'
 import CompletionCard from './components/CompletionCard'
 import AchievementToast from './components/AchievementToast'
+import InstallBanner from './components/InstallBanner'
+import EmojiPopup from './components/EmojiPopup'
 
 // Lazy-loaded — only downloaded when user actually opens them
 const TypingAnalysis     = lazy(() => import('./components/TypingAnalysis'))
@@ -56,6 +60,9 @@ function App() {
   const challengeApplied = useRef(false)
   const activeRoomApplied = useRef(false)
   const battleApplied = useRef(false)
+
+  const [isKidsMode, setIsKidsMode] = useState(() => localStorage.getItem('typingKidsMode') === 'true')
+  const [emojiTrigger, setEmojiTrigger] = useState(0)
 
   const { isDark, toggleTheme, colors } = useTheme()
   const { passage, setPassage, typed, wpm, cpm, accuracy, finished, timeLeft, isTimerMode, inputRef, handleKeyDown, handleChange, resetTest, analysis, passageIndex } = useTypingTest({ difficulty, language })
@@ -244,6 +251,44 @@ function App() {
     handleKeyDown(e)
   }
 
+  const toggleKidsMode = () => {
+    const next = !isKidsMode
+    setIsKidsMode(next)
+    localStorage.setItem('typingKidsMode', String(next))
+    if (next) {
+      const pool = KIDS_PASSAGES[language] || KIDS_PASSAGES.english
+      const idx = Math.floor(Math.random() * pool.length)
+      setTimeout(() => setPassage(pool[idx]), 200)
+    } else {
+      resetTest()
+    }
+  }
+
+  // When kids mode is on and language changes, load a kids passage
+  useEffect(() => {
+    if (!isKidsMode) return
+    const pool = KIDS_PASSAGES[language] || KIDS_PASSAGES.english
+    const idx = Math.floor(Math.random() * pool.length)
+    setPassage(pool[idx])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isKidsMode, language])
+
+  const handleChangeWithKids = (e) => {
+    if (isKidsMode && !finished) {
+      const newVal = e.target.value
+      const pos = newVal.length - 1
+      if (pos >= 0 && pos < passage.length) {
+        if (newVal[pos] === passage[pos]) {
+          playCorrectSound()
+          setEmojiTrigger(t => t + 1)
+        } else {
+          playWrongSound()
+        }
+      }
+    }
+    handleChange(e)
+  }
+
   useEffect(() => {
     if (!finished) { setIsNewBest(false); return }
     const scores = JSON.parse(localStorage.getItem('typingScores') || '[]')
@@ -261,7 +306,7 @@ function App() {
       <div style={{ position: 'relative', maxWidth: '56rem', margin: '0 auto' }}>
         <Header language={language} onLanguageChange={setLanguage} isDark={isDark} onToggleTheme={toggleTheme} colors={colors} isMobile={isMobile} />
         <XPBar xp={xp} level={level} streak={streak} colors={colors} isDark={isDark} />
-        <DifficultySelector difficulty={difficulty} onSelect={(d) => { setDifficulty(d) }} language={language} availablePacks={Object.keys(PASSAGES[language] || {})} colors={colors} />
+        {!isKidsMode && <DifficultySelector difficulty={difficulty} onSelect={(d) => { setDifficulty(d) }} language={language} availablePacks={Object.keys(PASSAGES[language] || {})} colors={colors} />}
 
         {difficulty === 'custom' && (
           <CustomPassagePanel colors={colors} isDark={isDark} onStart={handleCustomStart} />
@@ -337,9 +382,10 @@ function App() {
               </span>
             </div>
           )}
-          <PassageDisplay passage={passage} typed={typed} isDark={isDark} currentLangDir={currentLangDir} colors={colors} />
+          <PassageDisplay passage={passage} typed={typed} isDark={isDark} currentLangDir={currentLangDir} colors={colors} isKidsMode={isKidsMode} />
+          <EmojiPopup trigger={emojiTrigger} />
           <StatsGrid wpm={wpm} cpm={cpm} accuracy={accuracy} typed={typed} passage={passage} isTimerMode={isTimerMode} timeLeft={timeLeft} />
-          <TypingInput typed={typed} finished={finished} inputRef={inputRef} handleChange={handleChange} handleKeyDown={handleTypingKeyDown} colors={colors} currentLangDir={currentLangDir} />
+          <TypingInput typed={typed} finished={finished} inputRef={inputRef} handleChange={handleChangeWithKids} handleKeyDown={handleTypingKeyDown} colors={colors} currentLangDir={currentLangDir} />
 
           {/* Virtual Keyboard — hidden on mobile (touch users don't need it) */}
           {showKeyboard && !finished && !isMobile && (
@@ -348,6 +394,7 @@ function App() {
               isDark={isDark}
               colors={colors}
               language={language}
+              isKidsMode={isKidsMode}
             />
           )}
 
@@ -365,10 +412,13 @@ function App() {
             onGroupChallenge={() => setShowGroupChallenge(true)}
             onBattle={() => setShowBattle(true)}
             isMobile={isMobile}
+            isKidsMode={isKidsMode}
+            onToggleKidsMode={toggleKidsMode}
+            hideMultiplayer={isKidsMode}
           />
         </div>
 
-        {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} xpEarned={xpEarned} challengeData={challengeData} activeRoom={activeRoom} onSubmitToRoom={handleSubmitToRoom} onChallenge={() => {
+        {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} xpEarned={xpEarned} challengeData={challengeData} activeRoom={activeRoom} onSubmitToRoom={handleSubmitToRoom} isKidsMode={isKidsMode} onReset={resetTest} onChallenge={() => {
           const data = { wpm, accuracy, difficulty, language, passageIndex }
           const encoded = btoa(JSON.stringify(data))
           const url = `${window.location.origin}${window.location.pathname}?c=${encoded}`
@@ -528,6 +578,7 @@ function App() {
         </p>
       </div>
     </div>
+      <InstallBanner isDark={isDark} colors={colors} />
     </Suspense>
   )
 }

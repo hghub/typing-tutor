@@ -75,7 +75,7 @@ function hexToRgb(hex) {
   return `${parseInt(hex.slice(1,3),16)}, ${parseInt(hex.slice(3,5),16)}, ${parseInt(hex.slice(5,7),16)}`
 }
 
-export default function VirtualKeyboard({ nextChar, isDark, colors, language }) {
+export default function VirtualKeyboard({ nextChar, isDark, colors, language, isKidsMode }) {
   const [legendOpen, setLegendOpen] = useState(false)
 
   const isUrdu = language === 'urdu'
@@ -280,3 +280,4 @@ export default function VirtualKeyboard({ nextChar, isDark, colors, language }) 
     </div>
   )
 }
+

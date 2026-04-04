@@ -1,27 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-
-  <!-- Main app -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://typingmaster.app/</loc>
     <lastmod>2026-04-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <!-- Alternate language versions (hreflang) -->
-    <xhtml:link rel="alternate" hreflang="en" href="https://typingmaster.app/" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://typingmaster.app/?lang=arabic" />
-    <xhtml:link rel="alternate" hreflang="ur" href="https://typingmaster.app/?lang=urdu" />
-    <xhtml:link rel="alternate" hreflang="fa" href="https://typingmaster.app/?lang=persian" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://typingmaster.app/" />
   </url>
-
-  <!-- Privacy Policy -->
-  <url>
-    <loc>https://typingmaster.app/privacy</loc>
-    <lastmod>2026-04-04</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-
 </urlset>

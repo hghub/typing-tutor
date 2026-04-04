@@ -12,7 +12,7 @@ export default defineConfig({
       manifest: {
         name: 'Typing Master',
         short_name: 'TypingMaster',
-        description: 'Free multilingual typing speed test — English, Urdu, Arabic, Persian',
+        description: 'Free multilingual typing tutor - Urdu, Arabic, Persian, English',
         theme_color: '#06b6d4',
         background_color: '#0f172a',
         display: 'standalone',

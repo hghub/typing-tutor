@@ -41,6 +41,23 @@ const URDU_TO_KEY = Object.fromEntries(
   Object.entries(URDU_LAYOUT).map(([k, v]) => [v, k])
 )
 
+// Arabic Standard (Windows Arabic 101) keyboard layout
+const ARABIC_LAYOUT = {
+  q:'ض', w:'ص', e:'ث', r:'ق', t:'ف', y:'غ', u:'ع', i:'ه', o:'خ', p:'ح',
+  a:'ش', s:'س', d:'ي', f:'ب', g:'ل', h:'ا', j:'ت', k:'ن', l:'م',
+  z:'ئ', x:'ء', c:'ؤ', v:'ر', b:'لا', n:'ى', m:'ة',
+}
+
+// Reverse map: Arabic char → English key (handle multi-char لا separately)
+const ARABIC_TO_KEY = Object.fromEntries(
+  Object.entries(ARABIC_LAYOUT)
+    .filter(([, v]) => v.length === 1)
+    .map(([k, v]) => [v, k])
+)
+// لا is typed with 'b' key
+ARABIC_TO_KEY['ل'] = ARABIC_TO_KEY['ل'] || 'g'  // ل maps to g
+ARABIC_TO_KEY['لا'] = 'b'
+
 const ROW_OFFSETS = ['0', '1.1rem', '2.2rem']
 
 function hexToRgb(hex) {
@@ -52,25 +69,32 @@ export default function VirtualKeyboard({ nextChar, isDark, colors, language }) 
   const [legendOpen, setLegendOpen] = useState(false)
 
   const isUrdu = language === 'urdu'
+  const isArabic = language === 'arabic'
+  const isRTLLayout = isUrdu || isArabic
   const isSpace = nextChar === ' '
 
-  // For Urdu: map the Urdu char to its physical key; for English: use the char directly
+  const LAYOUT = isUrdu ? URDU_LAYOUT : isArabic ? ARABIC_LAYOUT : null
+  const TO_KEY = isUrdu ? URDU_TO_KEY : isArabic ? ARABIC_TO_KEY : null
+
+  // Map nextChar → physical key to highlight
   const targetKey = isSpace ? null
-    : isUrdu ? (URDU_TO_KEY[nextChar] || null)
+    : isRTLLayout ? (TO_KEY?.[nextChar] || null)
     : (nextChar ? nextChar.toLowerCase() : null)
 
-  const isUpper = !isUrdu && nextChar && /[A-Z]/.test(nextChar)
+  const isUpper = !isRTLLayout && nextChar && /[A-Z]/.test(nextChar)
   const finger = targetKey && FINGER_MAP[targetKey] ? FINGER_MAP[targetKey] : null
   const fingerColor = finger ? FINGER_COLORS[finger] : null
   const fingerLabel = finger ? FINGER_LABELS[finger] : null
+
+  const layoutLabel = isUrdu ? '🇵🇰 Urdu Phonetic Layout' : isArabic ? '🇸🇦 Arabic Standard (Windows 101)' : null
 
   const getKeyStyle = (key) => {
     const isNext = !isSpace && targetKey === key
     const f = FINGER_MAP[key]
     const fc = FINGER_COLORS[f] || '#64748b'
     return {
-      width: isUrdu ? '2.3rem' : '2.1rem',
-      height: isUrdu ? '2.6rem' : '2.1rem',
+      width: isRTLLayout ? '2.3rem' : '2.1rem',
+      height: isRTLLayout ? '2.6rem' : '2.1rem',
       borderRadius: '0.4rem',
       border: `2px solid ${isNext ? fc : 'transparent'}`,
       background: isNext
@@ -80,11 +104,11 @@ export default function VirtualKeyboard({ nextChar, isDark, colors, language }) 
       fontWeight: isNext ? 800 : 600,
       fontSize: '0.75rem',
       display: 'flex',
-      flexDirection: isUrdu ? 'column' : 'row',
+      flexDirection: isRTLLayout ? 'column' : 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: isUrdu ? '0.05rem' : 0,
-      textTransform: isUrdu ? 'none' : 'uppercase',
+      gap: isRTLLayout ? '0.05rem' : 0,
+      textTransform: isRTLLayout ? 'none' : 'uppercase',
       cursor: 'default',
       userSelect: 'none',
       transition: 'all 0.1s',
@@ -96,12 +120,12 @@ export default function VirtualKeyboard({ nextChar, isDark, colors, language }) 
   }
 
   const renderKey = (key) => {
-    if (isUrdu) {
+    if (isRTLLayout && LAYOUT) {
       return (
         <div key={key} style={getKeyStyle(key)}>
           <span style={{ fontSize: '0.5rem', opacity: 0.55, lineHeight: 1 }}>{key.toUpperCase()}</span>
-          <span style={{ fontSize: '1rem', lineHeight: 1, fontFamily: 'Noto Nastaliq Urdu, Jameel Noori Nastaleeq, serif' }}>
-            {URDU_LAYOUT[key] || key}
+          <span style={{ fontSize: '1rem', lineHeight: 1, fontFamily: 'Noto Nastaliq Urdu, Amiri, serif' }}>
+            {LAYOUT[key] || key}
           </span>
         </div>
       )
@@ -119,13 +143,14 @@ export default function VirtualKeyboard({ nextChar, isDark, colors, language }) 
       border: `1px solid ${isDark ? 'rgba(71,85,105,0.4)' : 'rgba(203,213,225,0.7)'}`,
     }}>
       {/* Language label */}
-      {isUrdu && (
+      {layoutLabel && (
         <div style={{ textAlign: 'center', marginBottom: '0.4rem' }}>
           <span style={{
-            fontSize: '0.65rem', fontWeight: 700, color: '#a78bfa',
-            background: 'rgba(167,139,250,0.15)', padding: '0.15rem 0.6rem',
-            borderRadius: '1rem', letterSpacing: '0.05em',
-          }}>🇵🇰 Urdu Phonetic Layout</span>
+            fontSize: '0.65rem', fontWeight: 700,
+            color: isArabic ? '#34d399' : '#a78bfa',
+            background: isArabic ? 'rgba(52,211,153,0.15)' : 'rgba(167,139,250,0.15)',
+            padding: '0.15rem 0.6rem', borderRadius: '1rem', letterSpacing: '0.05em',
+          }}>{layoutLabel}</span>
         </div>
       )}
 
@@ -141,11 +166,11 @@ export default function VirtualKeyboard({ nextChar, isDark, colors, language }) 
             {isUpper && <span style={{ opacity: 0.8 }}>⇧ Shift +</span>}
             <span>{fingerLabel}</span>
             <span style={{ opacity: 0.7 }}>→</span>
-            {isUrdu
-              ? <span style={{ fontFamily: 'Noto Nastaliq Urdu, serif', fontSize: '1.1rem' }}>"{nextChar}"</span>
+            {isRTLLayout
+              ? <span style={{ fontFamily: 'Noto Nastaliq Urdu, Amiri, serif', fontSize: '1.1rem' }}>"{nextChar}"</span>
               : <span style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>"{nextChar}"</span>
             }
-            {isUrdu && targetKey && (
+            {isRTLLayout && targetKey && (
               <span style={{ opacity: 0.7, fontSize: '0.7rem' }}>(press {targetKey.toUpperCase()})</span>
             )}
           </span>

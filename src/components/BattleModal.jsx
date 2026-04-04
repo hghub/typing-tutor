@@ -204,7 +204,7 @@ export default function BattleModal({
     if (err) { setError('Could not create battle room. Try again.'); return }
 
     const nick = nickname.trim()
-    setActiveBattle({ code, isCreator: true, nickname: nick, language: currentLanguage, difficulty: currentDifficulty })
+    setActiveBattle({ code, isCreator: true, nickname: nick, passage_text: currentPassage, language: currentLanguage, difficulty: currentDifficulty })
     setupChannel(code, nick)
     setBattleStep('waiting')
 

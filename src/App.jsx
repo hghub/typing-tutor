@@ -167,13 +167,14 @@ function App() {
     if (!activeBattle || activeBattle.isCreator || battleStep !== 'typing' || battleApplied.current) return
     if (activeBattle.language) setLanguage(activeBattle.language)
     if (activeBattle.difficulty) setDifficulty(activeBattle.difficulty)
+    // 200ms lets useTypingTest's [difficulty,language] effect fire its random pickPassage() first,
+    // then we override with the exact battle passage — do NOT call resetTest() as it re-picks randomly
     const t = setTimeout(() => {
       if (activeBattle.passage_text) {
         setPassage(activeBattle.passage_text)
-        resetTest()
         battleApplied.current = true
       }
-    }, 100)
+    }, 200)
     return () => clearTimeout(t)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeBattle, battleStep])
@@ -195,8 +196,17 @@ function App() {
   }
 
   const handleBattleStart = () => {
-    // Called when countdown hits 0 — load the battle passage
+    // Called when countdown hits 0 — reset creator's test state (passage stays the same)
+    // For joiner: passage loading useEffect handles it via setPassage
     battleApplied.current = false
+    if (activeBattle?.isCreator) {
+      // Reset typed/stats without changing passage
+      resetTest()
+      // Re-apply correct passage after resetTest picks a random one
+      setTimeout(() => {
+        if (activeBattle?.passage_text) setPassage(activeBattle.passage_text)
+      }, 50)
+    }
   }
 
   const handleBattleEnd = () => {

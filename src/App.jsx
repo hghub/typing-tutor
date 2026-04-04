@@ -389,7 +389,7 @@ function App() {
           )}
           <PassageDisplay passage={passage} typed={typed} isDark={isDark} currentLangDir={currentLangDir} colors={colors} isKidsMode={isKidsMode} />
           <EmojiPopup trigger={emojiTrigger} />
-          <StatsGrid wpm={wpm} cpm={cpm} accuracy={accuracy} typed={typed} passage={passage} isTimerMode={isTimerMode} timeLeft={timeLeft} colors={colors} isDark={isDark} />
+          <StatsGrid wpm={wpm} cpm={cpm} accuracy={accuracy} typed={typed} passage={passage} isTimerMode={isTimerMode} timeLeft={timeLeft} colors={colors} isDark={isDark} isMobile={isMobile} />
           <TypingInput typed={typed} finished={finished} inputRef={inputRef} handleChange={handleChangeWithKids} handleKeyDown={handleTypingKeyDown} colors={colors} currentLangDir={currentLangDir} />
 
           {/* Virtual Keyboard — hidden on mobile (touch users don't need it) */}

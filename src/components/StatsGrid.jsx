@@ -23,7 +23,7 @@ const STAT_CARDS = [
   },
 ]
 
-export default function StatsGrid({ wpm, cpm, accuracy, typed, passage, isTimerMode, timeLeft, colors, isDark }) {
+export default function StatsGrid({ wpm, cpm, accuracy, typed, passage, isTimerMode, timeLeft, colors, isDark, isMobile }) {
   const progressValue = isTimerMode ? `${timeLeft}s` : `${typed.length}/${passage.length}`
   const progressLabel = isTimerMode ? 'Time Left' : 'Progress'
   const values = { wpm, cpm, accuracy, progress: progressValue }
@@ -35,7 +35,7 @@ export default function StatsGrid({ wpm, cpm, accuracy, typed, passage, isTimerM
   const textColor = colors?.text || '#e2e8f0'
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem', marginBottom: '1.5rem' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: '0.75rem', marginBottom: '1.5rem' }}>
       {STAT_CARDS.map(({ key, label, accentColor }) => {
         const valueColor = key === 'accuracy' ? getAccuracyColor(accuracy) : (accentColor || textColor)
         return (
@@ -44,7 +44,7 @@ export default function StatsGrid({ wpm, cpm, accuracy, typed, passage, isTimerM
             style={{
               background: cardBg,
               borderRadius: '0.75rem',
-              padding: '1.25rem',
+              padding: isMobile ? '0.875rem' : '1.25rem',
               border: `1px solid ${cardBorder}`,
               transition: 'box-shadow 0.2s ease',
             }}

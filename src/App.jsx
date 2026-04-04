@@ -41,6 +41,7 @@ function App() {
   const [showKeyboard, setShowKeyboard] = useState(false)
   const [showTournament, setShowTournament] = useState(false)
   const [challengeData, setChallengeData] = useState(null)
+  const [resultData, setResultData] = useState(null)   // sender sees friend's result
   const challengeApplied = useRef(false)
 
   const { isDark, toggleTheme, colors } = useTheme()
@@ -89,10 +90,11 @@ function App() {
   const [isNewBest, setIsNewBest] = useState(false)
   const [customDir, setCustomDir] = useState('ltr')
 
-  // Detect challenge link on mount
+  // Detect challenge link (?c=) or result link (?r=) on mount
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const c = params.get('c')
+    const r = params.get('r')
     if (c) {
       try {
         const data = JSON.parse(atob(c))
@@ -102,8 +104,16 @@ function App() {
       } catch {
         console.warn('Invalid challenge link')
       }
-      window.history.replaceState({}, '', window.location.pathname)
     }
+    if (r) {
+      try {
+        const data = JSON.parse(atob(r))
+        setResultData(data)  // { friendWpm, friendAccuracy, myWpm, myAccuracy }
+      } catch {
+        console.warn('Invalid result link')
+      }
+    }
+    if (c || r) window.history.replaceState({}, '', window.location.pathname)
   }, [])
 
   // Apply challenge passage once difficulty/language are set
@@ -232,6 +242,12 @@ function App() {
           const encoded = btoa(JSON.stringify(data))
           const url = `${window.location.origin}${window.location.pathname}?c=${encoded}`
           navigator.clipboard.writeText(url).catch(() => {})
+        }} onSendResult={() => {
+          // Encode both scores so sender can see who won
+          const data = { friendWpm: wpm, friendAccuracy: accuracy, myWpm: challengeData?.wpm, myAccuracy: challengeData?.accuracy }
+          const encoded = btoa(JSON.stringify(data))
+          const url = `${window.location.origin}${window.location.pathname}?r=${encoded}`
+          navigator.clipboard.writeText(url).catch(() => {})
         }} />}
         {finished && <TypingAnalysis analysis={analysis} isDark={isDark} colors={colors} />}
         {finished && <CareerReadiness wpm={wpm} accuracy={accuracy} isDark={isDark} colors={colors} />}
@@ -282,6 +298,57 @@ function App() {
         isDark={isDark}
         colors={colors}
       />
+
+      {/* Result link modal — shown to the original challenger */}
+      {resultData && (
+        <div style={{
+          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          zIndex: 1000, padding: '1rem', animation: 'fadeIn 0.18s ease',
+        }}>
+          <div style={{
+            background: colors.card, borderRadius: '1.5rem', padding: '2rem',
+            maxWidth: '420px', width: '100%', textAlign: 'center',
+            border: `2px solid ${resultData.friendWpm > resultData.myWpm ? 'rgba(239,68,68,0.6)' : 'rgba(16,185,129,0.6)'}`,
+            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)',
+          }}>
+            <p style={{
+              fontSize: '2rem', fontWeight: 900, margin: '0 0 0.5rem',
+              background: resultData.friendWpm > resultData.myWpm
+                ? 'linear-gradient(to right, #ef4444, #f97316)'
+                : 'linear-gradient(to right, #10b981, #06b6d4)',
+              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
+            }}>
+              {resultData.friendWpm > resultData.myWpm ? '😅 They Beat You!' : resultData.friendWpm === resultData.myWpm ? '🤝 It\'s a Tie!' : '🏆 You Won!'}
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '2.5rem', margin: '1.25rem 0' }}>
+              <div>
+                <p style={{ margin: 0, color: colors.textSecondary, fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.05em' }}>YOU</p>
+                <p style={{ margin: 0, fontWeight: 900, fontSize: '1.6rem', color: resultData.friendWpm > resultData.myWpm ? '#ef4444' : '#10b981' }}>{resultData.myWpm}</p>
+                <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary }}>{resultData.myAccuracy}% acc</p>
+              </div>
+              <div style={{ alignSelf: 'center', color: colors.textSecondary, fontSize: '1.2rem', fontWeight: 700 }}>vs</div>
+              <div>
+                <p style={{ margin: 0, color: colors.textSecondary, fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.05em' }}>FRIEND</p>
+                <p style={{ margin: 0, fontWeight: 900, fontSize: '1.6rem', color: resultData.friendWpm > resultData.myWpm ? '#10b981' : '#ef4444' }}>{resultData.friendWpm}</p>
+                <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary }}>{resultData.friendAccuracy}% acc</p>
+              </div>
+            </div>
+            <p style={{ color: colors.textSecondary, fontSize: '0.85rem', margin: '0 0 1.25rem' }}>
+              {resultData.friendWpm > resultData.myWpm
+                ? `They were ${resultData.friendWpm - resultData.myWpm} WPM faster. Challenge them again?`
+                : resultData.friendWpm === resultData.myWpm
+                  ? 'Exact same speed — impressive!'
+                  : `You were ${resultData.myWpm - resultData.friendWpm} WPM faster. Well done!`}
+            </p>
+            <button onClick={() => setResultData(null)} style={{
+              background: 'linear-gradient(to right, #06b6d4, #3b82f6)',
+              color: 'white', border: 'none', borderRadius: '0.75rem',
+              padding: '0.6rem 1.5rem', fontWeight: 700, cursor: 'pointer', fontSize: '0.9rem',
+            }}>Got it!</button>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <div style={{ textAlign: 'center', marginTop: '2rem', paddingBottom: '1rem' }}>

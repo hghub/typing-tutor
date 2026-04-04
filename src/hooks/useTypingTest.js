@@ -53,7 +53,11 @@ export function useTypingTest({ difficulty, language }) {
     if (diff === 'custom' || diff === 'timer') return
     const pool = (PASSAGES[lang]?.[diff] ?? PASSAGES[lang]?.easy) || []
     if (pool.length) {
-      const idx = Math.floor(Math.random() * pool.length)
+      let idx = Math.floor(Math.random() * pool.length)
+      // Avoid repeating the same passage if pool has more than 1 entry
+      if (pool.length > 1) {
+        while (idx === passageIndex) idx = Math.floor(Math.random() * pool.length)
+      }
       setPassageIndex(idx)
       setPassage(pool[idx])
     }

@@ -180,6 +180,7 @@ export default function BattleModal({
       }).catch(() => {})
       if (count <= 0) {
         clearInterval(countdownRef.current)
+        countdownRef.current = null
         setBattleStep('typing')
         onBattleStart()
       }

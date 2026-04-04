@@ -87,7 +87,7 @@ function App() {
       const { earned } = addXP(wpm, accuracy, difficulty)
       setXpEarned(earned)
     }
-  }, [finished])
+  }, [finished, wpm, accuracy, difficulty, addXP])
 
   useEffect(() => {
     if (!finished || !identity.userId) return
@@ -162,10 +162,9 @@ function App() {
       if (activeRoom.passage_text) {
         setPassage(activeRoom.passage_text)
       } else {
-        // fallback to index-based if passage_text missing (old rooms)
-        const pool = (PASSAGES[activeRoom.language]?.[activeRoom.difficulty] ?? PASSAGES.english?.easy) || []
-        const idx = (activeRoom.passage_index ?? 0) % Math.max(pool.length, 1)
-        if (pool[idx]) setPassage(pool[idx])
+        // Old room without passage_text — can't guarantee same passage, show error
+        console.warn('Room missing passage_text — created with older app version')
+        setPassage('This room was created with an older version. Please ask the host to create a new room.')
       }
       activeRoomApplied.current = true
     }, 200)
@@ -191,6 +190,7 @@ function App() {
   }, [activeBattle, battleStep])
 
   const handleCustomStart = (text, dir) => {
+    if (!text || text.trim().length < 10) return
     setCustomDir(dir || 'ltr')
     setPassage(text)
     resetTest()
@@ -256,6 +256,7 @@ function App() {
     setIsKidsMode(next)
     localStorage.setItem('typingKidsMode', String(next))
     if (next) {
+      resetTest() // clear typed/stats before switching to kids passage
       const pool = KIDS_PASSAGES[language] || KIDS_PASSAGES.english
       const idx = Math.floor(Math.random() * pool.length)
       setTimeout(() => setPassage(pool[idx]), 200)

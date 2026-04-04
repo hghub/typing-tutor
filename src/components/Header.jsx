@@ -6,23 +6,24 @@ export default function Header({ language, onLanguageChange, isDark, onToggleThe
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: isMobile ? '1.5rem' : '3rem',
+      marginBottom: isMobile ? '1.5rem' : '2rem',
       flexWrap: 'wrap',
       gap: '1rem',
     }}>
       <div style={{ flex: 1, minWidth: '200px' }}>
         <h1 style={{
-          fontSize: isMobile ? '2.25rem' : '3.5rem',
-          fontWeight: 900,
-          background: 'linear-gradient(to right, #22d3ee, #60a5fa, #a855f7)',
+          fontSize: isMobile ? '1.75rem' : '2.2rem',
+          fontWeight: 800,
+          background: 'linear-gradient(to right, #06b6d4, #3b82f6)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
           margin: 0,
+          letterSpacing: '-0.02em',
         }}>
           TypeMaster
         </h1>
-        <p style={{ color: colors.textSecondary, fontSize: isMobile ? '0.875rem' : '1.125rem', fontWeight: 300, margin: '0.5rem 0 0 0' }}>
+        <p style={{ color: colors.textSecondary, fontSize: '0.85rem', fontWeight: 400, margin: '0.25rem 0 0 0' }}>
           Master your typing speed and accuracy
         </p>
       </div>
@@ -33,14 +34,14 @@ export default function Header({ language, onLanguageChange, isDark, onToggleThe
           onChange={(e) => onLanguageChange(e.target.value)}
           style={{
             background: colors.difficulty,
-            border: `2px solid ${isDark ? '#334155' : '#e2e8f0'}`,
+            border: `1px solid ${isDark ? '#334155' : '#e2e8f0'}`,
             color: colors.text,
             padding: '0.5rem 0.75rem',
             borderRadius: '0.5rem',
             cursor: 'pointer',
-            fontSize: '1rem',
-            fontWeight: 600,
-            transition: 'all 0.3s ease',
+            fontSize: '0.9rem',
+            fontWeight: 500,
+            transition: 'border-color 0.2s ease',
           }}
         >
           {Object.entries(LANGUAGES).map(([key, lang]) => (
@@ -53,21 +54,21 @@ export default function Header({ language, onLanguageChange, isDark, onToggleThe
           title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           style={{
             background: colors.difficulty,
-            border: `2px solid ${isDark ? '#334155' : '#e2e8f0'}`,
+            border: `1px solid ${isDark ? '#334155' : '#e2e8f0'}`,
             color: colors.text,
-            width: isMobile ? '44px' : '60px',
-            height: isMobile ? '44px' : '60px',
-            borderRadius: '50%',
+            width: '36px',
+            height: '36px',
+            borderRadius: '8px',
             cursor: 'pointer',
-            fontSize: isMobile ? '1.1rem' : '1.5rem',
+            fontSize: '1rem',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            transition: 'all 0.3s ease',
-            boxShadow: colors.buttonShadow,
+            transition: 'border-color 0.2s ease',
+            boxShadow: 'none',
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.1)'; e.currentTarget.style.borderColor = '#06b6d4' }}
-          onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.borderColor = isDark ? '#334155' : '#e2e8f0' }}
+          onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#06b6d4' }}
+          onMouseLeave={(e) => { e.currentTarget.style.borderColor = isDark ? '#334155' : '#e2e8f0' }}
         >
           {isDark ? '☀️' : '🌙'}
         </button>

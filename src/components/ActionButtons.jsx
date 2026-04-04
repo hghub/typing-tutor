@@ -1,79 +1,124 @@
 const btnBase = {
-  padding: '0.75rem 2rem',
-  color: 'white',
-  borderRadius: '0.75rem',
+  padding: '0.75rem 1.5rem',
+  borderRadius: '0.625rem',
   fontWeight: 600,
   border: 'none',
   cursor: 'pointer',
-  transition: 'all 0.2s',
+  transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+  fontSize: '0.875rem',
 }
 
-function ActionButton({ style, shadowColor, onClick, children, isMobile }) {
-  const padding = isMobile ? '0.6rem 1rem' : '0.75rem 2rem'
-  const fontSize = isMobile ? '0.82rem' : undefined
+function ActionButton({ style, isPrimary, onClick, children, isMobile }) {
+  const padding = isMobile ? '0.55rem 1rem' : '0.75rem 1.5rem'
+  const fontSize = isMobile ? '0.8rem' : '0.875rem'
+  const hoverShadow = isPrimary
+    ? '0 4px 16px rgba(6, 182, 212, 0.35)'
+    : '0 4px 16px rgba(0,0,0,0.12)'
+
   return (
     <button
       onClick={onClick}
-      style={{ ...btnBase, padding, fontSize, ...style, boxShadow: `0 20px 25px -5px ${shadowColor}` }}
-      onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.05)'; e.currentTarget.style.boxShadow = `0 25px 50px -12px ${shadowColor}` }}
-      onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = `0 20px 25px -5px ${shadowColor}` }}
+      style={{ ...btnBase, padding, fontSize, boxShadow: 'none', ...style }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = 'translateY(-1px)'
+        e.currentTarget.style.boxShadow = hoverShadow
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = 'translateY(0)'
+        e.currentTarget.style.boxShadow = 'none'
+      }}
     >
       {children}
     </button>
   )
 }
 
-export default function ActionButtons({ finished, onReset, onFeedback, onViewStats, onLeaderboard, soundOn, onToggleSound, showKeyboard, onToggleKeyboard, onTournament, onGroupChallenge, onBattle, isMobile, isKidsMode, onToggleKidsMode, hideMultiplayer }) {
+export default function ActionButtons({ finished, onReset, onFeedback, onViewStats, onLeaderboard, soundOn, onToggleSound, showKeyboard, onToggleKeyboard, onTournament, onGroupChallenge, onBattle, isMobile, isKidsMode, onToggleKidsMode, hideMultiplayer, isDark, colors }) {
+  const secBg = isDark ? '#1e293b' : '#f1f5f9'
+  const secBorder = isDark ? '#334155' : '#e2e8f0'
+  const secText = isDark ? '#e2e8f0' : '#1e293b'
+  const secStyle = { background: secBg, color: secText, border: `1px solid ${secBorder}` }
+
   return (
     <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-      <ActionButton style={{ background: 'linear-gradient(to right, #06b6d4, #3b82f6)' }} shadowColor="rgba(6, 182, 212, 0.3)" onClick={onReset} isMobile={isMobile}>
-        {finished ? 'Try Again' : 'Reset'}
-      </ActionButton>
+      {/* Primary CTA — cyan→blue gradient */}
       <ActionButton
-        style={{ background: showKeyboard ? 'linear-gradient(to right, #10b981, #06b6d4)' : 'linear-gradient(to right, #475569, #64748b)' }}
-        shadowColor="rgba(16, 185, 129, 0.3)"
+        style={{ background: 'linear-gradient(to right, #06b6d4, #3b82f6)', color: 'white' }}
+        isPrimary
+        onClick={onReset}
+        isMobile={isMobile}
+      >
+        {finished ? '↺ Try Again' : '↺ Reset'}
+      </ActionButton>
+
+      {/* Keyboard toggle — solid active/inactive */}
+      <ActionButton
+        style={showKeyboard
+          ? { background: '#0e7490', color: 'white' }
+          : secStyle}
         onClick={onToggleKeyboard}
         isMobile={isMobile}
       >
         ⌨️ {showKeyboard ? 'Hide Keys' : 'Show Keys'}
       </ActionButton>
-      <ActionButton style={{ background: 'linear-gradient(to right, #a855f7, #ec4899)' }} shadowColor="rgba(168, 85, 247, 0.3)" onClick={onViewStats} isMobile={isMobile}>
+
+      <ActionButton style={secStyle} onClick={onViewStats} isMobile={isMobile}>
         View Stats
       </ActionButton>
-      <ActionButton style={{ background: 'linear-gradient(to right, #f59e0b, #22c55e)' }} shadowColor="rgba(34, 197, 94, 0.3)" onClick={onLeaderboard} isMobile={isMobile}>
+
+      <ActionButton style={secStyle} onClick={onLeaderboard} isMobile={isMobile}>
         🏆 Leaderboard
       </ActionButton>
+
       {!hideMultiplayer && (
-        <ActionButton style={{ background: 'linear-gradient(to right, #ef4444, #f97316)' }} shadowColor="rgba(239, 68, 68, 0.3)" onClick={onTournament} isMobile={isMobile}>
+        <ActionButton
+          style={{ background: '#7f1d1d', color: '#fca5a5', border: '1px solid #991b1b' }}
+          onClick={onTournament}
+          isMobile={isMobile}
+        >
           🎯 Tournament
         </ActionButton>
       )}
+
       {!hideMultiplayer && (
-        <ActionButton style={{ background: 'linear-gradient(to right, #10b981, #06b6d4)' }} shadowColor="rgba(16, 185, 129, 0.3)" onClick={onGroupChallenge} isMobile={isMobile}>
+        <ActionButton style={secStyle} onClick={onGroupChallenge} isMobile={isMobile}>
           👥 Group Challenge
         </ActionButton>
       )}
+
       {!hideMultiplayer && (
-        <ActionButton style={{ background: 'linear-gradient(to right, #ef4444, #f97316)' }} shadowColor="rgba(239, 68, 68, 0.3)" onClick={onBattle} isMobile={isMobile}>
+        <ActionButton
+          style={{ background: '#7f1d1d', color: '#fca5a5', border: '1px solid #991b1b' }}
+          onClick={onBattle}
+          isMobile={isMobile}
+        >
           ⚔️ 1v1 Battle
         </ActionButton>
       )}
-      <ActionButton style={{ background: soundOn ? 'linear-gradient(to right, #6366f1, #a855f7)' : 'linear-gradient(to right, #475569, #64748b)' }} shadowColor="rgba(99, 102, 241, 0.3)" onClick={onToggleSound} isMobile={isMobile}>
+
+      {/* Sound toggle — solid on/off distinction */}
+      <ActionButton
+        style={soundOn
+          ? { background: '#1d4ed8', color: 'white' }
+          : secStyle}
+        onClick={onToggleSound}
+        isMobile={isMobile}
+      >
         {soundOn ? '🔊 Sound On' : '🔇 Sound Off'}
       </ActionButton>
+
+      {/* Kids Mode — rainbow is intentional fun */}
       <ActionButton
-        style={{
-          background: isKidsMode
-            ? 'linear-gradient(to right, #f97316, #ec4899, #8b5cf6, #06b6d4)'
-            : 'linear-gradient(to right, #475569, #64748b)',
-        }}
-        shadowColor="rgba(236, 72, 153, 0.3)"
+        style={isKidsMode
+          ? { background: 'linear-gradient(to right, #f97316, #ec4899, #8b5cf6, #06b6d4)', color: 'white' }
+          : secStyle}
         onClick={onToggleKidsMode}
         isMobile={isMobile}
       >
         🧒 {isKidsMode ? 'Kids Mode ON' : 'Kids Mode'}
       </ActionButton>
-      <ActionButton style={{ background: 'linear-gradient(to right, #f59e0b, #f97316)' }} shadowColor="rgba(245, 158, 11, 0.3)" onClick={onFeedback} isMobile={isMobile}>
+
+      <ActionButton style={secStyle} onClick={onFeedback} isMobile={isMobile}>
         💡 Suggest a Feature
       </ActionButton>
     </div>

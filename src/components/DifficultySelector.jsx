@@ -18,15 +18,15 @@ function PillButton({ id, label, isActive, disabled, colors, onClick }) {
       disabled={disabled}
       title={disabled ? 'Not available for this language' : undefined}
       style={{
-        padding: '0.65rem 1.25rem',
-        borderRadius: '0.75rem',
+        padding: '0.55rem 1.1rem',
+        borderRadius: '0.5rem',
         fontWeight: 600,
-        border: `2px solid ${isActive ? 'transparent' : colors.difficultyBorder}`,
+        border: `1px solid ${isActive ? '#06b6d4' : colors.difficultyBorder}`,
         cursor: disabled ? 'not-allowed' : 'pointer',
-        transition: 'all 0.3s',
-        background: isActive ? 'linear-gradient(to right, #06b6d4, #3b82f6)' : colors.difficulty,
+        transition: 'all 0.15s ease',
+        background: isActive ? '#06b6d4' : colors.difficulty,
         color: isActive ? 'white' : disabled ? (colors.textSecondary + '55') : colors.textSecondary,
-        fontSize: '0.875rem',
+        fontSize: '0.85rem',
         opacity: disabled ? 0.4 : 1,
         textDecoration: disabled ? 'line-through' : 'none',
       }}
@@ -60,7 +60,7 @@ export default function DifficultySelector({ difficulty, onSelect, availablePack
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', marginBottom: '2.5rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap', justifyContent: 'center' }}>
         <span style={labelStyle}>Mode</span>
         {MODES.map((level) => (

@@ -113,16 +113,12 @@ export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isN
 
   return (
     <div style={{
-      background: colors?.card || 'linear-gradient(to right, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2))',
-      backdropFilter: 'blur(12px)',
-      borderRadius: '1rem',
+      background: colors?.card || '#1e293b',
+      borderRadius: '0.875rem',
       border: challengeData
-        ? `2px solid ${won ? 'rgba(16,185,129,0.7)' : tied ? 'rgba(245,158,11,0.7)' : 'rgba(239,68,68,0.7)'}`
-        : '2px solid rgba(16, 185, 129, 0.5)',
-      padding: '2rem',
-      textAlign: 'center',
-      boxShadow: '0 25px 50px -12px rgba(16, 185, 129, 0.2)',
-      animation: 'pulse-slow 3s ease-in-out infinite',
+        ? `1px solid ${won ? 'rgba(16,185,129,0.4)' : tied ? 'rgba(245,158,11,0.4)' : 'rgba(239,68,68,0.4)'}`
+        : `1px solid ${colors?.border || 'rgba(51,65,85,0.5)'}`,
+      padding: '1.5rem',
       direction: currentLangDir,
     }}>
 
@@ -178,68 +174,71 @@ export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isN
       )}
 
       <p style={{
-        fontSize: challengeData ? '1.4rem' : '2rem',
-        fontWeight: 900,
+        fontSize: challengeData ? '1.2rem' : '1.5rem',
+        fontWeight: 700,
         background: 'linear-gradient(to right, #10b981, #06b6d4)',
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
         backgroundClip: 'text',
-        marginBottom: '0.5rem',
+        marginBottom: '0.75rem',
+        marginTop: 0,
       }}>
         {challengeData ? '📊 Your Stats' : '🎉 Complete!'}
       </p>
       {isNewBest && (
         <p style={{
           display: 'inline-block',
-          background: 'linear-gradient(to right, #f59e0b, #f97316)',
+          background: '#d97706',
           color: 'white',
-          fontWeight: 700,
-          fontSize: '0.85rem',
-          borderRadius: '2rem',
-          padding: '0.25rem 0.875rem',
-          marginBottom: '1rem',
+          fontWeight: 600,
+          fontSize: '0.8rem',
+          borderRadius: '0.375rem',
+          padding: '0.2rem 0.75rem',
+          marginBottom: '0.75rem',
         }}>
-          🏅 New Personal Best WPM!
+          🏅 New Personal Best!
         </p>
       )}
-      <p style={{ color: colors?.text || '#e2e8f0', fontSize: '1.125rem', marginBottom: '0.5rem' }}>
-        Final WPM: <span style={{ fontWeight: 900, color: '#10b981' }}>{wpm}</span>
-      </p>
-      <p style={{ color: colors?.text || '#e2e8f0', fontSize: '1.125rem', marginBottom: '0.5rem' }}>
-        CPM: <span style={{ fontWeight: 900, color: '#34d399' }}>{cpm}</span>
-      </p>
-      <p style={{ color: colors?.text || '#e2e8f0', fontSize: '1.125rem', marginBottom: '0.5rem' }}>
-        Accuracy: <span style={{ fontWeight: 900, color: getAccuracyColor(accuracy) }}>{accuracy}%</span>
-      </p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', marginBottom: '0.75rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+          <span style={{ color: colors?.textSecondary || '#94a3b8', fontSize: '0.8rem' }}>Final WPM</span>
+          <span style={{ fontWeight: 700, color: '#06b6d4', fontSize: '1.25rem' }}>{wpm}</span>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+          <span style={{ color: colors?.textSecondary || '#94a3b8', fontSize: '0.8rem' }}>CPM</span>
+          <span style={{ fontWeight: 700, color: '#3b82f6', fontSize: '1.25rem' }}>{cpm}</span>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+          <span style={{ color: colors?.textSecondary || '#94a3b8', fontSize: '0.8rem' }}>Accuracy</span>
+          <span style={{ fontWeight: 700, color: getAccuracyColor(accuracy), fontSize: '1.25rem' }}>{accuracy}%</span>
+        </div>
+      </div>
       {xpEarned > 0 && (
         <p style={{
           display: 'inline-block',
-          background: 'linear-gradient(to right, #8b5cf6, #06b6d4)',
+          background: '#1d4ed8',
           color: 'white',
-          fontWeight: 700,
-          fontSize: '0.95rem',
-          borderRadius: '2rem',
-          padding: '0.3rem 1rem',
-          marginTop: '0.5rem',
+          fontWeight: 600,
+          fontSize: '0.85rem',
+          borderRadius: '0.375rem',
+          padding: '0.25rem 0.75rem',
+          marginBottom: '0.75rem',
         }}>
           ✨ +{xpEarned} XP earned
         </p>
       )}
 
       {/* Buttons row */}
-      <div style={{ marginTop: '1.25rem', display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+      <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
         {/* Submit to active group room */}
         {activeRoom && !activeRoom.isCreator && (
           <button
             onClick={handleSubmitToRoom}
             style={{
-              background: roomCopied
-                ? 'linear-gradient(to right, #10b981, #06b6d4)'
-                : 'linear-gradient(to right, #10b981, #3b82f6)',
-              color: 'white', border: 'none', borderRadius: '0.75rem',
-              padding: '0.55rem 1.25rem', fontWeight: 700, cursor: 'pointer',
-              fontSize: '0.88rem', transition: 'background 0.3s',
-              boxShadow: '0 4px 15px rgba(16,185,129,0.35)',
+              background: roomCopied ? '#059669' : '#0e7490',
+              color: 'white', border: 'none', borderRadius: '0.5rem',
+              padding: '0.5rem 1rem', fontWeight: 600, cursor: 'pointer',
+              fontSize: '0.85rem', transition: 'background 0.2s',
             }}
           >
             {roomCopied ? '✅ Submitted!' : `📤 Submit to Room ${activeRoom.id}`}
@@ -250,13 +249,10 @@ export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isN
           <button
             onClick={handleSubmitToRoom}
             style={{
-              background: roomCopied
-                ? 'linear-gradient(to right, #10b981, #06b6d4)'
-                : 'linear-gradient(to right, #10b981, #3b82f6)',
-              color: 'white', border: 'none', borderRadius: '0.75rem',
-              padding: '0.55rem 1.25rem', fontWeight: 700, cursor: 'pointer',
-              fontSize: '0.88rem', transition: 'background 0.3s',
-              boxShadow: '0 4px 15px rgba(16,185,129,0.35)',
+              background: roomCopied ? '#059669' : '#0e7490',
+              color: 'white', border: 'none', borderRadius: '0.5rem',
+              padding: '0.5rem 1rem', fontWeight: 600, cursor: 'pointer',
+              fontSize: '0.85rem', transition: 'background 0.2s',
             }}
           >
             {roomCopied ? '✅ Submitted!' : `📤 Submit to Room ${activeRoom.id}`}
@@ -267,13 +263,10 @@ export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isN
           <button
             onClick={handleSendResult}
             style={{
-              background: resultCopied
-                ? 'linear-gradient(to right, #10b981, #06b6d4)'
-                : 'linear-gradient(to right, #8b5cf6, #ec4899)',
-              color: 'white', border: 'none', borderRadius: '0.75rem',
-              padding: '0.55rem 1.25rem', fontWeight: 700, cursor: 'pointer',
-              fontSize: '0.88rem', transition: 'background 0.3s',
-              boxShadow: '0 4px 15px rgba(139,92,246,0.35)',
+              background: resultCopied ? '#059669' : '#1e293b',
+              color: 'white', border: '1px solid #334155', borderRadius: '0.5rem',
+              padding: '0.5rem 1rem', fontWeight: 600, cursor: 'pointer',
+              fontSize: '0.85rem', transition: 'background 0.2s',
             }}
           >
             {resultCopied ? '✅ Result Link Copied!' : '📨 Send Result to Challenger'}
@@ -282,13 +275,10 @@ export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isN
         <button
           onClick={handleChallenge}
           style={{
-            background: copied
-              ? 'linear-gradient(to right, #10b981, #06b6d4)'
-              : 'linear-gradient(to right, #f97316, #ef4444)',
-            color: 'white', border: 'none', borderRadius: '0.75rem',
-            padding: '0.55rem 1.25rem', fontWeight: 700, cursor: 'pointer',
-            fontSize: '0.88rem', transition: 'background 0.3s',
-            boxShadow: '0 4px 15px rgba(239,68,68,0.3)',
+            background: copied ? '#059669' : 'linear-gradient(to right, #06b6d4, #3b82f6)',
+            color: 'white', border: 'none', borderRadius: '0.5rem',
+            padding: '0.5rem 1rem', fontWeight: 600, cursor: 'pointer',
+            fontSize: '0.85rem', transition: 'background 0.2s',
           }}
         >
           {copied ? '✅ Link Copied!' : '⚔️ Challenge a Friend'}

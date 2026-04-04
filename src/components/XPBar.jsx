@@ -26,7 +26,7 @@ export default function XPBar({ xp, level, streak, colors, isDark }) {
         <div style={{
           height: '100%',
           width: `${Math.round(progress * 100)}%`,
-          background: 'linear-gradient(to right, #10b981, #06b6d4)',
+          background: 'linear-gradient(to right, #06b6d4, #3b82f6)',
           borderRadius: '4px',
           transition: 'width 0.6s ease',
         }} />

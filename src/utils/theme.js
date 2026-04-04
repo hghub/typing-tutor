@@ -1,30 +1,30 @@
 export function getThemeColors(isDark) {
   if (isDark) {
     return {
-      bg: 'linear-gradient(to bottom right, #0f172a, #4c1d95, #0f172a)',
-      text: '#f1f5f9',
+      bg: '#0f172a',
+      text: '#e2e8f0',
       textSecondary: '#94a3b8',
-      card: 'rgba(30, 41, 59, 0.5)',
-      cardBg: 'rgba(15, 23, 42, 0.7)',
-      passageText: '#f1f5f9',
-      input: 'rgba(15, 23, 42, 0.8)',
-      inputBorder: '#475569',
+      card: '#1e293b',
+      cardBg: '#0f172a',
+      passageText: '#e2e8f0',
+      input: '#0f172a',
+      inputBorder: '#334155',
       difficulty: '#1e293b',
       difficultyBorder: '#334155',
-      buttonShadow: '0 10px 25px rgba(6, 182, 212, 0.1)',
+      border: 'rgba(51, 65, 85, 0.5)',
     }
   }
   return {
-    bg: 'linear-gradient(to bottom right, #f8fafc, #f1f5f9, #e2e8f0)',
+    bg: '#f8fafc',
     text: '#1e293b',
     textSecondary: '#64748b',
-    card: 'rgba(248, 250, 252, 0.9)',
-    cardBg: 'rgba(241, 245, 249, 0.95)',
-    passageText: '#0f172a',
-    input: 'rgba(248, 250, 252, 0.95)',
-    inputBorder: '#cbd5e1',
+    card: '#ffffff',
+    cardBg: '#f8fafc',
+    passageText: '#1e293b',
+    input: '#ffffff',
+    inputBorder: '#e2e8f0',
     difficulty: '#f1f5f9',
     difficultyBorder: '#e2e8f0',
-    buttonShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
+    border: 'rgba(203, 213, 225, 0.6)',
   }
 }

@@ -6,12 +6,10 @@ export default function PassageDisplay({ passage, typed, isDark, currentLangDir,
   return (
     <div style={{
       background: colors.cardBg,
-      borderRadius: '1rem',
-      padding: '2rem',
-      marginBottom: '2rem',
-      border: `1px solid ${isDark ? 'rgba(71, 85, 105, 0.3)' : 'rgba(203, 213, 225, 0.3)'}`,
-      backdropFilter: 'blur(10px)',
-      transition: 'all 0.3s ease',
+      borderRadius: '0.75rem',
+      padding: '1.5rem',
+      marginBottom: '1.5rem',
+      border: `1px solid ${isDark ? 'rgba(51, 65, 85, 0.5)' : 'rgba(203, 213, 225, 0.6)'}`,
       direction: currentLangDir,
       textAlign: currentLangDir === 'rtl' ? 'right' : 'left',
     }}>

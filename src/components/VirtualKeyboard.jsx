@@ -54,9 +54,19 @@ const ARABIC_TO_KEY = Object.fromEntries(
     .filter(([, v]) => v.length === 1)
     .map(([k, v]) => [v, k])
 )
-// لا is typed with 'b' key
-ARABIC_TO_KEY['ل'] = ARABIC_TO_KEY['ل'] || 'g'  // ل maps to g
+ARABIC_TO_KEY['ل'] = ARABIC_TO_KEY['ل'] || 'g'
 ARABIC_TO_KEY['لا'] = 'b'
+
+// Persian Standard keyboard layout (Windows Farsi)
+const PERSIAN_LAYOUT = {
+  q:'ض', w:'ص', e:'ث', r:'ق', t:'ف', y:'غ', u:'ع', i:'ه', o:'خ', p:'ح',
+  a:'ش', s:'س', d:'ی', f:'ب', g:'ل', h:'ا', j:'ت', k:'ن', l:'م',
+  z:'ظ', x:'ط', c:'ز', v:'ر', b:'ذ', n:'د', m:'پ',
+}
+
+const PERSIAN_TO_KEY = Object.fromEntries(
+  Object.entries(PERSIAN_LAYOUT).map(([k, v]) => [v, k])
+)
 
 const ROW_OFFSETS = ['0', '1.1rem', '2.2rem']
 
@@ -70,13 +80,13 @@ export default function VirtualKeyboard({ nextChar, isDark, colors, language }) 
 
   const isUrdu = language === 'urdu'
   const isArabic = language === 'arabic'
-  const isRTLLayout = isUrdu || isArabic
+  const isPersian = language === 'persian'
+  const isRTLLayout = isUrdu || isArabic || isPersian
   const isSpace = nextChar === ' '
 
-  const LAYOUT = isUrdu ? URDU_LAYOUT : isArabic ? ARABIC_LAYOUT : null
-  const TO_KEY = isUrdu ? URDU_TO_KEY : isArabic ? ARABIC_TO_KEY : null
+  const LAYOUT = isUrdu ? URDU_LAYOUT : isArabic ? ARABIC_LAYOUT : isPersian ? PERSIAN_LAYOUT : null
+  const TO_KEY = isUrdu ? URDU_TO_KEY : isArabic ? ARABIC_TO_KEY : isPersian ? PERSIAN_TO_KEY : null
 
-  // Map nextChar → physical key to highlight
   const targetKey = isSpace ? null
     : isRTLLayout ? (TO_KEY?.[nextChar] || null)
     : (nextChar ? nextChar.toLowerCase() : null)
@@ -86,7 +96,13 @@ export default function VirtualKeyboard({ nextChar, isDark, colors, language }) 
   const fingerColor = finger ? FINGER_COLORS[finger] : null
   const fingerLabel = finger ? FINGER_LABELS[finger] : null
 
-  const layoutLabel = isUrdu ? '🇵🇰 Urdu Phonetic Layout' : isArabic ? '🇸🇦 Arabic Standard (Windows 101)' : null
+  const layoutLabel = isUrdu ? '🇵🇰 Urdu Phonetic Layout'
+    : isArabic ? '🇸🇦 Arabic Standard (Windows 101)'
+    : isPersian ? '🇮🇷 Persian Standard Layout'
+    : null
+
+  const layoutColor = isArabic ? '#34d399' : isPersian ? '#f97316' : '#a78bfa'
+  const layoutBg = isArabic ? 'rgba(52,211,153,0.15)' : isPersian ? 'rgba(249,115,22,0.15)' : 'rgba(167,139,250,0.15)'
 
   const getKeyStyle = (key) => {
     const isNext = !isSpace && targetKey === key
@@ -147,8 +163,8 @@ export default function VirtualKeyboard({ nextChar, isDark, colors, language }) 
         <div style={{ textAlign: 'center', marginBottom: '0.4rem' }}>
           <span style={{
             fontSize: '0.65rem', fontWeight: 700,
-            color: isArabic ? '#34d399' : '#a78bfa',
-            background: isArabic ? 'rgba(52,211,153,0.15)' : 'rgba(167,139,250,0.15)',
+            color: layoutColor,
+            background: layoutBg,
             padding: '0.15rem 0.6rem', borderRadius: '1rem', letterSpacing: '0.05em',
           }}>{layoutLabel}</span>
         </div>

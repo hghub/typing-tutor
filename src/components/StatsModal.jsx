@@ -164,6 +164,7 @@ export default function StatsModal({ show, onClose, userId, isDark, colors }) {
         justifyContent: 'center',
         zIndex: 1000,
         padding: '1rem',
+        animation: 'fadeIn 0.18s ease-out',
       }}
     >
       <div style={{

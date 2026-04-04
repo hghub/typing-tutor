@@ -25,6 +25,7 @@ export function useIdentity() {
   const [showIdentityModal, setShowIdentityModal] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [newCode, setNewCode] = useState(null) // shown after signup
   const [detectedCountry, setDetectedCountry] = useState(null)
   const [detectedCity, setDetectedCity] = useState(null)
 
@@ -60,7 +61,9 @@ export function useIdentity() {
       localStorage.setItem(USER_KEY, code)
       setUserId(code)
       setDisplayName(name.trim())
-      setShowIdentityModal(false)
+      setNewCode(code)
+      // Keep modal open briefly to show the code, then close
+      setTimeout(() => { setShowIdentityModal(false); setNewCode(null) }, 8000)
     } catch (err) {
       setError('Failed to create profile. Try again.')
       console.error(err)
@@ -86,5 +89,5 @@ export function useIdentity() {
     }
   }
 
-  return { userId, displayName, showIdentityModal, setShowIdentityModal, loading, error, detectedCountry, detectedCity, createUser, resumeUser }
+  return { userId, displayName, showIdentityModal, setShowIdentityModal, loading, error, detectedCountry, detectedCity, newCode, createUser, resumeUser }
 }

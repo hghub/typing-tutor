@@ -56,6 +56,8 @@ function App() {
     submitScore()
   }, [finished])
 
+  const [isNewBest, setIsNewBest] = useState(false)
+
   const handleCustomStart = (text) => {
     setPassage(text)
     resetTest()
@@ -69,6 +71,13 @@ function App() {
     }
     handleKeyDown(e)
   }
+
+  useEffect(() => {
+    if (!finished) { setIsNewBest(false); return }
+    const scores = JSON.parse(localStorage.getItem('typingScores') || '[]')
+    const prevBest = scores.length > 1 ? Math.max(...scores.slice(0, -1).map((s) => s.wpm)) : 0
+    setIsNewBest(wpm > prevBest && scores.length > 0)
+  }, [finished, wpm])
 
   const currentLangDir = LANGUAGES[language]?.dir || 'ltr'
 
@@ -109,7 +118,7 @@ function App() {
             </div>
           )}
           <PassageDisplay passage={passage} typed={typed} isDark={isDark} currentLangDir={currentLangDir} colors={colors} />
-          <StatsGrid wpm={wpm} cpm={cpm} accuracy={accuracy} typed={typed} passage={passage} />
+          <StatsGrid wpm={wpm} cpm={cpm} accuracy={accuracy} typed={typed} passage={passage} isTimerMode={isTimerMode} timeLeft={timeLeft} />
           <TypingInput typed={typed} finished={finished} inputRef={inputRef} handleChange={handleChange} handleKeyDown={handleTypingKeyDown} colors={colors} currentLangDir={currentLangDir} />
           <ActionButtons
             finished={finished}
@@ -122,7 +131,7 @@ function App() {
           />
         </div>
 
-        {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} />}
+        {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} />}
       </div>
 
       <FeedbackModal {...feedback} isDark={isDark} colors={colors} />
@@ -135,6 +144,7 @@ function App() {
         error={identity.error}
         detectedCountry={identity.detectedCountry}
         detectedCity={identity.detectedCity}
+        newCode={identity.newCode}
         isDark={isDark}
         colors={colors}
       />

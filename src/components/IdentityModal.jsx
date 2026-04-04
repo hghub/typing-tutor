@@ -16,7 +16,7 @@ const COUNTRIES = [
   'United States','Uzbekistan','Venezuela','Vietnam','Yemen','Zimbabwe',
 ]
 
-export default function IdentityModal({ show, onCreate, onResume, loading, error, detectedCountry, detectedCity, isDark, colors }) {
+export default function IdentityModal({ show, onCreate, onResume, loading, error, detectedCountry, detectedCity, newCode, isDark, colors }) {
   const [mode, setMode] = useState('new')
   const [name, setName] = useState('')
   const [country, setCountry] = useState('')
@@ -67,6 +67,7 @@ export default function IdentityModal({ show, onCreate, onResume, loading, error
       justifyContent: 'center',
       zIndex: 2000,
       padding: '1rem',
+      animation: 'fadeIn 0.18s ease-out',
     }}>
       <div style={{
         background: isDark ? 'rgba(15, 23, 42, 0.98)' : 'rgba(248, 250, 252, 0.98)',
@@ -84,6 +85,29 @@ export default function IdentityModal({ show, onCreate, onResume, loading, error
         <p style={{ margin: '0 0 1.5rem 0', color: colors.textSecondary, textAlign: 'center', fontSize: '0.9rem' }}>
           Join the leaderboard — it's free!
         </p>
+
+        {/* Success state: show code */}
+        {newCode ? (
+          <div style={{ textAlign: 'center' }}>
+            <p style={{ fontSize: '1.1rem', fontWeight: 700, color: '#22c55e', marginBottom: '0.75rem' }}>✅ Profile created!</p>
+            <p style={{ color: colors.textSecondary, fontSize: '0.85rem', marginBottom: '0.75rem' }}>Your unique code — save it to resume on other devices:</p>
+            <div style={{
+              background: isDark ? '#0f172a' : '#f1f5f9',
+              border: '2px solid #06b6d4',
+              borderRadius: '0.75rem',
+              padding: '0.875rem 1.25rem',
+              fontSize: '1.4rem',
+              fontWeight: 800,
+              color: '#06b6d4',
+              letterSpacing: '0.05em',
+              userSelect: 'all',
+              marginBottom: '0.75rem',
+            }}>
+              {newCode}
+            </div>
+            <p style={{ color: colors.textSecondary, fontSize: '0.75rem' }}>This modal closes automatically in a few seconds…</p>
+          </div>
+        ) : (<>
 
         {/* Tab toggle */}
         <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem' }}>
@@ -195,6 +219,7 @@ export default function IdentityModal({ show, onCreate, onResume, loading, error
         {error && (
           <p style={{ margin: '0.75rem 0 0 0', color: '#ef4444', fontSize: '0.85rem', textAlign: 'center' }}>{error}</p>
         )}
+        </>)}
       </div>
     </div>
   )

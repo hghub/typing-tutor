@@ -57,6 +57,7 @@ export default function FeedbackModal({
         justifyContent: 'center',
         zIndex: 1000,
         padding: '1rem',
+        animation: 'fadeIn 0.18s ease-out',
       }}
     >
       <div style={{

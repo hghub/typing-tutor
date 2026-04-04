@@ -35,15 +35,18 @@ const STAT_CARDS = [
   },
 ]
 
-export default function StatsGrid({ wpm, cpm, accuracy, typed, passage }) {
-  const values = { wpm, cpm, accuracy, progress: `${typed.length}/${passage.length}` }
+export default function StatsGrid({ wpm, cpm, accuracy, typed, passage, isTimerMode, timeLeft }) {
+  const progressValue = isTimerMode ? `${timeLeft}s` : `${typed.length}/${passage.length}`
+  const progressLabel = isTimerMode ? 'Time Left' : 'Progress'
+  const values = { wpm, cpm, accuracy, progress: progressValue }
+  const labels = { wpm: 'WPM', cpm: 'CPM', accuracy: 'Accuracy', progress: progressLabel }
 
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', marginBottom: '2rem' }}>
       {STAT_CARDS.map(({ key, label, labelColor, bg, border, valueColor }) => (
         <div key={key} style={{ background: bg, borderRadius: '1rem', padding: '1.25rem', border: `1px solid ${border}`, boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}>
-          <p style={{ color: labelColor, fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.5rem' }}>{label}</p>
-          <p style={{ fontSize: '2.5rem', fontWeight: 900, color: valueColor(values[key]), margin: 0 }}>{values[key]}</p>
+          <p style={{ color: labelColor, fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.5rem' }}>{labels[key]}</p>
+          <p style={{ fontSize: key === 'progress' ? '1.5rem' : '2.5rem', fontWeight: 900, color: valueColor(values[key]), margin: 0 }}>{values[key]}</p>
         </div>
       ))}
     </div>

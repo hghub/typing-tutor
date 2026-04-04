@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS tournaments (
   difficulty  text        NOT NULL DEFAULT 'easy',    -- easy/medium/hard/timer/islamic/etc
   created_at  timestamptz DEFAULT now(),
 
-  -- One entry per user per week (upsert-safe)
-  UNIQUE (week_id, user_id)
+  -- One entry per user per difficulty per week
+  UNIQUE (week_id, user_id, difficulty)
 );
 
 -- Enable Row Level Security
@@ -25,11 +25,15 @@ CREATE POLICY "Public read" ON tournaments FOR SELECT USING (true);
 -- Allow anyone to insert / upsert their own entry
 CREATE POLICY "Public insert" ON tournaments FOR INSERT WITH CHECK (true);
 
--- Allow upsert (update own entry in same week)
+-- Allow upsert (update own entry in same week + difficulty)
 CREATE POLICY "Public update" ON tournaments FOR UPDATE USING (true);
 
 -- Index for fast weekly leaderboard queries
 CREATE INDEX IF NOT EXISTS idx_tournaments_week ON tournaments (week_id, wpm DESC);
 
--- If you already created the table without the difficulty column, run this:
+-- ─────────────────────────────────────────────────────────────
+-- If you already created the table, run these to migrate:
+-- ─────────────────────────────────────────────────────────────
 -- ALTER TABLE tournaments ADD COLUMN IF NOT EXISTS difficulty text NOT NULL DEFAULT 'easy';
+-- ALTER TABLE tournaments DROP CONSTRAINT IF EXISTS tournaments_week_id_user_id_key;
+-- ALTER TABLE tournaments ADD CONSTRAINT tournaments_week_user_diff_key UNIQUE (week_id, user_id, difficulty);

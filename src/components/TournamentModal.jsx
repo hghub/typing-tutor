@@ -46,11 +46,14 @@ export default function TournamentModal({ show, onClose, userId, displayName, la
   const [entries, setEntries] = useState([])
   const [loading, setLoading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
-  const [userEntry, setUserEntry] = useState(null)
+  const [submittedDiffs, setSubmittedDiffs] = useState(new Set()) // track per difficulty
+  const [userEntries, setUserEntries] = useState([])
   const [error, setError] = useState(null)
 
   const weekId = getWeekId()
+
+  // Is the current difficulty already submitted?
+  const alreadySubmitted = submittedDiffs.has(lastDifficulty)
 
   const loadEntries = async () => {
     setLoading(true)
@@ -61,11 +64,12 @@ export default function TournamentModal({ show, onClose, userId, displayName, la
         .select('*')
         .eq('week_id', weekId)
         .order('wpm', { ascending: false })
-        .limit(50)
+        .limit(100)
       if (err) throw err
       setEntries(data || [])
-      const mine = (data || []).find(e => e.user_id === userId)
-      if (mine) { setUserEntry(mine); setSubmitted(true) }
+      const mine = (data || []).filter(e => e.user_id === userId)
+      setUserEntries(mine)
+      setSubmittedDiffs(new Set(mine.map(e => e.difficulty)))
     } catch (err) {
       setError('Tournament table not set up yet. Run the SQL migration in your Supabase dashboard.')
       console.error('Tournament load error:', err)
@@ -92,9 +96,8 @@ export default function TournamentModal({ show, onClose, userId, displayName, la
         accuracy: lastAccuracy || 0,
         language: lastLanguage || 'english',
         difficulty: lastDifficulty || 'easy',
-      }, { onConflict: 'week_id,user_id' })
+      }, { onConflict: 'week_id,user_id,difficulty' })
       if (err) throw err
-      setSubmitted(true)
       await loadEntries()
     } catch (err) {
       setError('Failed to submit score. Please try again.')
@@ -105,8 +108,6 @@ export default function TournamentModal({ show, onClose, userId, displayName, la
   }
 
   if (!show) return null
-
-  const userRank = entries.findIndex(e => e.user_id === userId) + 1
 
   const rankBadge = (i) => {
     if (i === 0) return { icon: '🥇', color: '#f59e0b' }
@@ -155,7 +156,7 @@ export default function TournamentModal({ show, onClose, userId, displayName, la
         )}
 
         {/* Submit entry */}
-        {!submitted && !error && lastWpm > 0 && userId && (
+        {!error && lastWpm > 0 && userId && (
           <div style={{
             background: isDark ? 'rgba(245,158,11,0.1)' : 'rgba(245,158,11,0.07)',
             border: '1px solid rgba(245,158,11,0.35)', borderRadius: '1rem',
@@ -168,24 +169,30 @@ export default function TournamentModal({ show, onClose, userId, displayName, la
               </span>
               <CategoryBadge language={lastLanguage} difficulty={lastDifficulty} />
             </div>
-            <button
-              onClick={handleSubmit}
-              disabled={submitting}
-              style={{
-                background: 'linear-gradient(to right, #f59e0b, #ef4444)',
-                color: 'white', border: 'none', borderRadius: '0.75rem',
-                padding: '0.6rem 1.5rem', fontWeight: 700,
-                cursor: submitting ? 'not-allowed' : 'pointer',
-                opacity: submitting ? 0.7 : 1, fontSize: '0.9rem',
-              }}
-            >
-              {submitting ? 'Submitting…' : '🎯 Enter Tournament'}
-            </button>
+            {alreadySubmitted ? (
+              <p style={{ margin: 0, color: '#10b981', fontWeight: 700, fontSize: '0.85rem' }}>
+                ✅ Already entered in this category this week!
+              </p>
+            ) : (
+              <button
+                onClick={handleSubmit}
+                disabled={submitting}
+                style={{
+                  background: 'linear-gradient(to right, #f59e0b, #ef4444)',
+                  color: 'white', border: 'none', borderRadius: '0.75rem',
+                  padding: '0.6rem 1.5rem', fontWeight: 700,
+                  cursor: submitting ? 'not-allowed' : 'pointer',
+                  opacity: submitting ? 0.7 : 1, fontSize: '0.9rem',
+                }}
+              >
+                {submitting ? 'Submitting…' : '🎯 Enter Tournament'}
+              </button>
+            )}
           </div>
         )}
 
         {/* No score yet */}
-        {!submitted && !error && !lastWpm && (
+        {!error && !lastWpm && (
           <div style={{
             background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)',
             borderRadius: '1rem', padding: '1rem', marginBottom: '1.5rem',
@@ -195,15 +202,26 @@ export default function TournamentModal({ show, onClose, userId, displayName, la
           </div>
         )}
 
-        {/* User rank badge */}
-        {submitted && userRank > 0 && userEntry && (
-          <div style={{
-            background: 'rgba(245,158,11,0.12)', border: '1px solid rgba(245,158,11,0.4)',
-            borderRadius: '1rem', padding: '0.75rem 1rem', marginBottom: '1rem', textAlign: 'center',
-          }}>
-            <span style={{ color: '#f59e0b', fontWeight: 800, fontSize: '1rem' }}>
-              You're #{userRank} this week · {userEntry.wpm} WPM · {userEntry.accuracy}% accuracy
-            </span>
+        {/* My entries this week */}
+        {userEntries.length > 0 && (
+          <div style={{ marginBottom: '1rem' }}>
+            <p style={{ color: colors.textSecondary, fontSize: '0.75rem', fontWeight: 600, margin: '0 0 0.4rem', letterSpacing: '0.05em' }}>YOUR ENTRIES THIS WEEK</p>
+            {userEntries.map(e => {
+              const rank = entries.findIndex(en => en.id === e.id) + 1
+              return (
+                <div key={e.id} style={{
+                  display: 'flex', alignItems: 'center', gap: '0.5rem',
+                  padding: '0.4rem 0.75rem', marginBottom: '0.25rem',
+                  background: 'rgba(245,158,11,0.1)', borderRadius: '0.6rem',
+                  border: '1px solid rgba(245,158,11,0.3)',
+                }}>
+                  <span style={{ color: '#f59e0b', fontWeight: 800, fontSize: '0.85rem' }}>#{rank}</span>
+                  <CategoryBadge language={e.language} difficulty={e.difficulty} />
+                  <span style={{ color: '#f59e0b', fontWeight: 700, fontSize: '0.85rem', marginLeft: 'auto' }}>{e.wpm} WPM</span>
+                  <span style={{ color: '#10b981', fontSize: '0.78rem' }}>{e.accuracy}%</span>
+                </div>
+              )
+            })}
           </div>
         )}
 

@@ -1,6 +1,6 @@
 import { getAccuracyColor } from '../utils/typing'
 
-export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isNewBest, colors }) {
+export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isNewBest, colors, xpEarned }) {
   return (
     <div style={{
       background: colors?.card || 'linear-gradient(to right, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2))',
@@ -44,9 +44,23 @@ export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isN
       <p style={{ color: colors?.text || '#e2e8f0', fontSize: '1.125rem', marginBottom: '0.5rem' }}>
         CPM: <span style={{ fontWeight: 900, color: '#34d399' }}>{cpm}</span>
       </p>
-      <p style={{ color: colors?.text || '#e2e8f0', fontSize: '1.125rem' }}>
+      <p style={{ color: colors?.text || '#e2e8f0', fontSize: '1.125rem', marginBottom: '0.5rem' }}>
         Accuracy: <span style={{ fontWeight: 900, color: getAccuracyColor(accuracy) }}>{accuracy}%</span>
       </p>
+      {xpEarned > 0 && (
+        <p style={{
+          display: 'inline-block',
+          background: 'linear-gradient(to right, #8b5cf6, #06b6d4)',
+          color: 'white',
+          fontWeight: 700,
+          fontSize: '0.95rem',
+          borderRadius: '2rem',
+          padding: '0.3rem 1rem',
+          marginTop: '0.5rem',
+        }}>
+          ✨ +{xpEarned} XP earned
+        </p>
+      )}
     </div>
   )
 }

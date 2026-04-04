@@ -5,10 +5,12 @@ import { useTypingTest } from './hooks/useTypingTest'
 import { useFeedback } from './hooks/useFeedback'
 import { useIdentity } from './hooks/useIdentity'
 import { useKeyboardSound } from './hooks/useKeyboardSound'
+import { useXP } from './hooks/useXP'
 import { supabase } from './utils/supabase'
 import { LANGUAGES } from './constants/languages'
 import AnimatedBackground from './components/AnimatedBackground'
 import Header from './components/Header'
+import XPBar from './components/XPBar'
 import DifficultySelector from './components/DifficultySelector'
 import CustomPassagePanel from './components/CustomPassagePanel'
 import PassageDisplay from './components/PassageDisplay'
@@ -23,6 +25,8 @@ import StatsModal from './components/StatsModal'
 import IdentityModal from './components/IdentityModal'
 import LeaderboardModal from './components/LeaderboardModal'
 import PrivacyPolicy from './components/PrivacyPolicy'
+import LevelUpModal from './components/LevelUpModal'
+import AchievementToast from './components/AchievementToast'
 
 function App() {
   const [difficulty, setDifficulty] = useState('easy')
@@ -36,10 +40,19 @@ function App() {
   const feedback = useFeedback()
   const identity = useIdentity()
   const { soundOn, toggleSound, playClick } = useKeyboardSound()
+  const { xp, level, streak, achievements, newLevelUp, newAchievements, addXP, getLevelInfo, clearLevelUp, clearNewAchievements, LEVELS } = useXP()
+  const [xpEarned, setXpEarned] = useState(0)
 
   useEffect(() => {
     localStorage.setItem('typingTutorLanguage', language)
   }, [language])
+
+  useEffect(() => {
+    if (finished && wpm > 0) {
+      const { earned } = addXP(wpm, accuracy, difficulty)
+      setXpEarned(earned)
+    }
+  }, [finished])
 
   useEffect(() => {
     if (!finished || !identity.userId) return
@@ -93,6 +106,7 @@ function App() {
 
       <div style={{ position: 'relative', maxWidth: '56rem', margin: '0 auto' }}>
         <Header language={language} onLanguageChange={setLanguage} isDark={isDark} onToggleTheme={toggleTheme} colors={colors} />
+        <XPBar xp={xp} level={level} streak={streak} colors={colors} isDark={isDark} />
         <DifficultySelector difficulty={difficulty} onSelect={setDifficulty} colors={colors} />
 
         {difficulty === 'custom' && (
@@ -137,7 +151,7 @@ function App() {
           />
         </div>
 
-        {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} />}
+        {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} xpEarned={xpEarned} />}
         {finished && <TypingAnalysis analysis={analysis} isDark={isDark} colors={colors} />}
         {finished && <CareerReadiness wpm={wpm} accuracy={accuracy} isDark={isDark} colors={colors} />}
       </div>
@@ -164,6 +178,8 @@ function App() {
         colors={colors}
       />
       {showPrivacy && <PrivacyPolicy onClose={() => setShowPrivacy(false)} isDark={isDark} colors={colors} />}
+      <LevelUpModal levelData={newLevelUp} onClose={clearLevelUp} colors={colors} isDark={isDark} />
+      <AchievementToast achievements={newAchievements} onClear={clearNewAchievements} />
 
       {/* Footer */}
       <div style={{ textAlign: 'center', marginTop: '2rem', paddingBottom: '1rem' }}>

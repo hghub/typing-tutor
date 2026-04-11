@@ -11,6 +11,12 @@ const PACK_LABELS = {
   study: '📚 Study',
 }
 
+const DRILLS = ['numbers', 'symbols']
+const DRILL_LABELS = {
+  numbers: '🔢 Numbers',
+  symbols: '#@ Symbols',
+}
+
 function PillButton({ id, label, isActive, disabled, colors, onClick }) {
   return (
     <button
@@ -71,6 +77,12 @@ export default function DifficultySelector({ difficulty, onSelect, availablePack
         <span style={labelStyle}>Topic Packs</span>
         {PACKS.map((pack) => (
           <PillButton key={pack} id={pack} label={PACK_LABELS[pack]} isActive={difficulty === pack} disabled={!availablePacks.includes(pack)} colors={colors} onClick={onSelect} />
+        ))}
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <span style={labelStyle}>Drills</span>
+        {DRILLS.map((drill) => (
+          <PillButton key={drill} id={drill} label={DRILL_LABELS[drill]} isActive={difficulty === drill} colors={colors} onClick={onSelect} />
         ))}
       </div>
     </div>

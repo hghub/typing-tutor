@@ -51,7 +51,9 @@ export function useTypingTest({ difficulty, language }) {
 
   const pickPassage = (diff = difficulty, lang = language) => {
     if (diff === 'custom' || diff === 'timer') return
-    const pool = (PASSAGES[lang]?.[diff] ?? PASSAGES[lang]?.easy) || []
+    // numbers/symbols are English-only drills
+    const effectiveLang = ['numbers', 'symbols'].includes(diff) ? 'english' : lang
+    const pool = (PASSAGES[effectiveLang]?.[diff] ?? PASSAGES[effectiveLang]?.easy) || []
     if (pool.length) {
       let idx = Math.floor(Math.random() * pool.length)
       // Avoid repeating the same passage if pool has more than 1 entry

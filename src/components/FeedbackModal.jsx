@@ -10,16 +10,13 @@ export default function FeedbackModal({
   feedbackType, setFeedbackType,
   feedbackMessage, setFeedbackMessage,
   resetFeedback,
+  onSubmit,
   isDark, colors,
 }) {
   if (!showFeedback) return null
 
   const handleSubmit = () => {
-    const typeLabel = FEEDBACK_TYPES.find((t) => t.value === feedbackType)?.label ?? feedbackType
-    const from = feedbackName.trim() || 'Anonymous'
-    const subject = encodeURIComponent(`[Typing Tutor] ${typeLabel} from ${from}`)
-    const body = encodeURIComponent(`From: ${from}\nType: ${typeLabel}\n\n${feedbackMessage.trim()}`)
-    window.open(`mailto:mhraza.tech5@gmail.com?subject=${subject}&body=${body}`)
+    if (onSubmit) onSubmit({ name: feedbackName.trim() || 'Anonymous', type: feedbackType, message: feedbackMessage.trim() })
     setShowFeedback(false)
     resetFeedback()
   }
@@ -135,12 +132,10 @@ export default function FeedbackModal({
               transition: 'all 0.2s',
             }}
           >
-            Send via Email
+            Send Feedback
           </button>
 
-          <p style={{ margin: 0, fontSize: '0.75rem', color: colors.textSecondary, textAlign: 'center' }}>
-            Opens your email client with the feedback pre-filled.
-          </p>
+
         </div>
       </div>
     </div>

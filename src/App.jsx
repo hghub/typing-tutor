@@ -76,8 +76,9 @@ function App() {
   useEffect(() => {
     localStorage.setItem('typingTutorLanguage', language)
     // If current pack not available for new language, reset to easy
+    // numbers/symbols are English-only drills — keep them if already selected
     const available = Object.keys(PASSAGES[language] || {})
-    if (!['easy','medium','hard','timer','custom'].includes(difficulty) && !available.includes(difficulty)) {
+    if (!['easy','medium','hard','timer','custom','numbers','symbols'].includes(difficulty) && !available.includes(difficulty)) {
       setDifficulty('easy')
     }
   }, [language])
@@ -244,6 +245,48 @@ function App() {
       console.error('Failed to submit room score:', err)
     }
     setShowGroupChallenge(true) // open modal to show updated leaderboard
+  }
+
+  const handleSessionReaction = async (reaction, message) => {
+    try {
+      await supabase.from('session_feedback').insert({
+        user_id: identity.userId || null,
+        wpm,
+        accuracy,
+        difficulty,
+        language,
+        reaction,
+        message: message || null,
+      })
+    } catch (err) {
+      console.error('Failed to save session reaction:', err)
+    }
+  }
+
+  const handleFeedbackSubmit = async ({ name, type, message }) => {
+    try {
+      await supabase.from('app_feedback').insert({
+        user_id: identity.userId || null,
+        name,
+        type,
+        message,
+      })
+    } catch (err) {
+      console.error('Failed to save feedback:', err)
+    }
+  }
+
+
+  const handleStartDrill = (drillText) => {
+    setPassage(drillText)
+    resetTest()
+    // After resetTest picks a random passage, override with drill text
+    setTimeout(() => {
+      setPassage(drillText)
+      inputRef?.current?.focus?.()
+    }, 100)
+    // Scroll to typing area
+    setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 150)
   }
 
   const handleTypingKeyDown = (e) => {
@@ -425,7 +468,7 @@ function App() {
           />
         </div>
 
-        {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} xpEarned={xpEarned} challengeData={challengeData} activeRoom={activeRoom} onSubmitToRoom={handleSubmitToRoom} isKidsMode={isKidsMode} onReset={resetTest} onChallenge={() => {
+        {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} xpEarned={xpEarned} challengeData={challengeData} activeRoom={activeRoom} onSubmitToRoom={handleSubmitToRoom} isKidsMode={isKidsMode} onReset={resetTest} onReaction={handleSessionReaction} onChallenge={() => {
           const data = { wpm, accuracy, difficulty, language, passageIndex }
           const encoded = btoa(JSON.stringify(data))
           const url = `${window.location.origin}${window.location.pathname}?c=${encoded}`
@@ -437,7 +480,7 @@ function App() {
           const url = `${window.location.origin}${window.location.pathname}?r=${encoded}`
           navigator.clipboard.writeText(url).catch(() => {})
         }} />}
-        {finished && <TypingAnalysis analysis={analysis} isDark={isDark} colors={colors} />}
+        {finished && <TypingAnalysis analysis={analysis} isDark={isDark} colors={colors} onStartDrill={handleStartDrill} />}
         {finished && <CareerReadiness wpm={wpm} accuracy={accuracy} isDark={isDark} colors={colors} />}
         {finished && ['emails', 'coding', 'islamic', 'poetry', 'freelance', 'study'].includes(difficulty) && (
           <LearningPanel
@@ -450,7 +493,7 @@ function App() {
         )}
       </div>
 
-      <FeedbackModal {...feedback} isDark={isDark} colors={colors} />
+      <FeedbackModal {...feedback} onSubmit={handleFeedbackSubmit} isDark={isDark} colors={colors} />
       <StatsModal show={showStats} onClose={() => setShowStats(false)} userId={identity.userId} isDark={isDark} colors={colors} />
       <IdentityModal
         show={identity.showIdentityModal}

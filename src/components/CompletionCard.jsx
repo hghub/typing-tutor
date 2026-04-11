@@ -1,10 +1,22 @@
 import { useState } from 'react'
 import { getAccuracyColor } from '../utils/typing'
 
-export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isNewBest, colors, xpEarned, onChallenge, challengeData, onSendResult, activeRoom, onSubmitToRoom, isKidsMode, onReset }) {
+export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isNewBest, colors, xpEarned, onChallenge, challengeData, onSendResult, activeRoom, onSubmitToRoom, isKidsMode, onReset, onReaction }) {
   const [copied, setCopied] = useState(false)
   const [resultCopied, setResultCopied] = useState(false)
   const [roomCopied, setRoomCopied] = useState(false)
+  const [reaction, setReaction] = useState(null)   // 'up' | 'down' | null
+  const [reactionMsg, setReactionMsg] = useState('')
+  const [reactionSent, setReactionSent] = useState(false)
+
+  const handleReaction = (r) => {
+    setReaction(r)
+  }
+
+  const handleReactionSubmit = () => {
+    if (onReaction) onReaction(reaction, reactionMsg.trim())
+    setReactionSent(true)
+  }
 
   const handleChallenge = () => {
     if (onChallenge) {
@@ -227,6 +239,72 @@ export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isN
           ✨ +{xpEarned} XP earned
         </p>
       )}
+
+      {/* Reaction row */}
+      <div style={{ marginTop: '1.25rem', paddingTop: '1rem', borderTop: `1px solid ${colors?.border || 'rgba(51,65,85,0.4)'}` }}>
+        {!reactionSent ? (
+          <>
+            <p style={{ margin: '0 0 0.6rem', fontSize: '0.82rem', color: colors?.textSecondary, fontWeight: 500 }}>
+              How was this session?
+            </p>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+              <button
+                onClick={() => handleReaction('up')}
+                style={{
+                  fontSize: '1.3rem', padding: '0.35rem 0.75rem',
+                  background: reaction === 'up' ? 'rgba(16,185,129,0.2)' : (colors?.input || 'rgba(51,65,85,0.3)'),
+                  border: `1.5px solid ${reaction === 'up' ? '#10b981' : (colors?.inputBorder || 'rgba(51,65,85,0.5)')}`,
+                  borderRadius: '0.5rem', cursor: 'pointer', transition: 'all 0.15s',
+                }}
+                title="Good session"
+              >👍</button>
+              <button
+                onClick={() => handleReaction('down')}
+                style={{
+                  fontSize: '1.3rem', padding: '0.35rem 0.75rem',
+                  background: reaction === 'down' ? 'rgba(239,68,68,0.15)' : (colors?.input || 'rgba(51,65,85,0.3)'),
+                  border: `1.5px solid ${reaction === 'down' ? '#ef4444' : (colors?.inputBorder || 'rgba(51,65,85,0.5)')}`,
+                  borderRadius: '0.5rem', cursor: 'pointer', transition: 'all 0.15s',
+                }}
+                title="Not great"
+              >👎</button>
+            </div>
+
+            {reaction && (
+              <div style={{ marginTop: '0.75rem', display: 'flex', gap: '0.5rem', alignItems: 'flex-start', flexDirection: 'column' }}>
+                <input
+                  type="text"
+                  value={reactionMsg}
+                  onChange={(e) => setReactionMsg(e.target.value)}
+                  placeholder="Any thoughts? (optional)"
+                  style={{
+                    width: '100%', padding: '0.5rem 0.75rem', boxSizing: 'border-box',
+                    background: colors?.input || 'rgba(30,41,59,0.8)',
+                    border: `1.5px solid ${colors?.inputBorder || 'rgba(51,65,85,0.5)'}`,
+                    borderRadius: '0.5rem', color: colors?.text || '#e2e8f0',
+                    fontSize: '0.85rem', outline: 'none',
+                  }}
+                  onKeyDown={(e) => e.key === 'Enter' && handleReactionSubmit()}
+                />
+                <button
+                  onClick={handleReactionSubmit}
+                  style={{
+                    padding: '0.4rem 1rem', background: 'linear-gradient(to right, #10b981, #06b6d4)',
+                    color: 'white', border: 'none', borderRadius: '0.5rem',
+                    fontWeight: 600, cursor: 'pointer', fontSize: '0.82rem',
+                  }}
+                >
+                  Submit
+                </button>
+              </div>
+            )}
+          </>
+        ) : (
+          <p style={{ margin: 0, fontSize: '0.85rem', color: '#10b981', fontWeight: 600 }}>
+            🙏 Thanks for the feedback!
+          </p>
+        )}
+      </div>
 
       {/* Buttons row */}
       <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>

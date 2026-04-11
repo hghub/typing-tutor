@@ -14,6 +14,14 @@ export default function UrduKeyboard() {
   const [showRef, setShowRef] = useState(false)
   const inputRef = useRef(null)
 
+  // Voice typing state
+  const [voiceActive, setVoiceActive] = useState(false)
+  const [voiceStatus, setVoiceStatus] = useState('')
+  const [interimText, setInterimText] = useState('')
+  const recognitionRef = useRef(null)
+  const hasVoiceSupport = typeof window !== 'undefined' &&
+    ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)
+
   // Load Nastaliq font only on this page
   useEffect(() => {
     if (document.querySelector(`link[href="${NASTALIQ_URL}"]`)) return
@@ -22,6 +30,9 @@ export default function UrduKeyboard() {
     link.href = NASTALIQ_URL
     document.head.appendChild(link)
   }, [])
+
+  // Cleanup recognition on unmount
+  useEffect(() => () => recognitionRef.current?.abort(), [])
 
   const handleLatinChange = useCallback((e) => {
     const val = e.target.value
@@ -40,7 +51,57 @@ export default function UrduKeyboard() {
   const handleClear = useCallback(() => {
     setLatin('')
     setUrdu('')
+    setInterimText('')
     inputRef.current?.focus()
+  }, [])
+
+  const startVoice = useCallback(() => {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition
+    if (!SR) return
+    const rec = new SR()
+    rec.lang = 'ur-PK'
+    rec.interimResults = true
+    rec.continuous = true
+    rec.maxAlternatives = 1
+
+    rec.onstart = () => { setVoiceActive(true); setVoiceStatus('listening') }
+    rec.onresult = (e) => {
+      let interim = ''
+      let final = ''
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        const t = e.results[i][0].transcript
+        if (e.results[i].isFinal) final += t
+        else interim += t
+      }
+      if (final) {
+        setUrdu(prev => prev + (prev && !prev.endsWith(' ') ? ' ' : '') + final)
+        setLatin('') // voice bypasses phonetic
+      }
+      setInterimText(interim)
+    }
+    rec.onerror = (e) => {
+      const msg = e.error === 'not-allowed'
+        ? 'Microphone access denied — please allow mic in browser settings'
+        : e.error === 'network' ? 'Network error — check internet connection'
+        : `Error: ${e.error}`
+      setVoiceStatus(msg)
+      setVoiceActive(false)
+      setInterimText('')
+    }
+    rec.onend = () => {
+      setVoiceActive(false)
+      setVoiceStatus('')
+      setInterimText('')
+    }
+    recognitionRef.current = rec
+    rec.start()
+  }, [])
+
+  const stopVoice = useCallback(() => {
+    recognitionRef.current?.stop()
+    setVoiceActive(false)
+    setInterimText('')
+    setVoiceStatus('')
   }, [])
 
   const allMappings = getAllMappings()
@@ -72,10 +133,100 @@ export default function UrduKeyboard() {
           🌍 Urdu Phonetic Keyboard
         </h1>
         <p style={{ color: colors.textSecondary, fontSize: '0.9rem', margin: 0 }}>
-          Type Urdu using English phonetics — no Urdu keyboard needed.
+          Type Urdu using English phonetics — or speak directly using your microphone.
           <span style={{ color: '#f59e0b', fontWeight: 600 }}> Type "kh" → خ, "sh" → ش, "ch" → چ</span>
         </p>
       </div>
+
+      {/* Voice Typing Panel */}
+      {hasVoiceSupport && (
+        <div style={{
+          background: voiceActive
+            ? (isDark ? 'rgba(239,68,68,0.08)' : 'rgba(239,68,68,0.05)')
+            : (isDark ? 'rgba(245,158,11,0.06)' : 'rgba(245,158,11,0.04)'),
+          border: `1.5px solid ${voiceActive ? 'rgba(239,68,68,0.4)' : 'rgba(245,158,11,0.25)'}`,
+          borderRadius: '0.85rem',
+          padding: '1rem 1.25rem',
+          marginBottom: '1.25rem',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1rem',
+          flexWrap: 'wrap',
+          transition: 'all 0.2s ease',
+        }}>
+          {/* Mic button */}
+          <button
+            onClick={voiceActive ? stopVoice : startVoice}
+            style={{
+              width: '3rem', height: '3rem',
+              borderRadius: '50%',
+              background: voiceActive ? '#ef4444' : '#f59e0b',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '1.25rem',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              flexShrink: 0,
+              boxShadow: voiceActive ? '0 0 0 6px rgba(239,68,68,0.2)' : 'none',
+              transition: 'all 0.2s ease',
+              animation: voiceActive ? 'voicePulse 1.2s ease-in-out infinite' : 'none',
+            }}
+            title={voiceActive ? 'Stop recording' : 'Start Urdu voice typing'}
+          >
+            {voiceActive ? '⏹' : '🎤'}
+          </button>
+
+          {/* Status & instructions */}
+          <div style={{ flex: 1 }}>
+            {voiceActive ? (
+              <>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.2rem' }}>
+                  <span style={{
+                    display: 'inline-block', width: '8px', height: '8px',
+                    borderRadius: '50%', background: '#ef4444',
+                    animation: 'voicePulse 0.8s ease-in-out infinite',
+                  }} />
+                  <span style={{ color: '#ef4444', fontWeight: 700, fontSize: '0.85rem' }}>
+                    Listening… بولیں
+                  </span>
+                </div>
+                {interimText && (
+                  <div style={{ ...urduTextStyle, fontSize: '1.1rem', color: colors.textSecondary, opacity: 0.8 }}>
+                    {interimText}
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                <div style={{ fontWeight: 700, fontSize: '0.88rem', color: colors.text, marginBottom: '0.15rem' }}>
+                  🎤 Voice Typing (Urdu)
+                </div>
+                <div style={{ fontSize: '0.78rem', color: colors.textSecondary }}>
+                  Click the mic, speak in Urdu — text appears automatically. Works best in Chrome / Edge.
+                </div>
+              </>
+            )}
+            {voiceStatus && !voiceActive && (
+              <div style={{ fontSize: '0.78rem', color: '#ef4444', marginTop: '0.25rem' }}>
+                ⚠️ {voiceStatus}
+              </div>
+            )}
+          </div>
+
+          {voiceActive && (
+            <span style={{ fontSize: '0.75rem', color: colors.textSecondary }}>
+              Click ⏹ to stop
+            </span>
+          )}
+        </div>
+      )}
+
+      {/* Add pulse animation via style tag */}
+      <style>{`
+        @keyframes voicePulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.6; transform: scale(0.92); }
+        }
+      `}</style>
 
       {/* Two-panel input / output */}
       <div style={{
@@ -167,7 +318,7 @@ export default function UrduKeyboard() {
 
       {/* Buttons */}
       <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
-        {latin && (
+        {(latin || urdu) && (
           <button
             onClick={handleClear}
             style={{

@@ -1,7 +1,7 @@
 {
-  "name": "Typing Master",
-  "short_name": "TypingMaster",
-  "description": "Free multilingual typing tutor - Urdu, Arabic, Persian, English",
+  "name": "Typely",
+  "short_name": "Typely",
+  "description": "Your smart typing system. Personalized drills, weak-key detection, Urdu & English practice.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0f172a",
@@ -14,7 +14,7 @@
       "src": "/og-image.png",
       "sizes": "1200x630",
       "type": "image/png",
-      "label": "Typing Master home screen"
+      "label": "Typely home screen"
     }
   ],
   "icons": [

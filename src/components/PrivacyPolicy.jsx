@@ -69,7 +69,7 @@ export default function PrivacyPolicy({ onClose, isDark, colors }) {
           },
           {
             title: '9. Contact',
-            body: `For questions about this policy or data deletion requests, contact us at: privacy@typingmaster.app`
+            body: `For questions about this policy or data deletion requests, contact us at: privacy@typely.app`
           },
         ].map(({ title, body }) => (
           <div key={title} style={{ marginBottom: '1.25rem' }}>
@@ -85,8 +85,8 @@ export default function PrivacyPolicy({ onClose, isDark, colors }) {
           border: '1px solid rgba(6,182,212,0.2)',
         }}>
           <p style={{ margin: 0, color: colors.textSecondary, fontSize: '0.8rem', textAlign: 'center' }}>
-            By using Typing Master you agree to this Privacy Policy.
-            <br />© {new Date().getFullYear()} Typing Master · <a href="mailto:privacy@typingmaster.app" style={{ color: '#06b6d4' }}>Contact</a>
+            By using Typely you agree to this Privacy Policy.
+            <br />© {new Date().getFullYear()} Typely · <a href="mailto:privacy@typely.app" style={{ color: '#06b6d4' }}>Contact</a>
           </p>
         </div>
       </div>

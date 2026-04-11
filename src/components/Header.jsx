@@ -21,10 +21,10 @@ export default function Header({ language, onLanguageChange, isDark, onToggleThe
           margin: 0,
           letterSpacing: '-0.02em',
         }}>
-          TypeMaster
+          Typely ⚡
         </h1>
-        <p style={{ color: colors.textSecondary, fontSize: '0.85rem', fontWeight: 400, margin: '0.25rem 0 0 0' }}>
-          Master your typing speed and accuracy
+        <p style={{ color: colors.textSecondary, fontSize: '0.82rem', fontWeight: 400, margin: '0.25rem 0 0 0' }}>
+          Your Smart Typing System
         </p>
       </div>
 

@@ -14,6 +14,7 @@ import { KIDS_PASSAGES } from './constants/kidsPassages'
 import { playCorrectSound, playWrongSound } from './utils/kidsSounds'
 import AnimatedBackground from './components/AnimatedBackground'
 import Header from './components/Header'
+import GoalModal from './components/GoalModal'
 import XPBar from './components/XPBar'
 import DifficultySelector from './components/DifficultySelector'
 import CustomPassagePanel from './components/CustomPassagePanel'
@@ -63,6 +64,7 @@ function App() {
 
   const [isKidsMode, setIsKidsMode] = useState(() => localStorage.getItem('typingKidsMode') === 'true')
   const [emojiTrigger, setEmojiTrigger] = useState(0)
+  const [showGoalModal, setShowGoalModal] = useState(() => !localStorage.getItem('typely_goal'))
 
   const { isDark, toggleTheme, colors } = useTheme()
   const { passage, setPassage, typed, wpm, cpm, accuracy, finished, timeLeft, isTimerMode, inputRef, handleKeyDown, handleChange, resetTest, analysis, passageIndex } = useTypingTest({ difficulty, language })
@@ -289,6 +291,21 @@ function App() {
     setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 150)
   }
 
+  const handleGoalSelect = (goalId) => {
+    localStorage.setItem('typely_goal', goalId)
+    setShowGoalModal(false)
+    // Apply goal-specific defaults
+    if (goalId === 'urdu') {
+      setLanguage('urdu')
+    } else if (goalId === 'freelancer') {
+      setLanguage('english')
+      setDifficulty('freelance')
+    } else if (goalId === 'student') {
+      setLanguage('english')
+      setDifficulty('study')
+    }
+  }
+
   const handleTypingKeyDown = (e) => {
     if (e.key !== 'Backspace' && e.key !== 'Enter' && e.key.length === 1) {
       const pos = typed.length
@@ -354,7 +371,7 @@ function App() {
       <div style={{ position: 'relative', maxWidth: '56rem', margin: '0 auto' }}>
         <Header language={language} onLanguageChange={setLanguage} isDark={isDark} onToggleTheme={toggleTheme} colors={colors} isMobile={isMobile} />
         <XPBar xp={xp} level={level} streak={streak} colors={colors} isDark={isDark} />
-        {!isKidsMode && <DifficultySelector difficulty={difficulty} onSelect={(d) => { setDifficulty(d) }} language={language} availablePacks={Object.keys(PASSAGES[language] || {})} colors={colors} />}
+        {!isKidsMode && <DifficultySelector difficulty={difficulty} onSelect={(d) => { setDifficulty(d) }} language={language} availablePacks={Object.keys(PASSAGES[language] || {})} colors={colors} isDark={isDark} />}
 
         {difficulty === 'custom' && (
           <CustomPassagePanel colors={colors} isDark={isDark} onStart={handleCustomStart} />
@@ -430,6 +447,23 @@ function App() {
               </span>
             </div>
           )}
+
+          {/* Hero microcopy — only on very first visit before typing begins */}
+          {!finished && typed.length === 0 && !isKidsMode && (
+            <div style={{
+              textAlign: 'center',
+              marginBottom: '1.25rem',
+              padding: '0.85rem 1rem',
+              background: isDark ? 'rgba(6,182,212,0.07)' : 'rgba(6,182,212,0.06)',
+              border: `1px solid ${isDark ? 'rgba(6,182,212,0.18)' : 'rgba(6,182,212,0.25)'}`,
+              borderRadius: '0.75rem',
+            }}>
+              <p style={{ margin: 0, fontSize: isMobile ? '0.82rem' : '0.88rem', color: colors.textSecondary, lineHeight: 1.5 }}>
+                ⚡ <strong style={{ color: colors.text }}>Takes 60 seconds</strong> · We'll detect your weak keys and build a personalised drill · No sign-up required
+              </p>
+            </div>
+          )}
+
           <PassageDisplay passage={passage} typed={typed} isDark={isDark} currentLangDir={currentLangDir} colors={colors} isKidsMode={isKidsMode} />
           <EmojiPopup trigger={emojiTrigger} />
           <StatsGrid wpm={wpm} cpm={cpm} accuracy={accuracy} typed={typed} passage={passage} isTimerMode={isTimerMode} timeLeft={timeLeft} colors={colors} isDark={isDark} isMobile={isMobile} />
@@ -493,6 +527,7 @@ function App() {
         )}
       </div>
 
+      {showGoalModal && <GoalModal onSelect={handleGoalSelect} isDark={isDark} colors={colors} />}
       <FeedbackModal {...feedback} onSubmit={handleFeedbackSubmit} isDark={isDark} colors={colors} />
       <StatsModal show={showStats} onClose={() => setShowStats(false)} userId={identity.userId} isDark={isDark} colors={colors} />
       <IdentityModal
@@ -619,7 +654,7 @@ function App() {
       {/* Footer */}
       <div style={{ textAlign: 'center', marginTop: '2rem', paddingBottom: '1rem' }}>
         <p style={{ color: colors.textSecondary, fontSize: '0.75rem', margin: 0 }}>
-          © {new Date().getFullYear()} Typing Master &nbsp;·&nbsp;
+          © {new Date().getFullYear()} Typely &nbsp;·&nbsp;
           <button onClick={() => setShowPrivacy(true)} style={{
             background: 'none', border: 'none', color: '#06b6d4',
             cursor: 'pointer', fontSize: '0.75rem', textDecoration: 'underline', padding: 0,

@@ -192,11 +192,25 @@ export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isN
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
         backgroundClip: 'text',
-        marginBottom: '0.75rem',
+        marginBottom: '0.5rem',
         marginTop: 0,
       }}>
-        {challengeData ? '📊 Your Stats' : '🎉 Complete!'}
+        {challengeData ? '📊 Your Stats' : '🎉 Test Complete!'}
       </p>
+
+      {/* Diagnostic insight */}
+      {!challengeData && (
+        <p style={{ margin: '0 0 0.9rem', fontSize: '0.88rem', color: colors?.textSecondary, lineHeight: 1.55 }}>
+          {wpm >= 80
+            ? `You're typing at ${wpm} WPM — that's expert level. ${accuracy < 96 ? `Tighten accuracy to push further.` : `Excellent accuracy too!`}`
+            : wpm >= 55
+              ? `You're typing at ${wpm} WPM — solid progress. ${accuracy < 90 ? `Reducing errors will unlock more speed.` : `Good accuracy. Focus on consistent rhythm.`}`
+              : wpm >= 35
+                ? `You're typing at ${wpm} WPM — good start. ${accuracy < 85 ? `Accuracy is your main growth lever right now.` : `Keep building muscle memory for common patterns.`}`
+                : `You're typing at ${wpm} WPM. Scroll down — we'll show exactly which keys are slowing you down.`
+          }
+        </p>
+      )}
       {isNewBest && (
         <p style={{
           display: 'inline-block',

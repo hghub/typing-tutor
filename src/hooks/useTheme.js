@@ -9,7 +9,14 @@ export function useTheme() {
 
   useEffect(() => {
     localStorage.setItem('typingTutorTheme', JSON.stringify(isDark))
+    // Apply CSS custom property theme so tool pages and TOKENS work automatically
+    document.documentElement.dataset.theme = isDark ? 'dark' : 'light'
   }, [isDark])
+
+  // Set initial theme on mount without waiting for state change
+  useEffect(() => {
+    document.documentElement.dataset.theme = isDark ? 'dark' : 'light'
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return {
     isDark,

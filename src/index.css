@@ -2,6 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────────
+   Design tokens — dark theme (default)
+   Change one var here → whole app updates.
+   Light overrides are in [data-theme="light"] below.
+───────────────────────────────────────────────── */
+:root {
+  --color-primary:        #06b6d4;
+  --color-primary-hover:  #0891b2;
+  --color-accent:         #3b82f6;
+  --color-bg:             #0f172a;
+  --color-card:           #1e293b;
+  --color-card-hover:     #263348;
+  --color-text:           #e2e8f0;
+  --color-text-secondary: #94a3b8;
+  --color-border:         rgba(51, 65, 85, 0.5);
+  --color-success:        #10b981;
+  --color-warning:        #f59e0b;
+  --color-danger:         #ef4444;
+  --radius-md:            0.5rem;
+  --radius-lg:            1rem;
+  --shadow-card:          0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="light"] {
+  --color-bg:             #f8fafc;
+  --color-card:           #ffffff;
+  --color-card-hover:     #f1f5f9;
+  --color-text:           #1e293b;
+  --color-text-secondary: #64748b;
+  --color-border:         rgba(203, 213, 225, 0.6);
+  --shadow-card:          0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -10,6 +43,11 @@
 
 body {
   overflow-x: hidden;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 @keyframes kidsFloatUp {

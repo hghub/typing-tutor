@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { LANGUAGES } from '../constants/languages'
 
 export default function Header({ language, onLanguageChange, isDark, onToggleTheme, colors, isMobile }) {
@@ -29,6 +30,30 @@ export default function Header({ language, onLanguageChange, isDark, onToggleThe
       </div>
 
       <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+        {/* Tools hub link */}
+        <Link
+          to="/tools"
+          style={{
+            background: colors.difficulty,
+            border: `1px solid ${isDark ? '#334155' : '#e2e8f0'}`,
+            color: '#06b6d4',
+            padding: '0.5rem 0.85rem',
+            borderRadius: '0.5rem',
+            cursor: 'pointer',
+            fontSize: '0.82rem',
+            fontWeight: 600,
+            textDecoration: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.3rem',
+            transition: 'border-color 0.2s ease',
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#06b6d4' }}
+          onMouseLeave={(e) => { e.currentTarget.style.borderColor = isDark ? '#334155' : '#e2e8f0' }}
+        >
+          🛠 Tools
+        </Link>
+
         <select
           value={language}
           onChange={(e) => onLanguageChange(e.target.value)}

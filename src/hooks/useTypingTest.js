@@ -29,7 +29,7 @@ const FINGER_NAMES = [
   'Right Index','Right Middle','Right Ring','Right Pinky',
 ]
 
-export function useTypingTest({ difficulty, language }) {
+export function useTypingTest({ difficulty, language, phoneticMode = false }) {
   const [passage, setPassage] = useState('')
   const [typed, setTyped] = useState('')
   const [startTime, setStartTime] = useState(null)
@@ -227,8 +227,8 @@ export function useTypingTest({ difficulty, language }) {
     if (!startTime && e.key !== 'Backspace') setStartTime(Date.now())
     if (!isTimerMode && typed.length >= passage.length && e.key !== 'Backspace') e.preventDefault()
 
-    // Record keystroke timing
-    if (e.key.length === 1 && e.key !== 'Backspace') {
+    // Record keystroke timing (skip in phonetic mode — Latin keys don't map to passage chars)
+    if (!phoneticMode && e.key.length === 1 && e.key !== 'Backspace') {
       const now = Date.now()
       const ms = lastKeyTimeRef.current ? now - lastKeyTimeRef.current : 0
       const pos = typed.length
@@ -239,5 +239,5 @@ export function useTypingTest({ difficulty, language }) {
 
   const handleChange = (e) => setTyped(e.target.value)
 
-  return { passage, setPassage, typed, wpm, cpm, accuracy, finished, timeLeft, isTimerMode, inputRef, handleKeyDown, handleChange, resetTest, analysis, passageIndex, FINGER_NAMES }
+  return { passage, setPassage, typed, setTyped, wpm, cpm, accuracy, finished, timeLeft, isTimerMode, inputRef, handleKeyDown, handleChange, resetTest, analysis, passageIndex, FINGER_NAMES }
 }

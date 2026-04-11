@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react'
+import { Link } from 'react-router-dom'
 import './App.css'
 import { useTheme } from './hooks/useTheme'
 import { useIsMobile } from './hooks/useIsMobile'
@@ -12,6 +13,9 @@ import { LANGUAGES } from './constants/languages'
 import { PASSAGES } from './constants/passages'
 import { KIDS_PASSAGES } from './constants/kidsPassages'
 import { playCorrectSound, playWrongSound } from './utils/kidsSounds'
+import { latinToUrdu } from './data/urduPhoneticMap'
+import { TOOLS } from './tools/registry'
+import { GOALS } from './components/GoalModal'
 import AnimatedBackground from './components/AnimatedBackground'
 import Header from './components/Header'
 import GoalModal from './components/GoalModal'
@@ -65,9 +69,12 @@ function App() {
   const [isKidsMode, setIsKidsMode] = useState(() => localStorage.getItem('typingKidsMode') === 'true')
   const [emojiTrigger, setEmojiTrigger] = useState(0)
   const [showGoalModal, setShowGoalModal] = useState(() => !localStorage.getItem('typely_goal'))
+  const [selectedGoal, setSelectedGoal] = useState(() => localStorage.getItem('typely_goal'))
+  const [phoneticMode, setPhoneticMode] = useState(false)
+  const [latinBuffer, setLatinBuffer] = useState('')
 
   const { isDark, toggleTheme, colors } = useTheme()
-  const { passage, setPassage, typed, wpm, cpm, accuracy, finished, timeLeft, isTimerMode, inputRef, handleKeyDown, handleChange, resetTest, analysis, passageIndex } = useTypingTest({ difficulty, language })
+  const { passage, setPassage, typed, setTyped, wpm, cpm, accuracy, finished, timeLeft, isTimerMode, inputRef, handleKeyDown, handleChange, resetTest, analysis, passageIndex } = useTypingTest({ difficulty, language, phoneticMode })
   const feedback = useFeedback()
   const identity = useIdentity()
   const { soundOn, toggleSound, playClick } = useKeyboardSound()
@@ -293,6 +300,7 @@ function App() {
 
   const handleGoalSelect = (goalId) => {
     localStorage.setItem('typely_goal', goalId)
+    setSelectedGoal(goalId)
     setShowGoalModal(false)
     // Apply goal-specific defaults
     if (goalId === 'urdu') {
@@ -306,8 +314,26 @@ function App() {
     }
   }
 
+  // Clear latin buffer when language/difficulty changes (resetTest fires automatically)
+  useEffect(() => { setLatinBuffer('') }, [difficulty, language])
+  // Turn off phonetic mode when switching away from RTL languages
+  useEffect(() => {
+    if (!['urdu', 'arabic', 'persian'].includes(language)) setPhoneticMode(false)
+  }, [language])
+
+  const handlePhoneticChange = (e) => {
+    const latin = e.target.value
+    setLatinBuffer(latin)
+    setTyped(latinToUrdu(latin))
+  }
+
+  const handleResetTest = () => {
+    resetTest()
+    setLatinBuffer('')
+  }
+
   const handleTypingKeyDown = (e) => {
-    if (e.key !== 'Backspace' && e.key !== 'Enter' && e.key.length === 1) {
+    if (!phoneticMode && e.key !== 'Backspace' && e.key !== 'Enter' && e.key.length === 1) {
       const pos = typed.length
       const isError = passage[pos] !== e.key
       playClick(isError)
@@ -351,7 +377,8 @@ function App() {
         }
       }
     }
-    handleChange(e)
+    if (phoneticMode) handlePhoneticChange(e)
+    else handleChange(e)
   }
 
   useEffect(() => {
@@ -372,6 +399,111 @@ function App() {
         <Header language={language} onLanguageChange={setLanguage} isDark={isDark} onToggleTheme={toggleTheme} colors={colors} isMobile={isMobile} />
         <XPBar xp={xp} level={level} streak={streak} colors={colors} isDark={isDark} />
         {!isKidsMode && <DifficultySelector difficulty={difficulty} onSelect={(d) => { setDifficulty(d) }} language={language} availablePacks={Object.keys(PASSAGES[language] || {})} colors={colors} isDark={isDark} />}
+
+        {/* Phonetic input toggle — only for RTL languages */}
+        {['urdu', 'arabic', 'persian'].includes(language) && !isKidsMode && (
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.75rem' }}>
+            <button
+              onClick={() => { setPhoneticMode(v => !v); setLatinBuffer(''); resetTest() }}
+              style={{
+                background: phoneticMode ? 'rgba(6,182,212,0.15)' : (isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)'),
+                border: `1px solid ${phoneticMode ? '#06b6d4' : (isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)')}`,
+                borderRadius: '2rem',
+                padding: '0.35rem 1rem',
+                color: phoneticMode ? '#06b6d4' : colors.textSecondary,
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                transition: 'all 0.15s',
+              }}
+            >
+              ⌨️ Phonetic Input {phoneticMode ? '(ON)' : '(OFF)'}
+            </button>
+            {phoneticMode && (
+              <span style={{ marginLeft: '0.75rem', alignSelf: 'center', fontSize: '0.76rem', color: colors.textSecondary }}>
+                Type in English · letters convert to Urdu automatically
+              </span>
+            )}
+          </div>
+        )}
+
+        {/* Inline goal selection — visible when no goal chosen yet */}
+        {!selectedGoal && typed.length === 0 && !finished && (
+          <div style={{ marginBottom: '1.5rem' }}>
+            <p style={{ textAlign: 'center', margin: '0 0 0.75rem', fontSize: '0.85rem', color: colors.textSecondary, fontWeight: 600 }}>
+              What do you want to improve?
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(4, 1fr)', gap: '0.6rem' }}>
+              {GOALS.map(g => (
+                <button
+                  key={g.id}
+                  onClick={() => handleGoalSelect(g.id)}
+                  style={{
+                    display: 'flex', flexDirection: 'column', alignItems: 'center',
+                    gap: '0.3rem', padding: '0.85rem 0.5rem',
+                    background: isDark ? '#0f172a' : '#f8fafc',
+                    border: `1.5px solid ${isDark ? '#1e293b' : '#e2e8f0'}`,
+                    borderRadius: '0.75rem', cursor: 'pointer', transition: 'all 0.15s',
+                    textAlign: 'center',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = '#06b6d4'; e.currentTarget.style.background = isDark ? '#1e3a4c' : '#eff9ff' }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = isDark ? '#1e293b' : '#e2e8f0'; e.currentTarget.style.background = isDark ? '#0f172a' : '#f8fafc' }}
+                >
+                  <span style={{ fontSize: '1.4rem' }}>{g.emoji}</span>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 600, color: colors.text, lineHeight: 1.3 }}>{g.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Selected goal badge */}
+        {selectedGoal && typed.length === 0 && !finished && (
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.75rem', alignItems: 'center', gap: '0.4rem' }}>
+            <span style={{ fontSize: '0.8rem', color: colors.textSecondary }}>
+              {GOALS.find(g => g.id === selectedGoal)?.emoji} {GOALS.find(g => g.id === selectedGoal)?.label}
+            </span>
+            <button
+              onClick={() => { localStorage.removeItem('typely_goal'); setSelectedGoal(null); setShowGoalModal(true) }}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#06b6d4', fontSize: '0.78rem', padding: '0 0.25rem', textDecoration: 'underline' }}
+            >
+              Change
+            </button>
+          </div>
+        )}
+
+        {/* How It Works — shown before typing begins */}
+        {typed.length === 0 && !finished && (
+          <div style={{
+            display: 'flex', gap: '0.75rem', marginBottom: '1.25rem',
+            flexDirection: isMobile ? 'column' : 'row',
+          }}>
+            {[
+              { n: '1', icon: '⚡', title: 'Take a 60-sec test', sub: 'Measure speed & accuracy' },
+              { n: '2', icon: '🧠', title: 'See weak keys & patterns', sub: 'Get diagnosed, not just scored' },
+              { n: '3', icon: '🎯', title: 'Practice targeted drills', sub: 'Focused training for your gaps' },
+            ].map(s => (
+              <div key={s.n} style={{
+                flex: 1, display: 'flex', alignItems: 'center', gap: '0.6rem',
+                padding: '0.65rem 0.9rem',
+                background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`,
+                borderRadius: '0.65rem',
+              }}>
+                <div style={{
+                  width: '1.8rem', height: '1.8rem', borderRadius: '50%',
+                  background: 'rgba(6,182,212,0.15)', display: 'flex', alignItems: 'center',
+                  justifyContent: 'center', fontSize: '0.7rem', fontWeight: 800,
+                  color: '#06b6d4', flexShrink: 0,
+                }}>{s.n}</div>
+                <div>
+                  <div style={{ fontSize: '0.78rem', fontWeight: 700, color: colors.text }}>{s.icon} {s.title}</div>
+                  <div style={{ fontSize: '0.7rem', color: colors.textSecondary }}>{s.sub}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
 
         {difficulty === 'custom' && (
           <CustomPassagePanel colors={colors} isDark={isDark} onStart={handleCustomStart} />
@@ -467,7 +599,7 @@ function App() {
           <PassageDisplay passage={passage} typed={typed} isDark={isDark} currentLangDir={currentLangDir} colors={colors} isKidsMode={isKidsMode} />
           <EmojiPopup trigger={emojiTrigger} />
           <StatsGrid wpm={wpm} cpm={cpm} accuracy={accuracy} typed={typed} passage={passage} isTimerMode={isTimerMode} timeLeft={timeLeft} colors={colors} isDark={isDark} isMobile={isMobile} />
-          <TypingInput typed={typed} finished={finished} inputRef={inputRef} handleChange={handleChangeWithKids} handleKeyDown={handleTypingKeyDown} colors={colors} currentLangDir={currentLangDir} />
+          <TypingInput typed={typed} finished={finished} inputRef={inputRef} handleChange={handleChangeWithKids} handleKeyDown={handleTypingKeyDown} colors={colors} currentLangDir={currentLangDir} phoneticMode={phoneticMode} latinValue={latinBuffer} />
 
           {/* Virtual Keyboard — hidden on mobile (touch users don't need it) */}
           {showKeyboard && !finished && !isMobile && (
@@ -482,7 +614,7 @@ function App() {
 
           <ActionButtons
             finished={finished}
-            onReset={resetTest}
+            onReset={handleResetTest}
             onFeedback={() => { if (identity.userId && !feedback.feedbackName) feedback.setFeedbackName(identity.userId); feedback.setShowFeedback(true) }}
             onViewStats={() => setShowStats(true)}
             onLeaderboard={() => setShowLeaderboard(true)}
@@ -502,7 +634,7 @@ function App() {
           />
         </div>
 
-        {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} xpEarned={xpEarned} challengeData={challengeData} activeRoom={activeRoom} onSubmitToRoom={handleSubmitToRoom} isKidsMode={isKidsMode} onReset={resetTest} onReaction={handleSessionReaction} onChallenge={() => {
+        {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} xpEarned={xpEarned} challengeData={challengeData} activeRoom={activeRoom} onSubmitToRoom={handleSubmitToRoom} isKidsMode={isKidsMode} onReset={handleResetTest} onReaction={handleSessionReaction} onChallenge={() => {
           const data = { wpm, accuracy, difficulty, language, passageIndex }
           const encoded = btoa(JSON.stringify(data))
           const url = `${window.location.origin}${window.location.pathname}?c=${encoded}`
@@ -525,6 +657,41 @@ function App() {
             colors={colors}
           />
         )}
+
+        {/* Tools strip — discover the full Typely platform */}
+        <div style={{
+          marginTop: '2.5rem',
+          padding: '1.25rem',
+          background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.02)',
+          border: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`,
+          borderRadius: '1rem',
+          textAlign: 'center',
+        }}>
+          <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            More from Typely
+          </p>
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+            {TOOLS.filter(t => t.id !== 'typing-tutor').map(t => (
+              <Link
+                key={t.id}
+                to={t.route}
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
+                  padding: '0.4rem 0.85rem',
+                  background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)',
+                  border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
+                  borderRadius: '2rem', color: colors.textSecondary,
+                  fontSize: '0.78rem', fontWeight: 600, textDecoration: 'none',
+                  transition: 'all 0.15s',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = '#06b6d4'; e.currentTarget.style.color = '#06b6d4' }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'; e.currentTarget.style.color = colors.textSecondary }}
+              >
+                <span>{t.icon}</span><span>{t.name}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
 
       {showGoalModal && <GoalModal onSelect={handleGoalSelect} isDark={isDark} colors={colors} />}

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const GOALS = [
+export const GOALS = [
   { id: 'freelancer', emoji: '💼', label: 'Earn faster as a freelancer', sub: 'Practice real client chat & email tasks' },
   { id: 'student', emoji: '🎓', label: 'Complete assignments quicker', sub: 'Study faster with fewer mistakes' },
   { id: 'urdu', emoji: '🌍', label: 'Master Urdu typing', sub: 'Learn layout, improve flow, type naturally' },

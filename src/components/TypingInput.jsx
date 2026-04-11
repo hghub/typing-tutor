@@ -1,14 +1,16 @@
-export default function TypingInput({ typed, finished, inputRef, handleChange, handleKeyDown, onKeyPress, colors, currentLangDir }) {
+export default function TypingInput({ typed, finished, inputRef, handleChange, handleKeyDown, onKeyPress, colors, currentLangDir, phoneticMode, latinValue }) {
+  const displayValue = phoneticMode ? (latinValue ?? '') : typed
+  const displayDir = phoneticMode ? 'ltr' : currentLangDir
   return (
     <input
       ref={inputRef}
       type="text"
-      value={typed}
+      value={displayValue}
       onChange={handleChange}
       onKeyDown={handleKeyDown}
       onKeyPress={onKeyPress}
       onPaste={(e) => e.preventDefault()}
-      placeholder={finished ? "Press 'Try Again' to continue" : 'Click here and start typing...'}
+      placeholder={finished ? "Press 'Try Again' to continue" : (phoneticMode ? 'Type phonetically in English (e.g. "pakistan")...' : 'Click here and start typing...')}
       disabled={finished}
       autoFocus
       style={{
@@ -25,8 +27,8 @@ export default function TypingInput({ typed, finished, inputRef, handleChange, h
         opacity: finished ? 0.6 : 1,
         cursor: finished ? 'not-allowed' : 'auto',
         transition: 'all 0.2s',
-        direction: currentLangDir,
-        textAlign: currentLangDir === 'rtl' ? 'right' : 'left',
+        direction: displayDir,
+        textAlign: displayDir === 'rtl' ? 'right' : 'left',
         boxSizing: 'border-box',
       }}
       onFocus={(e) => { if (!finished) e.target.style.borderColor = '#06b6d4' }}

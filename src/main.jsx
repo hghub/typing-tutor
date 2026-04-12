@@ -11,7 +11,12 @@ const TextCleaner  = lazy(() => import('./pages/TextCleaner.jsx'))
 const UrduKeyboard = lazy(() => import('./pages/UrduKeyboard.jsx'))
 const TextEncryptor = lazy(() => import('./pages/TextEncryptor.jsx'))
 const DocComposer  = lazy(() => import('./pages/DocComposer.jsx'))
-const TaxCalculator = lazy(() => import('./pages/TaxCalculator.jsx'))
+const TaxCalculator     = lazy(() => import('./pages/TaxCalculator.jsx'))
+const CurrencyConverter = lazy(() => import('./pages/CurrencyConverter.jsx'))
+const PackingList       = lazy(() => import('./pages/PackingList.jsx'))
+const BudgetSplitter    = lazy(() => import('./pages/BudgetSplitter.jsx'))
+const DrugChecker       = lazy(() => import('./pages/DrugChecker.jsx'))
+const SymptomTracker    = lazy(() => import('./pages/SymptomTracker.jsx'))
 
 const fallback = (
   <div style={{
@@ -45,7 +50,12 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/urdu-keyboard" element={<UrduKeyboard />} />
           <Route path="/tools/text-encryptor" element={<TextEncryptor />} />
           <Route path="/tools/doc-composer"  element={<DocComposer />} />
-          <Route path="/tools/tax-calculator" element={<TaxCalculator />} />
+          <Route path="/tools/tax-calculator"    element={<TaxCalculator />} />
+          <Route path="/tools/currency-converter" element={<CurrencyConverter />} />
+          <Route path="/tools/packing-list"       element={<PackingList />} />
+          <Route path="/tools/budget-splitter"    element={<BudgetSplitter />} />
+          <Route path="/tools/drug-checker"       element={<DrugChecker />} />
+          <Route path="/tools/symptom-tracker"    element={<SymptomTracker />} />
         </Routes>
       </Suspense>
     </HashRouter>

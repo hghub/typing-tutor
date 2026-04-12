@@ -39,38 +39,26 @@ async function lookupRxCUI(drugName) {
   return ids[0]
 }
 
-async function fetchInteractions(rxcuis) {
-  const url = `https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=${rxcuis.join('+')}`
-  const res = await fetch(url)
-  if (!res.ok) throw new Error('rxnav_unavailable')
-  const data = await res.json()
-
-  const pairs = []
-  const groups = data?.fullInteractionTypeGroup ?? []
-  for (const group of groups) {
-    for (const type of group.fullInteractionType ?? []) {
-      for (const pair of type.interactionPair ?? []) {
-        const drug1 = pair.interactionConcept?.[0]?.minConceptItem?.name ?? 'Drug 1'
-        const drug2 = pair.interactionConcept?.[1]?.minConceptItem?.name ?? 'Drug 2'
-        const description = pair.description ?? ''
-        const severity = parseSeverity(description, pair.severity ?? '')
-        pairs.push({ drug1, drug2, description, severity })
-      }
-    }
+// Fetch drug interaction text from OpenFDA label API
+async function fetchDrugInteractionText(drugName) {
+  // Try generic name first, then brand name
+  const queries = [
+    `https://api.fda.gov/drug/label.json?search=openfda.generic_name:"${encodeURIComponent(drugName)}"&limit=1`,
+    `https://api.fda.gov/drug/label.json?search=openfda.brand_name:"${encodeURIComponent(drugName)}"&limit=1`,
+    `https://api.fda.gov/drug/label.json?search="${encodeURIComponent(drugName)}"&limit=1`,
+  ]
+  for (const url of queries) {
+    try {
+      const res = await fetch(url)
+      if (!res.ok) continue
+      const data = await res.json()
+      const result = data?.results?.[0]
+      if (!result) continue
+      const text = (result.drug_interactions ?? result.warnings ?? [])[0]
+      if (text) return { found: true, text, drugName }
+    } catch { continue }
   }
-  return pairs
-}
-
-async function fetchOpenFDAWarnings(drugName) {
-  const url = `https://api.fda.gov/drug/label.json?search=openfda.brand_name:"${encodeURIComponent(drugName)}"&limit=1`
-  const res = await fetch(url)
-  if (!res.ok) return null
-  const data = await res.json()
-  const result = data?.results?.[0]
-  if (!result) return null
-  const text = (result.drug_interactions ?? result.warnings ?? [])[0] ?? null
-  if (!text) return null
-  return { drug1: drugName, drug2: 'other medications', description: text, severity: parseSeverity(text) }
+  return { found: false, text: null, drugName }
 }
 
 export default function DrugChecker() {
@@ -104,51 +92,28 @@ export default function DrugChecker() {
     setErrorMsg('')
 
     try {
-      // Step 1: resolve RxCUIs
-      const results = await Promise.all(names.map(async (name) => {
-        try {
-          const rxcui = await lookupRxCUI(name)
-          return { name, rxcui }
-        } catch {
-          throw new Error('rxnav_unavailable')
-        }
-      }))
+      // Fetch interaction text from OpenFDA for each drug in parallel
+      const fdaResults = await Promise.all(names.map(name => fetchDrugInteractionText(name)))
 
-      const missing = results.filter(r => !r.rxcui).map(r => r.name)
-      const found   = results.filter(r => r.rxcui)
+      const missing = fdaResults.filter(r => !r.found).map(r => r.drugName)
+      const found   = fdaResults.filter(r => r.found)
 
       setNotFound(missing)
 
-      if (found.length < 2) {
-        setInteractions([])
-        setStatus('done')
-        return
-      }
+      // Convert to interaction cards — each drug's label lists what it interacts with
+      const pairs = found.map(r => ({
+        drug1: r.drugName,
+        drug2: 'other medications',
+        description: r.text,
+        severity: parseSeverity(r.text),
+      }))
 
-      // Step 2: fetch interactions
-      const rxcuis = found.map(r => r.rxcui)
-      const pairs = await fetchInteractions(rxcuis)
       setInteractions(pairs)
       setStatus('done')
 
-    } catch (err) {
-      if (err.message === 'rxnav_unavailable') {
-        // Fallback: try OpenFDA for each drug individually
-        try {
-          const fallbackResults = await Promise.all(
-            drugs.map(d => d.trim()).filter(Boolean).map(name => fetchOpenFDAWarnings(name))
-          )
-          const valid = fallbackResults.filter(Boolean)
-          setInteractions(valid)
-          setStatus('done')
-        } catch {
-          setErrorMsg('Could not reach the drug database. Please check your connection and try again.')
-          setStatus('error')
-        }
-      } else {
-        setErrorMsg('Could not reach the drug database. Please check your connection and try again.')
-        setStatus('error')
-      }
+    } catch {
+      setErrorMsg('Could not reach the drug database. Please check your connection and try again.')
+      setStatus('error')
     }
   }, [drugs])
 

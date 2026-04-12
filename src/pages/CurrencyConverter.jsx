@@ -5,6 +5,9 @@ import { useTheme } from '../hooks/useTheme'
 const ACCENT = '#06b6d4'
 const QUICK_CURRENCIES = ['PKR', 'USD', 'GBP', 'EUR', 'AED', 'SAR', 'CAD', 'AUD']
 
+// open.er-api.com — free, no key, supports PKR and 150+ currencies
+const BASE_URL = 'https://open.er-api.com/v6/latest'
+
 function formatNumber(n) {
   if (n === null || n === undefined || isNaN(n)) return '—'
   return new Intl.NumberFormat('en-US', { maximumFractionDigits: 4 }).format(n)
@@ -18,19 +21,24 @@ export default function CurrencyConverter() {
   const [toCurrency, setTo]         = useState('PKR')
   const [result, setResult]         = useState(null)
   const [currencies, setCurrencies] = useState({})
+  const [rates, setRates]           = useState({}) // cache rates keyed by base
   const [loading, setLoading]       = useState(false)
   const [error, setError]           = useState(null)
   const [lastUpdated, setLastUpdated] = useState(null)
 
-  // Load all available currencies once
+  // Load rates for default base (USD) on mount — also gives us currency list
   useEffect(() => {
-    fetch('https://api.frankfurter.app/currencies')
+    fetch(`${BASE_URL}/USD`)
       .then((r) => {
-        if (!r.ok) throw new Error('Failed to load currencies')
+        if (!r.ok) throw new Error('Failed to load rates')
         return r.json()
       })
-      .then((data) => setCurrencies(data))
-      .catch(() => setError('Could not load currency list. Check your connection.'))
+      .then((data) => {
+        setRates(prev => ({ ...prev, USD: data.rates }))
+        // Build currency name map from known currencies
+        setCurrencies(data.rates) // keys only — we'll show code + known names
+      })
+      .catch(() => setError('Could not load exchange rates. Check your connection.'))
   }, [])
 
   const convert = useCallback(() => {
@@ -41,18 +49,31 @@ export default function CurrencyConverter() {
     setLoading(true)
     setError(null)
 
-    fetch(`https://api.frankfurter.app/latest?amount=${num}&from=${fromCurrency}&to=${toCurrency}`)
+    // Use cached rates if available, else fetch
+    if (rates[fromCurrency]) {
+      const rate = rates[fromCurrency][toCurrency]
+      if (rate != null) {
+        setResult(num * rate)
+        setLastUpdated(new Date())
+        setLoading(false)
+        return
+      }
+    }
+
+    fetch(`${BASE_URL}/${fromCurrency}`)
       .then((r) => {
         if (!r.ok) throw new Error('Conversion failed')
         return r.json()
       })
       .then((data) => {
-        setResult(data.rates[toCurrency] ?? null)
+        setRates(prev => ({ ...prev, [fromCurrency]: data.rates }))
+        const rate = data.rates[toCurrency]
+        setResult(rate != null ? parseFloat(amount) * rate : null)
         setLastUpdated(new Date())
       })
       .catch(() => setError('Conversion failed. Please try again.'))
       .finally(() => setLoading(false))
-  }, [amount, fromCurrency, toCurrency])
+  }, [amount, fromCurrency, toCurrency, rates])
 
   useEffect(() => {
     const t = setTimeout(convert, 400)
@@ -77,8 +98,8 @@ export default function CurrencyConverter() {
     transition: 'border-color 0.15s ease',
   }
 
-  const currencyOptions = Object.entries(currencies).map(([code, name]) => (
-    <option key={code} value={code}>{code} – {name}</option>
+  const currencyOptions = Object.keys(currencies).sort().map((code) => (
+    <option key={code} value={code}>{code}</option>
   ))
 
   return (
@@ -98,9 +119,7 @@ export default function CurrencyConverter() {
           💱 Currency Converter
         </h1>
         <p style={{ color: colors.textSecondary, fontSize: '0.9rem', margin: 0 }}>
-          Live exchange rates via{' '}
-          <span style={{ color: ACCENT, fontWeight: 600 }}>Frankfurter.app</span>
-          {' '}— no API key, always free.
+          Live exchange rates including PKR, AED, SAR and 150+ currencies — free, no API key.
         </p>
       </div>
 
@@ -295,7 +314,7 @@ export default function CurrencyConverter() {
 
       {/* Subtle note */}
       <p style={{ color: colors.textSecondary, fontSize: '0.75rem', marginTop: '1rem', maxWidth: '600px' }}>
-        ℹ️ Rates are mid-market rates from the European Central Bank via Frankfurter.app. Not for financial transactions.
+        ℹ️ Rates are updated daily via Open Exchange Rates API. Mid-market rates only — not for financial transactions.
       </p>
     </ToolLayout>
   )

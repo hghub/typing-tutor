@@ -7,6 +7,7 @@ const FEEDBACK_TYPES = [
 export default function FeedbackModal({
   showFeedback, setShowFeedback,
   feedbackName, setFeedbackName,
+  feedbackEmail, setFeedbackEmail,
   feedbackType, setFeedbackType,
   feedbackMessage, setFeedbackMessage,
   resetFeedback,
@@ -16,7 +17,7 @@ export default function FeedbackModal({
   if (!showFeedback) return null
 
   const handleSubmit = () => {
-    if (onSubmit) onSubmit({ name: feedbackName.trim() || 'Anonymous', type: feedbackType, message: feedbackMessage.trim() })
+    if (onSubmit) onSubmit({ name: feedbackName.trim() || 'Anonymous', email: feedbackEmail.trim() || null, type: feedbackType, message: feedbackMessage.trim() })
     setShowFeedback(false)
     resetFeedback()
   }
@@ -87,6 +88,17 @@ export default function FeedbackModal({
               value={feedbackName}
               onChange={(e) => setFeedbackName(e.target.value)}
               placeholder="Anonymous"
+              style={fieldStyle}
+            />
+          </div>
+
+          <div>
+            <label style={labelStyle}>Email (optional — so we can reply)</label>
+            <input
+              type="email"
+              value={feedbackEmail}
+              onChange={(e) => setFeedbackEmail(e.target.value)}
+              placeholder="you@example.com"
               style={fieldStyle}
             />
           </div>

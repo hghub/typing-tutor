@@ -273,11 +273,12 @@ function App() {
     }
   }
 
-  const handleFeedbackSubmit = async ({ name, type, message }) => {
+  const handleFeedbackSubmit = async ({ name, email, type, message }) => {
     try {
       await supabase.from('app_feedback').insert({
         user_id: identity.userId || null,
         name,
+        email: email || null,
         type,
         message,
       })

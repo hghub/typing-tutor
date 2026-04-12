@@ -17,6 +17,11 @@ const PackingList       = lazy(() => import('./pages/PackingList.jsx'))
 const BudgetSplitter    = lazy(() => import('./pages/BudgetSplitter.jsx'))
 const DrugChecker       = lazy(() => import('./pages/DrugChecker.jsx'))
 const SymptomTracker    = lazy(() => import('./pages/SymptomTracker.jsx'))
+const DataTransformer   = lazy(() => import('./pages/DataTransformer.jsx'))
+const MarkdownScraper   = lazy(() => import('./pages/MarkdownScraper.jsx'))
+const LogAnalyzer       = lazy(() => import('./pages/LogAnalyzer.jsx'))
+const ConfigConverter   = lazy(() => import('./pages/ConfigConverter.jsx'))
+const MockDataGenerator = lazy(() => import('./pages/MockDataGenerator.jsx'))
 
 const fallback = (
   <div style={{
@@ -56,6 +61,11 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/budget-splitter"    element={<BudgetSplitter />} />
           <Route path="/tools/drug-checker"       element={<DrugChecker />} />
           <Route path="/tools/symptom-tracker"    element={<SymptomTracker />} />
+          <Route path="/tools/data-transformer"   element={<DataTransformer />} />
+          <Route path="/tools/markdown-scraper"   element={<MarkdownScraper />} />
+          <Route path="/tools/log-analyzer"       element={<LogAnalyzer />} />
+          <Route path="/tools/config-converter"   element={<ConfigConverter />} />
+          <Route path="/tools/mock-data"          element={<MockDataGenerator />} />
         </Routes>
       </Suspense>
     </HashRouter>

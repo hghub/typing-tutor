@@ -674,7 +674,7 @@ function App() {
             {TOOLS.filter(t => t.id !== 'typing-tutor').map(t => (
               <Link
                 key={t.id}
-                to={t.route}
+                to={t.path}
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
                   padding: '0.4rem 0.85rem',

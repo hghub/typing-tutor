@@ -11,6 +11,7 @@ const TextCleaner  = lazy(() => import('./pages/TextCleaner.jsx'))
 const UrduKeyboard = lazy(() => import('./pages/UrduKeyboard.jsx'))
 const TextEncryptor = lazy(() => import('./pages/TextEncryptor.jsx'))
 const DocComposer  = lazy(() => import('./pages/DocComposer.jsx'))
+const TaxCalculator = lazy(() => import('./pages/TaxCalculator.jsx'))
 
 const fallback = (
   <div style={{
@@ -44,6 +45,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/urdu-keyboard" element={<UrduKeyboard />} />
           <Route path="/tools/text-encryptor" element={<TextEncryptor />} />
           <Route path="/tools/doc-composer"  element={<DocComposer />} />
+          <Route path="/tools/tax-calculator" element={<TaxCalculator />} />
         </Routes>
       </Suspense>
     </HashRouter>

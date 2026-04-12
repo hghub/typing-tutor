@@ -3,7 +3,7 @@
  * Drop it anywhere; it manages its own state and submits to Supabase.
  * Appears fixed on the right-center of every page.
  */
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { supabase } from '../utils/supabase'
 import { useTheme } from '../hooks/useTheme'
 
@@ -18,12 +18,22 @@ export default function FeedbackButton() {
 
   const [open, setOpen]       = useState(false)
   const [name, setName]       = useState('')
+  const [email, setEmail]     = useState('')
   const [type, setType]       = useState('suggestion')
   const [message, setMessage] = useState('')
   const [sent, setSent]       = useState(false)
   const [sending, setSending] = useState(false)
+  // Offset the tab button so it clears the OS scrollbar
+  const [scrollbarW, setScrollbarW] = useState(0)
 
-  const reset = () => { setName(''); setType('suggestion'); setMessage(''); setSent(false) }
+  useEffect(() => {
+    const measure = () => setScrollbarW(window.innerWidth - document.documentElement.clientWidth)
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [])
+
+  const reset = () => { setName(''); setEmail(''); setType('suggestion'); setMessage(''); setSent(false) }
 
   const handleSubmit = async () => {
     if (!message.trim()) return
@@ -31,6 +41,7 @@ export default function FeedbackButton() {
     try {
       await supabase.from('app_feedback').insert({
         name: name.trim() || 'Anonymous',
+        email: email.trim() || null,
         type,
         message: message.trim(),
       })
@@ -65,7 +76,7 @@ export default function FeedbackButton() {
         title="Send feedback"
         style={{
           position: 'fixed',
-          right: 0,
+          right: scrollbarW,
           top: '50%',
           transform: 'translateY(-50%) rotate(-90deg)',
           transformOrigin: 'right center',
@@ -171,6 +182,14 @@ export default function FeedbackButton() {
                   value={name}
                   onChange={e => setName(e.target.value)}
                   placeholder="Your name (optional)"
+                  style={field}
+                />
+
+                <input
+                  type="email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder="Your email (optional — so we can reply)"
                   style={field}
                 />
 

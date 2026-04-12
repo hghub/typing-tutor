@@ -32,31 +32,54 @@ function parseSeverity(description = '', severity = '') {
 async function lookupRxCUI(drugName) {
   const url = `https://rxnav.nlm.nih.gov/REST/rxcui.json?name=${encodeURIComponent(drugName)}&search=1`
   const res = await fetch(url)
-  if (!res.ok) throw new Error('rxnav_unavailable')
+  if (!res.ok) return null
   const data = await res.json()
   const ids = data?.idGroup?.rxnormId
-  if (!ids || ids.length === 0) return null
-  return ids[0]
+  return (ids && ids.length > 0) ? ids[0] : null
+}
+
+async function getCanonicalName(rxcui) {
+  try {
+    const res = await fetch(`https://rxnav.nlm.nih.gov/REST/rxcui/${rxcui}/property.json?propName=RxNorm%20Name`)
+    if (!res.ok) return null
+    const data = await res.json()
+    return data?.propConceptGroup?.propConcept?.[0]?.propValue ?? null
+  } catch { return null }
 }
 
 // Fetch drug interaction text from OpenFDA label API
+// Strategy: use RxNorm canonical name (generic) → brand name → partial text search
 async function fetchDrugInteractionText(drugName) {
-  // Try generic name first, then brand name
-  const queries = [
-    `https://api.fda.gov/drug/label.json?search=openfda.generic_name:"${encodeURIComponent(drugName)}"&limit=1`,
-    `https://api.fda.gov/drug/label.json?search=openfda.brand_name:"${encodeURIComponent(drugName)}"&limit=1`,
-    `https://api.fda.gov/drug/label.json?search="${encodeURIComponent(drugName)}"&limit=1`,
-  ]
-  for (const url of queries) {
-    try {
-      const res = await fetch(url)
-      if (!res.ok) continue
-      const data = await res.json()
-      const result = data?.results?.[0]
-      if (!result) continue
-      const text = (result.drug_interactions ?? result.warnings ?? [])[0]
-      if (text) return { found: true, text, drugName }
-    } catch { continue }
+  let searchNames = [drugName]
+
+  // Step 1: resolve to canonical generic name via RxNorm (handles brand names like Rivotril → clonazepam)
+  try {
+    const rxcui = await lookupRxCUI(drugName)
+    if (rxcui) {
+      const canonical = await getCanonicalName(rxcui)
+      if (canonical && canonical.toLowerCase() !== drugName.toLowerCase()) {
+        searchNames = [canonical, drugName] // try generic first
+      }
+    }
+  } catch { /* proceed with original name */ }
+
+  for (const name of searchNames) {
+    const queries = [
+      `https://api.fda.gov/drug/label.json?search=openfda.generic_name:"${encodeURIComponent(name)}"&limit=1`,
+      `https://api.fda.gov/drug/label.json?search=openfda.brand_name:"${encodeURIComponent(name)}"&limit=1`,
+      `https://api.fda.gov/drug/label.json?search=${encodeURIComponent(name)}&limit=1`,
+    ]
+    for (const url of queries) {
+      try {
+        const res = await fetch(url)
+        if (!res.ok) continue
+        const data = await res.json()
+        const result = data?.results?.[0]
+        if (!result) continue
+        const text = (result.drug_interactions ?? result.warnings ?? [])[0]
+        if (text) return { found: true, text, drugName, resolvedAs: name }
+      } catch { continue }
+    }
   }
   return { found: false, text: null, drugName }
 }
@@ -100,9 +123,9 @@ export default function DrugChecker() {
 
       setNotFound(missing)
 
-      // Convert to interaction cards — each drug's label lists what it interacts with
+      // Convert to interaction cards — show resolved generic name if different
       const pairs = found.map(r => ({
-        drug1: r.drugName,
+        drug1: r.resolvedAs && r.resolvedAs !== r.drugName ? `${r.drugName} (${r.resolvedAs})` : r.drugName,
         drug2: 'other medications',
         description: r.text,
         severity: parseSeverity(r.text),

@@ -675,6 +675,51 @@ export default function PackingList() {
               <button style={s.btn(false)} onClick={() => setStep(1)}>← Back</button>
               <button style={s.btn(true)} onClick={() => setStep(3)}>Generate List →</button>
             </div>
+
+            {/* Travel Alerts & Local News */}
+            <div style={{
+              ...s.card,
+              marginTop: 0,
+              borderColor: isDark ? 'rgba(245,158,11,0.3)' : 'rgba(245,158,11,0.4)',
+            }}>
+              <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 12, color: colors.text }}>
+                📢 Before You Travel — Check These
+              </div>
+              <p style={{ fontSize: 13, color: colors.textSecondary, marginBottom: 14, lineHeight: 1.6 }}>
+                Always check local news and travel advisories for <strong style={{ color: ACCENT }}>{selectedCity?.name ?? 'your destination'}</strong> before departing.
+              </p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: 10 }}>
+                {[
+                  { label: '🗞️ Dawn News', url: 'https://www.dawn.com', desc: 'Pakistan — English' },
+                  { label: '📺 Geo News', url: 'https://www.geo.tv', desc: 'Pakistan — Urdu/English' },
+                  { label: '🌍 BBC Travel Alerts', url: 'https://www.bbc.com/news', desc: 'International' },
+                  { label: '✈️ IATA Travel Centre', url: 'https://www.iatatravelcentre.com', desc: 'Visa & health rules' },
+                  { label: '🏥 WHO Health Advisories', url: 'https://www.who.int/emergencies', desc: 'Health risks' },
+                  { label: '🇵🇰 Passport Pakistan', url: 'https://www.passport.gov.pk', desc: 'Travel documents' },
+                ].map(({ label, url, desc }) => (
+                  <a
+                    key={url}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'block',
+                      padding: '10px 14px',
+                      borderRadius: 10,
+                      border: `1px solid ${colors.border}`,
+                      background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
+                      textDecoration: 'none',
+                      transition: 'border-color 0.15s',
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.borderColor = ACCENT}
+                    onMouseLeave={e => e.currentTarget.style.borderColor = colors.border}
+                  >
+                    <div style={{ fontSize: 13, fontWeight: 600, color: colors.text }}>{label}</div>
+                    <div style={{ fontSize: 11, color: colors.textSecondary, marginTop: 2 }}>{desc}</div>
+                  </a>
+                ))}
+              </div>
+            </div>
           </>
         )}
 

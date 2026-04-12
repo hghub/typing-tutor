@@ -50,7 +50,7 @@ export default function ToolsNav() {
   return (
     <nav style={navStyle} aria-label="Typely tools navigation">
       <div style={innerStyle}>
-        <Link to="/" style={brandStyle}>⚡ Typely</Link>
+        <Link to="/tools" style={brandStyle}>⚡ Typely</Link>
         <div style={dividerStyle} />
         {TOOLS.map((tool) => {
           const isActive = tool.isHome

@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import ToolsNav from './ToolsNav'
 import RelatedTools from './RelatedTools'
 import TrustBadge from './TrustBadge'
+import FeedbackButton from './FeedbackButton'
 import { useTheme } from '../hooks/useTheme'
 
 function LoadingSpinner({ colors }) {
@@ -50,6 +51,7 @@ export default function ToolLayout({ toolId, children }) {
 
       <RelatedTools toolId={toolId} />
       <TrustBadge />
+      <FeedbackButton />
 
       {/* Footer */}
       <footer style={{

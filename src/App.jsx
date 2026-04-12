@@ -20,6 +20,7 @@ import AnimatedBackground from './components/AnimatedBackground'
 import Header from './components/Header'
 import GoalModal from './components/GoalModal'
 import XPBar from './components/XPBar'
+import FeedbackButton from './components/FeedbackButton'
 import DifficultySelector from './components/DifficultySelector'
 import CustomPassagePanel from './components/CustomPassagePanel'
 import PassageDisplay from './components/PassageDisplay'
@@ -830,6 +831,7 @@ function App() {
         </p>
       </div>
     </div>
+      <FeedbackButton />
       <InstallBanner isDark={isDark} colors={colors} />
     </Suspense>
   )

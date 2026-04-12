@@ -4,7 +4,7 @@ import { useTheme } from '../hooks/useTheme'
 import { DOC_TEMPLATES, getTemplateById } from '../data/docTemplates'
 import { Link } from 'react-router-dom'
 
-// jsPDF + html2canvas loaded on demand only when user clicks Export
+// jsPDF + html2canvas loaded on demand only when user clicks Export PDF
 async function exportToPDF(el, filename) {
   const [{ default: jsPDF }, { default: html2canvas }] = await Promise.all([
     import('jspdf'),
@@ -16,6 +16,96 @@ async function exportToPDF(el, filename) {
   const pdfH = (canvas.height * pdfW) / canvas.width
   pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, pdfW, pdfH)
   pdf.save(filename)
+}
+
+// Build a styled HTML string from template + values (used for .doc export)
+function buildDocHTML(template, values) {
+  const tc = template.color
+
+  const grouped = []
+  let cur = null, curFields = []
+  template.sections.forEach((s) => {
+    if (s.type === 'locked') {
+      if (cur !== null) grouped.push({ heading: cur, fields: curFields })
+      cur = s.text; curFields = []
+    } else {
+      curFields.push(s)
+    }
+  })
+  if (cur !== null) grouped.push({ heading: cur, fields: curFields })
+
+  const sectionsHTML = grouped.map(({ heading, fields }) => {
+    const fieldsHTML = fields.map((f) => {
+      const val = (values[f.id] || '').trim()
+      if (!val) return ''
+      const label = fields.length > 1 ? `<strong>${f.label}:</strong> ` : ''
+      return `<p style="margin:0 0 4px">${label}${val.replace(/\n/g, '<br/>')}</p>`
+    }).join('')
+    if (!fieldsHTML) return ''
+    return `
+      <div style="margin-bottom:14px">
+        <h2 style="font-size:9pt;font-weight:700;color:${tc};text-transform:uppercase;letter-spacing:0.08em;border-bottom:1px solid ${tc}44;padding-bottom:3px;margin:0 0 6px;font-family:Arial,sans-serif">${heading}</h2>
+        ${fieldsHTML}
+      </div>`
+  }).join('')
+
+  return `
+    <html xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:w="urn:schemas-microsoft-com:office:word"
+          xmlns="http://www.w3.org/TR/REC-html40">
+    <head>
+      <meta charset="utf-8"/>
+      <!--[if gte mso 9]>
+        <xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml>
+      <![endif]-->
+      <style>
+        body { font-family: Georgia,"Times New Roman",serif; font-size:11pt; line-height:1.6; color:#1e293b; margin:2cm; }
+        h1   { font-family:Arial,sans-serif; font-size:18pt; color:${tc}; margin:0 0 12px; }
+        .header-line { border-bottom:3px solid ${tc}; padding-bottom:8px; margin-bottom:14px; }
+      </style>
+    </head>
+    <body>
+      <div class="header-line">
+        <h1>${template.name}</h1>
+      </div>
+      ${sectionsHTML}
+    </body>
+    </html>`
+}
+
+function exportToDoc(template, values, filename) {
+  const html = buildDocHTML(template, values)
+  const blob = new Blob(['\ufeff', html], { type: 'application/msword' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  URL.revokeObjectURL(url)
+}
+
+// Build plain-text body for mailto: pre-fill
+function buildPlainText(template, values) {
+  const lines = [`${template.name}\n${'='.repeat(template.name.length)}\n`]
+  let curHeading = null
+  template.sections.forEach((s) => {
+    if (s.type === 'locked') {
+      curHeading = s.text
+      lines.push(`\n${s.text}\n${'-'.repeat(s.text.length)}`)
+    } else {
+      const val = (values[s.id] || '').trim()
+      if (val) lines.push(`${s.label}: ${val}`)
+    }
+  })
+  return lines.join('\n')
+}
+
+function emailDoc(template, values) {
+  const subject = encodeURIComponent(`${template.name}`)
+  const body = encodeURIComponent(buildPlainText(template, values))
+  window.open(`mailto:?subject=${subject}&body=${body}`)
 }
 
 function TemplateSelector({ selected, onSelect, colors, isDark }) {
@@ -113,6 +203,7 @@ export default function DocComposer() {
   const [templateId, setTemplateId] = useState('cv')
   const [values, setValues] = useState({})
   const [exporting, setExporting] = useState(false)
+  const [exportingDoc, setExportingDoc] = useState(false)
   const [voice, setVoice] = useState({})  // field id → listening bool
   const previewRef = useRef(null)
 
@@ -139,7 +230,22 @@ export default function DocComposer() {
     }
   }, [templateId, exporting])
 
-  // Web Speech API voice input
+  const handleExportDoc = useCallback(() => {
+    if (!template || exportingDoc) return
+    setExportingDoc(true)
+    try {
+      exportToDoc(template, values, `typely-${templateId}.doc`)
+    } catch (err) {
+      console.error('DOC export failed:', err)
+    } finally {
+      setExportingDoc(false)
+    }
+  }, [template, values, templateId, exportingDoc])
+
+  const handleEmail = useCallback(() => {
+    if (!template) return
+    emailDoc(template, values)
+  }, [template, values])
   const startVoice = useCallback((fieldId) => {
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition
     if (!SR) return alert('Voice input is not supported in this browser. Try Chrome or Edge.')
@@ -298,6 +404,41 @@ export default function DocComposer() {
               }}
             >
               {exporting ? '⏳ Generating…' : '⬇️ Export PDF'}
+            </button>
+            <button
+              onClick={handleExportDoc}
+              disabled={exportingDoc}
+              style={{
+                background: exportingDoc ? colors.border : isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+                border: `1.5px solid ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)'}`,
+                color: colors.text,
+                borderRadius: '0.6rem', padding: '0.6rem 1.1rem',
+                cursor: exportingDoc ? 'not-allowed' : 'pointer',
+                fontSize: '0.88rem', fontWeight: 600,
+                display: 'flex', alignItems: 'center', gap: '0.4rem',
+                opacity: exportingDoc ? 0.7 : 1, transition: 'all 0.15s',
+              }}
+              onMouseEnter={e => !exportingDoc && (e.currentTarget.style.borderColor = '#3b82f6')}
+              onMouseLeave={e => !exportingDoc && (e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)')}
+            >
+              📝 Export .doc
+            </button>
+            <button
+              onClick={handleEmail}
+              style={{
+                background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+                border: `1.5px solid ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)'}`,
+                color: colors.text,
+                borderRadius: '0.6rem', padding: '0.6rem 1.1rem',
+                cursor: 'pointer',
+                fontSize: '0.88rem', fontWeight: 600,
+                display: 'flex', alignItems: 'center', gap: '0.4rem',
+                transition: 'all 0.15s',
+              }}
+              onMouseEnter={e => e.currentTarget.style.borderColor = '#10b981'}
+              onMouseLeave={e => e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)'}
+            >
+              📧 Send via Email
             </button>
             <button
               onClick={() => setValues({})}

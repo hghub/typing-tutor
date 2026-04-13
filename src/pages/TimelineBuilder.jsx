@@ -316,8 +316,10 @@ export default function TimelineBuilder() {
   }, [])
 
   const handleAddManual = useCallback(() => {
-    const parsed = new Date(manualDate)
-    if (!manualDate || isNaN(parsed) || !manualLabel.trim()) return
+    if (!manualDate || !manualLabel.trim()) return
+    const [y, m, d] = manualDate.split('-').map(Number)
+    const parsed = new Date(y, m - 1, d)
+    if (isNaN(parsed)) return
     setEvents((prev) => [
       ...prev,
       { id: Date.now() + ++manualIdCounter, date: parsed, label: manualLabel.trim() },

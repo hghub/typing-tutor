@@ -22,6 +22,12 @@ const MarkdownScraper   = lazy(() => import('./pages/MarkdownScraper.jsx'))
 const LogAnalyzer       = lazy(() => import('./pages/LogAnalyzer.jsx'))
 const ConfigConverter   = lazy(() => import('./pages/ConfigConverter.jsx'))
 const MockDataGenerator = lazy(() => import('./pages/MockDataGenerator.jsx'))
+const TimelineBuilder   = lazy(() => import('./pages/TimelineBuilder.jsx'))
+const PositionSizeCalc  = lazy(() => import('./pages/PositionSizeCalc.jsx'))
+const VoiceInvoice      = lazy(() => import('./pages/VoiceInvoice.jsx'))
+const PropertyComp      = lazy(() => import('./pages/PropertyComp.jsx'))
+const StudentGroups     = lazy(() => import('./pages/StudentGroups.jsx'))
+const RefrigerantCalc   = lazy(() => import('./pages/RefrigerantCalc.jsx'))
 
 const fallback = (
   <div style={{
@@ -66,6 +72,12 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/log-analyzer"       element={<LogAnalyzer />} />
           <Route path="/tools/config-converter"   element={<ConfigConverter />} />
           <Route path="/tools/mock-data"          element={<MockDataGenerator />} />
+          <Route path="/tools/timeline-builder"   element={<TimelineBuilder />} />
+          <Route path="/tools/position-size-calc" element={<PositionSizeCalc />} />
+          <Route path="/tools/voice-invoice"      element={<VoiceInvoice />} />
+          <Route path="/tools/property-comp"      element={<PropertyComp />} />
+          <Route path="/tools/student-groups"     element={<StudentGroups />} />
+          <Route path="/tools/refrigerant-calc"   element={<RefrigerantCalc />} />
         </Routes>
       </Suspense>
     </HashRouter>

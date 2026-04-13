@@ -88,6 +88,24 @@ export default function ToolsNav() {
             </Link>
           )
         })}
+        <div style={{ marginLeft: 'auto', flexShrink: 0 }}>
+          <Link
+            to="/about"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '0.75rem 0.8rem',
+              borderRadius: '0.5rem',
+              textDecoration: 'none',
+              fontSize: '0.82rem',
+              fontWeight: pathname === '/about' ? 700 : 500,
+              color: pathname === '/about' ? '#06b6d4' : colors.textSecondary,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            About
+          </Link>
+        </div>
       </div>
     </nav>
   )

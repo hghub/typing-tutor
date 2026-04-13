@@ -28,6 +28,7 @@ const VoiceInvoice      = lazy(() => import('./pages/VoiceInvoice.jsx'))
 const PropertyComp      = lazy(() => import('./pages/PropertyComp.jsx'))
 const StudentGroups     = lazy(() => import('./pages/StudentGroups.jsx'))
 const RefrigerantCalc   = lazy(() => import('./pages/RefrigerantCalc.jsx'))
+const About             = lazy(() => import('./pages/About.jsx'))
 
 const fallback = (
   <div style={{
@@ -78,6 +79,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/property-comp"      element={<PropertyComp />} />
           <Route path="/tools/student-groups"     element={<StudentGroups />} />
           <Route path="/tools/refrigerant-calc"   element={<RefrigerantCalc />} />
+          <Route path="/about"                     element={<About />} />
         </Routes>
       </Suspense>
     </HashRouter>

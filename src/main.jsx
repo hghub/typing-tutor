@@ -31,6 +31,9 @@ const RefrigerantCalc   = lazy(() => import('./pages/RefrigerantCalc.jsx'))
 const DataLeakDetector  = lazy(() => import('./pages/DataLeakDetector.jsx'))
 const DocRedaction      = lazy(() => import('./pages/DocRedaction.jsx'))
 const FreelancerRisk    = lazy(() => import('./pages/FreelancerRisk.jsx'))
+const ExpenseAnalyzer   = lazy(() => import('./pages/ExpenseAnalyzer.jsx'))
+const WarrantyTracker   = lazy(() => import('./pages/WarrantyTracker.jsx'))
+const DrivingFineTracker = lazy(() => import('./pages/DrivingFineTracker.jsx'))
 const About             = lazy(() => import('./pages/About.jsx'))
 
 const fallback = (
@@ -85,6 +88,9 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/data-leak-detector" element={<DataLeakDetector />} />
           <Route path="/tools/doc-redaction"      element={<DocRedaction />} />
           <Route path="/tools/freelancer-risk"    element={<FreelancerRisk />} />
+          <Route path="/tools/expense-analyzer"   element={<ExpenseAnalyzer />} />
+          <Route path="/tools/warranty-tracker"   element={<WarrantyTracker />} />
+          <Route path="/tools/driving-fines"      element={<DrivingFineTracker />} />
           <Route path="/about"                     element={<About />} />
         </Routes>
       </Suspense>

@@ -263,6 +263,51 @@ export default function ToolsHome() {
           </div>
         </section>
 
+        {/* ── Idea CTA strip ── */}
+        <div style={{
+          margin: '0 0 3rem',
+          background: isDark
+            ? 'linear-gradient(135deg, rgba(6,182,212,0.08), rgba(139,92,246,0.08))'
+            : 'linear-gradient(135deg, rgba(6,182,212,0.06), rgba(139,92,246,0.06))',
+          border: `1px solid ${isDark ? 'rgba(6,182,212,0.2)' : 'rgba(6,182,212,0.25)'}`,
+          borderRadius: '1rem',
+          padding: '1.1rem 1.5rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '0.75rem',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <span style={{ fontSize: '1.5rem' }}>💡</span>
+            <div>
+              <div style={{ fontWeight: 700, fontSize: '0.95rem', color: colors.text }}>
+                Have an interesting idea?
+              </div>
+              <div style={{ fontSize: '0.82rem', color: colors.textSecondary, marginTop: '0.1rem' }}>
+                Share it and we'll build and add it to the hub.
+              </div>
+            </div>
+          </div>
+          <button
+            onClick={() => window.dispatchEvent(new CustomEvent('open-feedback'))}
+            style={{
+              background: 'linear-gradient(135deg, #06b6d4, #8b5cf6)',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '0.6rem',
+              padding: '0.55rem 1.2rem',
+              fontWeight: 700,
+              fontSize: '0.85rem',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              letterSpacing: '0.02em',
+            }}
+          >
+            Share Idea →
+          </button>
+        </div>
+
         {/* ── All Tools by Category ── */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
           {TOOL_CATEGORIES.map((cat) => {

@@ -27,13 +27,17 @@ export default function FeedbackButton() {
   const [scrollbarW, setScrollbarW] = useState(0)
 
   useEffect(() => {
+    const handler = () => { setOpen(true); setSent(false); setType('suggestion') }
+    window.addEventListener('open-feedback', handler)
+    return () => window.removeEventListener('open-feedback', handler)
+  }, [])
+
+  useEffect(() => {
     const measure = () => setScrollbarW(window.innerWidth - document.documentElement.clientWidth)
     measure()
     window.addEventListener('resize', measure)
     return () => window.removeEventListener('resize', measure)
   }, [])
-
-  const reset = () => { setName(''); setEmail(''); setType('suggestion'); setMessage(''); setSent(false) }
 
   const handleSubmit = async () => {
     if (!message.trim()) return
@@ -53,6 +57,8 @@ export default function FeedbackButton() {
       setSending(false)
     }
   }
+
+  const reset = () => { setName(''); setEmail(''); setType('suggestion'); setMessage(''); setSent(false) }
 
   const field = {
     width: '100%',

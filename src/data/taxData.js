@@ -1,35 +1,39 @@
 /**
- * Pakistan Income Tax Data — Finance Act 2025 (FY 2025-26)
- * Source: Finance Bill 2025 / FBR
- * For salaried individuals only.
+ * Pakistan Income Tax Data
+ * Sources: Finance Act 2025 (FY 2025-26) + Finance Act 2024 (FY 2024-25)
+ * FBR official slabs for SALARIED individuals.
+ * Last verified: April 2025 via FBR/ProPakistani/Vohra Law Associates
  */
 
-// FY 2025-26 salaried tax slabs
+// ── FY 2025-26 salaried tax slabs (Finance Act 2025) ──────────────────
+// Reduced rates vs FY 2024-25: 1% (was 5%), 11% (was 15%), 23% (was 25%)
 export const SLABS_2526 = [
   { min: 0,         max: 600_000,    fixed: 0,         rate: 0,    label: 'Up to 6 Lakh' },
-  { min: 600_001,   max: 1_200_000,  fixed: 0,         rate: 0.05, label: '6L – 12L' },
-  { min: 1_200_001, max: 2_200_000,  fixed: 30_000,    rate: 0.15, label: '12L – 22L' },
-  { min: 2_200_001, max: 3_200_000,  fixed: 180_000,   rate: 0.25, label: '22L – 32L' },
-  { min: 3_200_001, max: 4_100_000,  fixed: 430_000,   rate: 0.30, label: '32L – 41L' },
-  { min: 4_100_001, max: Infinity,   fixed: 700_000,   rate: 0.35, label: 'Above 41L' },
+  { min: 600_001,   max: 1_200_000,  fixed: 0,         rate: 0.01, label: '6L – 12L' },
+  { min: 1_200_001, max: 2_200_000,  fixed: 6_000,     rate: 0.11, label: '12L – 22L' },
+  { min: 2_200_001, max: 3_200_000,  fixed: 116_000,   rate: 0.23, label: '22L – 32L' },
+  { min: 3_200_001, max: 4_100_000,  fixed: 346_000,   rate: 0.30, label: '32L – 41L' },
+  { min: 4_100_001, max: Infinity,   fixed: 616_000,   rate: 0.35, label: 'Above 41L' },
 ]
 
-// FY 2024-25 slabs for year-over-year comparison
+// ── FY 2024-25 salaried tax slabs (Finance Act 2024) ──────────────────
+// Used for year-over-year comparison
 export const SLABS_2425 = [
   { min: 0,         max: 600_000,    fixed: 0,         rate: 0 },
   { min: 600_001,   max: 1_200_000,  fixed: 0,         rate: 0.05 },
-  { min: 1_200_001, max: 2_400_000,  fixed: 30_000,    rate: 0.15 },
-  { min: 2_400_001, max: 3_600_000,  fixed: 210_000,   rate: 0.25 },
-  { min: 3_600_001, max: 6_000_000,  fixed: 510_000,   rate: 0.30 },
-  { min: 6_000_001, max: Infinity,   fixed: 1_230_000, rate: 0.35 },
+  { min: 1_200_001, max: 2_200_000,  fixed: 30_000,    rate: 0.15 },
+  { min: 2_200_001, max: 3_200_000,  fixed: 180_000,   rate: 0.25 },
+  { min: 3_200_001, max: 4_100_000,  fixed: 430_000,   rate: 0.30 },
+  { min: 4_100_001, max: Infinity,   fixed: 700_000,   rate: 0.35 },
 ]
 
 /** Surcharge: 9% on tax if income > 10M */
 export const SURCHARGE_THRESHOLD = 10_000_000
 export const SURCHARGE_RATE = 0.09
 
-/** VPS / Pension shield: credit on up to 20% of taxable income */
+/** VPS / Pension shield: 20% of taxable income (under 40) or 22% (age 40+) */
 export const VPS_MAX_RATE = 0.20
+export const VPS_MAX_RATE_40PLUS = 0.22
 
 /** Charity shield: credit on up to 30% of taxable income */
 export const CHARITY_MAX_RATE = 0.30
@@ -38,11 +42,16 @@ export const CHARITY_MAX_RATE = 0.30
 export const SENIOR_AGE = 60
 export const SENIOR_REBATE = 0.50
 
-/** Teacher/researcher tax credit: 25% of tax (Finance Act 2025 — under review) */
+/**
+ * Teacher/researcher tax credit: 25% of tax.
+ * Restored for Tax Years 2023, 2024, 2025 (Finance Act 2025).
+ * NOT available for Tax Year 2026 (FY 2025-26) — IMF rejected extension.
+ */
 export const TEACHER_CREDIT = 0.25
+export const TEACHER_CREDIT_DISCONTINUED_TY = 2026
 
-/** Petrol price PKR/litre (update periodically) */
-export const PETROL_PRICE_PER_LITRE = 278
+/** Petrol price PKR/litre (last updated April 2025) */
+export const PETROL_PRICE_PER_LITRE = 255
 
 /** Calculate raw tax for a given income using a slabs array */
 export function calcTax(income, slabs) {
@@ -81,12 +90,13 @@ export function calcFullTax({ annualIncome, age = 0, isTeacher = false, slabs = 
   return { tax: Math.max(0, tax), effectiveRate, surcharge, seniorRebate, teacherCredit }
 }
 
-/** VPS shield: how much tax saved by investing amount */
-export function calcVPSShield(annualIncome, annualTax, investAmount) {
-  const maxInvestment = annualIncome * VPS_MAX_RATE
+/** VPS shield: how much tax saved by investing amount (age-aware cap) */
+export function calcVPSShield(annualIncome, annualTax, investAmount, age = 0) {
+  const rate = age >= 40 ? VPS_MAX_RATE_40PLUS : VPS_MAX_RATE
+  const maxInvestment = annualIncome * rate
   const capped = Math.min(investAmount, maxInvestment)
   const effectiveRate = annualIncome > 0 ? annualTax / annualIncome : 0
-  return { saving: capped * effectiveRate, maxInvestment, capped }
+  return { saving: capped * effectiveRate, maxInvestment, capped, rate }
 }
 
 /** Charity shield: credit on donation */

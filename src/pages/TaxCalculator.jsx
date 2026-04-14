@@ -4,7 +4,7 @@ import { useTheme } from '../hooks/useTheme'
 import {
   SLABS_2526, SLABS_2425,
   calcFullTax, calcVPSShield, calcCharityShield, slabProximity,
-  PETROL_PRICE_PER_LITRE,
+  PETROL_PRICE_PER_LITRE, TEACHER_CREDIT_DISCONTINUED_TY,
 } from '../data/taxData'
 
 const fmt = (n) => Math.round(n).toLocaleString('en-PK')
@@ -75,8 +75,8 @@ export default function TaxCalculator() {
 
   const vps = useMemo(() => {
     const inv = parseFloat(vpsInvestment) || 0
-    return inv > 0 ? calcVPSShield(annualIncome, result2526.tax, inv) : null
-  }, [vpsInvestment, annualIncome, result2526.tax])
+    return inv > 0 ? calcVPSShield(annualIncome, result2526.tax, inv, parseInt(age) || 0) : null
+  }, [vpsInvestment, annualIncome, result2526.tax, age])
 
   const charity = useMemo(() => {
     const don = parseFloat(charityAmount) || 0
@@ -225,8 +225,13 @@ export default function TaxCalculator() {
               <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', cursor: 'pointer', fontSize: '0.85rem', color: colors.text }}>
                 <input type="checkbox" checked={isTeacher} onChange={e => setIsTeacher(e.target.checked)}
                   style={{ width: '16px', height: '16px', accentColor: '#f97316' }} />
-                <span>Full-time teacher or researcher <span style={{ color: colors.textSecondary, fontSize: '0.75rem' }}>(25% credit — under review)</span></span>
+                <span>Full-time teacher or researcher <span style={{ color: '#f97316', fontSize: '0.75rem' }}>(25% credit — NOT available FY 2025-26)</span></span>
               </label>
+              {isTeacher && (
+                <div style={{ padding: '0.5rem 0.75rem', background: 'rgba(249,115,22,0.1)', borderRadius: '0.5rem', fontSize: '0.78rem', color: '#f97316', lineHeight: 1.5 }}>
+                  ⚠️ The 25% teacher/researcher rebate was <strong>not extended</strong> to Tax Year 2026 (FY 2025-26). It applied for TY 2023–2025 only. Result shown includes this credit for reference only.
+                </div>
+              )}
             </div>
           </div>
 
@@ -240,7 +245,7 @@ export default function TaxCalculator() {
               <div>
                 <label style={labelStyle}>VPS / Pension Investment (PKR/yr)</label>
                 <input type="number" value={vpsInvestment} onChange={e => setVpsInvestment(e.target.value)}
-                  placeholder="Up to 20% of income" style={fieldStyle}
+                  placeholder={`Up to ${(parseInt(age) || 0) >= 40 ? '22' : '20'}% of income`} style={fieldStyle}
                   onFocus={e => e.target.style.borderColor = '#10b981'}
                   onBlur={e => e.target.style.borderColor = colors.border} />
               </div>

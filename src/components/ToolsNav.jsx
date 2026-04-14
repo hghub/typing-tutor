@@ -49,46 +49,54 @@ export default function ToolsNav() {
 
   return (
     <nav style={navStyle} aria-label="Typely tools navigation">
-      <div style={innerStyle}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1rem', display: 'flex', alignItems: 'center' }}>
+
+        {/* Brand — always visible left */}
         <Link to="/tools" style={brandStyle}>⚡ Typely</Link>
         <div style={dividerStyle} />
-        {TOOLS.map((tool) => {
-          const isActive = tool.isHome
-            ? pathname === '/'
-            : pathname === tool.path || pathname.startsWith(tool.path + '/')
-          return (
-            <Link
-              key={tool.id}
-              to={tool.path}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-                padding: '0.75rem 0.6rem',
-                borderRadius: '0.5rem',
-                textDecoration: 'none',
-                fontSize: '0.82rem',
-                fontWeight: isActive ? 700 : 500,
-                color: isActive ? tool.color : colors.textSecondary,
-                background: isActive ? `${tool.color}18` : 'transparent',
-                borderBottom: isActive ? `2px solid ${tool.color}` : '2px solid transparent',
-                transition: 'all 0.15s ease',
-                whiteSpace: 'nowrap',
-                flexShrink: 0,
-              }}
-              onMouseEnter={(e) => {
-                if (!isActive) e.currentTarget.style.color = colors.text
-              }}
-              onMouseLeave={(e) => {
-                if (!isActive) e.currentTarget.style.color = colors.textSecondary
-              }}
-            >
-              <span>{tool.icon}</span>
-              <span>{tool.name}</span>
-            </Link>
-          )
-        })}
-        <div style={{ marginLeft: 'auto', flexShrink: 0, display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+
+        {/* Scrollable tool links — takes all remaining space */}
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '0.25rem', overflowX: 'auto', scrollbarWidth: 'none' }}>
+          {TOOLS.map((tool) => {
+            const isActive = tool.isHome
+              ? pathname === '/'
+              : pathname === tool.path || pathname.startsWith(tool.path + '/')
+            return (
+              <Link
+                key={tool.id}
+                to={tool.path}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  padding: '0.75rem 0.6rem',
+                  borderRadius: '0.5rem',
+                  textDecoration: 'none',
+                  fontSize: '0.82rem',
+                  fontWeight: isActive ? 700 : 500,
+                  color: isActive ? tool.color : colors.textSecondary,
+                  background: isActive ? `${tool.color}18` : 'transparent',
+                  borderBottom: isActive ? `2px solid ${tool.color}` : '2px solid transparent',
+                  transition: 'all 0.15s ease',
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0,
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive) e.currentTarget.style.color = colors.text
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) e.currentTarget.style.color = colors.textSecondary
+                }}
+              >
+                <span>{tool.icon}</span>
+                <span>{tool.name}</span>
+              </Link>
+            )
+          })}
+        </div>
+
+        {/* Right controls — always visible */}
+        <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: '0.25rem', paddingLeft: '0.5rem' }}>
           <Link
             to="/about"
             style={{
@@ -129,6 +137,7 @@ export default function ToolsNav() {
             {isDark ? '☀️' : '🌙'}
           </button>
         </div>
+
       </div>
     </nav>
   )

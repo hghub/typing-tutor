@@ -14,7 +14,7 @@ const WHO_FOR = [
   {
     icon: '💻',
     title: 'Developers',
-    desc: 'Transform data formats, scrape Markdown, analyze logs, convert configs, and generate mock data instantly.',
+    desc: 'Transform data formats, scan code for leaked secrets, scrape Markdown, analyze logs, convert configs, and generate mock data instantly.',
     color: '#06b6d4',
   },
   {
@@ -26,13 +26,13 @@ const WHO_FOR = [
   {
     icon: '💼',
     title: 'Freelancers',
-    desc: 'Generate voice-driven invoices, calculate trading position sizes, and stay on top of your finances.',
+    desc: 'Score client risk before you start, generate voice-driven invoices, analyze expenses, and stay on top of your finances.',
     color: '#f97316',
   },
   {
     icon: '📊',
     title: 'Finance Professionals',
-    desc: 'Pakistan-specific tax calculator (FBR 2024–25), currency converter, budget splitter, and position size calc.',
+    desc: 'FBR tax calculator, expense pattern analyzer, currency converter, driving fine tracker, warranty tracker, and budget splitter.',
     color: '#10b981',
   },
   {
@@ -40,6 +40,18 @@ const WHO_FOR = [
     title: 'Healthcare Workers',
     desc: 'Check drug interactions, track symptoms over time, and calculate refrigerant leak rates for compliance.',
     color: '#ef4444',
+  },
+  {
+    icon: '🔒',
+    title: 'Privacy-conscious Users',
+    desc: 'Redact PII from documents before sharing, detect leaked API keys and secrets in logs, and encrypt sensitive text — all locally.',
+    color: '#6366f1',
+  },
+  {
+    icon: '✈️',
+    title: 'Travellers',
+    desc: 'Build smart packing lists with weather context, convert currencies, and track expenses across trips.',
+    color: '#3b82f6',
   },
 ]
 
@@ -116,13 +128,13 @@ export default function About() {
           </h2>
           <p style={{ margin: '0 0 0.75rem', fontSize: '0.95rem', color: colors.textSecondary, lineHeight: 1.75 }}>
             Most productivity tools are built for the US market — dollar defaults, English-only, and paywalled.
-            Pakistani users are left patching together spreadsheets and random websites that sell their data.
+            Users everywhere are left patching together spreadsheets and random websites that sell their data.
           </p>
           <p style={{ margin: '0 0 0.75rem', fontSize: '0.95rem', color: colors.textSecondary, lineHeight: 1.75 }}>
-            Typely is different. Every tool ships with <strong style={{ color: colors.text }}>PKR defaults</strong>,{' '}
-            <strong style={{ color: colors.text }}>Urdu support</strong>, and{' '}
-            <strong style={{ color: colors.text }}>local context</strong> — FBR tax brackets, Pakistani city data,
-            marla/kanal property units, local medicine names, and more.
+            Typely is different. Every tool runs entirely in your browser — no uploads, no servers, no tracking.
+            We also ship local context for Pakistan: <strong style={{ color: colors.text }}>PKR defaults</strong>,{' '}
+            <strong style={{ color: colors.text }}>Urdu support</strong>,{' '}
+            <strong style={{ color: colors.text }}>FBR tax brackets</strong>, local drug names, city data, and more.
           </p>
           <p style={{ margin: 0, fontSize: '0.95rem', color: colors.textSecondary, lineHeight: 1.75 }}>
             Everything runs in your browser. No account. No upload. No tracking. No cost.
@@ -193,7 +205,7 @@ export default function About() {
           padding: '1.75rem',
         }}>
           {[
-            { value: '25+', label: 'Free Tools' },
+            { value: '34+', label: 'Free Tools' },
             { value: '11', label: 'Categories' },
             { value: '0', label: 'Logins Required' },
             { value: '100%', label: 'Browser-only' },

@@ -3,7 +3,7 @@ import { TOOLS } from '../tools/registry'
 import { useTheme } from '../hooks/useTheme'
 
 export default function ToolsNav() {
-  const { isDark, colors } = useTheme()
+  const { isDark, toggleTheme, colors } = useTheme()
   const { pathname } = useLocation()
 
   const navStyle = {
@@ -88,7 +88,7 @@ export default function ToolsNav() {
             </Link>
           )
         })}
-        <div style={{ marginLeft: 'auto', flexShrink: 0 }}>
+        <div style={{ marginLeft: 'auto', flexShrink: 0, display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
           <Link
             to="/about"
             style={{
@@ -105,6 +105,29 @@ export default function ToolsNav() {
           >
             About
           </Link>
+          <button
+            onClick={toggleTheme}
+            title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            style={{
+              background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+              border: `1px solid ${colors.border}`,
+              color: colors.text,
+              width: '32px',
+              height: '32px',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontSize: '0.95rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+              transition: 'border-color 0.2s ease, background 0.2s ease',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#06b6d4' }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = colors.border }}
+          >
+            {isDark ? '☀️' : '🌙'}
+          </button>
         </div>
       </div>
     </nav>

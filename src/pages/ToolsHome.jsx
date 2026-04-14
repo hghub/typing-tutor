@@ -113,6 +113,7 @@ export default function ToolsHome() {
           textAlign: 'center',
           marginBottom: '3.5rem',
           position: 'relative',
+          overflow: 'hidden',
         }}>
           {/* Radial glow behind title */}
           <div style={{

@@ -103,7 +103,19 @@ export const TOOLS = [
     color: '#ef4444',
     category: 'security',
     tags: ['security', 'encryption', 'privacy'],
-    related: ['text-cleaner', 'doc-composer'],
+    related: ['data-leak-detector', 'text-cleaner'],
+  },
+  {
+    id: 'data-leak-detector',
+    name: 'Data Leak Detector',
+    tagline: 'Scan logs & configs for secrets before sharing',
+    description: 'Paste logs, configs, or API responses to instantly detect AWS keys, GitHub tokens, database URLs, PII, and more — entirely in your browser.',
+    icon: '🛡️',
+    path: '/tools/data-leak-detector',
+    color: '#ef4444',
+    category: 'security',
+    tags: ['security', 'secrets', 'credentials', 'pii', 'leaks', 'devtools'],
+    related: ['text-encryptor', 'log-analyzer', 'data-transformer'],
   },
   // ── Travel & Recreation ──
   {
@@ -303,9 +315,46 @@ export const TOOLS = [
     tags: ['hvac', 'refrigerant', 'epa', 'compliance', 'calculator'],
     related: ['voice-invoice'],
   },
+  // ── Business ──────────────────────────────────────────────────
+  {
+    id: 'freelancer-risk',
+    name: 'Freelancer Risk Analyzer',
+    tagline: 'Score client risk before you start work',
+    description: 'Answer questions about your client source, contract terms, and payment structure — get a 0–100 risk score with specific, actionable advice. Save assessments for future reference.',
+    icon: '🤝',
+    path: '/tools/freelancer-risk',
+    color: '#f59e0b',
+    category: 'business',
+    tags: ['freelancer', 'risk', 'contract', 'payment', 'upwork', 'fiverr', 'pakistan'],
+    related: ['voice-invoice', 'position-size-calc'],
+  },
+  // ── Developer ─────────────────────────────────────────────────
+  {
+    id: 'data-leak-detector',
+    name: 'Data Leak Detector',
+    tagline: 'Scan logs and configs for exposed secrets',
+    description: 'Paste any text — logs, configs, API responses — and instantly detect exposed API keys, JWT tokens, AWS credentials, CNICs, IBANs, and more. Copy a safe redacted version in one click.',
+    icon: '🕵️',
+    path: '/tools/data-leak-detector',
+    color: '#ef4444',
+    category: 'developer',
+    tags: ['security', 'secrets', 'api-keys', 'jwt', 'aws', 'leak', 'developer', 'devops'],
+    related: ['doc-redaction', 'text-encryptor'],
+  },
+  // ── Security & Privacy ────────────────────────────────────────
+  {
+    id: 'doc-redaction',
+    name: 'Smart Document Redaction',
+    tagline: 'Redact sensitive info before sharing documents',
+    description: 'Automatically detects and redacts CNICs, IBANs, phone numbers, emails, NTNs, passports, credit cards and PKR amounts — 100% local, never leaves your browser.',
+    icon: '🔏',
+    path: '/tools/doc-redaction',
+    color: '#6366f1',
+    category: 'security',
+    tags: ['privacy', 'redaction', 'cnic', 'iban', 'pii', 'document', 'security'],
+    related: ['text-encryptor', 'doc-composer'],
+  },
 ]
-
-/** Lookup a tool by id. */
 export function getToolById(id) {
   return TOOLS.find((t) => t.id === id) || null
 }

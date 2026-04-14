@@ -28,6 +28,9 @@ const VoiceInvoice      = lazy(() => import('./pages/VoiceInvoice.jsx'))
 const PropertyComp      = lazy(() => import('./pages/PropertyComp.jsx'))
 const StudentGroups     = lazy(() => import('./pages/StudentGroups.jsx'))
 const RefrigerantCalc   = lazy(() => import('./pages/RefrigerantCalc.jsx'))
+const DataLeakDetector  = lazy(() => import('./pages/DataLeakDetector.jsx'))
+const DocRedaction      = lazy(() => import('./pages/DocRedaction.jsx'))
+const FreelancerRisk    = lazy(() => import('./pages/FreelancerRisk.jsx'))
 const About             = lazy(() => import('./pages/About.jsx'))
 
 const fallback = (
@@ -79,6 +82,9 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/property-comp"      element={<PropertyComp />} />
           <Route path="/tools/student-groups"     element={<StudentGroups />} />
           <Route path="/tools/refrigerant-calc"   element={<RefrigerantCalc />} />
+          <Route path="/tools/data-leak-detector" element={<DataLeakDetector />} />
+          <Route path="/tools/doc-redaction"      element={<DocRedaction />} />
+          <Route path="/tools/freelancer-risk"    element={<FreelancerRisk />} />
           <Route path="/about"                     element={<About />} />
         </Routes>
       </Suspense>

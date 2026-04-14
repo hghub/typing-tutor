@@ -136,7 +136,7 @@ export default function ToolsHome() {
             textTransform: 'uppercase',
             marginBottom: '1.1rem',
           }}>
-            🇵🇰 Made for Pakistan
+            🔒 Privacy-first · Browser-native
           </div>
 
           <h1 style={{
@@ -150,7 +150,7 @@ export default function ToolsHome() {
             letterSpacing: '-0.03em',
             lineHeight: 1.15,
           }}>
-            Pakistan's Free Productivity Hub
+            Privacy-first tools that run in your browser
           </h1>
 
           <p style={{
@@ -160,7 +160,7 @@ export default function ToolsHome() {
             margin: '0 auto 0.75rem',
             lineHeight: 1.6,
           }}>
-            {totalTools}+ free tools for professionals, students &amp; developers — built with local context.
+            {totalTools}+ free tools for developers, professionals &amp; students — no uploads, no accounts, nothing leaves your device.
           </p>
 
           {/* Stats row */}
@@ -350,7 +350,7 @@ export default function ToolsHome() {
         fontSize: '0.75rem',
         borderTop: `1px solid ${colors.border}`,
       }}>
-        © {new Date().getFullYear()} Typely · Pakistan's Free Productivity Hub &nbsp;·&nbsp;
+        © {new Date().getFullYear()} Typely · Privacy-first browser tools &nbsp;·&nbsp;
         <a href="#/about" style={{ color: 'inherit', textDecoration: 'underline' }}>About</a>
       </footer>
     </div>

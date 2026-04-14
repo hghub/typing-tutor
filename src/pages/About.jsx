@@ -46,7 +46,7 @@ const WHO_FOR = [
 const PRINCIPLES = [
   { icon: '🔒', title: 'No login required', desc: 'Every tool works without an account. Ever.' },
   { icon: '🌐', title: 'Works offline', desc: 'Installed as a PWA, it runs even without internet.' },
-  { icon: '🇵🇰', title: 'Pakistan-first defaults', desc: 'PKR, Urdu, FBR tax brackets, local drug names — not an afterthought.' },
+  { icon: '🇵🇰', title: 'Local context built-in', desc: 'PKR, Urdu, FBR tax brackets, local drug names — not an afterthought.' },
   { icon: '⚡', title: 'Browser-only processing', desc: 'Your data never leaves your device. No uploads, no servers.' },
   { icon: '🆓', title: 'Always free', desc: 'No premium tier, no paywalls, no ads. Just tools.' },
 ]
@@ -89,7 +89,7 @@ export default function About() {
             textTransform: 'uppercase',
             marginBottom: '1.25rem',
           }}>
-            🇵🇰 Built for Pakistan
+            🔒 Privacy-first · Open for everyone
           </div>
           <h1 style={{
             fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
@@ -101,11 +101,11 @@ export default function About() {
             margin: '0 0 1rem',
             letterSpacing: '-0.02em',
           }}>
-            Pakistan's Free Productivity Hub
+            Privacy-first tools that run in your browser
           </h1>
           <p style={{ fontSize: '1.05rem', color: colors.textSecondary, maxWidth: 560, margin: '0 auto', lineHeight: 1.7 }}>
-            Typely started as a typing tutor and grew into a collection of 25+ free, privacy-first tools —
-            each one built with Pakistani professionals and students in mind.
+            Typely started as a typing tutor and grew into a collection of 30+ free, browser-native tools —
+            built for developers, professionals and students everywhere, with local tools for Pakistan.
           </p>
         </div>
 

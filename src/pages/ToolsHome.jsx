@@ -92,6 +92,7 @@ export default function ToolsHome() {
   const { isDark, colors } = useTheme()
   const featuredTools = FEATURED_IDS.map(id => TOOLS.find(t => t.id === id)).filter(Boolean)
   const totalTools = TOOLS.filter(t => !t.isHome).length
+  const totalCategories = TOOL_CATEGORIES.length
 
   return (
     <div
@@ -170,8 +171,9 @@ export default function ToolsHome() {
           }}>
             {[
               { value: `${totalTools}+`, label: 'Free Tools' },
-              { value: '11', label: 'Categories' },
-              { value: '0', label: 'Signups Needed' },
+              { value: `${totalCategories}`, label: 'Categories' },
+              { value: 'Zero', label: 'Signups Needed' },
+              { value: '100%', label: 'Browser-based' },
             ].map(({ value, label }) => (
               <div key={label} style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#06b6d4', lineHeight: 1 }}>{value}</div>
@@ -213,6 +215,8 @@ export default function ToolsHome() {
               { label: '📊 Finance Pros', color: '#10b981' },
               { label: '🏥 Healthcare', color: '#ef4444' },
               { label: '✈️ Travellers', color: '#3b82f6' },
+              { label: '🏢 Business', color: '#f59e0b' },
+              { label: '🔐 Privacy Advocates', color: '#64748b' },
             ].map(({ label, color }) => (
               <span key={label} style={{
                 background: `${color}18`,

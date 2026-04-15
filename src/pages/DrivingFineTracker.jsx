@@ -919,7 +919,7 @@ export default function DrivingFineTracker() {
           <span>💾</span>
           <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
             <strong style={{ color: colors.text }}>Data stored locally.</strong>{' '}
-            Your chalans are saved in this browser's local storage (with optional cloud sync). Clearing browser cache or cookies will erase locally stored data. Export your records regularly as a backup.
+            Your chalans are saved in this browser's local storage and automatically synced to the cloud (Supabase) in the background. If you switch browsers or clear cache, your data can be restored from the cloud on next visit.
           </p>
         </div>
         <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>

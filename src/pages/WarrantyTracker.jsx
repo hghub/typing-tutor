@@ -944,7 +944,7 @@ export default function WarrantyTracker() {
         <span>💾</span>
         <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
           <strong style={{ color: colors.text }}>Data stored locally.</strong>{' '}
-          Your warranty records are saved in this browser's local storage (with optional cloud sync). Clearing browser cache or cookies will erase locally stored data. Export or screenshot your records as a backup.
+          Your warranty records are saved in this browser's local storage and automatically synced to the cloud (Supabase) in the background. If you switch browsers or clear cache, your data can be restored from the cloud on next visit.
         </p>
       </div>
     </ToolLayout>

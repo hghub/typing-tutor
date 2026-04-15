@@ -252,6 +252,18 @@ export const TOOLS = [
     tags: ['mock', 'data', 'testing', 'json', 'csv', 'generator', 'developer'],
     related: ['data-transformer', 'config-converter'],
   },
+  {
+    id: 'trace-correlator',
+    name: 'Distributed Trace Correlator',
+    tagline: 'Correlate requests across microservices instantly',
+    description: 'Drop multiple log files from different services. Instantly correlates requests by trace ID across all files with a swimlane timeline. 100% client-side — handles gigabytes without uploading anything.',
+    icon: '🔗',
+    path: '/tools/trace-correlator',
+    color: '#8b5cf6',
+    category: 'developer',
+    tags: ['logs', 'tracing', 'microservices', 'debugging', 'enterprise', 'correlation', 'developer'],
+    related: ['log-analyzer', 'data-leak-detector'],
+  },
   // ── Education & Teaching ────────────────────────────────────────
   {
     id: 'student-groups',

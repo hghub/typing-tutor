@@ -77,6 +77,52 @@ function saveFines(list) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(list))
 }
 
+function RecoveryCodeBox({ colors }) {
+  const [copied, setCopied] = useState(false)
+  const [restoreVal, setRestoreVal] = useState('')
+  const [restoreMsg, setRestoreMsg] = useState('')
+  const code = getSessionId()
+
+  function handleCopy() {
+    navigator.clipboard.writeText(code).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
+
+  function handleRestore() {
+    const v = restoreVal.trim()
+    if (!v) return
+    const uuidRe = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+    if (!uuidRe.test(v)) { setRestoreMsg('Invalid code format.'); return }
+    localStorage.setItem(SESSION_KEY, v)
+    setRestoreMsg('Code applied! Reload the page to fetch your data.')
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', marginTop: '0.25rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+        <code style={{ fontSize: '0.72rem', background: 'rgba(0,0,0,0.12)', padding: '0.2rem 0.5rem', borderRadius: '0.4rem', color: colors.text, letterSpacing: '0.03em', wordBreak: 'break-all' }}>{code}</code>
+        <button onClick={handleCopy} style={{ fontSize: '0.72rem', padding: '0.2rem 0.6rem', borderRadius: '0.4rem', border: '1px solid rgba(245,158,11,0.4)', background: 'transparent', color: colors.textSecondary, cursor: 'pointer' }}>
+          {copied ? '✅ Copied' : '📋 Copy'}
+        </button>
+      </div>
+      <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center', flexWrap: 'wrap' }}>
+        <input
+          placeholder="Paste recovery code to restore on this device…"
+          value={restoreVal}
+          onChange={e => setRestoreVal(e.target.value)}
+          style={{ fontSize: '0.72rem', flex: 1, minWidth: 200, padding: '0.25rem 0.5rem', borderRadius: '0.4rem', border: '1px solid rgba(245,158,11,0.3)', background: 'transparent', color: colors.text, outline: 'none' }}
+        />
+        <button onClick={handleRestore} style={{ fontSize: '0.72rem', padding: '0.25rem 0.6rem', borderRadius: '0.4rem', border: '1px solid rgba(245,158,11,0.4)', background: 'transparent', color: colors.textSecondary, cursor: 'pointer' }}>
+          Restore
+        </button>
+      </div>
+      {restoreMsg && <p style={{ margin: 0, fontSize: '0.72rem', color: '#f59e0b' }}>{restoreMsg}</p>}
+    </div>
+  )
+}
+
 function violationMeta(id) {
   return VIOLATIONS.find((v) => v.id === id) || VIOLATIONS[VIOLATIONS.length - 1]
 }
@@ -917,10 +963,13 @@ export default function DrivingFineTracker() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', marginTop: '1.5rem' }}>
         <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
           <span>💾</span>
-          <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
-            <strong style={{ color: colors.text }}>Data stored locally.</strong>{' '}
-            Your chalans are saved in this browser's local storage and automatically synced to the cloud (Supabase) in the background. If you switch browsers or clear cache, your data can be restored from the cloud on next visit.
-          </p>
+          <div style={{ flex: 1 }}>
+            <p style={{ margin: '0 0 0.5rem', fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+              <strong style={{ color: colors.text }}>Data is device-specific.</strong>{' '}
+              Your records are tied to this browser on this device. Switching browsers, clearing cache, or using a different device will show a blank slate. Save your Recovery Code below to restore access from another device.
+            </p>
+            <RecoveryCodeBox colors={colors} />
+          </div>
         </div>
         <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
           <span>🔌</span>

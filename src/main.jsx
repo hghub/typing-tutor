@@ -36,7 +36,8 @@ const ExpenseAnalyzer   = lazy(() => import('./pages/ExpenseAnalyzer.jsx'))
 const WarrantyTracker   = lazy(() => import('./pages/WarrantyTracker.jsx'))
 const DrivingFineTracker = lazy(() => import('./pages/DrivingFineTracker.jsx'))
 const TraceCorrelator   = lazy(() => import('./pages/TraceCorrelator.jsx'))
-const SchemaMapper      = lazy(() => import('./pages/SchemaMapper.jsx'))
+const SchemaMapper          = lazy(() => import('./pages/SchemaMapper.jsx'))
+const MeasurementTracker    = lazy(() => import('./pages/MeasurementTracker.jsx'))
 const About             = lazy(() => import('./pages/About.jsx'))
 
 const fallback = (
@@ -96,7 +97,8 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/warranty-tracker"   element={<WarrantyTracker />} />
           <Route path="/tools/driving-fines"      element={<DrivingFineTracker />} />
           <Route path="/tools/trace-correlator"   element={<TraceCorrelator />} />
-          <Route path="/tools/schema-mapper"      element={<SchemaMapper />} />
+          <Route path="/tools/schema-mapper"         element={<SchemaMapper />} />
+          <Route path="/tools/measurement-tracker"   element={<MeasurementTracker />} />
           <Route path="/about"                     element={<About />} />
         </Routes>
       </Suspense>

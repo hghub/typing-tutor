@@ -31,15 +31,20 @@ export const SLABS_2425 = [
 export const SURCHARGE_THRESHOLD = 10_000_000
 export const SURCHARGE_RATE = 0.09
 
-/** VPS / Pension shield: 20% of taxable income (under 40) or 22% (age 40+) */
+/** VPS / Pension shield: 20% of taxable income (all ages).
+ * Note: the extra 2% for age 40+ (Section 63) was discontinued after June 30, 2019. */
 export const VPS_MAX_RATE = 0.20
-export const VPS_MAX_RATE_40PLUS = 0.22
 
 /** Charity shield: credit on up to 30% of taxable income */
 export const CHARITY_MAX_RATE = 0.30
 
-/** Senior citizen rebate: 50% of tax for age >= 60 */
+/**
+ * Senior citizen rebate: 50% of tax for age >= 60 AND income <= 750,000.
+ * Source: Clause 1A, Part-III, Second Schedule, ITO 2001 (as amended by Finance Act 2025).
+ * Income cap of Rs. 750,000 is a hard legal requirement — does NOT apply above this income.
+ */
 export const SENIOR_AGE = 60
+export const SENIOR_INCOME_LIMIT = 750_000
 export const SENIOR_REBATE = 0.50
 
 /**
@@ -73,9 +78,9 @@ export function calcFullTax({ annualIncome, age = 0, isTeacher = false, slabs = 
   }
   tax += surcharge
 
-  // Senior citizen rebate
+  // Senior citizen rebate: 50% — ONLY if age >= 60 AND income <= 750,000
   let seniorRebate = 0
-  if (age >= SENIOR_AGE) {
+  if (age >= SENIOR_AGE && annualIncome <= SENIOR_INCOME_LIMIT) {
     seniorRebate = tax * SENIOR_REBATE
     tax -= seniorRebate
   }
@@ -90,13 +95,12 @@ export function calcFullTax({ annualIncome, age = 0, isTeacher = false, slabs = 
   return { tax: Math.max(0, tax), effectiveRate, surcharge, seniorRebate, teacherCredit }
 }
 
-/** VPS shield: how much tax saved by investing amount (age-aware cap) */
-export function calcVPSShield(annualIncome, annualTax, investAmount, age = 0) {
-  const rate = age >= 40 ? VPS_MAX_RATE_40PLUS : VPS_MAX_RATE
-  const maxInvestment = annualIncome * rate
+/** VPS shield: how much tax saved by investing amount (cap is 20% of income for all ages) */
+export function calcVPSShield(annualIncome, annualTax, investAmount) {
+  const maxInvestment = annualIncome * VPS_MAX_RATE
   const capped = Math.min(investAmount, maxInvestment)
   const effectiveRate = annualIncome > 0 ? annualTax / annualIncome : 0
-  return { saving: capped * effectiveRate, maxInvestment, capped, rate }
+  return { saving: capped * effectiveRate, maxInvestment, capped, rate: VPS_MAX_RATE }
 }
 
 /** Charity shield: credit on donation */

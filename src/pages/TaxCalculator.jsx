@@ -4,7 +4,7 @@ import { useTheme } from '../hooks/useTheme'
 import {
   SLABS_2526, SLABS_2425,
   calcFullTax, calcVPSShield, calcCharityShield, slabProximity,
-  PETROL_PRICE_PER_LITRE, TEACHER_CREDIT_DISCONTINUED_TY,
+  PETROL_PRICE_PER_LITRE, TEACHER_CREDIT_DISCONTINUED_TY, SENIOR_INCOME_LIMIT,
 } from '../data/taxData'
 
 const fmt = (n) => Math.round(n).toLocaleString('en-PK')
@@ -75,8 +75,8 @@ export default function TaxCalculator() {
 
   const vps = useMemo(() => {
     const inv = parseFloat(vpsInvestment) || 0
-    return inv > 0 ? calcVPSShield(annualIncome, result2526.tax, inv, parseInt(age) || 0) : null
-  }, [vpsInvestment, annualIncome, result2526.tax, age])
+    return inv > 0 ? calcVPSShield(annualIncome, result2526.tax, inv) : null
+  }, [vpsInvestment, annualIncome, result2526.tax])
 
   const charity = useMemo(() => {
     const don = parseFloat(charityAmount) || 0
@@ -219,7 +219,7 @@ export default function TaxCalculator() {
                   onFocus={e => e.target.style.borderColor = '#f97316'}
                   onBlur={e => e.target.style.borderColor = colors.border} />
                 <p style={{ margin: '0.3rem 0 0', fontSize: '0.75rem', color: colors.textSecondary }}>
-                  Age ≥ 60 qualifies for 50% senior citizen rebate
+                  Age ≥ 60 qualifies for 50% senior rebate (income ≤ PKR 7.5L)
                 </p>
               </div>
               <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', cursor: 'pointer', fontSize: '0.85rem', color: colors.text }}>
@@ -245,7 +245,7 @@ export default function TaxCalculator() {
               <div>
                 <label style={labelStyle}>VPS / Pension Investment (PKR/yr)</label>
                 <input type="number" value={vpsInvestment} onChange={e => setVpsInvestment(e.target.value)}
-                  placeholder={`Up to ${(parseInt(age) || 0) >= 40 ? '22' : '20'}% of income`} style={fieldStyle}
+                  placeholder="Up to 20% of income" style={fieldStyle}
                   onFocus={e => e.target.style.borderColor = '#10b981'}
                   onBlur={e => e.target.style.borderColor = colors.border} />
               </div>
@@ -311,8 +311,13 @@ export default function TaxCalculator() {
               {/* Rebates */}
               {(result2526.seniorRebate > 0 || result2526.teacherCredit > 0) && (
                 <InfoBox color="#10b981" isDark={isDark}>
-                  {result2526.seniorRebate > 0 && <div>🎖 <strong>Senior Citizen Rebate:</strong> PKR {fmt(result2526.seniorRebate)} saved (50% rebate for age ≥ 60)</div>}
+                  {result2526.seniorRebate > 0 && <div>🎖 <strong>Senior Citizen Rebate:</strong> PKR {fmt(result2526.seniorRebate)} saved (50% rebate — age ≥ 60, income ≤ PKR {fmt(SENIOR_INCOME_LIMIT)})</div>}
                   {result2526.teacherCredit > 0 && <div>🎓 <strong>Teacher Credit:</strong> PKR {fmt(result2526.teacherCredit)} saved (25% credit)</div>}
+                </InfoBox>
+              )}
+              {(parseInt(age) || 0) >= 60 && annualIncome > SENIOR_INCOME_LIMIT && (
+                <InfoBox color="#f59e0b" isDark={isDark}>
+                  ℹ️ <strong>Senior Rebate Not Applicable:</strong> The 50% rebate (Clause 1A, Second Schedule) only applies to seniors with taxable income ≤ PKR {fmt(SENIOR_INCOME_LIMIT)}. Your income exceeds this limit.
                 </InfoBox>
               )}
 

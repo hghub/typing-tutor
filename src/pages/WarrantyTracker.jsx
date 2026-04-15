@@ -1010,15 +1010,24 @@ export default function WarrantyTracker() {
       )}
 
       {/* ── Data Storage Note ── */}
-      <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start', marginTop: '1.5rem' }}>
-        <span>💾</span>
+      <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: prefs.cloudSync ? 'rgba(6,182,212,0.08)' : 'rgba(245,158,11,0.08)', border: `1px solid ${prefs.cloudSync ? 'rgba(6,182,212,0.25)' : 'rgba(245,158,11,0.25)'}`, display: 'flex', gap: '0.65rem', alignItems: 'flex-start', marginTop: '1.5rem' }}>
+        <span>{prefs.cloudSync ? '☁️' : '💾'}</span>
         <div style={{ flex: 1 }}>
-          <p style={{ margin: '0 0 0.5rem', fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
-            <strong style={{ color: colors.text }}>Data is device-specific.</strong>{' '}
-            Your warranty records are tied to this browser on this device. Switching browsers, clearing cache, or using a different device will show a blank slate. Save your Recovery Code below to restore access from another device.{' '}
-            <strong style={{ color: '#ef4444' }}>If multiple people share this browser, they will see each other's data — use a private/incognito window for personal records.</strong>
+          <p style={{ margin: prefs.cloudSync ? 0 : '0 0 0.5rem', fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+            {prefs.cloudSync ? (
+              <>
+                <strong style={{ color: colors.text }}>Cloud Sync is on.</strong>{' '}
+                Your warranty records are securely saved to the cloud and accessible from any device using your Recovery Code. Shared-browser users will see the same records — use incognito for personal privacy.
+              </>
+            ) : (
+              <>
+                <strong style={{ color: colors.text }}>Saved on this device only.</strong>{' '}
+                Cloud Sync is off. Your records are stored in this browser only — clearing cache or switching devices will show a blank slate.{' '}
+                <strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong>
+              </>
+            )}
           </p>
-          <WarrantyRecoveryCodeBox colors={colors} />
+          {!prefs.cloudSync && <WarrantyRecoveryCodeBox colors={colors} />}
         </div>
       </div>
     </ToolLayout>

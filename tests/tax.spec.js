@@ -99,8 +99,8 @@ test.describe('Tax Shield Optimizer', () => {
     await expect(page.locator('svg').first()).toBeVisible({ timeout: 10_000 })
   })
 
-  test('GPT-PROOF badge is visible', async ({ page }) => {
-    await expect(page.getByText(/GPT.PROOF|GPT-PROOF/i).first()).toBeVisible()
+  test('disclaimer note is visible', async ({ page }) => {
+    await expect(page.getByText(/Disclaimer|estimates|tax practitioner/i).first()).toBeVisible()
   })
 
   test('RelatedTools section appears', async ({ page }) => {

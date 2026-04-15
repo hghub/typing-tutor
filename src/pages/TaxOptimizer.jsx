@@ -151,11 +151,7 @@ export default function TaxOptimizer() {
           }}>
             🧠 Tax Shield Optimizer
           </h1>
-          <span style={{
-            fontSize: '0.7rem', fontWeight: 700, padding: '0.2rem 0.55rem',
-            background: 'linear-gradient(to right, #10b981, #06b6d4)',
-            color: '#fff', borderRadius: '999px', letterSpacing: '0.05em',
-          }}>GPT-PROOF</span>
+
         </div>
         <p style={{ color: colors.textSecondary, fontSize: '0.9rem', margin: 0, maxWidth: '620px' }}>
           Enter your salary and available budget. The optimizer runs a deterministic constraint solver to find the exact allocation across VPS, Life Insurance, and Charity that maximises your legal tax credit — something no AI can reliably do.

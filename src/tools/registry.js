@@ -264,6 +264,18 @@ export const TOOLS = [
     tags: ['logs', 'tracing', 'microservices', 'debugging', 'enterprise', 'correlation', 'developer'],
     related: ['log-analyzer', 'data-leak-detector'],
   },
+  {
+    id: 'schema-mapper',
+    name: 'Schema Field Mapper',
+    tagline: 'Visually map fields between schemas — generate transform code',
+    description: 'Paste source and destination JSON schemas, click to map fields, and instantly generate a JavaScript or Python transform function. Shows a complexity score and unmapped field warnings.',
+    icon: '🗺️',
+    path: '/tools/schema-mapper',
+    color: '#06b6d4',
+    category: 'developer',
+    tags: ['schema', 'mapping', 'json', 'transform', 'code generation', 'etl', 'developer'],
+    related: ['data-transformer', 'config-converter', 'trace-correlator'],
+  },
   // ── Education & Teaching ────────────────────────────────────────
   {
     id: 'student-groups',

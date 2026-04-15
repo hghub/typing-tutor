@@ -375,8 +375,38 @@ export default function TaxCalculator() {
         </div>
       </div>
 
+      {/* Legal References */}
+      <div style={{ marginTop: '2rem', background: colors.card, border: `1px solid ${colors.border}`, borderRadius: '0.75rem', padding: '1.25rem' }}>
+        <p style={{ margin: '0 0 0.75rem', fontSize: '0.72rem', fontWeight: 700, color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          📚 Legal References & Sources
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '0.5rem' }}>
+          {[
+            { label: 'Finance Act 2025 — Tax Slabs (Salaried)', detail: 'First Schedule, Part-I, Division-I, ITO 2001', url: 'https://www.fbr.gov.pk/categ/acts/21' },
+            { label: 'Section 4AB — Income Tax Surcharge', detail: '9% surcharge on tax if income > PKR 10M', url: 'https://taxationpk.com/laws/index.php/Surcharge_on_Income_Tax:_Income_Tax_Ordinance,_2001' },
+            { label: 'Section 61 — Charitable Donations Credit', detail: 'Credit on up to 30% of taxable income (individuals)', url: 'https://pkrevenue.com/tax-treatment-on-charitable-donations-in-pakistan/' },
+            { label: 'Section 63 — VPS Pension Credit', detail: 'Credit on up to 20% of taxable income', url: 'https://taxationpk.com/laws/index.php/Contribution_to_an_Approved_Pension_Fund:_Income_Tax_Ordinance,_2001' },
+            { label: 'Clause 1A, Second Schedule — Senior Rebate', detail: '50% rebate for age ≥ 60, income ≤ PKR 750,000', url: 'https://www.fbr.gov.pk/DisplayDocs/268' },
+            { label: 'Section 4C — Super Tax (income > PKR 150M)', detail: 'Graduated rates 1%–10% for very high earners', url: 'https://pkrevenue.com/revised-super-tax-rates-effective-july-1-2025/' },
+          ].map((ref, i) => (
+            <a key={i} href={ref.url} target="_blank" rel="noopener noreferrer" style={{
+              display: 'block', padding: '0.6rem 0.75rem',
+              background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
+              border: `1px solid ${colors.border}`, borderRadius: '0.5rem',
+              textDecoration: 'none', transition: 'border-color 0.15s',
+            }}
+              onMouseEnter={e => e.currentTarget.style.borderColor = '#f97316'}
+              onMouseLeave={e => e.currentTarget.style.borderColor = colors.border}
+            >
+              <p style={{ margin: 0, fontSize: '0.78rem', fontWeight: 600, color: '#f97316' }}>{ref.label}</p>
+              <p style={{ margin: '0.15rem 0 0', fontSize: '0.72rem', color: colors.textSecondary }}>{ref.detail}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+
       {/* Footer disclaimer */}
-      <div style={{ marginTop: '2rem', padding: '1rem', background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)', borderRadius: '0.75rem', border: `1px solid ${colors.border}` }}>
+      <div style={{ marginTop: '1rem', padding: '1rem', background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)', borderRadius: '0.75rem', border: `1px solid ${colors.border}` }}>
         <p style={{ margin: 0, fontSize: '0.72rem', color: colors.textSecondary, lineHeight: 1.7 }}>
           ⚠️ <strong>Disclaimer:</strong> This tool is for educational and informational purposes only. It is not affiliated with the Federal Board of Revenue (FBR) or any government agency. Calculations are based on the Finance Act 2025 and are estimates. This does not constitute professional tax or financial advice. Please consult a certified tax practitioner (RTP) or CA before filing your returns.
         </p>

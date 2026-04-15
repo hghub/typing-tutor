@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo, useEffect } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
+import { usePreferences } from '../hooks/usePreferences'
 import { supabase } from '../utils/supabase'
 
 const ACCENT = '#f97316'
@@ -567,6 +568,7 @@ function ViolationBreakdown({ fines, colors }) {
 
 export default function DrivingFineTracker() {
   const { isDark, colors } = useTheme()
+  const { prefs } = usePreferences()
   const [fines, setFines] = useState(loadFines)
   const [showModal, setShowModal] = useState(false)
   const [editItem, setEditItem]   = useState(null)
@@ -575,6 +577,7 @@ export default function DrivingFineTracker() {
 
   // Sync to Supabase on mount
   useEffect(() => {
+    if (!prefs.cloudSync) return
     async function fetchFromSupabase() {
       const sid = getSessionId()
       setSyncing(true)
@@ -592,7 +595,7 @@ export default function DrivingFineTracker() {
       finally { setSyncing(false) }
     }
     fetchFromSupabase()
-  }, [])
+  }, [prefs.cloudSync])
 
   // ── Derived stats ─────────────────────────────────────────────────────────
   const twelveMonthsAgo = useMemo(() => {
@@ -636,16 +639,14 @@ export default function DrivingFineTracker() {
   const handleSave = useCallback(async (formData) => {
     const sid = getSessionId()
     if (editItem) {
-      // Update
       const updated = { ...editItem, ...formData }
       const newList = fines.map((f) => (f.id === editItem.id ? updated : f))
       setFines(newList)
       saveFines(newList)
-      try {
-        await supabase.from('driving_fines').update({ ...formData }).eq('id', editItem.id).eq('user_id', sid)
-      } catch { /* ignore */ }
+      if (prefs.cloudSync) {
+        try { await supabase.from('driving_fines').update({ ...formData }).eq('id', editItem.id).eq('user_id', sid) } catch { /* ignore */ }
+      }
     } else {
-      // Insert
       const newFine = {
         id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`,
         user_id: sid,
@@ -655,33 +656,37 @@ export default function DrivingFineTracker() {
       const newList = [newFine, ...fines]
       setFines(newList)
       saveFines(newList)
-      try {
-        await supabase.from('driving_fines').insert([newFine])
-      } catch { /* ignore */ }
+      if (prefs.cloudSync) {
+        try { await supabase.from('driving_fines').insert([newFine]) } catch { /* ignore */ }
+      }
     }
     setShowModal(false)
     setEditItem(null)
-  }, [fines, editItem])
+  }, [fines, editItem, prefs.cloudSync])
 
   const handleDelete = useCallback(async (id) => {
     const newList = fines.filter((f) => f.id !== id)
     setFines(newList)
     saveFines(newList)
-    try {
-      const sid = getSessionId()
-      await supabase.from('driving_fines').delete().eq('id', id).eq('user_id', sid)
-    } catch { /* ignore */ }
-  }, [fines])
+    if (prefs.cloudSync) {
+      try {
+        const sid = getSessionId()
+        await supabase.from('driving_fines').delete().eq('id', id).eq('user_id', sid)
+      } catch { /* ignore */ }
+    }
+  }, [fines, prefs.cloudSync])
 
   const handleMarkPaid = useCallback(async (id) => {
     const newList = fines.map((f) => (f.id === id ? { ...f, paid: true } : f))
     setFines(newList)
     saveFines(newList)
-    try {
-      const sid = getSessionId()
-      await supabase.from('driving_fines').update({ paid: true }).eq('id', id).eq('user_id', sid)
-    } catch { /* ignore */ }
-  }, [fines])
+    if (prefs.cloudSync) {
+      try {
+        const sid = getSessionId()
+        await supabase.from('driving_fines').update({ paid: true }).eq('id', id).eq('user_id', sid)
+      } catch { /* ignore */ }
+    }
+  }, [fines, prefs.cloudSync])
 
   const handleEdit = useCallback((fine) => {
     setEditItem(fine)
@@ -716,6 +721,11 @@ export default function DrivingFineTracker() {
         </p>
         {syncing && (
           <span style={{ fontSize: '0.75rem', color: colors.textSecondary, marginTop: '0.35rem', display: 'inline-block' }}>⟳ Syncing…</span>
+        )}
+        {!syncing && (
+          <span style={{ fontSize: '0.72rem', marginTop: '0.35rem', display: 'inline-block', color: prefs.cloudSync ? '#06b6d4' : colors.textSecondary }}>
+            {prefs.cloudSync ? '☁️ Cloud Sync On' : '📴 Local Only'}
+          </span>
         )}
       </div>
 

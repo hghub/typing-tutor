@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo, useEffect } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
+import { usePreferences } from '../hooks/usePreferences'
 import { supabase } from '../utils/supabase'
 
 const ACCENT = '#3b82f6'
@@ -359,6 +360,7 @@ function WarrantyCard({ item, status, expiryDate, category, colors, isDark, onEd
 
 export default function WarrantyTracker() {
   const { isDark, colors } = useTheme()
+  const { prefs } = usePreferences()
   const [items, setItems] = useState([])
   const [useLocal, setUseLocal] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -377,6 +379,14 @@ export default function WarrantyTracker() {
     let cancelled = false
     async function load() {
       setLoading(true)
+      if (!prefs.cloudSync) {
+        if (!cancelled) {
+          setUseLocal(true)
+          setItems(loadFromLocalStorage())
+          setLoading(false)
+        }
+        return
+      }
       try {
         const { data, error } = await supabase
           .from('warranties')
@@ -396,10 +406,10 @@ export default function WarrantyTracker() {
     }
     load()
     return () => { cancelled = true }
-  }, [sessionId])
+  }, [sessionId, prefs.cloudSync])
 
   const persistItem = useCallback(async (item, prevItems) => {
-    if (useLocal) {
+    if (useLocal || !prefs.cloudSync) {
       const updated = prevItems.find(x => x.id === item.id)
         ? prevItems.map(x => x.id === item.id ? item : x)
         : [item, ...prevItems]
@@ -420,10 +430,10 @@ export default function WarrantyTracker() {
       saveToLocalStorage(updated)
       return updated
     }
-  }, [useLocal])
+  }, [useLocal, prefs.cloudSync])
 
   const deleteItem = useCallback(async (id) => {
-    if (useLocal) {
+    if (useLocal || !prefs.cloudSync) {
       setItems(prev => {
         const updated = prev.filter(x => x.id !== id)
         saveToLocalStorage(updated)
@@ -443,7 +453,7 @@ export default function WarrantyTracker() {
         return updated
       })
     }
-  }, [useLocal])
+  }, [useLocal, prefs.cloudSync])
 
   const openAdd = useCallback(() => {
     setForm(EMPTY_FORM)
@@ -637,17 +647,29 @@ export default function WarrantyTracker() {
             </p>
           </div>
           <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
-            {useLocal && (
+            {(useLocal || !prefs.cloudSync) ? (
               <span style={{
-                background: '#f59e0b18',
-                color: '#d97706',
-                border: '1px solid #f59e0b44',
+                background: !prefs.cloudSync ? '#64748b18' : '#f59e0b18',
+                color: !prefs.cloudSync ? '#94a3b8' : '#d97706',
+                border: `1px solid ${!prefs.cloudSync ? '#64748b44' : '#f59e0b44'}`,
                 borderRadius: '20px',
                 padding: '0.25rem 0.75rem',
                 fontSize: '0.75rem',
                 fontWeight: '600',
               }}>
-                💾 Saving locally
+                {!prefs.cloudSync ? '📴 Local Only' : '💾 Saving locally'}
+              </span>
+            ) : (
+              <span style={{
+                background: '#06b6d418',
+                color: '#06b6d4',
+                border: '1px solid #06b6d444',
+                borderRadius: '20px',
+                padding: '0.25rem 0.75rem',
+                fontSize: '0.75rem',
+                fontWeight: '600',
+              }}>
+                ☁️ Cloud Sync On
               </span>
             )}
             {items.length === 0 && (

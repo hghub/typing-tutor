@@ -12,6 +12,7 @@ const UrduKeyboard = lazy(() => import('./pages/UrduKeyboard.jsx'))
 const TextEncryptor = lazy(() => import('./pages/TextEncryptor.jsx'))
 const DocComposer  = lazy(() => import('./pages/DocComposer.jsx'))
 const TaxCalculator     = lazy(() => import('./pages/TaxCalculator.jsx'))
+const TaxOptimizer      = lazy(() => import('./pages/TaxOptimizer.jsx'))
 const CurrencyConverter = lazy(() => import('./pages/CurrencyConverter.jsx'))
 const PackingList       = lazy(() => import('./pages/PackingList.jsx'))
 const BudgetSplitter    = lazy(() => import('./pages/BudgetSplitter.jsx'))
@@ -69,6 +70,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/text-encryptor" element={<TextEncryptor />} />
           <Route path="/tools/doc-composer"  element={<DocComposer />} />
           <Route path="/tools/tax-calculator"    element={<TaxCalculator />} />
+          <Route path="/tools/tax-optimizer"     element={<TaxOptimizer />} />
           <Route path="/tools/currency-converter" element={<CurrencyConverter />} />
           <Route path="/tools/packing-list"       element={<PackingList />} />
           <Route path="/tools/budget-splitter"    element={<BudgetSplitter />} />

@@ -39,6 +39,14 @@ export const VPS_MAX_RATE = 0.20
 export const CHARITY_MAX_RATE = 0.30
 
 /**
+ * Life Insurance shield (Section 62, ITO 2001).
+ * Tax credit on life insurance premiums: min(premium, 20% of income, PKR 2,000,000).
+ * Source: Section 62, Finance Act 2025.
+ */
+export const LIFE_INS_MAX_RATE = 0.20
+export const LIFE_INS_CAP_ABS = 2_000_000
+
+/**
  * Senior citizen rebate: 50% of tax for age >= 60 AND income <= 750,000.
  * Source: Clause 1A, Part-III, Second Schedule, ITO 2001 (as amended by Finance Act 2025).
  * Income cap of Rs. 750,000 is a hard legal requirement — does NOT apply above this income.
@@ -110,6 +118,59 @@ export function calcCharityShield(annualIncome, annualTax, donationAmount) {
   const effectiveRate = annualIncome > 0 ? annualTax / annualIncome : 0
   const credit = capped * effectiveRate
   return { credit, netCost: capped - credit, maxDonation, capped }
+}
+
+/** Life insurance shield (Section 62): credit on premium capped at 20% of income or PKR 2M */
+export function calcInsuranceShield(annualIncome, annualTax, premium) {
+  const maxByRate = annualIncome * LIFE_INS_MAX_RATE
+  const maxPremium = Math.min(maxByRate, LIFE_INS_CAP_ABS)
+  const capped = Math.min(premium, maxPremium)
+  const effectiveRate = annualIncome > 0 ? annualTax / annualIncome : 0
+  return { saving: capped * effectiveRate, maxPremium, capped, rate: LIFE_INS_MAX_RATE }
+}
+
+/**
+ * Tax Shield Optimizer — finds optimal allocation of a budget across VPS, Charity, Life Insurance.
+ * Returns recommended split that maximises total tax credit.
+ * Since all three shields use avg tax rate × capped_amount, maximising savings =
+ * maximising total eligible amount capped by respective limits.
+ *
+ * Strategy: fill each shield up to its cap in order of: VPS → Insurance → Charity
+ * (caps: VPS 20%, Insurance 20% capped at 2M, Charity 30%)
+ */
+export function optimizeShields(annualIncome, annualTax, budget) {
+  if (annualIncome <= 0 || budget <= 0) return null
+  const avgRate = annualTax / annualIncome
+
+  const vpsMax = annualIncome * VPS_MAX_RATE
+  const insMax = Math.min(annualIncome * LIFE_INS_MAX_RATE, LIFE_INS_CAP_ABS)
+  const charMax = annualIncome * CHARITY_MAX_RATE
+
+  let remaining = budget
+  const vps  = Math.min(remaining, vpsMax);  remaining = Math.max(0, remaining - vps)
+  const ins  = Math.min(remaining, insMax);  remaining = Math.max(0, remaining - ins)
+  const char = Math.min(remaining, charMax); remaining = Math.max(0, remaining - char)
+
+  const totalEligible = vps + ins + char
+  const totalSaving   = totalEligible * avgRate
+  const unshielded    = Math.max(0, budget - totalEligible)
+
+  // also compute single-shield scenarios for comparison
+  const scenVps  = Math.min(budget, vpsMax)  * avgRate
+  const scenChar = Math.min(budget, charMax) * avgRate
+  const scenIns  = Math.min(budget, insMax)  * avgRate
+
+  return {
+    vps, insurance: ins, charity: char, unshielded,
+    totalEligible, totalSaving, avgRate,
+    vpsMax, insMax, charMax,
+    scenarios: {
+      vpsOnly:  { saving: scenVps,  label: 'VPS Only' },
+      insOnly:  { saving: scenIns,  label: 'Insurance Only' },
+      charOnly: { saving: scenChar, label: 'Charity Only' },
+      optimal:  { saving: totalSaving, label: 'Optimal Mix' },
+    },
+  }
 }
 
 /** Find which slab the income is in and proximity to next slab */

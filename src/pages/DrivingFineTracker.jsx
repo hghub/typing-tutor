@@ -966,7 +966,8 @@ export default function DrivingFineTracker() {
           <div style={{ flex: 1 }}>
             <p style={{ margin: '0 0 0.5rem', fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
               <strong style={{ color: colors.text }}>Data is device-specific.</strong>{' '}
-              Your records are tied to this browser on this device. Switching browsers, clearing cache, or using a different device will show a blank slate. Save your Recovery Code below to restore access from another device.
+              Your records are tied to this browser on this device. Switching browsers, clearing cache, or using a different device will show a blank slate. Save your Recovery Code below to restore access from another device.{' '}
+              <strong style={{ color: '#ef4444' }}>If multiple people share this browser, they will see each other's data — use a private/incognito window for personal records.</strong>
             </p>
             <RecoveryCodeBox colors={colors} />
           </div>

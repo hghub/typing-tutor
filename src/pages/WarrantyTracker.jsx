@@ -138,7 +138,8 @@ function WarrantyRecoveryCodeBox({ colors }) {
 }
 
 function getStatus(purchaseDate, warrantyMonths) {
-  const expiry = new Date(purchaseDate)
+  const [y, m, d] = purchaseDate.split('-').map(Number)
+  const expiry = new Date(y, m - 1, d)
   expiry.setMonth(expiry.getMonth() + warrantyMonths)
   const now = new Date()
   const daysLeft = Math.ceil((expiry - now) / (1000 * 60 * 60 * 24))
@@ -148,12 +149,13 @@ function getStatus(purchaseDate, warrantyMonths) {
 }
 
 function getExpiryDateStr(purchaseDate, warrantyMonths) {
-  const expiry = new Date(purchaseDate)
+  const [y, m, d] = purchaseDate.split('-').map(Number)
+  const expiry = new Date(y, m - 1, d)
   expiry.setMonth(expiry.getMonth() + warrantyMonths)
-  const y = expiry.getFullYear()
-  const m = String(expiry.getMonth() + 1).padStart(2, '0')
-  const d = String(expiry.getDate()).padStart(2, '0')
-  return `${y}-${m}-${d}`
+  const ey = expiry.getFullYear()
+  const em = String(expiry.getMonth() + 1).padStart(2, '0')
+  const ed = String(expiry.getDate()).padStart(2, '0')
+  return `${ey}-${em}-${ed}`
 }
 
 function formatDate(dateStr) {
@@ -991,7 +993,8 @@ export default function WarrantyTracker() {
         <div style={{ flex: 1 }}>
           <p style={{ margin: '0 0 0.5rem', fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
             <strong style={{ color: colors.text }}>Data is device-specific.</strong>{' '}
-            Your warranty records are tied to this browser on this device. Switching browsers, clearing cache, or using a different device will show a blank slate. Save your Recovery Code below to restore access from another device.
+            Your warranty records are tied to this browser on this device. Switching browsers, clearing cache, or using a different device will show a blank slate. Save your Recovery Code below to restore access from another device.{' '}
+            <strong style={{ color: '#ef4444' }}>If multiple people share this browser, they will see each other's data — use a private/incognito window for personal records.</strong>
           </p>
           <WarrantyRecoveryCodeBox colors={colors} />
         </div>

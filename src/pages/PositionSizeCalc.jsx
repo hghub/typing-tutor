@@ -157,6 +157,11 @@ function RiskMeter({ riskPercent, colors }) {
       </div>
       <div style={{ fontSize: '0.8rem', color: colors.textSecondary, marginTop: '0.1rem' }}>
         Your risk: <strong style={{ color: barColor }}>{riskPercent}%</strong>
+        {riskPercent > 4 && (
+          <span style={{ marginLeft: '0.4rem', fontSize: '0.72rem', color: '#ef4444', fontWeight: 600 }}>
+            ⚠️ exceeds recommended 4% max
+          </span>
+        )}
       </div>
     </div>
   )

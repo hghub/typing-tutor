@@ -652,6 +652,15 @@ export default function VoiceInvoice() {
           </Btn>
         </div>
 
+        {/* ── API Note ── */}
+        <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start', marginTop: '1.5rem' }}>
+          <span>🔌</span>
+          <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+            <strong style={{ color: colors.text }}>Invoices are not electronically filed.</strong>{' '}
+            This tool generates invoice PDFs for your records. No FBR e-invoicing API or tax authority integration is connected. When a public e-invoicing API becomes available, automatic submission can be enabled.
+          </p>
+        </div>
+
       </div>
     </ToolLayout>
   )

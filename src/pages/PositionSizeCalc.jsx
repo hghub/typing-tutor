@@ -587,6 +587,24 @@ export default function PositionSizeCalc() {
         {/* ── Education ── */}
         <EducationCard colors={colors} />
 
+        {/* ── Disclaimers ── */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+          <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
+            <span>💾</span>
+            <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+              <strong style={{ color: colors.text }}>Trading journal stored locally.</strong>{' '}
+              Your journal entries are saved in this browser's local storage. Clearing browser cache or cookies will permanently erase them. Export your records regularly.
+            </p>
+          </div>
+          <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
+            <span>🔌</span>
+            <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+              <strong style={{ color: colors.text }}>Manual entry only.</strong>{' '}
+              Entry price and stop loss are entered manually. Broker API integration for live market prices can be added in the future if needed.
+            </p>
+          </div>
+        </div>
+
       </div>
     </ToolLayout>
   )

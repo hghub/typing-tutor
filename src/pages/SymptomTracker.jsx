@@ -673,6 +673,15 @@ export default function SymptomTracker() {
             ))}
           </div>
         )}
+
+        {/* ── Data Storage Note ── */}
+        <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start', marginTop: '1.5rem' }}>
+          <span>💾</span>
+          <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+            <strong style={{ color: colors.text }}>Health data stored locally.</strong>{' '}
+            Your symptom logs are saved in this browser's local storage. Clearing browser cache or cookies will permanently erase them. This tool is for personal tracking only — not a substitute for medical advice.
+          </p>
+        </div>
       </div>
     </ToolLayout>
   )

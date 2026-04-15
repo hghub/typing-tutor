@@ -1099,6 +1099,15 @@ export default function ExpenseAnalyzer() {
           </div>
         )}
 
+        {/* ── API Note ── */}
+        <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start', marginTop: '1.5rem' }}>
+          <span>🔌</span>
+          <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+            <strong style={{ color: colors.text }}>Manual or CSV import only.</strong>{' '}
+            Expenses are entered manually or uploaded via CSV. No bank statement API or open-banking integration is connected. When a bank API (e.g. 1Link, HBL OpenAPI) is available, automatic transaction import can be enabled.
+          </p>
+        </div>
+
       </div>
     </ToolLayout>
   )

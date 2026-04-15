@@ -938,6 +938,15 @@ export default function WarrantyTracker() {
           </div>
         </div>
       )}
+
+      {/* ── Data Storage Note ── */}
+      <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start', marginTop: '1.5rem' }}>
+        <span>💾</span>
+        <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+          <strong style={{ color: colors.text }}>Data stored locally.</strong>{' '}
+          Your warranty records are saved in this browser's local storage (with optional cloud sync). Clearing browser cache or cookies will erase locally stored data. Export or screenshot your records as a backup.
+        </p>
+      </div>
     </ToolLayout>
   )
 }

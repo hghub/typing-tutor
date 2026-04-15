@@ -912,6 +912,24 @@ export default function DrivingFineTracker() {
           colors={colors}
         />
       )}
+
+      {/* ── Disclaimers ── */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', marginTop: '1.5rem' }}>
+        <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
+          <span>💾</span>
+          <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+            <strong style={{ color: colors.text }}>Data stored locally.</strong>{' '}
+            Your chalans are saved in this browser's local storage (with optional cloud sync). Clearing browser cache or cookies will erase locally stored data. Export your records regularly as a backup.
+          </p>
+        </div>
+        <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
+          <span>🔌</span>
+          <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+            <strong style={{ color: colors.text }}>Manual entry only.</strong>{' '}
+            No official traffic police API is currently available in Pakistan for automated chalan lookup. All records are entered manually. Live integration will be added if/when an official API becomes available.
+          </p>
+        </div>
+      </div>
     </ToolLayout>
   )
 }

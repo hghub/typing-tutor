@@ -402,7 +402,7 @@ function App() {
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
           style={{
-            background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+            background: isDark ? '#1e293b' : '#ffffff',
             border: `1px solid ${colors.border}`,
             color: colors.text,
             padding: '0.3rem 0.6rem',

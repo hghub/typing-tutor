@@ -52,14 +52,14 @@ function Card({ item, isActive, disabled, colors, isDark, onClick }) {
         padding: 0,
         minWidth: '82px',
         borderRadius: '0.75rem',
-        border: `1px solid ${isActive ? '#06b6d4' : hovered ? '#38bdf8' : (isDark ? 'rgba(51,65,85,0.7)' : 'rgba(203,213,225,0.8)')}`,
+        border: `1px solid ${isActive ? '#06b6d4' : hovered ? '#38bdf8' : (isDark ? 'rgba(71,85,105,0.9)' : 'rgba(203,213,225,0.8)')}`,
         background: isActive
           ? isDark
             ? 'linear-gradient(145deg, #1e293b, rgba(6,182,212,0.12))'
             : 'linear-gradient(145deg, #f0fdff, rgba(6,182,212,0.08))'
           : hovered
-            ? isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)'
-            : isDark ? '#0f172a' : '#f8fafc',
+            ? isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.03)'
+            : colors.card,
         cursor: disabled ? 'not-allowed' : 'pointer',
         opacity: disabled ? 0.35 : 1,
         transition: 'all 0.15s ease',

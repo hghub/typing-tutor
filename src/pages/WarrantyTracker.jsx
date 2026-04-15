@@ -1013,21 +1013,22 @@ export default function WarrantyTracker() {
       <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: prefs.cloudSync ? 'rgba(6,182,212,0.08)' : 'rgba(245,158,11,0.08)', border: `1px solid ${prefs.cloudSync ? 'rgba(6,182,212,0.25)' : 'rgba(245,158,11,0.25)'}`, display: 'flex', gap: '0.65rem', alignItems: 'flex-start', marginTop: '1.5rem' }}>
         <span>{prefs.cloudSync ? '☁️' : '💾'}</span>
         <div style={{ flex: 1 }}>
-          <p style={{ margin: prefs.cloudSync ? 0 : '0 0 0.5rem', fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+          <p style={{ margin: '0 0 0.5rem', fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
             {prefs.cloudSync ? (
               <>
                 <strong style={{ color: colors.text }}>Cloud Sync is on.</strong>{' '}
-                Your warranty records are securely saved to the cloud and accessible from any device using your Recovery Code. Shared-browser users will see the same records — use incognito for personal privacy.
+                Your records are backed up to the cloud. Use the Recovery Code below to access your data on any browser or device.{' '}
+                <strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong>
               </>
             ) : (
               <>
                 <strong style={{ color: colors.text }}>Saved on this device only.</strong>{' '}
-                Cloud Sync is off. Your records are stored in this browser only — clearing cache or switching devices will show a blank slate.{' '}
+                Cloud Sync is off — data lives in this browser only. The Recovery Code will not restore data on another device since nothing is backed up to the cloud.{' '}
                 <strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong>
               </>
             )}
           </p>
-          {!prefs.cloudSync && <WarrantyRecoveryCodeBox colors={colors} />}
+          <WarrantyRecoveryCodeBox colors={colors} />
         </div>
       </div>
     </ToolLayout>

@@ -36,8 +36,6 @@ const SECTIONS = [
 
 function Card({ item, isActive, disabled, colors, isDark, onClick }) {
   const [hovered, setHovered] = useState(false)
-  const active = isActive
-  const show = !disabled
 
   return (
     <button
@@ -50,32 +48,51 @@ function Card({ item, isActive, disabled, colors, isDark, onClick }) {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '0.2rem',
-        padding: '0.6rem 0.75rem',
-        minWidth: '76px',
-        borderRadius: '0.625rem',
-        border: `1.5px solid ${active ? '#06b6d4' : hovered ? '#38bdf8' : (isDark ? '#1e293b' : '#e2e8f0')}`,
-        background: active
-          ? (isDark ? 'rgba(6,182,212,0.15)' : 'rgba(6,182,212,0.1)')
+        gap: 0,
+        padding: 0,
+        minWidth: '82px',
+        borderRadius: '0.75rem',
+        border: `1px solid ${isActive ? '#06b6d4' : hovered ? '#38bdf8' : (isDark ? 'rgba(51,65,85,0.7)' : 'rgba(203,213,225,0.8)')}`,
+        background: isActive
+          ? isDark
+            ? 'linear-gradient(145deg, #1e293b, rgba(6,182,212,0.12))'
+            : 'linear-gradient(145deg, #f0fdff, rgba(6,182,212,0.08))'
           : hovered
-            ? (isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)')
-            : (isDark ? '#0f172a' : '#f8fafc'),
+            ? isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)'
+            : isDark ? '#0f172a' : '#f8fafc',
         cursor: disabled ? 'not-allowed' : 'pointer',
         opacity: disabled ? 0.35 : 1,
         transition: 'all 0.15s ease',
-        boxShadow: active ? '0 0 0 2px rgba(6,182,212,0.25)' : 'none',
+        boxShadow: isActive
+          ? '0 4px 16px rgba(6,182,212,0.22), 0 0 0 1px rgba(6,182,212,0.25)'
+          : hovered ? (isDark ? '0 4px 12px rgba(0,0,0,0.35)' : '0 4px 12px rgba(0,0,0,0.1)') : 'none',
+        transform: hovered && !isActive ? 'translateY(-2px)' : 'none',
+        overflow: 'hidden',
         flexShrink: 0,
       }}
     >
-      <span style={{ fontSize: '1.15rem', lineHeight: 1 }}>{item.icon}</span>
-      <span style={{
-        fontSize: '0.78rem', fontWeight: active ? 700 : 600,
-        color: active ? '#06b6d4' : (hovered ? (isDark ? '#e2e8f0' : '#1e293b') : colors.text),
-        whiteSpace: 'nowrap',
-      }}>{item.label}</span>
-      {show && (
-        <span style={{ fontSize: '0.68rem', color: colors.textSecondary, whiteSpace: 'nowrap' }}>{item.sub}</span>
-      )}
+      {/* Colored top accent bar */}
+      <div style={{
+        height: '2.5px',
+        width: '100%',
+        background: isActive
+          ? 'linear-gradient(to right, #06b6d4, #3b82f6)'
+          : hovered
+            ? 'linear-gradient(to right, rgba(6,182,212,0.5), rgba(59,130,246,0.5))'
+            : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'),
+        transition: 'background 0.15s ease',
+      }} />
+      <div style={{ padding: '0.55rem 0.85rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.15rem' }}>
+        <span style={{ fontSize: '1.2rem', lineHeight: 1 }}>{item.icon}</span>
+        <span style={{
+          fontSize: '0.78rem',
+          fontWeight: isActive ? 700 : 600,
+          color: isActive ? '#06b6d4' : hovered ? (isDark ? '#e2e8f0' : '#1e293b') : colors.text,
+          whiteSpace: 'nowrap',
+          transition: 'color 0.15s',
+        }}>{item.label}</span>
+        <span style={{ fontSize: '0.67rem', color: colors.textSecondary, whiteSpace: 'nowrap' }}>{item.sub}</span>
+      </div>
     </button>
   )
 }

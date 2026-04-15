@@ -17,7 +17,7 @@ import { latinToUrdu } from './data/urduPhoneticMap'
 import { TOOLS } from './tools/registry'
 import { GOALS } from './components/GoalModal'
 import AnimatedBackground from './components/AnimatedBackground'
-import Header from './components/Header'
+import ToolsNav from './components/ToolsNav'
 import GoalModal from './components/GoalModal'
 import XPBar from './components/XPBar'
 import FeedbackButton from './components/FeedbackButton'
@@ -394,11 +394,33 @@ function App() {
 
   return (
     <Suspense fallback={null}>
-    <div style={{ minHeight: '100vh', background: colors.bg, padding: isMobile ? '1rem 0.75rem' : '2rem', transition: 'background 0.3s ease', direction: currentLangDir }}>
+    <div style={{ minHeight: '100vh', background: colors.bg, transition: 'background 0.3s ease' }}>
       <AnimatedBackground />
 
+      <ToolsNav rightExtras={
+        <select
+          value={language}
+          onChange={(e) => setLanguage(e.target.value)}
+          style={{
+            background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+            border: `1px solid ${colors.border}`,
+            color: colors.text,
+            padding: '0.3rem 0.6rem',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            fontSize: '0.82rem',
+            fontWeight: 500,
+            outline: 'none',
+          }}
+        >
+          {Object.entries(LANGUAGES).map(([key, lang]) => (
+            <option key={key} value={key}>{lang.flag} {lang.name}</option>
+          ))}
+        </select>
+      } />
+
+      <div style={{ padding: isMobile ? '1.25rem 0.75rem' : '1.75rem 2rem', direction: currentLangDir }}>
       <div style={{ position: 'relative', maxWidth: '56rem', margin: '0 auto' }}>
-        <Header language={language} onLanguageChange={setLanguage} isDark={isDark} onToggleTheme={toggleTheme} colors={colors} isMobile={isMobile} />
         <XPBar xp={xp} level={level} streak={streak} colors={colors} isDark={isDark} />
         {!isKidsMode && <DifficultySelector difficulty={difficulty} onSelect={(d) => { setDifficulty(d) }} language={language} availablePacks={Object.keys(PASSAGES[language] || {})} colors={colors} isDark={isDark} />}
 
@@ -693,6 +715,7 @@ function App() {
               </Link>
             ))}
           </div>
+        </div>
         </div>
       </div>
 

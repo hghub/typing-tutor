@@ -13,7 +13,9 @@ export default function GoalModal({ onSelect, isDark, colors }) {
   const overlay = {
     position: 'fixed',
     inset: 0,
-    background: isDark ? 'rgba(0,0,0,0.82)' : 'rgba(0,0,0,0.55)',
+    background: isDark ? 'rgba(0,0,0,0.85)' : 'rgba(15,23,42,0.65)',
+    backdropFilter: 'blur(8px)',
+    WebkitBackdropFilter: 'blur(8px)',
     zIndex: 9999,
     display: 'flex',
     alignItems: 'center',
@@ -22,63 +24,99 @@ export default function GoalModal({ onSelect, isDark, colors }) {
   }
 
   const modal = {
-    background: colors.card,
-    border: `1px solid ${isDark ? '#1e293b' : '#e2e8f0'}`,
+    background: isDark ? '#0f172a' : '#ffffff',
+    border: `1px solid ${isDark ? 'rgba(51,65,85,0.8)' : 'rgba(203,213,225,0.8)'}`,
     borderRadius: '1.25rem',
-    padding: '2rem',
     maxWidth: '520px',
     width: '100%',
-    boxShadow: isDark ? '0 25px 60px rgba(0,0,0,0.6)' : '0 25px 60px rgba(0,0,0,0.15)',
+    boxShadow: isDark
+      ? '0 25px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(6,182,212,0.08)'
+      : '0 25px 60px rgba(0,0,0,0.18)',
+    overflow: 'hidden',
   }
 
   return (
     <div style={overlay}>
       <div style={modal}>
-        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-          <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>⚡</div>
-          <h2 style={{ margin: 0, fontSize: '1.4rem', fontWeight: 800, color: colors.text }}>
-            What do you want to improve?
-          </h2>
-          <p style={{ margin: '0.5rem 0 0', fontSize: '0.88rem', color: colors.textSecondary }}>
-            We'll personalise your experience based on your goal.
+        {/* Gradient header bar */}
+        <div style={{ height: '3px', background: 'linear-gradient(to right, #06b6d4, #3b82f6, #8b5cf6)' }} />
+
+        <div style={{ padding: '2rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '52px', height: '52px',
+              borderRadius: '1rem',
+              background: 'linear-gradient(135deg, rgba(6,182,212,0.15), rgba(59,130,246,0.15))',
+              border: '1px solid rgba(6,182,212,0.3)',
+              fontSize: '1.6rem',
+              marginBottom: '0.75rem',
+            }}>⚡</div>
+            <h2 style={{ margin: 0, fontSize: '1.35rem', fontWeight: 800, color: colors.text, letterSpacing: '-0.02em' }}>
+              What do you want to improve?
+            </h2>
+            <p style={{ margin: '0.5rem 0 0', fontSize: '0.85rem', color: colors.textSecondary }}>
+              We'll personalise your experience based on your goal.
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+            {GOALS.map(g => (
+              <button
+                key={g.id}
+                onClick={() => onSelect(g.id)}
+                onMouseEnter={() => setHovered(g.id)}
+                onMouseLeave={() => setHovered(null)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '1rem',
+                  background: hovered === g.id
+                    ? isDark ? 'linear-gradient(145deg, #1e293b, rgba(6,182,212,0.1))' : 'linear-gradient(145deg, #f0fdff, rgba(6,182,212,0.06))'
+                    : isDark ? '#0f172a' : '#f8fafc',
+                  border: `1px solid ${hovered === g.id ? '#06b6d4' : (isDark ? 'rgba(51,65,85,0.7)' : 'rgba(203,213,225,0.8)')}`,
+                  borderRadius: '0.75rem',
+                  padding: '0.85rem 1rem',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'all 0.15s ease',
+                  width: '100%',
+                  transform: hovered === g.id ? 'translateY(-1px)' : 'none',
+                  boxShadow: hovered === g.id ? '0 6px 20px rgba(6,182,212,0.18)' : 'none',
+                  overflow: 'hidden',
+                  position: 'relative',
+                }}
+              >
+                {/* Left accent bar */}
+                <div style={{
+                  position: 'absolute', left: 0, top: 0, bottom: 0, width: '3px',
+                  background: hovered === g.id ? 'linear-gradient(to bottom, #06b6d4, #3b82f6)' : 'transparent',
+                  transition: 'background 0.15s ease',
+                  borderRadius: '0.75rem 0 0 0.75rem',
+                }} />
+                <span style={{ fontSize: '1.6rem', flexShrink: 0 }}>{g.emoji}</span>
+                <div>
+                  <div style={{ color: colors.text, fontWeight: 600, fontSize: '0.93rem' }}>{g.label}</div>
+                  <div style={{ color: colors.textSecondary, fontSize: '0.79rem', marginTop: '0.1rem' }}>{g.sub}</div>
+                </div>
+                <span style={{
+                  marginLeft: 'auto',
+                  color: hovered === g.id ? '#06b6d4' : colors.textSecondary,
+                  fontSize: '1rem',
+                  transition: 'transform 0.15s ease, color 0.15s ease',
+                  transform: hovered === g.id ? 'translateX(4px)' : 'none',
+                  display: 'inline-block',
+                }}>→</span>
+              </button>
+            ))}
+          </div>
+
+          <p style={{ textAlign: 'center', marginTop: '1.25rem', marginBottom: 0, fontSize: '0.78rem', color: colors.textSecondary }}>
+            ⚡ Takes 60 seconds · No sign-up required
           </p>
         </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-          {GOALS.map(g => (
-            <button
-              key={g.id}
-              onClick={() => onSelect(g.id)}
-              onMouseEnter={() => setHovered(g.id)}
-              onMouseLeave={() => setHovered(null)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '1rem',
-                background: hovered === g.id
-                  ? (isDark ? '#1e3a4c' : '#eff9ff')
-                  : (isDark ? '#0f172a' : '#f8fafc'),
-                border: `2px solid ${hovered === g.id ? '#06b6d4' : (isDark ? '#1e293b' : '#e2e8f0')}`,
-                borderRadius: '0.75rem',
-                padding: '0.9rem 1rem',
-                cursor: 'pointer',
-                textAlign: 'left',
-                transition: 'all 0.15s ease',
-                width: '100%',
-              }}
-            >
-              <span style={{ fontSize: '1.6rem', flexShrink: 0 }}>{g.emoji}</span>
-              <div>
-                <div style={{ color: colors.text, fontWeight: 600, fontSize: '0.95rem' }}>{g.label}</div>
-                <div style={{ color: colors.textSecondary, fontSize: '0.8rem', marginTop: '0.15rem' }}>{g.sub}</div>
-              </div>
-            </button>
-          ))}
-        </div>
-
-        <p style={{ textAlign: 'center', marginTop: '1.25rem', marginBottom: 0, fontSize: '0.8rem', color: colors.textSecondary }}>
-          Takes 60 seconds · No sign-up required
-        </p>
       </div>
     </div>
   )

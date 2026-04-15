@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { TOOLS } from '../tools/registry'
 import { useTheme } from '../hooks/useTheme'
 
-export default function ToolsNav() {
+export default function ToolsNav({ rightExtras }) {
   const { isDark, toggleTheme, colors } = useTheme()
   const { pathname } = useLocation()
 
@@ -97,6 +97,12 @@ export default function ToolsNav() {
 
         {/* Right controls — always visible */}
         <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: '0.25rem', paddingLeft: '0.5rem' }}>
+          {rightExtras && (
+            <>
+              {rightExtras}
+              <div style={{ width: '1px', height: '20px', background: colors.border, margin: '0 0.25rem' }} />
+            </>
+          )}
           <Link
             to="/about"
             style={{

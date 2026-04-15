@@ -4,11 +4,35 @@ import { TOOLS, TOOL_CATEGORIES } from '../tools/registry'
 import ToolsNav from '../components/ToolsNav'
 import FeedbackButton from '../components/FeedbackButton'
 import { useTheme } from '../hooks/useTheme'
+import { usePreferences } from '../hooks/usePreferences'
 
 const FEATURED_IDS = ['expense-analyzer', 'data-leak-detector', 'tax-calculator']
 
-function ToolCard({ tool, colors, isDark, featured = false }) {
+function TogglePill({ active, onClick, children, activeColor = '#06b6d4', isDark }) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
+        padding: '0.35rem 0.9rem',
+        borderRadius: '2rem',
+        border: `1px solid ${active ? activeColor : (isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)')}`,
+        background: active ? `${activeColor}20` : 'transparent',
+        color: active ? activeColor : (isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.4)'),
+        fontSize: '0.8rem', fontWeight: 700,
+        cursor: 'pointer', transition: 'all 0.15s ease',
+        letterSpacing: '0.02em',
+      }}
+    >
+      {children}
+    </button>
+  )
+}
+
+function ToolCard({ tool, colors, isDark, featured = false, urduLabels = false }) {
   const [hovered, setHovered] = useState(false)
+  const displayName = (urduLabels && tool.nameUrdu) ? tool.nameUrdu : tool.name
+  const displayTagline = (urduLabels && tool.taglineUrdu) ? tool.taglineUrdu : tool.tagline
   return (
     <Link to={tool.path} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
       <div
@@ -51,8 +75,9 @@ function ToolCard({ tool, colors, isDark, featured = false }) {
             color: colors.text,
             margin: '0 0 0.4rem',
             lineHeight: 1.3,
+            direction: (urduLabels && tool.nameUrdu) ? 'rtl' : 'ltr',
           }}>
-            {tool.name}
+            {displayName}
           </h3>
           <p style={{
             fontSize: '0.83rem',
@@ -60,8 +85,9 @@ function ToolCard({ tool, colors, isDark, featured = false }) {
             fontWeight: 600,
             margin: '0 0 0.5rem',
             lineHeight: 1.4,
+            direction: (urduLabels && tool.taglineUrdu) ? 'rtl' : 'ltr',
           }}>
-            {tool.tagline}
+            {displayTagline}
           </p>
           {featured && (
             <p style={{ fontSize: '0.8rem', color: colors.textSecondary, margin: 0, lineHeight: 1.55, flex: 1 }}>
@@ -90,8 +116,19 @@ function ToolCard({ tool, colors, isDark, featured = false }) {
 
 export default function ToolsHome() {
   const { isDark, colors } = useTheme()
-  const featuredTools = FEATURED_IDS.map(id => TOOLS.find(t => t.id === id)).filter(Boolean)
-  const totalTools = TOOLS.filter(t => !t.isHome).length
+  const { prefs, togglePref } = usePreferences()
+
+  const visibleTools = TOOLS.filter(t => {
+    if (t.isHome) return false
+    if (!prefs.showPkTools && t.region === 'pk') return false
+    return true
+  })
+
+  const featuredTools = FEATURED_IDS
+    .map(id => visibleTools.find(t => t.id === id))
+    .filter(Boolean)
+
+  const totalTools = visibleTools.length
   const totalCategories = TOOL_CATEGORIES.length
 
   return (
@@ -232,6 +269,26 @@ export default function ToolsHome() {
               </span>
             ))}
           </div>
+
+          {/* ── Filter Toggles ── */}
+          <div style={{ display: 'flex', gap: '0.6rem', justifyContent: 'center', marginTop: '1.25rem', flexWrap: 'wrap' }}>
+            <TogglePill
+              active={prefs.showPkTools}
+              onClick={() => togglePref('showPkTools')}
+              activeColor='#10b981'
+              isDark={isDark}
+            >
+              🇵🇰 Pakistan Tools
+            </TogglePill>
+            <TogglePill
+              active={prefs.urduLabels}
+              onClick={() => togglePref('urduLabels')}
+              activeColor='#f59e0b'
+              isDark={isDark}
+            >
+              اردو
+            </TogglePill>
+          </div>
         </div>
 
         {/* ── Featured Tools ── */}
@@ -263,7 +320,7 @@ export default function ToolsHome() {
             gap: '1.25rem',
           }}>
             {featuredTools.map(tool => (
-              <ToolCard key={tool.id} tool={tool} colors={colors} isDark={isDark} featured />
+              <ToolCard key={tool.id} tool={tool} colors={colors} isDark={isDark} featured urduLabels={prefs.urduLabels} />
             ))}
           </div>
         </section>
@@ -316,7 +373,7 @@ export default function ToolsHome() {
         {/* ── All Tools by Category ── */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
           {TOOL_CATEGORIES.map((cat) => {
-            const tools = TOOLS.filter((t) => t.category === cat.id)
+            const tools = visibleTools.filter((t) => t.category === cat.id)
             if (!tools.length) return null
             return (
               <section key={cat.id}>
@@ -353,7 +410,7 @@ export default function ToolsHome() {
                   gap: '1rem',
                 }}>
                   {tools.map((tool) => (
-                    <ToolCard key={tool.id} tool={tool} colors={colors} isDark={isDark} />
+                    <ToolCard key={tool.id} tool={tool} colors={colors} isDark={isDark} urduLabels={prefs.urduLabels} />
                   ))}
                 </div>
               </section>

@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback, useEffect } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
+import DisclaimerBlock from '../components/DisclaimerBlock'
 
 const ACCENT = '#f59e0b'
 const LS_KEY = 'typely_freelancer_assessments'
@@ -927,11 +928,7 @@ export default function FreelancerRisk() {
 
       {/* ── Data Storage Note ── */}
       <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start', marginTop: '1.5rem' }}>
-        <span>💾</span>
-        <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
-          <strong style={{ color: colors.text }}>Assessments stored locally.</strong>{' '}
-          Your risk assessments are saved in this browser's local storage. Clearing browser cache or cookies will permanently erase them. Save important assessments as PDF or screenshot for your records.
-        </p>
+        <DisclaimerBlock type="storage" overrideBodyEn="Your risk assessments are saved in this browser's local storage. Clearing cache will erase them. Export important assessments as PDF." />
       </div>
     </ToolLayout>
   )

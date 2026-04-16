@@ -1,8 +1,7 @@
 import { useState, useMemo } from 'react'
 import ToolLayout from '../components/ToolLayout'
+import DisclaimerBlock from '../components/DisclaimerBlock'
 import { useTheme } from '../hooks/useTheme'
-
-const ACCENT = '#10b981'
 const CURRENCIES = [
   { code: 'PKR', symbol: 'PKR' },
   { code: 'USD', symbol: '$' },
@@ -594,20 +593,8 @@ export default function PositionSizeCalc() {
 
         {/* ── Disclaimers ── */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-          <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
-            <span>💾</span>
-            <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
-              <strong style={{ color: colors.text }}>Trading journal stored locally.</strong>{' '}
-              Your journal entries are saved in this browser's local storage. Clearing browser cache or cookies will permanently erase them. Export your records regularly.
-            </p>
-          </div>
-          <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
-            <span>🔌</span>
-            <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
-              <strong style={{ color: colors.text }}>Manual entry only.</strong>{' '}
-              Entry price and stop loss are entered manually. Broker API integration for live market prices can be added in the future if needed.
-            </p>
-          </div>
+          <DisclaimerBlock type="storage" overrideBodyEn="Your journal entries are saved in this browser's local storage. Clearing cache will erase them. Export records regularly." />
+          <DisclaimerBlock type="noApi" overrideBodyEn="Entry price and stop loss are entered manually. Broker API integration for live market prices can be added in the future." />
         </div>
 
       </div>

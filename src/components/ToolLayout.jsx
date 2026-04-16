@@ -1,9 +1,12 @@
-import { Suspense } from 'react'
+import { Suspense, useState } from 'react'
 import ToolsNav from './ToolsNav'
 import RelatedTools from './RelatedTools'
 import TrustBadge from './TrustBadge'
 import FeedbackButton from './FeedbackButton'
+import ToolHelpDialog from './ToolHelpDialog'
 import { useTheme } from '../hooks/useTheme'
+import { usePreferences } from '../hooks/usePreferences'
+import { TOOLS } from '../tools/registry'
 
 function LoadingSpinner({ colors }) {
   return (
@@ -31,6 +34,9 @@ function LoadingSpinner({ colors }) {
  */
 export default function ToolLayout({ toolId, children }) {
   const { isDark, colors } = useTheme()
+  const { prefs } = usePreferences()
+  const [helpOpen, setHelpOpen] = useState(false)
+  const tool = TOOLS.find(t => t.id === toolId)
 
   return (
     <div style={{
@@ -44,6 +50,39 @@ export default function ToolLayout({ toolId, children }) {
       <ToolsNav />
 
       <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '2rem 1rem' }}>
+        {/* Tool header row with "About this tool" hint */}
+        {tool && (
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.5rem' }}>
+            <button
+              onClick={() => setHelpOpen(true)}
+              title={prefs.urduLabels ? 'اس ٹول کے بارے میں' : 'About this tool'}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
+                background: 'none',
+                border: `1px solid ${colors.border}`,
+                borderRadius: '2rem',
+                padding: '0.3rem 0.75rem',
+                cursor: 'pointer',
+                color: colors.textSecondary,
+                fontSize: '0.78rem',
+                fontWeight: 600,
+                transition: 'all 0.15s',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = tool.color
+                e.currentTarget.style.color = tool.color
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = colors.border
+                e.currentTarget.style.color = colors.textSecondary
+              }}
+            >
+              <span style={{ fontSize: '0.9rem' }}>ℹ️</span>
+              {prefs.urduLabels ? 'اس ٹول کے بارے میں' : 'About this tool'}
+            </button>
+          </div>
+        )}
+
         <Suspense fallback={<LoadingSpinner colors={colors} />}>
           {children}
         </Suspense>
@@ -52,6 +91,8 @@ export default function ToolLayout({ toolId, children }) {
       <RelatedTools toolId={toolId} />
       <TrustBadge />
       <FeedbackButton />
+
+      {helpOpen && <ToolHelpDialog toolId={toolId} onClose={() => setHelpOpen(false)} />}
 
       {/* Footer */}
       <footer style={{

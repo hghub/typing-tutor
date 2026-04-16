@@ -34,6 +34,7 @@ export const TOOLS = [
     category: 'typing',
     tags: ['typing', 'speed', 'accuracy', 'wpm'],
     related: ['word-counter', 'text-cleaner'],
+    features: ['Real-time WPM and accuracy feedback as you type', 'Weak-key drill targets your slowest letters', 'English, Urdu, Arabic, Kids and Custom text modes', 'XP, badges, leaderboard and multiplayer battles'],
   },
   {
     id: 'word-counter',
@@ -48,6 +49,7 @@ export const TOOLS = [
     category: 'writing',
     tags: ['writing', 'analysis', 'word count', 'readability'],
     related: ['text-cleaner', 'doc-composer'],
+    features: ['Word, character, sentence and paragraph counts', 'Readability score (Flesch-Kincaid)', 'Keyword density for SEO', 'Estimated reading time'],
   },
   {
     id: 'text-cleaner',
@@ -62,6 +64,7 @@ export const TOOLS = [
     category: 'writing',
     tags: ['formatting', 'cleaning', 'case conversion'],
     related: ['word-counter', 'doc-composer'],
+    features: ['Remove extra spaces and blank lines', 'Fix capitalisation: title case, UPPER, lower, sentence', 'Strip HTML tags and Markdown formatting', 'Convert smart quotes to straight quotes'],
   },
   {
     id: 'doc-composer',
@@ -76,6 +79,7 @@ export const TOOLS = [
     category: 'writing',
     tags: ['documents', 'pdf', 'cv', 'templates', 'freelancing'],
     related: ['word-counter', 'text-cleaner'],
+    features: ['Smart templates: CVs, cover letters, invoices, contracts', 'Fill-in-the-blank guided form fields', 'Export to PDF or Word (.docx)', 'No internet required -- fully browser-based'],
   },
   {
     id: 'urdu-keyboard',
@@ -91,6 +95,7 @@ export const TOOLS = [
     tags: ['urdu', 'keyboard', 'phonetic', 'pakistan'],
     related: ['typing-tutor', 'doc-composer'],
     region: 'pk',
+    features: ['Type Urdu using English phonetics on any device', 'No special keyboard or IME needed', 'One-click copy to clipboard', 'Supports common Urdu ligatures'],
   },
   {
     id: 'tax-calculator',
@@ -106,6 +111,7 @@ export const TOOLS = [
     tags: ['tax', 'pakistan', 'salary', 'fbr', '2025', 'income tax'],
     related: ['tax-optimizer', 'doc-composer', 'word-counter'],
     region: 'pk',
+    features: ['Pakistan salary tax under Finance Act 2025', 'Tax shields: VPS (Sec 63), Life Insurance (Sec 62), Charity (Sec 61)', 'Effective tax rate and monthly take-home', 'Filer and non-filer rate support'],
   },
   {
     id: 'tax-optimizer',
@@ -121,6 +127,7 @@ export const TOOLS = [
     tags: ['tax', 'optimizer', 'vps', 'charity', 'insurance', 'pakistan', 'fbr', '2025', 'goal seek'],
     related: ['tax-calculator', 'expense-analyzer'],
     region: 'pk',
+    features: ['Optimal VPS + insurance + charity allocation for your budget', 'Deterministic solver -- not AI guessing', 'Shows exact PKR saved for each scenario', 'Works for all income brackets under Finance Act 2025'],
   },
   {
     id: 'text-encryptor',
@@ -135,6 +142,7 @@ export const TOOLS = [
     category: 'security',
     tags: ['security', 'encryption', 'privacy'],
     related: ['data-leak-detector', 'text-cleaner'],
+    features: ['AES-256-GCM encryption entirely in your browser', 'Password-based key derivation (PBKDF2)', 'Encrypt and decrypt messages or notes', 'Key and text never leave your device'],
   },
   {
     id: 'data-leak-detector',
@@ -149,6 +157,7 @@ export const TOOLS = [
     category: 'security',
     tags: ['security', 'secrets', 'credentials', 'pii', 'leaks', 'devtools'],
     related: ['text-encryptor', 'log-analyzer', 'data-transformer'],
+    features: ['Detects 50+ secret types: AWS keys, JWT, GitHub tokens, CNICs, IBANs', 'Severity colour-coding for each finding', 'One-click redacted safe copy', '100% client-side -- nothing leaves the browser'],
   },
   // ── Travel & Recreation ──
   {
@@ -164,6 +173,7 @@ export const TOOLS = [
     category: 'travel',
     tags: ['currency', 'exchange', 'travel', 'pakistan', 'pkr'],
     related: ['budget-splitter', 'tax-calculator'],
+    features: ['Live exchange rates for 30+ currencies', 'PKR, USD, GBP, AED, SAR and more', 'Quick-swap between any two currencies', 'Works offline once loaded'],
   },
   {
     id: 'packing-list',
@@ -178,6 +188,7 @@ export const TOOLS = [
     category: 'travel',
     tags: ['travel', 'packing', 'weather', 'checklist'],
     related: ['currency-converter', 'budget-splitter'],
+    features: ['Weather-smart packing suggestions for your destination and dates', 'Customisable categories: clothing, toiletries, documents, gear', 'Check off items as you pack', 'Save and reuse lists'],
   },
   {
     id: 'budget-splitter',
@@ -192,6 +203,7 @@ export const TOOLS = [
     category: 'travel',
     tags: ['travel', 'budget', 'expenses', 'group', 'split'],
     related: ['currency-converter', 'packing-list'],
+    features: ['Add any number of participants and expenses', 'Assign a different payer to each expense', 'Calculates minimum transactions to settle up', 'Works for groups of any size'],
   },
   // ── Health & Wellness ──
   {
@@ -207,6 +219,7 @@ export const TOOLS = [
     category: 'health',
     tags: ['health', 'medication', 'drugs', 'interactions', 'pharmacy'],
     related: ['symptom-tracker'],
+    features: ['Check interactions between multiple medications', 'Search by generic or brand name', 'Powered by US National Library of Medicine API', 'Results include severity and clinical description'],
   },
   {
     id: 'symptom-tracker',
@@ -221,6 +234,7 @@ export const TOOLS = [
     category: 'health',
     tags: ['health', 'symptoms', 'wellness', 'weather', 'tracker'],
     related: ['drug-checker'],
+    features: ['Log symptoms with severity, time and notes', 'Auto-records local weather: temperature and pressure', 'Correlates symptoms with weather changes', 'Data stays 100% on your device'],
   },
   {
     id: 'measurement-tracker',
@@ -236,6 +250,7 @@ export const TOOLS = [
     category: 'health',
     tags: ['measurement', 'tracker', 'health', 'body', 'weight', 'custom', 'log'],
     related: ['symptom-tracker', 'drug-checker'],
+    features: ['Create custom trackers for any metric (weight, BP, dimensions)', 'Log entries over time with date and notes', 'Visualise trends with a line chart', 'All data stored locally'],
   },
   // ── Developer Tools ──────────────────────────────────────────────
   {
@@ -251,6 +266,7 @@ export const TOOLS = [
     category: 'developer',
     tags: ['json', 'csv', 'tsv', 'converter', 'privacy', 'developer'],
     related: ['config-converter', 'mock-data'],
+    features: ['Convert between JSON, CSV and TSV formats', 'De-identifier toggle auto-masks emails, API keys and IPs', 'Live preview before downloading', 'No uploads -- handles large files locally'],
   },
   {
     id: 'markdown-scraper',
@@ -265,6 +281,7 @@ export const TOOLS = [
     category: 'developer',
     tags: ['markdown', 'scraper', 'llm', 'ai', 'html', 'developer'],
     related: ['data-transformer', 'log-analyzer'],
+    features: ['Paste any URL or HTML to get clean Markdown', 'Auto-generates a Table of Contents', 'Token-efficient output for LLMs', 'Strips ads, nav and boilerplate'],
   },
   {
     id: 'log-analyzer',
@@ -279,6 +296,7 @@ export const TOOLS = [
     category: 'developer',
     tags: ['logs', 'errors', 'debugging', 'ai', 'devtools', 'developer'],
     related: ['markdown-scraper', 'data-transformer'],
+    features: ['Paste server logs -- see errors grouped by pattern', 'Copy for AI extracts only unique stack traces', 'Filter by log level: ERROR, WARN, INFO', 'Handles gigabytes locally'],
   },
   {
     id: 'config-converter',
@@ -293,6 +311,7 @@ export const TOOLS = [
     category: 'developer',
     tags: ['config', 'env', 'yaml', 'json', 'toml', 'converter', 'developer'],
     related: ['data-transformer', 'mock-data'],
+    features: ['Convert between .env, JSON, YAML and TOML', 'Drag-and-drop or paste your config file', 'Validates syntax and shows errors inline', 'No uploads -- all conversion in browser'],
   },
   {
     id: 'mock-data',
@@ -307,6 +326,7 @@ export const TOOLS = [
     category: 'developer',
     tags: ['mock', 'data', 'testing', 'json', 'csv', 'generator', 'developer'],
     related: ['data-transformer', 'config-converter'],
+    features: ['Define a schema with field names, types and constraints', 'Generate thousands of unique rows instantly', 'Edge Case mode inserts nulls and special characters', 'Download as JSON or CSV'],
   },
   {
     id: 'trace-correlator',
@@ -321,6 +341,7 @@ export const TOOLS = [
     category: 'developer',
     tags: ['logs', 'tracing', 'microservices', 'debugging', 'enterprise', 'correlation', 'developer'],
     related: ['log-analyzer', 'data-leak-detector'],
+    features: ['Drop multiple log files from different microservices', 'Correlates requests by trace ID across all files', 'Swimlane timeline shows exact sequence and timing', 'Handles gigabytes 100% locally'],
   },
   {
     id: 'schema-mapper',
@@ -335,6 +356,7 @@ export const TOOLS = [
     category: 'developer',
     tags: ['schema', 'mapping', 'json', 'transform', 'code generation', 'etl', 'developer'],
     related: ['data-transformer', 'config-converter', 'trace-correlator'],
+    features: ['Paste source and destination JSON schemas side-by-side', 'Click fields to create visual mappings', 'Generate JavaScript or Python transform code instantly', 'Complexity score and unmapped field warnings'],
   },
   // ── Education & Teaching ────────────────────────────────────────
   {
@@ -350,6 +372,7 @@ export const TOOLS = [
     category: 'education',
     tags: ['education', 'teaching', 'classroom', 'groups', 'students'],
     related: [],
+    features: ['Paste class roster with skill levels', 'Generates balanced groups mixing ability levels', 'Configurable group size', 'Multiple rounds without repeating pairs'],
   },
   // ── Legal & Research ───────────────────────────────────────────
   {
@@ -365,6 +388,7 @@ export const TOOLS = [
     category: 'legal',
     tags: ['timeline', 'legal', 'research', 'dates', 'visualization'],
     related: [],
+    features: ['Paste events in any format -- emails, notes, bullets', 'Auto-extracts dates from natural language', 'Renders an interactive visual timeline', 'Export as PDF or image for reports or cases'],
   },
   // ── Business & Field Work ──────────────────────────────────────
   {
@@ -380,6 +404,7 @@ export const TOOLS = [
     category: 'business',
     tags: ['trading', 'stocks', 'risk', 'position', 'calculator', 'finance'],
     related: ['property-comp'],
+    features: ['Enter account size, risk %, entry and stop-loss', 'Calculates shares to buy to avoid over-risking', 'Shows risk/reward ratio and potential profit', 'Supports any currency'],
   },
   {
     id: 'voice-invoice',
@@ -394,6 +419,7 @@ export const TOOLS = [
     category: 'business',
     tags: ['voice', 'invoice', 'hvac', 'field', 'billing', 'speech'],
     related: ['position-size-calc'],
+    features: ['Speak your work items -- tool transcribes into invoice rows', 'Works while driving via microphone', 'Edit line items after transcription', 'Download invoice as PDF'],
   },
   {
     id: 'property-comp',
@@ -408,6 +434,7 @@ export const TOOLS = [
     category: 'business',
     tags: ['real estate', 'appraisal', 'property', 'valuation', 'calculator'],
     related: ['position-size-calc'],
+    features: ['Compare subject property against a comparable sale', 'Toggle feature differences: beds, baths, sqft, garage', 'Calculates adjusted valuation delta', 'Useful for appraisers and buyers'],
   },
   {
     id: 'refrigerant-calc',
@@ -422,6 +449,7 @@ export const TOOLS = [
     category: 'business',
     tags: ['hvac', 'refrigerant', 'epa', 'compliance', 'calculator'],
     related: ['voice-invoice'],
+    features: ['Enter system charge and refrigerant added', 'Calculates annual leak rate percentage', 'Compares against EPA thresholds', 'Indicates if mandatory repair is required'],
   },
   // ── Business ──────────────────────────────────────────────────
   {
@@ -438,6 +466,7 @@ export const TOOLS = [
     category: 'business',
     tags: ['freelancer', 'risk', 'contract', 'payment', 'upwork', 'fiverr', 'pakistan'],
     related: ['voice-invoice', 'position-size-calc'],
+    features: ['Answer questions about client source, contract and payment', 'Get a 0-100 risk score with specific actionable advice', 'Save assessments for future reference', 'Covers Upwork, Fiverr, direct clients and more'],
   },
   {
     id: 'warranty-tracker',
@@ -453,6 +482,7 @@ export const TOOLS = [
     category: 'business',
     tags: ['warranty', 'product', 'receipt', 'expiry', 'tracker', 'shopping', 'pakistan'],
     related: ['freelancer-risk'],
+    features: ['Track product warranties with expiry countdowns', 'Status alerts: Active, Expiring Soon, Expired', 'Category filters: electronics, appliances, vehicles', 'Export warranty list as PDF'],
   },
   {
     id: 'driving-fines',
@@ -468,6 +498,7 @@ export const TOOLS = [
     category: 'finance',
     tags: ['driving', 'traffic', 'challan', 'fine', 'license', 'pakistan', 'lahore', 'karachi'],
     related: ['expense-analyzer', 'tax-calculator'],
+    features: ['Log traffic violations with date, location and fine amount', 'Track unpaid fines and payment deadlines', 'Monitor license suspension risk score', 'Based on Pakistan Traffic Police thresholds'],
   },
   // ── Finance (additional) ──────────────────────────────────────
   {
@@ -484,6 +515,7 @@ export const TOOLS = [
     category: 'finance',
     tags: ['expense', 'budget', 'finance', 'csv', 'bank', 'easypaisa', 'jazzcash', 'pakistan', 'spending'],
     related: ['tax-calculator', 'budget-splitter'],
+    features: ['Upload bank, Easypaisa or JazzCash CSV', 'Instant spending breakdown by category', 'Merchant insights and monthly trends chart', '100% private -- no data leaves your browser'],
   },
   // ── Developer ─────────────────────────────────────────────────
   {
@@ -515,6 +547,7 @@ export const TOOLS = [
     category: 'security',
     tags: ['privacy', 'redaction', 'cnic', 'iban', 'pii', 'document', 'security'],
     related: ['text-encryptor', 'doc-composer'],
+    features: ['Auto-detects CNICs, IBANs, phone numbers, emails, NTNs', 'Redact any custom text patterns', 'One-click copy of safe redacted version', '100% local -- never leaves your browser'],
   },
   // ── PDF Tools ─────────────────────────────────────────────────
   {
@@ -531,6 +564,7 @@ export const TOOLS = [
     category: 'pdf',
     tags: ['pdf', 'compress', 'whatsapp', 'file size', 'optimize'],
     related: ['merge-pdf', 'split-pdf', 'pdf-convert'],
+    features: ['Preset modes: WhatsApp, Email, Print, Archive', 'Shows before and after file size', 'Local browser processing -- no uploads', 'Handles multi-page PDFs quickly'],
   },
   {
     id: 'merge-pdf',
@@ -546,6 +580,7 @@ export const TOOLS = [
     category: 'pdf',
     tags: ['pdf', 'merge', 'combine', 'join', 'files'],
     related: ['compress-pdf', 'split-pdf', 'pdf-convert'],
+    features: ['Drag, reorder and merge multiple PDFs into one file', 'Optional compression after merge for WhatsApp sharing', 'Drag-and-drop page reordering', '100% in-browser'],
   },
   {
     id: 'split-pdf',
@@ -561,6 +596,7 @@ export const TOOLS = [
     category: 'pdf',
     tags: ['pdf', 'split', 'extract', 'pages', 'separate'],
     related: ['merge-pdf', 'compress-pdf', 'pdf-convert'],
+    features: ['Extract a single page, custom range or all pages', 'Download all extracted pages as a ZIP', 'Preview page thumbnails before splitting', 'Fully local processing'],
   },
   {
     id: 'pdf-convert',
@@ -576,6 +612,7 @@ export const TOOLS = [
     category: 'pdf',
     tags: ['pdf', 'convert', 'jpg', 'image', 'png', 'photos'],
     related: ['compress-pdf', 'merge-pdf', 'split-pdf'],
+    features: ['Convert PDF pages to JPG images (ZIP download)', 'Combine multiple images into a single PDF', 'Adjustable image quality', 'All processing in your browser'],
   },
   {
     id: 'doc-converter',
@@ -589,6 +626,7 @@ export const TOOLS = [
     category: 'pdf',
     tags: ['pdf', 'docx', 'word', 'convert', 'document'],
     related: ['compress-pdf', 'pdf-convert', 'doc-composer'],
+    features: ['Convert DOCX files to PDF', 'Extract PDF text into a .docx file', 'Drag-and-drop file input', '100% client-side processing'],
   },
   {
     id: 'text-extractor',
@@ -602,6 +640,7 @@ export const TOOLS = [
     category: 'pdf',
     tags: ['ocr', 'image', 'text', 'extract', 'scan', 'urdu', 'arabic'],
     related: ['pdf-search', 'doc-converter', 'doc-redaction'],
+    features: ['Extract text from images via OCR (English, Urdu, Arabic)', 'Extract text from PDF files', 'Scanned PDF OCR with progress tracking', 'Tesseract.js-powered -- no upload needed'],
   },
   {
     id: 'pdf-search',
@@ -615,6 +654,7 @@ export const TOOLS = [
     category: 'pdf',
     tags: ['pdf', 'search', 'find', 'keyword', 'text'],
     related: ['text-extractor', 'doc-redaction', 'compress-pdf'],
+    features: ['Upload a PDF and search for any keyword', 'Shows matching context snippets with highlights', 'Navigate directly to pages with matches', 'Local processing -- your PDF never leaves the browser'],
   },
 ]
 

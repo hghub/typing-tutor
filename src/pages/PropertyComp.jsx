@@ -1,8 +1,7 @@
 import { useState, useMemo } from 'react'
 import ToolLayout from '../components/ToolLayout'
+import DisclaimerBlock from '../components/DisclaimerBlock'
 import { useTheme } from '../hooks/useTheme'
-
-const ACCENT = '#8b5cf6'
 const USD_RATE = 280 // approximate: 1 USD = 280 PKR
 const MARLA_TO_SQFT = 272.25
 
@@ -808,13 +807,7 @@ export default function PropertyComp() {
         )}
 
         {/* ── API Note ── */}
-        <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start', marginTop: '1.5rem' }}>
-          <span>🔌</span>
-          <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
-            <strong style={{ color: colors.text }}>Manual data entry only.</strong>{' '}
-            Property prices are entered manually. No real-time property registry or market-data API is integrated. When a public property price API (e.g. FBR property valuation or Zameen.com feed) becomes available, it can be connected to auto-populate comparables.
-          </p>
-        </div>
+        <DisclaimerBlock type="noApi" overrideBodyEn="Property prices are entered manually. No real-time property registry or market data API is integrated. When a public API (e.g. FBR property valuation or Zameen.com feed) becomes available, it can be connected." />
       </div>
     </ToolLayout>
   )

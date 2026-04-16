@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback } from 'react'
 import ToolLayout from '../components/ToolLayout'
+import DisclaimerBlock from '../components/DisclaimerBlock'
 import { useTheme } from '../hooks/useTheme'
 
 const ACCENT = '#0ea5e9'
@@ -582,20 +583,8 @@ export default function RefrigerantCalc() {
 
         {/* ── Disclaimers ── */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-          <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
-            <span>💾</span>
-            <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
-              <strong style={{ color: colors.text }}>Readings stored locally.</strong>{' '}
-              Your leak readings (last 10) are saved in this browser's local storage. Clearing browser cache or cookies will erase them. Note down critical readings externally.
-            </p>
-          </div>
-          <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
-            <span>🔌</span>
-            <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
-              <strong style={{ color: colors.text }}>Manual readings only.</strong>{' '}
-              Values are entered manually from your gauge or equipment. IoT sensor or equipment registry API integration can be added in the future.
-            </p>
-          </div>
+          <DisclaimerBlock type="storage" overrideBodyEn="Your leak readings (last 10) are saved in this browser's local storage. Clearing cache will erase them. Note down critical readings externally." />
+          <DisclaimerBlock type="noApi" overrideBodyEn="Values are entered manually from your gauge or equipment. IoT sensor or equipment registry API integration can be added in the future." />
         </div>
 
       </div>

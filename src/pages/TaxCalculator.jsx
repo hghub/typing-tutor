@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
+import DisclaimerBlock from '../components/DisclaimerBlock'
 import {
   SLABS_2526, SLABS_2425,
   calcFullTax, calcVPSShield, calcCharityShield, slabProximity,
@@ -406,11 +407,7 @@ export default function TaxCalculator() {
       </div>
 
       {/* Footer disclaimer */}
-      <div style={{ marginTop: '1rem', padding: '1rem', background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)', borderRadius: '0.75rem', border: `1px solid ${colors.border}` }}>
-        <p style={{ margin: 0, fontSize: '0.72rem', color: colors.textSecondary, lineHeight: 1.7 }}>
-          ⚠️ <strong>Disclaimer:</strong> This tool is for educational and informational purposes only. It is not affiliated with the Federal Board of Revenue (FBR) or any government agency. Calculations are based on the Finance Act 2025 and are estimates. This does not constitute professional tax or financial advice. Please consult a certified tax practitioner (RTP) or CA before filing your returns.
-        </p>
-      </div>
+      <DisclaimerBlock type="tax" />
     </ToolLayout>
   )
 }

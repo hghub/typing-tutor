@@ -38,6 +38,10 @@ const DrivingFineTracker = lazy(() => import('./pages/DrivingFineTracker.jsx'))
 const TraceCorrelator   = lazy(() => import('./pages/TraceCorrelator.jsx'))
 const SchemaMapper          = lazy(() => import('./pages/SchemaMapper.jsx'))
 const MeasurementTracker    = lazy(() => import('./pages/MeasurementTracker.jsx'))
+const CompressPDF           = lazy(() => import('./pages/CompressPDF.jsx'))
+const MergePDF              = lazy(() => import('./pages/MergePDF.jsx'))
+const SplitPDF              = lazy(() => import('./pages/SplitPDF.jsx'))
+const PDFConvert            = lazy(() => import('./pages/PDFConvert.jsx'))
 const About             = lazy(() => import('./pages/About.jsx'))
 
 const fallback = (
@@ -99,6 +103,10 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/trace-correlator"   element={<TraceCorrelator />} />
           <Route path="/tools/schema-mapper"         element={<SchemaMapper />} />
           <Route path="/tools/measurement-tracker"   element={<MeasurementTracker />} />
+          <Route path="/tools/compress-pdf"          element={<CompressPDF />} />
+          <Route path="/tools/merge-pdf"             element={<MergePDF />} />
+          <Route path="/tools/split-pdf"             element={<SplitPDF />} />
+          <Route path="/tools/pdf-convert"           element={<PDFConvert />} />
           <Route path="/about"                     element={<About />} />
         </Routes>
       </Suspense>

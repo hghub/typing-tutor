@@ -169,4 +169,24 @@ export const SEARCH_VOCABULARY = {
     roman_urdu: ['document se info chupana', 'private info hatana', 'redact karna', 'document clean karna'],
     synonyms: ['document redactor', 'PII remover', 'sensitive data cleaner', 'document anonymizer'],
   },
+  'compress-pdf': {
+    keywords: ['compress', 'pdf', 'reduce', 'size', 'shrink', 'optimize', 'whatsapp', 'email'],
+    roman_urdu: ['pdf chota karna', 'pdf size kam karna', 'pdf compress karo', 'whatsapp ke liye pdf', 'file size ghataana', 'pdf chhota karo'],
+    synonyms: ['pdf compressor', 'reduce pdf size', 'shrink pdf', 'pdf optimizer', 'pdf file compressor'],
+  },
+  'merge-pdf': {
+    keywords: ['merge', 'pdf', 'combine', 'join', 'files', 'multiple', 'together'],
+    roman_urdu: ['pdf jorna', 'files combine karna', 'pdf ek karna', 'files milana', 'pdf merge karo', 'aik file banana'],
+    synonyms: ['pdf merger', 'combine pdf files', 'join pdfs', 'pdf joiner', 'pdf combiner'],
+  },
+  'split-pdf': {
+    keywords: ['split', 'pdf', 'extract', 'pages', 'separate', 'part', 'divide'],
+    roman_urdu: ['pdf todna', 'page nikalna', 'pdf alag karna', 'pages extract karna', 'pdf taqseem karna', 'pages alag karo'],
+    synonyms: ['pdf splitter', 'extract pdf pages', 'pdf page extractor', 'divide pdf', 'pdf cutter'],
+  },
+  'pdf-convert': {
+    keywords: ['convert', 'pdf', 'jpg', 'image', 'png', 'photos', 'transform'],
+    roman_urdu: ['pdf se jpg banana', 'tasveer se pdf', 'jpg se pdf', 'image convert karna', 'pdf to image', 'photo se pdf'],
+    synonyms: ['pdf to jpg converter', 'image to pdf', 'pdf image converter', 'jpg to pdf', 'pdf photo converter'],
+  },
 }

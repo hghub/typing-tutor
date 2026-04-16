@@ -55,6 +55,10 @@ const Kameti             = lazy(() => import('./pages/Kameti.jsx'))
 const DailyPlanner       = lazy(() => import('./pages/DailyPlanner.jsx'))
 const HabitTracker       = lazy(() => import('./pages/HabitTracker.jsx'))
 const ColorPalette       = lazy(() => import('./pages/ColorPalette.jsx'))
+const CnicValidator      = lazy(() => import('./pages/CnicValidator.jsx'))
+const LoanManager        = lazy(() => import('./pages/LoanManager.jsx'))
+const RegexTester        = lazy(() => import('./pages/RegexTester.jsx'))
+const GoldPrice          = lazy(() => import('./pages/GoldPrice.jsx'))
 const About             = lazy(() => import('./pages/About.jsx'))
 
 const fallback = (
@@ -135,6 +139,10 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/daily-planner"       element={<DailyPlanner />} />
           <Route path="/tools/habit-tracker"       element={<HabitTracker />} />
           <Route path="/tools/color-palette"       element={<ColorPalette />} />
+          <Route path="/tools/cnic-validator"      element={<CnicValidator />} />
+          <Route path="/tools/loan-manager"        element={<LoanManager />} />
+          <Route path="/tools/regex-tester"        element={<RegexTester />} />
+          <Route path="/tools/gold-price"          element={<GoldPrice />} />
           <Route path="/about"                     element={<About />} />
         </Routes>
       </Suspense>

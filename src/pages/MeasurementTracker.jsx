@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import SharePanel from '../components/SharePanel'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
@@ -549,6 +550,35 @@ export default function MeasurementTracker() {
         </div>
 
       </div>
+
+      {/* ── Share / Export ── */}
+      {trackers.length > 0 && (
+        <div style={{ marginTop: '1rem' }}>
+          <SharePanel
+            filename="measurements.pdf"
+            textSummary={trackers.map(tr => tr.name + ': ' + (entries.filter(e => e.tracker_id === tr.id).length) + ' entries').join('\n')}
+            getBlob={async () => {
+              const { default: jsPDF } = await import('jspdf')
+              const pdf = new jsPDF()
+              pdf.setFontSize(16); pdf.text('Measurement Tracker', 14, 18)
+              let y = 30; pdf.setFontSize(10)
+              trackers.forEach(tr => {
+                if (y > 260) { pdf.addPage(); y = 18 }
+                const trEntries = entries.filter(e => e.tracker_id === tr.id)
+                pdf.setFontSize(11); pdf.text((tr.icon || '') + ' ' + tr.name, 14, y); y += 7
+                pdf.setFontSize(9)
+                trEntries.slice(-10).forEach(e => {
+                  if (y > 270) { pdf.addPage(); y = 18 }
+                  pdf.text('  ' + (e.recorded_at || e.date || '') + '  ' + (tr.metrics || []).map(m => m.label + ': ' + (e.values?.[m.id] || '')).join('  '), 14, y)
+                  y += 6
+                })
+                y += 4
+              })
+              return pdf.output('arraybuffer')
+            }}
+          />
+        </div>
+      )}
 
       {/* ── Modals ──────────────────────────────────────────────────────────── */}
       {showTrackerForm && (

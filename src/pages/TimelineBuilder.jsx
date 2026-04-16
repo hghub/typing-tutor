@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo, useRef } from 'react'
+import SharePanel from '../components/SharePanel'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
 
@@ -531,6 +532,25 @@ export default function TimelineBuilder() {
                   ⬇️ Download .txt
                 </GhostButton>
               </div>
+              {events.length > 0 && (
+                <SharePanel
+                  filename="timeline.pdf"
+                  textSummary={events.map(e => e.date + '  ' + e.label).join('\n')}
+                  getBlob={async () => {
+                    const { default: jsPDF } = await import('jspdf')
+                    const pdf = new jsPDF()
+                    pdf.setFontSize(16); pdf.text('Timeline', 14, 18)
+                    let y = 30
+                    pdf.setFontSize(10)
+                    events.forEach(e => {
+                      if (y > 270) { pdf.addPage(); y = 18 }
+                      pdf.text(e.date + '  —  ' + e.label, 14, y)
+                      y += 8
+                    })
+                    return pdf.output('arraybuffer')
+                  }}
+                />
+              )}
               {stats && (
                 <span style={{ fontSize: '0.8rem', color: colors.textSecondary }}>
                   {stats.count} event{stats.count !== 1 ? 's' : ''} · spanning {stats.span} day{stats.span !== 1 ? 's' : ''}

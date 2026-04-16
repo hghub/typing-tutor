@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo, useEffect } from 'react'
+import SharePanel from '../components/SharePanel'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
@@ -1006,6 +1007,28 @@ export default function WarrantyTracker() {
               </button>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* ── Share / Export ── */}
+      {items.length > 0 && (
+        <div style={{ marginTop: '1rem' }}>
+          <SharePanel
+            filename="warranty-list.pdf"
+            textSummary={items.map(it => it.name + ' | Expires: ' + (it.warrantyExpiry || 'N/A')).join('\n')}
+            getBlob={async () => {
+              const { default: jsPDF } = await import('jspdf')
+              const pdf = new jsPDF()
+              pdf.setFontSize(16); pdf.text('Warranty Tracker', 14, 18)
+              let y = 30; pdf.setFontSize(10)
+              items.forEach(it => {
+                if (y > 270) { pdf.addPage(); y = 18 }
+                pdf.text((it.name || 'Item') + '  |  Expires: ' + (it.warrantyExpiry || 'N/A') + '  |  ' + (it.store || ''), 14, y)
+                y += 8
+              })
+              return pdf.output('arraybuffer')
+            }}
+          />
         </div>
       )}
 

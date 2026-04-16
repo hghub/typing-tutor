@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo, useEffect } from 'react'
+import SharePanel from '../components/SharePanel'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
@@ -967,6 +968,31 @@ export default function DrivingFineTracker() {
           onClose={() => { setShowModal(false); setEditItem(null) }}
           colors={colors}
         />
+      )}
+
+      {/* ── Share / Export ── */}
+      {fines.length > 0 && (
+        <div style={{ marginTop: '1rem' }}>
+          <SharePanel
+            filename="driving-fines.pdf"
+            textSummary={fines.map(f => (f.date || '') + ' | ' + (f.violation_type || '') + ' | PKR ' + (f.fine_amount || 0) + (f.paid ? ' (Paid)' : ' (Unpaid)')).join('\n')}
+            getBlob={async () => {
+              const { default: jsPDF } = await import('jspdf')
+              const pdf = new jsPDF()
+              const total = fines.reduce((s, f) => s + Number(f.fine_amount || 0), 0)
+              const unpaid = fines.filter(f => !f.paid).reduce((s, f) => s + Number(f.fine_amount || 0), 0)
+              pdf.setFontSize(16); pdf.text('Driving Fine Record', 14, 18)
+              pdf.setFontSize(10); pdf.text('Total: PKR ' + total.toLocaleString() + '  |  Unpaid: PKR ' + unpaid.toLocaleString(), 14, 28)
+              let y = 38; pdf.setFontSize(9)
+              fines.forEach(f => {
+                if (y > 270) { pdf.addPage(); y = 18 }
+                pdf.text((f.date || '') + '  ' + (f.violation_type || '').slice(0, 35) + '  PKR ' + (f.fine_amount || 0) + (f.paid ? ' ✓' : ''), 14, y)
+                y += 7
+              })
+              return pdf.output('arraybuffer')
+            }}
+          />
+        </div>
       )}
 
       {/* ── Disclaimers ── */}

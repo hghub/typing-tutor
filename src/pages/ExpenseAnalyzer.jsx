@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo, useRef, useEffect } from 'react'
+import SharePanel from '../components/SharePanel'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
 
@@ -1096,6 +1097,35 @@ export default function ExpenseAnalyzer() {
             >
               ✏️ Also add transactions manually
             </button>
+          </div>
+        )}
+
+        {/* ── Share / Export ── */}
+        {stage === 'dashboard' && transactions.length > 0 && (
+          <div style={{ marginTop: '1rem' }}>
+            <SharePanel
+              filename="expense-report.pdf"
+              textSummary={(() => {
+                const total = transactions.filter(t => t.type === 'debit').reduce((s, t) => s + Number(t.amount), 0)
+                return 'Expense Report — Total spent: PKR ' + total.toLocaleString() + '\n' +
+                  transactions.slice(0, 10).map(t => t.date + ' | ' + (t.description || 'N/A') + ' | PKR ' + t.amount).join('\n')
+              })()}
+              getBlob={async () => {
+                const { default: jsPDF } = await import('jspdf')
+                const pdf = new jsPDF()
+                const total = transactions.filter(t => t.type === 'debit').reduce((s, t) => s + Number(t.amount), 0)
+                pdf.setFontSize(16); pdf.text('Expense Report', 14, 18)
+                pdf.setFontSize(10); pdf.text('Total spent: PKR ' + total.toLocaleString(), 14, 28)
+                let y = 38
+                pdf.setFontSize(9)
+                transactions.forEach(t => {
+                  if (y > 270) { pdf.addPage(); y = 18 }
+                  pdf.text((t.date || '') + '  ' + (t.description || 'N/A').slice(0, 45) + '  PKR ' + t.amount, 14, y)
+                  y += 7
+                })
+                return pdf.output('arraybuffer')
+              }}
+            />
           </div>
         )}
 

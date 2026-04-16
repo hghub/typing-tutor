@@ -38,7 +38,7 @@ function scoreMatch(tool, query) {
   return score
 }
 
-const searchableTools = TOOLS.filter(t => !t.isHome)
+const searchableTools = TOOLS
 
 export default function SmartSearch({ isDark, colors }) {
   const [query, setQuery]   = useState('')

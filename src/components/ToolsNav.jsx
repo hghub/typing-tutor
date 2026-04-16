@@ -74,7 +74,7 @@ export default function ToolsNav({ rightExtras }) {
 
   // Find the active tool based on current path (for breadcrumb)
   const currentTool = TOOLS.find(t =>
-    !t.isHome && (pathname === t.path || pathname.startsWith(t.path + '/'))
+    pathname !== '/tools' && (pathname === t.path || pathname.startsWith(t.path + '/'))
   )
 
   const btnStyle = (active = false) => ({

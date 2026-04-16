@@ -193,7 +193,6 @@ export default function ToolsHome() {
   }, [])
 
   const visibleTools = TOOLS.filter(t => {
-    if (t.isHome) return false
     if (!prefs.showPkTools && t.region === 'pk') return false
     return true
   })

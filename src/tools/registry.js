@@ -33,7 +33,6 @@ export const TOOLS = [
     category: 'typing',
     tags: ['typing', 'speed', 'accuracy', 'wpm'],
     related: ['word-counter', 'text-cleaner'],
-    isHome: true,
   },
   {
     id: 'word-counter',

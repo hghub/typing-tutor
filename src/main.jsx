@@ -42,6 +42,9 @@ const CompressPDF           = lazy(() => import('./pages/CompressPDF.jsx'))
 const MergePDF              = lazy(() => import('./pages/MergePDF.jsx'))
 const SplitPDF              = lazy(() => import('./pages/SplitPDF.jsx'))
 const PDFConvert            = lazy(() => import('./pages/PDFConvert.jsx'))
+const DocConverter       = lazy(() => import('./pages/DocConverter.jsx'))
+const TextExtractor      = lazy(() => import('./pages/TextExtractor.jsx'))
+const PDFSearch          = lazy(() => import('./pages/PDFSearch.jsx'))
 const About             = lazy(() => import('./pages/About.jsx'))
 
 const fallback = (
@@ -107,9 +110,14 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/merge-pdf"             element={<MergePDF />} />
           <Route path="/tools/split-pdf"             element={<SplitPDF />} />
           <Route path="/tools/pdf-convert"           element={<PDFConvert />} />
+          <Route path="/tools/doc-converter"      element={<DocConverter />} />
+          <Route path="/tools/text-extractor"     element={<TextExtractor />} />
+          <Route path="/tools/pdf-search"          element={<PDFSearch />} />
           <Route path="/about"                     element={<About />} />
         </Routes>
       </Suspense>
     </HashRouter>
   </StrictMode>,
 )
+
+

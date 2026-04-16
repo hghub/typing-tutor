@@ -577,7 +577,47 @@ export const TOOLS = [
     tags: ['pdf', 'convert', 'jpg', 'image', 'png', 'photos'],
     related: ['compress-pdf', 'merge-pdf', 'split-pdf'],
   },
+  {
+    id: 'doc-converter',
+    addedOn: '2026-04-16',
+    name: 'Doc Converter',
+    tagline: 'Convert DOCX to PDF or PDF to Word',
+    description: 'Convert DOCX files to PDF or extract PDF text into a .docx file. 100% client-side.',
+    icon: '📝',
+    path: '/tools/doc-converter',
+    color: '#3b82f6',
+    category: 'pdf',
+    tags: ['pdf', 'docx', 'word', 'convert', 'document'],
+    related: ['compress-pdf', 'pdf-convert', 'doc-composer'],
+  },
+  {
+    id: 'text-extractor',
+    addedOn: '2026-04-16',
+    name: 'Text Extractor (OCR)',
+    tagline: 'Extract text from images or scanned PDFs',
+    description: 'Upload any image or PDF and extract all text via Tesseract.js OCR. Supports English, Urdu, Arabic. 100% local.',
+    icon: '🔬',
+    path: '/tools/text-extractor',
+    color: '#10b981',
+    category: 'pdf',
+    tags: ['ocr', 'image', 'text', 'extract', 'scan', 'urdu', 'arabic'],
+    related: ['pdf-search', 'doc-converter', 'doc-redaction'],
+  },
+  {
+    id: 'pdf-search',
+    addedOn: '2026-04-16',
+    name: 'PDF Search',
+    tagline: 'Search for any text inside a PDF file',
+    description: 'Upload a PDF and instantly search for any keyword. Shows matching pages with context snippets.',
+    icon: '🔎',
+    path: '/tools/pdf-search',
+    color: '#f59e0b',
+    category: 'pdf',
+    tags: ['pdf', 'search', 'find', 'keyword', 'text'],
+    related: ['text-extractor', 'doc-redaction', 'compress-pdf'],
+  },
 ]
+
 export function getToolById(id) {
   return TOOLS.find((t) => t.id === id) || null
 }
@@ -588,3 +628,7 @@ export function getRelatedTools(id) {
   if (!tool) return []
   return (tool.related || []).map(getToolById).filter(Boolean)
 }
+
+
+
+

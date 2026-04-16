@@ -59,6 +59,7 @@ const CnicValidator      = lazy(() => import('./pages/CnicValidator.jsx'))
 const LoanManager        = lazy(() => import('./pages/LoanManager.jsx'))
 const RegexTester        = lazy(() => import('./pages/RegexTester.jsx'))
 const GoldPrice          = lazy(() => import('./pages/GoldPrice.jsx'))
+const NtnChecker         = lazy(() => import('./pages/NtnChecker.jsx'))
 const About             = lazy(() => import('./pages/About.jsx'))
 
 const fallback = (
@@ -143,6 +144,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/loan-manager"        element={<LoanManager />} />
           <Route path="/tools/regex-tester"        element={<RegexTester />} />
           <Route path="/tools/gold-price"          element={<GoldPrice />} />
+          <Route path="/tools/ntn-checker"         element={<NtnChecker />} />
           <Route path="/about"                     element={<About />} />
         </Routes>
       </Suspense>

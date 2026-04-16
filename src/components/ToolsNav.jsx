@@ -21,32 +21,24 @@ function SettingsPopover({ colors, isDark, onClose }) {
   ]
 
   return (
-    <div
-      ref={ref}
-      style={{
-        position: 'absolute', right: 0, top: 'calc(100% + 8px)',
-        background: isDark ? '#1e293b' : '#fff',
-        border: `1px solid ${isDark ? '#334155' : '#e2e8f0'}`,
-        borderRadius: '0.75rem',
-        boxShadow: isDark ? '0 8px 32px rgba(0,0,0,0.5)' : '0 8px 32px rgba(0,0,0,0.12)',
-        padding: '0.75rem',
-        minWidth: '230px',
-        zIndex: 200,
-      }}
-    >
+    <div ref={ref} style={{
+      position: 'absolute', right: 0, top: 'calc(100% + 8px)',
+      background: isDark ? '#1e293b' : '#fff',
+      border: `1px solid ${isDark ? '#334155' : '#e2e8f0'}`,
+      borderRadius: '0.75rem',
+      boxShadow: isDark ? '0 8px 32px rgba(0,0,0,0.5)' : '0 8px 32px rgba(0,0,0,0.12)',
+      padding: '0.75rem', minWidth: '230px', zIndex: 200,
+    }}>
       <div style={{ fontSize: '0.7rem', fontWeight: 700, color: colors.textSecondary, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '0.6rem', padding: '0 0.25rem' }}>
         Preferences
       </div>
       {rows.map(({ key, icon, label, desc, color }) => (
-        <div
-          key={key}
-          onClick={() => togglePref(key)}
-          style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            padding: '0.55rem 0.5rem', borderRadius: '0.5rem', cursor: 'pointer',
-            transition: 'background 0.15s ease',
-            background: prefs[key] ? `${color}12` : 'transparent',
-          }}
+        <div key={key} onClick={() => togglePref(key)} style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          padding: '0.55rem 0.5rem', borderRadius: '0.5rem', cursor: 'pointer',
+          transition: 'background 0.15s ease',
+          background: prefs[key] ? `${color}12` : 'transparent',
+        }}
           onMouseEnter={(e) => { e.currentTarget.style.background = prefs[key] ? `${color}20` : (isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)') }}
           onMouseLeave={(e) => { e.currentTarget.style.background = prefs[key] ? `${color}12` : 'transparent' }}
         >
@@ -63,8 +55,7 @@ function SettingsPopover({ colors, isDark, onClose }) {
             position: 'relative', flexShrink: 0, transition: 'background 0.2s ease',
           }}>
             <div style={{
-              position: 'absolute', top: '2px',
-              left: prefs[key] ? '18px' : '2px',
+              position: 'absolute', top: '2px', left: prefs[key] ? '18px' : '2px',
               width: '16px', height: '16px', borderRadius: '50%',
               background: '#fff', transition: 'left 0.2s ease',
               boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
@@ -81,162 +72,108 @@ export default function ToolsNav({ rightExtras }) {
   const { pathname } = useLocation()
   const [showSettings, setShowSettings] = useState(false)
 
-  const navStyle = {
-    background: colors.card,
-    borderBottom: `1px solid ${colors.border}`,
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
-  }
-  const innerStyle = {
-    maxWidth: '1100px',
-    margin: '0 auto',
-    padding: '0 1rem',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.25rem',
-    overflowX: 'auto',
-    scrollbarWidth: 'none',
-  }
-  const brandStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.4rem',
-    fontWeight: 800,
-    fontSize: '1rem',
-    background: 'linear-gradient(to right, #06b6d4, #3b82f6)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    backgroundClip: 'text',
-    textDecoration: 'none',
-    padding: '0.75rem 0.5rem',
-    whiteSpace: 'nowrap',
-    marginRight: '0.5rem',
-    flexShrink: 0,
-  }
-  const dividerStyle = {
-    width: '1px',
-    height: '20px',
-    background: colors.border,
-    flexShrink: 0,
-    marginRight: '0.5rem',
-  }
+  // Find the active tool based on current path (for breadcrumb)
+  const currentTool = TOOLS.find(t =>
+    !t.isHome && (pathname === t.path || pathname.startsWith(t.path + '/'))
+  )
+
+  const btnStyle = (active = false) => ({
+    background: active ? (isDark ? 'rgba(6,182,212,0.12)' : 'rgba(6,182,212,0.08)') : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)'),
+    border: `1px solid ${active ? '#06b6d4' : colors.border}`,
+    color: active ? '#06b6d4' : colors.text,
+    width: '32px', height: '32px', borderRadius: '8px', cursor: 'pointer',
+    fontSize: '0.95rem', display: 'flex', alignItems: 'center', justifyContent: 'center',
+    flexShrink: 0, transition: 'all 0.2s ease',
+  })
 
   return (
-    <nav style={navStyle} aria-label="Typely tools navigation">
-      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1rem', display: 'flex', alignItems: 'center' }}>
+    <nav
+      aria-label="Typely navigation"
+      style={{
+        background: isDark ? 'rgba(15,23,42,0.95)' : 'rgba(255,255,255,0.95)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        borderBottom: `1px solid ${colors.border}`,
+        position: 'sticky', top: 0, zIndex: 100,
+      }}
+    >
+      <div style={{
+        maxWidth: '1140px', margin: '0 auto', padding: '0 1.25rem',
+        display: 'flex', alignItems: 'center', gap: '0.5rem', height: '52px',
+      }}>
 
-        {/* Brand — always visible left */}
-        <Link to="/tools" style={brandStyle}>⚡ Typely</Link>
-        <div style={dividerStyle} />
+        {/* ── Brand ── */}
+        <Link to="/tools" style={{
+          display: 'flex', alignItems: 'center', gap: '0.4rem',
+          fontWeight: 800, fontSize: '1rem', textDecoration: 'none',
+          background: 'linear-gradient(to right, #06b6d4, #3b82f6)',
+          WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text', flexShrink: 0,
+        }}>
+          ⚡ Typely
+        </Link>
 
-        {/* Scrollable tool links — takes all remaining space */}
-        <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '0.25rem', overflowX: 'auto', scrollbarWidth: 'none' }}>
-          {TOOLS.map((tool) => {
-            const isActive = tool.isHome
-              ? pathname === '/'
-              : pathname === tool.path || pathname.startsWith(tool.path + '/')
-            return (
-              <Link
-                key={tool.id}
-                to={tool.path}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                  padding: '0.75rem 0.6rem',
-                  borderRadius: '0.5rem',
-                  textDecoration: 'none',
-                  fontSize: '0.82rem',
-                  fontWeight: isActive ? 700 : 500,
-                  color: isActive ? tool.color : colors.textSecondary,
-                  background: isActive ? `${tool.color}18` : 'transparent',
-                  borderBottom: isActive ? `2px solid ${tool.color}` : '2px solid transparent',
-                  transition: 'all 0.15s ease',
-                  whiteSpace: 'nowrap',
-                  flexShrink: 0,
-                }}
-                onMouseEnter={(e) => {
-                  if (!isActive) e.currentTarget.style.color = colors.text
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive) e.currentTarget.style.color = colors.textSecondary
-                }}
-              >
-                <span>{tool.icon}</span>
-                <span>{tool.name}</span>
-              </Link>
-            )
-          })}
-        </div>
+        {/* ── Breadcrumb (on individual tool pages) ── */}
+        {currentTool && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', marginLeft: '0.25rem' }}>
+            <span style={{ color: colors.border, fontSize: '1.1rem', lineHeight: 1 }}>/</span>
+            <Link to="/tools" style={{
+              fontSize: '0.8rem', color: colors.textSecondary, textDecoration: 'none',
+              padding: '0.3rem 0.5rem', borderRadius: '0.4rem', transition: 'color 0.15s',
+              fontWeight: 500,
+            }}
+              onMouseEnter={e => e.currentTarget.style.color = colors.text}
+              onMouseLeave={e => e.currentTarget.style.color = colors.textSecondary}
+            >All Tools</Link>
+            <span style={{ color: colors.border, fontSize: '1.1rem', lineHeight: 1 }}>/</span>
+            <span style={{
+              fontSize: '0.8rem', fontWeight: 700, color: colors.text,
+              display: 'flex', alignItems: 'center', gap: '0.3rem',
+            }}>
+              <span>{currentTool.icon}</span>
+              <span>{currentTool.name}</span>
+            </span>
+          </div>
+        )}
 
-        {/* Right controls — always visible */}
-        <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: '0.25rem', paddingLeft: '0.5rem' }}>
+        {/* ── Spacer ── */}
+        <div style={{ flex: 1 }} />
+
+        {/* ── Right Controls ── */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', flexShrink: 0 }}>
           {rightExtras && (
             <>
               {rightExtras}
-              <div style={{ width: '1px', height: '20px', background: colors.border, margin: '0 0.25rem' }} />
+              <div style={{ width: '1px', height: '20px', background: colors.border, margin: '0 0.1rem' }} />
             </>
           )}
-          <Link
-            to="/about"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              padding: '0.75rem 0.8rem',
-              borderRadius: '0.5rem',
-              textDecoration: 'none',
-              fontSize: '0.82rem',
-              fontWeight: pathname === '/about' ? 700 : 500,
-              color: pathname === '/about' ? '#06b6d4' : colors.textSecondary,
-              whiteSpace: 'nowrap',
-            }}
-          >
-            About
-          </Link>
+
+          <Link to="/about" style={{
+            fontSize: '0.82rem', fontWeight: pathname === '/about' ? 700 : 500,
+            color: pathname === '/about' ? '#06b6d4' : colors.textSecondary,
+            textDecoration: 'none', padding: '0.4rem 0.65rem', borderRadius: '0.4rem',
+            transition: 'color 0.15s', whiteSpace: 'nowrap',
+          }}
+            onMouseEnter={e => { if (pathname !== '/about') e.currentTarget.style.color = colors.text }}
+            onMouseLeave={e => { if (pathname !== '/about') e.currentTarget.style.color = colors.textSecondary }}
+          >About</Link>
+
           <button
             onClick={toggleTheme}
             title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            style={{
-              background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
-              border: `1px solid ${colors.border}`,
-              color: colors.text,
-              width: '32px',
-              height: '32px',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              fontSize: '0.95rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              transition: 'border-color 0.2s ease, background 0.2s ease',
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#06b6d4' }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = colors.border }}
-          >
-            {isDark ? '☀️' : '🌙'}
-          </button>
+            style={btnStyle()}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = '#06b6d4' }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = colors.border }}
+          >{isDark ? '☀️' : '🌙'}</button>
 
-          {/* ⚙️ Settings gear */}
           <div style={{ position: 'relative', flexShrink: 0 }}>
             <button
               onClick={() => setShowSettings(s => !s)}
               title="Preferences"
-              style={{
-                background: showSettings ? (isDark ? 'rgba(6,182,212,0.12)' : 'rgba(6,182,212,0.08)') : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)'),
-                border: `1px solid ${showSettings ? '#06b6d4' : colors.border}`,
-                color: showSettings ? '#06b6d4' : colors.text,
-                width: '32px', height: '32px',
-                borderRadius: '8px', cursor: 'pointer',
-                fontSize: '0.95rem', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                flexShrink: 0, transition: 'all 0.2s ease',
-              }}
-              onMouseEnter={(e) => { if (!showSettings) { e.currentTarget.style.borderColor = '#06b6d4' } }}
-              onMouseLeave={(e) => { if (!showSettings) { e.currentTarget.style.borderColor = colors.border } }}
-            >
-              ⚙️
-            </button>
+              style={btnStyle(showSettings)}
+              onMouseEnter={e => { if (!showSettings) e.currentTarget.style.borderColor = '#06b6d4' }}
+              onMouseLeave={e => { if (!showSettings) e.currentTarget.style.borderColor = colors.border }}
+            >⚙️</button>
             {showSettings && (
               <SettingsPopover colors={colors} isDark={isDark} onClose={() => setShowSettings(false)} />
             )}

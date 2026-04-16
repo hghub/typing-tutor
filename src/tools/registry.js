@@ -224,6 +224,7 @@ export const TOOLS = [
   },
   {
     id: 'measurement-tracker',
+    addedOn: '2026-04-15',
     name: 'Measurement Tracker',
     nameUrdu: 'پیمائش ٹریکر',
     tagline: 'Track any measurement over time',
@@ -425,6 +426,7 @@ export const TOOLS = [
   // ── Business ──────────────────────────────────────────────────
   {
     id: 'freelancer-risk',
+    addedOn: '2026-03-20',
     name: 'Freelancer Risk Analyzer',
     nameUrdu: 'فری لانسر رسک تجزیہ کار',
     tagline: 'Score client risk before you start work',
@@ -439,6 +441,7 @@ export const TOOLS = [
   },
   {
     id: 'warranty-tracker',
+    addedOn: '2026-04-10',
     name: 'Warranty Tracker',
     nameUrdu: 'وارنٹی ٹریکر',
     tagline: 'Never miss a warranty claim again',
@@ -453,6 +456,7 @@ export const TOOLS = [
   },
   {
     id: 'driving-fines',
+    addedOn: '2026-04-10',
     name: 'Driving Fine Tracker',
     nameUrdu: 'ٹریفک چالان ٹریکر',
     tagline: 'Track violations & monitor license suspension risk',
@@ -468,6 +472,7 @@ export const TOOLS = [
   // ── Finance (additional) ──────────────────────────────────────
   {
     id: 'expense-analyzer',
+    addedOn: '2026-03-20',
     name: 'Expense Pattern Analyzer',
     nameUrdu: 'اخراجات تجزیہ کار',
     tagline: 'Understand where your money actually goes',
@@ -498,6 +503,7 @@ export const TOOLS = [
   // ── Security & Privacy ────────────────────────────────────────
   {
     id: 'doc-redaction',
+    addedOn: '2026-03-20',
     name: 'Smart Document Redaction',
     nameUrdu: 'دستاویز ریڈیکشن',
     tagline: 'Redact sensitive info before sharing documents',

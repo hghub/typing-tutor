@@ -14,6 +14,7 @@ const TextEncryptor = lazy(() => import('./pages/TextEncryptor.jsx'))
 const DocComposer  = lazy(() => import('./pages/DocComposer.jsx'))
 const TaxCalculator     = lazy(() => import('./pages/TaxCalculator.jsx'))
 const LoanEMI           = lazy(() => import('./pages/LoanEMI.jsx'))
+const Pomodoro          = lazy(() => import('./pages/Pomodoro.jsx'))
 const TaxOptimizer      = lazy(() => import('./pages/TaxOptimizer.jsx'))
 const CurrencyConverter = lazy(() => import('./pages/CurrencyConverter.jsx'))
 const PackingList       = lazy(() => import('./pages/PackingList.jsx'))
@@ -86,6 +87,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/doc-composer"  element={<DocComposer />} />
           <Route path="/tools/tax-calculator"    element={<TaxCalculator />} />
           <Route path="/tools/loan-emi"           element={<LoanEMI />} />
+          <Route path="/tools/pomodoro"           element={<Pomodoro />} />
           <Route path="/tools/tax-optimizer"     element={<TaxOptimizer />} />
           <Route path="/tools/currency-converter" element={<CurrencyConverter />} />
           <Route path="/tools/packing-list"       element={<PackingList />} />

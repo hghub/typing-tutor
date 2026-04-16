@@ -48,6 +48,7 @@ const PDFConvert            = lazy(() => import('./pages/PDFConvert.jsx'))
 const DocConverter       = lazy(() => import('./pages/DocConverter.jsx'))
 const TextExtractor      = lazy(() => import('./pages/TextExtractor.jsx'))
 const PDFSearch          = lazy(() => import('./pages/PDFSearch.jsx'))
+const SalarySlip         = lazy(() => import('./pages/SalarySlip.jsx'))
 const About             = lazy(() => import('./pages/About.jsx'))
 
 const fallback = (
@@ -121,6 +122,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/doc-converter"      element={<DocConverter />} />
           <Route path="/tools/text-extractor"     element={<TextExtractor />} />
           <Route path="/tools/pdf-search"          element={<PDFSearch />} />
+          <Route path="/tools/salary-slip"         element={<SalarySlip />} />
           <Route path="/about"                     element={<About />} />
         </Routes>
       </Suspense>

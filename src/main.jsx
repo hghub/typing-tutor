@@ -54,6 +54,7 @@ const VoiceDiary         = lazy(() => import('./pages/VoiceDiary.jsx'))
 const Kameti             = lazy(() => import('./pages/Kameti.jsx'))
 const DailyPlanner       = lazy(() => import('./pages/DailyPlanner.jsx'))
 const HabitTracker       = lazy(() => import('./pages/HabitTracker.jsx'))
+const ColorPalette       = lazy(() => import('./pages/ColorPalette.jsx'))
 const About             = lazy(() => import('./pages/About.jsx'))
 
 const fallback = (
@@ -133,6 +134,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/kameti"              element={<Kameti />} />
           <Route path="/tools/daily-planner"       element={<DailyPlanner />} />
           <Route path="/tools/habit-tracker"       element={<HabitTracker />} />
+          <Route path="/tools/color-palette"       element={<ColorPalette />} />
           <Route path="/about"                     element={<About />} />
         </Routes>
       </Suspense>

@@ -3,8 +3,10 @@ export function getThemeColors(isDark) {
     return {
       bg: '#0f172a',
       text: '#e2e8f0',
+      muted: '#94a3b8',
       textSecondary: '#94a3b8',
       card: '#1e293b',
+      surface: '#1e293b',
       cardBg: '#0f172a',
       passageText: '#e2e8f0',
       input: '#0f172a',
@@ -17,8 +19,10 @@ export function getThemeColors(isDark) {
   return {
     bg: '#f8fafc',
     text: '#1e293b',
+    muted: '#64748b',
     textSecondary: '#64748b',
     card: '#ffffff',
+    surface: '#ffffff',
     cardBg: '#f8fafc',
     passageText: '#1e293b',
     input: '#ffffff',

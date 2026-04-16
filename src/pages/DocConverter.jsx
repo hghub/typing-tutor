@@ -86,7 +86,8 @@ export default function DocConverter() {
           items.push(new Paragraph({ text: '' }))
         }
         const doc = new Document({ sections: [{ children: items }] })
-        const bytes = await Packer.toBuffer(doc)
+        const blob = await Packer.toBlob(doc)
+        const bytes = await blob.arrayBuffer()
         setResultBytes(bytes); setResultName(file.name.replace(/\.pdf$/i, '.docx'))
       }
       setStatus('done')

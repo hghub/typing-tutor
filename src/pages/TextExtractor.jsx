@@ -50,6 +50,7 @@ export default function TextExtractor() {
         const { createWorker } = await import('tesseract.js')
         setStatus('loading')
         const worker = await createWorker(lang, 1, {
+          workerPath: '/tesseract/worker.min.js',
           logger: m => { if (m.status === 'recognizing text') setProgress(Math.round(m.progress * 100)) }
         })
         const { data: { text } } = await worker.recognize(file)
@@ -78,7 +79,7 @@ export default function TextExtractor() {
         setStatus('init')
         const { createWorker } = await import('tesseract.js')
         setStatus('loading')
-        const worker = await createWorker(lang)
+        const worker = await createWorker(lang, 1, { workerPath: '/tesseract/worker.min.js' })
         let full = ''
         for (let i = 1; i <= pdf.numPages; i++) {
           setPageInfo({ current: i, total: pdf.numPages })

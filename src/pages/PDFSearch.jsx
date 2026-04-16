@@ -130,7 +130,7 @@ export default function PDFSearch() {
             {noText && (
               <div style={{ padding:'0.875rem 1rem', background:'rgba(251,191,36,0.1)', border:'1px solid rgba(251,191,36,0.3)', borderRadius:'8px', fontSize:'0.875rem', color: isDark?'#fcd34d':'#92400e' }}>
                 ⚠️ This appears to be a scanned PDF with no embedded text. Use{' '}
-                <a href='#/tools/text-extractor' style={{ color:'#f59e0b' }}>Text Extractor (OCR)</a> to extract text first.
+                <a href='/tools/text-extractor' style={{ color:'#f59e0b' }}>Text Extractor (OCR)</a> to extract text first.
               </div>
             )}
 

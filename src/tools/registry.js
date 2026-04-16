@@ -29,7 +29,7 @@ export const TOOLS = [
     taglineUrdu: 'ٹائپنگ کی رفتار جانچیں اور بہتر کریں',
     description: 'Personalized typing practice with weak-key detection, multiple languages, and real-time feedback.',
     icon: '⌨️',
-    path: '/',
+    path: '/tools/typing-tutor',
     color: '#06b6d4',
     category: 'typing',
     tags: ['typing', 'speed', 'accuracy', 'wpm'],

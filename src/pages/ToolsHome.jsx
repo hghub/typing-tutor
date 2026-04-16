@@ -381,7 +381,7 @@ export default function ToolsHome() {
 
       <footer style={{ textAlign: 'center', padding: '1rem', color: colors.textSecondary, fontSize: '0.75rem', borderTop: `1px solid ${colors.border}` }}>
         © {new Date().getFullYear()} Typely · Privacy-first browser tools &nbsp;·&nbsp;
-        <a href="#/about" style={{ color: 'inherit', textDecoration: 'underline' }}>About</a>
+        <a href="/about" style={{ color: 'inherit', textDecoration: 'underline' }}>About</a>
       </footer>
     </div>
   )

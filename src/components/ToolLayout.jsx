@@ -62,7 +62,7 @@ export default function ToolLayout({ toolId, children }) {
         borderTop: `1px solid ${colors.border}`,
       }}>
         © {new Date().getFullYear()} Typely · Privacy-first browser tools &nbsp;·&nbsp;
-        <a href="#/about" style={{ color: 'inherit', textDecoration: 'underline' }}>About</a>
+        <a href="/about" style={{ color: 'inherit', textDecoration: 'underline' }}>About</a>
       </footer>
     </div>
   )

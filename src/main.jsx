@@ -1,10 +1,11 @@
 import { StrictMode, lazy, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
 
 // Tool pages — lazy-loaded, each is its own JS chunk
+const Landing       = lazy(() => import('./pages/Landing.jsx'))
 const ToolsHome    = lazy(() => import('./pages/ToolsHome.jsx'))
 const WordCounter  = lazy(() => import('./pages/WordCounter.jsx'))
 const TextCleaner  = lazy(() => import('./pages/TextCleaner.jsx'))
@@ -64,14 +65,17 @@ const fallback = (
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <HashRouter>
+    <BrowserRouter>
       <Suspense fallback={fallback}>
         <Routes>
-          {/* Main typing tutor */}
-          <Route path="/" element={<App />} />
+          {/* Landing page */}
+          <Route path="/" element={<Landing />} />
 
           {/* Tools hub */}
           <Route path="/tools" element={<ToolsHome />} />
+
+          {/* Typing tutor */}
+          <Route path="/tools/typing-tutor" element={<App />} />
 
           {/* Individual tools */}
           <Route path="/tools/word-counter"  element={<WordCounter />} />
@@ -116,7 +120,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/about"                     element={<About />} />
         </Routes>
       </Suspense>
-    </HashRouter>
+    </BrowserRouter>
   </StrictMode>,
 )
 

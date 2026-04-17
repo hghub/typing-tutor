@@ -3,99 +3,100 @@ import { useTheme } from '../hooks/useTheme'
 import ToolLayout from '../components/ToolLayout'
 
 // ─── CNIC data ────────────────────────────────────────────────────────────────
+// Structure: XXXXX-YYYYYYY-Z
+//   Digit 1   : Province code (1=KPK, 2=FATA, 3=Punjab, 4=Sindh, 5=Balochistan, 6=ICT, 7=GB, 8=AJK)
+//   Digit 2   : Division within province
+//   Digit 3   : District within division
+//   Digit 4   : Tehsil (0 = same as district)
+//   Digit 5   : Union Council
+//   Digits 6-12: Family/serial number (7 digits)
+//   Digit 13  : Gender (odd=Male, even=Female)
+// Source: NADRA CNIC structure per atmateen.com, incpak.com, allfactsaddict.blogspot.com
 
+const PROVINCE_MAP = {
+  1: 'Khyber Pakhtunkhwa (KPK)',
+  2: 'FATA / Merged Districts',
+  3: 'Punjab',
+  4: 'Sindh',
+  5: 'Balochistan',
+  6: 'Islamabad Capital Territory',
+  7: 'Gilgit-Baltistan',
+  8: 'Azad Jammu & Kashmir (AJK)',
+}
+
+// Key = first two digits of CNIC (province digit + division digit)
 const DIVISION_MAP = {
-  10: { province: 'Punjab', division: 'Lahore' },
-  11: { province: 'Punjab', division: 'Lahore' },
-  12: { province: 'Punjab', division: 'Gujranwala' },
-  13: { province: 'Punjab', division: 'Rawalpindi' },
-  14: { province: 'Punjab', division: 'Sargodha' },
-  15: { province: 'Punjab', division: 'Faisalabad' },
-  16: { province: 'Punjab', division: 'Multan' },
-  17: { province: 'Punjab', division: 'Bahawalpur' },
-  18: { province: 'Punjab', division: 'Sahiwal' },
-  19: { province: 'Punjab', division: 'DG Khan (Dera Ghazi Khan)' },
-  20: { province: 'Sindh', division: 'Karachi' },
-  21: { province: 'Sindh', division: 'Karachi' },
-  22: { province: 'Sindh', division: 'Hyderabad' },
-  23: { province: 'Sindh', division: 'Sukkur' },
-  24: { province: 'Sindh', division: 'Larkana' },
-  25: { province: 'Sindh', division: 'Mirpur Khas' },
-  26: { province: 'Sindh', division: 'Shaheed Benazirabad' },
-  27: { province: 'Sindh', division: 'Hyderabad' },
-  28: { province: 'Sindh', division: 'Sukkur' },
-  29: { province: 'Sindh', division: 'Larkana' },
-  30: { province: 'Khyber Pakhtunkhwa (KPK)', division: 'Peshawar' },
-  31: { province: 'Khyber Pakhtunkhwa (KPK)', division: 'Peshawar' },
-  32: { province: 'Khyber Pakhtunkhwa (KPK)', division: 'Mardan' },
-  33: { province: 'Khyber Pakhtunkhwa (KPK)', division: 'Kohat' },
-  34: { province: 'Khyber Pakhtunkhwa (KPK)', division: 'Malakand' },
-  35: { province: 'Khyber Pakhtunkhwa (KPK)', division: 'Hazara' },
-  36: { province: 'Khyber Pakhtunkhwa (KPK)', division: 'Bannu' },
-  37: { province: 'Khyber Pakhtunkhwa (KPK)', division: 'Dera Ismail Khan' },
-  38: { province: 'Khyber Pakhtunkhwa (KPK)', division: 'Mardan' },
-  39: { province: 'Khyber Pakhtunkhwa (KPK)', division: 'Kohat' },
-  40: { province: 'Balochistan', division: 'Quetta' },
-  41: { province: 'Balochistan', division: 'Quetta' },
-  42: { province: 'Balochistan', division: 'Kalat' },
-  43: { province: 'Balochistan', division: 'Makran' },
-  44: { province: 'Balochistan', division: 'Khuzdar' },
-  45: { province: 'Balochistan', division: 'Nasirabad' },
-  46: { province: 'Balochistan', division: 'Sibi' },
-  47: { province: 'Balochistan', division: 'Zhob' },
-  48: { province: 'Balochistan', division: 'Kalat' },
-  49: { province: 'Balochistan', division: 'Makran' },
-  50: { province: 'Islamabad Capital Territory', division: 'Islamabad' },
-  51: { province: 'Islamabad Capital Territory', division: 'Islamabad' },
-  52: { province: 'Islamabad Capital Territory', division: 'Islamabad' },
-  53: { province: 'Islamabad Capital Territory', division: 'Islamabad' },
-  54: { province: 'Islamabad Capital Territory', division: 'Islamabad' },
-  55: { province: 'Islamabad Capital Territory', division: 'Islamabad' },
-  56: { province: 'Islamabad Capital Territory', division: 'Islamabad' },
-  57: { province: 'Islamabad Capital Territory', division: 'Islamabad' },
-  58: { province: 'Islamabad Capital Territory', division: 'Islamabad' },
-  59: { province: 'Islamabad Capital Territory', division: 'Islamabad' },
-  60: { province: 'FATA / Merged Districts', division: 'Tribal Areas' },
-  61: { province: 'FATA / Merged Districts', division: 'Tribal Areas' },
-  62: { province: 'FATA / Merged Districts', division: 'Tribal Areas' },
-  63: { province: 'FATA / Merged Districts', division: 'Tribal Areas' },
-  64: { province: 'FATA / Merged Districts', division: 'Tribal Areas' },
-  65: { province: 'FATA / Merged Districts', division: 'Tribal Areas' },
-  66: { province: 'FATA / Merged Districts', division: 'Tribal Areas' },
-  67: { province: 'FATA / Merged Districts', division: 'Tribal Areas' },
-  68: { province: 'FATA / Merged Districts', division: 'Tribal Areas' },
-  69: { province: 'FATA / Merged Districts', division: 'Tribal Areas' },
-  70: { province: 'Azad Jammu & Kashmir (AJK)', division: 'Muzaffarabad' },
-  71: { province: 'Azad Jammu & Kashmir (AJK)', division: 'Mirpur' },
-  72: { province: 'Azad Jammu & Kashmir (AJK)', division: 'Poonch' },
-  73: { province: 'Azad Jammu & Kashmir (AJK)', division: 'Muzaffarabad' },
-  74: { province: 'Azad Jammu & Kashmir (AJK)', division: 'Mirpur' },
-  75: { province: 'Azad Jammu & Kashmir (AJK)', division: 'Poonch' },
-  76: { province: 'Azad Jammu & Kashmir (AJK)', division: 'Muzaffarabad' },
-  77: { province: 'Azad Jammu & Kashmir (AJK)', division: 'Mirpur' },
-  78: { province: 'Azad Jammu & Kashmir (AJK)', division: 'Poonch' },
-  79: { province: 'Azad Jammu & Kashmir (AJK)', division: 'Muzaffarabad' },
-  80: { province: 'Gilgit-Baltistan', division: 'Gilgit' },
-  81: { province: 'Gilgit-Baltistan', division: 'Skardu' },
-  82: { province: 'Gilgit-Baltistan', division: 'Diamer' },
-  83: { province: 'Gilgit-Baltistan', division: 'Ghanche' },
-  84: { province: 'Gilgit-Baltistan', division: 'Astore' },
-  85: { province: 'Gilgit-Baltistan', division: 'Hunza-Nagar' },
-  86: { province: 'Gilgit-Baltistan', division: 'Gilgit' },
-  87: { province: 'Gilgit-Baltistan', division: 'Skardu' },
-  88: { province: 'Gilgit-Baltistan', division: 'Diamer' },
-  89: { province: 'Gilgit-Baltistan', division: 'Ghanche' },
+  // KPK (1) — 7 divisions
+  11: { division: 'Peshawar' },
+  12: { division: 'Mardan' },
+  13: { division: 'Kohat' },
+  14: { division: 'Malakand' },
+  15: { division: 'Hazara' },
+  16: { division: 'Bannu' },
+  17: { division: 'Dera Ismail Khan' },
+
+  // FATA / Merged Districts (2)
+  21: { division: 'Khyber Agency' },
+  22: { division: 'Kurram Agency' },
+  23: { division: 'Orakzai Agency' },
+  24: { division: 'Mohmand Agency' },
+  25: { division: 'Bajaur Agency' },
+  26: { division: 'South Waziristan' },
+  27: { division: 'North Waziristan' },
+
+  // Punjab (3) — 9 divisions (35=Lahore, 32=Gujranwala, 33=Rawalpindi, 34=Faisalabad, 36=Multan confirmed)
+  31: { division: 'Sargodha' },
+  32: { division: 'Gujranwala' },
+  33: { division: 'Rawalpindi' },
+  34: { division: 'Faisalabad' },
+  35: { division: 'Lahore' },
+  36: { division: 'Multan' },
+  37: { division: 'Sahiwal' },
+  38: { division: 'Bahawalpur' },
+  39: { division: 'Dera Ghazi Khan' },
+
+  // Sindh (4) — 6 divisions (42=Karachi, 41=Hyderabad confirmed)
+  41: { division: 'Hyderabad' },
+  42: { division: 'Karachi' },
+  43: { division: 'Sukkur' },
+  44: { division: 'Larkana' },
+  45: { division: 'Mirpur Khas' },
+  46: { division: 'Shaheed Benazirabad' },
+
+  // Balochistan (5) — 7 divisions
+  51: { division: 'Quetta' },
+  52: { division: 'Kalat' },
+  53: { division: 'Makran' },
+  54: { division: 'Nasirabad' },
+  55: { division: 'Sibi' },
+  56: { division: 'Zhob' },
+  57: { division: 'Khuzdar' },
+
+  // ICT (6) — single division (61=Islamabad confirmed)
+  61: { division: 'Islamabad' },
+
+  // Gilgit-Baltistan (7)
+  71: { division: 'Gilgit' },
+  72: { division: 'Diamer' },
+  73: { division: 'Ghizer' },
+  74: { division: 'Baltistan (Skardu)' },
+  75: { division: 'Hunza-Nagar' },
+
+  // AJK (8) — 3 divisions
+  81: { division: 'Mirpur' },
+  82: { division: 'Muzaffarabad' },
+  83: { division: 'Poonch' },
 }
 
 const PROVINCE_COLORS = {
+  'Khyber Pakhtunkhwa (KPK)': '#b45309',
+  'FATA / Merged Districts': '#dc2626',
   Punjab: '#16a34a',
   Sindh: '#0284c7',
-  'Khyber Pakhtunkhwa (KPK)': '#b45309',
   Balochistan: '#7c3aed',
   'Islamabad Capital Territory': '#0ea5e9',
-  'FATA / Merged Districts': '#dc2626',
-  'Azad Jammu & Kashmir (AJK)': '#0d9488',
   'Gilgit-Baltistan': '#c2410c',
+  'Azad Jammu & Kashmir (AJK)': '#0d9488',
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -118,21 +119,29 @@ function validateCnic(raw) {
   if (!/^\d{13}$/.test(digits)) {
     return { valid: false, error: 'Must be exactly 13 digits (XXXXX-YYYYYYY-Z).' }
   }
-  const prefix = parseInt(digits.slice(0, 2), 10)
-  const division = DIVISION_MAP[prefix]
-  if (!division) {
-    return { valid: false, error: `Unknown division code: ${prefix}.` }
+  const provinceCode = parseInt(digits[0], 10)
+  if (!PROVINCE_MAP[provinceCode]) {
+    return { valid: false, error: `Invalid province code "${provinceCode}". First digit must be 1–8.` }
   }
+  const prefix = parseInt(digits.slice(0, 2), 10)
+  const province = PROVINCE_MAP[provinceCode]
+  const divInfo = DIVISION_MAP[prefix]
+  const division = divInfo ? divInfo.division : 'Unknown Division'
   const lastDigit = parseInt(digits[12], 10)
   const gender = lastDigit % 2 !== 0 ? 'Male' : 'Female'
   return {
     valid: true,
     formatted: formatCnic(digits),
-    province: division.province,
-    division: division.division,
+    province,
+    division,
     gender,
     prefix,
-    provinceColor: PROVINCE_COLORS[division.province] || ACCENT,
+    provinceCode,
+    provinceColor: PROVINCE_COLORS[province] || ACCENT,
+    districtDigit: digits[2],
+    tehsilDigit: digits[3],
+    ucDigit: digits[4],
+    divisionConfirmed: !!divInfo,
   }
 }
 
@@ -508,13 +517,23 @@ export default function CnicValidator() {
                   valueColor={cnicResult.provinceColor}
                 />
                 <ResultRow
-                  label="Division / District"
-                  value={cnicResult.division}
+                  label="Division (2nd digit)"
+                  value={cnicResult.divisionConfirmed ? cnicResult.division : `${cnicResult.division} ⚠️`}
                   valueColor={colors.text}
                 />
                 <ResultRow
-                  label="Division Code (first 2 digits)"
-                  value={String(cnicResult.prefix).padStart(2, '0')}
+                  label="District code (3rd digit)"
+                  value={cnicResult.districtDigit}
+                  valueColor={ACCENT}
+                />
+                <ResultRow
+                  label="Tehsil (4th digit)"
+                  value={cnicResult.tehsilDigit === '0' ? '0 — same as district' : cnicResult.tehsilDigit}
+                  valueColor={ACCENT}
+                />
+                <ResultRow
+                  label="Union Council (5th digit)"
+                  value={cnicResult.ucDigit}
                   valueColor={ACCENT}
                 />
                 <ResultRow
@@ -523,6 +542,11 @@ export default function CnicValidator() {
                   valueColor={cnicResult.gender === 'Male' ? '#0284c7' : '#be185d'}
                 />
               </div>
+              {!cnicResult.divisionConfirmed && (
+                <InfoBox color="#f59e0b">
+                  ⚠️ Division data for code <strong>{String(cnicResult.prefix).padStart(2, '0')}</strong> is not in our reference list, but the province is confirmed.
+                </InfoBox>
+              )}
               <CopyButton text={cnicResult.formatted} colors={colors} />
             </>
           ) : (

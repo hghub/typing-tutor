@@ -1,7 +1,6 @@
 import { useState, useMemo, useCallback } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
-import ToolSEOFooter from '../components/ToolSEOFooter'
 
 const ACCENT = '#ef4444'
 
@@ -688,23 +687,6 @@ export default function DataLeakDetector() {
       </div>
 
       <Toast message={toast.message} visible={toast.visible} />
-
-      <ToolSEOFooter
-        heading="Data Leak Detector — Check If Your Emails & Passwords Were Exposed"
-        paras={[
-          "Data breaches happen constantly — millions of usernames, passwords, and email addresses are leaked online every year. Rafiqy's Data Leak Detector lets you check whether your email address or passwords appear in known breach databases, without ever sending your actual credentials to any server.",
-          "Most breach-checking tools send your email or password hash directly to their API. Rafiqy uses a k-anonymity approach: only the first 5 characters of your password's SHA-1 hash are sent to the Have I Been Pwned API — making it mathematically impossible for the server to know your actual password.",
-          "Beyond passwords, you can check if your email address has appeared in any known breach. The tool will show you which services were breached, when, and what types of data were exposed — giving you the information you need to decide whether to change your credentials.",
-          "If your password appears in a breach database, change it immediately on every site where you use it. Enable two-factor authentication (2FA) wherever available. Use a unique password for every site — a password manager makes this easy.",
-        ]}
-        faqs={[
-          { q: "Does this tool send my password to a server?", a: "No. Your full password never leaves your browser. Only the first 5 characters of its SHA-1 hash are sent to the Have I Been Pwned API (k-anonymity model). This makes it impossible for any server to reconstruct your password." },
-          { q: "What is k-anonymity?", a: "K-anonymity is a privacy technique where only a partial hash prefix is sent to a remote server. The server returns all hashes starting with that prefix, and your browser checks for a full match locally. Your actual password is never transmitted." },
-          { q: "My password appeared in a breach — what should I do?", a: "Change that password immediately on every site where you use it. Enable two-factor authentication (2FA). Consider using a unique password for each site with a password manager like Bitwarden or KeePass." },
-          { q: "My email appeared in a breach — what data was exposed?", a: "The tool shows which service was breached and what data types were included (e.g. email, password, phone, address). If passwords were included, change your password on that service immediately." },
-          { q: "Is this tool affiliated with Have I Been Pwned?", a: "No. Rafiqy is an independent tool that uses the public Have I Been Pwned API. Have I Been Pwned is a legitimate service run by security researcher Troy Hunt." },
-        ]}
-      />
     </ToolLayout>
   )
 }

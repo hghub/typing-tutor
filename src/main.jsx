@@ -1,6 +1,7 @@
 import { StrictMode, lazy, Suspense, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -86,6 +87,7 @@ const fallback = (
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <HelmetProvider>
     <BrowserRouter>
       <ScrollToTop />
       <Suspense fallback={fallback}>
@@ -159,6 +161,7 @@ createRoot(document.getElementById('root')).render(
         </Routes>
       </Suspense>
     </BrowserRouter>
+    </HelmetProvider>
   </StrictMode>,
 )
 

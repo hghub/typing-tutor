@@ -1,7 +1,6 @@
 import { useState, useRef, useCallback } from 'react'
 import { PDFDocument } from 'pdf-lib'
 import ToolLayout from '../components/ToolLayout'
-import ToolSEOFooter from '../components/ToolSEOFooter'
 import { useTheme } from '../hooks/useTheme'
 
 const FONT = 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
@@ -292,22 +291,6 @@ export default function CompressPDF() {
           </div>
         )}
       </div>
-      <ToolSEOFooter
-        heading="Compress PDF Online Free — Reduce File Size Without Uploading"
-        paras={[
-          "Need to shrink a PDF before emailing it, uploading it to a government portal, or sharing it on WhatsApp? Rafiqy's PDF Compressor reduces PDF file sizes instantly — entirely in your browser, with nothing uploaded to any server.",
-          "Most online PDF compressors upload your files to a remote server for processing, which raises serious privacy concerns for sensitive documents like CVs, legal papers, or financial statements. Rafiqy processes your PDF locally using pdf-lib, meaning your files never leave your device.",
-          "Simply drop your PDF, choose a compression quality level, and download the compressed file. The tool supports PDFs of any size and works on Windows, Mac, Linux, Android, and iOS — any modern browser.",
-          "Typical compression reduces file size by 40–70% depending on the original content. PDFs with many images compress the most. Text-heavy PDFs may see smaller reductions, but the output remains fully readable and printable.",
-        ]}
-        faqs={[
-          { q: "Does my PDF get uploaded to a server?", a: "No. Rafiqy's PDF compressor runs entirely in your browser using pdf-lib. Your file is processed locally and never leaves your device. This is different from most online tools." },
-          { q: "How much can it compress a PDF?", a: "Typically 40–70% size reduction for image-heavy PDFs. Text-only PDFs may see 10–30% reduction. Results vary by content — try the different quality settings to find the best balance." },
-          { q: "Will compression affect PDF quality?", a: "The tool offers quality levels so you can control the trade-off. Higher compression = smaller file but lower image quality. Lower compression keeps quality nearly identical." },
-          { q: "What is the maximum PDF size supported?", a: "There's no hard limit, but very large PDFs (100MB+) may be slow to process on older devices since everything runs in the browser. For most use cases (under 50MB), it works smoothly." },
-          { q: "Can I compress a scanned PDF?", a: "Yes. Scanned PDFs (which are image-based) often compress significantly since they contain high-resolution images. The compressor works on both native and scanned PDFs." },
-        ]}
-      />
     </ToolLayout>
   )
 }

@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
-import ToolSEOFooter from '../components/ToolSEOFooter'
 
 const ACCENT = '#10b981'
 const MAX_DRUGS = 8
@@ -521,23 +520,6 @@ export default function DrugChecker() {
           </ul>
         </div>
       )}
-
-      <ToolSEOFooter
-        heading="Drug Interaction Checker — Check Medication Safety in Pakistan"
-        paras={[
-          "Before taking multiple medications together, it's critical to know whether they interact with each other. Some drug combinations are dangerous, reducing effectiveness, causing side effects, or in rare cases being life-threatening. Rafiqy's Drug Interaction Checker lets you check common drug interactions instantly.",
-          "The tool covers hundreds of commonly prescribed medications in Pakistan including antibiotics, antihypertensives, diabetes medications, pain relievers, and psychiatric drugs. Enter two or more drug names and the tool instantly shows known interactions, their severity, and what to watch for.",
-          "Drug interaction checking is particularly important for elderly patients, people with chronic conditions taking multiple daily medications, and anyone starting a new medication. This tool provides a quick first check — always confirm with your pharmacist or doctor before making any changes.",
-          "All checks happen in your browser using a built-in interaction database. No personal health data is ever transmitted. The tool is a reference aid — it does not replace professional medical advice.",
-        ]}
-        faqs={[
-          { q: "How accurate is this drug interaction checker?", a: "The tool uses a curated database of well-documented drug interactions. It is intended as a quick reference and screening tool. For complete accuracy, always consult a qualified pharmacist or physician." },
-          { q: "Does this cover Pakistani brand names?", a: "The tool supports both generic names (e.g. paracetamol) and common Pakistani brand names (e.g. Panadol, Brufen, Augmentin). If your brand name isn't found, try the generic name." },
-          { q: "My two drugs show an interaction — should I stop taking them?", a: "Do not stop any prescribed medication without consulting your doctor. Some interactions are manageable under medical supervision. Use this tool to have an informed conversation with your healthcare provider." },
-          { q: "Can I check more than two drugs at once?", a: "Yes. You can enter multiple drugs to check all combinations at once. The tool will list each pair with its interaction status and severity." },
-          { q: "Is my health data stored or shared?", a: "No. All drug checks happen in your browser. No medication names, health history, or any personal data is stored on any server. Everything is processed locally and privately." },
-        ]}
-      />
     </ToolLayout>
   )
 }

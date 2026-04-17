@@ -3,7 +3,6 @@ import SharePanel from '../components/SharePanel'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
 import DisclaimerBlock from '../components/DisclaimerBlock'
-import ToolSEOFooter from '../components/ToolSEOFooter'
 
 const ACCENT = '#10b981'
 
@@ -1304,23 +1303,6 @@ export default function ExpenseAnalyzer() {
         )}
 
       </div>
-
-      <ToolSEOFooter
-        heading="Expense Pattern Analyzer — Track & Understand Your Spending"
-        paras={[
-          "The Expense Pattern Analyzer helps you make sense of where your money goes each month. Add your income and expenses, categorize them, and the tool instantly shows breakdowns by category, spending trends over time, and flags unusual spikes — all privately in your browser.",
-          "Unlike banking apps that require account linking or apps that store your financial data on their servers, Rafiqy's Expense Analyzer stores everything in your browser's localStorage. Your financial data never leaves your device — not even a single transaction.",
-          "The tool supports Pakistani Rupee (PKR) natively and understands common spending categories relevant to Pakistani households: groceries, rent, utilities, school fees, phone bills, and more. It also shows month-over-month comparisons so you can see whether your spending is increasing or decreasing.",
-          "Use it alongside the Loan EMI Calculator and Pakistan Tax Calculator to get a full picture of your financial health — how much you earn, how much you owe, how much you spend, and how much you can save.",
-        ]}
-        faqs={[
-          { q: "Is my financial data stored on a server?", a: "No. All expense data is stored only in your browser's localStorage on your device. Nothing is uploaded, synced, or transmitted to any server. Clear your browser data to erase everything." },
-          { q: "Can I use this for PKR (Pakistani Rupee)?", a: "Yes. The tool defaults to PKR and formats all amounts in Pakistani style. You can add any income or expense in rupees directly." },
-          { q: "How do I export my expense data?", a: "Use the Export button to download your data as a JSON file. You can import it later or on another browser using the Import option — giving you a simple backup system." },
-          { q: "What spending categories are supported?", a: "The tool supports common categories: food, rent, utilities, transport, health, education, entertainment, shopping, and more. You can also add custom categories." },
-          { q: "Can I track monthly budgets?", a: "Yes. Set a monthly budget per category and the tool will show you how much of each budget you've used, with colour-coded indicators for over-budget categories." },
-        ]}
-      />
     </ToolLayout>
   )
 }

@@ -1,12 +1,15 @@
 import { Suspense, useState } from 'react'
+import { Helmet } from 'react-helmet-async'
 import ToolsNav from './ToolsNav'
 import RelatedTools from './RelatedTools'
 import TrustBadge from './TrustBadge'
 import FeedbackButton from './FeedbackButton'
 import ToolHelpDialog from './ToolHelpDialog'
+import ToolSEOFooter from './ToolSEOFooter'
 import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
 import { TOOLS } from '../tools/registry'
+import TOOL_SEO from '../data/toolSEO'
 
 function LoadingSpinner({ colors }) {
   return (
@@ -37,6 +40,7 @@ export default function ToolLayout({ toolId, children }) {
   const { prefs } = usePreferences()
   const [helpOpen, setHelpOpen] = useState(false)
   const tool = TOOLS.find(t => t.id === toolId)
+  const seo = TOOL_SEO[toolId]
 
   return (
     <div style={{
@@ -47,6 +51,20 @@ export default function ToolLayout({ toolId, children }) {
     }}
     data-theme={isDark ? 'dark' : 'light'}
     >
+      {tool && seo && (
+        <Helmet>
+          <title>{tool.name} — Free Online Tool | Rafiqy</title>
+          <meta name="description" content={seo.paras[0]} />
+          <link rel="canonical" href={`https://rafiqy.app${tool.path}`} />
+          <meta property="og:title" content={`${tool.name} — Free Online Tool | Rafiqy`} />
+          <meta property="og:description" content={seo.paras[0]} />
+          <meta property="og:url" content={`https://rafiqy.app${tool.path}`} />
+          <meta property="og:type" content="website" />
+          <meta name="twitter:card" content="summary" />
+          <meta name="twitter:title" content={`${tool.name} — Free Online Tool | Rafiqy`} />
+          <meta name="twitter:description" content={seo.paras[0]} />
+        </Helmet>
+      )}
       <ToolsNav />
 
       <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '2rem 1rem' }}>
@@ -93,6 +111,12 @@ export default function ToolLayout({ toolId, children }) {
       <FeedbackButton />
 
       {helpOpen && <ToolHelpDialog toolId={toolId} onClose={() => setHelpOpen(false)} />}
+
+      {seo && (
+        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1rem 2rem' }}>
+          <ToolSEOFooter heading={seo.heading} paras={seo.paras} faqs={seo.faqs} />
+        </div>
+      )}
 
       {/* Footer */}
       <footer style={{

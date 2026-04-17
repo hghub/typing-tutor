@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback } from 'react'
 import ToolLayout from '../components/ToolLayout'
-import ToolSEOFooter from '../components/ToolSEOFooter'
+
 import { useTheme } from '../hooks/useTheme'
 import { analyzeText } from '../utils/textAnalysis'
 import { sanitizeText } from '../utils/sanitize'
@@ -248,23 +248,7 @@ export default function WordCounter() {
           </p>
         </div>
       )}
-      <ToolSEOFooter
-        heading="Free Online Word Counter & Character Counter Tool"
-        paras={[
-          "Whether you're writing an essay, crafting a tweet, or preparing a professional report, knowing your exact word count matters. Rafiqy's Word Counter instantly counts words, characters (with and without spaces), sentences, paragraphs, and even estimates reading time — all without any server upload.",
-          "Unlike other word count tools that require you to paste text into a form and hit submit, this tool updates in real-time as you type or paste. It works with English, Urdu, Arabic, and any Unicode language — making it ideal for multilingual writers and students.",
-          "The tool also identifies the most frequently used words in your text, helping you spot repetition or check keyword density for SEO purposes. Everything runs entirely in your browser — your content is never sent to any server, making it 100% private and secure.",
-          "Students writing university assignments, bloggers checking post length, translators verifying output size — this tool handles all these use cases with zero setup required. Bookmark it and use it every time you write.",
-        ]}
-        faqs={[
-          { q: "How do I count words in a document?", a: "Simply paste or type your text into the text area above. The word count, character count, sentence count, and reading time update instantly. No buttons to press." },
-          { q: "Does this work with Urdu and Arabic text?", a: "Yes. The tool supports all Unicode languages including Urdu, Arabic, Chinese, and more. Word boundaries are detected correctly for right-to-left languages." },
-          { q: "Is there a word limit?", a: "There is no hard limit. The tool handles essays, blog posts, and even long documents. Very long texts (50,000+ words) may slow down slightly on older devices." },
-          { q: "What counts as a 'word'?", a: "Words are counted as sequences of non-whitespace characters separated by spaces. Numbers, hyphenated words, and contractions each count as one word." },
-          { q: "Is my text saved or sent anywhere?", a: "No. All processing happens in your browser. Your text is never uploaded, stored, or transmitted. It's completely private." },
-        ]}
-      />
-    </ToolLayout>
+      </ToolLayout>
   )
 }
 

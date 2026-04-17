@@ -116,7 +116,7 @@ function Chip({ label, selected, onClick, colors }) {
   )
 }
 
-function WeatherCard({ weather, locationError, loading, colors }) {
+function WeatherCard({ weather, locationError, loading, colors, cityInput, onCityInputChange, onCityFetch, cityFetching, cityFetchError }) {
   const cardStyle = {
     background: colors.card,
     border: `1px solid ${colors.border}`,
@@ -137,9 +137,50 @@ function WeatherCard({ weather, locationError, loading, colors }) {
     return (
       <div style={cardStyle}>
         <h3 style={{ margin: '0 0 0.75rem', fontSize: '0.95rem', color: colors.text }}>🌤 Local Weather Context</h3>
-        <p style={{ color: colors.textSecondary, fontSize: '0.85rem', margin: 0 }}>
-          Location unavailable — weather context not shown
+        <p style={{ color: colors.textSecondary, fontSize: '0.85rem', margin: '0 0 0.75rem' }}>
+          📍 Location unavailable — enter your city to get weather context:
         </p>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <input
+            type="text"
+            value={cityInput}
+            onChange={e => onCityInputChange(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && onCityFetch()}
+            placeholder="e.g. Karachi, Lahore, Islamabad"
+            style={{
+              flex: 1,
+              background: colors.input,
+              border: `1px solid ${colors.inputBorder}`,
+              borderRadius: '0.4rem',
+              color: colors.text,
+              padding: '0.4rem 0.65rem',
+              fontSize: '0.82rem',
+              outline: 'none',
+              fontFamily: 'inherit',
+            }}
+          />
+          <button
+            onClick={onCityFetch}
+            disabled={cityFetching || !cityInput.trim()}
+            style={{
+              padding: '0.4rem 0.85rem',
+              borderRadius: '0.4rem',
+              border: 'none',
+              background: ACCENT,
+              color: '#fff',
+              fontWeight: 600,
+              fontSize: '0.82rem',
+              cursor: cityFetching || !cityInput.trim() ? 'not-allowed' : 'pointer',
+              opacity: cityFetching || !cityInput.trim() ? 0.6 : 1,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {cityFetching ? '…' : 'Get Weather'}
+          </button>
+        </div>
+        {cityFetchError && (
+          <p style={{ color: '#ef4444', fontSize: '0.78rem', margin: '0.4rem 0 0' }}>{cityFetchError}</p>
+        )}
       </div>
     )
   }
@@ -314,6 +355,9 @@ export default function SymptomTracker() {
   const [weather, setWeather] = useState(null)
   const [locationError, setLocationError] = useState(false)
   const [weatherLoading, setWeatherLoading] = useState(true)
+  const [cityInput, setCityInput] = useState('')
+  const [cityFetching, setCityFetching] = useState(false)
+  const [cityFetchError, setCityFetchError] = useState('')
 
   // Log state
   const [log, setLog] = useState(loadLog)

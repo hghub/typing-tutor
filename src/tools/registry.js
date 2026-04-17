@@ -730,21 +730,6 @@ export const TOOLS = [
     related: ['tax-calculator', 'budget-splitter'],
     features: ['Upload bank, Easypaisa or JazzCash CSV', 'Instant spending breakdown by category', 'Merchant insights and monthly trends chart', '100% private -- no data leaves your browser'],
   },
-  // ── Developer ─────────────────────────────────────────────────
-  {
-    id: 'data-leak-detector',
-    name: 'Data Leak Detector',
-    nameUrdu: 'ڈیٹا لیک ڈیٹیکٹر',
-    tagline: 'Scan logs and configs for exposed secrets',
-    taglineUrdu: 'لاگز اور کنفیگز میں بے نقاب راز تلاش کریں',
-    description: 'Paste any text — logs, configs, API responses — and instantly detect exposed API keys, JWT tokens, AWS credentials, CNICs, IBANs, and more. Copy a safe redacted version in one click.',
-    icon: '🕵️',
-    path: '/tools/data-leak-detector',
-    color: '#ef4444',
-    category: 'developer',
-    tags: ['security', 'secrets', 'api-keys', 'jwt', 'aws', 'leak', 'developer', 'devops'],
-    related: ['doc-redaction', 'text-encryptor'],
-  },
   // ── Security & Privacy ────────────────────────────────────────
   {
     id: 'doc-redaction',

@@ -326,7 +326,7 @@ export default function ToolsHome() {
                 urduLabels={prefs.urduLabels} isNew={isNewTool(tool, lastVisit)} />
             ))}
             {/* PDF Tools — category group card */}
-            <Link to="/tools#pdf" style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
+            <a href="#pdf" onClick={e => { e.preventDefault(); document.getElementById('pdf')?.scrollIntoView({ behavior: 'smooth' }) }} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
               <div style={{
                 background: isDark ? '#1e293b' : '#fff',
                 border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
@@ -353,11 +353,7 @@ export default function ToolsHome() {
                   </div>
                 </div>
               </div>
-            </Link>
-          </div>
-        </section>
-
-        {/* ── Category Jump Nav ── */}
+            </a>
         <div style={{ marginBottom: '2rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center' }}>
           <span style={{ fontSize: '0.75rem', fontWeight: 700, color: colors.textSecondary, letterSpacing: '0.05em', textTransform: 'uppercase', marginRight: '0.25rem' }}>Jump to:</span>
           {TOOL_CATEGORIES.map(cat => {

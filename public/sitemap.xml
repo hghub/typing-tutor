@@ -1,189 +1,283 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core pages -->
   <url>
-    <loc>https://typingmaster.app/</loc>
+    <loc>https://rafiqy.app/</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://rafiqy.app/tools</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rafiqy.app/help</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Typing & Learning -->
+  <url><loc>https://rafiqy.app/tools/typing-tutor</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rafiqy.app/tools/pomodoro</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/word-counter</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rafiqy.app/tools/text-cleaner</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/doc-composer</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/urdu-keyboard</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Finance -->
+  <url><loc>https://rafiqy.app/tools/tax-calculator</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rafiqy.app/tools/loan-emi</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rafiqy.app/tools/salary-slip</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/expense-analyzer</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rafiqy.app/tools/loan-manager</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/gold-price</loc><lastmod>2026-04-17</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/tax-optimizer</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/currency-converter</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/budget-splitter</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/position-size-calc</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/tools/voice-invoice</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Pakistan Tools -->
+  <url><loc>https://rafiqy.app/tools/pk-id-tax-hub</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rafiqy.app/tools/kameti</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/driving-fines</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/property-comp</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/tools/refrigerant-calc</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Productivity -->
+  <url><loc>https://rafiqy.app/tools/world-time</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/voice-diary</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/daily-planner</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/habit-tracker</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/packing-list</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/tools/freelancer-risk</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/warranty-tracker</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/student-groups</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/tools/timeline-builder</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Design & Creative -->
+  <url><loc>https://rafiqy.app/tools/color-palette</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Security & Privacy -->
+  <url><loc>https://rafiqy.app/tools/text-encryptor</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/data-leak-detector</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rafiqy.app/tools/doc-redaction</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Health -->
+  <url><loc>https://rafiqy.app/tools/drug-checker</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rafiqy.app/tools/symptom-tracker</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/measurement-tracker</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Developer Tools -->
+  <url><loc>https://rafiqy.app/tools/regex-tester</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/data-transformer</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/markdown-scraper</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/tools/log-analyzer</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/tools/config-converter</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/tools/mock-data</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/trace-correlator</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/tools/schema-mapper</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/tools/json-formatter</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- PDF Tools -->
+  <url><loc>https://rafiqy.app/tools/compress-pdf</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rafiqy.app/tools/merge-pdf</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rafiqy.app/tools/split-pdf</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/pdf-convert</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/doc-converter</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/text-extractor</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/pdf-search</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+</urlset>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://rafiqy.app/</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools</loc>
+    <loc>https://rafiqy.app/tools</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/tax-calculator</loc>
+    <loc>https://rafiqy.app/tools/tax-calculator</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/expense-analyzer</loc>
+    <loc>https://rafiqy.app/tools/expense-analyzer</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/data-leak-detector</loc>
+    <loc>https://rafiqy.app/tools/data-leak-detector</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/drug-checker</loc>
+    <loc>https://rafiqy.app/tools/drug-checker</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/word-counter</loc>
+    <loc>https://rafiqy.app/tools/word-counter</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/text-cleaner</loc>
+    <loc>https://rafiqy.app/tools/text-cleaner</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/doc-composer</loc>
+    <loc>https://rafiqy.app/tools/doc-composer</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/urdu-keyboard</loc>
+    <loc>https://rafiqy.app/tools/urdu-keyboard</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/text-encryptor</loc>
+    <loc>https://rafiqy.app/tools/text-encryptor</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/currency-converter</loc>
+    <loc>https://rafiqy.app/tools/currency-converter</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/packing-list</loc>
+    <loc>https://rafiqy.app/tools/packing-list</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/budget-splitter</loc>
+    <loc>https://rafiqy.app/tools/budget-splitter</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/symptom-tracker</loc>
+    <loc>https://rafiqy.app/tools/symptom-tracker</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/data-transformer</loc>
+    <loc>https://rafiqy.app/tools/data-transformer</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/markdown-scraper</loc>
+    <loc>https://rafiqy.app/tools/markdown-scraper</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/log-analyzer</loc>
+    <loc>https://rafiqy.app/tools/log-analyzer</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/config-converter</loc>
+    <loc>https://rafiqy.app/tools/config-converter</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/mock-data</loc>
+    <loc>https://rafiqy.app/tools/mock-data</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/student-groups</loc>
+    <loc>https://rafiqy.app/tools/student-groups</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/timeline-builder</loc>
+    <loc>https://rafiqy.app/tools/timeline-builder</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/position-size-calc</loc>
+    <loc>https://rafiqy.app/tools/position-size-calc</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/voice-invoice</loc>
+    <loc>https://rafiqy.app/tools/voice-invoice</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/property-comp</loc>
+    <loc>https://rafiqy.app/tools/property-comp</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/refrigerant-calc</loc>
+    <loc>https://rafiqy.app/tools/refrigerant-calc</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/freelancer-risk</loc>
+    <loc>https://rafiqy.app/tools/freelancer-risk</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/warranty-tracker</loc>
+    <loc>https://rafiqy.app/tools/warranty-tracker</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/driving-fines</loc>
+    <loc>https://rafiqy.app/tools/driving-fines</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/tools/doc-redaction</loc>
+    <loc>https://rafiqy.app/tools/doc-redaction</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://typingmaster.app/about</loc>
+    <loc>https://rafiqy.app/about</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 </urlset>
+

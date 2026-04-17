@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://typingmaster.app/sitemap.xml
+Sitemap: https://rafiqy.app/sitemap.xml

@@ -69,6 +69,8 @@ const JsonFormatter      = lazy(() => import('./pages/JsonFormatter.jsx'))
 const GoldPrice          = lazy(() => import('./pages/GoldPrice.jsx'))
 const About              = lazy(() => import('./pages/About.jsx'))
 const Help               = lazy(() => import('./pages/Help.jsx'))
+const BlogHome           = lazy(() => import('./pages/BlogHome.jsx'))
+const BlogPost           = lazy(() => import('./pages/BlogPost.jsx'))
 
 const fallback = (
   <div style={{
@@ -156,6 +158,8 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/regex-tester"        element={<RegexTester />} />
           <Route path="/tools/json-formatter"      element={<JsonFormatter />} />
           <Route path="/tools/gold-price"          element={<GoldPrice />} />
+          <Route path="/blogs"                      element={<BlogHome />} />
+          <Route path="/blogs/tools/:slug"          element={<BlogPost />} />
           <Route path="/about"                     element={<About />} />
           <Route path="/help"                      element={<Help />} />
         </Routes>

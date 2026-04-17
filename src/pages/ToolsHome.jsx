@@ -9,7 +9,28 @@ import { usePreferences } from '../hooks/usePreferences'
 
 const FEATURED_IDS = ['typing-tutor', 'word-counter', 'pomodoro', 'tax-calculator', 'urdu-keyboard']
 const LAST_VISIT_KEY = 'typely_last_visit'
+const RECENT_KEY = 'typely_recent_tools'
+const FAVOURITES_KEY = 'typely_favourites'
 const TOP_N = 6
+
+function getRecent() {
+  try { return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]') } catch { return [] }
+}
+function addRecent(id) {
+  try {
+    const prev = getRecent().filter(x => x !== id)
+    localStorage.setItem(RECENT_KEY, JSON.stringify([id, ...prev].slice(0, 5)))
+  } catch {}
+}
+function getFavourites() {
+  try { return JSON.parse(localStorage.getItem(FAVOURITES_KEY) || '[]') } catch { return [] }
+}
+function toggleFavourite(id) {
+  const favs = getFavourites()
+  const next = favs.includes(id) ? favs.filter(x => x !== id) : [...favs, id]
+  localStorage.setItem(FAVOURITES_KEY, JSON.stringify(next))
+  return next
+}
 
 // Category display order (matches user spec 1–14)
 const CATEGORY_ORDER = [
@@ -138,13 +159,15 @@ function MarqueeTicker({ tools, isDark, colors }) {
 }
 
 // ── Tool Card ─────────────────────────────────────────────────────────────────
-function ToolCard({ tool, colors, isDark, featured = false, urduLabels = false, isNew = false }) {
+function ToolCard({ tool, colors, isDark, featured = false, urduLabels = false, isNew = false, isFav = false, onFavToggle, onVisit }) {
   const [hovered, setHovered] = useState(false)
+  const [favHovered, setFavHovered] = useState(false)
   const displayName    = (urduLabels && tool.nameUrdu)    ? tool.nameUrdu    : tool.name
   const displayTagline = (urduLabels && tool.taglineUrdu) ? tool.taglineUrdu : tool.tagline
 
   return (
-    <Link to={tool.path} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
+    <Link to={tool.path} style={{ textDecoration: 'none', display: 'block', height: '100%' }}
+      onClick={() => onVisit && onVisit(tool.id)}>
       <div
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -175,6 +198,25 @@ function ToolCard({ tool, colors, isDark, featured = false, urduLabels = false, 
             boxShadow: '0 2px 8px rgba(16,185,129,0.4)',
             animation: 'typely-pulse 2s ease-in-out infinite',
           }}>NEW</div>
+        )}
+
+        {/* Favourite button */}
+        {onFavToggle && (
+          <button
+            onClick={e => { e.preventDefault(); e.stopPropagation(); onFavToggle(tool.id) }}
+            onMouseEnter={() => setFavHovered(true)}
+            onMouseLeave={() => setFavHovered(false)}
+            title={isFav ? 'Remove from favourites' : 'Add to favourites'}
+            style={{
+              position: 'absolute', top: '0.6rem', right: isNew ? '3rem' : '0.6rem',
+              background: 'none', border: 'none', cursor: 'pointer',
+              fontSize: '1rem', padding: '0.25rem',
+              opacity: isFav || favHovered ? 1 : 0.35,
+              transition: 'opacity 0.15s, transform 0.15s',
+              transform: favHovered ? 'scale(1.2)' : 'scale(1)',
+              lineHeight: 1,
+            }}
+          >{isFav ? '❤️' : '🤍'}</button>
         )}
 
         <div style={{ padding: featured ? '1.5rem' : '1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
@@ -223,6 +265,14 @@ export default function ToolsHome() {
   const { prefs, togglePref } = usePreferences()
   const [lastVisit] = useState(() => getLastVisit())
   const [expanded, setExpanded] = useState({})
+  const [favourites, setFavourites] = useState(() => getFavourites())
+  const [recentIds, setRecentIds] = useState(() => getRecent())
+
+  const handleFavToggle = (id) => setFavourites(toggleFavourite(id))
+  const handleVisit = (id) => {
+    addRecent(id)
+    setRecentIds(getRecent())
+  }
 
   const toggleExpanded = (catId) => setExpanded(prev => ({ ...prev, [catId]: !prev[catId] }))
 
@@ -238,6 +288,14 @@ export default function ToolsHome() {
   })
 
   const featuredTools = FEATURED_IDS
+    .map(id => visibleTools.find(t => t.id === id))
+    .filter(Boolean)
+
+  const recentTools = recentIds
+    .map(id => visibleTools.find(t => t.id === id))
+    .filter(Boolean)
+
+  const favouriteTools = favourites
     .map(id => visibleTools.find(t => t.id === id))
     .filter(Boolean)
 
@@ -354,6 +412,51 @@ export default function ToolsHome() {
           <MarqueeTicker tools={visibleTools} isDark={isDark} colors={colors} />
         </div>
 
+        {/* ── My Favourites ── */}
+        {favouriteTools.length > 0 && (
+          <section style={{ marginBottom: '3rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
+              <h2 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800, color: colors.text, letterSpacing: '-0.01em' }}>❤️ My Favourites</h2>
+              <span style={{ fontSize: '0.72rem', fontWeight: 600, color: '#ef4444', background: '#ef444418', border: '1px solid #ef444433', borderRadius: '1rem', padding: '0.15rem 0.55rem' }}>{favouriteTools.length} saved</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1rem' }}>
+              {favouriteTools.map(tool => (
+                <ToolCard key={tool.id} tool={tool} colors={colors} isDark={isDark}
+                  urduLabels={prefs.urduLabels} isNew={isNewTool(tool, lastVisit)}
+                  isFav={true} onFavToggle={handleFavToggle} onVisit={handleVisit} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ── Recently Used ── */}
+        {recentTools.length > 0 && (
+          <section style={{ marginBottom: '3rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
+              <h2 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800, color: colors.text, letterSpacing: '-0.01em' }}>🕐 Recently Used</h2>
+            </div>
+            <div style={{ display: 'flex', gap: '0.75rem', overflowX: 'auto', paddingBottom: '0.5rem' }}>
+              {recentTools.map(tool => (
+                <Link key={tool.id} to={tool.path} onClick={() => handleVisit(tool.id)} style={{ textDecoration: 'none', flexShrink: 0 }}>
+                  <div style={{
+                    display: 'flex', alignItems: 'center', gap: '0.6rem',
+                    background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+                    border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                    borderRadius: '0.75rem', padding: '0.6rem 1rem',
+                    transition: 'border-color 0.15s, background 0.15s',
+                  }}
+                    onMouseEnter={e => { e.currentTarget.style.borderColor = tool.color; e.currentTarget.style.background = isDark ? `${tool.color}15` : `${tool.color}0a` }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'; e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)' }}
+                  >
+                    <span style={{ fontSize: '1.3rem' }}>{tool.icon}</span>
+                    <span style={{ fontSize: '0.82rem', fontWeight: 600, color: colors.text, whiteSpace: 'nowrap' }}>{tool.name}</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* ── Featured Tools ── */}
         <section style={{ marginBottom: '3.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
@@ -363,7 +466,8 @@ export default function ToolsHome() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.25rem' }}>
             {featuredTools.map(tool => (
               <ToolCard key={tool.id} tool={tool} colors={colors} isDark={isDark} featured
-                urduLabels={prefs.urduLabels} isNew={isNewTool(tool, lastVisit)} />
+                urduLabels={prefs.urduLabels} isNew={isNewTool(tool, lastVisit)}
+                isFav={favourites.includes(tool.id)} onFavToggle={handleFavToggle} onVisit={handleVisit} />
             ))}
             {/* PDF Tools — category group card */}
             <a href="#pdf" onClick={e => { e.preventDefault(); document.getElementById('pdf')?.scrollIntoView({ behavior: 'smooth' }) }} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
@@ -462,7 +566,8 @@ export default function ToolsHome() {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1rem' }}>
                   {visibleCatTools.map((tool) => (
                     <ToolCard key={tool.id} tool={tool} colors={colors} isDark={isDark}
-                      urduLabels={prefs.urduLabels} isNew={isNewTool(tool, lastVisit)} />
+                      urduLabels={prefs.urduLabels} isNew={isNewTool(tool, lastVisit)}
+                      isFav={favourites.includes(tool.id)} onFavToggle={handleFavToggle} onVisit={handleVisit} />
                   ))}
                 </div>
                 {hasMore && (

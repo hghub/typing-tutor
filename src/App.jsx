@@ -674,13 +674,13 @@ function App() {
 
         {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} xpEarned={xpEarned} challengeData={challengeData} activeRoom={activeRoom} onSubmitToRoom={handleSubmitToRoom} isKidsMode={isKidsMode} onReset={handleResetTest} onReaction={handleSessionReaction} onChallenge={() => {
           const data = { wpm, accuracy, difficulty, language, passageIndex }
-          const encoded = btoa(JSON.stringify(data))
+          const encoded = encodeURIComponent(btoa(JSON.stringify(data)))
           const url = `${window.location.origin}${window.location.pathname}?c=${encoded}`
           navigator.clipboard.writeText(url).catch(() => {})
         }} onSendResult={() => {
           // Encode both scores so sender can see who won
           const data = { friendWpm: wpm, friendAccuracy: accuracy, myWpm: challengeData?.wpm, myAccuracy: challengeData?.accuracy }
-          const encoded = btoa(JSON.stringify(data))
+          const encoded = encodeURIComponent(btoa(JSON.stringify(data)))
           const url = `${window.location.origin}${window.location.pathname}?r=${encoded}`
           navigator.clipboard.writeText(url).catch(() => {})
         }} />}

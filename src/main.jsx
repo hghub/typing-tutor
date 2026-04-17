@@ -64,6 +64,7 @@ const ColorPalette       = lazy(() => import('./pages/ColorPalette.jsx'))
 const PkIdTaxHub        = lazy(() => import('./pages/PkIdTaxHub.jsx'))
 const LoanManager        = lazy(() => import('./pages/LoanManager.jsx'))
 const RegexTester        = lazy(() => import('./pages/RegexTester.jsx'))
+const JsonFormatter      = lazy(() => import('./pages/JsonFormatter.jsx'))
 const GoldPrice          = lazy(() => import('./pages/GoldPrice.jsx'))
 const About             = lazy(() => import('./pages/About.jsx'))
 
@@ -149,6 +150,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/pk-id-tax-hub"       element={<PkIdTaxHub />} />
           <Route path="/tools/loan-manager"        element={<LoanManager />} />
           <Route path="/tools/regex-tester"        element={<RegexTester />} />
+          <Route path="/tools/json-formatter"      element={<JsonFormatter />} />
           <Route path="/tools/gold-price"          element={<GoldPrice />} />
           <Route path="/about"                     element={<About />} />
         </Routes>

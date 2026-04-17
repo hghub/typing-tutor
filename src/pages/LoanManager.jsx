@@ -504,6 +504,7 @@ export default function LoanManager() {
   const [sortBy, setSortBy]           = useState('newest')
   const [paymentFor, setPaymentFor]   = useState(null)
   const [historyFor, setHistoryFor]   = useState(null)
+  const [showAnalytics, setShowAnalytics] = useState(false)
 
   useEffect(() => { saveLoans(loans) }, [loans])
 
@@ -551,6 +552,18 @@ export default function LoanManager() {
     const tl = loans.filter(l => l.type === 'lent' && !l.settled).reduce((s, l) => s + remainingAmount(l), 0)
     const tb = loans.filter(l => l.type === 'borrowed' && !l.settled).reduce((s, l) => s + remainingAmount(l), 0)
     return { totalLent: tl, totalBorrowed: tb, netOwed: tl - tb }
+  }, [loans])
+
+  const analyticsData = useMemo(() => {
+    const personLent = {}
+    const personBorrowed = {}
+    loans.filter(l => !l.settled).forEach(l => {
+      const rem = remainingAmount(l)
+      if (l.type === 'lent') personLent[l.person] = (personLent[l.person] || 0) + rem
+      else personBorrowed[l.person] = (personBorrowed[l.person] || 0) + rem
+    })
+    const overdue = loans.filter(l => !l.settled && l.dueDate && daysUntilDue(l.dueDate) < 0)
+    return { personLent, personBorrowed, overdue }
   }, [loans])
 
   const visibleLoans = useMemo(() => {
@@ -745,6 +758,185 @@ export default function LoanManager() {
           <p style={{ textAlign: 'center', fontSize: '0.74rem', color: colors.textSecondary, marginTop: '1rem' }}>
             Showing {visibleLoans.length} loan{visibleLoans.length !== 1 ? 's' : ''}
           </p>
+        )}
+
+        {/* Analytics toggle */}
+        <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+          <button
+            onClick={() => setShowAnalytics(v => !v)}
+            style={{
+              padding: '0.6rem 1.5rem', fontSize: '0.85rem', fontWeight: 700,
+              background: showAnalytics ? `${ACCENT}22` : colors.card,
+              border: `1.5px solid ${ACCENT}55`,
+              borderRadius: '2rem', cursor: 'pointer', color: ACCENT,
+              transition: 'all 0.2s',
+            }}
+          >
+            📊 {showAnalytics ? 'Hide Analytics' : 'Show Analytics'}
+          </button>
+        </div>
+
+        {/* Analytics panel */}
+        {showAnalytics && (
+          <div style={{
+            marginTop: '1.25rem', background: colors.card,
+            border: `1px solid ${colors.border}`, borderRadius: '1rem',
+            padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem',
+          }}>
+            <h2 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: ACCENT, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+              📊 Analytics
+            </h2>
+
+            {/* Summary cards */}
+            <div>
+              <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Summary</p>
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                <div style={{ flex: '1 1 130px', background: '#f9731622', border: '1px solid #f9731644', borderRadius: '0.75rem', padding: '0.85rem 1rem' }}>
+                  <div style={{ fontSize: '0.7rem', color: '#f97316', fontWeight: 700, marginBottom: '0.3rem' }}>TOTAL LENT</div>
+                  <div style={{ fontSize: '1.1rem', fontWeight: 800, color: colors.text }}>{fmtPKR(totalLent)}</div>
+                </div>
+                <div style={{ flex: '1 1 130px', background: '#3b82f622', border: '1px solid #3b82f644', borderRadius: '0.75rem', padding: '0.85rem 1rem' }}>
+                  <div style={{ fontSize: '0.7rem', color: '#3b82f6', fontWeight: 700, marginBottom: '0.3rem' }}>TOTAL OWED</div>
+                  <div style={{ fontSize: '1.1rem', fontWeight: 800, color: colors.text }}>{fmtPKR(totalBorrowed)}</div>
+                </div>
+                <div style={{ flex: '1 1 130px', background: netOwed >= 0 ? '#10b98122' : '#ef444422', border: `1px solid ${netOwed >= 0 ? '#10b98144' : '#ef444444'}`, borderRadius: '0.75rem', padding: '0.85rem 1rem' }}>
+                  <div style={{ fontSize: '0.7rem', color: netOwed >= 0 ? '#10b981' : '#ef4444', fontWeight: 700, marginBottom: '0.3rem' }}>NET BALANCE</div>
+                  <div style={{ fontSize: '1.1rem', fontWeight: 800, color: netOwed >= 0 ? '#10b981' : '#ef4444' }}>
+                    {netOwed >= 0 ? '+' : '−'}{fmtPKR(Math.abs(netOwed))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Lent vs Owed donut */}
+            {(totalLent > 0 || totalBorrowed > 0) && (
+              <div>
+                <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Lent vs Owed Ratio</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
+                  {(() => {
+                    const tot = totalLent + totalBorrowed
+                    const lentPct = tot > 0 ? (totalLent / tot) * 100 : 50
+                    return (
+                      <>
+                        <div style={{ position: 'relative', width: '110px', height: '110px', flexShrink: 0 }}>
+                          <div style={{
+                            width: '110px', height: '110px', borderRadius: '50%',
+                            background: `conic-gradient(#f97316 ${lentPct}%, #3b82f6 ${lentPct}% 100%)`,
+                          }} />
+                          <div style={{
+                            position: 'absolute', inset: '22%',
+                            background: colors.card, borderRadius: '50%',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column',
+                          }}>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 800, color: colors.text }}>{Math.round(lentPct)}%</span>
+                            <span style={{ fontSize: '0.55rem', color: colors.textSecondary }}>lent</span>
+                          </div>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <div style={{ width: '12px', height: '12px', borderRadius: '3px', background: '#f97316', flexShrink: 0 }} />
+                            <span style={{ fontSize: '0.8rem', color: colors.textSecondary }}>Lent out</span>
+                            <strong style={{ fontSize: '0.8rem', color: colors.text }}>{fmtPKR(totalLent)}</strong>
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <div style={{ width: '12px', height: '12px', borderRadius: '3px', background: '#3b82f6', flexShrink: 0 }} />
+                            <span style={{ fontSize: '0.8rem', color: colors.textSecondary }}>Owed by you</span>
+                            <strong style={{ fontSize: '0.8rem', color: colors.text }}>{fmtPKR(totalBorrowed)}</strong>
+                          </div>
+                        </div>
+                      </>
+                    )
+                  })()}
+                </div>
+              </div>
+            )}
+
+            {/* Per-person bar chart — lent */}
+            {Object.keys(analyticsData.personLent).length > 0 && (
+              <div>
+                <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Outstanding Per Person (Lent)</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  {Object.entries(analyticsData.personLent)
+                    .sort((a, b) => b[1] - a[1])
+                    .map(([person, amount]) => {
+                      const maxAmt = Math.max(...Object.values(analyticsData.personLent))
+                      const pct = maxAmt > 0 ? (amount / maxAmt) * 100 : 0
+                      return (
+                        <div key={person} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          <span style={{ width: '90px', textAlign: 'right', fontSize: '0.78rem', color: colors.textSecondary, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flexShrink: 0 }}>{person}</span>
+                          <div style={{ flex: 1, background: colors.border, borderRadius: '4px', height: '18px', overflow: 'hidden' }}>
+                            <div style={{ width: `${pct}%`, background: '#f97316', height: '100%', borderRadius: '4px', transition: 'width 0.4s ease' }} />
+                          </div>
+                          <span style={{ fontSize: '0.75rem', color: colors.text, fontWeight: 600, flexShrink: 0, minWidth: '80px', textAlign: 'right' }}>{fmtPKR(amount)}</span>
+                        </div>
+                      )
+                    })}
+                </div>
+              </div>
+            )}
+
+            {/* Per-person bar chart — borrowed */}
+            {Object.keys(analyticsData.personBorrowed).length > 0 && (
+              <div>
+                <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Outstanding Per Person (Owed)</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  {Object.entries(analyticsData.personBorrowed)
+                    .sort((a, b) => b[1] - a[1])
+                    .map(([person, amount]) => {
+                      const maxAmt = Math.max(...Object.values(analyticsData.personBorrowed))
+                      const pct = maxAmt > 0 ? (amount / maxAmt) * 100 : 0
+                      return (
+                        <div key={person} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          <span style={{ width: '90px', textAlign: 'right', fontSize: '0.78rem', color: colors.textSecondary, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flexShrink: 0 }}>{person}</span>
+                          <div style={{ flex: 1, background: colors.border, borderRadius: '4px', height: '18px', overflow: 'hidden' }}>
+                            <div style={{ width: `${pct}%`, background: '#3b82f6', height: '100%', borderRadius: '4px', transition: 'width 0.4s ease' }} />
+                          </div>
+                          <span style={{ fontSize: '0.75rem', color: colors.text, fontWeight: 600, flexShrink: 0, minWidth: '80px', textAlign: 'right' }}>{fmtPKR(amount)}</span>
+                        </div>
+                      )
+                    })}
+                </div>
+              </div>
+            )}
+
+            {/* Overdue loans */}
+            {analyticsData.overdue.length > 0 && (
+              <div>
+                <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: '#ef4444', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  ⚠️ Overdue Loans ({analyticsData.overdue.length})
+                </p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  {analyticsData.overdue.map(loan => (
+                    <div key={loan.id} style={{
+                      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                      padding: '0.65rem 0.85rem',
+                      background: '#ef444415', border: '1px solid #ef444433',
+                      borderRadius: '0.6rem', flexWrap: 'wrap', gap: '0.4rem',
+                    }}>
+                      <div>
+                        <span style={{ fontWeight: 700, color: colors.text, fontSize: '0.88rem' }}>{loan.person}</span>
+                        <span style={{ fontSize: '0.75rem', color: colors.textSecondary, marginLeft: '0.4rem' }}>
+                          ({loan.type === 'lent' ? 'lent' : 'borrowed'})
+                        </span>
+                      </div>
+                      <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                        <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#ef4444' }}>
+                          {Math.abs(daysUntilDue(loan.dueDate))}d overdue
+                        </span>
+                        <span style={{ fontSize: '0.85rem', fontWeight: 800, color: colors.text }}>{fmtPKR(remainingAmount(loan))}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {loans.length === 0 && (
+              <p style={{ textAlign: 'center', color: colors.textSecondary, fontSize: '0.85rem', padding: '1rem 0' }}>
+                Add some loans to see analytics.
+              </p>
+            )}
+          </div>
         )}
 
         <DisclaimerBlock type="financial" overrideBodyEn="All loan records are stored only in this browser's local storage. No data leaves your device. Clearing browser storage will erase all records — export or screenshot important entries." />

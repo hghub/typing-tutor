@@ -242,6 +242,30 @@ export default function DocComposer() {
     }
   }, [template, values, templateId, exportingDoc])
 
+  const isEmailTemplate = !!(template && (template.id.includes('email') || template.category === 'email'))
+
+  const handleSaveTxt = useCallback(() => {
+    if (!template) return
+    const text = buildPlainText(template, values)
+    const blob = new Blob([text], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url; a.download = `typely-${templateId}.txt`
+    document.body.appendChild(a); a.click()
+    document.body.removeChild(a); URL.revokeObjectURL(url)
+  }, [template, values, templateId])
+
+  const handleSaveDocEmail = useCallback(() => {
+    if (!previewRef.current) return
+    const html = `<html><body>${previewRef.current.innerHTML}</body></html>`
+    const blob = new Blob([html], { type: 'application/msword' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url; a.download = `typely-${templateId}.doc`
+    document.body.appendChild(a); a.click()
+    document.body.removeChild(a); URL.revokeObjectURL(url)
+  }, [templateId])
+
   const handleEmail = useCallback(() => {
     if (!template) return
     emailDoc(template, values)
@@ -423,6 +447,40 @@ export default function DocComposer() {
             >
               📝 Export .doc
             </button>
+            {isEmailTemplate && (
+              <>
+                <button
+                  onClick={handleSaveTxt}
+                  style={{
+                    background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+                    border: `1.5px solid ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)'}`,
+                    color: colors.text,
+                    borderRadius: '0.6rem', padding: '0.6rem 1.1rem',
+                    cursor: 'pointer', fontSize: '0.88rem', fontWeight: 600,
+                    display: 'flex', alignItems: 'center', gap: '0.4rem', transition: 'all 0.15s',
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.borderColor = '#10b981'}
+                  onMouseLeave={e => e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)'}
+                >
+                  📄 Save as .txt
+                </button>
+                <button
+                  onClick={handleSaveDocEmail}
+                  style={{
+                    background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+                    border: `1.5px solid ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)'}`,
+                    color: colors.text,
+                    borderRadius: '0.6rem', padding: '0.6rem 1.1rem',
+                    cursor: 'pointer', fontSize: '0.88rem', fontWeight: 600,
+                    display: 'flex', alignItems: 'center', gap: '0.4rem', transition: 'all 0.15s',
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.borderColor = '#8b5cf6'}
+                  onMouseLeave={e => e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)'}
+                >
+                  📝 Save as .doc
+                </button>
+              </>
+            )}
             <button
               onClick={handleEmail}
               style={{

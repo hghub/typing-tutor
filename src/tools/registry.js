@@ -559,6 +559,18 @@ export const TOOLS = [
     related: ['data-transformer', 'config-converter', 'trace-correlator'],
     features: ['Paste source and destination JSON schemas side-by-side', 'Click fields to create visual mappings', 'Generate JavaScript or Python transform code instantly', 'Complexity score and unmapped field warnings'],
   },
+  {
+    id: 'json-formatter',
+    name: 'JSON Formatter',
+    nameUrdu: 'جے ایس او این فارمیٹر',
+    icon: '🔧',
+    tagline: 'Format, validate & explore JSON',
+    taglineUrdu: 'JSON کو فارمیٹ اور چیک کریں',
+    description: 'Prettify, minify, validate and visually explore JSON data — all in your browser.',
+    category: 'developer',
+    route: '/tools/json-formatter',
+    addedOn: '2026-04-16',
+  },
   // ── Education & Teaching ────────────────────────────────────────
   {
     id: 'student-groups',

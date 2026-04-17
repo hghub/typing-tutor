@@ -91,6 +91,60 @@ const PROVINCE_COLORS = {
   'Azad Jammu & Kashmir (AJK)': '#0d9488',
 }
 
+// Key = first two digits (province+division) → { districtDigit: name }
+const DISTRICT_MAP = {
+  // KPK (1)
+  '11': { 1: 'Bannu', 2: 'Bannu Cantonment' },
+  '12': { 1: 'DI Khan', 2: 'Tank' },
+  '13': { 1: 'Abbottabad', 2: 'Batagram', 3: 'Haripur', 4: 'Kohistan', 5: 'Mansehra' },
+  '14': { 1: 'Hangu', 2: 'Karak', 3: 'Kohat' },
+  '15': { 0: 'Dir', 1: 'Buner', 2: 'Lower Chitral', 3: 'Lower Dir', 4: 'Malakand', 5: 'Shangla', 6: 'Swat', 7: 'Upper Dir' },
+  '16': { 1: 'Mardan', 2: 'Swabi' },
+  '17': { 1: 'Charsadda', 2: 'Nowshera', 3: 'Peshawar' },
+  // FATA (2)
+  '21': { 1: 'Bajaur', 2: 'Khyber', 3: 'Kurram', 4: 'Mohmand', 5: 'North Waziristan', 6: 'Orakzai', 7: 'South Waziristan' },
+  '22': { 1: 'Lucky Marwat', 2: 'Bannu', 3: 'DI Khan', 4: 'Kohat', 5: 'Peshawar', 6: 'Tank' },
+  // Punjab (3)
+  '31': { 1: 'Bahawalnagar', 2: 'Bahawalpur', 3: 'Rahim Yar Khan' },
+  '32': { 1: 'DG Khan', 2: 'Layyah', 3: 'Muzaffargarh', 4: 'Rajanpur' },
+  '33': { 1: 'Faisalabad', 2: 'Jhang', 3: 'Toba Tek Singh', 4: 'Chiniot' },
+  '34': { 1: 'Gujranwala', 2: 'Gujrat', 3: 'Hafizabad', 4: 'Mandi Bahauddin', 5: 'Narowal', 6: 'Sialkot' },
+  '35': { 1: 'Kasur', 2: 'Lahore', 3: 'Okara', 4: 'Sheikhupura', 5: 'Nankana Sahib' },
+  '36': { 1: 'Khanewal', 2: 'Lodhran', 3: 'Multan', 4: 'Pak Pattan', 5: 'Sahiwal', 6: 'Vehari' },
+  '37': { 1: 'Attock', 2: 'Chakwal', 3: 'Jhelum', 4: 'Rawalpindi' },
+  '38': { 1: 'Bhakkar', 2: 'Khushab', 3: 'Mianwali', 4: 'Sargodha' },
+  // Sindh (4)
+  '41': { 1: 'Badin', 2: 'Dadu', 3: 'Hyderabad', 4: 'Thatta', 5: 'Jamshoro', 6: 'TM Khan', 7: 'Tando Allahyar', 8: 'Matiari' },
+  '42': { 0: 'Korangi', 1: 'Karachi Central', 2: 'Karachi East', 3: 'Karachi South', 4: 'Karachi West', 5: 'Malir' },
+  '43': { 1: 'Jacobabad', 2: 'Larkana', 3: 'Shikarpur', 4: 'Qambar Shahdadkot', 5: 'Kashmor' },
+  '44': { 1: 'Mirpur Khas', 2: 'Sanghar', 3: 'Tharparkar', 4: 'Umerkot' },
+  '45': { 1: 'Ghotki', 2: 'Khairpur', 3: 'Naushahro Feroze', 4: 'Shaheed Benazirabad', 5: 'Sukkur' },
+  // Balochistan (5)
+  '51': { 1: 'Awaran', 2: 'Kalat', 3: 'Khuzdar', 4: 'Lasbela', 5: 'Mastung', 6: 'Washuk' },
+  '52': { 1: 'Gwadar', 2: 'Kech', 3: 'Panjgur' },
+  '53': { 1: 'Jaffarabad', 2: 'Jhal Magsi', 3: 'Kachhi', 4: 'Nasirabad', 5: 'Sohbatpur' },
+  '54': { 1: 'Chagai', 2: 'Nushki', 3: 'Pishin', 4: 'Quetta', 5: 'Ziarat' },
+  '55': { 1: 'Harnai', 2: 'Kohlu', 3: 'Sibi', 4: 'Ziarat' },
+  '56': { 1: 'Barkhan', 2: 'Killa Saifullah', 3: 'Loralai', 4: 'Musakhel', 5: 'Sherani', 6: 'Zhob' },
+  // ICT (6)
+  '61': { 1: 'Islamabad' },
+  // GB (7)
+  '71': { 1: 'Diamer', 2: 'Ghanche', 3: 'Ghizer', 4: 'Gilgit', 5: 'Hunza', 6: 'Skardu' },
+  // AJK (8)
+  '81': { 1: 'Bhimber', 2: 'Kotli', 3: 'Mirpur' },
+  '82': { 1: 'Bagh', 2: 'Haveli', 3: 'Muzaffarabad', 4: 'Neelum', 5: 'Poonch', 6: 'Sudhanoti' },
+}
+
+// RTO codes for STRN (first 4 digits)
+const RTO_MAP = {
+  1101: 'Islamabad (RTO-I)', 1102: 'Islamabad (RTO-II)',
+  1201: 'Rawalpindi',
+  1701: 'Lahore (LTO)', 1702: 'Lahore (RTO-I)', 1703: 'Lahore (RTO-II)',
+  1901: 'Karachi (LTO)', 1902: 'Karachi (RTO-I)', 1903: 'Karachi (RTO-II)',
+  2101: 'Faisalabad', 2201: 'Multan', 2301: 'Gujranwala', 2401: 'Peshawar',
+  2501: 'Quetta', 2601: 'Sukkur', 2701: 'Hyderabad', 2801: 'Abbottabad',
+}
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 const ACCENT = '#0ea5e9'
@@ -116,16 +170,23 @@ function validateCnic(raw) {
     return { valid: false, error: `Invalid province code "${provinceCode}". First digit must be 1–8.` }
   }
   const prefix = parseInt(digits.slice(0, 2), 10)
+  const divKey = digits.slice(0, 2)
   const province = PROVINCE_MAP[provinceCode]
   const divInfo = DIVISION_MAP[prefix]
   const division = divInfo ? divInfo.division : 'Unknown Division'
   const lastDigit = parseInt(digits[12], 10)
   const gender = lastDigit % 2 !== 0 ? 'Male' : 'Female'
+  const districtKey = parseInt(digits[2], 10)
+  const districtEntry = DISTRICT_MAP[divKey]
+  const district = districtEntry && districtEntry[districtKey] != null
+    ? districtEntry[districtKey]
+    : `District code: ${digits[2]}`
   return {
     valid: true,
     formatted: formatCnic(digits),
     province,
     division,
+    district,
     gender,
     prefix,
     provinceCode,
@@ -134,34 +195,59 @@ function validateCnic(raw) {
     tehsilDigit: digits[3],
     ucDigit: digits[4],
     divisionConfirmed: !!divInfo,
+    divKey,
   }
 }
 
 function validateBForm(raw) {
   const digits = raw.replace(/\D/g, '')
   if (digits.length !== 13) return { valid: false, error: 'B-Form must be exactly 13 digits.' }
-  return { valid: true, formatted: formatCnic(digits), note: 'Valid B-Form format (13-digit child registration).' }
+  const decode = validateCnic(digits)
+  return {
+    valid: true,
+    formatted: formatCnic(digits),
+    note: 'Valid B-Form format (13-digit child registration).',
+    province: decode.valid ? decode.province : null,
+    division: decode.valid ? decode.division : null,
+    district: decode.valid ? decode.district : null,
+    gender: decode.valid ? decode.gender : null,
+    provinceColor: decode.valid ? decode.provinceColor : ACCENT,
+  }
 }
 
 function validateNtn(raw) {
   const digits = raw.replace(/[-\s]/g, '').replace(/\D/g, '')
-  if (digits.length !== 7) return { valid: false, error: 'NTN must be exactly 7 digits.' }
+  if (digits.length !== 7) return { valid: false, error: 'NTN must be exactly 7 digits (format: XXX-XXXX).' }
   return {
     valid: true,
-    formatted: digits,
-    note: 'Valid NTN format. The National Tax Number is issued by FBR to individual and corporate taxpayers in Pakistan.',
+    formatted: `${digits.slice(0, 3)}-${digits.slice(3)}`,
+    note: '7-digit NTN format issued by FBR to individuals, companies, and AOPs.',
+    nadraNote: 'Post-2018: NADRA-integrated NTNs are issued automatically based on CNIC. The NTN may match your CNIC serial.',
+    atlNote: 'Verify ATL (Active Taxpayer List) status at iris.fbr.gov.pk',
   }
 }
 
 function validateStrn(raw) {
-  // STRN format: 13-digit (or with hyphens like 00-00-0000-000-00)
   const digits = raw.replace(/[-\s]/g, '').replace(/\D/g, '')
-  if (digits.length < 10 || digits.length > 15) {
-    return { valid: false, error: 'STRN is typically 10–15 digits. Please verify the format.' }
+  if (digits.length < 13 || digits.length > 14) {
+    return { valid: false, error: 'STRN must be 13 or 14 digits (XXXX-XXXXXXX-XX or XXXX-XXXXXXX-XX-X).' }
   }
+  const rtoCode = parseInt(digits.slice(0, 4), 10)
+  const rtoCity = RTO_MAP[rtoCode] || `RTO code: ${digits.slice(0, 4)}`
+  const ntnPortion = digits.slice(4, 11)
+  const branchCode = digits.slice(11, 13)
+  const checkDigit = digits.length === 14 ? digits[13] : null
+  const formatted = checkDigit
+    ? `${digits.slice(0, 4)}-${ntnPortion}-${branchCode}-${checkDigit}`
+    : `${digits.slice(0, 4)}-${ntnPortion}-${branchCode}`
   return {
     valid: true,
-    formatted: digits,
+    formatted,
+    rtoCity,
+    rtoCode: digits.slice(0, 4),
+    ntnPortion,
+    branchCode,
+    checkDigit,
     note: 'Valid STRN format. The Sales Tax Registration Number is issued by FBR for GST-registered businesses.',
   }
 }
@@ -509,13 +595,13 @@ export default function CnicValidator() {
                   valueColor={cnicResult.provinceColor}
                 />
                 <ResultRow
-                  label="Division (2nd digit)"
-                  value={cnicResult.divisionConfirmed ? cnicResult.division : `${cnicResult.division} ⚠️`}
+                  label="Division"
+                  value={`${cnicResult.divKey} — ${cnicResult.divisionConfirmed ? cnicResult.division : `${cnicResult.division} ⚠️`}`}
                   valueColor={colors.text}
                 />
                 <ResultRow
-                  label="District code (3rd digit)"
-                  value={cnicResult.districtDigit}
+                  label="District (3rd digit)"
+                  value={cnicResult.district}
                   valueColor={ACCENT}
                 />
                 <ResultRow
@@ -539,6 +625,39 @@ export default function CnicValidator() {
                   ⚠️ Division data for code <strong>{String(cnicResult.prefix).padStart(2, '0')}</strong> is not in our reference list, but the province is confirmed.
                 </InfoBox>
               )}
+              {/* 5-digit area code visual */}
+              <div style={{
+                marginTop: '1rem',
+                background: `${ACCENT}0d`,
+                border: `1px solid ${ACCENT}33`,
+                borderRadius: '0.75rem',
+                padding: '0.85rem 1rem',
+              }}>
+                <p style={{ margin: '0 0 0.6rem', fontSize: '0.72rem', fontWeight: 700, color: ACCENT, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                  📍 Address code breakdown
+                </p>
+                <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                  {[
+                    { digit: cnicResult.formatted[0], label: 'PR', title: 'Province' },
+                    { digit: cnicResult.formatted[1], label: 'DV', title: 'Division' },
+                    { digit: cnicResult.formatted[2], label: 'DI', title: 'District' },
+                    { digit: cnicResult.formatted[3], label: 'TH', title: 'Tehsil' },
+                    { digit: cnicResult.formatted[4], label: 'UC', title: 'Union Council' },
+                  ].map(({ digit, label, title }) => (
+                    <div key={label} style={{ textAlign: 'center', flex: '1 1 0' }}>
+                      <div style={{
+                        fontFamily: '"Courier New", monospace',
+                        fontSize: '1.4rem',
+                        fontWeight: 800,
+                        color: ACCENT,
+                        lineHeight: 1.2,
+                      }}>{digit}</div>
+                      <div style={{ fontSize: '0.65rem', fontWeight: 700, color: '#94a3b8', letterSpacing: '0.04em', marginTop: '0.2rem' }}>{label}</div>
+                      <div style={{ fontSize: '0.6rem', color: '#64748b', marginTop: '0.1rem', lineHeight: 1.3 }}>{title}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
               <CopyButton text={cnicResult.formatted} colors={colors} />
             </>
           ) : (
@@ -590,6 +709,24 @@ export default function CnicValidator() {
           {bFormResult.valid ? (
             <>
               <InfoBox color="#16a34a">{bFormResult.note}</InfoBox>
+              {bFormResult.province && (
+                <div style={{
+                  background: colors.cardBg,
+                  border: `1px solid ${colors.border}`,
+                  borderRadius: '0.75rem',
+                  padding: '0.75rem 1rem',
+                  marginTop: '0.75rem',
+                }}>
+                  <ResultRow label="Province / Territory" value={bFormResult.province} valueColor={bFormResult.provinceColor} />
+                  <ResultRow label="Division" value={bFormResult.division} valueColor={colors.text} />
+                  <ResultRow label="District" value={bFormResult.district} valueColor={ACCENT} />
+                  <ResultRow
+                    label="Gender (last digit)"
+                    value={bFormResult.gender}
+                    valueColor={bFormResult.gender === 'Male' ? '#0284c7' : '#be185d'}
+                  />
+                </div>
+              )}
               <CopyButton text={bFormResult.formatted} colors={colors} />
             </>
           ) : (
@@ -639,7 +776,12 @@ export default function CnicValidator() {
           </div>
           {ntnResult.valid ? (
             <>
-              <InfoBox color="#16a34a">{ntnResult.note}</InfoBox>
+              <InfoBox color="#16a34a">
+                <strong>✓ Valid NTN</strong><br />
+                {ntnResult.note}<br /><br />
+                <span style={{ color: '#f59e0b' }}>ℹ️ {ntnResult.nadraNote}</span><br />
+                <span style={{ marginTop: '0.3rem', display: 'inline-block' }}>🔗 {ntnResult.atlNote}</span>
+              </InfoBox>
               <CopyButton text={ntnResult.formatted} colors={colors} />
             </>
           ) : (
@@ -690,6 +832,21 @@ export default function CnicValidator() {
           {strnResult.valid ? (
             <>
               <InfoBox color="#16a34a">{strnResult.note}</InfoBox>
+              <div style={{
+                background: colors.cardBg,
+                border: `1px solid ${colors.border}`,
+                borderRadius: '0.75rem',
+                padding: '0.75rem 1rem',
+                marginTop: '0.75rem',
+              }}>
+                <ResultRow label="RTO Office" value={strnResult.rtoCity} valueColor={ACCENT} />
+                <ResultRow label="RTO Code (digits 1–4)" value={strnResult.rtoCode} valueColor={colors.text} />
+                <ResultRow label="NTN Portion (digits 5–11)" value={strnResult.ntnPortion} valueColor={colors.text} />
+                <ResultRow label="Branch Code (digits 12–13)" value={strnResult.branchCode} valueColor={colors.text} />
+                {strnResult.checkDigit && (
+                  <ResultRow label="Check Digit (14th)" value={strnResult.checkDigit} valueColor={colors.text} />
+                )}
+              </div>
               <CopyButton text={strnResult.formatted} colors={colors} />
             </>
           ) : (

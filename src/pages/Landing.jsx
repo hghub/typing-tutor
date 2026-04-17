@@ -31,12 +31,15 @@ export default function Landing() {
         <div style={{ display: 'inline-block', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)', borderRadius: 999, padding: '0.3rem 1rem', fontSize: '0.8rem', color: 'var(--color-primary)', marginBottom: '1.5rem' }}>
           📵 Files never leave your browser · 100% Private
         </div>
-        <h1 style={{ fontSize: 'clamp(2rem,5vw,3.5rem)', fontWeight: 800, margin: '0 0 1rem', lineHeight: 1.2 }}>
-          40+ Free Privacy-First<br />
-          <span style={{ color: 'var(--color-primary)' }}>Browser Tools</span>
+        <h1 style={{ fontSize: 'clamp(2rem,5vw,3.5rem)', fontWeight: 800, margin: '0 0 0.5rem', lineHeight: 1.2 }}>
+          Type. Learn. Earn.<br />
+          <span style={{ color: 'var(--color-primary)' }}>With Typely</span>
         </h1>
-        <p style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem', maxWidth: 520, margin: '0 auto 2rem' }}>
-          PDF tools, writing helpers, calculators and more — all run in your browser. Zero uploads. Zero tracking.
+        <p style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem', maxWidth: 520, margin: '0 auto 0.5rem' }}>
+          50+ free privacy-first browser tools — PDF suite, writing helpers, Pakistan tax & identity, productivity and more.
+        </p>
+        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', maxWidth: 520, margin: '0 auto 2rem', opacity: 0.7 }}>
+          Zero uploads. Zero tracking. Everything runs in your browser.
         </p>
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link to="/tools" style={{ background: 'var(--color-primary)', color: '#0f172a', padding: '0.75rem 2rem', borderRadius: 8, textDecoration: 'none', fontWeight: 700, fontSize: '1rem' }}>

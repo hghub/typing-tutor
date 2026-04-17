@@ -40,9 +40,9 @@ export const TOOLS = [
   },
   {
     id: 'pomodoro',
-    name: 'Pomodoro Timer',
-    nameUrdu: 'پوموڈورو ٹائمر',
-    tagline: 'Focus in 25-min bursts. Take breaks. Stay sharp.',
+    name: 'Pomodoro — Focus Engine',
+    nameUrdu: 'فوکس انجن — پوموڈورو',
+    tagline: 'Deep work in 25-min sprints. Beat distraction. Get things done.',
     taglineUrdu: '۲۵ منٹ توجہ دیں، وقفہ لیں، ذہن تازہ رکھیں',
     description: 'A clean, distraction-free Pomodoro timer with Web Audio beeps, configurable durations, session history and a live countdown in your browser tab.',
     icon: '🍅',

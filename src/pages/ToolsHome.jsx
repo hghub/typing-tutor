@@ -7,7 +7,7 @@ import FeedbackButton from '../components/FeedbackButton'
 import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
 
-const FEATURED_IDS = ['expense-analyzer', 'data-leak-detector', 'measurement-tracker']
+const FEATURED_IDS = ['typing-tutor', 'word-counter', 'pomodoro', 'tax-calculator', 'urdu-keyboard']
 const LAST_VISIT_KEY = 'typely_last_visit'
 
 // ── "New" badge logic ─────────────────────────────────────────────────────────
@@ -320,13 +320,68 @@ export default function ToolsHome() {
             <h2 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800, color: colors.text, letterSpacing: '-0.01em' }}>⭐ Featured Tools</h2>
             <span style={{ fontSize: '0.72rem', fontWeight: 600, color: '#f59e0b', background: '#f59e0b18', border: '1px solid #f59e0b33', borderRadius: '1rem', padding: '0.15rem 0.55rem' }}>Most Popular</span>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.25rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.25rem' }}>
             {featuredTools.map(tool => (
               <ToolCard key={tool.id} tool={tool} colors={colors} isDark={isDark} featured
                 urduLabels={prefs.urduLabels} isNew={isNewTool(tool, lastVisit)} />
             ))}
+            {/* PDF Tools — category group card */}
+            <Link to="/tools#pdf" style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
+              <div style={{
+                background: isDark ? '#1e293b' : '#fff',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                borderRadius: '1rem', overflow: 'hidden', cursor: 'pointer', height: '100%',
+                boxSizing: 'border-box', display: 'flex', flexDirection: 'column',
+                transition: 'border-color 0.2s, transform 0.2s, box-shadow 0.2s',
+              }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = '#f97316'; e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 12px 32px #f9731628' }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
+              >
+                <div style={{ height: '3px', background: 'linear-gradient(to right, #f97316, #f9731666)' }} />
+                <div style={{ padding: '1.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+                    <span style={{ fontSize: '2.2rem' }}>📄</span>
+                    <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#f97316', background: '#f9731618', border: '1px solid #f9731633', borderRadius: '1rem', padding: '0.2rem 0.55rem', letterSpacing: '0.05em' }}>⭐ FEATURED</span>
+                  </div>
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: colors.text, margin: '0 0 0.4rem', lineHeight: 1.3 }}>PDF Tools Suite</h3>
+                  <p style={{ fontSize: '0.83rem', color: '#f97316', fontWeight: 600, margin: '0 0 0.5rem', lineHeight: 1.4 }}>7 PDF tools — compress, merge, split, convert & more</p>
+                  <p style={{ fontSize: '0.8rem', color: colors.textSecondary, margin: 0, lineHeight: 1.55, flex: 1 }}>
+                    Compress, merge, split, convert, extract text (OCR), search, and redact PDFs — all in your browser, nothing uploaded.
+                  </p>
+                  <div style={{ marginTop: 'auto', paddingTop: '1rem', display: 'flex', alignItems: 'center', gap: '0.35rem', color: '#f97316', fontSize: '0.8rem', fontWeight: 600, opacity: 0.8 }}>
+                    View all PDF tools →
+                  </div>
+                </div>
+              </div>
+            </Link>
           </div>
         </section>
+
+        {/* ── Category Jump Nav ── */}
+        <div style={{ marginBottom: '2rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center' }}>
+          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: colors.textSecondary, letterSpacing: '0.05em', textTransform: 'uppercase', marginRight: '0.25rem' }}>Jump to:</span>
+          {TOOL_CATEGORIES.map(cat => {
+            const count = visibleTools.filter(t => t.category === cat.id).length
+            if (!count) return null
+            return (
+              <a key={cat.id} href={`#${cat.id}`} style={{ textDecoration: 'none' }}>
+                <span style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '0.3rem',
+                  background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)',
+                  border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)'}`,
+                  borderRadius: '2rem', padding: '0.3rem 0.75rem',
+                  fontSize: '0.78rem', fontWeight: 600, color: colors.text,
+                  cursor: 'pointer', transition: 'all 0.15s',
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)' }}
+                  onMouseLeave={e => { e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)' }}
+                >
+                  {cat.icon} {cat.label} <span style={{ fontSize: '0.68rem', color: colors.textSecondary }}>({count})</span>
+                </span>
+              </a>
+            )
+          })}
+        </div>
 
         {/* ── All Tools by Category ── */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
@@ -335,7 +390,7 @@ export default function ToolsHome() {
             if (!tools.length) return null
             const newCount = tools.filter(t => isNewTool(t, lastVisit)).length
             return (
-              <section key={cat.id}>
+              <section key={cat.id} id={cat.id}>
                 <div style={{
                   display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem',
                   paddingBottom: '0.75rem',

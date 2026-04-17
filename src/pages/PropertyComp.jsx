@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import DisclaimerBlock from '../components/DisclaimerBlock'
 import { useTheme } from '../hooks/useTheme'
+const ACCENT = '#0ea5e9'
 const USD_RATE = 280 // approximate: 1 USD = 280 PKR
 const MARLA_TO_SQFT = 272.25
 

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
 
@@ -266,6 +266,18 @@ export default function MarkdownScraper() {
     const { markdown, toc } = htmlToMarkdown(htmlInput, { generateToc, stripComments })
     setResult({ markdown, toc })
     setActiveTab('markdown')
+  }, [htmlInput, generateToc, stripComments])
+
+  // Auto-convert when a full HTML doc is pasted (detected by length + starts with <)
+  useEffect(() => {
+    const trimmed = htmlInput.trim()
+    if (!trimmed || trimmed.length < 200 || !trimmed.startsWith('<')) return
+    const timer = setTimeout(() => {
+      const { markdown, toc } = htmlToMarkdown(trimmed, { generateToc, stripComments })
+      setResult({ markdown, toc })
+      setActiveTab('markdown')
+    }, 500)
+    return () => clearTimeout(timer)
   }, [htmlInput, generateToc, stripComments])
 
   const activeContent = result

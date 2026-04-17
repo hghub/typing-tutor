@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import DisclaimerBlock from '../components/DisclaimerBlock'
 import { useTheme } from '../hooks/useTheme'
+const ACCENT = '#0ea5e9'
 const CURRENCIES = [
   { code: 'PKR', symbol: 'PKR' },
   { code: 'USD', symbol: '$' },

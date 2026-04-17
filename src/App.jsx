@@ -676,13 +676,15 @@ function App() {
         {finished && <CompletionCard wpm={wpm} cpm={cpm} accuracy={accuracy} currentLangDir={currentLangDir} isNewBest={isNewBest} colors={colors} xpEarned={xpEarned} challengeData={challengeData} activeRoom={activeRoom} onSubmitToRoom={handleSubmitToRoom} isKidsMode={isKidsMode} onReset={handleResetTest} onReaction={handleSessionReaction} onChallenge={() => {
           const data = { wpm, accuracy, difficulty, language, passageIndex }
           const encoded = encodeURIComponent(btoa(JSON.stringify(data)))
-          const url = `${window.location.origin}${window.location.pathname}?c=${encoded}`
+          const origin = window.location.origin.replace('://www.', '://')
+          const url = `${origin}${window.location.pathname}?c=${encoded}`
           navigator.clipboard.writeText(url).catch(() => {})
         }} onSendResult={() => {
           // Encode both scores so sender can see who won
           const data = { friendWpm: wpm, friendAccuracy: accuracy, myWpm: challengeData?.wpm, myAccuracy: challengeData?.accuracy }
           const encoded = encodeURIComponent(btoa(JSON.stringify(data)))
-          const url = `${window.location.origin}${window.location.pathname}?r=${encoded}`
+          const origin = window.location.origin.replace('://www.', '://')
+          const url = `${origin}${window.location.pathname}?r=${encoded}`
           navigator.clipboard.writeText(url).catch(() => {})
         }} />}
         {finished && <TypingAnalysis analysis={analysis} isDark={isDark} colors={colors} onStartDrill={handleStartDrill} />}

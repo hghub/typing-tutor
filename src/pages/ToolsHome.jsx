@@ -11,12 +11,41 @@ const FEATURED_IDS = ['typing-tutor', 'word-counter', 'pomodoro', 'tax-calculato
 const LAST_VISIT_KEY = 'typely_last_visit'
 const TOP_N = 6
 
-// Preferred category display order
+// Category display order (matches user spec 1–14)
 const CATEGORY_ORDER = [
-  'typing', 'finance', 'pdf', 'writing', 'pakistan',
-  'developer', 'health', 'productivity', 'language',
-  'security', 'business', 'education', 'travel', 'legal',
+  'typing',       // 1
+  'productivity', // 2
+  'writing',      // 3
+  'language',     // 4
+  'pakistan',     // 5
+  'travel',       // 6
+  'security',     // 7
+  'pdf',          // 8
+  'finance',      // 9
+  'health',       // 10
+  'developer',    // 11
+  'education',    // 12
+  'business',     // 13
+  'legal',        // 14
 ]
+
+// Tool display order within each category
+const CATEGORY_TOOL_ORDER = {
+  typing:      ['typing-tutor'],
+  productivity:['pomodoro','world-time','daily-planner','habit-tracker','voice-diary','kameti','measurement-tracker'],
+  writing:     ['word-counter','text-cleaner','doc-composer'],
+  language:    ['urdu-keyboard','color-palette'],
+  pakistan:    ['tax-calculator','pk-id-tax-hub','tax-optimizer','kameti','driving-fines','gold-price','salary-slip'],
+  travel:      ['packing-list','budget-splitter'],
+  security:    ['text-encryptor','data-leak-detector','doc-redaction'],
+  pdf:         ['compress-pdf','merge-pdf','split-pdf','pdf-convert','doc-converter','text-extractor','pdf-search'],
+  finance:     ['loan-manager','gold-price','currency-converter','expense-analyzer','freelancer-risk','voice-invoice','loan-emi','position-size-calc'],
+  health:      ['drug-checker','symptom-tracker','measurement-tracker'],
+  developer:   ['json-formatter','data-transformer','markdown-scraper','log-analyzer','mock-data','schema-mapper','regex-tester','config-converter','trace-correlator'],
+  education:   ['student-groups'],
+  business:    ['warranty-tracker','property-comp','refrigerant-calc'],
+  legal:       ['timeline-builder'],
+}
 
 // ── "New" badge logic ─────────────────────────────────────────────────────────
 function getLastVisit() {
@@ -59,7 +88,7 @@ function MarqueeTicker({ tools, isDark, colors }) {
     { label: '📏 Track anything · Measurement Tracker', color: '#8b5cf6', path: '/tools/measurement-tracker' },
     { label: '🔒 Encrypt your messages privately', color: '#06b6d4', path: '/tools/text-encryptor' },
     { label: '🚗 Track driving fines & violations', color: '#f97316', path: '/tools/driving-fines' },
-    { label: '📊 33+ free tools · No signup needed', color: '#3b82f6', path: '/tools' },
+    { label: '📊 54 free tools · No signup needed', color: '#3b82f6', path: '/tools' },
   ]
   const doubled = [...items, ...items]
 
@@ -405,10 +434,16 @@ export default function ToolsHome() {
             .map((cat) => {
             const tools = visibleTools.filter((t) => t.category === cat.id)
             if (!tools.length) return null
-            const newCount = tools.filter(t => isNewTool(t, lastVisit)).length
+            // Sort tools within the category per the defined order
+            const catOrder = CATEGORY_TOOL_ORDER[cat.id] || []
+            const sortedTools = [...tools].sort((a, b) => {
+              const ai = catOrder.indexOf(a.id); const bi = catOrder.indexOf(b.id)
+              return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi)
+            })
+            const newCount = sortedTools.filter(t => isNewTool(t, lastVisit)).length
             const isExpanded = !!expanded[cat.id]
-            const visibleCatTools = isExpanded ? tools : tools.slice(0, TOP_N)
-            const hasMore = tools.length > TOP_N
+            const visibleCatTools = isExpanded ? sortedTools : sortedTools.slice(0, TOP_N)
+            const hasMore = sortedTools.length > TOP_N
             return (
               <section key={cat.id} id={cat.id}>
                 <div style={{
@@ -417,7 +452,7 @@ export default function ToolsHome() {
                   borderBottom: `2px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)'}`,
                 }}>
                   <h2 style={{ margin: 0, fontSize: '1rem', fontWeight: 800, color: colors.text, letterSpacing: '-0.01em' }}>{cat.label}</h2>
-                  <span style={{ fontSize: '0.7rem', fontWeight: 700, color: colors.textSecondary, background: isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)', borderRadius: '1rem', padding: '0.15rem 0.55rem' }}>{tools.length}</span>
+                  <span style={{ fontSize: '0.7rem', fontWeight: 700, color: colors.textSecondary, background: isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)', borderRadius: '1rem', padding: '0.15rem 0.55rem' }}>{sortedTools.length}</span>
                   {newCount > 0 && (
                     <span style={{ fontSize: '0.68rem', fontWeight: 700, color: '#10b981', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '1rem', padding: '0.15rem 0.55rem' }}>
                       +{newCount} new
@@ -441,7 +476,7 @@ export default function ToolsHome() {
                       onMouseEnter={e => e.currentTarget.style.borderColor = '#06b6d4'}
                       onMouseLeave={e => e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)'}
                     >
-                      {isExpanded ? `Show less ↑` : `View all ${tools.length} tools ↓`}
+                      {isExpanded ? `Show less ↑` : `View all ${sortedTools.length} tools ↓`}
                     </button>
                   </div>
                 )}

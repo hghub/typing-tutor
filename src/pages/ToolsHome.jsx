@@ -354,6 +354,10 @@ export default function ToolsHome() {
                 </div>
               </div>
             </a>
+          </div>
+        </section>
+
+        {/* ── Category Jump Nav ── */}
         <div style={{ marginBottom: '2rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center' }}>
           <span style={{ fontSize: '0.75rem', fontWeight: 700, color: colors.textSecondary, letterSpacing: '0.05em', textTransform: 'uppercase', marginRight: '0.25rem' }}>Jump to:</span>
           {TOOL_CATEGORIES.map(cat => {

@@ -4,9 +4,50 @@ import { TOOLS } from '../tools/registry'
 import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
 
+const DATA_KEYS = [
+  'typely_diary','typely_driving_fines','typely_expense_history',
+  'typely_freelancer_assessments','typely_goal','typely_gold_rates',
+  'typely_habits','typely_leak_log','typely_loans','typely_measurements',
+  'typely_palettes','typely_planner','typely_pomodoro_sessions',
+  'typely_symptoms','typely_warranties','typely_worldtime_pins',
+]
+
 function SettingsPopover({ colors, isDark, onClose }) {
   const { prefs, togglePref } = usePreferences()
   const ref = useRef(null)
+  const importRef = useRef(null)
+
+  const handleExportAll = () => {
+    const backup = { version: 1, exported: new Date().toISOString(), data: {} }
+    DATA_KEYS.forEach(key => {
+      const val = localStorage.getItem(key)
+      if (val) backup.data[key] = JSON.parse(val)
+    })
+    const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' })
+    const a = document.createElement('a')
+    a.href = URL.createObjectURL(blob)
+    a.download = `typely-backup-${new Date().toISOString().split('T')[0]}.json`
+    a.click()
+    URL.revokeObjectURL(a.href)
+  }
+
+  const handleImportAll = (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      try {
+        const parsed = JSON.parse(ev.target.result)
+        const data = parsed.data || parsed
+        Object.entries(data).forEach(([key, val]) => {
+          if (DATA_KEYS.includes(key)) localStorage.setItem(key, JSON.stringify(val))
+        })
+        alert('✅ Backup restored! Reload the page to see your data.')
+      } catch { alert('❌ Invalid backup file.') }
+    }
+    reader.readAsText(file)
+    e.target.value = ''
+  }
 
   useEffect(() => {
     const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) onClose() }
@@ -63,6 +104,29 @@ function SettingsPopover({ colors, isDark, onClose }) {
           </div>
         </div>
       ))}
+
+      {/* ── Data Backup ── */}
+      <div style={{ borderTop: `1px solid ${isDark ? '#334155' : '#e2e8f0'}`, marginTop: '0.5rem', paddingTop: '0.6rem' }}>
+        <div style={{ fontSize: '0.7rem', fontWeight: 700, color: colors.textSecondary, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '0.5rem', padding: '0 0.25rem' }}>
+          Data Backup
+        </div>
+        <div style={{ display: 'flex', gap: '0.4rem' }}>
+          <button onClick={handleExportAll} style={{
+            flex: 1, padding: '0.45rem 0.5rem', borderRadius: '0.5rem', border: `1px solid ${isDark ? '#334155' : '#e2e8f0'}`,
+            background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)', color: colors.text,
+            fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.3rem',
+          }}>⬇️ Export All</button>
+          <button onClick={() => importRef.current?.click()} style={{
+            flex: 1, padding: '0.45rem 0.5rem', borderRadius: '0.5rem', border: `1px solid ${isDark ? '#334155' : '#e2e8f0'}`,
+            background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)', color: colors.text,
+            fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.3rem',
+          }}>⬆️ Import</button>
+          <input ref={importRef} type="file" accept=".json" onChange={handleImportAll} style={{ display: 'none' }} />
+        </div>
+        <div style={{ fontSize: '0.68rem', color: colors.textSecondary, marginTop: '0.4rem', padding: '0 0.25rem', lineHeight: 1.4 }}>
+          Move all your data to another device
+        </div>
+      </div>
     </div>
   )
 }

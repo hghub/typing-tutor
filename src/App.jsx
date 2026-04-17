@@ -31,6 +31,7 @@ import CompletionCard from './components/CompletionCard'
 import AchievementToast from './components/AchievementToast'
 import InstallBanner from './components/InstallBanner'
 import EmojiPopup from './components/EmojiPopup'
+import ToolSEOFooter from './components/ToolSEOFooter'
 
 // Lazy-loaded — only downloaded when user actually opens them
 const TypingAnalysis     = lazy(() => import('./components/TypingAnalysis'))
@@ -843,6 +844,24 @@ function App() {
         </div>
       )}
 
+      {/* SEO Footer */}
+      <ToolSEOFooter
+        heading="Free Typing Speed Test & Tutor — Improve Your WPM Online"
+        paras={[
+          "Typely is a free online typing tutor and speed test that helps you measure and improve your typing speed in words per minute (WPM). Whether you're a complete beginner or an experienced typist looking to push past 80 WPM, Typely adapts to your skill level and tracks your progress over time.",
+          "Unlike other typing tests that just show your speed, Typely provides a full training environment: targeted drills for problem keys, customizable difficulty levels, accuracy tracking, and a leaderboard to compete with others. Practice with real English passages, code snippets, and even Urdu text.",
+          "The average person types at 40 WPM. Touch typists average 60–70 WPM. Professional typists and transcriptionists reach 80–100 WPM. Top competitive typists on platforms like TypeRacer exceed 120 WPM. With consistent daily practice using Typely, most users see measurable improvement within 2–3 weeks.",
+          "Typely runs entirely in your browser — no download, no account, no subscription. Your typing history is saved locally in your browser so you can track your progress without ever signing up. It works on desktop and tablet, with a physical keyboard.",
+        ]}
+        faqs={[
+          { q: "What is a good typing speed in WPM?", a: "The average is 40 WPM. Above 60 WPM is considered proficient. 80+ WPM is excellent. Professional typists typically reach 75–100 WPM. Speed above 120 WPM is elite-level." },
+          { q: "How long does it take to improve typing speed?", a: "With 20–30 minutes of daily practice, most people improve by 10–15 WPM within 2–3 weeks. Touch typing (not looking at the keyboard) is the key technique to develop first." },
+          { q: "Does this work for beginners?", a: "Yes. Typely includes beginner modes with simpler words, slower pacing, and key-by-key guidance. Start with the Beginner lesson and work your way up." },
+          { q: "Can I practice Urdu typing?", a: "Yes. Typely includes Urdu text passages and Urdu keyboard layout support. Switch to Urdu mode in the settings to practice Roman Urdu or native Urdu script." },
+          { q: "Is my typing data private?", a: "Yes. All data is stored only in your browser's localStorage. Nothing is sent to any server. Your typing history, scores, and progress stay on your device only." },
+          { q: "Does it work on mobile?", a: "Typely is optimised for desktop with a physical keyboard. Mobile/touchscreen typing is not the intended use case, though the tool will load on mobile browsers." },
+        ]}
+      />
       {/* Footer */}
       <div style={{ textAlign: 'center', marginTop: '2rem', paddingBottom: '1rem' }}>
         <p style={{ color: colors.textSecondary, fontSize: '0.75rem', margin: 0 }}>

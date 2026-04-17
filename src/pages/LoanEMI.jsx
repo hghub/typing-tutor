@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import ToolLayout from '../components/ToolLayout'
+import ToolSEOFooter from '../components/ToolSEOFooter'
 import { useTheme } from '../hooks/useTheme'
 import DisclaimerBlock from '../components/DisclaimerBlock'
 
@@ -230,6 +231,23 @@ export default function LoanEMI() {
 
         <DisclaimerBlock type="professional" overrideBodyEn="📊 Uses the standard reducing-balance (diminishing balance) method — the same formula used by banks. Each month's interest is calculated on the remaining principal, not the original amount. This is more accurate than flat-rate EMI." />
       </div>
+      <ToolSEOFooter
+        heading="Free Loan EMI Calculator — Monthly Instalment Planner"
+        paras={[
+          "Planning to buy a house, car, or take a personal loan? Use Rafiqy's Loan EMI Calculator to instantly calculate your monthly instalment (EMI), total payment, and total interest payable — all in your browser, with zero data uploaded.",
+          "EMI stands for Equated Monthly Instalment — the fixed amount you pay each month to repay a loan over a set period. Our calculator uses the standard reducing-balance (diminishing balance) method, which is the same formula used by Pakistani banks including HBL, UBL, MCB, and others.",
+          "Enter your principal loan amount, annual interest rate, and tenure in months or years. The calculator instantly shows you the monthly EMI, the full amortisation schedule (month-by-month breakdown of principal vs interest), and the total cost of the loan.",
+          "This tool is particularly useful for comparing loan options. Try different interest rates or tenures to see how your EMI changes — helping you choose the most affordable option before approaching a bank.",
+          "Whether you're calculating a home loan, car financing, or a business loan, this tool gives you the full picture so you can make an informed decision. Available 24/7 for free with no sign-up required.",
+        ]}
+        faqs={[
+          { q: "What is EMI?", a: "EMI (Equated Monthly Instalment) is the fixed monthly payment you make to repay a loan. It includes both principal repayment and interest, calculated so the total is split into equal monthly amounts over the loan tenure." },
+          { q: "Which EMI formula does this calculator use?", a: "It uses the standard reducing-balance (diminishing balance) method: EMI = P × r × (1+r)^n / ((1+r)^n - 1), where P is the principal, r is the monthly interest rate, and n is the number of months." },
+          { q: "Can I calculate a Pakistani bank loan EMI?", a: "Yes. Enter the loan amount in PKR, the annual interest rate offered by your bank (e.g. 18% for a personal loan), and the tenure. The calculator works for any currency." },
+          { q: "How is the amortisation schedule calculated?", a: "Each month, interest is calculated on the remaining principal balance. The EMI minus that month's interest goes towards reducing the principal. This continues until the loan is fully repaid." },
+          { q: "Is a longer tenure better?", a: "A longer tenure reduces your monthly EMI but significantly increases the total interest you pay. Use the calculator to compare — often a slightly higher EMI saves a large amount in total interest." },
+        ]}
+      />
     </ToolLayout>
   )
 }

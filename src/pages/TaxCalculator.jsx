@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import ToolLayout from '../components/ToolLayout'
+import ToolSEOFooter from '../components/ToolSEOFooter'
 import { useTheme } from '../hooks/useTheme'
 import DisclaimerBlock from '../components/DisclaimerBlock'
 import {
@@ -408,6 +409,23 @@ export default function TaxCalculator() {
 
       {/* Footer disclaimer */}
       <DisclaimerBlock type="tax" />
+      <ToolSEOFooter
+        heading="Pakistan Income Tax Calculator — FBR Slab Rates 2025-26"
+        paras={[
+          "Calculate your Pakistan income tax accurately for Tax Year 2026 (Financial Year 2025-26) using the latest FBR slab rates from the Finance Act 2025. This tool covers salaried individuals, business individuals, and includes all major deductions and rebates.",
+          "The calculator uses the official FBR tax slabs: 0% for income up to Rs 600,000; 1% on income between Rs 600,001–1,200,000; 11% on Rs 1,200,001–2,200,000; 23% on Rs 2,200,001–3,200,000; 30% on Rs 3,200,001–4,100,000; and 35% on income above Rs 4,100,000.",
+          "Beyond basic slabs, the tool supports a surcharge of 10% on tax exceeding Rs 1,500,000, the VPS (Voluntary Pension Scheme) deduction of up to Rs 500,000 for salaried individuals, Zakat/charitable donations deductible under Section 60, and the senior citizen (60+) rebate of 50% on tax payable.",
+          "Your data stays on your device — nothing is sent to FBR or any server. This tool is intended for estimation and planning purposes. Always verify your final tax liability with a registered tax practitioner or directly on the IRIS portal.",
+        ]}
+        faqs={[
+          { q: "Which tax year does this calculator cover?", a: "The calculator is configured for Tax Year 2026, which covers income earned from July 1, 2025 to June 30, 2026 (Financial Year 2025-26). The slab rates are from the Finance Act 2025." },
+          { q: "What is the current tax-free income limit in Pakistan?", a: "For Tax Year 2026, income up to Rs 600,000 per year is tax-free (0% slab). This applies to salaried individuals." },
+          { q: "Can I use this for a business income calculation?", a: "Yes. The tool covers both salaried and business individuals under normal tax regime. Select the appropriate income type at the top of the calculator." },
+          { q: "What is the surcharge and who pays it?", a: "A 10% surcharge applies to individuals whose total tax liability exceeds Rs 1,500,000. It is applied on the portion of tax above that threshold, not on the income itself." },
+          { q: "Is this tool approved by FBR?", a: "This is an unofficial estimation tool built for planning purposes. While it uses the official FBR slab rates, always verify your final return on the official IRIS portal at iris.fbr.gov.pk." },
+          { q: "How does the VPS deduction work?", a: "Salaried individuals can deduct up to Rs 500,000 per year invested in a Voluntary Pension Scheme from their taxable income, effectively reducing their tax liability. Enter your VPS contribution in the deductions section." },
+        ]}
+      />
     </ToolLayout>
   )
 }

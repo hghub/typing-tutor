@@ -218,6 +218,7 @@ export default function BudgetSplitter() {
 
   const [currency, setCurrency] = useState('PKR')
   const [copyMsg, setCopyMsg] = useState('')
+  const [showAnalytics, setShowAnalytics] = useState(false)
 
   const currencySymbol = CURRENCIES.find((c) => c.code === currency)?.symbol ?? 'PKR'
 
@@ -629,6 +630,137 @@ export default function BudgetSplitter() {
           </SectionCard>
         </div>
       </div>
+
+      {/* Analytics toggle */}
+      {expenses.length > 0 && (
+        <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+          <button
+            onClick={() => setShowAnalytics(v => !v)}
+            style={{
+              padding: '0.6rem 1.5rem', fontSize: '0.85rem', fontWeight: 700,
+              background: showAnalytics ? `${ACCENT}22` : colors.card,
+              border: `1.5px solid ${ACCENT}55`,
+              borderRadius: '2rem', cursor: 'pointer', color: ACCENT,
+              transition: 'all 0.2s',
+            }}
+          >
+            📊 {showAnalytics ? 'Hide Analytics' : 'Show Analytics'}
+          </button>
+        </div>
+      )}
+
+      {/* Analytics panel */}
+      {showAnalytics && expenses.length > 0 && (
+        <div style={{
+          marginTop: '1.25rem', background: colors.card,
+          border: `1px solid ${colors.border}`, borderRadius: '1rem',
+          padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem',
+        }}>
+          <h2 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: ACCENT, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            📊 Analytics
+          </h2>
+
+          {/* Per-person spending bar chart */}
+          <div>
+            <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Per-Person Spending</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              {people
+                .map(p => ({ ...p, paid: settlement.paid[p.id] ?? 0 }))
+                .sort((a, b) => b.paid - a.paid)
+                .map(p => {
+                  const maxPaid = Math.max(...people.map(pp => settlement.paid[pp.id] ?? 0), 1)
+                  const pct = (p.paid / maxPaid) * 100
+                  return (
+                    <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ width: '80px', textAlign: 'right', fontSize: '0.78rem', color: colors.textSecondary, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flexShrink: 0 }}>{p.name}</span>
+                      <div style={{ flex: 1, background: colors.border, borderRadius: '4px', height: '18px', overflow: 'hidden' }}>
+                        <div style={{ width: `${pct}%`, background: ACCENT, height: '100%', borderRadius: '4px', transition: 'width 0.4s ease' }} />
+                      </div>
+                      <span style={{ fontSize: '0.75rem', color: colors.text, fontWeight: 600, flexShrink: 0, minWidth: '70px', textAlign: 'right' }}>{fmt(p.paid, currencySymbol)}</span>
+                    </div>
+                  )
+                })}
+            </div>
+          </div>
+
+          {/* Net balance bar chart */}
+          <div>
+            <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Net Balance per Person</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              {(() => {
+                const maxAbs = Math.max(...people.map(p => Math.abs(settlement.net[p.id] ?? 0)), 1)
+                return people
+                  .map(p => ({ ...p, net: settlement.net[p.id] ?? 0 }))
+                  .sort((a, b) => b.net - a.net)
+                  .map(p => {
+                    const pct = (Math.abs(p.net) / maxAbs) * 50
+                    const isPos = p.net >= -0.005
+                    const barColor = isPos ? '#10b981' : '#ef4444'
+                    return (
+                      <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span style={{ width: '80px', textAlign: 'right', fontSize: '0.78rem', color: colors.textSecondary, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flexShrink: 0 }}>{p.name}</span>
+                        <div style={{ flex: 1, display: 'flex', alignItems: 'center', height: '18px', position: 'relative' }}>
+                          <div style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: '1px', background: colors.border }} />
+                          <div style={{
+                            position: 'absolute',
+                            left: isPos ? '50%' : `${50 - pct}%`,
+                            width: `${pct}%`,
+                            height: '100%',
+                            background: barColor,
+                            borderRadius: isPos ? '0 4px 4px 0' : '4px 0 0 4px',
+                            transition: 'all 0.4s ease',
+                            opacity: 0.8,
+                          }} />
+                        </div>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: barColor, flexShrink: 0, minWidth: '70px', textAlign: 'right' }}>
+                          {isPos ? '+' : '−'}{fmt(Math.abs(p.net), currencySymbol)}
+                        </span>
+                      </div>
+                    )
+                  })
+              })()}
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginTop: '0.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                <div style={{ width: '10px', height: '10px', borderRadius: '2px', background: '#10b981' }} />
+                <span style={{ fontSize: '0.72rem', color: colors.textSecondary }}>gets back</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                <div style={{ width: '10px', height: '10px', borderRadius: '2px', background: '#ef4444' }} />
+                <span style={{ fontSize: '0.72rem', color: colors.textSecondary }}>owes</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Settlement visualization */}
+          {settlement.transactions.length > 0 && (
+            <div>
+              <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Settlement Summary</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                {settlement.transactions.map((t, i) => {
+                  const maxTxn = Math.max(...settlement.transactions.map(tx => tx.amount), 1)
+                  const pct = (t.amount / maxTxn) * 100
+                  return (
+                    <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem' }}>
+                        <span>
+                          <strong style={{ color: '#ef4444' }}>{t.from}</strong>
+                          <span style={{ color: colors.textSecondary }}> → </span>
+                          <strong style={{ color: '#10b981' }}>{t.to}</strong>
+                        </span>
+                        <strong style={{ color: ACCENT }}>{fmt(t.amount, currencySymbol)}</strong>
+                      </div>
+                      <div style={{ background: colors.border, borderRadius: '4px', height: '8px', overflow: 'hidden' }}>
+                        <div style={{ width: `${pct}%`, background: ACCENT, height: '100%', borderRadius: '4px', transition: 'width 0.4s ease' }} />
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </ToolLayout>
   )
 }

@@ -20,11 +20,12 @@ export default function DocConverter() {
   const [resultBytes, setResultBytes] = useState(null)
   const [resultName, setResultName] = useState('')
   const [drag, setDrag] = useState(false)
+  const [extractedText, setExtractedText] = useState('')
   const inputRef = useRef()
 
   const ff = 'system-ui,-apple-system,sans-serif'
 
-  const reset = () => { setFile(null); setStatus('idle'); setResultBytes(null); setResultName(''); setPageCount(0) }
+  const reset = () => { setFile(null); setStatus('idle'); setResultBytes(null); setResultName(''); setPageCount(0); setExtractedText('') }
 
   const handleDrop = async (e) => {
     e.preventDefault(); setDrag(false)
@@ -77,14 +78,27 @@ export default function DocConverter() {
         const arr = await file.arrayBuffer()
         const pdf = await getDocument({ data: arr }).promise
         const items = []
+        const pageTexts = []
         for (let i = 1; i <= pdf.numPages; i++) {
           const page = await pdf.getPage(i)
           const content = await page.getTextContent()
           const text = content.items.map(it => it.str).join(' ').trim()
+          pageTexts.push(text)
           items.push(new Paragraph({ children: [new TextRun({ text: 'Page ' + i, bold: true, size: 26 })] }))
-          if (text) items.push(new Paragraph({ children: [new TextRun({ text, size: 22 })] }))
+          if (text) {
+            const paras = text.split(/\n\n+/).filter(p => p.trim())
+            if (paras.length > 1) {
+              for (const para of paras) {
+                items.push(new Paragraph({ children: [new TextRun({ text: para.trim(), size: 22 })] }))
+              }
+            } else {
+              items.push(new Paragraph({ children: [new TextRun({ text, size: 22 })] }))
+            }
+          }
           items.push(new Paragraph({ text: '' }))
         }
+        const fullText = pageTexts.filter(t => t).join('\n\n')
+        setExtractedText(fullText)
         const doc = new Document({ sections: [{ children: items }] })
         const blob = await Packer.toBlob(doc)
         const bytes = await blob.arrayBuffer()
@@ -189,6 +203,32 @@ export default function DocConverter() {
           </div>
         )}
       </div>
+
+      {extractedText && (
+        <div style={{ marginTop: '1.5rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+            <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 600 }}>Extracted Text Preview</h3>
+            <button
+              onClick={() => navigator.clipboard.writeText(extractedText)}
+              style={{ padding: '0.35rem 0.875rem', background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)',
+                border: '1px solid ' + colors.border, borderRadius: '6px', cursor: 'pointer',
+                fontFamily: ff, fontSize: '0.8rem', color: colors.text }}>
+              📋 Copy Text
+            </button>
+          </div>
+          <textarea
+            readOnly
+            value={extractedText}
+            style={{ width: '100%', minHeight: '200px', fontFamily: 'monospace', fontSize: '0.82rem',
+              background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
+              border: '1px solid ' + colors.border, borderRadius: '8px', padding: '0.75rem',
+              color: colors.text, resize: 'vertical', boxSizing: 'border-box' }}
+          />
+          <p style={{ fontSize: '0.75rem', color: colors.muted, margin: '0.4rem 0 0' }}>
+            ℹ️ PDF→DOCX preserves text content. Complex formatting (tables, columns) may be simplified.
+          </p>
+        </div>
+      )}
       <div style={{ maxWidth:680, margin:'0 auto', padding:'0 1rem 3rem' }}>
         <RelatedTools toolId='doc-converter' />
       </div>

@@ -258,6 +258,9 @@ export default function DocRedaction() {
         <p style={{ color: colors.textSecondary, fontSize: '0.9rem', margin: '0 0 0.35rem' }}>
           Detect and redact sensitive personal information before sharing documents.
         </p>
+        <p style={{ color: colors.textSecondary, fontSize: '0.85rem', margin: '0.25rem 0 0' }}>
+          Also known as: Document Anonymizer · Privacy Cleaner · PII Remover
+        </p>
         <p style={{ color: isDark ? '#818cf8' : ACCENT, fontSize: '0.82rem', fontWeight: 600, margin: 0 }}>
           🛡️ 100% local — your document never leaves your browser.
         </p>

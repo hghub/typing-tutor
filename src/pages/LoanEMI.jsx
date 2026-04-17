@@ -228,7 +228,7 @@ export default function LoanEMI() {
           </div>
         )}
 
-        <DisclaimerBlock type="professional" overrideBodyEn="Results are estimates based on flat reducing-balance EMI formula. Actual bank rates, processing fees and rounding may vary. Consult your bank for exact figures." />
+        <DisclaimerBlock type="professional" overrideBodyEn="📊 Uses the standard reducing-balance (diminishing balance) method — the same formula used by banks. Each month's interest is calculated on the remaining principal, not the original amount. This is more accurate than flat-rate EMI." />
       </div>
     </ToolLayout>
   )

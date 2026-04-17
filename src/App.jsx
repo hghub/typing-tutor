@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import './App.css'
 import { useTheme } from './hooks/useTheme'
@@ -395,6 +396,18 @@ function App() {
 
   return (
     <Suspense fallback={null}>
+    <Helmet>
+      <title>Typely — Free Typing Speed Test &amp; Tutor Online | Rafiqy</title>
+      <meta name="description" content="Free online typing tutor and speed test. Measure your WPM, improve accuracy, and practice with English and Urdu text. No account needed — runs entirely in your browser." />
+      <link rel="canonical" href="https://rafiqy.app/tools/typely" />
+      <meta property="og:title" content="Typely — Free Typing Speed Test &amp; Tutor Online | Rafiqy" />
+      <meta property="og:description" content="Free online typing tutor and speed test. Measure your WPM, improve accuracy, and practice with English and Urdu text." />
+      <meta property="og:url" content="https://rafiqy.app/tools/typely" />
+      <meta property="og:type" content="website" />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:title" content="Typely — Free Typing Speed Test &amp; Tutor Online | Rafiqy" />
+      <meta name="twitter:description" content="Free online typing tutor and speed test. Measure your WPM, improve accuracy, and practice in your browser." />
+    </Helmet>
     <div style={{ minHeight: '100vh', background: colors.bg, transition: 'background 0.3s ease' }}>
       <AnimatedBackground />
 

@@ -80,7 +80,7 @@ export default function Help() {
             Help & Guidance
           </div>
           <h1 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)', fontWeight: 900, margin: '0 0 0.75rem', letterSpacing: '-0.02em', color: colors.text }}>
-            How Typely works
+            How Rafiqy works
           </h1>
           <p style={{ fontSize: '1rem', color: colors.textSecondary, margin: '0 0 1.5rem', lineHeight: 1.65, maxWidth: '580px' }}>
             Everything runs in your browser. No account, no uploads, no tracking. Here's what you need to know about your data, privacy, and settings.
@@ -108,15 +108,15 @@ export default function Help() {
             <Card icon="💾" title="Saved on this device only" color="#06b6d4" isDark={isDark} colors={colors}
               body="All your data (loans, habits, diary entries, fines, etc.) is saved in your browser's localStorage. Nothing is ever sent to a server unless you explicitly turn on Cloud Sync." />
             <Card icon="🚫" title="No account or login needed" color="#10b981" isDark={isDark} colors={colors}
-              body="Typely never asks you to sign up or log in. All tools work immediately, anonymously, and locally." />
+              body="Rafiqy never asks you to sign up or log in. All tools work immediately, anonymously, and locally." />
             <Card icon="👥" title="Shared browser warning" color="#f59e0b" isDark={isDark} colors={colors}
               body="If multiple people use the same browser profile, they can see each other's data. Use a private/incognito window for personal records, or use separate browser profiles." />
             <Card icon="🧹" title="Clearing your data" color="#ef4444" isDark={isDark} colors={colors}
-              body='Clearing browser storage or cookies will permanently delete your Typely data. Always export a backup first via ⚙️ → "Export All" before clearing your browser.' />
+              body='Clearing browser storage or cookies will permanently delete your Rafiqy data. Always export a backup first via ⚙️ → "Export All" before clearing your browser.' />
           </div>
 
           <div style={{ background: isDark ? 'rgba(6,182,212,0.07)' : 'rgba(6,182,212,0.05)', border: '1px solid rgba(6,182,212,0.25)', borderRadius: '0.75rem', padding: '1rem 1.25rem', fontSize: '0.83rem', color: colors.textSecondary, lineHeight: 1.65 }}>
-            <strong style={{ color: '#06b6d4' }}>💡 Best practice:</strong> Export a backup regularly via the <strong style={{ color: colors.text }}>⚙️ gear icon → Export All</strong>. Store the <code style={{ background: isDark ? '#334155' : '#f1f5f9', padding: '0.1rem 0.35rem', borderRadius: '0.3rem', fontSize: '0.8rem' }}>typely-backup-*.json</code> file somewhere safe (cloud drive, email to yourself).
+            <strong style={{ color: '#06b6d4' }}>💡 Best practice:</strong> Export a backup regularly via the <strong style={{ color: colors.text }}>⚙️ gear icon → Export All</strong>. Store the <code style={{ background: isDark ? '#334155' : '#f1f5f9', padding: '0.1rem 0.35rem', borderRadius: '0.3rem', fontSize: '0.8rem' }}>Rafiqy-backup-*.json</code> file somewhere safe (cloud drive, email to yourself).
           </div>
         </Section>
 
@@ -128,7 +128,7 @@ export default function Help() {
             <Card icon="☁️" title="When Cloud Sync is ON" color="#06b6d4" isDark={isDark} colors={colors}
               body="Data from tools like Loan Manager, Habit Tracker, Voice Diary, Kameti and Daily Planner syncs to a secure anonymous cloud session — identified only by a random ID, no email needed." />
             <Card icon="⬇️" title="Export All — move to another device" color="#8b5cf6" isDark={isDark} colors={colors}
-              body='Click ⚙️ → "Export All" to download a single JSON backup of all your tool data. Then open Typely on any other browser/device, click ⚙️ → "Import" and pick that file.' />
+              body='Click ⚙️ → "Export All" to download a single JSON backup of all your tool data. Then open Rafiqy on any other browser/device, click ⚙️ → "Import" and pick that file.' />
             <Card icon="🔑" title="Recovery / Session Code" color="#f97316" isDark={isDark} colors={colors}
               body="Some tools show a Recovery Code (a random UUID). This code links your local browser to your cloud session. It only works for cloud sync — it does NOT transfer your localStorage data to another device." />
           </div>
@@ -166,14 +166,14 @@ export default function Help() {
         <Section id="faq" icon="❓" title="Frequently Asked Questions" colors={colors} isDark={isDark}>
           <div>
             {[
-              { q: 'Does Typely work offline?', a: 'Yes. Most tools work fully offline once the page has loaded. A few tools that fetch live data (currency rates, gold prices, weather) require an internet connection for fresh data, but still load the UI offline.' },
+              { q: 'Does Rafiqy work offline?', a: 'Yes. Most tools work fully offline once the page has loaded. A few tools that fetch live data (currency rates, gold prices, weather) require an internet connection for fresh data, but still load the UI offline.' },
               { q: 'Will my data survive if I close the browser?', a: 'Yes — data is saved in localStorage which persists across browser sessions. It will only be lost if you clear browser data/cookies, or uninstall the browser.' },
-              { q: 'Can I use Typely on multiple devices?', a: 'Yes. Use ⚙️ → Export All on your current device to download a backup file, then on the new device go to ⚙️ → Import and pick that file. All your data will be restored instantly.' },
+              { q: 'Can I use Rafiqy on multiple devices?', a: 'Yes. Use ⚙️ → Export All on your current device to download a backup file, then on the new device go to ⚙️ → Import and pick that file. All your data will be restored instantly.' },
               { q: 'What is the Recovery Code shown in some tools?', a: 'It\'s a random anonymous session ID used for optional cloud sync. It\'s NOT a password and it does NOT transfer your data unless Cloud Sync is turned ON. For moving data between devices, use Export/Import instead.' },
               { q: 'Is my data shared with anyone?', a: 'No. All tool processing is done entirely in your browser. No data is sent to any server unless you explicitly enable Cloud Sync. Even then, it\'s tied only to an anonymous random ID — no email, no name.' },
               { q: 'Why do some tools show "Saved on this device only"?', a: 'This message reminds you that your data is in this browser only, not backed up to the cloud. It appears in tools that store significant personal data (fines, loans, diary, habits). You can dismiss it by enabling Cloud Sync or just ignoring it — your data is safe locally.' },
               { q: 'How do I report a bug or suggest a feature?', a: 'Use the feedback button (💬 floating at the bottom of every page) to send us a quick 👍/👎 or a written note. We read all feedback.' },
-              { q: 'Can I install Typely as an app?', a: 'Yes! Typely is a PWA (Progressive Web App). In Chrome/Edge, look for the install icon in the address bar. On mobile, use "Add to Home Screen" in your browser menu.' },
+              { q: 'Can I install Rafiqy as an app?', a: 'Yes! Rafiqy is a PWA (Progressive Web App). In Chrome/Edge, look for the install icon in the address bar. On mobile, use "Add to Home Screen" in your browser menu.' },
             ].map(item => (
               <FAQ key={item.q} q={item.q} a={item.a} colors={colors} isDark={isDark} />
             ))}
@@ -183,7 +183,7 @@ export default function Help() {
       </main>
 
       <footer style={{ textAlign: 'center', padding: '1rem', color: colors.textSecondary, fontSize: '0.75rem', borderTop: `1px solid ${colors.border}` }}>
-        © {new Date().getFullYear()} Typely ·{' '}
+        © {new Date().getFullYear()} Rafiqy ·{' '}
         <Link to="/tools" style={{ color: 'inherit', textDecoration: 'underline' }}>All Tools</Link>
         {' '}&nbsp;·&nbsp;{' '}
         <Link to="/about" style={{ color: 'inherit', textDecoration: 'underline' }}>About</Link>

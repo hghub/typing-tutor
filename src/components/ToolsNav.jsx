@@ -27,7 +27,9 @@ function SettingsPopover({ colors, isDark, onClose }) {
     const a = document.createElement('a')
     a.href = URL.createObjectURL(blob)
     a.download = `typely-backup-${new Date().toISOString().split('T')[0]}.json`
+    document.body.appendChild(a)
     a.click()
+    document.body.removeChild(a)
     URL.revokeObjectURL(a.href)
   }
 
@@ -211,6 +213,16 @@ export default function ToolsNav({ rightExtras }) {
               <div style={{ width: '1px', height: '20px', background: colors.border, margin: '0 0.1rem' }} />
             </>
           )}
+
+          <Link to="/help" style={{
+            fontSize: '0.82rem', fontWeight: pathname === '/help' ? 700 : 500,
+            color: pathname === '/help' ? '#06b6d4' : colors.textSecondary,
+            textDecoration: 'none', padding: '0.4rem 0.65rem', borderRadius: '0.4rem',
+            transition: 'color 0.15s', whiteSpace: 'nowrap',
+          }}
+            onMouseEnter={e => { if (pathname !== '/help') e.currentTarget.style.color = colors.text }}
+            onMouseLeave={e => { if (pathname !== '/help') e.currentTarget.style.color = colors.textSecondary }}
+          >Help</Link>
 
           <Link to="/about" style={{
             fontSize: '0.82rem', fontWeight: pathname === '/about' ? 700 : 500,

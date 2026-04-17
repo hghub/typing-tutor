@@ -407,13 +407,6 @@ export default function MeasurementTracker() {
     >
       <div style={{ maxWidth: 820, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
 
-        {/* Sync badge */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
-          <p style={{ margin: 0, fontSize: '0.82rem', color: colors.textSecondary }}>
-            {prefs.cloudSync && !useLocal ? '☁️ Cloud Sync on' : '💾 Device only'}
-          </p>
-        </div>
-
         {/* ── Trackers List or Detail ───────────────────────────────────────── */}
         {!selectedTracker ? (
           /* Grid of trackers */
@@ -533,21 +526,6 @@ export default function MeasurementTracker() {
             )}
           </div>
         )}
-
-        {/* ── Data & Recovery ──────────────────────────────────────────────── */}
-        <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: prefs.cloudSync && !useLocal ? 'rgba(6,182,212,0.08)' : 'rgba(245,158,11,0.08)', border: `1px solid ${prefs.cloudSync && !useLocal ? 'rgba(6,182,212,0.25)' : 'rgba(245,158,11,0.25)'}`, display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
-          <span>{prefs.cloudSync && !useLocal ? '☁️' : '💾'}</span>
-          <div style={{ flex: 1 }}>
-            <p style={{ margin: '0 0 0.5rem', fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
-              {prefs.cloudSync && !useLocal ? (
-                <><strong style={{ color: colors.text }}>Cloud Sync is on.</strong>{' '}Records backed up to the cloud. Use your Recovery Code to access them on any browser or device.{' '}<strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong></>
-              ) : (
-                <><strong style={{ color: colors.text }}>Saved on this device only.</strong>{' '}Cloud Sync is off — data lives in this browser only. The Recovery Code will not restore data on another device since nothing is backed up.{' '}<strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong></>
-              )}
-            </p>
-            <RecoveryCodeBox colors={colors} />
-          </div>
-        </div>
 
       </div>
 

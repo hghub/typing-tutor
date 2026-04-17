@@ -66,7 +66,8 @@ const LoanManager        = lazy(() => import('./pages/LoanManager.jsx'))
 const RegexTester        = lazy(() => import('./pages/RegexTester.jsx'))
 const JsonFormatter      = lazy(() => import('./pages/JsonFormatter.jsx'))
 const GoldPrice          = lazy(() => import('./pages/GoldPrice.jsx'))
-const About             = lazy(() => import('./pages/About.jsx'))
+const About              = lazy(() => import('./pages/About.jsx'))
+const Help               = lazy(() => import('./pages/Help.jsx'))
 
 const fallback = (
   <div style={{
@@ -153,6 +154,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/json-formatter"      element={<JsonFormatter />} />
           <Route path="/tools/gold-price"          element={<GoldPrice />} />
           <Route path="/about"                     element={<About />} />
+          <Route path="/help"                      element={<Help />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

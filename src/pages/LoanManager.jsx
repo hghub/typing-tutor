@@ -719,9 +719,7 @@ export default function LoanManager() {
               <p style={{ margin: '0.35rem 0 0', color: colors.textSecondary, fontSize: '0.85rem' }}>
                 Track money you've lent and borrowed — privately, offline, in PKR.
               </p>
-              <span style={{ fontSize: '0.72rem', marginTop: '0.35rem', display: 'inline-block', color: prefs.cloudSync ? '#06b6d4' : colors.textSecondary }}>
-                {syncing ? '⟳ Syncing…' : prefs.cloudSync ? '☁️ Cloud Sync On' : '📴 Local Only'}
-              </span>
+
             </div>
             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
               <button onClick={handleExport} style={{ fontSize: '0.75rem', padding: '0.3rem 0.7rem', borderRadius: '0.4rem', border: `1px solid ${colors.border}`, background: 'transparent', color: colors.textSecondary, cursor: 'pointer' }}>⬇️ Export Backup</button>
@@ -1041,18 +1039,6 @@ export default function LoanManager() {
           </div>
         )}
 
-        <div style={{ marginTop: '1.5rem', padding: '0.75rem 1rem', borderRadius: '0.75rem', background: prefs.cloudSync ? 'rgba(6,182,212,0.08)' : 'rgba(245,158,11,0.08)', border: `1px solid ${prefs.cloudSync ? 'rgba(6,182,212,0.25)' : 'rgba(245,158,11,0.25)'}`, display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
-          <span>{prefs.cloudSync ? '☁️' : '💾'}</span>
-          <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
-            {prefs.cloudSync ? (
-              <><strong style={{ color: colors.text }}>Cloud Sync is on.</strong>{' '}Your records are backed up to the cloud. Enable in Settings to access on any device.{' '}<strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong></>
-            ) : (
-              <><strong style={{ color: colors.text }}>Saved on this device only.</strong>{' '}Cloud Sync is off — data lives in this browser only. Export a backup to keep your records safe.{' '}<strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong></>
-            )}
-          </p>
-        </div>
-
-        <DisclaimerBlock type="financial" overrideBodyEn="All loan records are stored only in this browser's local storage. No data leaves your device. Clearing browser storage will erase all records — export or screenshot important entries." />
       </div>
 
       {/* Modals */}

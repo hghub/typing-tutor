@@ -867,6 +867,51 @@ const TOOL_SEO = {
       { q: 'Is there a file size limit?', a: 'No hard limit. Very large PDFs (100+ pages) take longer for OCR but work correctly. Native text PDFs search instantly regardless of size.' },
     ],
   },
+  'image-suite': {
+    heading: 'Free Online Image Tools — Compress, Convert & Watermark',
+    paras: [
+      'Rafiqy Image Tools Suite gives you four powerful image editing capabilities in one privacy-first tool: compression, format conversion, rotation/flip, and watermarking — entirely in your browser with zero server uploads.',
+      'Use the quality slider to reduce JPEG file sizes by up to 80% while maintaining visual clarity. Perfect for compressing product photos, profile pictures, or blog images before uploading them to websites or WhatsApp.',
+      'Convert between JPG, PNG and WebP with a single click. WebP offers the best compression for web use, while PNG preserves transparency for logos and graphics.',
+      'Add professional watermarks to protect your photography or brand your images. Choose from 9 placement positions, adjust font size, opacity, and color to match your style.',
+    ],
+    faqs: [
+      { q: 'Are my images uploaded to any server?', a: 'No — all processing happens entirely in your browser using HTML5 Canvas. Your images never leave your device.' },
+      { q: 'What image formats are supported?', a: 'You can upload JPG, PNG, WebP, GIF, and BMP. Output formats are JPG, PNG, and WebP.' },
+      { q: 'How much can I compress an image?', a: 'JPEG quality can be reduced from 100% down to 10%. Typical 80% quality gives great visual results at 40-60% smaller file size.' },
+      { q: 'Can I watermark multiple images at once?', a: 'Currently one image at a time. Batch processing is on the roadmap.' },
+    ],
+  },
+  'resume-builder': {
+    heading: 'Free Resume Builder — Professional CV in Minutes',
+    paras: [
+      'Rafiqy Resume Builder helps you create a polished, professional resume without any account or subscription. Fill in your details using the structured form and watch your resume take shape in real-time with the live preview panel.',
+      'Choose between the Modern template (bold colored header, clean typography) or the Classic template (two-column layout, traditional styling). Both are ATS-friendly and designed for Pakistani job markets.',
+      'Your resume data is auto-saved to your browser — come back any time and pick up where you left off. When ready, export to PDF with one click using your browser\'s built-in print engine.',
+      'Add unlimited experience entries, education, skills as chips, projects with tech stacks, and certifications. The builder is structured to match what Pakistani recruiters and international hiring managers look for.',
+    ],
+    faqs: [
+      { q: 'Is my resume data stored on your servers?', a: 'No — everything is saved to your browser\'s localStorage. Rafiqy never sees your personal information.' },
+      { q: 'How do I export my resume to PDF?', a: 'Click the "Export PDF" button. Your browser\'s print dialog will open — select "Save as PDF" as the destination.' },
+      { q: 'Can I use this for Pakistani job applications?', a: 'Absolutely. The form includes fields relevant to Pakistani CVs and the templates are widely accepted by local and international companies.' },
+      { q: 'Can I have multiple resumes?', a: 'Currently one resume is saved at a time. You can export to PDF and start a new one anytime.' },
+    ],
+  },
+  'whatsapp-tools': {
+    heading: 'WhatsApp Tools — Format, Template & Link Generator for Pakistan',
+    paras: [
+      'Rafiqy WhatsApp Tools is a free toolkit for power users and small business owners who rely on WhatsApp for communication. Format messages with bold, italic, and strikethrough before sending, so you always get the look right without trial and error.',
+      'The Template Builder lets you create reusable message templates with {{variable}} placeholders — perfect for order confirmations, appointment reminders, or bulk outreach. Fill in the variables and copy the final message in seconds.',
+      'Generate professional wa.me links for your business with Pakistan number auto-formatting. Share your WhatsApp link on websites, Instagram bios, or business cards — customers click once and start a conversation.',
+      'The Message Counter tells you exactly how many characters and message parts your text uses, including special handling for Urdu/Arabic RTL text which encodes differently than Latin characters.',
+    ],
+    faqs: [
+      { q: 'Does Rafiqy WhatsApp Tools send messages on my behalf?', a: 'No — this is a formatting and utility tool only. You copy the text and send it yourself through WhatsApp.' },
+      { q: 'How does Pakistan number formatting work?', a: 'Enter your number in any common format (03xx-xxxxxxx, 03xxxxxxxxx, +923xxxxxxxxx) and the tool automatically converts it to the international wa.me format (+92...).' },
+      { q: 'How many templates can I save?', a: 'You can save up to 5 templates locally in your browser.' },
+      { q: 'Does the formatter work with Urdu text?', a: 'Yes — WhatsApp formatting (bold, italic, etc.) works the same way for Urdu text. The character counter also detects RTL text.' },
+    ],
+  },
 }
 
 export default TOOL_SEO

@@ -67,6 +67,9 @@ const LoanManager        = lazy(() => import('./pages/LoanManager.jsx'))
 const RegexTester        = lazy(() => import('./pages/RegexTester.jsx'))
 const JsonFormatter      = lazy(() => import('./pages/JsonFormatter.jsx'))
 const GoldPrice          = lazy(() => import('./pages/GoldPrice.jsx'))
+const ImageSuite     = lazy(() => import('./pages/ImageSuite.jsx'))
+const ResumeBuilder  = lazy(() => import('./pages/ResumeBuilder.jsx'))
+const WhatsAppTools  = lazy(() => import('./pages/WhatsAppTools.jsx'))
 const About              = lazy(() => import('./pages/About.jsx'))
 const Help               = lazy(() => import('./pages/Help.jsx'))
 const BlogHome           = lazy(() => import('./pages/BlogHome.jsx'))
@@ -158,6 +161,9 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/regex-tester"        element={<RegexTester />} />
           <Route path="/tools/json-formatter"      element={<JsonFormatter />} />
           <Route path="/tools/gold-price"          element={<GoldPrice />} />
+          <Route path="/tools/image-suite"      element={<ImageSuite />} />
+          <Route path="/tools/resume-builder"   element={<ResumeBuilder />} />
+          <Route path="/tools/whatsapp-tools"   element={<WhatsAppTools />} />
           <Route path="/blogs"                      element={<BlogHome />} />
           <Route path="/blogs/tools/:slug"          element={<BlogPost />} />
           <Route path="/about"                     element={<About />} />

@@ -53,8 +53,8 @@ const CATEGORY_ORDER = [
 // Tool display order within each category
 const CATEGORY_TOOL_ORDER = {
   typing:      ['typing-tutor'],
-  productivity:['pomodoro','world-time','daily-planner','habit-tracker','voice-diary','kameti','measurement-tracker'],
-  writing:     ['word-counter','text-cleaner','doc-composer'],
+  productivity:['pomodoro','world-time','daily-planner','habit-tracker','voice-diary','kameti','measurement-tracker','resume-builder','whatsapp-tools'],
+  writing:     ['word-counter','text-cleaner','doc-composer','image-suite'],
   language:    ['urdu-keyboard','color-palette'],
   pakistan:    ['tax-calculator','pk-id-tax-hub','tax-optimizer','kameti','driving-fines','gold-price','salary-slip'],
   travel:      ['packing-list','budget-splitter'],

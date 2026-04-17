@@ -116,7 +116,7 @@ export default function About() {
             Privacy-first tools that run in your browser
           </h1>
           <p style={{ fontSize: '1.05rem', color: colors.textSecondary, maxWidth: 560, margin: '0 auto', lineHeight: 1.7 }}>
-            Rafiqy started as a typing tutor and grew into a collection of 30+ free, browser-native tools —
+            Rafiqy started as a typing tutor and grew into a collection of 57 free, browser-native tools —
             built for developers, professionals and students everywhere, with local tools for Pakistan.
           </p>
         </div>

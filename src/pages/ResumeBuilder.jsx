@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
 
@@ -24,6 +24,21 @@ export default function ResumeBuilder() {
   const [template, setTemplate] = useState('modern')
   const [mobileTab, setMobileTab] = useState('form')
   const [skillInput, setSkillInput] = useState('')
+  const previewRef = useRef(null)
+
+  function printResume() {
+    const el = previewRef.current
+    if (!el) return
+    const win = window.open('', '_blank', 'width=900,height=1100')
+    win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Resume — ${data.personal.name || 'Rafiqy'}</title><style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { background: #fff; font-family: Georgia, serif; }
+      @media print { @page { margin: 0.5in; } }
+    </style></head><body>${el.innerHTML}</body></html>`)
+    win.document.close()
+    win.focus()
+    setTimeout(() => { win.print(); win.close() }, 400)
+  }
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
@@ -257,17 +272,10 @@ export default function ResumeBuilder() {
     </div>
   )
 
-  const previewPanel = <ResumePreview data={data} template={template} />
+  const previewPanel = <div ref={previewRef}><ResumePreview data={data} template={template} /></div>
 
   return (
     <ToolLayout toolId="resume-builder">
-      {/* Print styles */}
-      <style>{`
-        @media print {
-          body > * { display: none !important; }
-          .resume-print-wrapper { display: block !important; position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; z-index: 9999 !important; background: white !important; }
-        }
-      `}</style>
       <div style={{ color: colors.text }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '1rem' }}>
           <div>
@@ -279,7 +287,7 @@ export default function ResumeBuilder() {
             {['modern','classic'].map(t => (
               <button key={t} onClick={() => setTemplate(t)} style={{ padding: '0.4rem 0.85rem', borderRadius: '6px', border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: '0.8rem', background: template === t ? '#06b6d4' : colors.card, color: template === t ? '#fff' : colors.text, outline: template === t ? '2px solid #06b6d4' : `1px solid ${colors.border}`, textTransform: 'capitalize' }}>{t}</button>
             ))}
-            <button onClick={() => window.print()} style={{ padding: '0.4rem 1rem', borderRadius: '6px', background: '#ef4444', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: '0.8rem' }}>🖨 Export PDF</button>
+            <button onClick={printResume} style={{ padding: '0.4rem 1rem', borderRadius: '6px', background: '#ef4444', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: '0.8rem' }}>🖨 Export PDF</button>
           </div>
         </div>
 

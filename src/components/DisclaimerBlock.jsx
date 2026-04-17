@@ -62,13 +62,25 @@ const CONTENT = {
     },
     accentColor: '#f59e0b',
   },
+  financial: {
+    icon: '💰',
+    en: {
+      strong: 'Not financial advice.',
+      body: 'Prices are entered manually and may not reflect real-time market rates. Gold and silver values fluctuate daily. This tool is for informational purposes only — always verify rates with a certified jeweller or sarafa bazar before transacting.',
+    },
+    ur: {
+      strong: 'مالی مشورہ نہیں۔',
+      body: 'قیمتیں دستی طور پر درج کی جاتی ہیں اور حقیقی وقت کی مارکیٹ شرح کی عکاسی نہیں کر سکتیں۔ سونے اور چاندی کی قیمتیں روزانہ بدلتی رہتی ہیں۔ لین دین سے پہلے ہمیشہ کسی مستند جیولر یا صرافہ بازار سے شرح کی تصدیق کریں۔',
+    },
+    accentColor: '#f59e0b',
+  },
 }
 
 /**
  * DisclaimerBlock — reusable bilingual disclaimer banner.
  * Respects `urduLabels` preference automatically.
  *
- * @param {'storage'|'noApi'|'professional'|'tax'|'health'} type
+ * @param {'storage'|'noApi'|'professional'|'tax'|'health'|'financial'} type
  * @param {string} [overrideBodyEn] - optional custom body text (English only)
  */
 export default function DisclaimerBlock({ type = 'storage', overrideBodyEn }) {

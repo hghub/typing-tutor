@@ -96,7 +96,10 @@ function FormatterTab({ colors, isDark }) {
       <div style={cardStyle(colors)}>
         <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
           {fmtBtns.map(b => (
-            <button key={b.label} onClick={b.action} style={{ padding: '0.35rem 0.75rem', borderRadius: '6px', background: colors.bg, color: colors.text, border: `1px solid ${colors.border}`, cursor: 'pointer', fontWeight: 600, fontSize: '0.8rem' }}>{b.label}</button>
+            <button key={b.label}
+              onMouseDown={e => e.preventDefault()}
+              onClick={b.action}
+              style={{ padding: '0.35rem 0.75rem', borderRadius: '6px', background: colors.bg, color: colors.text, border: `1px solid ${colors.border}`, cursor: 'pointer', fontWeight: 600, fontSize: '0.8rem' }}>{b.label}</button>
           ))}
           <button onClick={copy} style={{ ...btnStyle(), marginLeft: 'auto' }}>{copied ? '✓ Copied!' : '📋 Copy'}</button>
         </div>

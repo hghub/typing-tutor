@@ -127,6 +127,8 @@ export default function ToolLayout({ toolId, children }) {
         borderTop: `1px solid ${colors.border}`,
       }}>
         © {new Date().getFullYear()} Rafiqy · Privacy-first browser tools &nbsp;·&nbsp;
+        <a href="/blogs" style={{ color: 'inherit', textDecoration: 'underline' }}>Blog</a>
+        &nbsp;·&nbsp;
         <a href="/about" style={{ color: 'inherit', textDecoration: 'underline' }}>About</a>
       </footer>
     </div>

@@ -9,6 +9,14 @@ import { usePreferences } from '../hooks/usePreferences'
 
 const FEATURED_IDS = ['typing-tutor', 'word-counter', 'pomodoro', 'tax-calculator', 'urdu-keyboard']
 const LAST_VISIT_KEY = 'typely_last_visit'
+const TOP_N = 6
+
+// Preferred category display order
+const CATEGORY_ORDER = [
+  'typing', 'finance', 'pdf', 'writing', 'pakistan',
+  'developer', 'health', 'productivity', 'language',
+  'security', 'business', 'education', 'travel', 'legal',
+]
 
 // ── "New" badge logic ─────────────────────────────────────────────────────────
 function getLastVisit() {
@@ -185,6 +193,9 @@ export default function ToolsHome() {
   const { isDark, colors } = useTheme()
   const { prefs, togglePref } = usePreferences()
   const [lastVisit] = useState(() => getLastVisit())
+  const [expanded, setExpanded] = useState({})
+
+  const toggleExpanded = (catId) => setExpanded(prev => ({ ...prev, [catId]: !prev[catId] }))
 
   // Update last visit on load (after a short delay so "new" badges show on first load too)
   useEffect(() => {
@@ -385,10 +396,19 @@ export default function ToolsHome() {
 
         {/* ── All Tools by Category ── */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
-          {TOOL_CATEGORIES.map((cat) => {
+          {[...TOOL_CATEGORIES]
+            .sort((a, b) => {
+              const ai = CATEGORY_ORDER.indexOf(a.id)
+              const bi = CATEGORY_ORDER.indexOf(b.id)
+              return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi)
+            })
+            .map((cat) => {
             const tools = visibleTools.filter((t) => t.category === cat.id)
             if (!tools.length) return null
             const newCount = tools.filter(t => isNewTool(t, lastVisit)).length
+            const isExpanded = !!expanded[cat.id]
+            const visibleCatTools = isExpanded ? tools : tools.slice(0, TOP_N)
+            const hasMore = tools.length > TOP_N
             return (
               <section key={cat.id} id={cat.id}>
                 <div style={{
@@ -405,11 +425,26 @@ export default function ToolsHome() {
                   )}
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1rem' }}>
-                  {tools.map((tool) => (
+                  {visibleCatTools.map((tool) => (
                     <ToolCard key={tool.id} tool={tool} colors={colors} isDark={isDark}
                       urduLabels={prefs.urduLabels} isNew={isNewTool(tool, lastVisit)} />
                   ))}
                 </div>
+                {hasMore && (
+                  <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+                    <button onClick={() => toggleExpanded(cat.id)} style={{
+                      background: 'transparent', border: `1px solid ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)'}`,
+                      borderRadius: '2rem', padding: '0.4rem 1.25rem',
+                      fontSize: '0.82rem', fontWeight: 600, cursor: 'pointer',
+                      color: '#06b6d4', transition: 'border-color .15s',
+                    }}
+                      onMouseEnter={e => e.currentTarget.style.borderColor = '#06b6d4'}
+                      onMouseLeave={e => e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)'}
+                    >
+                      {isExpanded ? `Show less ↑` : `View all ${tools.length} tools ↓`}
+                    </button>
+                  </div>
+                )}
               </section>
             )
           })}
@@ -435,7 +470,7 @@ export default function ToolsHome() {
       <FeedbackButton />
 
       <footer style={{ textAlign: 'center', padding: '1rem', color: colors.textSecondary, fontSize: '0.75rem', borderTop: `1px solid ${colors.border}` }}>
-        © {new Date().getFullYear()} Typely · Privacy-first browser tools &nbsp;·&nbsp;
+        © {new Date().getFullYear()} Rafiqy · Privacy-first browser tools &nbsp;·&nbsp;
         <a href="/help" style={{ color: 'inherit', textDecoration: 'underline' }}>Help</a>
         &nbsp;·&nbsp;
         <a href="/about" style={{ color: 'inherit', textDecoration: 'underline' }}>About</a>

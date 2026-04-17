@@ -1,6 +1,6 @@
 import { StrictMode, lazy, Suspense, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -97,7 +97,8 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools" element={<ToolsHome />} />
 
           {/* Typing tutor */}
-          <Route path="/tools/typing-tutor" element={<App />} />
+          <Route path="/tools/typely" element={<App />} />
+          <Route path="/tools/typing-tutor" element={<Navigate to="/tools/typely" replace />} />
 
           {/* Individual tools */}
           <Route path="/tools/word-counter"  element={<WordCounter />} />

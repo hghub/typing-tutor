@@ -9,7 +9,7 @@ const FEATURED_IDS = [
 ]
 
 const QUICK_ACTIONS = [
-  { label: '⌨ Typely', path: '/tools/typing-tutor', desc: 'Typing tutor' },
+  { label: '⌨ Typely', path: '/tools/typely', desc: 'Typing tutor' },
   { label: '⏱ Pomodoro', path: '/tools/pomodoro', desc: 'Focus timer' },
   { label: '🌍 World Time', path: '/tools/world-time', desc: 'Time zones' },
   { label: '📄 Compress PDF', path: '/tools/compress-pdf', desc: 'Shrink files' },
@@ -103,7 +103,7 @@ export default function Landing() {
           <Link to="/tools" style={{ background: 'var(--color-primary)', color: '#0f172a', padding: '0.8rem 2.25rem', borderRadius: 8, textDecoration: 'none', fontWeight: 700, fontSize: '1rem' }}>
             Open Tools →
           </Link>
-          <Link to="/tools/typing-tutor" style={{ background: 'transparent', border: '1px solid var(--color-border)', color: 'var(--color-text)', padding: '0.8rem 2rem', borderRadius: 8, textDecoration: 'none', fontWeight: 600, fontSize: '1rem' }}>
+          <Link to="/tools/typely" style={{ background: 'transparent', border: '1px solid var(--color-border)', color: 'var(--color-text)', padding: '0.8rem 2rem', borderRadius: 8, textDecoration: 'none', fontWeight: 600, fontSize: '1rem' }}>
             ⌨ Try Typely
           </Link>
         </div>
@@ -229,3 +229,4 @@ export default function Landing() {
     </div>
   )
 }
+

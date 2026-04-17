@@ -1,5 +1,5 @@
 /**
- * Tool registry — single source of truth for all Typely tools.
+ * Tool registry — single source of truth for all Rafiqy tools.
  * Adding a new tool = adding one object here.
  * Nav, landing cards, related tools, breadcrumbs, and sitemap all read from this array.
  */

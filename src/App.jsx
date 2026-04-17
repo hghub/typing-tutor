@@ -696,7 +696,7 @@ function App() {
           />
         )}
 
-        {/* Tools strip — discover the full Typely platform */}
+        {/* Tools strip — discover the full Rafiqy platform */}
         <div style={{
           marginTop: '2.5rem',
           padding: '1.25rem',
@@ -706,7 +706,7 @@ function App() {
           textAlign: 'center',
         }}>
           <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            More from Typely
+            More from Rafiqy
           </p>
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
             {TOOLS.filter(t => t.id !== 'typing-tutor').map(t => (
@@ -878,7 +878,7 @@ function App() {
       {/* Footer */}
       <div style={{ textAlign: 'center', marginTop: '2rem', paddingBottom: '1rem' }}>
         <p style={{ color: colors.textSecondary, fontSize: '0.75rem', margin: 0 }}>
-          © {new Date().getFullYear()} Typely &nbsp;·&nbsp;
+          © {new Date().getFullYear()} Rafiqy &nbsp;·&nbsp;
           <button onClick={() => setShowPrivacy(true)} style={{
             background: 'none', border: 'none', color: '#06b6d4',
             cursor: 'pointer', fontSize: '0.75rem', textDecoration: 'underline', padding: 0,

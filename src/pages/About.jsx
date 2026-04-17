@@ -116,7 +116,7 @@ export default function About() {
             Privacy-first tools that run in your browser
           </h1>
           <p style={{ fontSize: '1.05rem', color: colors.textSecondary, maxWidth: 560, margin: '0 auto', lineHeight: 1.7 }}>
-            Typely started as a typing tutor and grew into a collection of 30+ free, browser-native tools —
+            Rafiqy started as a typing tutor and grew into a collection of 30+ free, browser-native tools —
             built for developers, professionals and students everywhere, with local tools for Pakistan.
           </p>
         </div>
@@ -131,7 +131,7 @@ export default function About() {
             Users everywhere are left patching together spreadsheets and random websites that sell their data.
           </p>
           <p style={{ margin: '0 0 0.75rem', fontSize: '0.95rem', color: colors.textSecondary, lineHeight: 1.75 }}>
-            Typely is different. Every tool runs entirely in your browser — no uploads, no servers, no tracking.
+            Rafiqy is different. Every tool runs entirely in your browser — no uploads, no servers, no tracking.
             We also ship local context for Pakistan: <strong style={{ color: colors.text }}>PKR defaults</strong>,{' '}
             <strong style={{ color: colors.text }}>Urdu support</strong>,{' '}
             <strong style={{ color: colors.text }}>FBR tax brackets</strong>, local drug names, city data, and more.
@@ -144,7 +144,7 @@ export default function About() {
         {/* Who it's for */}
         <div>
           <h2 style={{ margin: '0 0 1.25rem', fontSize: '1.15rem', fontWeight: 800, color: colors.text }}>
-            Who uses Typely?
+            Who uses Rafiqy?
           </h2>
           <div style={{
             display: 'grid',

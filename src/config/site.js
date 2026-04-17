@@ -3,7 +3,7 @@
  * Update this file when domain is purchased — nothing else needs to change.
  */
 export const SITE = {
-  name: 'Typely',
+  name: 'Rafiqy',
   tagline: 'Your Smart Typing System',
   url: 'https://typely.app',          // replace with real domain when purchased
   email: 'hello@typely.app',

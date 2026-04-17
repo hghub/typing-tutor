@@ -45,9 +45,9 @@ export default function Pomodoro() {
 
   // Update document title
   useEffect(() => {
-    if (running) document.title = `${pad(mins)}:${pad(secs)} — ${currentMode.label} | Typely`
-    else document.title = 'Pomodoro Timer | Typely'
-    return () => { document.title = 'Typely' }
+    if (running) document.title = `${pad(mins)}:${pad(secs)} — ${currentMode.label} | Rafiqy`
+    else document.title = 'Pomodoro Timer | Rafiqy'
+    return () => { document.title = 'Rafiqy' }
   }, [running, mins, secs, currentMode.label])
 
   const stopTimer = useCallback(() => {

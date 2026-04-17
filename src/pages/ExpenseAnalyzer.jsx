@@ -6,6 +6,65 @@ import DisclaimerBlock from '../components/DisclaimerBlock'
 
 const ACCENT = '#10b981'
 
+const HISTORY_KEY = 'typely_expense_history'
+
+function loadHistory() {
+  try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || [] } catch { return [] }
+}
+
+/* ── PDF Text Extractor ─────────────────────────────────────────────────── */
+async function extractTextFromPdf(file) {
+  const { getDocument, GlobalWorkerOptions } = await import('pdfjs-dist')
+  GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.mjs', import.meta.url).toString()
+  const ab = await file.arrayBuffer()
+  const pdf = await getDocument({ data: ab }).promise
+  let text = ''
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i)
+    const content = await page.getTextContent()
+    text += content.items.map(item => item.str).join(' ') + '\n'
+  }
+  return text
+}
+
+function normalizeDate(d) {
+  const m = d.match(/(\d{2})[\/\-](\d{2})[\/\-](\d{4})/)
+  if (m) return `${m[3]}-${m[2]}-${m[1]}`
+  return d
+}
+
+function parsePdfTransactions(text) {
+  const lines = text.split('\n')
+  const transactions = []
+  for (const line of lines) {
+    const trimmed = line.trim()
+    if (!trimmed || trimmed.length < 5) continue
+    const dateMatch = trimmed.match(/(\d{4}-\d{2}-\d{2}|\d{2}[\/\-]\d{2}[\/\-]\d{4})/)
+    const amtMatch = trimmed.match(/(?:PKR|Rs\.?)\s*([\d,]+(?:\.\d{1,2})?)|([\d]{1,3}(?:,\d{3})+(?:\.\d{1,2})?)/)
+    if (amtMatch) {
+      const amtStr = amtMatch[1] || amtMatch[2]
+      const amount = parseFloat(amtStr.replace(/,/g, ''))
+      if (amount > 0 && amount < 10000000) {
+        const date = dateMatch ? normalizeDate(dateMatch[1]) : new Date().toISOString().slice(0, 10)
+        let desc = trimmed
+          .replace(dateMatch?.[0] || '', '')
+          .replace(amtMatch[0], '')
+          .trim()
+          .replace(/\s+/g, ' ')
+        if (!desc) desc = 'PDF Import'
+        transactions.push({
+          date,
+          description: desc.slice(0, 80),
+          amount,
+          type: 'debit',
+          cat: categorize(desc),
+        })
+      }
+    }
+  }
+  return transactions
+}
+
 /* ── CSV Parser ─────────────────────────────────────────────────────────── */
 function parseCSV(text) {
   const lines = text.trim().split('\n')
@@ -755,6 +814,9 @@ export default function ExpenseAnalyzer() {
   const [transactions, setTransactions] = useState([])
   const [dragOver, setDragOver] = useState(false)
   const [fileError, setFileError] = useState('')
+  const [history, setHistory] = useState(loadHistory)
+  const [currentFilename, setCurrentFilename] = useState('')
+  const [pdfLoading, setPdfLoading] = useState(false)
 
   const sectionTitle = (text) => ({
     margin: '0 0 1rem',
@@ -788,14 +850,58 @@ export default function ExpenseAnalyzer() {
     return { total, count, avgPerDay, topCat }
   }, [transactions])
 
+  /* ── History ── */
+  function pushToHistory(txs, filename) {
+    const debits = txs.filter(t => t.type === 'debit')
+    const total = debits.reduce((s, t) => s + t.amount, 0)
+    const catMap = {}
+    debits.forEach(t => { catMap[t.cat.category] = (catMap[t.cat.category] || 0) + t.amount })
+    const topCat = Object.entries(catMap).sort((a, b) => b[1] - a[1])[0]
+    const entry = {
+      id: Date.now().toString(),
+      date: new Date().toLocaleDateString('en-PK'),
+      filename: filename || 'Analysis',
+      totalExpenses: total,
+      topCategory: topCat ? topCat[0] : '—',
+      items: txs,
+    }
+    const newHistory = [entry, ...history].slice(0, 10)
+    setHistory(newHistory)
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(newHistory))
+  }
+
   /* ── File handling ── */
-  function handleFile(file) {
+  async function handleFile(file) {
     if (!file) return
-    if (!file.name.endsWith('.csv') && file.type !== 'text/csv') {
-      setFileError('Please upload a CSV file.')
+    const isPdf = file.name.toLowerCase().endsWith('.pdf') || file.type === 'application/pdf'
+    const isCsv = file.name.toLowerCase().endsWith('.csv') || file.type === 'text/csv'
+    if (!isPdf && !isCsv) {
+      setFileError('Please upload a CSV or PDF file.')
       return
     }
     setFileError('')
+    setCurrentFilename(file.name)
+
+    if (isPdf) {
+      setPdfLoading(true)
+      try {
+        const text = await extractTextFromPdf(file)
+        const txs = parsePdfTransactions(text)
+        if (!txs.length) {
+          setFileError('Could not extract transactions from this PDF. Try CSV format instead.')
+          return
+        }
+        pushToHistory(txs, file.name)
+        setTransactions(txs)
+        setStage('dashboard')
+      } catch {
+        setFileError('Failed to parse PDF. Try CSV format instead.')
+      } finally {
+        setPdfLoading(false)
+      }
+      return
+    }
+
     const reader = new FileReader()
     reader.onload = e => {
       try {
@@ -821,7 +927,9 @@ export default function ExpenseAnalyzer() {
 
   /* ── Sample data ── */
   function loadSample() {
-    setTransactions(SAMPLE_TRANSACTIONS.map(t => ({ ...t, cat: categorize(t.description) })))
+    const txs = SAMPLE_TRANSACTIONS.map(t => ({ ...t, cat: categorize(t.description) }))
+    pushToHistory(txs, 'Sample Data')
+    setTransactions(txs)
     setStage('dashboard')
     setMode('upload')
   }
@@ -949,14 +1057,19 @@ export default function ExpenseAnalyzer() {
               >
                 <div style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>📄</div>
                 <div style={{ fontWeight: 600, color: colors.text, marginBottom: 6 }}>
-                  Drag &amp; drop your CSV file here
+                  Drag &amp; drop your CSV or PDF file here
                 </div>
                 <div style={{ fontSize: '0.8rem', color: colors.textSecondary }}>
-                  or click to browse · Supports bank statements, Easypaisa &amp; JazzCash exports
+                  or click to browse · Supports CSV bank statements &amp; PDF exports
                 </div>
+                {pdfLoading && (
+                  <div style={{ marginTop: '0.75rem', fontSize: '0.82rem', color: ACCENT, fontWeight: 600 }}>
+                    ⏳ Extracting transactions from PDF…
+                  </div>
+                )}
                 <input
                   ref={fileRef}
-                  type="file" accept=".csv,text/csv"
+                  type="file" accept=".csv,text/csv,.pdf,application/pdf"
                   style={{ display: 'none' }}
                   onChange={e => handleFile(e.target.files[0])}
                 />
@@ -981,6 +1094,7 @@ export default function ExpenseAnalyzer() {
                 <li>Easypaisa transaction history download</li>
                 <li>JazzCash statement export</li>
                 <li>Any CSV with Date, Description/Narration, and Amount columns</li>
+                <li>PDF bank statements (text-based — amounts auto-detected)</li>
               </ul>
             </Card>
           </div>
@@ -991,7 +1105,11 @@ export default function ExpenseAnalyzer() {
           <ColumnMapper
             rawData={rawData}
             colors={colors}
-            onConfirm={txs => { setTransactions(txs); setStage('dashboard') }}
+            onConfirm={txs => {
+              pushToHistory(txs, currentFilename)
+              setTransactions(txs)
+              setStage('dashboard')
+            }}
             onCancel={() => { setStage('idle'); setRawData(null) }}
           />
         )}
@@ -1134,6 +1252,55 @@ export default function ExpenseAnalyzer() {
         <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.25)', display: 'flex', gap: '0.65rem', alignItems: 'flex-start', marginTop: '1.5rem' }}>
           <DisclaimerBlock type="noApi" overrideBodyEn="Expenses are entered manually or imported via CSV. No bank statement API is connected. When open-banking APIs (e.g. 1Link, HBL OpenAPI) become available, automatic import can be enabled." />
         </div>
+
+        {/* ── Past Analyses ── */}
+        {history.length > 0 && (
+          <div style={{ marginTop: '2rem' }}>
+            <h2 style={{ fontSize: '1rem', fontWeight: 700, color: colors.text, margin: '0 0 0.85rem' }}>
+              📅 Past Analyses
+            </h2>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
+              {history.map(h => (
+                <div
+                  key={h.id}
+                  onClick={() => {
+                    setTransactions(h.items)
+                    setCurrentFilename(h.filename)
+                    setStage('dashboard')
+                    setMode('upload')
+                    window.scrollTo({ top: 0, behavior: 'smooth' })
+                  }}
+                  style={{
+                    background: colors.card,
+                    border: `1px solid ${colors.border}`,
+                    borderRadius: 10,
+                    padding: '0.85rem 1rem',
+                    cursor: 'pointer',
+                    minWidth: 180,
+                    flex: '1 1 180px',
+                    maxWidth: 260,
+                    transition: 'border-color 0.15s',
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.borderColor = ACCENT}
+                  onMouseLeave={e => e.currentTarget.style.borderColor = colors.border}
+                >
+                  <div style={{ fontSize: '0.82rem', fontWeight: 700, color: colors.text, marginBottom: 4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    📁 {h.filename}
+                  </div>
+                  <div style={{ fontSize: '0.75rem', color: colors.textSecondary, marginBottom: 4 }}>
+                    {h.date}
+                  </div>
+                  <div style={{ fontSize: '0.9rem', fontWeight: 700, color: ACCENT }}>
+                    {fmtPKR(h.totalExpenses)}
+                  </div>
+                  <div style={{ fontSize: '0.72rem', color: colors.textSecondary, marginTop: 2 }}>
+                    Top: {h.topCategory}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
       </div>
     </ToolLayout>

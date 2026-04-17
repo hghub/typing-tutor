@@ -382,14 +382,14 @@ export default function SymptomTracker() {
       async ({ coords }) => {
         try {
           const { latitude: lat, longitude: lon } = coords
-          const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relativehumidity_2m,surface_pressure,weathercode,windspeed_10m&timezone=auto`
+          const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,surface_pressure,weathercode,windspeed_10m&timezone=auto`
           const res = await fetch(url)
           if (!res.ok) throw new Error('weather_fetch_failed')
           const data = await res.json()
           const c = data?.current ?? {}
           setWeather({
             temp: c.temperature_2m ?? null,
-            humidity: c.relativehumidity_2m ?? null,
+            humidity: c.relative_humidity_2m ?? null,
             pressure: c.surface_pressure ?? null,
             windspeed: c.windspeed_10m ?? null,
           })
@@ -412,6 +412,39 @@ export default function SymptomTracker() {
       prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]
     )
   }, [])
+
+  const fetchWeatherByCity = useCallback(async () => {
+    if (!cityInput.trim()) return
+    setCityFetching(true)
+    setCityFetchError('')
+    try {
+      const geoRes = await fetch(
+        `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityInput.trim())}&count=1&language=en&format=json`
+      )
+      const geoData = await geoRes.json()
+      if (!geoData.results?.length) {
+        setCityFetchError('City not found. Try a different name.')
+        return
+      }
+      const { latitude, longitude } = geoData.results[0]
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,surface_pressure,weathercode,windspeed_10m&timezone=auto`
+      const res = await fetch(url)
+      if (!res.ok) throw new Error()
+      const data = await res.json()
+      const c = data?.current ?? {}
+      setWeather({
+        temp: c.temperature_2m ?? null,
+        humidity: c.relative_humidity_2m ?? null,
+        pressure: c.surface_pressure ?? null,
+        windspeed: c.windspeed_10m ?? null,
+      })
+      setLocationError(false)
+    } catch {
+      setCityFetchError('Failed to fetch weather. Please try again.')
+    } finally {
+      setCityFetching(false)
+    }
+  }, [cityInput])
 
   const handleAdd = useCallback(() => {
     if (selectedSymptoms.length === 0) return
@@ -617,6 +650,11 @@ export default function SymptomTracker() {
             locationError={locationError}
             loading={weatherLoading}
             colors={colors}
+            cityInput={cityInput}
+            onCityInputChange={setCityInput}
+            onCityFetch={fetchWeatherByCity}
+            cityFetching={cityFetching}
+            cityFetchError={cityFetchError}
           />
 
           {/* Quick stats */}

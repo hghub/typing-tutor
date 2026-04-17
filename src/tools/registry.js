@@ -568,7 +568,7 @@ export const TOOLS = [
     taglineUrdu: 'JSON کو فارمیٹ اور چیک کریں',
     description: 'Prettify, minify, validate and visually explore JSON data — all in your browser.',
     category: 'developer',
-    route: '/tools/json-formatter',
+    path: '/tools/json-formatter',
     addedOn: '2026-04-16',
   },
   // ── Education & Teaching ────────────────────────────────────────

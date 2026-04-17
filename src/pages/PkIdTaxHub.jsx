@@ -145,6 +145,74 @@ const RTO_MAP = {
   2501: 'Quetta', 2601: 'Sukkur', 2701: 'Hyderabad', 2801: 'Abbottabad',
 }
 
+// ─── Tax reference data (from FBR / Finance Act 2024-25) ────────────────────
+
+const WHT_ROWS = [
+  { type: 'Bank profit / interest',             filer: '15%',      nonFiler: '35%',      ref: 'Sec 151' },
+  { type: 'Dividend income',                    filer: '15%',      nonFiler: '30%',      ref: 'Sec 150' },
+  { type: 'Property purchase (>5M)',             filer: '3%',       nonFiler: '6%',       ref: 'Sec 236K' },
+  { type: 'Property sale / transfer',           filer: '3%',       nonFiler: '6%',       ref: 'Sec 236C' },
+  { type: 'Vehicle registration (≤1300cc)',      filer: '1%',       nonFiler: '3%',       ref: 'Sec 231B' },
+  { type: 'Vehicle registration (1301–2000cc)', filer: '2%',       nonFiler: '5%',       ref: 'Sec 231B' },
+  { type: 'Vehicle registration (>2000cc)',      filer: '3%',       nonFiler: '7%',       ref: 'Sec 231B' },
+  { type: 'Cash withdrawal >50,000/day',        filer: '0%',       nonFiler: '0.6%',     ref: 'Sec 231A' },
+  { type: 'Imports (commercial)',               filer: '5.5%',     nonFiler: '8%',       ref: 'Sec 148' },
+  { type: 'Salary (above taxable limit)',       filer: 'Per slab', nonFiler: 'Per slab', ref: 'Sec 149' },
+  { type: 'Services (contract)',                filer: '8%',       nonFiler: '14%',      ref: 'Sec 153(1)(b)' },
+  { type: 'Execution of contract',              filer: '7%',       nonFiler: '13%',      ref: 'Sec 153(1)(c)' },
+  { type: 'Prize bond / lottery',               filer: '15%',      nonFiler: '25%',      ref: 'Sec 156' },
+]
+
+const TAX_DEADLINES = [
+  { event: 'Income Tax Return (Salaried/Individual)', date: 'September 30',          note: 'Tax Year ends June 30' },
+  { event: 'Wealth Statement',                        date: 'September 30',          note: 'Filed with ITR' },
+  { event: 'Monthly Sales Tax Return',                date: '18th of next month',    note: 'e.g., July return → Aug 18' },
+  { event: 'Annual Sales Tax Return',                 date: 'July 31',               note: 'Summary for the year' },
+  { event: 'Advance Tax — Q1 (Jul–Sep)',              date: 'September 25',          note: '25% of estimated annual tax' },
+  { event: 'Advance Tax — Q2 (Oct–Dec)',              date: 'December 25',           note: 'Cumulative 50%' },
+  { event: 'Advance Tax — Q3 (Jan–Mar)',              date: 'March 25',              note: 'Cumulative 75%' },
+  { event: 'Advance Tax — Q4 (Apr–Jun)',              date: 'June 15',               note: 'Cumulative 100%' },
+  { event: 'Employer Annual Withholding Statement',   date: 'March 31',              note: 'Form e-Filing' },
+  { event: 'Monthly WHT Statement',                   date: '15th of next month',    note: 'Sec 165 statement' },
+  { event: 'ATL Publication',                         date: 'March 1',               note: 'FBR publishes updated ATL' },
+  { event: 'STRN Registration (Sales Tax)',           date: 'Before first taxable supply', note: 'Mandatory if turnover ≥5M' },
+]
+
+const GLOSSARY = [
+  {
+    term: 'NTN — National Tax Number',
+    def: 'A unique 7-digit identifier assigned by FBR to every registered taxpayer (individual or company). Required for filing returns, opening business bank accounts, and participating in government tenders.',
+  },
+  {
+    term: 'STRN — Sales Tax Registration Number',
+    def: 'Issued by FBR for Sales Tax registration under the Sales Tax Act 1990. Format: XXXX-XXXX-XXXXXX-XX. Required for businesses with taxable turnover ≥ PKR 5 million. Distinct from NTN (which is for Income Tax).',
+  },
+  {
+    term: 'ATL — Active Taxpayer List',
+    def: "FBR's published list of individuals and entities who filed their Income Tax Return. Updated annually on March 1. Being on the ATL (a \"filer\") qualifies you for reduced withholding tax rates across dozens of transactions.",
+  },
+  {
+    term: 'WHT — Withholding Tax',
+    def: 'Tax deducted at source by the payer before making payment. Pakistan uses WHT extensively: banks deduct it on profit, car dealers on vehicle registration, property registrars on transfers, etc. Rates differ for filers and non-filers.',
+  },
+  {
+    term: 'FBR — Federal Board of Revenue',
+    def: "Pakistan's apex tax authority responsible for collecting direct taxes (Income Tax, Corporate Tax) and indirect taxes (Sales Tax, Federal Excise, Customs). Official portal: fbr.gov.pk.",
+  },
+  {
+    term: 'RTO — Regional Tax Office',
+    def: "FBR's field offices handling taxpayer registration, audits, and assessments for their geographic jurisdiction. Major RTOs: Lahore, Karachi I/II/III, Islamabad, Faisalabad, Multan, Peshawar, Quetta.",
+  },
+  {
+    term: 'IRIS — Integrated Revenue Information System',
+    def: "FBR's online tax portal (iris.fbr.gov.pk) for e-filing returns, registering for NTN/STRN, submitting declarations, paying taxes, and viewing notices.",
+  },
+  {
+    term: 'CNIC — Computerised National Identity Card',
+    def: 'Issued by NADRA — 13-digit number (XXXXX-XXXXXXX-X). First 5 digits encode district/area, next 7 are the family sequence, last digit indicates gender. For individuals, NTN is usually the same as CNIC number.',
+  },
+]
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 const ACCENT = '#0ea5e9'
@@ -321,6 +389,7 @@ function InputField({ label, value, onChange, placeholder, colors, monospace }) 
   )
 }
 
+// Valid / invalid badge (green ✓ or red ✗)
 function Badge({ valid }) {
   return (
     <span style={{
@@ -335,6 +404,25 @@ function Badge({ valid }) {
       letterSpacing: '0.04em',
     }}>
       {valid ? '✓ Valid' : '✗ Invalid'}
+    </span>
+  )
+}
+
+// Colored text label badge (for ATL filer/non-filer labels)
+function TaxBadge({ text, color = ACCENT }) {
+  return (
+    <span style={{
+      display: 'inline-block',
+      background: `${color}20`,
+      color,
+      border: `1px solid ${color}44`,
+      borderRadius: '0.4rem',
+      padding: '0.15rem 0.55rem',
+      fontSize: '0.75rem',
+      fontWeight: 700,
+      letterSpacing: '0.02em',
+    }}>
+      {text}
     </span>
   )
 }
@@ -400,8 +488,8 @@ function InfoBox({ children, color = ACCENT }) {
 function Disclaimer({ colors }) {
   return (
     <div style={{
-      background: `${colors.surface}`,
-      border: `1px solid #f97316aa`,
+      background: colors.surface,
+      border: '1px solid #f97316aa',
       borderRadius: '0.75rem',
       padding: '0.75rem 1rem',
       fontSize: '0.78rem',
@@ -414,8 +502,48 @@ function Disclaimer({ colors }) {
       <span style={{ fontSize: '1rem', flexShrink: 0 }}>⚠️</span>
       <span>
         <strong style={{ color: '#f97316' }}>Disclaimer:</strong> This tool decodes publicly known CNIC
-        structure codes. It does not verify with NADRA. Results are for informational purposes only.
+        structure codes and provides general tax reference information only. It does not verify with NADRA or FBR.
+        Results are for informational purposes only. Always verify official data at nadra.gov.pk or fbr.gov.pk.
       </span>
+    </div>
+  )
+}
+
+function GlossaryItem({ term, def, colors }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <div style={{ borderBottom: `1px solid ${colors.border}` }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        style={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '0.9rem 0',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          color: colors.text,
+          fontSize: '0.9rem',
+          fontWeight: 600,
+          textAlign: 'left',
+          gap: '0.5rem',
+        }}
+      >
+        <span>{term}</span>
+        <span style={{ color: ACCENT, fontSize: '1.1rem', flexShrink: 0 }}>{open ? '−' : '+'}</span>
+      </button>
+      {open && (
+        <p style={{
+          margin: '0 0 0.9rem',
+          fontSize: '0.84rem',
+          color: colors.textSecondary,
+          lineHeight: 1.7,
+        }}>
+          {def}
+        </p>
+      )}
     </div>
   )
 }
@@ -423,16 +551,19 @@ function Disclaimer({ colors }) {
 // ─── Tabs ─────────────────────────────────────────────────────────────────────
 
 const TABS = [
-  { id: 'cnic', label: 'CNIC', icon: '🪪' },
-  { id: 'bform', label: 'B-Form', icon: '👶' },
-  { id: 'ntn', label: 'NTN', icon: '🏢' },
-  { id: 'strn', label: 'STRN', icon: '🧾' },
-  { id: 'bulk', label: 'Bulk', icon: '📋' },
+  { id: 'cnic',     label: 'CNIC',        icon: '🪪' },
+  { id: 'bform',    label: 'B-Form',      icon: '👶' },
+  { id: 'ntn',      label: 'NTN',         icon: '🔢' },
+  { id: 'strn',     label: 'STRN',        icon: '🧾' },
+  { id: 'bulk',     label: 'Bulk',        icon: '📋' },
+  { id: 'wht',      label: 'WHT Rates',   icon: '📊' },
+  { id: 'calendar', label: 'FBR Calendar', icon: '📅' },
+  { id: 'glossary', label: 'Glossary',    icon: '📖' },
 ]
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
-export default function CnicValidator() {
+export default function PkIdTaxHub() {
   const { colors } = useTheme()
 
   const [activeTab, setActiveTab] = useState('cnic')
@@ -538,6 +669,7 @@ export default function CnicValidator() {
             transition: 'all 0.15s',
             background: activeTab === tab.id ? ACCENT : 'transparent',
             color: activeTab === tab.id ? '#fff' : colors.textSecondary,
+            whiteSpace: 'nowrap',
           }}
         >
           <span>{tab.icon}</span>
@@ -625,7 +757,7 @@ export default function CnicValidator() {
                   ⚠️ Division data for code <strong>{String(cnicResult.prefix).padStart(2, '0')}</strong> is not in our reference list, but the province is confirmed.
                 </InfoBox>
               )}
-              {/* 5-digit area code visual */}
+              {/* 5-digit area code visual breakdown: PR DV DI TH UC */}
               <div style={{
                 marginTop: '1rem',
                 background: `${ACCENT}0d`,
@@ -740,7 +872,7 @@ export default function CnicValidator() {
   // ── NTN Panel ──────────────────────────────────────────────────────────────
 
   const ntnPanel = (
-    <SectionCard title="NTN Validator" icon="🏢" colors={colors}>
+    <SectionCard title="NTN Validator" icon="🔢" colors={colors}>
       <InfoBox color={ACCENT}>
         <strong>What is an NTN?</strong> The National Tax Number is a 7-digit identifier issued by
         the Federal Board of Revenue (FBR) to taxpayers — individuals, companies, and associations
@@ -789,6 +921,31 @@ export default function CnicValidator() {
           )}
         </div>
       )}
+
+      {/* NTN range reference */}
+      <div style={{ marginTop: '1.25rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.75rem' }}>
+        {[
+          { range: '0000001 – 1999999', type: 'Individual (Salaried / Self-employed)', color: '#22c55e' },
+          { range: '2000000 – 3999999', type: 'Association of Persons (AOP / Firm)', color: '#f59e0b' },
+          { range: '4000000 – 6999999', type: 'Company / Corporate Entity', color: '#a78bfa' },
+        ].map(item => (
+          <div key={item.range} style={{
+            background: `${item.color}12`,
+            border: `1px solid ${item.color}33`,
+            borderRadius: '0.65rem',
+            padding: '0.75rem',
+          }}>
+            <p style={{ margin: 0, fontSize: '0.7rem', fontWeight: 700, color: item.color, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{item.type}</p>
+            <p style={{ margin: '0.2rem 0 0', fontSize: '0.8rem', fontFamily: 'monospace', color: colors.textSecondary }}>{item.range}</p>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ marginTop: '1rem', padding: '0.75rem 1rem', background: `${ACCENT}10`, border: `1px solid ${ACCENT}30`, borderRadius: '0.65rem', fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+        <strong style={{ color: colors.text }}>💡 Tip:</strong> Individuals can register for NTN online via{' '}
+        <strong style={{ color: ACCENT }}>IRIS (iris.fbr.gov.pk)</strong> using their CNIC and mobile number.
+        NTN registration is free and mandatory for filing Income Tax Returns.
+      </div>
     </SectionCard>
   )
 
@@ -799,7 +956,7 @@ export default function CnicValidator() {
       <InfoBox color={ACCENT}>
         <strong>What is an STRN?</strong> The Sales Tax Registration Number is issued by FBR to
         businesses registered under the Sales Tax Act. It is used for GST invoicing and returns.
-        Format varies by registration type (10–15 digits).
+        Format: <strong>XXXX-XXXXXXX-XX</strong> (13–14 digits). The first 4 digits encode the RTO.
       </InfoBox>
       <div style={{ marginTop: '1rem' }}>
         <InputField
@@ -854,6 +1011,47 @@ export default function CnicValidator() {
           )}
         </div>
       )}
+
+      {/* Sales Tax vs Income Tax comparison */}
+      <div style={{ marginTop: '1.25rem' }}>
+        <h3 style={{ margin: '0 0 0.75rem', fontSize: '0.88rem', fontWeight: 700, color: colors.text }}>
+          Sales Tax vs Income Tax — Key Differences
+        </h3>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+          {[
+            {
+              title: 'Income Tax (NTN)',
+              points: ['Direct tax on income/profits', 'Governed by ITO 2001', 'Paid by earner', 'Filed annually (Sep 30)', 'Administered by RTO'],
+              color: ACCENT,
+            },
+            {
+              title: 'Sales Tax (STRN)',
+              points: ['Indirect tax on supplies', 'Governed by STA 1990', 'Collected from buyer', 'Filed monthly (18th)', 'Standard rate 18%'],
+              color: '#a78bfa',
+            },
+          ].map(col => (
+            <div key={col.title} style={{
+              background: `${col.color}10`,
+              border: `1px solid ${col.color}30`,
+              borderRadius: '0.65rem',
+              padding: '0.85rem',
+            }}>
+              <p style={{ margin: '0 0 0.5rem', fontWeight: 700, fontSize: '0.83rem', color: col.color }}>{col.title}</p>
+              <ul style={{ margin: 0, paddingLeft: '1rem' }}>
+                {col.points.map(pt => (
+                  <li key={pt} style={{ fontSize: '0.78rem', color: colors.textSecondary, marginBottom: '0.2rem', lineHeight: 1.5 }}>{pt}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ marginTop: '1rem', padding: '0.75rem 1rem', background: '#f59e0b10', border: '1px solid #f59e0b30', borderRadius: '0.65rem', fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+        <strong style={{ color: colors.text }}>⚠️ Registration Threshold:</strong> Businesses with annual taxable turnover
+        of <strong style={{ color: '#f59e0b' }}>PKR 5 million or more</strong> must register for Sales Tax. Retailers and
+        service providers in FBR's "Tier-1" category are also required to register.
+      </div>
     </SectionCard>
   )
 
@@ -932,7 +1130,6 @@ export default function CnicValidator() {
             ))}
           </div>
 
-          {/* Copy all valid CNICs */}
           {bulkResults.some(r => r.result.valid) && (
             <CopyButton
               text={bulkResults.filter(r => r.result.valid).map(r => r.result.formatted).join('\n')}
@@ -944,7 +1141,184 @@ export default function CnicValidator() {
     </SectionCard>
   )
 
-  // ── Province reference table ───────────────────────────────────────────────
+  // ── WHT Rates Panel (with ATL / Filer intro) ───────────────────────────────
+
+  const whtPanel = (
+    <SectionCard title="ATL / Filer Benefits & WHT Rates" icon="📊" colors={colors}>
+      {/* ATL info cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.75rem', marginBottom: '1.5rem' }}>
+        {[
+          { icon: '📋', title: 'What is ATL?', body: 'The Active Taxpayer List is published by FBR every year on March 1. It lists all individuals and companies who filed their Income Tax Return by the due date for the previous tax year.' },
+          { icon: '🔍', title: 'How to check?', body: 'Visit fbr.gov.pk → ATL Search, or IRIS portal. Enter your NTN or CNIC. You can also SMS your CNIC to 9966 (ATL<space>CNIC). Status updates within 2–3 days of filing.' },
+          { icon: '💰', title: 'Why it matters?', body: 'Being a "filer" on ATL qualifies you for significantly reduced withholding tax rates on dozens of transactions — bank profits, property, vehicles, imports, dividends and more.' },
+          { icon: '🗓️', title: 'ATL Fee (late joiner)', body: 'If you file your return after the deadline but before March 1, FBR charges a surcharge fee (PKR 1,000 for individuals) to be included in the ATL. This is worth paying given the WHT savings.' },
+        ].map(card => (
+          <div key={card.title} style={{
+            background: colors.surface,
+            border: `1px solid ${colors.border}`,
+            borderRadius: '0.75rem',
+            padding: '1rem',
+          }}>
+            <p style={{ margin: '0 0 0.4rem', fontSize: '1.2rem' }}>{card.icon}</p>
+            <p style={{ margin: '0 0 0.35rem', fontWeight: 700, fontSize: '0.85rem', color: colors.text }}>{card.title}</p>
+            <p style={{ margin: 0, fontSize: '0.78rem', color: colors.textSecondary, lineHeight: 1.6 }}>{card.body}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Filer vs Non-Filer summary */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '1.25rem' }}>
+        {[
+          { label: 'Filer', desc: 'On ATL — filed ITR on time', rate: 'Lower rates', color: '#22c55e' },
+          { label: 'Non-Filer', desc: 'Not on ATL — did not file ITR', rate: 'Higher rates (1.5–3×)', color: '#ef4444' },
+        ].map(item => (
+          <div key={item.label} style={{
+            background: `${item.color}12`,
+            border: `1px solid ${item.color}33`,
+            borderRadius: '0.7rem',
+            padding: '1rem',
+            textAlign: 'center',
+          }}>
+            <TaxBadge text={item.label} color={item.color} />
+            <p style={{ margin: '0.4rem 0 0.2rem', fontSize: '0.8rem', color: colors.textSecondary }}>{item.desc}</p>
+            <p style={{ margin: 0, fontWeight: 700, color: item.color, fontSize: '0.9rem' }}>{item.rate}</p>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ marginBottom: '1.25rem', padding: '0.75rem 1rem', background: `${ACCENT}10`, border: `1px solid ${ACCENT}30`, borderRadius: '0.65rem', fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+        <strong style={{ color: colors.text }}>🔗 Official ATL Check:</strong>{' '}
+        <span style={{ color: ACCENT, fontWeight: 600 }}>fbr.gov.pk/ird/atlsearch</span>
+        {' '}— Enter CNIC or NTN to check filer status. Also reachable via IRIS portal under "Taxpayer Profile".
+      </div>
+
+      {/* WHT rates table */}
+      <h3 style={{ margin: '0 0 0.75rem', fontSize: '0.9rem', fontWeight: 700, color: colors.text }}>
+        Withholding Tax Reference Table
+      </h3>
+      <p style={{ margin: '0 0 1rem', fontSize: '0.84rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+        WHT rates under the <strong style={{ color: colors.text }}>Income Tax Ordinance 2001</strong>. Filer rates apply to
+        taxpayers on FBR's Active Taxpayer List. Rates are based on Finance Act 2024–25.
+      </p>
+
+      <div style={{ overflowX: 'auto' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.82rem' }}>
+          <thead>
+            <tr style={{ background: `${ACCENT}15` }}>
+              {['Transaction', 'Filer Rate', 'Non-Filer Rate', 'ITO Section'].map(h => (
+                <th key={h} style={{
+                  padding: '0.65rem 0.75rem',
+                  textAlign: 'left',
+                  color: ACCENT,
+                  fontWeight: 700,
+                  fontSize: '0.75rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.04em',
+                  whiteSpace: 'nowrap',
+                  borderBottom: `2px solid ${ACCENT}33`,
+                }}>
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {WHT_ROWS.map((row, i) => (
+              <tr key={row.type} style={{ background: i % 2 === 0 ? 'transparent' : colors.surface }}>
+                <td style={{ padding: '0.6rem 0.75rem', color: colors.text, fontWeight: 500, borderBottom: `1px solid ${colors.border}` }}>{row.type}</td>
+                <td style={{ padding: '0.6rem 0.75rem', color: '#22c55e', fontWeight: 700, borderBottom: `1px solid ${colors.border}`, whiteSpace: 'nowrap' }}>{row.filer}</td>
+                <td style={{ padding: '0.6rem 0.75rem', color: '#f87171', fontWeight: 700, borderBottom: `1px solid ${colors.border}`, whiteSpace: 'nowrap' }}>{row.nonFiler}</td>
+                <td style={{ padding: '0.6rem 0.75rem', color: colors.muted, fontFamily: 'monospace', fontSize: '0.75rem', borderBottom: `1px solid ${colors.border}`, whiteSpace: 'nowrap' }}>{row.ref}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p style={{ margin: '0.75rem 0 0', fontSize: '0.75rem', color: colors.muted, fontStyle: 'italic' }}>
+        * Rates are illustrative and subject to change via annual Finance Acts. Always verify with the latest FBR circular or a tax consultant.
+      </p>
+    </SectionCard>
+  )
+
+  // ── Calendar Panel ─────────────────────────────────────────────────────────
+
+  const calendarPanel = (
+    <SectionCard title="Pakistan Tax Calendar — Key Deadlines" icon="📅" colors={colors}>
+      <p style={{ margin: '0 0 1rem', fontSize: '0.84rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+        Pakistan's tax year runs from <strong style={{ color: colors.text }}>1 July to 30 June</strong>.
+        All deadlines are fixed unless FBR issues an extension order (common for ITR — check fbr.gov.pk for extensions).
+      </p>
+
+      <div style={{ display: 'grid', gap: '0.55rem' }}>
+        {TAX_DEADLINES.map((item, i) => {
+          const isAdvance = item.event.startsWith('Advance Tax')
+          const isMonthly = item.event.includes('Monthly')
+          const dotColor = isAdvance ? '#f59e0b' : isMonthly ? '#a78bfa' : ACCENT
+          return (
+            <div key={i} style={{
+              display: 'flex',
+              gap: '0.85rem',
+              alignItems: 'flex-start',
+              padding: '0.75rem 0.9rem',
+              background: colors.surface,
+              border: `1px solid ${colors.border}`,
+              borderRadius: '0.6rem',
+              borderLeft: `3px solid ${dotColor}`,
+            }}>
+              <div style={{ flex: 1 }}>
+                <p style={{ margin: 0, fontWeight: 600, fontSize: '0.84rem', color: colors.text }}>{item.event}</p>
+                <p style={{ margin: '0.15rem 0 0', fontSize: '0.75rem', color: colors.textSecondary }}>{item.note}</p>
+              </div>
+              <span style={{
+                flexShrink: 0,
+                background: `${dotColor}18`,
+                color: dotColor,
+                border: `1px solid ${dotColor}40`,
+                borderRadius: '0.4rem',
+                padding: '0.2rem 0.55rem',
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                whiteSpace: 'nowrap',
+              }}>
+                {item.date}
+              </span>
+            </div>
+          )
+        })}
+      </div>
+
+      <div style={{ marginTop: '1rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem', fontSize: '0.75rem' }}>
+        {[
+          { color: ACCENT, label: 'Annual / Registration deadlines' },
+          { color: '#f59e0b', label: 'Advance Tax (quarterly)' },
+          { color: '#a78bfa', label: 'Monthly obligations' },
+        ].map(l => (
+          <span key={l.label} style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', color: colors.textSecondary }}>
+            <span style={{ width: '10px', height: '10px', borderRadius: '2px', background: l.color, flexShrink: 0 }} />
+            {l.label}
+          </span>
+        ))}
+      </div>
+    </SectionCard>
+  )
+
+  // ── Glossary Panel ─────────────────────────────────────────────────────────
+
+  const glossaryPanel = (
+    <SectionCard title="Tax Glossary — Quick Reference" icon="📖" colors={colors}>
+      <p style={{ margin: '0 0 1rem', fontSize: '0.84rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+        Click any term to expand its definition.
+      </p>
+      <div>
+        {GLOSSARY.map(item => (
+          <GlossaryItem key={item.term} term={item.term} def={item.def} colors={colors} />
+        ))}
+      </div>
+    </SectionCard>
+  )
+
+  // ── Province reference table (shown on CNIC/B-Form tabs via tab content) ───
 
   const provinceTable = (
     <SectionCard title="Province / Division Code Reference" icon="🗺️" colors={colors}>
@@ -954,24 +1328,21 @@ export default function CnicValidator() {
         gap: '0.65rem',
       }}>
         {[
-          { range: '10–19', province: 'Punjab', color: PROVINCE_COLORS['Punjab'], divisions: 'Lahore, Gujranwala, Rawalpindi, Sargodha, Faisalabad, Multan, Bahawalpur, Sahiwal, DG Khan' },
-          { range: '20–29', province: 'Sindh', color: PROVINCE_COLORS['Sindh'], divisions: 'Karachi, Hyderabad, Sukkur, Larkana, Mirpur Khas, Shaheed Benazirabad' },
-          { range: '30–39', province: 'KPK', color: PROVINCE_COLORS['Khyber Pakhtunkhwa (KPK)'], divisions: 'Peshawar, Mardan, Kohat, Malakand, Hazara, Bannu, DI Khan' },
-          { range: '40–49', province: 'Balochistan', color: PROVINCE_COLORS['Balochistan'], divisions: 'Quetta, Kalat, Makran, Khuzdar, Nasirabad, Sibi, Zhob' },
-          { range: '50–59', province: 'Islamabad (ICT)', color: PROVINCE_COLORS['Islamabad Capital Territory'], divisions: 'Federal Capital Territory' },
-          { range: '60–69', province: 'FATA / Merged', color: PROVINCE_COLORS['FATA / Merged Districts'], divisions: 'Merged Tribal Districts' },
-          { range: '70–79', province: 'AJK', color: PROVINCE_COLORS['Azad Jammu & Kashmir (AJK)'], divisions: 'Muzaffarabad, Mirpur, Poonch' },
-          { range: '80–89', province: 'Gilgit-Baltistan', color: PROVINCE_COLORS['Gilgit-Baltistan'], divisions: 'Gilgit, Skardu, Diamer, Ghanche, Astore, Hunza-Nagar' },
+          { range: '10–19', province: 'Punjab',           color: PROVINCE_COLORS['Punjab'],                          divisions: 'Lahore, Gujranwala, Rawalpindi, Sargodha, Faisalabad, Multan, Bahawalpur, Sahiwal, DG Khan' },
+          { range: '20–29', province: 'Sindh',            color: PROVINCE_COLORS['Sindh'],                           divisions: 'Karachi, Hyderabad, Sukkur, Larkana, Mirpur Khas, Shaheed Benazirabad' },
+          { range: '30–39', province: 'KPK',              color: PROVINCE_COLORS['Khyber Pakhtunkhwa (KPK)'],        divisions: 'Peshawar, Mardan, Kohat, Malakand, Hazara, Bannu, DI Khan' },
+          { range: '40–49', province: 'Balochistan',      color: PROVINCE_COLORS['Balochistan'],                     divisions: 'Quetta, Kalat, Makran, Khuzdar, Nasirabad, Sibi, Zhob' },
+          { range: '50–59', province: 'Islamabad (ICT)',  color: PROVINCE_COLORS['Islamabad Capital Territory'],     divisions: 'Federal Capital Territory' },
+          { range: '60–69', province: 'FATA / Merged',    color: PROVINCE_COLORS['FATA / Merged Districts'],         divisions: 'Merged Tribal Districts' },
+          { range: '70–79', province: 'AJK',              color: PROVINCE_COLORS['Azad Jammu & Kashmir (AJK)'],      divisions: 'Muzaffarabad, Mirpur, Poonch' },
+          { range: '80–89', province: 'Gilgit-Baltistan', color: PROVINCE_COLORS['Gilgit-Baltistan'],                divisions: 'Gilgit, Skardu, Diamer, Ghanche, Astore, Hunza-Nagar' },
         ].map(row => (
-          <div
-            key={row.range}
-            style={{
-              background: `${row.color}11`,
-              border: `1px solid ${row.color}44`,
-              borderRadius: '0.65rem',
-              padding: '0.75rem',
-            }}
-          >
+          <div key={row.range} style={{
+            background: `${row.color}11`,
+            border: `1px solid ${row.color}44`,
+            borderRadius: '0.65rem',
+            padding: '0.75rem',
+          }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.3rem' }}>
               <span style={{ fontSize: '0.72rem', fontWeight: 800, color: row.color, letterSpacing: '0.05em' }}>
                 {row.range}
@@ -991,8 +1362,7 @@ export default function CnicValidator() {
   // ── Render ─────────────────────────────────────────────────────────────────
 
   return (
-    <ToolLayout toolId="cnic-validator">
-      {/* Page heading */}
+    <ToolLayout toolId="pk-id-tax-hub">
       <div style={{ marginBottom: '1.75rem' }}>
         <h1 style={{
           margin: '0 0 0.4rem',
@@ -1003,10 +1373,10 @@ export default function CnicValidator() {
           alignItems: 'center',
           gap: '0.5rem',
         }}>
-          <span>🪪</span> Pakistan ID Validator
+          <span>🇵🇰</span> Pakistan ID &amp; Tax Hub
         </h1>
         <p style={{ margin: 0, fontSize: '0.88rem', color: colors.textSecondary }}>
-          Validate and decode CNIC · B-Form · NTN · STRN — all client-side, no data leaves your browser.
+          CNIC decoder · NTN/STRN validator · WHT rates · FBR calendar — all client-side, no data leaves your browser.
         </p>
       </div>
 
@@ -1014,13 +1384,19 @@ export default function CnicValidator() {
 
       {tabBar}
 
-      {activeTab === 'cnic' && cnicPanel}
+      {activeTab === 'cnic' && (
+        <>
+          {cnicPanel}
+          {provinceTable}
+        </>
+      )}
       {activeTab === 'bform' && bFormPanel}
       {activeTab === 'ntn' && ntnPanel}
       {activeTab === 'strn' && strnPanel}
       {activeTab === 'bulk' && bulkPanel}
-
-      {provinceTable}
+      {activeTab === 'wht' && whtPanel}
+      {activeTab === 'calendar' && calendarPanel}
+      {activeTab === 'glossary' && glossaryPanel}
     </ToolLayout>
   )
 }

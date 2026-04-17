@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import './App.css'
 import { useTheme } from './hooks/useTheme'
 import { useIsMobile } from './hooks/useIsMobile'
@@ -65,6 +65,7 @@ function App() {
   const [activeBattle, setActiveBattle] = useState(null)
   const [challengeData, setChallengeData] = useState(null)
   const [resultData, setResultData] = useState(null)   // sender sees friend's result
+  const [searchParams, setSearchParams] = useSearchParams()
   const challengeApplied = useRef(false)
   const activeRoomApplied = useRef(false)
   const battleApplied = useRef(false)
@@ -130,9 +131,8 @@ function App() {
 
   // Detect challenge link (?c=) or result link (?r=) on mount
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    const c = params.get('c')
-    const r = params.get('r')
+    const c = searchParams.get('c')
+    const r = searchParams.get('r')
     if (c) {
       try {
         const data = JSON.parse(atob(c))
@@ -151,7 +151,8 @@ function App() {
         console.warn('Invalid result link')
       }
     }
-    if (c || r) window.history.replaceState({}, '', window.location.pathname)
+    if (c || r) setSearchParams({}, { replace: true })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Apply challenge passage once difficulty/language are set

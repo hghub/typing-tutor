@@ -11,7 +11,7 @@ import ToolLayout from '../components/ToolLayout'
 //   Digit 5   : Union Council
 //   Digits 6-12: Family/serial number (7 digits)
 //   Digit 13  : Gender (odd=Male, even=Female)
-// Source: NADRA CNIC structure per atmateen.com, incpak.com, allfactsaddict.blogspot.com
+// Source: cnicinformation.net.pk/nadra-cnic-city-codes (NADRA official division codes)
 
 const PROVINCE_MAP = {
   1: 'Khyber Pakhtunkhwa (KPK)',
@@ -26,16 +26,16 @@ const PROVINCE_MAP = {
 
 // Key = first two digits of CNIC (province digit + division digit)
 const DIVISION_MAP = {
-  // KPK (1) — 7 divisions
-  11: { division: 'Peshawar' },
-  12: { division: 'Mardan' },
-  13: { division: 'Kohat' },
-  14: { division: 'Malakand' },
-  15: { division: 'Hazara' },
-  16: { division: 'Bannu' },
-  17: { division: 'Dera Ismail Khan' },
+  // KPK (1)
+  11: { division: 'Bannu' },
+  12: { division: 'Dera Ismail Khan' },
+  13: { division: 'Hazara' },
+  14: { division: 'Kohat' },
+  15: { division: 'Malakand' },
+  16: { division: 'Mardan' },
+  17: { division: 'Peshawar' },
 
-  // FATA / Merged Districts (2)
+  // FATA / Merged Districts (2) — agency-level codes
   21: { division: 'Khyber Agency' },
   22: { division: 'Kurram Agency' },
   23: { division: 'Orakzai Agency' },
@@ -44,48 +44,40 @@ const DIVISION_MAP = {
   26: { division: 'South Waziristan' },
   27: { division: 'North Waziristan' },
 
-  // Punjab (3) — 9 divisions (35=Lahore, 32=Gujranwala, 33=Rawalpindi, 34=Faisalabad, 36=Multan confirmed)
-  31: { division: 'Sargodha' },
-  32: { division: 'Gujranwala' },
-  33: { division: 'Rawalpindi' },
-  34: { division: 'Faisalabad' },
+  // Punjab (3)
+  31: { division: 'Bahawalpur' },
+  32: { division: 'Dera Ghazi Khan' },
+  33: { division: 'Faisalabad' },
+  34: { division: 'Gujranwala & Gujrat' },
   35: { division: 'Lahore' },
-  36: { division: 'Multan' },
-  37: { division: 'Sahiwal' },
-  38: { division: 'Bahawalpur' },
-  39: { division: 'Dera Ghazi Khan' },
+  36: { division: 'Multan & Sahiwal' },
+  37: { division: 'Rawalpindi' },
+  38: { division: 'Sargodha & Mianwali' },
 
-  // Sindh (4) — 6 divisions (42=Karachi, 41=Hyderabad confirmed)
+  // Sindh (4)
   41: { division: 'Hyderabad' },
   42: { division: 'Karachi' },
-  43: { division: 'Sukkur' },
-  44: { division: 'Larkana' },
-  45: { division: 'Mirpur Khas' },
-  46: { division: 'Shaheed Benazirabad' },
+  43: { division: 'Larkana' },
+  44: { division: 'Mirpur Khas' },
+  45: { division: 'Sukkur & Shaheed Benazirabad' },
 
-  // Balochistan (5) — 7 divisions
-  51: { division: 'Quetta' },
-  52: { division: 'Kalat' },
-  53: { division: 'Makran' },
-  54: { division: 'Nasirabad' },
+  // Balochistan (5)
+  51: { division: 'Kalat & Rakhshan' },
+  52: { division: 'Makran' },
+  53: { division: 'Nasirabad' },
+  54: { division: 'Quetta' },
   55: { division: 'Sibi' },
-  56: { division: 'Zhob' },
-  57: { division: 'Khuzdar' },
+  56: { division: 'Zhob & Loralai' },
 
-  // ICT (6) — single division (61=Islamabad confirmed)
+  // ICT (6)
   61: { division: 'Islamabad' },
 
   // Gilgit-Baltistan (7)
-  71: { division: 'Gilgit' },
-  72: { division: 'Diamer' },
-  73: { division: 'Ghizer' },
-  74: { division: 'Baltistan (Skardu)' },
-  75: { division: 'Hunza-Nagar' },
+  71: { division: 'Gilgit, Baltistan & Diamer' },
 
-  // AJK (8) — 3 divisions
+  // AJK (8)
   81: { division: 'Mirpur' },
-  82: { division: 'Muzaffarabad' },
-  83: { division: 'Poonch' },
+  82: { division: 'Poonch & Muzaffarabad' },
 }
 
 const PROVINCE_COLORS = {

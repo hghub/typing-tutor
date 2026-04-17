@@ -68,7 +68,7 @@ export default function RelatedTools({ toolId }) {
             backgroundClip: 'text',
             animation: 'relatedShimmer 3s linear infinite',
           }}>
-            Also in Typely — explore more tools
+            Also in Rafiqy — explore more tools
           </span>
           <span style={{
             marginLeft: 'auto',

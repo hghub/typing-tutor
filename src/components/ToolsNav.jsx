@@ -154,7 +154,7 @@ export default function ToolsNav({ rightExtras }) {
 
   return (
     <nav
-      aria-label="Typely navigation"
+      aria-label="Rafiqy navigation"
       style={{
         background: isDark ? 'rgba(15,23,42,0.95)' : 'rgba(255,255,255,0.95)',
         backdropFilter: 'blur(12px)',
@@ -176,7 +176,7 @@ export default function ToolsNav({ rightExtras }) {
           WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
           backgroundClip: 'text', flexShrink: 0,
         }}>
-          ⚡ Typely
+          ⚡ Rafiqy
         </Link>
 
         {/* ── Breadcrumb (on individual tool pages) ── */}

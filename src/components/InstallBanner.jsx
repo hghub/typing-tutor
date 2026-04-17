@@ -53,7 +53,7 @@ export default function InstallBanner({ isDark, colors }) {
       <span style={{ fontSize: '1.75rem', flexShrink: 0 }}>📲</span>
       <div style={{ flex: 1, minWidth: 0 }}>
         <p style={{ margin: 0, fontWeight: 700, fontSize: '0.9rem', color: colors.text }}>
-          Install Typely
+          Install Rafiqy
         </p>
         <p style={{ margin: '0.15rem 0 0', fontSize: '0.78rem', color: colors.textSecondary }}>
           Works offline · Opens like an app · No App Store needed

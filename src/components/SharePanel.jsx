@@ -51,7 +51,7 @@ export default function SharePanel({ getBlob, filename, textSummary }) {
 
   const email = (bytes) =>
     shareViaWebShare(bytes, () => {
-      const subject = encodeURIComponent(filename.replace('.pdf', '') + ' — Typely Report')
+      const subject = encodeURIComponent(filename.replace('.pdf', '') + ' — Rafiqy Report')
       const body = encodeURIComponent(textSummary)
       window.open('mailto:?subject=' + subject + '&body=' + body)
     })

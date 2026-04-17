@@ -85,8 +85,8 @@ export default function PrivacyPolicy({ onClose, isDark, colors }) {
           border: '1px solid rgba(6,182,212,0.2)',
         }}>
           <p style={{ margin: 0, color: colors.textSecondary, fontSize: '0.8rem', textAlign: 'center' }}>
-            By using Typely you agree to this Privacy Policy.
-            <br />© {new Date().getFullYear()} Typely · <a href="mailto:privacy@typely.app" style={{ color: '#06b6d4' }}>Contact</a>
+            By using Rafiqy you agree to this Privacy Policy.
+            <br />© {new Date().getFullYear()} Rafiqy · <a href="mailto:privacy@rafiqy.app" style={{ color: '#06b6d4' }}>Contact</a>
           </p>
         </div>
       </div>

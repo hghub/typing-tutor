@@ -98,7 +98,7 @@ export default function Header({ language, onLanguageChange, isDark, onToggleThe
           margin: 0,
           letterSpacing: '-0.02em',
         }}>
-          Typely ⚡
+          Rafiqy ⚡
         </h1>
         <p style={{ color: colors.textSecondary, fontSize: '0.82rem', fontWeight: 400, margin: '0.25rem 0 0 0' }}>
           Your Smart Typing System

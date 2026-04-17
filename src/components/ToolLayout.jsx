@@ -126,7 +126,7 @@ export default function ToolLayout({ toolId, children }) {
         fontSize: '0.75rem',
         borderTop: `1px solid ${colors.border}`,
       }}>
-        © {new Date().getFullYear()} Typely · Privacy-first browser tools &nbsp;·&nbsp;
+        © {new Date().getFullYear()} Rafiqy · Privacy-first browser tools &nbsp;·&nbsp;
         <a href="/about" style={{ color: 'inherit', textDecoration: 'underline' }}>About</a>
       </footer>
     </div>

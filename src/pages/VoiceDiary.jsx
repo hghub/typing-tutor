@@ -1,9 +1,22 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
+import { usePreferences } from '../hooks/usePreferences'
+import { supabase } from '../utils/supabase'
 
 const ACCENT = '#ec4899'
 const STORAGE_KEY = 'typely_diary'
+
+const SESSION_KEY = 'typely_session_id'
+
+function getSessionId() {
+  let sid = localStorage.getItem(SESSION_KEY)
+  if (!sid) {
+    sid = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`
+    localStorage.setItem(SESSION_KEY, sid)
+  }
+  return sid
+}
 const MOODS = ['😊', '😐', '😔', '😤', '🙏']
 const LANGS = [
   { value: 'en-US', label: 'English' },
@@ -76,6 +89,8 @@ function SectionHeading({ children }) {
 
 export default function VoiceDiary() {
   const { colors } = useTheme()
+  const { prefs } = usePreferences()
+  const [syncing, setSyncing] = useState(false)
 
   // Speech support
   const [speechSupported] = useState(() => !!(window.SpeechRecognition || window.webkitSpeechRecognition))
@@ -111,6 +126,36 @@ export default function VoiceDiary() {
       setEntryTitle(autoTitle(entryText))
     }
   }, [entryText, titleEdited])
+
+  /* ── Cloud Sync load ── */
+  useEffect(() => {
+    if (!prefs.cloudSync) return
+    async function fetchFromSupabase() {
+      const sid = getSessionId()
+      setSyncing(true)
+      try {
+        const { data, error } = await supabase
+          .from('voice_diary')
+          .select('*')
+          .eq('user_id', sid)
+          .order('created_at', { ascending: false })
+        if (!error && data && data.length > 0) {
+          const mapped = data.map(d => ({
+            id: d.id,
+            title: d.title,
+            body: d.content || '',
+            mood: d.mood || '',
+            createdAt: d.created_at,
+            updatedAt: d.recorded_at || d.created_at,
+          }))
+          setEntries(mapped)
+          saveEntries(mapped)
+        }
+      } catch { /* offline */ }
+      finally { setSyncing(false) }
+    }
+    fetchFromSupabase()
+  }, [prefs.cloudSync])
 
   /* ── Speech recognition ── */
   const startRecording = useCallback(() => {
@@ -166,10 +211,11 @@ export default function VoiceDiary() {
   }, [])
 
   /* ── Save entry ── */
-  const handleSave = useCallback(() => {
+  const handleSave = useCallback(async () => {
     const text = entryText.trim()
     if (!text) return
     const now = new Date().toISOString()
+    const sid = getSessionId()
 
     if (editingId) {
       setEntries(prev => {
@@ -182,6 +228,16 @@ export default function VoiceDiary() {
         return updated
       })
       showToast('Entry updated ✓')
+      if (prefs.cloudSync) {
+        try {
+          await supabase.from('voice_diary').update({
+            title: entryTitle || autoTitle(text),
+            content: text,
+            mood: selectedMood,
+            recorded_at: now,
+          }).eq('id', editingId).eq('user_id', sid)
+        } catch { /* ignore */ }
+      }
     } else {
       const entry = {
         id: genId(),
@@ -197,6 +253,19 @@ export default function VoiceDiary() {
         return updated
       })
       showToast('Entry saved ✓')
+      if (prefs.cloudSync) {
+        try {
+          await supabase.from('voice_diary').insert([{
+            id: entry.id,
+            user_id: sid,
+            title: entry.title,
+            content: entry.body,
+            mood: entry.mood,
+            created_at: entry.createdAt,
+            recorded_at: entry.updatedAt,
+          }])
+        } catch { /* ignore */ }
+      }
     }
 
     setEntryText('')
@@ -204,7 +273,7 @@ export default function VoiceDiary() {
     setTitleEdited(false)
     setSelectedMood('')
     setEditingId(null)
-  }, [entryText, entryTitle, selectedMood, editingId, showToast])
+  }, [entryText, entryTitle, selectedMood, editingId, showToast, prefs.cloudSync])
 
   const handleCancelEdit = useCallback(() => {
     setEntryText('')
@@ -215,7 +284,7 @@ export default function VoiceDiary() {
   }, [])
 
   /* ── Delete entry ── */
-  const handleDelete = useCallback((id) => {
+  const handleDelete = useCallback(async (id) => {
     setEntries(prev => {
       const updated = prev.filter(e => e.id !== id)
       saveEntries(updated)
@@ -223,7 +292,13 @@ export default function VoiceDiary() {
     })
     if (detailId === id) setDetailId(null)
     showToast('Entry deleted')
-  }, [detailId, showToast])
+    if (prefs.cloudSync) {
+      try {
+        const sid = getSessionId()
+        await supabase.from('voice_diary').delete().eq('id', id).eq('user_id', sid)
+      } catch { /* ignore */ }
+    }
+  }, [detailId, showToast, prefs.cloudSync])
 
   /* ── Open detail ── */
   const openDetail = useCallback((entry) => {
@@ -235,7 +310,7 @@ export default function VoiceDiary() {
   }, [])
 
   /* ── Save detail edit ── */
-  const handleDetailSave = useCallback(() => {
+  const handleDetailSave = useCallback(async () => {
     const text = detailEditText.trim()
     if (!text) return
     const now = new Date().toISOString()
@@ -250,7 +325,18 @@ export default function VoiceDiary() {
     })
     setDetailEditing(false)
     showToast('Entry updated ✓')
-  }, [detailId, detailEditText, detailEditTitle, detailEditMood, showToast])
+    if (prefs.cloudSync) {
+      try {
+        const sid = getSessionId()
+        await supabase.from('voice_diary').update({
+          title: detailEditTitle || autoTitle(text),
+          content: text,
+          mood: detailEditMood,
+          recorded_at: now,
+        }).eq('id', detailId).eq('user_id', sid)
+      } catch { /* ignore */ }
+    }
+  }, [detailId, detailEditText, detailEditTitle, detailEditMood, showToast, prefs.cloudSync])
 
   /* ── Edit from list ── */
   const handleEditFromList = useCallback((entry) => {
@@ -284,6 +370,36 @@ export default function VoiceDiary() {
     a.click()
     URL.revokeObjectURL(url)
   }, [entries])
+
+  const handleExportBackup = useCallback(() => {
+    const data = JSON.stringify({ version: 1, exported: new Date().toISOString(), items: entries })
+    const blob = new Blob([data], { type: 'application/json' })
+    const a = document.createElement('a')
+    a.href = URL.createObjectURL(blob)
+    a.download = `typely-diary-backup-${new Date().toISOString().split('T')[0]}.json`
+    a.click()
+  }, [entries])
+
+  const handleImportBackup = useCallback((e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      try {
+        const parsed = JSON.parse(ev.target.result)
+        const items = parsed.items || parsed
+        if (!Array.isArray(items)) { alert('Invalid backup file'); return }
+        setEntries(prev => {
+          const ids = new Set(prev.map(x => x.id))
+          const newOnes = items.filter(x => !ids.has(x.id))
+          const merged = [...prev, ...newOnes]
+          saveEntries(merged)
+          return merged
+        })
+      } catch { alert('Invalid backup file') }
+    }
+    reader.readAsText(file)
+  }, [])
 
   /* ── Filtered entries ── */
   const filtered = entries.filter(e => {
@@ -326,16 +442,26 @@ export default function VoiceDiary() {
 
       <div style={{ maxWidth: '800px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem' }}>
           <div>
             <h1 style={{ margin: 0, fontSize: '1.6rem', fontWeight: 800, color: ACCENT }}>🎙️ Voice Diary</h1>
             <p style={{ margin: '0.2rem 0 0', color: colors.textSecondary, fontSize: '0.85rem' }}>
               Speak or type — your private journal lives in your browser
             </p>
+            <span style={{ fontSize: '0.72rem', marginTop: '0.35rem', display: 'inline-block', color: prefs.cloudSync ? '#06b6d4' : colors.textSecondary }}>
+              {syncing ? '⟳ Syncing…' : prefs.cloudSync ? '☁️ Cloud Sync On' : '📴 Local Only'}
+            </span>
           </div>
-          <Btn onClick={handleExport} disabled={!entries.length} variant="ghost" title="Download all entries as .txt">
-            ⬇ Download All (.txt)
-          </Btn>
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+            <Btn onClick={handleExport} disabled={!entries.length} variant="ghost" title="Download all entries as .txt">
+              ⬇ Download All (.txt)
+            </Btn>
+            <button onClick={handleExportBackup} style={{ fontSize: '0.75rem', padding: '0.3rem 0.7rem', borderRadius: '0.4rem', border: `1px solid ${colors.border}`, background: 'transparent', color: colors.textSecondary, cursor: 'pointer' }}>⬇️ Export Backup</button>
+            <label style={{ fontSize: '0.75rem', padding: '0.3rem 0.7rem', borderRadius: '0.4rem', border: `1px solid ${colors.border}`, background: 'transparent', color: colors.textSecondary, cursor: 'pointer' }}>
+              ⬆️ Import Backup
+              <input type="file" accept=".json" onChange={handleImportBackup} style={{ display: 'none' }} />
+            </label>
+          </div>
         </div>
 
         {/* Speech not available banner */}
@@ -611,6 +737,17 @@ export default function VoiceDiary() {
           50% { opacity: 0.4; }
         }
       `}</style>
+
+      <div style={{ marginTop: '1.5rem', padding: '0.75rem 1rem', borderRadius: '0.75rem', background: prefs.cloudSync ? 'rgba(6,182,212,0.08)' : 'rgba(245,158,11,0.08)', border: `1px solid ${prefs.cloudSync ? 'rgba(6,182,212,0.25)' : 'rgba(245,158,11,0.25)'}`, display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
+        <span>{prefs.cloudSync ? '☁️' : '💾'}</span>
+        <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+          {prefs.cloudSync ? (
+            <><strong style={{ color: colors.text }}>Cloud Sync is on.</strong>{' '}Your records are backed up to the cloud. Enable in Settings to access on any device.{' '}<strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong></>
+          ) : (
+            <><strong style={{ color: colors.text }}>Saved on this device only.</strong>{' '}Cloud Sync is off — data lives in this browser only. Export a backup to keep your records safe.{' '}<strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong></>
+          )}
+        </p>
+      </div>
     </ToolLayout>
   )
 }

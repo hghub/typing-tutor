@@ -1,10 +1,23 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
+import { usePreferences } from '../hooks/usePreferences'
+import { supabase } from '../utils/supabase'
 
 const STORAGE_KEY = 'typely_habits'
 const ACCENT = '#10b981'
 const FONT = 'system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif'
+
+const SESSION_KEY = 'typely_session_id'
+
+function getSessionId() {
+  let sid = localStorage.getItem(SESSION_KEY)
+  if (!sid) {
+    sid = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`
+    localStorage.setItem(SESSION_KEY, sid)
+  }
+  return sid
+}
 
 const PRESET_COLORS = [
   '#10b981', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6',
@@ -655,6 +668,8 @@ function CheckCircle({ done, color, size = 52, onClick }) {
 // ── Main Component ────────────────────────────────────────────────────────────
 export default function HabitTracker() {
   const { colors } = useTheme()
+  const { prefs } = usePreferences()
+  const [syncing, setSyncing] = useState(false)
   const [habits, setHabits] = useState(loadHabits)
   const [showModal, setShowModal] = useState(false)
   const [editingHabit, setEditingHabit] = useState(null)
@@ -672,6 +687,20 @@ export default function HabitTracker() {
     }
   }, [habits]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    if (!prefs.cloudSync) return
+    async function fetchFromSupabase() {
+      const sid = getSessionId()
+      setSyncing(true)
+      try {
+        const { data, error } = await supabase.from('habits').select('*').eq('user_id', sid)
+        if (!error && data && data.length > 0) { setHabits(data); saveHabits(data) }
+      } catch { /* offline */ }
+      finally { setSyncing(false) }
+    }
+    fetchFromSupabase()
+  }, [prefs.cloudSync])
+
   const today = todayKey()
 
   const todayHabits = useMemo(() => {
@@ -688,17 +717,22 @@ export default function HabitTracker() {
 
   const todayPct = todayHabits.length > 0 ? todayDoneCount / todayHabits.length : 0
 
-  const toggleToday = useCallback((habitId) => {
-    setHabits(prev => prev.map(h => {
-      if (h.id !== habitId) return h
-      const completions = { ...h.completions }
-      if (completions[today]) delete completions[today]
-      else completions[today] = true
-      return { ...h, completions }
-    }))
-  }, [today])
+  const toggleToday = useCallback(async (habitId) => {
+    const habit = habits.find(h => h.id === habitId)
+    if (!habit) return
+    const completions = { ...habit.completions }
+    if (completions[today]) delete completions[today]
+    else completions[today] = true
+    setHabits(prev => prev.map(h => h.id !== habitId ? h : { ...h, completions }))
+    if (prefs.cloudSync) {
+      try {
+        const sid = getSessionId()
+        await supabase.from('habits').update({ completions }).eq('id', habitId).eq('user_id', sid)
+      } catch { /* ignore */ }
+    }
+  }, [today, habits, prefs.cloudSync])
 
-  const saveHabit = useCallback((data) => {
+  const saveHabit = useCallback(async (data) => {
     setHabits(prev => {
       const idx = prev.findIndex(h => h.id === data.id)
       if (idx >= 0) {
@@ -710,16 +744,67 @@ export default function HabitTracker() {
     })
     setShowModal(false)
     setEditingHabit(null)
-  }, [])
+    if (prefs.cloudSync) {
+      try {
+        const sid = getSessionId()
+        await supabase.from('habits').upsert([{ ...data, user_id: sid }], { onConflict: 'id,user_id' })
+      } catch { /* ignore */ }
+    }
+  }, [prefs.cloudSync])
 
-  const archiveToggle = useCallback((id) => {
-    setHabits(prev => prev.map(h => h.id === id ? { ...h, archived: !h.archived } : h))
-  }, [])
+  const archiveToggle = useCallback(async (id) => {
+    const habit = habits.find(h => h.id === id)
+    if (!habit) return
+    const archived = !habit.archived
+    setHabits(prev => prev.map(h => h.id === id ? { ...h, archived } : h))
+    if (prefs.cloudSync) {
+      try {
+        const sid = getSessionId()
+        await supabase.from('habits').update({ archived }).eq('id', id).eq('user_id', sid)
+      } catch { /* ignore */ }
+    }
+  }, [habits, prefs.cloudSync])
 
-  const deleteHabit = useCallback((id) => {
+  const deleteHabit = useCallback(async (id) => {
     if (!window.confirm('Delete this habit and all its data?')) return
     setHabits(prev => prev.filter(h => h.id !== id))
     setDetailHabit(null)
+    if (prefs.cloudSync) {
+      try {
+        const sid = getSessionId()
+        await supabase.from('habits').delete().eq('id', id).eq('user_id', sid)
+      } catch { /* ignore */ }
+    }
+  }, [prefs.cloudSync])
+
+  const handleExport = useCallback(() => {
+    const data = JSON.stringify({ version: 1, exported: new Date().toISOString(), items: habits })
+    const blob = new Blob([data], { type: 'application/json' })
+    const a = document.createElement('a')
+    a.href = URL.createObjectURL(blob)
+    a.download = `typely-habits-backup-${new Date().toISOString().split('T')[0]}.json`
+    a.click()
+  }, [habits])
+
+  const handleImport = useCallback((e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      try {
+        const parsed = JSON.parse(ev.target.result)
+        const items = parsed.items || parsed
+        if (!Array.isArray(items)) { alert('Invalid backup file'); return }
+        setHabits(prev => {
+          const ids = new Set(prev.map(x => x.id))
+          const newOnes = items.filter(x => !ids.has(x.id))
+          const merged = [...prev, ...newOnes]
+          saveHabits(merged)
+          return merged
+        })
+      } catch { alert('Invalid backup file') }
+    }
+    reader.readAsText(file)
   }, [])
 
   const openEdit = (habit) => {
@@ -766,7 +851,7 @@ export default function HabitTracker() {
 
         {/* ── Header ── */}
         <div style={{ marginBottom: '1.5rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem' }}>
             <div>
               <h1 style={{ margin: 0, fontSize: '1.55rem', fontWeight: 800, color: colors.text }}>
                 🌱 Habit Tracker
@@ -774,17 +859,27 @@ export default function HabitTracker() {
               <p style={{ margin: '0.2rem 0 0', fontSize: '0.83rem', color: colors.textSecondary }}>
                 Build streaks, one day at a time
               </p>
+              <span style={{ fontSize: '0.72rem', marginTop: '0.35rem', display: 'inline-block', color: prefs.cloudSync ? '#06b6d4' : colors.textSecondary }}>
+                {syncing ? '⟳ Syncing…' : prefs.cloudSync ? '☁️ Cloud Sync On' : '📴 Local Only'}
+              </span>
             </div>
-            <button
-              onClick={() => { setEditingHabit(null); setShowModal(true) }}
-              style={{
-                display: 'flex', alignItems: 'center', gap: '0.4rem',
-                padding: '0.6rem 1.1rem', borderRadius: '0.6rem',
-                border: 'none', background: ACCENT, color: '#fff',
-                cursor: 'pointer', fontSize: '0.88rem', fontWeight: 700,
-                fontFamily: FONT, boxShadow: `0 2px 8px ${ACCENT}55`,
-              }}
-            >+ Add Habit</button>
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+              <button onClick={handleExport} style={{ fontSize: '0.75rem', padding: '0.3rem 0.7rem', borderRadius: '0.4rem', border: `1px solid ${colors.border}`, background: 'transparent', color: colors.textSecondary, cursor: 'pointer' }}>⬇️ Export Backup</button>
+              <label style={{ fontSize: '0.75rem', padding: '0.3rem 0.7rem', borderRadius: '0.4rem', border: `1px solid ${colors.border}`, background: 'transparent', color: colors.textSecondary, cursor: 'pointer' }}>
+                ⬆️ Import Backup
+                <input type="file" accept=".json" onChange={handleImport} style={{ display: 'none' }} />
+              </label>
+              <button
+                onClick={() => { setEditingHabit(null); setShowModal(true) }}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '0.4rem',
+                  padding: '0.6rem 1.1rem', borderRadius: '0.6rem',
+                  border: 'none', background: ACCENT, color: '#fff',
+                  cursor: 'pointer', fontSize: '0.88rem', fontWeight: 700,
+                  fontFamily: FONT, boxShadow: `0 2px 8px ${ACCENT}55`,
+                }}
+              >+ Add Habit</button>
+            </div>
           </div>
         </div>
 
@@ -1016,6 +1111,19 @@ export default function HabitTracker() {
           onDelete={() => deleteHabit(detailHabit.id)}
         />
       )}
+
+      <div style={{ maxWidth: '640px', margin: '1.5rem auto 0', padding: '0 1rem 3rem' }}>
+        <div style={{ padding: '0.75rem 1rem', borderRadius: '0.75rem', background: prefs.cloudSync ? 'rgba(6,182,212,0.08)' : 'rgba(245,158,11,0.08)', border: `1px solid ${prefs.cloudSync ? 'rgba(6,182,212,0.25)' : 'rgba(245,158,11,0.25)'}`, display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
+          <span>{prefs.cloudSync ? '☁️' : '💾'}</span>
+          <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+            {prefs.cloudSync ? (
+              <><strong style={{ color: colors.text }}>Cloud Sync is on.</strong>{' '}Your records are backed up to the cloud. Enable in Settings to access on any device.{' '}<strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong></>
+            ) : (
+              <><strong style={{ color: colors.text }}>Saved on this device only.</strong>{' '}Cloud Sync is off — data lives in this browser only. Export a backup to keep your records safe.{' '}<strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong></>
+            )}
+          </p>
+        </div>
+      </div>
     </ToolLayout>
   )
 }

@@ -2,9 +2,22 @@ import { useState, useEffect, useCallback, useMemo } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import DisclaimerBlock from '../components/DisclaimerBlock'
 import { useTheme } from '../hooks/useTheme'
+import { usePreferences } from '../hooks/usePreferences'
+import { supabase } from '../utils/supabase'
 
 const ACCENT = '#f59e0b'
 const LS_KEY = 'typely_loans'
+
+const SESSION_KEY = 'typely_session_id'
+
+function getSessionId() {
+  let sid = localStorage.getItem(SESSION_KEY)
+  if (!sid) {
+    sid = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`
+    localStorage.setItem(SESSION_KEY, sid)
+  }
+  return sid
+}
 
 /* ── Helpers ────────────────────────────────────────────────────────────── */
 function fmtPKR(n) {
@@ -498,6 +511,7 @@ function AddLoanForm({ activeTab, colors, isDark, onAdd }) {
 /* ── Main Component ─────────────────────────────────────────────────────── */
 export default function LoanManager() {
   const { isDark, colors } = useTheme()
+  const { prefs } = usePreferences()
   const [loans, setLoans]             = useState(loadLoans)
   const [activeTab, setActiveTab]     = useState('lent')
   const [filter, setFilter]           = useState('all')
@@ -505,46 +519,120 @@ export default function LoanManager() {
   const [paymentFor, setPaymentFor]   = useState(null)
   const [historyFor, setHistoryFor]   = useState(null)
   const [showAnalytics, setShowAnalytics] = useState(false)
+  const [syncing, setSyncing] = useState(false)
 
   useEffect(() => { saveLoans(loans) }, [loans])
 
+  useEffect(() => {
+    if (!prefs.cloudSync) return
+    async function fetchFromSupabase() {
+      const sid = getSessionId()
+      setSyncing(true)
+      try {
+        const { data, error } = await supabase.from('loans').select('*').eq('user_id', sid).order('created_at', { ascending: false })
+        if (!error && data && data.length > 0) { setLoans(data); saveLoans(data) }
+      } catch { /* offline */ }
+      finally { setSyncing(false) }
+    }
+    fetchFromSupabase()
+  }, [prefs.cloudSync])
+
   /* ── Actions ── */
-  const addLoan = useCallback(loan => {
-    setLoans(ls => [loan, ...ls])
-  }, [])
+  const addLoan = useCallback(async (loan) => {
+    const sid = getSessionId()
+    const newLoan = { ...loan, user_id: sid, created_at: new Date().toISOString() }
+    setLoans(ls => [newLoan, ...ls])
+    if (prefs.cloudSync) {
+      try { await supabase.from('loans').insert([newLoan]) } catch { /* ignore */ }
+    }
+  }, [prefs.cloudSync])
 
-  const recordPayment = useCallback((loanId, payment) => {
+  const recordPayment = useCallback(async (loanId, payment) => {
+    const loan = loans.find(l => l.id === loanId)
+    if (!loan) return
+    const newPayments = [...loan.payments, payment]
+    const totalPaid = newPayments.reduce((s, p) => s + p.amount, 0)
+    const settled = totalPaid >= loan.amount
+    setLoans(ls => ls.map(l => l.id === loanId ? { ...l, payments: newPayments, settled } : l))
+    if (prefs.cloudSync) {
+      try {
+        const sid = getSessionId()
+        await supabase.from('loans').update({ payments: newPayments, settled }).eq('id', loanId).eq('user_id', sid)
+      } catch { /* ignore */ }
+    }
+  }, [loans, prefs.cloudSync])
+
+  const deletePayment = useCallback(async (loanId, idx) => {
+    const loan = loans.find(l => l.id === loanId)
+    const newPayments = loan ? loan.payments.filter((_, i) => i !== idx) : []
+    const totalPaid = newPayments.reduce((s, p) => s + p.amount, 0)
+    const settled = totalPaid >= (loan?.amount || 0)
     setLoans(ls => ls.map(l => {
       if (l.id !== loanId) return l
-      const newPayments = [...l.payments, payment]
-      const totalPaid   = newPayments.reduce((s, p) => s + p.amount, 0)
-      return { ...l, payments: newPayments, settled: totalPaid >= l.amount }
-    }))
-  }, [])
-
-  const deletePayment = useCallback((loanId, idx) => {
-    setLoans(ls => ls.map(l => {
-      if (l.id !== loanId) return l
-      const newPayments = l.payments.filter((_, i) => i !== idx)
-      const totalPaid   = newPayments.reduce((s, p) => s + p.amount, 0)
-      return { ...l, payments: newPayments, settled: totalPaid >= l.amount }
+      return { ...l, payments: newPayments, settled }
     }))
     setHistoryFor(prev => {
       if (!prev || prev.id !== loanId) return prev
-      const updated = loans.find(l => l.id === loanId)
-      if (!updated) return prev
-      return { ...updated, payments: updated.payments.filter((_, i) => i !== idx) }
+      return { ...prev, payments: newPayments }
     })
-  }, [loans])
+    if (prefs.cloudSync) {
+      try {
+        const sid = getSessionId()
+        await supabase.from('loans').update({ payments: newPayments, settled }).eq('id', loanId).eq('user_id', sid)
+      } catch { /* ignore */ }
+    }
+  }, [loans, prefs.cloudSync])
 
-  const settleLoan = useCallback(id => {
+  const settleLoan = useCallback(async (id) => {
     setLoans(ls => ls.map(l => l.id === id ? { ...l, settled: true } : l))
-  }, [])
+    if (prefs.cloudSync) {
+      try {
+        const sid = getSessionId()
+        await supabase.from('loans').update({ settled: true }).eq('id', id).eq('user_id', sid)
+      } catch { /* ignore */ }
+    }
+  }, [prefs.cloudSync])
 
-  const deleteLoan = useCallback(id => {
+  const deleteLoan = useCallback(async (id) => {
     if (window.confirm('Delete this loan? This cannot be undone.')) {
       setLoans(ls => ls.filter(l => l.id !== id))
+      if (prefs.cloudSync) {
+        try {
+          const sid = getSessionId()
+          await supabase.from('loans').delete().eq('id', id).eq('user_id', sid)
+        } catch { /* ignore */ }
+      }
     }
+  }, [prefs.cloudSync])
+
+  const handleExport = useCallback(() => {
+    const data = JSON.stringify({ version: 1, exported: new Date().toISOString(), items: loans })
+    const blob = new Blob([data], { type: 'application/json' })
+    const a = document.createElement('a')
+    a.href = URL.createObjectURL(blob)
+    a.download = `typely-loans-backup-${new Date().toISOString().split('T')[0]}.json`
+    a.click()
+  }, [loans])
+
+  const handleImport = useCallback((e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      try {
+        const parsed = JSON.parse(ev.target.result)
+        const items = parsed.items || parsed
+        if (!Array.isArray(items)) { alert('Invalid backup file'); return }
+        setLoans(prev => {
+          const ids = new Set(prev.map(x => x.id))
+          const newOnes = items.filter(x => !ids.has(x.id))
+          const merged = [...prev, ...newOnes]
+          saveLoans(merged)
+          return merged
+        })
+      } catch { alert('Invalid backup file') }
+    }
+    reader.readAsText(file)
   }, [])
 
   /* ── Derived data ── */
@@ -623,12 +711,26 @@ export default function LoanManager() {
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
         {/* Page title */}
         <div style={{ marginBottom: '1.5rem' }}>
-          <h1 style={{ margin: 0, fontSize: '1.6rem', fontWeight: 800, color: colors.text, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span style={{ fontSize: '1.5rem' }}>🤝</span> Loan Manager
-          </h1>
-          <p style={{ margin: '0.35rem 0 0', color: colors.textSecondary, fontSize: '0.85rem' }}>
-            Track money you've lent and borrowed — privately, offline, in PKR.
-          </p>
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem' }}>
+            <div>
+              <h1 style={{ margin: 0, fontSize: '1.6rem', fontWeight: 800, color: colors.text, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ fontSize: '1.5rem' }}>🤝</span> Loan Manager
+              </h1>
+              <p style={{ margin: '0.35rem 0 0', color: colors.textSecondary, fontSize: '0.85rem' }}>
+                Track money you've lent and borrowed — privately, offline, in PKR.
+              </p>
+              <span style={{ fontSize: '0.72rem', marginTop: '0.35rem', display: 'inline-block', color: prefs.cloudSync ? '#06b6d4' : colors.textSecondary }}>
+                {syncing ? '⟳ Syncing…' : prefs.cloudSync ? '☁️ Cloud Sync On' : '📴 Local Only'}
+              </span>
+            </div>
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+              <button onClick={handleExport} style={{ fontSize: '0.75rem', padding: '0.3rem 0.7rem', borderRadius: '0.4rem', border: `1px solid ${colors.border}`, background: 'transparent', color: colors.textSecondary, cursor: 'pointer' }}>⬇️ Export Backup</button>
+              <label style={{ fontSize: '0.75rem', padding: '0.3rem 0.7rem', borderRadius: '0.4rem', border: `1px solid ${colors.border}`, background: 'transparent', color: colors.textSecondary, cursor: 'pointer' }}>
+                ⬆️ Import Backup
+                <input type="file" accept=".json" onChange={handleImport} style={{ display: 'none' }} />
+              </label>
+            </div>
+          </div>
         </div>
 
         {/* Summary bar */}
@@ -938,6 +1040,17 @@ export default function LoanManager() {
             )}
           </div>
         )}
+
+        <div style={{ marginTop: '1.5rem', padding: '0.75rem 1rem', borderRadius: '0.75rem', background: prefs.cloudSync ? 'rgba(6,182,212,0.08)' : 'rgba(245,158,11,0.08)', border: `1px solid ${prefs.cloudSync ? 'rgba(6,182,212,0.25)' : 'rgba(245,158,11,0.25)'}`, display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
+          <span>{prefs.cloudSync ? '☁️' : '💾'}</span>
+          <p style={{ margin: 0, fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+            {prefs.cloudSync ? (
+              <><strong style={{ color: colors.text }}>Cloud Sync is on.</strong>{' '}Your records are backed up to the cloud. Enable in Settings to access on any device.{' '}<strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong></>
+            ) : (
+              <><strong style={{ color: colors.text }}>Saved on this device only.</strong>{' '}Cloud Sync is off — data lives in this browser only. Export a backup to keep your records safe.{' '}<strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong></>
+            )}
+          </p>
+        </div>
 
         <DisclaimerBlock type="financial" overrideBodyEn="All loan records are stored only in this browser's local storage. No data leaves your device. Clearing browser storage will erase all records — export or screenshot important entries." />
       </div>

@@ -1,10 +1,23 @@
 import { useState, useEffect, useCallback } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
+import { usePreferences } from '../hooks/usePreferences'
+import { supabase } from '../utils/supabase'
 
 const STORAGE_KEY = 'typely_planner'
 const ACCENT = '#3b82f6'
 const FONT = 'system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif'
+
+const SESSION_KEY = 'typely_session_id'
+
+function getSessionId() {
+  let sid = localStorage.getItem(SESSION_KEY)
+  if (!sid) {
+    sid = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`
+    localStorage.setItem(SESSION_KEY, sid)
+  }
+  return sid
+}
 
 const PRIORITIES = [
   { value: 'high',   label: 'High',   emoji: '🔴', color: '#ef4444' },
@@ -185,6 +198,8 @@ function TaskCard({ task, index, total, colors, isDark, onToggle, onMoveUp, onMo
 
 export default function DailyPlanner() {
   const { isDark, colors } = useTheme()
+  const { prefs } = usePreferences()
+  const [syncing, setSyncing] = useState(false)
 
   const [currentDate, setCurrentDate] = useState(() => new Date())
   const [allData, setAllData] = useState(loadAll)
@@ -204,6 +219,25 @@ export default function DailyPlanner() {
     saveAll(allData)
   }, [allData])
 
+  useEffect(() => {
+    if (!prefs.cloudSync) return
+    async function fetchFromSupabase() {
+      const sid = getSessionId()
+      setSyncing(true)
+      try {
+        const { data, error } = await supabase.from('daily_planner').select('*').eq('user_id', sid)
+        if (!error && data && data.length > 0) {
+          const merged = {}
+          data.forEach(row => { merged[row.date_key] = row.tasks || [] })
+          setAllData(merged)
+          saveAll(merged)
+        }
+      } catch { /* offline */ }
+      finally { setSyncing(false) }
+    }
+    fetchFromSupabase()
+  }, [prefs.cloudSync])
+
   const updateTasks = useCallback((key, updater) => {
     setAllData(prev => {
       const current = prev[key] || []
@@ -219,7 +253,7 @@ export default function DailyPlanner() {
 
   // ── Actions ──────────────────────────────────────────────────────────────
 
-  const addTask = useCallback(() => {
+  const addTask = useCallback(async () => {
     const text = newText.trim()
     if (!text) return
     const task = newTask({ text, priority: newPriority, time: newTime.trim(), category: newCategory })
@@ -228,17 +262,40 @@ export default function DailyPlanner() {
     setNewTime('')
     setNewCategory('')
     setNewPriority('medium')
-  }, [newText, newPriority, newTime, newCategory, dateKey, updateTasks])
+    if (prefs.cloudSync) {
+      try {
+        const sid = getSessionId()
+        const current = allData[dateKey] ? [...allData[dateKey], task] : [task]
+        await supabase.from('daily_planner').upsert([{ user_id: sid, date_key: dateKey, tasks: current }], { onConflict: 'user_id,date_key' })
+      } catch { /* ignore */ }
+    }
+  }, [newText, newPriority, newTime, newCategory, dateKey, updateTasks, prefs.cloudSync, allData])
 
-  const toggleTask = useCallback((id) => {
-    updateTasks(dateKey, prev =>
-      prev.map(t => t.id === id ? { ...t, done: !t.done } : t)
-    )
-  }, [dateKey, updateTasks])
+  const toggleTask = useCallback(async (id) => {
+    const newTasks = (allData[dateKey] || []).map(t => t.id === id ? { ...t, done: !t.done } : t)
+    updateTasks(dateKey, () => newTasks)
+    if (prefs.cloudSync) {
+      try {
+        const sid = getSessionId()
+        await supabase.from('daily_planner').upsert([{ user_id: sid, date_key: dateKey, tasks: newTasks }], { onConflict: 'user_id,date_key' })
+      } catch { /* ignore */ }
+    }
+  }, [dateKey, updateTasks, prefs.cloudSync, allData])
 
-  const deleteTask = useCallback((id) => {
-    updateTasks(dateKey, prev => prev.filter(t => t.id !== id))
-  }, [dateKey, updateTasks])
+  const deleteTask = useCallback(async (id) => {
+    const newTasks = (allData[dateKey] || []).filter(t => t.id !== id)
+    updateTasks(dateKey, () => newTasks)
+    if (prefs.cloudSync) {
+      try {
+        const sid = getSessionId()
+        if (newTasks.length === 0) {
+          await supabase.from('daily_planner').delete().eq('user_id', sid).eq('date_key', dateKey)
+        } else {
+          await supabase.from('daily_planner').upsert([{ user_id: sid, date_key: dateKey, tasks: newTasks }], { onConflict: 'user_id,date_key' })
+        }
+      } catch { /* ignore */ }
+    }
+  }, [dateKey, updateTasks, prefs.cloudSync, allData])
 
   const moveTask = useCallback((index, direction) => {
     updateTasks(dateKey, prev => {
@@ -250,23 +307,79 @@ export default function DailyPlanner() {
     })
   }, [dateKey, updateTasks])
 
-  const clearCompleted = useCallback(() => {
-    updateTasks(dateKey, prev => prev.filter(t => !t.done))
-  }, [dateKey, updateTasks])
+  const clearCompleted = useCallback(async () => {
+    const newTasks = (allData[dateKey] || []).filter(t => !t.done)
+    updateTasks(dateKey, () => newTasks)
+    if (prefs.cloudSync) {
+      try {
+        const sid = getSessionId()
+        if (newTasks.length === 0) {
+          await supabase.from('daily_planner').delete().eq('user_id', sid).eq('date_key', dateKey)
+        } else {
+          await supabase.from('daily_planner').upsert([{ user_id: sid, date_key: dateKey, tasks: newTasks }], { onConflict: 'user_id,date_key' })
+        }
+      } catch { /* ignore */ }
+    }
+  }, [dateKey, updateTasks, prefs.cloudSync, allData])
 
-  const copyYesterdayPending = useCallback(() => {
+  const copyYesterdayPending = useCallback(async () => {
     const yesterdayKey = toDateKey(offsetDate(currentDate, -1))
     const yesterdayTasks = allData[yesterdayKey] || []
     const pending = yesterdayTasks
       .filter(t => !t.done)
       .map(t => ({ ...t, id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, done: false }))
     if (!pending.length) return
+    const current = allData[dateKey] || []
+    const existingTexts = new Set(current.map(t => t.text.toLowerCase()))
+    const toAdd = pending.filter(t => !existingTexts.has(t.text.toLowerCase()))
     updateTasks(dateKey, prev => {
-      const existingTexts = new Set(prev.map(t => t.text.toLowerCase()))
-      const toAdd = pending.filter(t => !existingTexts.has(t.text.toLowerCase()))
-      return [...prev, ...toAdd]
+      const existingTxts = new Set(prev.map(t => t.text.toLowerCase()))
+      return [...prev, ...pending.filter(t => !existingTxts.has(t.text.toLowerCase()))]
     })
-  }, [currentDate, allData, dateKey, updateTasks])
+    if (prefs.cloudSync && toAdd.length > 0) {
+      try {
+        const sid = getSessionId()
+        const finalTasks = [...current, ...toAdd]
+        await supabase.from('daily_planner').upsert([{ user_id: sid, date_key: dateKey, tasks: finalTasks }], { onConflict: 'user_id,date_key' })
+      } catch { /* ignore */ }
+    }
+  }, [currentDate, allData, dateKey, updateTasks, prefs.cloudSync])
+
+  const handleExport = useCallback(() => {
+    const data = JSON.stringify({ version: 1, exported: new Date().toISOString(), items: allData })
+    const blob = new Blob([data], { type: 'application/json' })
+    const a = document.createElement('a')
+    a.href = URL.createObjectURL(blob)
+    a.download = `typely-planner-backup-${new Date().toISOString().split('T')[0]}.json`
+    a.click()
+  }, [allData])
+
+  const handleImport = useCallback((e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      try {
+        const parsed = JSON.parse(ev.target.result)
+        const items = parsed.items || parsed
+        if (!items || typeof items !== 'object' || Array.isArray(items)) { alert('Invalid backup file'); return }
+        setAllData(prev => {
+          const merged = { ...items }
+          Object.keys(prev).forEach(key => {
+            if (!merged[key]) merged[key] = prev[key]
+            else {
+              const existingIds = new Set(merged[key].map(t => t.id))
+              const toAdd = prev[key].filter(t => !existingIds.has(t.id))
+              merged[key] = [...merged[key], ...toAdd]
+            }
+          })
+          saveAll(merged)
+          return merged
+        })
+      } catch { alert('Invalid backup file') }
+    }
+    reader.readAsText(file)
+  }, [])
 
   // ── Stats ────────────────────────────────────────────────────────────────
 
@@ -336,16 +449,30 @@ export default function DailyPlanner() {
 
         {/* ── Header ─────────────────────────────────────────────────────── */}
         <div style={{ marginBottom: '1.5rem' }}>
-          <h1 style={{
-            fontSize: 'clamp(1.5rem,3.5vw,2rem)', fontWeight: 800, margin: '0 0 0.3rem',
-            background: `linear-gradient(to right, ${ACCENT}, #6366f1)`,
-            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-          }}>
-            📋 Daily Planner
-          </h1>
-          <p style={{ color: colors.muted, margin: 0, fontSize: '0.85rem' }}>
-            Plan your day, track progress, build momentum.
-          </p>
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem' }}>
+            <div>
+              <h1 style={{
+                fontSize: 'clamp(1.5rem,3.5vw,2rem)', fontWeight: 800, margin: '0 0 0.3rem',
+                background: `linear-gradient(to right, ${ACCENT}, #6366f1)`,
+                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
+              }}>
+                📋 Daily Planner
+              </h1>
+              <p style={{ color: colors.muted, margin: 0, fontSize: '0.85rem' }}>
+                Plan your day, track progress, build momentum.
+              </p>
+              <span style={{ fontSize: '0.72rem', marginTop: '0.35rem', display: 'inline-block', color: prefs.cloudSync ? '#06b6d4' : colors.muted }}>
+                {syncing ? '⟳ Syncing…' : prefs.cloudSync ? '☁️ Cloud Sync On' : '📴 Local Only'}
+              </span>
+            </div>
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+              <button onClick={handleExport} style={{ fontSize: '0.75rem', padding: '0.3rem 0.7rem', borderRadius: '0.4rem', border: `1px solid ${colors.border}`, background: 'transparent', color: colors.textSecondary, cursor: 'pointer' }}>⬇️ Export Backup</button>
+              <label style={{ fontSize: '0.75rem', padding: '0.3rem 0.7rem', borderRadius: '0.4rem', border: `1px solid ${colors.border}`, background: 'transparent', color: colors.textSecondary, cursor: 'pointer' }}>
+                ⬆️ Import Backup
+                <input type="file" accept=".json" onChange={handleImport} style={{ display: 'none' }} />
+              </label>
+            </div>
+          </div>
         </div>
 
         {/* ── Date Navigation ─────────────────────────────────────────────── */}
@@ -641,6 +768,17 @@ export default function DailyPlanner() {
             })}
           </div>
         )}
+
+        <div style={{ marginTop: '1.5rem', padding: '0.75rem 1rem', borderRadius: '0.75rem', background: prefs.cloudSync ? 'rgba(6,182,212,0.08)' : 'rgba(245,158,11,0.08)', border: `1px solid ${prefs.cloudSync ? 'rgba(6,182,212,0.25)' : 'rgba(245,158,11,0.25)'}`, display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
+          <span>{prefs.cloudSync ? '☁️' : '💾'}</span>
+          <p style={{ margin: 0, fontSize: '0.8rem', color: colors.muted, lineHeight: 1.6 }}>
+            {prefs.cloudSync ? (
+              <><strong style={{ color: colors.text }}>Cloud Sync is on.</strong>{' '}Your records are backed up to the cloud. Enable in Settings to access on any device.{' '}<strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong></>
+            ) : (
+              <><strong style={{ color: colors.text }}>Saved on this device only.</strong>{' '}Cloud Sync is off — data lives in this browser only. Export a backup to keep your records safe.{' '}<strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong></>
+            )}
+          </p>
+        </div>
 
       </div>
     </ToolLayout>

@@ -1,10 +1,23 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
+import { usePreferences } from '../hooks/usePreferences'
+import { supabase } from '../utils/supabase'
 
 const STORAGE_KEY = 'kameti_v1'
 const ACCENT = '#8b5cf6'
 const FONT = 'system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif'
+
+const SESSION_KEY = 'typely_session_id'
+
+function getSessionId() {
+  let sid = localStorage.getItem(SESSION_KEY)
+  if (!sid) {
+    sid = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`
+    localStorage.setItem(SESSION_KEY, sid)
+  }
+  return sid
+}
 
 const MONTHS_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
 const MONTHS_FULL  = [
@@ -66,6 +79,8 @@ function StatCard({ label, icon, value, sub, color, colors, isDark, highlight })
 // ─── main component ───────────────────────────────────────────────────────────
 export default function Kameti() {
   const { isDark, colors } = useTheme()
+  const { prefs } = usePreferences()
+  const [syncing, setSyncing] = useState(false)
 
   // Detect read-only (shared link) before any state init
   const readOnly = useMemo(() => {
@@ -102,6 +117,64 @@ export default function Kameti() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)) }
     catch { /* ignore */ }
   }, [state, readOnly])
+
+  // ── Cloud Sync: Load ────────────────────────────────────────────────────────
+  useEffect(() => {
+    if (!prefs.cloudSync || readOnly) return
+    async function fetchFromSupabase() {
+      const sid = getSessionId()
+      setSyncing(true)
+      try {
+        const { data, error } = await supabase.from('kameti').select('*').eq('user_id', sid).single()
+        if (!error && data && data.state) {
+          const loaded = { ...BLANK, ...data.state }
+          setState(loaded)
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(loaded))
+        }
+      } catch { /* offline */ }
+      finally { setSyncing(false) }
+    }
+    fetchFromSupabase()
+  }, [prefs.cloudSync, readOnly])
+
+  // ── Cloud Sync: Save ────────────────────────────────────────────────────────
+  useEffect(() => {
+    if (!prefs.cloudSync || readOnly) return
+    const timer = setTimeout(async () => {
+      try {
+        const sid = getSessionId()
+        await supabase.from('kameti').upsert([{ user_id: sid, state, updated_at: new Date().toISOString() }], { onConflict: 'user_id' })
+      } catch { /* offline */ }
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [state, prefs.cloudSync, readOnly])
+
+  const handleExport = () => {
+    const data = JSON.stringify({ version: 1, exported: new Date().toISOString(), state })
+    const blob = new Blob([data], { type: 'application/json' })
+    const a = document.createElement('a')
+    a.href = URL.createObjectURL(blob)
+    a.download = `typely-kameti-backup-${new Date().toISOString().split('T')[0]}.json`
+    a.click()
+  }
+
+  const handleImport = (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      try {
+        const parsed = JSON.parse(ev.target.result)
+        const s = parsed.state || parsed
+        if (!s || !s.members) { alert('Invalid backup file'); return }
+        const loaded = { ...BLANK, ...s }
+        setState(loaded)
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(loaded))
+        if (loaded.name && loaded.members.length >= 2) setView('main')
+      } catch { alert('Invalid backup file') }
+    }
+    reader.readAsText(file)
+  }
 
   // ── Derived helpers ────────────────────────────────────────────────────────
   const now      = new Date()
@@ -268,14 +341,28 @@ export default function Kameti() {
 
           {/* Page header */}
           <div style={{ marginBottom: '1.75rem' }}>
-            <h1 style={{
-              fontSize: 'clamp(1.5rem,3.5vw,2rem)', fontWeight: 800, margin: '0 0 0.35rem',
-              background: `linear-gradient(135deg, ${ACCENT}, #a78bfa)`,
-              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-            }}>🤝 Kameti Tracker</h1>
-            <p style={{ color: colors.muted, margin: 0, fontSize: '0.875rem' }}>
-              Track your savings circle — who pays, who collects, and when
-            </p>
+            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem' }}>
+              <div>
+                <h1 style={{
+                  fontSize: 'clamp(1.5rem,3.5vw,2rem)', fontWeight: 800, margin: '0 0 0.35rem',
+                  background: `linear-gradient(135deg, ${ACCENT}, #a78bfa)`,
+                  WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
+                }}>🤝 Kameti Tracker</h1>
+                <p style={{ color: colors.muted, margin: 0, fontSize: '0.875rem' }}>
+                  Track your savings circle — who pays, who collects, and when
+                </p>
+                <span style={{ fontSize: '0.72rem', marginTop: '0.35rem', display: 'inline-block', color: prefs.cloudSync ? '#06b6d4' : colors.muted }}>
+                  {syncing ? '⟳ Syncing…' : prefs.cloudSync ? '☁️ Cloud Sync On' : '📴 Local Only'}
+                </span>
+              </div>
+              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                <button onClick={handleExport} style={{ fontSize: '0.75rem', padding: '0.3rem 0.7rem', borderRadius: '0.4rem', border: `1px solid ${colors.border}`, background: 'transparent', color: colors.muted, cursor: 'pointer' }}>⬇️ Export Backup</button>
+                <label style={{ fontSize: '0.75rem', padding: '0.3rem 0.7rem', borderRadius: '0.4rem', border: `1px solid ${colors.border}`, background: 'transparent', color: colors.muted, cursor: 'pointer' }}>
+                  ⬆️ Import Backup
+                  <input type="file" accept=".json" onChange={handleImport} style={{ display: 'none' }} />
+                </label>
+              </div>
+            </div>
           </div>
 
           {/* ── Committee details ── */}
@@ -486,6 +573,17 @@ export default function Kameti() {
               Launch Kameti →
             </button>
           )}
+
+          <div style={{ marginTop: '1.5rem', padding: '0.75rem 1rem', borderRadius: '0.75rem', background: prefs.cloudSync ? 'rgba(6,182,212,0.08)' : 'rgba(245,158,11,0.08)', border: `1px solid ${prefs.cloudSync ? 'rgba(6,182,212,0.25)' : 'rgba(245,158,11,0.25)'}`, display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
+            <span>{prefs.cloudSync ? '☁️' : '💾'}</span>
+            <p style={{ margin: 0, fontSize: '0.8rem', color: colors.muted, lineHeight: 1.6 }}>
+              {prefs.cloudSync ? (
+                <><strong style={{ color: colors.text }}>Cloud Sync is on.</strong>{' '}Your records are backed up to the cloud. Enable in Settings to access on any device.{' '}<strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong></>
+              ) : (
+                <><strong style={{ color: colors.text }}>Saved on this device only.</strong>{' '}Cloud Sync is off — data lives in this browser only. Export a backup to keep your records safe.{' '}<strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong></>
+              )}
+            </p>
+          </div>
         </div>
       </ToolLayout>
     )
@@ -532,8 +630,20 @@ export default function Kameti() {
               {fmtPKR(state.contribution)}/month · {totalRounds} members ·{' '}
               Started {monthLabel(state.startMonth, state.startYear)}
             </p>
+            <span style={{ fontSize: '0.72rem', marginTop: '0.35rem', display: 'inline-block', color: prefs.cloudSync ? '#06b6d4' : colors.muted }}>
+              {syncing ? '⟳ Syncing…' : prefs.cloudSync ? '☁️ Cloud Sync On' : '📴 Local Only'}
+            </span>
           </div>
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+            {!readOnly && (
+              <>
+                <button onClick={handleExport} style={{ fontSize: '0.75rem', padding: '0.3rem 0.7rem', borderRadius: '0.4rem', border: `1px solid ${colors.border}`, background: 'transparent', color: colors.muted, cursor: 'pointer' }}>⬇️ Export Backup</button>
+                <label style={{ fontSize: '0.75rem', padding: '0.3rem 0.7rem', borderRadius: '0.4rem', border: `1px solid ${colors.border}`, background: 'transparent', color: colors.muted, cursor: 'pointer' }}>
+                  ⬆️ Import Backup
+                  <input type="file" accept=".json" onChange={handleImport} style={{ display: 'none' }} />
+                </label>
+              </>
+            )}
             {readOnly && (
               <span style={{
                 padding: '0.3rem 0.75rem', borderRadius: '999px', fontSize: '0.75rem', fontWeight: 700,
@@ -894,6 +1004,17 @@ export default function Kameti() {
         {/* ── Info footer ── */}
         <div style={{ fontSize: '0.78rem', color: colors.muted, textAlign: 'center', paddingBottom: '1rem' }}>
           💡 Each member pays {fmtPKR(state.contribution)} monthly · Collector receives {fmtPKR(state.contribution * totalRounds)} · All data saved locally
+        </div>
+
+        <div style={{ marginTop: '0.5rem', padding: '0.75rem 1rem', borderRadius: '0.75rem', background: prefs.cloudSync ? 'rgba(6,182,212,0.08)' : 'rgba(245,158,11,0.08)', border: `1px solid ${prefs.cloudSync ? 'rgba(6,182,212,0.25)' : 'rgba(245,158,11,0.25)'}`, display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
+          <span>{prefs.cloudSync ? '☁️' : '💾'}</span>
+          <p style={{ margin: 0, fontSize: '0.8rem', color: colors.muted, lineHeight: 1.6 }}>
+            {prefs.cloudSync ? (
+              <><strong style={{ color: colors.text }}>Cloud Sync is on.</strong>{' '}Your records are backed up to the cloud. Enable in Settings to access on any device.{' '}<strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong></>
+            ) : (
+              <><strong style={{ color: colors.text }}>Saved on this device only.</strong>{' '}Cloud Sync is off — data lives in this browser only. Export a backup to keep your records safe.{' '}<strong style={{ color: '#ef4444' }}>If others share this browser, they will see your data — use incognito for personal records.</strong></>
+            )}
+          </p>
         </div>
       </div>
     </ToolLayout>

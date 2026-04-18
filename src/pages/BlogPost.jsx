@@ -192,7 +192,7 @@ export default function BlogPost() {
                 color: '#fff', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem',
               }}
             >
-              ⚡ Explore all 54 tools →
+              ⚡ Explore all 58 tools →
             </Link>
           </div>
         </article>

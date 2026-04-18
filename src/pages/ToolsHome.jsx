@@ -109,7 +109,7 @@ function MarqueeTicker({ tools, isDark, colors }) {
     { label: '📏 Track anything · Measurement Tracker', color: '#8b5cf6', path: '/tools/measurement-tracker' },
     { label: '🔒 Encrypt your messages privately', color: '#06b6d4', path: '/tools/text-encryptor' },
     { label: '🚗 Track driving fines & violations', color: '#f97316', path: '/tools/driving-fines' },
-    { label: '📊 54 free tools · No signup needed', color: '#3b82f6', path: '/tools' },
+    { label: '📊 58 free tools · No signup needed', color: '#3b82f6', path: '/tools' },
   ]
   const doubled = [...items, ...items]
 
@@ -611,6 +611,8 @@ export default function ToolsHome() {
 
       <footer style={{ textAlign: 'center', padding: '1rem', color: colors.textSecondary, fontSize: '0.75rem', borderTop: `1px solid ${colors.border}` }}>
         © {new Date().getFullYear()} Rafiqy · Privacy-first browser tools &nbsp;·&nbsp;
+        <a href="/blog" style={{ color: 'inherit', textDecoration: 'underline' }}>Blog</a>
+        &nbsp;·&nbsp;
         <a href="/help" style={{ color: 'inherit', textDecoration: 'underline' }}>Help</a>
         &nbsp;·&nbsp;
         <a href="/about" style={{ color: 'inherit', textDecoration: 'underline' }}>About</a>

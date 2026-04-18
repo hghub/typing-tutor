@@ -257,6 +257,7 @@ export default function Landing() {
       {/* ── Footer ── */}
       <footer style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-text-muted)', fontSize: '0.8rem' }}>
         <Link to="/tools" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', marginRight: '1rem' }}>Tools</Link>
+        <Link to="/blog" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', marginRight: '1rem' }}>Blog</Link>
         <Link to="/help" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', marginRight: '1rem' }}>Help</Link>
         <Link to="/about" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', marginRight: '1rem' }}>About</Link>
         <span>© {new Date().getFullYear()} Rafiqy — Your pocket companion for everyday tools</span>

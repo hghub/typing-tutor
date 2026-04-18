@@ -19,7 +19,7 @@ export default function BlogHome() {
     <>
       <Helmet>
         <title>Rafiqy Blog — Guides, Tips & Tool Tutorials</title>
-        <meta name="description" content="In-depth guides, tutorials and tips for all 54 Rafiqy tools. Learn about Pakistani tax tools, Urdu features, developer utilities and more." />
+        <meta name="description" content="In-depth guides, tutorials and tips for all 58 Rafiqy tools. Learn about Pakistani tax tools, Urdu features, developer utilities and more." />
         <link rel="canonical" href="https://rafiqy.app/blogs" />
       </Helmet>
 
@@ -39,7 +39,7 @@ export default function BlogHome() {
               Rafiqy Blog
             </h1>
             <p style={{ fontSize: '1.1rem', color: colors.textSecondary, lineHeight: 1.7, margin: 0 }}>
-              In-depth guides, tutorials and tips for all 54 tools. Built for Pakistani professionals, developers and students.
+              In-depth guides, tutorials and tips for all 58 tools. Built for Pakistani professionals, developers and students.
             </p>
           </div>
         </div>
@@ -162,7 +162,7 @@ export default function BlogHome() {
               onMouseEnter={e => e.currentTarget.style.opacity = '0.9'}
               onMouseLeave={e => e.currentTarget.style.opacity = '1'}
             >
-              ⚡ Explore all 54 tools →
+              ⚡ Explore all 58 tools →
             </Link>
           </div>
         </div>

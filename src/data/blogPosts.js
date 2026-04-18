@@ -653,4 +653,750 @@ export const BLOG_POSTS = [
 <p><a href="/tools/voice-invoice">Try Voice-to-Invoice free →</a></p>
 `,
   },
+  {
+    slug: 'how-to-improve-typing-speed',
+    title: 'How to Improve Your Typing Speed: 7 Proven Techniques That Actually Work',
+    description: 'Learn how to improve typing speed with 7 proven techniques. Go from average 40 WPM to 80+ WPM using touch typing, drills, and a free typing tutor.',
+    hero: '⌨️',
+    category: 'Typing',
+    readTime: '6 min read',
+    publishDate: '2025-09-01',
+    tags: ['typing speed', 'WPM', 'touch typing', 'keyboard practice'],
+    content: `
+<h2>Why Typing Speed Matters More Than Ever</h2>
+<p>If you want to know <strong>how to improve typing speed</strong>, you are in the right place. The average office worker types at around 40 WPM. A good typist sits at 60 WPM. Professional writers, developers, and data-entry specialists often exceed 80 WPM. The difference between 40 and 80 WPM is not just about bragging rights — it is the difference between spending 2 hours drafting a report versus finishing it in under an hour.</p>
+<p>The good news: typing speed is a learnable skill. Unlike IQ or natural talent, WPM responds directly to deliberate practice. Here are seven techniques that consistently produce results.</p>
+
+<h2>1. Master the Home Row Position</h2>
+<p>Every fast typist uses <strong>touch typing</strong> — typing without looking at the keyboard — and it all starts with the home row. Place your left fingers on A, S, D, F and your right fingers on J, K, L, and the semicolon key. Your thumbs rest on the spacebar. This is your anchor position.</p>
+<p>Every key on the keyboard is reachable from the home row with a single finger extension. Train your fingers to always return to this position after each keystroke. It feels unnatural at first, but within a week your hands will settle into the habit automatically.</p>
+
+<h2>2. Stop Looking at the Keyboard</h2>
+<p>This is the single biggest barrier for most people. Looking down at the keyboard breaks the read-type flow, dramatically slows your speed, and prevents you from building muscle memory. The fix is uncomfortable but simple: <strong>cover your hands with a cloth while practicing</strong>, or use an online typing tool that does not give you hints about key positions.</p>
+<p>Your accuracy will drop initially — sometimes from 90% to 60%. That is normal. Push through it. Within 1–2 weeks of eyes-forward typing, your accuracy will recover and your speed ceiling will be significantly higher.</p>
+
+<h2>3. Slow Down to Speed Up</h2>
+<p>Counterintuitive advice: if you want to type faster, practice slower. Specifically, practice at a speed where you make <strong>zero mistakes</strong>. When you rush and constantly hit backspace, you are reinforcing the wrong muscle movements. Slow, perfect repetitions build the neural pathways that enable fast, accurate typing.</p>
+<p>A practical rule: if your accuracy falls below 95%, reduce your speed. Only increase speed when you can hold 98%+ accuracy at your current pace.</p>
+
+<h2>4. Use a Typing Tutor with Analytics</h2>
+<p>Generic typing tests tell you your WPM but not <em>why</em> you are slow. A proper typing tutor like <a href="/typing">Typely</a> breaks down exactly which keys are slowing you down, which finger is your bottleneck, and which two-key combinations ("digraphs") cause hesitation. That data lets you drill the specific weak spots instead of practicing your strengths.</p>
+<p>After each session on <a href="/typing">Typely</a>, you will see a full diagnostic panel with finger heatmaps and slow-key highlights. Click "Start My Targeted Drill" and it generates a custom passage loaded with extra repetitions of your slowest keys. This targeted approach produces 3–5× more WPM improvement per hour of practice compared to random text practice.</p>
+
+<h2>5. Practice Consistently (Not Intensively)</h2>
+<p>Twenty minutes of focused practice every day beats a 3-hour marathon session on Sunday. Typing speed is stored in procedural memory — the same system that remembers how to ride a bike. Procedural memory consolidates during sleep and degrades without regular activation.</p>
+<p>A realistic improvement schedule: 20–30 minutes daily, 5 days a week. Most people see measurable improvement (5–10 WPM) within the first two weeks of consistent practice.</p>
+
+<h2>6. Track Your WPM Progress Over Time</h2>
+<p>Progress is motivating, but only if you can see it. Before each session, record your starting WPM. After 30 days of consistent practice, compare. The numbers will surprise you.</p>
+<p>For reference: starting from hunt-and-peck (15–25 WPM), most people reach 50 WPM within 2 months of daily practice. Reaching 80 WPM typically takes 4–6 months. Professionals who practice daily for a year regularly hit 100+ WPM.</p>
+
+<h2>7. Use Targeted Drill Practice for Weak Keys</h2>
+<p>Once you know your weak keys (from the analytics in step 4), isolate them. Create or find texts that heavily feature those letters and combinations. For example, if the letter "b" or the combination "th" slows you down, find practice passages with those patterns at high density.</p>
+<p>Typely's targeted drill generator does this automatically — it weights your weakest keys at 3–5× normal frequency so every drill session addresses your actual bottleneck rather than just general typing practice.</p>
+
+<h2>WPM Benchmarks: Where Do You Stand?</h2>
+<ul>
+  <li><strong>Under 30 WPM</strong> — Beginner. Hunt-and-peck territory.</li>
+  <li><strong>30–50 WPM</strong> — Below average. Functional but slow.</li>
+  <li><strong>50–70 WPM</strong> — Average. Most office workers fall here.</li>
+  <li><strong>70–90 WPM</strong> — Good. Comfortable for professional work.</li>
+  <li><strong>90–120 WPM</strong> — Professional. Writers, developers, executives.</li>
+  <li><strong>120+ WPM</strong> — Expert. Top 5% of typists.</li>
+</ul>
+<p>These benchmarks assume 95%+ accuracy. A 100 WPM typist with 80% accuracy is effectively slower than a 65 WPM typist with 99% accuracy once error correction time is factored in.</p>
+
+<h2>How Long Does It Take to Improve?</h2>
+<p>With 20 minutes of daily practice using a structured typing tutor:</p>
+<ul>
+  <li><strong>1–2 weeks</strong>: Muscle memory for home row begins forming</li>
+  <li><strong>1 month</strong>: 10–15 WPM improvement is typical</li>
+  <li><strong>3 months</strong>: Most people reach 60–70 WPM</li>
+  <li><strong>6 months</strong>: 80–90 WPM with good accuracy is achievable</li>
+</ul>
+<p>The key variable is consistency. Irregular practice stalls progress significantly. Daily short sessions outperform weekly long sessions by a wide margin.</p>
+
+<h2>The Right Mindset</h2>
+<p>Learning to type faster is a process of unlearning bad habits as much as learning good ones. Expect your speed to drop temporarily when you switch to proper touch typing — that is your old muscle memory resisting the change. Stay the course. Every experienced fast typist went through the same awkward transition period.</p>
+
+<div class="cta-box"><p>Ready to measure your speed and start improving with targeted drills?</p><a href="/typing">Try Typely Free →</a></div>
+`,
+  },
+  {
+    slug: 'typing-tips-for-beginners',
+    title: 'Typing Tips for Beginners: From Hunt-and-Peck to Touch Typing',
+    description: 'Essential typing tips for beginners. Learn home row keys, correct posture, how to build muscle memory, and move from hunt-and-peck to confident touch typing.',
+    hero: '🎯',
+    category: 'Typing',
+    readTime: '5 min read',
+    publishDate: '2025-09-02',
+    tags: ['typing tips', 'beginners', 'touch typing', 'home row', 'keyboard'],
+    content: `
+<h2>The Biggest Mistake Beginners Make</h2>
+<p>Most beginners learn to type by looking at the keyboard and finding each key one at a time — a technique called "hunt-and-peck." It works, but it caps your speed at around 30–40 WPM no matter how much you practice. The key insight every beginner needs early is this: <strong>the goal is not to find keys faster — it is to stop looking for them at all.</strong></p>
+<p>These <strong>typing tips for beginners</strong> will help you skip the frustrating plateau and build habits that lead to genuine speed from the start.</p>
+
+<h2>Tip 1: Learn the Home Row Keys First</h2>
+<p>The home row is the foundation of touch typing. On a standard QWERTY keyboard, the home row is the middle row of letters:</p>
+<ul>
+  <li><strong>Left hand</strong>: A (pinky), S (ring), D (middle), F (index)</li>
+  <li><strong>Right hand</strong>: J (index), K (middle), L (ring), ; (pinky)</li>
+  <li><strong>Both thumbs</strong>: Spacebar</li>
+</ul>
+<p>Notice the small bumps on F and J — those tactile markers let your fingers find the home row without looking. Every other key is reached with a deliberate extension from this base position, with fingers returning home after each stroke. Spend your first week just mastering the home row keys before moving to other rows.</p>
+
+<h2>Tip 2: Correct Your Posture Before You Start</h2>
+<p>Bad posture creates fatigue and strain that derails your practice sessions. Get this right from day one:</p>
+<ul>
+  <li>Sit up straight with your back supported</li>
+  <li>Feet flat on the floor</li>
+  <li>Elbows at roughly 90 degrees, forearms parallel to the floor</li>
+  <li>Wrists slightly elevated — do not rest them on the desk while typing</li>
+  <li>Screen at eye level, about arm's length away</li>
+</ul>
+<p>Wrist rests are for breaks between typing, not during active typing. Resting your wrists on a surface while typing restricts finger movement and leads to repetitive strain injuries over time.</p>
+
+<h2>Tip 3: Start Slow — Speed Comes from Accuracy, Not Rushing</h2>
+<p>When you begin learning proper touch typing, your speed will drop — sometimes dramatically. A hunt-and-peck typist moving to touch typing will often drop from 35 WPM to 15 WPM in the first few sessions. This is completely normal and temporary.</p>
+<p>The rule to follow: <strong>always type at a speed where you can be accurate.</strong> If you are making more than 1–2 errors per 20 keystrokes, slow down. Rushing and constantly hitting backspace teaches your fingers the wrong movements. Slow, correct repetitions build the right muscle memory that eventually enables fast typing.</p>
+
+<h2>Tip 4: Use a Typing Tutor with Difficulty Levels</h2>
+<p>A structured typing tool is far more effective than random practice for beginners. <a href="/typing">Typely</a> offers multiple difficulty levels — Easy (common short words), Medium (normal sentences), Hard (technical vocabulary), and Custom (paste your own text). As a beginner, start on Easy and only move up when you can maintain 95%+ accuracy.</p>
+<p>The diagnostic feature in <a href="/typing">Typely</a> is particularly useful for beginners: after each session it shows exactly which keys you struggle with. Instead of practicing the same texts repeatedly, you can drill your specific weak spots. This targeted approach accelerates improvement significantly compared to generic practice.</p>
+
+<h2>Tip 5: Build Muscle Memory Through Repetition</h2>
+<p>Muscle memory — technically called procedural memory — is what allows expert typists to type without thinking about individual keys. It develops through repetition over time, not through single intense sessions.</p>
+<p>For beginners, the most effective way to build muscle memory is:</p>
+<ul>
+  <li>Practice the same short passage multiple times in a row</li>
+  <li>Focus on specific finger movements for each key</li>
+  <li>Keep sessions to 15–25 minutes (beyond this, fatigue reduces learning quality)</li>
+  <li>Practice daily — even 10 minutes beats a 2-hour weekly session</li>
+</ul>
+<p>After 2–3 weeks of daily practice, you will notice your fingers moving to keys before your conscious mind even registers the letter. That is muscle memory forming.</p>
+
+<h2>Tip 6: Do Not Look at Your Hands</h2>
+<p>This deserves its own tip because it is so tempting and so counterproductive. Looking at your keyboard feels like a shortcut but it permanently prevents you from developing typing fluency. Try these tricks to break the habit:</p>
+<ul>
+  <li>Place a small cloth or book over your hands while practicing</li>
+  <li>Use a blank keyboard (or put stickers over key labels)</li>
+  <li>Commit to one session per day where you absolutely do not look down, no matter how slow you go</li>
+</ul>
+<p>Your accuracy will suffer for 1–2 weeks. After that, most people find their accuracy with eyes forward matches or exceeds their eyes-down accuracy, while their speed ceiling is dramatically higher.</p>
+
+<h2>Tip 7: Track Your Progress Weekly</h2>
+<p>Beginners often underestimate how much they have improved because the gains are gradual. Keep a simple log: your WPM and accuracy at the end of each week's final session. Over 4–6 weeks you will have a clear trend line showing your progress.</p>
+<p>Typical beginner progress with daily 20-minute practice:</p>
+<ul>
+  <li><strong>Week 1</strong>: 15–20 WPM (adjustment period, feels slow)</li>
+  <li><strong>Week 2</strong>: 25–35 WPM (muscle memory begins forming)</li>
+  <li><strong>Week 4</strong>: 40–50 WPM (noticeable improvement)</li>
+  <li><strong>Week 8</strong>: 55–65 WPM (approaching average office worker speed)</li>
+</ul>
+
+<h2>Common Beginner Mistakes to Avoid</h2>
+<ul>
+  <li><strong>Using only 2–3 fingers</strong>: Commit to all ten fingers from the start, even though it feels slower initially</li>
+  <li><strong>Skipping the home row phase</strong>: Rushing to all rows before mastering the home row creates confusion</li>
+  <li><strong>Practicing only when motivated</strong>: Daily consistency beats occasional intense sessions</li>
+  <li><strong>Ignoring accuracy to chase WPM</strong>: Speed without accuracy is not real progress</li>
+</ul>
+
+<div class="cta-box"><p>Ready to start your typing journey with structured practice and real-time feedback?</p><a href="/typing">Start Your Typing Journey →</a></div>
+`,
+  },
+  {
+    slug: 'pomodoro-technique-guide',
+    title: 'The Pomodoro Technique: How 25-Minute Focus Blocks Changed How I Work',
+    description: 'A complete guide to the Pomodoro Technique — how 25-minute work blocks improve focus, reduce burnout, and boost daily output. Includes setup tips and customization.',
+    hero: '🍅',
+    category: 'Productivity',
+    readTime: '6 min read',
+    publishDate: '2025-09-03',
+    tags: ['pomodoro technique', 'productivity', 'focus', 'time management', 'deep work'],
+    content: `
+<h2>What Is the Pomodoro Technique?</h2>
+<p>The <strong>Pomodoro Technique</strong> is a time management method developed by Francesco Cirillo in the late 1980s. The concept is elegantly simple: work in focused 25-minute blocks (called "pomodoros"), separated by 5-minute breaks. After four pomodoros, take a longer break of 15–30 minutes.</p>
+<p>Named after the tomato-shaped kitchen timer Cirillo used as a university student (pomodoro is Italian for tomato), the technique has since been validated by millions of practitioners worldwide — from students and developers to writers, researchers, and executives. Its appeal lies in its simplicity: no complicated system to maintain, no apps required, just intentional time boundaries.</p>
+
+<h2>The Science Behind Why It Works</h2>
+<p>The Pomodoro Technique aligns with several well-documented aspects of human cognition:</p>
+<ul>
+  <li><strong>Attention span limits</strong>: Research consistently shows that sustained focused attention degrades after 20–40 minutes without a break. The 25-minute block stays within the effective attention window.</li>
+  <li><strong>The Zeigarnik Effect</strong>: Incomplete tasks occupy working memory more than completed ones. Structuring work into defined pomodoros creates a sense of closure at regular intervals, reducing the mental load of unfinished work.</li>
+  <li><strong>Urgency and momentum</strong>: A ticking timer creates mild urgency that reduces procrastination. The finite window makes starting easier — it is always easier to commit to 25 minutes than to "work on this until it is done."</li>
+  <li><strong>Recovery prevents burnout</strong>: Mandatory breaks prevent the cognitive fatigue that accumulates during long uninterrupted work sessions.</li>
+</ul>
+
+<h2>How to Set Up the Pomodoro Technique</h2>
+<p>Getting started requires nothing more than a timer and a task list. Here is the basic workflow:</p>
+<ol>
+  <li><strong>Choose one task</strong> to work on. The key word is one — pomodoros work because they eliminate context-switching during the work block.</li>
+  <li><strong>Set a 25-minute timer.</strong> Use a physical timer, your phone, or a dedicated tool like <a href="/tools/pomodoro">Rafiqy's Pomodoro Focus Engine</a>.</li>
+  <li><strong>Work exclusively on that task</strong> until the timer rings. If an interruption arises, write it down quickly and return to it after the pomodoro.</li>
+  <li><strong>Take a 5-minute break.</strong> Step away from the screen, stretch, hydrate. Do not check email or social media during this break.</li>
+  <li><strong>After four pomodoros, take a 15–30 minute break.</strong> This longer break allows genuine cognitive recovery.</li>
+</ol>
+
+<h2>Customizing Work and Break Lengths</h2>
+<p>The 25/5 split is a starting point, not a law. Many practitioners adjust it based on their work type and cognitive style:</p>
+<ul>
+  <li><strong>Deep technical work</strong> (coding, writing, research): Some people find 50-minute blocks with 10-minute breaks work better once they are accustomed to the technique.</li>
+  <li><strong>Repetitive tasks</strong> (data entry, email processing): Shorter 15–20 minute blocks can maintain focus without boredom.</li>
+  <li><strong>Students studying new material</strong>: The classic 25/5 split is ideal — it matches the attention arc for absorbing unfamiliar information.</li>
+</ul>
+<p>The <a href="/tools/pomodoro">Pomodoro Focus Engine</a> on Rafiqy lets you customize both work and break durations, so you can dial in the exact rhythm that works for your brain.</p>
+
+<h2>Tracking Pomodoro Streaks</h2>
+<p>One of the most motivating aspects of the Pomodoro Technique is the streak — the number of consecutive days where you complete a target number of pomodoros. Streaks create a psychological commitment: breaking a 21-day streak feels costly enough to pull you through days when motivation is low.</p>
+<p>Combine your pomodoro timer with <a href="/tools/habit-tracker">Rafiqy's Habit Tracker</a> to log your daily pomodoro count and maintain streaks over weeks and months. Seeing your consistency visualized as a heatmap or streak counter provides a feedback loop that reinforces the habit.</p>
+
+<h2>Who Benefits Most from Pomodoro?</h2>
+<p>The technique delivers particularly strong results for:</p>
+<ul>
+  <li><strong>Students</strong>: Exam preparation, essay writing, and reading comprehension all improve significantly with structured focus blocks. The 25-minute limit prevents the "I'll just check my phone for a second" interruptions that derail study sessions.</li>
+  <li><strong>Developers and programmers</strong>: Deep work coding sessions benefit from the urgency of a timer. Many developers report that the act of starting a pomodoro helps them overcome the inertia of getting into a complex problem.</li>
+  <li><strong>Writers and content creators</strong>: Writer's block often dissolves under the mild pressure of a running timer. Pomodoros also make large writing projects feel manageable by breaking them into 25-minute increments.</li>
+  <li><strong>Remote workers</strong>: Without the natural structure of an office environment, remote workers often struggle with sustained focus. Pomodoros provide external structure that replaces the implicit time discipline of a physical workplace.</li>
+</ul>
+
+<h2>Handling Interruptions</h2>
+<p>Real life generates interruptions. The Pomodoro Technique does not pretend otherwise. The recommended approach is the "inform, negotiate, call back" method:</p>
+<ul>
+  <li>When interrupted, note the interruption on paper</li>
+  <li>If the interruption cannot wait, void the pomodoro (do not count it) and restart after handling it</li>
+  <li>If it can wait, note it as a future task and return to your current pomodoro</li>
+</ul>
+<p>Over time you will find that most "urgent" interruptions can actually wait 10–15 minutes for your current pomodoro to finish.</p>
+
+<h2>Common Mistakes to Avoid</h2>
+<ul>
+  <li><strong>Not taking breaks seriously</strong>: The 5-minute break is not optional. Skipping it eliminates the recovery that makes the next pomodoro effective.</li>
+  <li><strong>Multitasking during a pomodoro</strong>: Each pomodoro should have one task. Splitting attention defeats the entire purpose.</li>
+  <li><strong>Setting unrealistic daily targets</strong>: Most people can complete 6–8 high-quality pomodoros per day. Planning 12–15 leads to burnout and disappointment.</li>
+</ul>
+
+<div class="cta-box"><p>Ready to experience focused, structured work sessions with built-in break reminders?</p><a href="/tools/pomodoro">Try Pomodoro Focus Engine →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-calculate-emi',
+    title: 'How to Calculate Your Loan EMI: Formula, Examples & Free Calculator',
+    description: 'Learn how to calculate EMI for any loan using the standard formula. Includes a worked car loan example, amortization explained, and a free EMI calculator.',
+    hero: '💰',
+    category: 'Finance',
+    readTime: '7 min read',
+    publishDate: '2025-09-04',
+    tags: ['EMI calculator', 'loan', 'finance', 'Pakistan finance', 'amortization'],
+    content: `
+<h2>What Is an EMI?</h2>
+<p>An <strong>EMI (Equated Monthly Installment)</strong> is the fixed monthly payment you make to repay a loan over a defined period. Whether you are taking a car loan, home loan, or personal loan, the bank or lender calculates a single monthly amount that covers both the interest and a portion of the principal — structured so that after the final installment, your loan is fully repaid.</p>
+<p>Understanding <strong>how to calculate EMI</strong> before you sign a loan agreement is critical. It tells you exactly what your monthly cash flow commitment will be, how much total interest you will pay over the loan term, and whether the loan fits your budget.</p>
+
+<h2>The EMI Formula</h2>
+<p>The standard EMI formula is:</p>
+<p><strong>EMI = P × r × (1 + r)^n / ((1 + r)^n − 1)</strong></p>
+<p>Where:</p>
+<ul>
+  <li><strong>P</strong> = Principal loan amount (the amount you borrow)</li>
+  <li><strong>r</strong> = Monthly interest rate (annual rate ÷ 12)</li>
+  <li><strong>n</strong> = Total number of monthly installments (loan term in months)</li>
+</ul>
+<p>The formula looks intimidating, but it is straightforward once you substitute the values. Let us walk through a real example.</p>
+
+<h2>Worked Example: Car Loan of Rs 10 Lakh</h2>
+<p>Suppose you take a car loan with the following terms:</p>
+<ul>
+  <li>Principal (P): Rs 10,00,000 (Rs 10 lakh)</li>
+  <li>Annual interest rate: 12%</li>
+  <li>Loan term: 5 years (60 months)</li>
+</ul>
+<p><strong>Step 1:</strong> Calculate the monthly interest rate: r = 12% ÷ 12 = 1% = 0.01</p>
+<p><strong>Step 2:</strong> Calculate n: 5 years × 12 months = 60</p>
+<p><strong>Step 3:</strong> Apply the formula:</p>
+<p>EMI = 10,00,000 × 0.01 × (1.01)^60 / ((1.01)^60 − 1)</p>
+<p>(1.01)^60 = 1.8167</p>
+<p>EMI = 10,00,000 × 0.01 × 1.8167 / (1.8167 − 1)</p>
+<p>EMI = 10,00,000 × 0.018167 / 0.8167</p>
+<p>EMI = 18,167 / 0.8167 ≈ <strong>Rs 22,244 per month</strong></p>
+<p><strong>Total amount paid</strong>: Rs 22,244 × 60 = Rs 13,34,640</p>
+<p><strong>Total interest paid</strong>: Rs 13,34,640 − Rs 10,00,000 = <strong>Rs 3,34,640</strong></p>
+<p>That Rs 3.3 lakh is the cost of borrowing — money paid purely for the use of the lender's funds over 5 years.</p>
+
+<h2>What Affects Your EMI?</h2>
+<p>Three variables determine your EMI, and changing any one of them significantly impacts the amount:</p>
+<ul>
+  <li><strong>Principal</strong>: Higher loan amount = higher EMI. Reducing the principal with a larger down payment directly reduces your monthly obligation.</li>
+  <li><strong>Interest rate</strong>: Even a 1% difference in rate has a meaningful impact. On Rs 10 lakh over 5 years, the difference between 11% and 13% interest is approximately Rs 900 per month.</li>
+  <li><strong>Tenure</strong>: Longer loan term = lower EMI but significantly higher total interest. Extending a 5-year loan to 7 years reduces monthly payments but increases total interest paid by 30–40%.</li>
+</ul>
+
+<h2>Comparing Lenders: What to Look For</h2>
+<p>When comparing loan offers from different banks or lenders, do not just compare the interest rate. Look at:</p>
+<ul>
+  <li><strong>Processing fees</strong>: Typically 0.5–2% of the loan amount, charged upfront</li>
+  <li><strong>Prepayment penalties</strong>: Some lenders charge 2–4% if you repay early</li>
+  <li><strong>Insurance bundling</strong>: Some loans include mandatory insurance that increases the effective cost</li>
+  <li><strong>Variable vs fixed rate</strong>: Variable rates may start lower but can increase significantly over the loan term</li>
+</ul>
+<p>Use the <a href="/tools/emi-calculator">Rafiqy EMI Calculator</a> to compare different loan scenarios side by side — adjusting principal, rate, and tenure to see the impact on both monthly EMI and total interest paid.</p>
+
+<h2>Understanding the Amortization Table</h2>
+<p>An amortization table shows the breakdown of each monthly payment into principal and interest components. In the early months of a loan, most of your EMI goes toward interest — very little reduces the principal. As the loan matures, the interest component shrinks and the principal component grows.</p>
+<p>This is important to know for two reasons:</p>
+<ol>
+  <li>If you make a prepayment (extra payment toward principal) in the early years, you save significantly more interest than the same prepayment made in year 4 or 5.</li>
+  <li>If you refinance or close a loan early, your outstanding balance will be higher than you might intuitively expect, because the first few years of payments are mostly interest.</li>
+</ol>
+<p>The <a href="/tools/loan-manager">Rafiqy Loan Manager</a> generates a full amortization schedule for any loan, showing the principal and interest split for every month of the loan term.</p>
+
+<h2>Quick EMI Reference Table</h2>
+<p>For a Rs 10 lakh loan at 12% annual interest:</p>
+<ul>
+  <li><strong>3 years (36 months)</strong>: ~Rs 33,200/month | Total interest: ~Rs 1.95 lakh</li>
+  <li><strong>5 years (60 months)</strong>: ~Rs 22,244/month | Total interest: ~Rs 3.35 lakh</li>
+  <li><strong>7 years (84 months)</strong>: ~Rs 17,650/month | Total interest: ~Rs 4.83 lakh</li>
+  <li><strong>10 years (120 months)</strong>: ~Rs 14,347/month | Total interest: ~Rs 7.22 lakh</li>
+</ul>
+<p>The pattern is clear: doubling the loan tenure from 5 to 10 years saves Rs 7,897/month in EMI payments but costs an additional Rs 3.87 lakh in total interest.</p>
+
+<div class="cta-box"><p>Need to calculate your exact EMI in seconds without doing the math manually?</p><a href="/tools/emi-calculator">Calculate Your EMI Free →</a></div>
+`,
+  },
+  {
+    slug: 'compress-pdf-online',
+    title: 'How to Compress a PDF Online Without Losing Quality',
+    description: 'Learn how to compress a PDF online while preserving quality. Understand why PDFs get large, compression levels, and when to use compress vs convert.',
+    hero: '📄',
+    category: 'PDF',
+    readTime: '5 min read',
+    publishDate: '2025-09-05',
+    tags: ['compress PDF', 'PDF tools', 'reduce PDF size', 'PDF online'],
+    content: `
+<h2>Why Do PDFs Get So Large?</h2>
+<p>Before you learn how to <strong>compress a PDF online</strong>, it helps to understand why PDFs become large in the first place. There are four main culprits:</p>
+<ul>
+  <li><strong>Embedded images</strong>: High-resolution photos are the single biggest contributor to PDF file size. A scanned document at 300 DPI or a brochure with professional photography can easily produce a 20–50 MB PDF.</li>
+  <li><strong>Embedded fonts</strong>: PDFs embed full font files to ensure they display correctly on any device. A document using 5 different fonts can add several megabytes from font data alone.</li>
+  <li><strong>Metadata and revision history</strong>: PDFs created by Word or InDesign sometimes retain extensive metadata, comment history, and revision layers that add bulk without visible content.</li>
+  <li><strong>Unoptimized export settings</strong>: Many applications export PDFs with "maximum quality" settings by default — appropriate for professional printing but unnecessary for email or web sharing.</li>
+</ul>
+
+<h2>What PDF Compression Actually Does</h2>
+<p>PDF compression primarily works by <strong>resampling and recompressing embedded images</strong>. A 300 DPI image embedded in a PDF is far higher resolution than any screen needs (screens display at 72–150 DPI effectively). Compression reduces image resolution to screen-appropriate levels and recompresses them using efficient algorithms like JPEG 2000 or Deflate.</p>
+<p>Compression also removes duplicate objects, strips unnecessary metadata, and simplifies internal PDF structures — all without changing what you see on screen. The result is a file that looks identical when viewed digitally but is significantly smaller.</p>
+
+<h2>Understanding Compression Levels</h2>
+<p>Most PDF compressors offer multiple levels:</p>
+<ul>
+  <li><strong>Low compression (minimal quality loss)</strong>: Reduces file size by 20–40%. Appropriate for documents that will be printed or shared with clients who need to see fine detail in images.</li>
+  <li><strong>Medium compression</strong>: Reduces file size by 50–70%. The sweet spot for most use cases — email, web upload, cloud storage. Images remain crisp for screen viewing.</li>
+  <li><strong>High compression</strong>: Reduces file size by 70–90%. Images become visibly degraded at close inspection. Appropriate when file size is the absolute priority — WhatsApp sharing, low-bandwidth upload portals.</li>
+</ul>
+<p>For reference: a 10 MB scanned document on medium compression typically reduces to 1.5–3 MB. A photo-heavy brochure at high compression can drop from 25 MB to under 2 MB.</p>
+
+<h2>What "Quality Loss" Actually Means</h2>
+<p>Quality loss in PDF compression is almost always about <strong>image sharpness</strong>, not text. Vector elements (text, drawn shapes, logos) are not affected by image compression — they remain perfectly crisp at any zoom level regardless of compression level. Only raster images (photographs, scanned pages, screenshots embedded as images) are affected.</p>
+<p>For documents that are mostly text — contracts, reports, presentations without photography — even high compression levels produce output that is visually indistinguishable from the original.</p>
+
+<h2>When to Compress vs Convert</h2>
+<p>Compression is not always the right tool. Here is when to use each approach:</p>
+<ul>
+  <li><strong>Compress</strong>: When you need to keep the document as a PDF but reduce file size for emailing, uploading, or storage. Use <a href="/tools/compress-pdf">Rafiqy's PDF Compressor</a> for this.</li>
+  <li><strong>Convert to image</strong>: When you need to extract individual pages as images for social media, presentations, or web use. Use <a href="/tools/pdf-convert">Rafiqy's PDF Converter</a>.</li>
+  <li><strong>Merge</strong>: When you have multiple compressed PDFs to combine into one document. Use <a href="/tools/merge-pdf">Rafiqy's PDF Merger</a> after compressing individual files.</li>
+</ul>
+
+<h2>Tips for Email and WhatsApp Size Limits</h2>
+<p>Practical file size targets for common sharing scenarios:</p>
+<ul>
+  <li><strong>Gmail / Outlook email attachment</strong>: Keep under 10 MB to avoid delivery issues. Under 5 MB is more reliable across all email providers.</li>
+  <li><strong>WhatsApp document sharing</strong>: Maximum 100 MB, but documents over 10 MB are often flagged or slow to download on mobile connections.</li>
+  <li><strong>Government portal uploads (Pakistan)</strong>: Many NADRA, FBR, and SECP portals have strict limits of 2–5 MB per document. If your scanned ID or form exceeds this, medium-to-high compression is your solution.</li>
+  <li><strong>Job application portals</strong>: Most accept up to 5 MB. CVs and cover letters in text-heavy PDF format are rarely more than 200–500 KB even without compression.</li>
+</ul>
+
+<h2>How to Compress a PDF Online in 3 Steps</h2>
+<ol>
+  <li>Go to <a href="/tools/compress-pdf">Rafiqy's PDF Compressor</a></li>
+  <li>Upload your PDF (drag and drop or click to browse)</li>
+  <li>Select compression level and download the compressed file</li>
+</ol>
+<p>No account required, no software to install, no file size limits for standard compression. The tool works entirely in your browser — your document is not stored on any server.</p>
+
+<h2>Preserving Quality for Professional Use</h2>
+<p>If your PDF will be sent to a printer or used in a professional context where image quality is critical, always use the lowest compression level available and verify the output by zooming into images at 100% before sharing. For documents destined for digital-only use — screens, web, email — medium compression is safe in virtually all cases.</p>
+
+<div class="cta-box"><p>Ready to shrink your PDF in seconds without installing any software?</p><a href="/tools/compress-pdf">Compress Your PDF Free →</a></div>
+`,
+  },
+  {
+    slug: 'urdu-typing-online',
+    title: 'How to Type Urdu Online: Phonetic Keyboard, Practice & Free Tools',
+    description: 'Learn how to type Urdu online using phonetic Roman-to-Urdu input. Practice Urdu typing, use a virtual Urdu keyboard, and copy text to Word or WhatsApp.',
+    hero: 'اُ',
+    category: 'Language',
+    readTime: '5 min read',
+    publishDate: '2025-09-06',
+    tags: ['Urdu typing', 'Urdu keyboard', 'phonetic Urdu', 'online Urdu'],
+    content: `
+<h2>Two Approaches to Urdu Typing Online</h2>
+<p>If you want to type Urdu online, there are two fundamentally different approaches, and choosing the right one depends on your purpose:</p>
+<ul>
+  <li><strong>Phonetic (Roman-to-Urdu) input</strong>: You type Urdu words using their Roman/English phonetic spelling on a standard QWERTY keyboard, and the system converts them to proper Urdu Unicode script in real time. For example, typing "aap" renders "آپ". This requires no special keyboard or layout knowledge.</li>
+  <li><strong>Inpage-style layout</strong>: A fixed keyboard layout where each key corresponds to a specific Urdu character, matching the traditional Inpage software used in Pakistani print and publishing. This is the standard for professional Urdu publishing and requires memorizing a different key mapping.</li>
+</ul>
+<p>For most users — students, professionals, social media users, and casual Urdu writers — <strong>phonetic input is the practical starting point</strong>. It leverages the QWERTY skills you already have and gets you typing Urdu within minutes.</p>
+
+<h2>How Phonetic Mapping Works</h2>
+<p>In phonetic Urdu input, each Urdu sound maps to its natural Roman transliteration:</p>
+<ul>
+  <li>"k" → ک (kaf), "K" or "kh" → خ (khe)</li>
+  <li>"a" → ا (alif), "aa" → آ (alif madda)</li>
+  <li>"s" → س (seen), "sh" → ش (sheen)</li>
+  <li>"z" → ز (ze), "Z" → ظ (zoe)</li>
+  <li>"t" → ت (te), "T" → ط (toe)</li>
+</ul>
+<p>The phonetic system handles the complexity of Urdu's multiple characters with similar sounds (like three versions of "s" — س، ص، ث) by assigning the most common character to the simple Roman key and variants to shifted or compound inputs.</p>
+
+<h2>Practicing Urdu Typing with Typely</h2>
+<p><a href="/typing">Typely</a> supports Urdu phonetic typing practice. Switch the language selector to Urdu and the typing area loads Urdu passages rendered in Nastaliq-style script. As you type Roman phonetic input, Typely converts and displays the Urdu Unicode text in real time.</p>
+<p>This makes Typely uniquely useful for Urdu learners: you are not just composing Urdu text, you are practicing it under the same WPM and accuracy feedback loop as English practice. After your session, the diagnostic panel shows which Urdu sounds and characters slowed you down — giving you targeted drills for your specific weak spots in Urdu phonetic input.</p>
+<p>The difficulty levels in Typely adapt for Urdu — Easy mode uses common everyday Urdu vocabulary, while Hard mode introduces less common words and longer compound constructions typical of formal Urdu writing.</p>
+
+<h2>Using the Urdu Keyboard Tool for Documents</h2>
+<p>For composing Urdu text to paste into documents, messages, or social media, the <a href="/tools/urdu-keyboard">Rafiqy Urdu Keyboard</a> provides a virtual on-screen keyboard with phonetic input. You can type Urdu directly in the text area and then copy the Unicode text to paste anywhere.</p>
+<p>Key use cases:</p>
+<ul>
+  <li><strong>WhatsApp and social media</strong>: Type Urdu in the keyboard tool, copy, and paste into WhatsApp or any social media app that supports Urdu Unicode.</li>
+  <li><strong>Microsoft Word documents</strong>: Paste Urdu Unicode text into Word, then switch the paragraph font to a Nastaliq or Naskh Urdu font (like Jameel Noori Nastaleeq or Times New Roman Urdu) for proper rendering.</li>
+  <li><strong>Email</strong>: Modern email clients (Gmail, Outlook) fully support Unicode Urdu. Paste directly into the email body.</li>
+  <li><strong>Google Docs</strong>: Paste Urdu Unicode and change paragraph direction to Right-to-Left for proper Urdu document formatting.</li>
+</ul>
+
+<h2>Common Challenges and Solutions</h2>
+<h3>My Urdu text displays as boxes or question marks</h3>
+<p>This means the application does not have an Urdu font installed or Unicode is not supported. Solution: ensure you have a Nastaliq or Naskh font installed on your system. Windows 10/11 includes "Urdu Typesetting" by default. On older Windows, install Jameel Noori Nastaleeq from Microsoft's font repository.</p>
+
+<h3>Text appears in wrong direction (LTR instead of RTL)</h3>
+<p>Urdu is written right-to-left. If your Urdu text appears left-aligned and reads left-to-right, you need to change the paragraph direction in your document editor. In Word: select the text, use the RTL paragraph button. In Google Docs: Format → Paragraph styles → right-to-left.</p>
+
+<h3>Special characters (ی, ے, ھ) not rendering correctly</h3>
+<p>Urdu has several characters that look similar but are distinct Unicode code points (e.g., Arabic ye vs Urdu ye). The Rafiqy keyboard tools use proper Urdu Unicode code points throughout, so text copied from them will render correctly in any Urdu-aware application.</p>
+
+<h2>Learning Urdu Typing: A Realistic Timeline</h2>
+<p>For a fluent Urdu speaker who is new to Urdu typing:</p>
+<ul>
+  <li><strong>Week 1</strong>: Learn the phonetic mapping for the 10 most common Urdu sounds. You can type basic sentences within a few hours.</li>
+  <li><strong>Week 2–3</strong>: Most common vocabulary flows naturally. Speed reaches 15–25 Urdu WPM.</li>
+  <li><strong>Month 2</strong>: Speed reaches 30–40 Urdu WPM for most learners practicing daily.</li>
+</ul>
+
+<div class="cta-box"><p>Ready to start typing Urdu with phonetic input — no special keyboard required?</p><a href="/typing">Try Urdu Typing Free →</a></div>
+`,
+  },
+  {
+    slug: 'pakistan-income-tax-calculator',
+    title: 'Pakistan Income Tax 2024–25: How to Calculate Your Tax with the FBR Slabs',
+    description: 'Calculate your Pakistan income tax for 2024-25 using the official FBR slab system. Includes salaried vs business income, zakat deduction, and a free tax calculator.',
+    hero: '🇵🇰',
+    category: 'Pakistan',
+    readTime: '7 min read',
+    publishDate: '2025-09-07',
+    tags: ['Pakistan income tax', 'FBR tax slabs', 'tax calculator Pakistan', 'salaried income tax'],
+    content: `
+<h2>How Pakistan's Income Tax System Works</h2>
+<p>Pakistan uses a <strong>progressive tax slab system</strong> administered by the Federal Board of Revenue (FBR). This means your income is divided into brackets, and each bracket is taxed at a different rate — lower income at lower rates, higher income at higher rates. You do not pay the highest applicable rate on your entire income, only on the portion that falls within each bracket.</p>
+<p>Understanding this system is essential before using any <strong>Pakistan income tax calculator</strong> — knowing the logic ensures you can verify calculator results and identify deductions you might be missing.</p>
+
+<h2>FBR Income Tax Slabs for Salaried Individuals (2024–25)</h2>
+<p>The following slabs apply to salaried individuals for the tax year 2024–25 (July 2024 – June 2025):</p>
+<ul>
+  <li><strong>Up to Rs 600,000/year</strong>: 0% (exempt)</li>
+  <li><strong>Rs 600,001 – Rs 1,200,000</strong>: 5% on amount exceeding Rs 600,000</li>
+  <li><strong>Rs 1,200,001 – Rs 2,200,000</strong>: Rs 30,000 + 15% on amount exceeding Rs 1,200,000</li>
+  <li><strong>Rs 2,200,001 – Rs 3,200,000</strong>: Rs 180,000 + 25% on amount exceeding Rs 2,200,000</li>
+  <li><strong>Rs 3,200,001 – Rs 4,100,000</strong>: Rs 430,000 + 30% on amount exceeding Rs 3,200,000</li>
+  <li><strong>Above Rs 4,100,000</strong>: Rs 700,000 + 35% on amount exceeding Rs 4,100,000</li>
+</ul>
+<p><em>Note: Tax slabs are updated annually in the federal budget. Always verify the current year's slabs on the FBR website or use an updated calculator.</em></p>
+
+<h2>Worked Example: Annual Salary of Rs 1,800,000</h2>
+<p>Let's calculate the tax for someone earning Rs 1,800,000 per year (Rs 150,000/month):</p>
+<ol>
+  <li>First Rs 600,000: <strong>Rs 0</strong> (exempt)</li>
+  <li>Next Rs 600,000 (from Rs 600,001 to Rs 1,200,000): 5% × Rs 600,000 = <strong>Rs 30,000</strong></li>
+  <li>Remaining Rs 600,000 (from Rs 1,200,001 to Rs 1,800,000): Rs 30,000 + 15% × Rs 600,000 = Rs 30,000 + Rs 90,000 = <strong>Rs 120,000</strong></li>
+  <li><strong>Total tax: Rs 120,000/year = Rs 10,000/month</strong></li>
+</ol>
+<p>Your employer's payroll system (or HR department) should be deducting this amount monthly and depositing it with FBR on your behalf. You can verify the calculation using the <a href="/tools/tax-calculator">Rafiqy Pakistan Tax Calculator</a>.</p>
+
+<h2>Salaried vs Business Income: Key Differences</h2>
+<p>Pakistan taxes salaried and business income under different rules:</p>
+<ul>
+  <li><strong>Salaried income</strong>: Tax is withheld at source by your employer (WHT on salary). You file a simplified return. The slabs above apply.</li>
+  <li><strong>Business income</strong>: Self-employed individuals, sole proprietors, and freelancers are taxed as "business individuals." Different slab rates apply — and you are responsible for quarterly advance tax payments rather than monthly deductions.</li>
+  <li><strong>Freelancers with foreign income</strong>: IT exporters and freelancers receiving foreign remittances receive preferential tax treatment under FBR's IT/ITES policies. Currently, foreign exchange remittances for IT services may be taxed at a reduced fixed rate.</li>
+</ul>
+
+<h2>Zakat Deduction</h2>
+<p>Muslim taxpayers in Pakistan are subject to Zakat deduction at source on certain financial assets. Zakat is calculated at <strong>2.5% of savings account balances</strong> that exceed the Nisab threshold (approximately Rs 90,000–100,000, tied to silver prices) on the first of Ramadan. This is deducted automatically by banks.</p>
+<p>Zakat paid can be claimed as a deduction against your taxable income when filing your annual tax return — reducing your net taxable income and therefore your income tax liability. Keep records of any Zakat paid during the year.</p>
+
+<h2>Common Deductions People Miss</h2>
+<p>Many salaried individuals overpay tax because they do not claim all available deductions:</p>
+<ul>
+  <li><strong>Medical allowance</strong>: Up to 10% of basic salary as medical allowance may be exempt from tax if properly structured in your salary package</li>
+  <li><strong>Provident fund contributions</strong>: Employer contributions to recognized provident funds are generally exempt</li>
+  <li><strong>Education expenses</strong>: Tuition fee payments to educational institutions may qualify for tax credits under certain conditions</li>
+  <li><strong>Donations to approved organizations</strong>: Donations to FBR-approved non-profits and charities can be claimed as deductions</li>
+  <li><strong>Mortgage interest</strong>: Interest paid on housing loans for owner-occupied properties may qualify for a tax credit</li>
+</ul>
+<p>Use the <a href="/tools/tax-shield">Rafiqy Tax Shield Calculator</a> to see which deductions apply to your situation and how much tax they save you.</p>
+
+<h2>How to File Your Tax Return</h2>
+<p>Filing your annual income tax return in Pakistan is done through FBR's IRIS portal (iris.fbr.gov.pk). Key deadlines:</p>
+<ul>
+  <li><strong>Salaried individuals</strong>: Return due by September 30 each year for the previous tax year (July–June)</li>
+  <li><strong>Business individuals</strong>: Same deadline — September 30</li>
+  <li><strong>Companies</strong>: December 31</li>
+</ul>
+<p>Being a "filer" (having submitted your return) is important in Pakistan — non-filers face higher withholding tax rates on property transactions, vehicle registration, banking transactions, and more. The cost of not filing often exceeds the time investment of filing.</p>
+<p>After calculating your tax, use the <a href="/tools/salary-slip">Rafiqy Salary Slip Generator</a> to generate a structured pay slip showing your gross income, deductions, and net take-home pay — useful for documentation when filing or applying for loans.</p>
+
+<div class="cta-box"><p>Want to calculate your exact income tax liability for 2024-25 in seconds?</p><a href="/tools/tax-calculator">Calculate Your Tax Free →</a></div>
+`,
+  },
+  {
+    slug: 'word-count-for-seo',
+    title: 'Ideal Word Count for Blog Posts: What the Data Actually Says About SEO',
+    description: 'What is the ideal word count for SEO? Data shows 1500–2500 words ranks best for competitive keywords. Learn when shorter wins and how to check word count live.',
+    hero: '✍️',
+    category: 'Writing',
+    readTime: '5 min read',
+    publishDate: '2025-09-08',
+    tags: ['word count SEO', 'blog post length', 'content writing', 'SEO writing'],
+    content: `
+<h2>Does Word Count Actually Affect SEO Rankings?</h2>
+<p>The question of <strong>ideal word count for SEO</strong> generates more debate than almost any other content strategy topic. The short answer: word count correlates with rankings, but it is not a direct ranking factor. Google does not reward long content for being long — it rewards content that <em>thoroughly answers the search query</em>. Length is a proxy for thoroughness, not a signal in itself.</p>
+<p>That distinction matters, because it changes how you should think about hitting a target word count: the goal is completeness, and the word count follows naturally from covering the topic well.</p>
+
+<h2>What the Data Shows</h2>
+<p>Multiple large-scale studies of search results (Backlinko, HubSpot, SEMrush content studies) consistently show:</p>
+<ul>
+  <li>The average first-page Google result contains <strong>1,447–2,416 words</strong>, depending on the industry</li>
+  <li>For competitive informational queries ("how to X", "what is Y"), content ranking in positions 1–3 averages around <strong>1,800–2,500 words</strong></li>
+  <li>For transactional queries ("buy X", "X near me"), shorter content often ranks fine because the intent does not require extensive explanation</li>
+  <li>For local queries and factual lookups, even <strong>300–600 words</strong> can rank first if the content directly answers the question</li>
+</ul>
+<p>The pattern: the more competitive and informational the keyword, the more comprehensive content tends to outperform shorter content. But this is a tendency, not a rule.</p>
+
+<h2>When Shorter Content Wins</h2>
+<p>Longer is not always better. Shorter content often performs better for:</p>
+<ul>
+  <li><strong>Simple factual queries</strong>: "What is the capital of Pakistan" does not need a 2,000-word article. A direct 150-word answer with context will rank fine and deliver a better user experience.</li>
+  <li><strong>Calculator and tool pages</strong>: Pages where the value is the tool itself, not explanatory prose. A loan calculator page might rank well with 400 words of supporting text around the actual calculator.</li>
+  <li><strong>News and current events</strong>: Recency and specificity matter more than length for news queries.</li>
+  <li><strong>Highly specific long-tail queries</strong>: "Pakistan income tax slab for salary 80000" has a specific answer. A concise, accurate 600-word post may outperform a padded 2,000-word piece that buries the answer.</li>
+</ul>
+
+<h2>The 800–1200 Word Sweet Spot for Informational Posts</h2>
+<p>For most informational blog posts targeting mid-competition keywords, <strong>800–1,200 words</strong> represents the practical sweet spot:</p>
+<ul>
+  <li>Long enough to cover the topic thoroughly without padding</li>
+  <li>Short enough to maintain reader engagement (average reader spends 3–5 minutes on an article)</li>
+  <li>Achievable in a single focused writing session</li>
+  <li>Sufficient for Google to understand topic depth and relevance</li>
+</ul>
+<p>For highly competitive "pillar" topics where you want to rank for broad keywords with high search volume, aim for 1,500–3,000 words. For niche or long-tail topics, 600–900 words often covers it completely.</p>
+
+<h2>The Keyword Density Myth</h2>
+<p>At some point, you may have heard advice to include your target keyword at a specific density — 1%, 2%, or some other percentage of total words. This is outdated and counterproductive. Modern Google uses semantic analysis (understanding meaning and context), not keyword counting.</p>
+<p>Writing "how to improve typing speed" 15 times in a 1,000-word article does not help you rank for that query. Writing a genuinely useful article about typing improvement — using naturally related terms like WPM, touch typing, keyboard practice, muscle memory — signals topical expertise far more effectively.</p>
+<p>The practical rule: use your primary keyword naturally in the title, first paragraph, and a few headings. Then write the rest of the content as if you are explaining the topic to a knowledgeable friend, without artificially forcing keyword repetition.</p>
+
+<h2>Readability Scores and Their Role</h2>
+<p>Readability scores (Flesch-Kincaid, Gunning Fog, etc.) measure how easy your content is to read based on sentence length and word complexity. Google has confirmed that readability is considered in quality assessments — not the score itself, but the actual ease of comprehension.</p>
+<p>For most blog content targeting general audiences, aim for:</p>
+<ul>
+  <li>Flesch Reading Ease score of <strong>60–70</strong> (roughly 8th grade level)</li>
+  <li>Average sentence length under <strong>20 words</strong></li>
+  <li>Paragraphs of <strong>3–4 sentences</strong> maximum</li>
+  <li>Active voice over passive voice</li>
+</ul>
+
+<h2>How to Check Word Count Live While Writing</h2>
+<p>Most word processors show word count in the status bar — but if you are writing in a web-based tool, CMS editor, or pasting content from multiple sources, a dedicated word counter is more reliable. The <a href="/tools/word-counter">Rafiqy Word Counter</a> provides live word count, character count, reading time estimate, and sentence count as you type or paste your content.</p>
+<p>This is particularly useful for:</p>
+<ul>
+  <li>Hitting a specific word count target without over-writing</li>
+  <li>Checking article length before publishing</li>
+  <li>Verifying content length for platforms with specific limits (Medium, LinkedIn articles, academic submissions)</li>
+</ul>
+
+<h2>The Final Word on Word Count</h2>
+<p>Write to cover your topic completely. Use your target word range as a quality check — if you are at 400 words and feel done, ask whether you have genuinely answered the question fully. If you are at 2,500 words and still have more to say, keep going. The word count target is a guideline for completeness, not a finish line.</p>
+
+<div class="cta-box"><p>Need to check your article's word count, reading time, and more — in real time?</p><a href="/tools/word-counter">Check Your Word Count Free →</a></div>
+`,
+  },
+  {
+    slug: 'salary-slip-pakistan',
+    title: 'How to Create a Salary Slip in Pakistan: EOBI, PESSI, Tax & Net Pay Explained',
+    description: 'Learn what goes on a Pakistani salary slip — EOBI, PESSI/SESSI deductions, income tax, and net pay. Includes a worked example for Rs 80,000 gross salary.',
+    hero: '💼',
+    category: 'Pakistan',
+    readTime: '7 min read',
+    publishDate: '2025-09-09',
+    tags: ['salary slip Pakistan', 'EOBI', 'PESSI', 'income tax Pakistan', 'payroll Pakistan'],
+    content: `
+<h2>What Is a Salary Slip and Why Does It Matter?</h2>
+<p>A <strong>salary slip</strong> (also called a pay slip or pay stub) is a formal document issued by an employer each month that details an employee's earnings and deductions for that pay period. In Pakistan, salary slips serve multiple practical purposes beyond just showing take-home pay:</p>
+<ul>
+  <li>Required for visa applications (UK, Schengen, US all require proof of salary)</li>
+  <li>Used by banks for loan eligibility assessment</li>
+  <li>Required for renting property in many cities</li>
+  <li>Needed for income tax filing and verification</li>
+  <li>Useful for EOBI and PESSI record verification</li>
+</ul>
+<p>Understanding each component of a <strong>salary slip in Pakistan</strong> ensures you know exactly what you are earning, what is being deducted, and whether the deductions are correct.</p>
+
+<h2>Components of a Pakistani Salary Slip</h2>
+<h3>Earnings (Gross Pay)</h3>
+<p>Pakistani salary structures typically include multiple allowance components:</p>
+<ul>
+  <li><strong>Basic salary</strong>: The foundation of your pay package. Usually 40–60% of gross pay. All deductions are calculated as a percentage of basic salary.</li>
+  <li><strong>House Rent Allowance (HRA)</strong>: Typically 40–50% of basic salary. Partially exempt from income tax if you are living in rented accommodation.</li>
+  <li><strong>Medical allowance</strong>: Usually Rs 5,000–15,000/month or 10% of basic. Often tax-exempt up to specified limits.</li>
+  <li><strong>Conveyance allowance</strong>: Transport reimbursement, commonly Rs 3,000–8,000/month.</li>
+  <li><strong>Other allowances</strong>: Utility, telephone, meal, or special allowances depending on the company.</li>
+</ul>
+
+<h3>Deductions</h3>
+<ul>
+  <li><strong>Income tax (WHT)</strong>: Withheld at source by the employer based on your annual projected income and the applicable FBR tax slab.</li>
+  <li><strong>EOBI contribution</strong>: Employee share is <strong>Rs 370/month</strong> (fixed). Employer contributes an additional Rs 1,110/month to the Employees' Old-Age Benefits Institution fund.</li>
+  <li><strong>PESSI (Punjab) / SESSI (Sindh)</strong>: Employees working in Punjab are covered by PESSI; in Sindh by SESSI. The employee contribution is <strong>6% of basic salary</strong>, deducted monthly. This funds medical treatment and other social security benefits.</li>
+  <li><strong>Provident fund</strong>: Where applicable, 8.33% of basic salary. Not all companies offer this.</li>
+</ul>
+
+<h2>Worked Example: Rs 80,000 Gross Salary</h2>
+<p>Let us build a complete salary slip for an employee in Lahore earning Rs 80,000 gross monthly:</p>
+<h3>Earnings Breakdown</h3>
+<ul>
+  <li>Basic salary: Rs 40,000 (50% of gross)</li>
+  <li>House Rent Allowance: Rs 20,000 (50% of basic)</li>
+  <li>Medical allowance: Rs 10,000</li>
+  <li>Conveyance allowance: Rs 6,000</li>
+  <li>Utility allowance: Rs 4,000</li>
+  <li><strong>Gross salary: Rs 80,000</strong></li>
+</ul>
+<h3>Deductions Breakdown</h3>
+<ul>
+  <li><strong>Income tax</strong>: Annual salary = Rs 80,000 × 12 = Rs 9,60,000. Using 2024–25 FBR slabs: Rs 30,000 + 15% of (Rs 9,60,000 − Rs 12,00,000 excess over Rs 600,000). Wait — Rs 9,60,000 falls in the Rs 600,001–Rs 1,200,000 slab. Tax = 5% × (Rs 9,60,000 − Rs 6,00,000) = 5% × Rs 3,60,000 = Rs 18,000/year = <strong>Rs 1,500/month</strong></li>
+  <li><strong>EOBI</strong>: <strong>Rs 370/month</strong> (fixed regardless of salary)</li>
+  <li><strong>PESSI</strong>: 6% of basic = 6% × Rs 40,000 = <strong>Rs 2,400/month</strong></li>
+  <li><strong>Total deductions: Rs 4,270/month</strong></li>
+</ul>
+<h3>Net Pay</h3>
+<p><strong>Net take-home pay: Rs 80,000 − Rs 4,270 = Rs 75,730/month</strong></p>
+
+<h2>EOBI: What Your Rs 370 Pays For</h2>
+<p>EOBI (Employees' Old-Age Benefits Institution) provides a pension to registered workers upon retirement. The current benefit is a monthly pension of Rs 10,000–15,000 for eligible retirees. While the pension amount seems modest, registration as an EOBI contributor is also required for certain government benefits and establishes your formal employment record.</p>
+<p>Both employer and employee registration with EOBI is mandatory for companies with 5+ employees. Your salary slip should show your EOBI registration number.</p>
+
+<h2>PESSI vs SESSI: Provincial Social Security</h2>
+<ul>
+  <li><strong>PESSI (Punjab Employees Social Security Institution)</strong>: Covers workers in Punjab with wages up to Rs 25,000/month basic (registration threshold). Provides free medical treatment at PESSI hospitals for registered workers and their families.</li>
+  <li><strong>SESSI (Sindh Employees Social Security Institution)</strong>: Equivalent in Sindh with similar coverage and contribution structure.</li>
+</ul>
+<p>The 6% employee contribution is deducted from basic salary only, not from allowances. Employers contribute an additional 6% of basic salary to the social security fund.</p>
+
+<h2>Generating a Salary Slip</h2>
+<p>If your company does not issue formal pay slips, or if you are self-employed and need to generate one for loan or visa applications, use the <a href="/tools/salary-slip">Rafiqy Salary Slip Generator</a>. Enter your earnings breakdown and applicable deductions, and it produces a professionally formatted salary slip PDF that includes all mandatory fields.</p>
+<p>For accurate tax deduction amounts, use the <a href="/tools/tax-calculator">Rafiqy Tax Calculator</a> to determine the correct monthly WHT before entering it on your salary slip.</p>
+
+<div class="cta-box"><p>Need a professionally formatted Pakistani salary slip with all statutory deductions calculated?</p><a href="/tools/salary-slip">Generate Salary Slip Free →</a></div>
+`,
+  },
+  {
+    slug: 'gold-price-pakistan-today',
+    title: 'Gold Price in Pakistan Today: How to Check Live Rates & Calculate Your Gold\'s Value',
+    description: 'Check live gold price in Pakistan today. Learn how 24K/22K/18K rates are set, city-wise differences, and how to calculate the value of your gold in tola or grams.',
+    hero: '🥇',
+    category: 'Pakistan',
+    readTime: '6 min read',
+    publishDate: '2025-09-10',
+    tags: ['gold price Pakistan', 'gold rate today', '24K gold Pakistan', 'tola gold price'],
+    content: `
+<h2>How Gold Prices in Pakistan Are Determined</h2>
+<p>If you want to know the <strong>gold price in Pakistan today</strong>, understanding how the rate is set helps you interpret the numbers correctly. Pakistani gold prices are determined by three factors working together:</p>
+<ul>
+  <li><strong>International gold price (USD/troy ounce)</strong>: Set on global commodity markets (COMEX, London Bullion Market). This is the global benchmark that moves minute-by-minute based on macroeconomic factors, central bank policies, geopolitical events, and investor sentiment.</li>
+  <li><strong>PKR/USD exchange rate</strong>: Because international gold is priced in USD, the rupee's value against the dollar directly affects the local price. When the rupee weakens (more rupees per dollar), the local gold price rises even if the international price stays flat.</li>
+  <li><strong>Making charges and dealer margins</strong>: Gold jewelry and bullion sold in Pakistani markets includes a dealer margin of Rs 500–2,000 per tola over the raw gold price, plus making charges on jewelry that vary by design complexity (typically Rs 1,000–5,000 per tola for plain gold, more for intricate work).</li>
+</ul>
+<p>This combination means Pakistani gold prices can change significantly even on a day when international gold markets are quiet, simply because the PKR/USD rate moved.</p>
+
+<h2>Understanding Gold Purity: 24K, 22K, 21K, and 18K</h2>
+<p>Not all gold is equally pure. The "K" (karat) system measures purity:</p>
+<ul>
+  <li><strong>24 Karat (24K)</strong>: 99.9% pure gold. The benchmark for pricing. Used for bullion (gold bars, coins) and investment-grade gold. Too soft for most jewelry.</li>
+  <li><strong>22 Karat (22K)</strong>: 91.7% pure gold (22/24 × 100). The most common purity for Pakistani gold jewelry. Strong enough for wearable pieces while maintaining a deep gold color.</li>
+  <li><strong>21 Karat (21K)</strong>: 87.5% pure gold. Less common in Pakistan; seen more in Gulf-origin jewelry.</li>
+  <li><strong>18 Karat (18K)</strong>: 75% pure gold. Widely used in designer and international-style jewelry for its hardness and ability to hold gemstone settings. Noticeably lighter in color than 22K.</li>
+</ul>
+<p>To calculate the price of a non-24K item, multiply the 24K price by the purity ratio. For 22K: price = 24K rate × (22/24) = 24K rate × 0.9167.</p>
+
+<h2>City-Wise Gold Price Differences</h2>
+<p>Gold prices in Pakistan vary slightly between cities — typically by <strong>Rs 50–200 per tola</strong>. The differences arise from:</p>
+<ul>
+  <li>Local dealer associations setting slightly different margins</li>
+  <li>Transport and logistics costs from central gold markets</li>
+  <li>Local supply and demand dynamics</li>
+</ul>
+<p>The major gold markets in Pakistan and their general price relationship:</p>
+<ul>
+  <li><strong>Karachi (Sarafa Bazar)</strong>: Often sets the benchmark rate. Largest gold market in Pakistan by volume.</li>
+  <li><strong>Lahore (Sona Mandi, Urdu Bazar)</strong>: Usually within Rs 50–100 of Karachi rates.</li>
+  <li><strong>Islamabad / Rawalpindi</strong>: Typically Rs 100–200 higher than Karachi due to lower trading volume and transport costs.</li>
+  <li><strong>Peshawar, Quetta</strong>: May have slightly different rates, particularly for tribal/traditional gold jewelry which often carries lower making charges.</li>
+</ul>
+
+<h2>Gold Weight Measurements in Pakistan</h2>
+<p>Pakistani gold markets use two primary weight units:</p>
+<ul>
+  <li><strong>Tola</strong>: The traditional South Asian unit. 1 tola = 11.664 grams. Prices are most commonly quoted per tola in Pakistani markets.</li>
+  <li><strong>Gram</strong>: Increasingly used for international-style jewelry. 1 gram = 0.0857 tola.</li>
+  <li><strong>10 grams</strong>: A common weight for gold bars and coins. 10 grams ≈ 0.857 tola.</li>
+</ul>
+
+<h2>How to Calculate the Value of Your Gold</h2>
+<p>To calculate the current value of gold you own:</p>
+<ol>
+  <li>Weigh your gold in grams (any kitchen or jewelry scale works)</li>
+  <li>Note the purity (check for hallmarks: 24K, 22K, 18K, or 916/750 stamps)</li>
+  <li>Get the current 24K gold price per gram (divide the per-tola rate by 11.664)</li>
+  <li>Multiply: weight (grams) × purity ratio × current 24K per-gram price</li>
+</ol>
+<p><strong>Example</strong>: 20 grams of 22K gold, 24K rate = Rs 270,000/tola:</p>
+<ul>
+  <li>Per-gram rate = Rs 270,000 ÷ 11.664 = Rs 23,148/gram</li>
+  <li>22K rate per gram = Rs 23,148 × 0.9167 = Rs 21,219/gram</li>
+  <li>Value of 20 grams = 20 × Rs 21,219 = <strong>Rs 4,24,380</strong></li>
+</ul>
+<p>The <a href="/tools/gold-price">Rafiqy Gold Price Calculator</a> does this calculation automatically — enter your weight, purity, and it shows the current market value using live rates.</p>
+
+<h2>When to Buy Gold in Pakistan</h2>
+<p>Gold buyers often ask whether there is a "right time" to buy. While no one can predict gold prices with certainty, these patterns are worth knowing:</p>
+<ul>
+  <li><strong>Wedding season</strong>: September–December and February–April see increased demand in Pakistan, which can push local prices slightly above global benchmarks.</li>
+  <li><strong>Rupee depreciation periods</strong>: When PKR weakens significantly, gold prices rise sharply in rupee terms. Buying before a known devaluation risk period can be protective.</li>
+  <li><strong>Global uncertainty</strong>: Gold traditionally rises during economic crises, conflicts, and inflation spikes — these periods, while good for existing holders, mean higher entry prices for new buyers.</li>
+  <li><strong>Post-Eid lulls</strong>: Prices occasionally soften slightly after major wedding and festive seasons as demand decreases.</li>
+</ul>
+
+<div class="cta-box"><p>Want to check live gold rates in Pakistan and calculate the exact value of your gold?</p><a href="/tools/gold-price">Check Live Gold Price →</a></div>
+`,
+  },
 ]

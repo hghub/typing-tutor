@@ -117,7 +117,8 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/urdu-keyboard" element={<Navigate to="/urdu-keyboard-online" replace />} />
           <Route path="/tools/text-encryptor" element={<TextEncryptor />} />
           <Route path="/tools/doc-composer"  element={<DocComposer />} />
-          <Route path="/tools/tax-calculator"    element={<TaxCalculator />} />
+          <Route path="/pakistan-tax-calculator"  element={<TaxCalculator />} />
+          <Route path="/tools/tax-calculator"    element={<Navigate to="/pakistan-tax-calculator" replace />} />
           <Route path="/loan-emi-calculator"           element={<LoanEMI />} />
           <Route path="/tools/loan-emi"           element={<Navigate to="/loan-emi-calculator" replace />} />
           <Route path="/pomodoro-focus-engine"           element={<Pomodoro />} />
@@ -125,7 +126,8 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/tax-optimizer"     element={<TaxOptimizer />} />
           <Route path="/currency-converter-live" element={<CurrencyConverter />} />
           <Route path="/tools/currency-converter" element={<Navigate to="/currency-converter-live" replace />} />
-          <Route path="/tools/packing-list"       element={<PackingList />} />
+          <Route path="/smart-packing-list"        element={<PackingList />} />
+          <Route path="/tools/packing-list"       element={<Navigate to="/smart-packing-list" replace />} />
           <Route path="/tools/budget-splitter"    element={<BudgetSplitter />} />
           <Route path="/tools/drug-checker"       element={<DrugChecker />} />
           <Route path="/tools/symptom-tracker"    element={<SymptomTracker />} />
@@ -143,12 +145,15 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/data-leak-detector" element={<DataLeakDetector />} />
           <Route path="/tools/doc-redaction"      element={<DocRedaction />} />
           <Route path="/tools/freelancer-risk"    element={<FreelancerRisk />} />
-          <Route path="/tools/expense-analyzer"   element={<ExpenseAnalyzer />} />
-          <Route path="/tools/warranty-tracker"   element={<WarrantyTracker />} />
+          <Route path="/expense-pattern-analyzer"  element={<ExpenseAnalyzer />} />
+          <Route path="/tools/expense-analyzer"   element={<Navigate to="/expense-pattern-analyzer" replace />} />
+          <Route path="/warranty-tracker-online"   element={<WarrantyTracker />} />
+          <Route path="/tools/warranty-tracker"   element={<Navigate to="/warranty-tracker-online" replace />} />
           <Route path="/tools/driving-fines"      element={<DrivingFineTracker />} />
           <Route path="/tools/trace-correlator"   element={<TraceCorrelator />} />
           <Route path="/tools/schema-mapper"         element={<SchemaMapper />} />
-          <Route path="/tools/measurement-tracker"   element={<MeasurementTracker />} />
+          <Route path="/measurement-tracker-online"   element={<MeasurementTracker />} />
+          <Route path="/tools/measurement-tracker"    element={<Navigate to="/measurement-tracker-online" replace />} />
           <Route path="/compress-pdf-online-free"          element={<CompressPDF />} />
           <Route path="/tools/compress-pdf"          element={<Navigate to="/compress-pdf-online-free" replace />} />
           <Route path="/tools/merge-pdf"             element={<MergePDF />} />
@@ -161,8 +166,10 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/salary-slip"         element={<Navigate to="/salary-slip-generator" replace />} />
           <Route path="/tools/world-time"          element={<WorldTime />} />
           <Route path="/tools/voice-diary"         element={<VoiceDiary />} />
-          <Route path="/tools/kameti"              element={<Kameti />} />
-          <Route path="/tools/daily-planner"       element={<DailyPlanner />} />
+          <Route path="/kameti-committee-tracker"  element={<Kameti />} />
+          <Route path="/tools/kameti"              element={<Navigate to="/kameti-committee-tracker" replace />} />
+          <Route path="/daily-planner-online"       element={<DailyPlanner />} />
+          <Route path="/tools/daily-planner"       element={<Navigate to="/daily-planner-online" replace />} />
           <Route path="/tools/habit-tracker"       element={<HabitTracker />} />
           <Route path="/tools/color-palette"       element={<ColorPalette />} />
           <Route path="/tools/pk-id-tax-hub"       element={<PkIdTaxHub />} />
@@ -185,6 +192,9 @@ createRoot(document.getElementById('root')).render(
           <Route path="/category/pdf-tools" element={<CategoryPage category="pdf-tools" />} />
           <Route path="/category/developer-tools" element={<CategoryPage category="developer-tools" />} />
           <Route path="/category/pakistan-tools" element={<CategoryPage category="pakistan-tools" />} />
+          <Route path="/category/writing-tools" element={<CategoryPage category="writing-tools" />} />
+          <Route path="/category/image-tools" element={<CategoryPage category="image-tools" />} />
+          <Route path="/category/security-tools" element={<CategoryPage category="security-tools" />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

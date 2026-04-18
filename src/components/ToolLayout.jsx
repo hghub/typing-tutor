@@ -1,5 +1,6 @@
 import { Suspense, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { Link } from 'react-router-dom'
 import ToolsNav from './ToolsNav'
 import RelatedTools from './RelatedTools'
 import TrustBadge from './TrustBadge'
@@ -10,6 +11,7 @@ import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
 import { TOOLS } from '../tools/registry'
 import TOOL_SEO from '../data/toolSEO'
+import { BLOG_POSTS } from '../data/blogPosts'
 
 function LoadingSpinner({ colors }) {
   return (
@@ -140,6 +142,42 @@ export default function ToolLayout({ toolId, children }) {
           <ToolSEOFooter heading={seo.heading} paras={seo.paras} faqs={seo.faqs} />
         </div>
       )}
+
+      {/* Related Blog Posts */}
+      {tool && (() => {
+        const related = BLOG_POSTS.filter(p =>
+          p.category === tool.category ||
+          (tool.id === 'typing-tutor' && p.slug === 'typing-learning') ||
+          (tool.category === 'pakistan' && ['pakistan-tools-guide','pakistan-category'].includes(p.slug))
+        ).slice(0, 3)
+        if (!related.length) return null
+        return (
+          <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1rem 2.5rem' }}>
+            <h3 style={{ color: colors.text, fontSize: '1rem', fontWeight: 700, marginBottom: '1rem' }}>
+              📖 Related Guides
+            </h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px,1fr))', gap: '0.75rem' }}>
+              {related.map(post => (
+                <Link key={post.slug} to={`/blogs/tools/${post.slug}`} style={{ textDecoration: 'none' }}>
+                  <div style={{
+                    background: colors.surface,
+                    border: `1px solid ${colors.border}`,
+                    borderRadius: '0.75rem',
+                    padding: '1rem 1.1rem',
+                    transition: 'border-color .15s',
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.borderColor = '#06b6d4'}
+                  onMouseLeave={e => e.currentTarget.style.borderColor = colors.border}>
+                    <div style={{ fontSize: '1.4rem', marginBottom: '0.4rem' }}>{post.hero}</div>
+                    <div style={{ fontWeight: 700, fontSize: '0.88rem', color: colors.text, marginBottom: '0.3rem', lineHeight: 1.4 }}>{post.title}</div>
+                    <div style={{ fontSize: '0.78rem', color: colors.textSecondary }}>{post.readTime}</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )
+      })()}
 
       {/* Footer */}
       <footer style={{

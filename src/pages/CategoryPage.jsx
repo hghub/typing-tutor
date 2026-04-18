@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import { useTheme } from '../hooks/useTheme'
 import { TOOLS } from '../tools/registry'
 import ToolsNav from '../components/ToolsNav'
+import { BLOG_POSTS } from '../data/blogPosts'
 
 const CATEGORY_DATA = {
   'productivity-tools': {
@@ -39,6 +40,27 @@ const CATEGORY_DATA = {
     metaDesc: 'Pakistan-specific tools: CNIC decoder, FBR tax calculator, gold price tracker, Kameti planner, driving fines and more. Free, private.',
     intro: 'Rafiqy was built with Pakistani users in mind. Our Pakistan-specific tools help you decode CNIC numbers, calculate FBR income tax, check live gold prices in PKR, plan Kameti committee rotations, track driving fines, and generate professional salary slips compliant with Pakistani payroll standards. All tools are free, work in Urdu, and process data locally.',
     categories: ['pakistan'],
+  },
+  'writing-tools': {
+    title: 'Free Writing Tools Online',
+    metaTitle: 'Free Writing Tools Online — Word Count, Docs & More | Rafiqy',
+    metaDesc: 'Free online writing tools — word counter, text formatter, doc composer, phonetic Urdu keyboard and more. Private, browser-based, no sign-up.',
+    intro: 'Rafiqy\'s writing tools are built for writers, students, journalists, and content creators who need fast, reliable utilities without the bloat of a full word processor. Count words and characters, format and clean text, compose and export documents, type in Urdu phonetically, or convert documents between formats — all directly in your browser. Every tool processes your text locally, so your writing never leaves your device.',
+    categories: ['writing'],
+  },
+  'image-tools': {
+    title: 'Free Image Tools Online',
+    metaTitle: 'Free Image Tools Online — Compress, Convert & Edit | Rafiqy',
+    metaDesc: 'Compress, convert, rotate and watermark images online. Browser-based — your images never leave your device. Free, no sign-up.',
+    intro: 'Rafiqy\'s image tools run entirely in your browser using WebAssembly and the Canvas API — your images are never uploaded to any server. Compress JPG and PNG files to reduce size, convert between image formats (JPG/PNG/WebP), rotate and flip images, add text watermarks, and resize images to exact dimensions. All operations happen locally on your device, making it the most private image tool available.',
+    categories: ['media'],
+  },
+  'security-tools': {
+    title: 'Free Security & Privacy Tools Online',
+    metaTitle: 'Free Security & Privacy Tools Online | Rafiqy',
+    metaDesc: 'Generate strong passwords, encrypt text, hash data and protect your privacy. All free, browser-based — nothing sent to any server.',
+    intro: 'Rafiqy\'s security and privacy tools are designed for users who take their digital safety seriously. Generate cryptographically strong passwords with custom rules, encrypt and decrypt text using AES encryption, compute MD5/SHA hash values for file verification, and protect sensitive data — all without transmitting a single byte to any external server. Every operation runs locally in your browser using the Web Crypto API.',
+    categories: ['security'],
   },
 }
 
@@ -112,6 +134,39 @@ export default function CategoryPage({ category }) {
             ← Browse all 57 tools
           </Link>
         </div>
+
+        {/* Related Blog Posts */}
+        {(() => {
+          const blogCat = data.categories[0]
+          const related = BLOG_POSTS.filter(p => p.category === blogCat || data.categories.includes(p.category)).slice(0, 3)
+          if (!related.length) return null
+          return (
+            <div style={{ marginTop: '3rem' }}>
+              <h2 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem', color: colors.text }}>
+                📖 Related Guides
+              </h2>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px,1fr))', gap: '0.75rem' }}>
+                {related.map(post => (
+                  <Link key={post.slug} to={`/blogs/tools/${post.slug}`} style={{ textDecoration: 'none' }}>
+                    <div style={{
+                      background: colors.surface,
+                      border: `1px solid ${colors.border}`,
+                      borderRadius: '0.75rem',
+                      padding: '1rem 1.1rem',
+                      transition: 'border-color .15s',
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.borderColor = '#06b6d4'}
+                    onMouseLeave={e => e.currentTarget.style.borderColor = colors.border}>
+                      <div style={{ fontSize: '1.4rem', marginBottom: '0.4rem' }}>{post.hero}</div>
+                      <div style={{ fontWeight: 700, fontSize: '0.88rem', color: colors.text, marginBottom: '0.3rem', lineHeight: 1.4 }}>{post.title}</div>
+                      <div style={{ fontSize: '0.78rem', color: colors.textSecondary }}>{post.readTime} · {post.tags.slice(0,2).join(', ')}</div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )
+        })()}
       </main>
     </div>
   )

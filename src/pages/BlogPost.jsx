@@ -16,10 +16,62 @@ function useHeadings(content) {
   }, [content])
 }
 
+// Build tree: [{h2, children:[h3,h3]}, ...]
+function buildTocTree(headings) {
+  const tree = []
+  let current = null
+  for (const h of headings) {
+    if (h.level === 'h2') {
+      current = { ...h, children: [] }
+      tree.push(current)
+    } else if (h.level === 'h3' && current) {
+      current.children.push(h)
+    }
+  }
+  return tree
+}
+
 function processContent(content) {
   return content
     .replace(/<h2>(.*?)<\/h2>/gi, (_, t) => `<h2 id="${slugify(t)}">${t}</h2>`)
     .replace(/<h3>(.*?)<\/h3>/gi, (_, t) => `<h3 id="${slugify(t)}">${t}</h3>`)
+}
+
+function TocTree({ tree, activeId, colors, onClickItem }) {
+  return (
+    <>
+      {tree.map(({ id, text, children }) => {
+        const parentActive = activeId === id || children.some(c => c.id === activeId)
+        return (
+          <div key={id}>
+            <a
+              href={`#${id}`}
+              className={`toc-link${parentActive ? ' active' : ''}`}
+              style={{ color: parentActive ? '#06b6d4' : colors.textSecondary, fontWeight: parentActive ? 600 : 400 }}
+              onClick={e => { e.preventDefault(); onClickItem(id) }}
+            >
+              {text.replace(/^\d+\.\s*/, '')}
+            </a>
+            {children.length > 0 && (
+              <div style={{ borderLeft: `1px solid ${parentActive ? 'rgba(6,182,212,0.35)' : 'rgba(128,128,128,0.2)'}`, marginLeft: '0.85rem', paddingLeft: '0.1rem' }}>
+                {children.map(c => (
+                  <a
+                    key={c.id}
+                    href={`#${c.id}`}
+                    className={`toc-link toc-h3${activeId === c.id ? ' active' : ''}`}
+                    style={{ color: activeId === c.id ? '#06b6d4' : colors.muted }}
+                    onClick={e => { e.preventDefault(); onClickItem(c.id) }}
+                  >
+                    {c.text.replace(/^\d+\.\s*/, '')}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        )
+      })}
+    </>
+  )
 }
 
 export default function BlogPost() {
@@ -64,7 +116,8 @@ export default function BlogPost() {
     ? [...related, ...BLOG_POSTS.filter(p => p.slug !== slug && !related.includes(p)).slice(0, 3 - related.length)]
     : related
 
-  const tocItems = headings.filter(h => h.level === 'h2' || h.level === 'h3')
+  const tocTree = useMemo(() => buildTocTree(headings), [headings])
+  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
     <>
@@ -101,28 +154,20 @@ export default function BlogPost() {
       `}</style>
 
       <main style={{ background: colors.bg, minHeight: '100vh' }}>
-        <div style={{ maxWidth: '1120px', margin: '0 auto', padding: '2rem 1.5rem 4rem', display: 'grid', gridTemplateColumns: tocItems.length ? '220px 1fr' : '1fr', gap: '2.5rem', alignItems: 'start' }}>
+        <div style={{ maxWidth: '1120px', margin: '0 auto', padding: '2rem 1.5rem 4rem', display: 'grid', gridTemplateColumns: tocTree.length ? '220px 1fr' : '1fr', gap: '2.5rem', alignItems: 'start' }}>
 
           {/* Sticky TOC sidebar — desktop only */}
-          {tocItems.length > 0 && (
+          {tocTree.length > 0 && (
             <aside className="blog-toc-sidebar" style={{ position: 'sticky', top: '5rem' }}>
               <div style={{
                 background: colors.card, border: `1px solid ${colors.border}`,
                 borderRadius: '0.75rem', padding: '1rem 0.75rem',
+                maxHeight: 'calc(100vh - 7rem)',
+                overflowY: 'auto',
               }}>
                 <p style={{ fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: colors.muted, margin: '0 0 0.75rem 0.6rem' }}>Contents</p>
                 <nav>
-                  {tocItems.map(({ id, text, level }) => (
-                    <a
-                      key={id}
-                      href={`#${id}`}
-                      className={`toc-link${level === 'h3' ? ' toc-h3' : ''}${activeId === id ? ' active' : ''}`}
-                      style={{ color: activeId === id ? '#06b6d4' : colors.textSecondary }}
-                      onClick={e => { e.preventDefault(); document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }) }}
-                    >
-                      {text.replace(/^\d+\.\s*/, '')}
-                    </a>
-                  ))}
+                  <TocTree tree={tocTree} activeId={activeId} colors={colors} onClickItem={scrollTo} />
                 </nav>
               </div>
             </aside>
@@ -132,7 +177,7 @@ export default function BlogPost() {
           <article style={{ maxWidth: '720px', width: '100%' }}>
 
             {/* Mobile TOC toggle */}
-            {tocItems.length > 0 && (
+            {tocTree.length > 0 && (
               <div className="blog-mobile-toc" style={{ display: 'none', marginBottom: '1.5rem' }}>
                 <button
                   onClick={() => setTocOpen(o => !o)}
@@ -147,17 +192,7 @@ export default function BlogPost() {
                 </button>
                 {tocOpen && (
                   <div style={{ background: colors.card, border: `1px solid ${colors.border}`, borderTop: 'none', borderRadius: '0 0 0.75rem 0.75rem', padding: '0.5rem 0.75rem 0.75rem' }}>
-                    {tocItems.map(({ id, text, level }) => (
-                      <a
-                        key={id}
-                        href={`#${id}`}
-                        className={`toc-link${level === 'h3' ? ' toc-h3' : ''}`}
-                        style={{ color: colors.textSecondary }}
-                        onClick={e => { e.preventDefault(); setTocOpen(false); document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }) }}
-                      >
-                        {text.replace(/^\d+\.\s*/, '')}
-                      </a>
-                    ))}
+                    <TocTree tree={tocTree} activeId={activeId} colors={colors} onClickItem={(id) => { setTocOpen(false); scrollTo(id) }} />
                   </div>
                 )}
               </div>

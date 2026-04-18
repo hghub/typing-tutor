@@ -1,9 +1,5 @@
 export const BLOG_POSTS = [
   {
-    slug: 'test',
-    content: `hello world`,
-  },
-  {
     slug: 'typing-learning',
     title: 'The Complete Guide to Learning Typing with Typely',
     description: 'Master touch typing from scratch with Typely — covering WPM tests, per-key analysis, finger speed breakdown, slow-key drills, challenge modes, Focus Mode, and every feature built to make you faster.',

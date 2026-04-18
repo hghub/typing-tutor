@@ -169,7 +169,7 @@ export default function ToolsNav({ rightExtras }) {
       }}>
 
         {/* ── Brand ── */}
-        <Link to="/tools" style={{
+        <Link to="/" style={{
           display: 'flex', alignItems: 'center', gap: '0.4rem',
           fontWeight: 800, fontSize: '1rem', textDecoration: 'none',
           background: 'linear-gradient(to right, #06b6d4, #3b82f6)',
@@ -213,6 +213,16 @@ export default function ToolsNav({ rightExtras }) {
               <div style={{ width: '1px', height: '20px', background: colors.border, margin: '0 0.1rem' }} />
             </>
           )}
+
+          <Link to="/tools" style={{
+            fontSize: '0.82rem', fontWeight: pathname === '/tools' ? 700 : 500,
+            color: pathname === '/tools' ? '#06b6d4' : colors.textSecondary,
+            textDecoration: 'none', padding: '0.4rem 0.65rem', borderRadius: '0.4rem',
+            transition: 'color 0.15s', whiteSpace: 'nowrap',
+          }}
+            onMouseEnter={e => { if (pathname !== '/tools') e.currentTarget.style.color = colors.text }}
+            onMouseLeave={e => { if (pathname !== '/tools') e.currentTarget.style.color = colors.textSecondary }}
+          >Tools</Link>
 
           <Link to="/blog" style={{
             fontSize: '0.82rem', fontWeight: pathname.startsWith('/blog') ? 700 : 500,

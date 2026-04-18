@@ -8,6 +8,19 @@ const QUICK_CURRENCIES = ['PKR', 'USD', 'GBP', 'EUR', 'AED', 'SAR', 'CAD', 'AUD'
 // open.er-api.com — free, no key, supports PKR and 150+ currencies
 const BASE_URL = 'https://open.er-api.com/v6/latest'
 
+function Sparkline({ data, color = '#06b6d4', width = 300, height = 60 }) {
+  if (!data || data.length < 2) return null
+  const min = Math.min(...data), max = Math.max(...data)
+  const range = max - min || 1
+  const pts = data.map((v, i) => `${(i / (data.length - 1)) * width},${height - ((v - min) / range) * height}`)
+  return (
+    <svg width={width} height={height} style={{ overflow: 'visible' }}>
+      <polyline points={pts.join(' ')} fill="none" stroke={color} strokeWidth="2" strokeLinejoin="round" />
+      <circle cx={pts[pts.length-1].split(',')[0]} cy={pts[pts.length-1].split(',')[1]} r="3" fill={color} />
+    </svg>
+  )
+}
+
 function formatNumber(n) {
   if (n === null || n === undefined || isNaN(n)) return '—'
   return new Intl.NumberFormat('en-US', { maximumFractionDigits: 4 }).format(n)
@@ -25,6 +38,12 @@ export default function CurrencyConverter() {
   const [loading, setLoading]       = useState(false)
   const [error, setError]           = useState(null)
   const [lastUpdated, setLastUpdated] = useState(null)
+
+  // Chart state
+  const [chartData,    setChartData]    = useState(null)
+  const [chartDates,   setChartDates]   = useState([])
+  const [chartLoading, setChartLoading] = useState(false)
+  const [chartError,   setChartError]   = useState(null)
 
   // Load rates for default base (USD) on mount — also gives us currency list
   useEffect(() => {
@@ -79,6 +98,30 @@ export default function CurrencyConverter() {
     const t = setTimeout(convert, 400)
     return () => clearTimeout(t)
   }, [convert])
+
+  // Fetch 7-day historical data from Frankfurter API
+  useEffect(() => {
+    if (!fromCurrency || !toCurrency || fromCurrency === toCurrency) {
+      setChartData(null); setChartDates([]); setChartError(null); return
+    }
+    setChartLoading(true)
+    setChartError(null)
+    setChartData(null)
+    const endDate   = new Date()
+    const startDate = new Date(endDate.getTime() - 6 * 24 * 60 * 60 * 1000)
+    const fmtDate   = d => d.toISOString().slice(0, 10)
+    fetch(`https://api.frankfurter.app/${fmtDate(startDate)}..${fmtDate(endDate)}?from=${fromCurrency}&symbols=${toCurrency}`)
+      .then(r => { if (!r.ok) throw new Error('unsupported'); return r.json() })
+      .then(data => {
+        const sorted = Object.keys(data.rates || {}).sort()
+        const values = sorted.map(d => data.rates[d][toCurrency]).filter(v => v != null)
+        if (sorted.length < 2 || values.length < 2) throw new Error('insufficient data')
+        setChartDates(sorted)
+        setChartData(values)
+      })
+      .catch(() => setChartError('no_data'))
+      .finally(() => setChartLoading(false))
+  }, [fromCurrency, toCurrency])
 
   const swap = useCallback(() => {
     setFrom(toCurrency)

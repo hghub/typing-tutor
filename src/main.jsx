@@ -2,6 +2,7 @@ import { StrictMode, lazy, Suspense, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
+import { Analytics } from '@vercel/analytics/react'
 
 function BlogPostRedirect() {
   const { slug } = useParams()
@@ -207,6 +208,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/category/security-tools" element={<CategoryPage category="security-tools" />} />
         </Routes>
       </Suspense>
+      <Analytics />
     </BrowserRouter>
     </HelmetProvider>
   </StrictMode>,

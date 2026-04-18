@@ -53,16 +53,39 @@ export default function ToolLayout({ toolId, children }) {
     >
       {tool && seo && (
         <Helmet>
-          <title>{tool.name} — Free Online Tool | Rafiqy</title>
-          <meta name="description" content={seo.paras[0]} />
+          <title>{seo.metaTitle || `${tool.name} — Free Online Tool | Rafiqy`}</title>
+          <meta name="description" content={seo.metaDesc || seo.paras[0].slice(0, 155)} />
           <link rel="canonical" href={`https://rafiqy.app${tool.path}`} />
-          <meta property="og:title" content={`${tool.name} — Free Online Tool | Rafiqy`} />
-          <meta property="og:description" content={seo.paras[0]} />
+          <meta property="og:title" content={seo.metaTitle || `${tool.name} — Free Online Tool | Rafiqy`} />
+          <meta property="og:description" content={seo.metaDesc || seo.paras[0].slice(0, 155)} />
           <meta property="og:url" content={`https://rafiqy.app${tool.path}`} />
           <meta property="og:type" content="website" />
+          <meta property="og:site_name" content="Rafiqy" />
           <meta name="twitter:card" content="summary" />
-          <meta name="twitter:title" content={`${tool.name} — Free Online Tool | Rafiqy`} />
-          <meta name="twitter:description" content={seo.paras[0]} />
+          <meta name="twitter:title" content={seo.metaTitle || `${tool.name} — Free Online Tool | Rafiqy`} />
+          <meta name="twitter:description" content={seo.metaDesc || seo.paras[0].slice(0, 155)} />
+          <script type="application/ld+json">{JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebApplication',
+            'name': tool.name,
+            'url': `https://rafiqy.app${tool.path}`,
+            'description': seo.metaDesc || seo.paras[0],
+            'applicationCategory': 'UtilitiesApplication',
+            'operatingSystem': 'Web Browser',
+            'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+            'provider': { '@type': 'Organization', 'name': 'Rafiqy', 'url': 'https://rafiqy.app' }
+          })}</script>
+          {seo.faqs && seo.faqs.length > 0 && (
+            <script type="application/ld+json">{JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              'mainEntity': seo.faqs.map(faq => ({
+                '@type': 'Question',
+                'name': faq.q,
+                'acceptedAnswer': { '@type': 'Answer', 'text': faq.a }
+              }))
+            })}</script>
+          )}
         </Helmet>
       )}
       <ToolsNav />

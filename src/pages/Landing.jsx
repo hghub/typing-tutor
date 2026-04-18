@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { useTheme } from '../hooks/useTheme'
 import { TOOLS } from '../tools/registry'
 
@@ -9,11 +10,11 @@ const FEATURED_IDS = [
 ]
 
 const QUICK_ACTIONS = [
-  { label: '⌨ Typely', path: '/tools/typely', desc: 'Typing tutor' },
-  { label: '⏱ Pomodoro', path: '/tools/pomodoro', desc: 'Focus timer' },
+  { label: '⌨ Typely', path: '/typing-tutor-online-free', desc: 'Typing tutor' },
+  { label: '⏱ Pomodoro', path: '/pomodoro-focus-engine', desc: 'Focus timer' },
   { label: '🌍 World Time', path: '/tools/world-time', desc: 'Time zones' },
-  { label: '📄 Compress PDF', path: '/tools/compress-pdf', desc: 'Shrink files' },
-  { label: '💰 EMI Calc', path: '/tools/loan-emi', desc: 'Loan calculator' },
+  { label: '📄 Compress PDF', path: '/compress-pdf-online-free', desc: 'Shrink files' },
+  { label: '💰 EMI Calc', path: '/loan-emi-calculator', desc: 'Loan calculator' },
   { label: '🧮 Tax Calc', path: '/tools/tax-calculator', desc: 'FBR 2025-26' },
 ]
 
@@ -22,21 +23,21 @@ const WHAT_YOU_CAN_DO = [
     icon: '📝',
     title: 'Write & Format',
     desc: 'Word counter, text formatter, doc composer, Urdu keyboard — everything for your writing workflow.',
-    tools: ['/tools/word-counter', '/tools/text-cleaner', '/tools/doc-composer'],
+    tools: ['/word-counter-online-free', '/tools/text-cleaner', '/tools/doc-composer'],
     labels: ['Word Counter', 'Text Formatter', 'Doc Composer'],
   },
   {
     icon: '💰',
     title: 'Finance & Tax',
     desc: 'Pakistan tax calculator, EMI planner, expense tracker, salary slip generator and more.',
-    tools: ['/tools/tax-calculator', '/tools/loan-emi', '/tools/expense-analyzer'],
+    tools: ['/tools/tax-calculator', '/loan-emi-calculator', '/tools/expense-analyzer'],
     labels: ['Tax Calculator', 'Loan EMI', 'Expense Analyzer'],
   },
   {
     icon: '📄',
     title: 'PDF Tools',
     desc: 'Compress, merge, split, convert and extract text from PDFs — all in your browser, nothing uploaded.',
-    tools: ['/tools/compress-pdf', '/tools/merge-pdf', '/tools/text-extractor'],
+    tools: ['/compress-pdf-online-free', '/tools/merge-pdf', '/tools/text-extractor'],
     labels: ['Compress', 'Merge', 'Extract Text'],
   },
   {
@@ -57,7 +58,7 @@ const WHAT_YOU_CAN_DO = [
     icon: '🛠',
     title: 'Developer Tools',
     desc: 'Regex tester, JSON formatter, mock data generator, config converter — for devs on the go.',
-    tools: ['/tools/regex-tester', '/tools/json-formatter', '/tools/mock-data'],
+    tools: ['/tools/regex-tester', '/json-formatter', '/tools/mock-data'],
     labels: ['Regex Tester', 'JSON Formatter', 'Mock Data'],
   },
 ]
@@ -68,6 +69,23 @@ export default function Landing() {
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-bg)', color: 'var(--color-text)', fontFamily: 'sans-serif' }}>
+      <Helmet>
+        <title>Free Online Tools for Productivity, Finance & PDF | Rafiqy</title>
+        <meta name="description" content="57 free browser-based tools — typing tutor, PDF compressor, loan EMI calculator, word counter, Pakistan tax tools and more. No sign-up, 100% private." />
+        <link rel="canonical" href="https://rafiqy.app/" />
+        <meta property="og:title" content="Free Online Tools for Productivity, Finance & PDF | Rafiqy" />
+        <meta property="og:description" content="57 free browser-based tools — typing tutor, PDF compressor, loan EMI calculator, word counter, Pakistan tax tools and more. No sign-up, 100% private." />
+        <meta property="og:url" content="https://rafiqy.app/" />
+        <meta property="og:type" content="website" />
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          'name': 'Rafiqy',
+          'url': 'https://rafiqy.app',
+          'description': '57 free browser-based tools for productivity, finance, PDF, and more.',
+          'potentialAction': { '@type': 'SearchAction', 'target': 'https://rafiqy.app/tools?q={search_term_string}', 'query-input': 'required name=search_term_string' }
+        })}</script>
+      </Helmet>
 
       {/* ── Nav ── */}
       <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 2rem', borderBottom: '1px solid var(--color-border)' }}>
@@ -77,6 +95,7 @@ export default function Landing() {
         <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
           <Link to="/tools" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Tools</Link>
           <Link to="/help" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Help</Link>
+          <Link to="/blogs" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Blog</Link>
           <Link to="/about" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>About</Link>
           <button onClick={toggleTheme} style={{ background: 'none', border: '1px solid var(--color-border)', borderRadius: 6, padding: '0.3rem 0.6rem', cursor: 'pointer', color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
             {theme === 'dark' ? '☀' : '🌙'}
@@ -90,11 +109,11 @@ export default function Landing() {
           🔒 Files never leave your browser · 100% Private · No sign-up
         </div>
         <h1 style={{ fontSize: 'clamp(2rem,5vw,3.5rem)', fontWeight: 800, margin: '0 0 1rem', lineHeight: 1.2 }}>
-          Your everyday companion<br />
-          <span style={{ color: 'var(--color-primary)' }}>for getting things done</span>
+          Free Online Tools —<br />
+          <span style={{ color: 'var(--color-primary)' }}>Productivity, Finance & PDF</span>
         </h1>
         <p style={{ color: 'var(--color-text-muted)', fontSize: '1.15rem', maxWidth: 560, margin: '0 auto 0.75rem' }}>
-          54 free tools — typing tutor, PDF suite, finance calculators, Pakistan tools, developer utilities and more.
+          57 free tools — typing tutor, PDF suite, finance calculators, Pakistan tools, developer utilities and more.
         </p>
         <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', maxWidth: 520, margin: '0 auto 2.5rem', opacity: 0.7 }}>
           Fast. Simple. Always there when you need it.
@@ -103,10 +122,26 @@ export default function Landing() {
           <Link to="/tools" style={{ background: 'var(--color-primary)', color: '#0f172a', padding: '0.8rem 2.25rem', borderRadius: 8, textDecoration: 'none', fontWeight: 700, fontSize: '1rem' }}>
             Open Tools →
           </Link>
-          <Link to="/tools/typely" style={{ background: 'transparent', border: '1px solid var(--color-border)', color: 'var(--color-text)', padding: '0.8rem 2rem', borderRadius: 8, textDecoration: 'none', fontWeight: 600, fontSize: '1rem' }}>
+          <Link to="/typing-tutor-online-free" style={{ background: 'transparent', border: '1px solid var(--color-border)', color: 'var(--color-text)', padding: '0.8rem 2rem', borderRadius: 8, textDecoration: 'none', fontWeight: 600, fontSize: '1rem' }}>
             ⌨ Try Typely
           </Link>
         </div>
+      </section>
+
+      {/* SEO Intro */}
+      <section style={{ maxWidth: 800, margin: '0 auto', padding: '0 2rem 2rem', textAlign: 'center' }}>
+        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.92rem', lineHeight: 1.8 }}>
+          Rafiqy is a free, privacy-first collection of 57 online tools built for students, professionals, 
+          and developers in Pakistan and beyond. Every tool runs entirely in your browser — your files, text, 
+          and data never leave your device. No account, no subscription, no tracking.
+        </p>
+        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.92rem', lineHeight: 1.8, marginTop: '0.75rem' }}>
+          Whether you need to <a href="/typing-tutor-online-free" style={{ color: 'var(--color-primary)' }}>improve your typing speed</a>, 
+          <a href="/compress-pdf-online-free" style={{ color: 'var(--color-primary)', margin: '0 4px' }}>compress a PDF</a>, 
+          <a href="/loan-emi-calculator" style={{ color: 'var(--color-primary)' }}>calculate your loan EMI</a>, or 
+          <a href="/word-counter-online-free" style={{ color: 'var(--color-primary)', marginLeft: 4 }}>count words</a> — 
+          Rafiqy has a tool for it. All free, all instant, all private.
+        </p>
       </section>
 
       {/* ── Quick Actions ── */}
@@ -156,7 +191,7 @@ export default function Landing() {
           </div>
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
             <Link to="/tools" style={{ color: 'var(--color-primary)', fontWeight: 600, textDecoration: 'none' }}>
-              Browse all 54 tools →
+              Browse all 57 tools →
             </Link>
           </div>
         </div>
@@ -188,7 +223,7 @@ export default function Landing() {
         </div>
         <div style={{ textAlign: 'center', marginTop: '2rem' }}>
           <Link to="/tools" style={{ color: 'var(--color-primary)', textDecoration: 'none', fontWeight: 600 }}>
-            View all 54 tools →
+            View all 57 tools →
           </Link>
         </div>
       </section>

@@ -4,6 +4,8 @@
 
 const TOOL_SEO = {
   'typing-tutor': {
+    metaTitle: 'Free Typing Tutor Online — Improve WPM | Rafiqy',
+    metaDesc: 'Free online typing test and tutor. Improve your WPM with targeted drills, accuracy tracking, and Urdu support. No sign-up required.',
     heading: 'Free Typing Speed Test & Tutor — Improve Your WPM Online',
     paras: [
       'Typely is a free online typing tutor and speed test that helps you measure and improve your typing speed in words per minute (WPM). Whether you\'re a complete beginner or an experienced typist looking to push past 80 WPM, Typely adapts to your skill level and tracks your progress over time.',
@@ -21,6 +23,8 @@ const TOOL_SEO = {
   },
 
   'pomodoro': {
+    metaTitle: 'Free Pomodoro Timer Online — Focus Engine | Rafiqy',
+    metaDesc: 'Stay focused with our free Pomodoro timer. Track sessions, set daily targets and beat distraction. Works offline. No account needed.',
     heading: 'Free Pomodoro Timer — Focus Engine for Deep Work',
     paras: [
       'The Pomodoro Technique is one of the most effective time management methods in the world. Work for 25 minutes, take a 5-minute break, and repeat. After 4 cycles, take a longer 15–30 minute break. Rafiqy\'s Pomodoro Focus Engine brings this technique to your browser with zero setup.',
@@ -37,6 +41,8 @@ const TOOL_SEO = {
   },
 
   'word-counter': {
+    metaTitle: 'Free Word Counter Online — Count Words Instantly',
+    metaDesc: 'Instantly count words, characters, sentences and reading time. Supports Urdu, Arabic and all Unicode. 100% private, runs in your browser.',
     heading: 'Free Online Word Counter & Character Counter Tool',
     paras: [
       'Whether you\'re writing an essay, crafting a tweet, or preparing a professional report, knowing your exact word count matters. Rafiqy\'s Word Counter instantly counts words, characters (with and without spaces), sentences, paragraphs, and estimates reading time — all without any server upload.',
@@ -53,6 +59,8 @@ const TOOL_SEO = {
   },
 
   'text-cleaner': {
+    metaTitle: 'Free Text Formatter & Cleaner Online | Rafiqy',
+    metaDesc: 'Clean and format text instantly — remove extra spaces, fix capitalization, strip HTML. Supports Urdu. 100% browser-based, no uploads.',
     heading: 'Free Text Formatter & Cleaner — Fix Spacing, Case & Special Characters',
     paras: [
       'Rafiqy\'s Text Formatter is the fastest way to clean up messy text. Remove extra spaces, fix line breaks, convert case, strip special characters, or normalize Unicode — all in one click, entirely in your browser.',
@@ -69,6 +77,8 @@ const TOOL_SEO = {
   },
 
   'doc-composer': {
+    metaTitle: 'Free Document Composer Online — Write & Export | Rafiqy',
+    metaDesc: 'Write and export documents to PDF, DOCX or plain text. Supports Urdu and RTL. No account, no subscription. Runs in your browser.',
     heading: 'Free Document Composer — Write & Export Documents Online',
     paras: [
       'Rafiqy\'s Doc Composer is a clean, distraction-free document editor that lets you write, format, and export documents directly from your browser. No Word installation needed, no subscription — just write and download.',
@@ -85,6 +95,8 @@ const TOOL_SEO = {
   },
 
   'urdu-keyboard': {
+    metaTitle: 'Free Urdu Keyboard Online — Type Urdu Phonetically',
+    metaDesc: 'Type Urdu using English phonetics on any device. No special keyboard needed. Copy and paste anywhere. Free and private.',
     heading: 'Free Online Urdu Keyboard — Type Urdu Without Installing Software',
     paras: [
       'Rafiqy\'s Urdu Keyboard lets you type in Urdu on any device without installing any software or keyboard layout. Works on Windows, Mac, Android, and iOS — just open the browser and start typing in Urdu script.',
@@ -101,6 +113,8 @@ const TOOL_SEO = {
   },
 
   'tax-calculator': {
+    metaTitle: 'Pakistan Income Tax Calculator 2025-26 | Rafiqy',
+    metaDesc: 'Calculate Pakistan income tax for FY 2025-26 using latest FBR slabs. Covers VPS, Zakat and senior rebate. Free, private, no sign-up.',
     heading: 'Pakistan Income Tax Calculator — FBR Slab Rates 2025-26',
     paras: [
       'Calculate your Pakistan income tax accurately for Tax Year 2026 (Financial Year 2025-26) using the latest FBR slab rates from the Finance Act 2025. This tool covers salaried individuals, business individuals, and includes all major deductions and rebates.',
@@ -117,6 +131,8 @@ const TOOL_SEO = {
   },
 
   'loan-emi': {
+    metaTitle: 'Free Loan EMI Calculator — Monthly Payments | Rafiqy',
+    metaDesc: 'Calculate your monthly EMI for any loan. Enter principal, rate and tenure to get instant results. Free, fast and private.',
     heading: 'Free Loan EMI Calculator — Monthly Instalment Planner',
     paras: [
       'Planning to buy a house, car, or take a personal loan? Use Rafiqy\'s Loan EMI Calculator to instantly calculate your monthly instalment (EMI), total payment, and total interest payable — all in your browser, with zero data uploaded.',
@@ -133,6 +149,8 @@ const TOOL_SEO = {
   },
 
   'salary-slip': {
+    metaTitle: 'Free Salary Slip Generator Online | Rafiqy',
+    metaDesc: 'Generate professional salary slips with FBR tax and EOBI deductions. Print or save as PDF. 100% private, browser-based. No sign-up.',
     heading: 'Free Salary Slip Generator Pakistan — Professional Payslip Maker',
     paras: [
       'Create professional salary slips in minutes with Rafiqy\'s Salary Slip Generator. Enter employee details, basic salary, and deductions — the tool generates a formatted, printable salary slip following Pakistani payroll conventions.',
@@ -149,6 +167,8 @@ const TOOL_SEO = {
   },
 
   'world-time': {
+    metaTitle: 'Free World Time Converter — Compare Timezones | Rafiqy',
+    metaDesc: 'Compare time zones worldwide and find perfect meeting windows. Includes PKT, Dubai, London and more. Free, accurate and private.',
     heading: 'World Time Converter — Compare Timezones Instantly',
     paras: [
       'Coordinating across timezones is one of the biggest challenges for remote teams, freelancers, and anyone working internationally. Rafiqy\'s World Time Converter lets you compare multiple timezones simultaneously and find the perfect overlap for meetings.',
@@ -165,6 +185,8 @@ const TOOL_SEO = {
   },
 
   'voice-diary': {
+    metaTitle: 'Free Voice Diary Online — Private Journal | Rafiqy',
+    metaDesc: 'Record voice entries that are transcribed and stored privately in your browser. Supports Urdu and English. No cloud, no account needed.',
     heading: 'Voice Diary — Private Voice Journal That Lives on Your Device',
     paras: [
       'Record your thoughts, ideas, and daily reflections with your voice — Rafiqy\'s Voice Diary transcribes your speech and stores your entries privately in your browser. No cloud backup, no app installation, no subscription.',
@@ -181,6 +203,8 @@ const TOOL_SEO = {
   },
 
   'kameti': {
+    metaTitle: 'Free Kameti Tracker Online — Manage Committees | Rafiqy',
+    metaDesc: 'Track Kameti (committee/ROSCA) rotations, contributions and payouts digitally. All data stored locally. Free, private, no sign-up.',
     heading: 'Kameti Tracker — Manage Rotating Savings Circles Online',
     paras: [
       'Kameti (also called committee, chit fund, or ROSCA) is a traditional Pakistani savings system where a group of people contribute a fixed amount regularly and each member takes turns collecting the pot. Rafiqy\'s Kameti Tracker helps you manage your rotating savings group digitally.',
@@ -197,6 +221,8 @@ const TOOL_SEO = {
   },
 
   'daily-planner': {
+    metaTitle: 'Free Daily Planner Online — Plan Your Day | Rafiqy',
+    metaDesc: 'Organize your day with tasks and time blocks in under 2 minutes. Rolls over incomplete tasks. Free, offline, no account needed.',
     heading: 'Free Daily Planner — Organize Your Day Without an App',
     paras: [
       'Rafiqy\'s Daily Planner is a simple, fast task planner that helps you structure your day in under 2 minutes. Add tasks, assign time blocks, set priorities, and check them off as you go — all in your browser without any account.',
@@ -213,6 +239,8 @@ const TOOL_SEO = {
   },
 
   'habit-tracker': {
+    metaTitle: 'Free Habit Tracker Online — Build Streaks | Rafiqy',
+    metaDesc: 'Track daily habits, build streaks and view heatmaps. Supports up to 20 habits. 100% private, browser-based. No sign-up required.',
     heading: 'Free Habit Tracker — Build Streaks & Track Daily Habits',
     paras: [
       'Building habits is the foundation of long-term success. Rafiqy\'s Habit Tracker helps you define your habits, mark daily completions, and visualize your streaks over time. The classic "don\'t break the chain" method, built into your browser.',
@@ -229,6 +257,8 @@ const TOOL_SEO = {
   },
 
   'color-palette': {
+    metaTitle: 'Free Color Palette Generator Online | Rafiqy',
+    metaDesc: 'Generate complementary, analogous and triadic color palettes. Export as CSS variables or image. Free, instant, no sign-up required.',
     heading: 'Free Color Palette Generator — Create & Export Color Schemes',
     paras: [
       'Rafiqy\'s Color Palette Generator helps designers, developers, and creatives build harmonious color schemes instantly. Generate complementary, analogous, triadic, or monochromatic palettes from any seed color — with hex, RGB, and HSL values.',
@@ -245,6 +275,8 @@ const TOOL_SEO = {
   },
 
   'pk-id-tax-hub': {
+    metaTitle: 'Pakistan ID & Tax Hub — CNIC Decoder Online | Rafiqy',
+    metaDesc: 'Decode Pakistan CNIC, look up NTN info, check filer status and understand tax obligations. Free, browser-based and fully private.',
     heading: 'Pakistan ID & Tax Hub — CNIC Decoder, NTN Lookup & Tax Info',
     paras: [
       'Pakistan\'s ID & Tax Hub consolidates multiple Pakistan-specific identity and tax tools in one place. Decode your CNIC to get birth year, gender, and home province. Look up NTN details, check tax filer status, and understand your withholding tax obligations.',
@@ -261,6 +293,8 @@ const TOOL_SEO = {
   },
 
   'loan-manager': {
+    metaTitle: 'Free Loan Manager Online — Track All Your Loans | Rafiqy',
+    metaDesc: 'Track all active loans in one dashboard. See outstanding balances, monthly obligations and interest. Free, private, no sign-up needed.',
     heading: 'Free Loan Manager — Track All Your Loans in One Place',
     paras: [
       'Rafiqy\'s Loan Manager helps you track all your active loans — personal loans, car loans, home loans, credit card debt — in one dashboard. See your total debt, monthly obligations, and remaining balances at a glance.',
@@ -277,6 +311,8 @@ const TOOL_SEO = {
   },
 
   'regex-tester': {
+    metaTitle: 'Free Regex Tester Online — Test Patterns Instantly',
+    metaDesc: 'Test and debug regular expressions in real time. Highlights matches, groups and indices. JavaScript regex syntax. Free, private, instant.',
     heading: 'Free Regex Tester — Test Regular Expressions Online Instantly',
     paras: [
       'Rafiqy\'s Regex Tester lets you write, test, and debug regular expressions in real time. See matches highlighted instantly as you type your pattern and test string — no "Run" button needed. Supports JavaScript regex syntax.',
@@ -293,6 +329,8 @@ const TOOL_SEO = {
   },
 
   'gold-price': {
+    metaTitle: 'Live Gold Price Pakistan Today — PKR Rates | Rafiqy',
+    metaDesc: 'Check live gold and silver prices in Pakistan in PKR per tola, gram and ounce. 24K, 22K, 21K and 18K. Free gold value calculator.',
     heading: 'Live Gold & Silver Price Pakistan — PKR Rates Today',
     paras: [
       'Check today\'s live gold and silver prices in Pakistan in PKR (Pakistani Rupee). See prices per tola, per gram, and per ounce for 24K, 22K, 21K, and 18K gold. Rates are updated regularly and sourced from reliable market data.',
@@ -309,6 +347,8 @@ const TOOL_SEO = {
   },
 
   'tax-optimizer': {
+    metaTitle: 'Pakistan Tax Optimizer — Reduce Your Tax Bill | Rafiqy',
+    metaDesc: 'Find legal deductions (VPS, Zakat, donations) to reduce Pakistan income tax. FBR 2025-26 compliant. Free, private, no sign-up needed.',
     heading: 'Pakistan Tax Shield Optimizer — Legally Reduce Your Tax Bill',
     paras: [
       'The Tax Shield Optimizer helps Pakistani taxpayers identify legal deductions and allowances that can significantly reduce their income tax liability. Enter your income and the tool shows you every deduction you qualify for under Pakistani tax law.',
@@ -325,6 +365,8 @@ const TOOL_SEO = {
   },
 
   'text-encryptor': {
+    metaTitle: 'Free Text Encryptor Online — AES-256 Privacy | Rafiqy',
+    metaDesc: 'Encrypt and decrypt messages with AES-256. Share sensitive text safely over WhatsApp or email. 100% browser-based. No sign-up needed.',
     heading: 'Free Text Encryptor — Encrypt & Decrypt Messages Privately',
     paras: [
       'Rafiqy\'s Text Encryptor lets you encrypt any text message with a password using AES-256 encryption — one of the strongest encryption standards available. Share the encrypted text safely; only someone with the password can decrypt it.',
@@ -341,6 +383,8 @@ const TOOL_SEO = {
   },
 
   'data-leak-detector': {
+    metaTitle: 'Data Leak Detector — Check Breached Emails | Rafiqy',
+    metaDesc: 'Check if your email or password was exposed in a data breach. Uses k-anonymity — your credentials never leave your browser. Free.',
     heading: 'Data Leak Detector — Check If Your Emails & Passwords Were Exposed',
     paras: [
       'Data breaches happen constantly — millions of usernames, passwords, and email addresses are leaked online every year. Rafiqy\'s Data Leak Detector lets you check whether your email address or passwords appear in known breach databases, without ever sending your actual credentials to any server.',
@@ -357,6 +401,8 @@ const TOOL_SEO = {
   },
 
   'currency-converter': {
+    metaTitle: 'Free Currency Converter Online — Live Rates | Rafiqy',
+    metaDesc: 'Convert between 30+ currencies with live exchange rates. PKR, USD, GBP, AED and more. Free, fast and works offline.',
     heading: 'Free Currency Converter — Live Exchange Rates Including PKR',
     paras: [
       'Rafiqy\'s Currency Converter provides live exchange rates for all major currencies including Pakistani Rupee (PKR), UAE Dirham (AED), Saudi Riyal (SAR), US Dollar (USD), and more. Convert any amount between currencies instantly.',
@@ -373,6 +419,8 @@ const TOOL_SEO = {
   },
 
   'packing-list': {
+    metaTitle: 'Free Smart Packing List Generator Online | Rafiqy',
+    metaDesc: 'Generate a customized packing checklist for any trip. Covers clothes, documents, Pakistan essentials and more. Free, private, offline.',
     heading: 'Free Smart Packing List — Never Forget Anything When Traveling',
     paras: [
       'Rafiqy\'s Smart Packing List generates a customized packing checklist based on your destination, trip type, duration, and season. Stop forgetting important items — get a comprehensive list tailored to your specific trip.',
@@ -389,6 +437,8 @@ const TOOL_SEO = {
   },
 
   'budget-splitter': {
+    metaTitle: 'Free Trip Budget Splitter Online | Rafiqy',
+    metaDesc: 'Split shared travel or group expenses fairly and calculate who owes who. WhatsApp-shareable summary. Free, private, no sign-up.',
     heading: 'Free Trip Budget Splitter — Split Expenses Fairly Among Friends',
     paras: [
       'Rafiqy\'s Trip Budget Splitter makes it easy to split shared expenses fairly among a group — whether it\'s a road trip, dinner, holiday, or office outing. Add expenses, assign who paid, and see exactly who owes who at the end.',
@@ -405,6 +455,8 @@ const TOOL_SEO = {
   },
 
   'drug-checker': {
+    metaTitle: 'Drug Interaction Checker Pakistan — Free Online',
+    metaDesc: 'Check medication interactions for Pakistani brand and generic drugs. Browser-based, private. Always consult your doctor. Free tool.',
     heading: 'Drug Interaction Checker — Check Medication Safety in Pakistan',
     paras: [
       'Before taking multiple medications together, it\'s critical to know whether they interact. Some combinations reduce effectiveness, cause side effects, or in rare cases can be dangerous. Rafiqy\'s Drug Interaction Checker lets you check common interactions instantly.',
@@ -421,6 +473,8 @@ const TOOL_SEO = {
   },
 
   'symptom-tracker': {
+    metaTitle: 'Free Symptom Tracker Online — Log Health Patterns',
+    metaDesc: 'Log symptoms with severity and context to share with your doctor. Export a clean PDF timeline. Private, browser-based. No sign-up.',
     heading: 'Symptom Context Tracker — Log & Track Health Symptoms Over Time',
     paras: [
       'Rafiqy\'s Symptom Context Tracker helps you maintain a detailed log of health symptoms, medications, and possible triggers — creating a timeline you can share with your doctor. Useful for chronic conditions, recurring headaches, digestive issues, or any health pattern you want to understand.',
@@ -437,6 +491,8 @@ const TOOL_SEO = {
   },
 
   'measurement-tracker': {
+    metaTitle: 'Free Measurement Tracker — Log Weight & BMI | Rafiqy',
+    metaDesc: 'Track weight, BMI, body measurements and health metrics over time. Private charts, CSV export. Free, browser-based, no account needed.',
     heading: 'Free Measurement Tracker — Log Weight, BMI & Body Measurements',
     paras: [
       'Rafiqy\'s Measurement Tracker helps you log and visualize your health metrics over time: weight, BMI, body measurements (waist, chest, arms), blood pressure, and blood sugar. Track your fitness journey without a subscription app.',
@@ -453,6 +509,8 @@ const TOOL_SEO = {
   },
 
   'data-transformer': {
+    metaTitle: 'Free Data Transformer Online — CSV & JSON | Rafiqy',
+    metaDesc: 'Transform, convert and clean CSV, JSON and TSV data locally. Apply custom JS expressions. No uploads, fully private. No sign-up.',
     heading: 'Privacy-First Data Transformer — Convert & Clean Data Locally',
     paras: [
       'Rafiqy\'s Data Transformer lets developers and analysts transform, convert, and clean datasets entirely in the browser. No uploading sensitive data to cloud transformation services — process CSVs, JSON, and text files locally.',
@@ -469,6 +527,8 @@ const TOOL_SEO = {
   },
 
   'markdown-scraper': {
+    metaTitle: 'Free Markdown Scraper — Web to LLM-Ready Markdown',
+    metaDesc: 'Convert any web page to clean Markdown for AI tools and RAG pipelines. Strips ads and boilerplate. Free, fast, no sign-up needed.',
     heading: 'LLM-Ready Markdown Scraper — Convert Web Pages to Clean Markdown',
     paras: [
       'Rafiqy\'s Markdown Scraper converts any web page into clean Markdown text — perfectly formatted for feeding into LLMs (ChatGPT, Claude, Gemini), building RAG pipelines, or creating documentation from web content.',
@@ -485,6 +545,8 @@ const TOOL_SEO = {
   },
 
   'log-analyzer': {
+    metaTitle: 'Free Log Analyzer Online — Parse Logs Privately',
+    metaDesc: 'Parse, filter and search application logs locally. Auto-detects Apache, JSON and Node formats. No uploads. Free, private, no sign-up.',
     heading: 'Smart Log Analyzer — Parse & Search Application Logs Instantly',
     paras: [
       'Rafiqy\'s Smart Log Analyzer helps developers parse, filter, and analyze application logs without uploading sensitive production data to cloud log services. Paste or upload your log files and search, filter, and highlight patterns instantly.',
@@ -501,6 +563,8 @@ const TOOL_SEO = {
   },
 
   'config-converter': {
+    metaTitle: 'Free Config Converter — JSON, YAML, TOML & ENV',
+    metaDesc: 'Convert config files between JSON, YAML, TOML and .ENV formats instantly. Validates syntax. Browser-based, private. No sign-up needed.',
     heading: 'Config Polyglot Converter — Convert Between JSON, YAML, TOML & ENV',
     paras: [
       'Rafiqy\'s Config Converter translates configuration files between JSON, YAML, TOML, and .ENV formats instantly. Convert your Docker Compose file to JSON, your .env to YAML, or your TOML config to JSON with one click.',
@@ -517,6 +581,8 @@ const TOOL_SEO = {
   },
 
   'mock-data': {
+    metaTitle: 'Free Mock Data Generator — Test Data Online | Rafiqy',
+    metaDesc: 'Generate realistic fake test data in JSON, CSV or SQL. Pakistani names, CNICs and phone numbers. Free, no limits, no sign-up needed.',
     heading: 'Mock Data Generator — Create Fake Test Data Instantly',
     paras: [
       'Rafiqy\'s Mock Data Generator creates realistic fake data for testing and development. Generate names, emails, phone numbers, addresses, UUIDs, dates, or any custom schema — in JSON, CSV, or SQL INSERT format.',
@@ -533,6 +599,8 @@ const TOOL_SEO = {
   },
 
   'trace-correlator': {
+    metaTitle: 'Free Distributed Trace Correlator Online | Rafiqy',
+    metaDesc: 'Correlate microservice logs by trace ID and see the full request timeline. Paste logs from up to 10 services. Private, free, no sign-up.',
     heading: 'Distributed Trace Correlator — Correlate Logs Across Microservices',
     paras: [
       'Rafiqy\'s Distributed Trace Correlator helps developers correlate log entries across multiple microservices using trace IDs, correlation IDs, or request IDs. Paste logs from multiple services and see the full request flow stitched together in chronological order.',
@@ -549,6 +617,8 @@ const TOOL_SEO = {
   },
 
   'schema-mapper': {
+    metaTitle: 'Free Schema Field Mapper Online — ETL & APIs | Rafiqy',
+    metaDesc: 'Map fields between data schemas for ETL, API integrations and migrations. Export as JSON, Python or SQL. Free, private, no sign-up.',
     heading: 'Schema Field Mapper — Map Fields Between Different Data Schemas',
     paras: [
       'Rafiqy\'s Schema Field Mapper helps developers map fields between two different data schemas — for ETL pipelines, API integrations, database migrations, or data normalization. Define source and target schemas and the tool suggests mappings based on name similarity.',
@@ -565,6 +635,8 @@ const TOOL_SEO = {
   },
 
   'json-formatter': {
+    metaTitle: 'Free JSON Formatter Online — Validate & Explore',
+    metaDesc: 'Format, validate and explore JSON data instantly. Prettify or minify JSON in your browser. Free, fast, no sign-up required.',
     heading: 'Free JSON Formatter & Validator — Beautify & Minify JSON Online',
     paras: [
       'Rafiqy\'s JSON Formatter instantly beautifies, minifies, and validates JSON. Paste any JSON — even minified or slightly malformed — and the tool formats it with proper indentation, highlights syntax, and shows any errors with their exact line and position.',
@@ -581,6 +653,8 @@ const TOOL_SEO = {
   },
 
   'student-groups': {
+    metaTitle: 'Free Student Group Randomizer — Fair Groups | Rafiqy',
+    metaDesc: 'Create fair random student groups in seconds with constraints. Save class lists, regenerate instantly. Free, private, no sign-up needed.',
     heading: 'Free Student Group Randomizer — Fair Random Group Maker for Teachers',
     paras: [
       'Rafiqy\'s Student Group Randomizer helps teachers create fair, random student groups in seconds. Enter your class list and specify group size — the tool shuffles and assigns students into balanced groups, avoiding the awkward manual grouping process.',
@@ -597,6 +671,8 @@ const TOOL_SEO = {
   },
 
   'timeline-builder': {
+    metaTitle: 'Free Timeline Builder Online — Visual Events | Rafiqy',
+    metaDesc: 'Build visual event timelines for legal cases, research or projects. Export as PDF or image. Free, private, browser-based. No sign-up.',
     heading: 'Contextual Timeline Builder — Build Visual Event Timelines',
     paras: [
       'Rafiqy\'s Contextual Timeline Builder helps researchers, lawyers, journalists, and project managers create clear visual timelines of events. Add events with dates, descriptions, and categories — the tool arranges them chronologically with optional context notes.',
@@ -613,6 +689,8 @@ const TOOL_SEO = {
   },
 
   'position-size-calc': {
+    metaTitle: 'Free Position Size Calculator — Trade Risk | Rafiqy',
+    metaDesc: 'Calculate correct trade size based on account risk. Supports PSX, forex and crypto. Free, browser-based, private. No sign-up needed.',
     heading: 'Position Size Calculator — Risk-Based Trade Sizing for Investors',
     paras: [
       'Rafiqy\'s Position Size Calculator helps traders and investors determine the correct trade size based on their risk tolerance. Enter your account size, risk percentage per trade (e.g. 1-2%), entry price, and stop loss — the tool calculates the exact position size to stay within your risk limit.',
@@ -629,6 +707,8 @@ const TOOL_SEO = {
   },
 
   'voice-invoice': {
+    metaTitle: 'Voice-to-Invoice Generator — Free Online | Rafiqy',
+    metaDesc: 'Create professional invoices by speaking in English or Urdu. JazzCash/EasyPaisa support. Export as PDF. Free, browser-based.',
     heading: 'Voice-to-Invoice — Create Professional Invoices by Speaking',
     paras: [
       'Rafiqy\'s Voice-to-Invoice lets you create professional invoices by speaking naturally. Say "Invoice for web design, 3 hours at 5000 rupees" and the tool fills in the invoice form automatically. Export as PDF and send to clients.',
@@ -645,6 +725,8 @@ const TOOL_SEO = {
   },
 
   'property-comp': {
+    metaTitle: 'Free Property Comp Adjuster — CMA Online | Rafiqy',
+    metaDesc: 'Compare property values and estimate market price using comparable sales. Supports Marla/Kanal. Free, private, browser-based.',
     heading: 'Property Comp Adjuster — Compare Property Values for Valuation',
     paras: [
       'Rafiqy\'s Property Comp Adjuster helps real estate professionals, investors, and homebuyers perform comparative market analysis (CMA) to estimate a property\'s fair market value based on comparable sales.',
@@ -661,6 +743,8 @@ const TOOL_SEO = {
   },
 
   'refrigerant-calc': {
+    metaTitle: 'Free Refrigerant Calculator — HVAC Charge Tool | Rafiqy',
+    metaDesc: 'Calculate refrigerant charge requirements and leak rates for AC systems. Supports R-22, R-410A, R-32. Free, private, no sign-up.',
     heading: 'Refrigerant Leak Calculator — HVAC Refrigerant Charge & Leak Rate Tool',
     paras: [
       'Rafiqy\'s Refrigerant Leak Calculator helps HVAC technicians and engineers calculate refrigerant charge requirements, estimate leak rates, and determine refill schedules for AC systems and refrigeration units.',
@@ -677,6 +761,8 @@ const TOOL_SEO = {
   },
 
   'freelancer-risk': {
+    metaTitle: 'Free Freelancer Risk Analyzer — Client Risk | Rafiqy',
+    metaDesc: 'Assess client and project risk before starting. Get a risk score and red flags. Built for Pakistani freelancers. Free, private.',
     heading: 'Freelancer Risk Analyzer — Assess Client & Project Risk Before You Start',
     paras: [
       'Rafiqy\'s Freelancer Risk Analyzer helps Pakistani freelancers evaluate the risk profile of a client or project before committing time and resources. Answer a series of questions about the client and project — the tool produces a risk score and specific red flags to watch for.',
@@ -693,6 +779,8 @@ const TOOL_SEO = {
   },
 
   'warranty-tracker': {
+    metaTitle: 'Free Warranty Tracker Online — Never Miss Expiry',
+    metaDesc: 'Track product warranties and get alerts before they expire. Attach receipts, log model numbers. Free, browser-based. No sign-up.',
     heading: 'Free Warranty Tracker — Never Miss a Product Warranty Expiry',
     paras: [
       'Rafiqy\'s Warranty Tracker helps you log product warranties and get notified before they expire. Add your appliances, electronics, furniture, and vehicles with their purchase date and warranty period — the tool shows days remaining and upcoming expirations.',
@@ -709,6 +797,8 @@ const TOOL_SEO = {
   },
 
   'driving-fines': {
+    metaTitle: 'Pakistan Driving Fine Tracker Online | Rafiqy',
+    metaDesc: 'Log and track Pakistan traffic fines by city and authority. Never miss a payment deadline. Free, private, offline-capable.',
     heading: 'Pakistan Driving Fine Tracker — Log & Track Traffic Violations',
     paras: [
       'Rafiqy\'s Driving Fine Tracker helps Pakistani drivers log traffic fines, track due dates, and manage payment status across different cities and traffic authorities. Never miss a fine payment deadline again.',
@@ -725,6 +815,8 @@ const TOOL_SEO = {
   },
 
   'expense-analyzer': {
+    metaTitle: 'Free Expense Analyzer Online — Track Spending | Rafiqy',
+    metaDesc: 'Analyze spending patterns by category with PKR support. Month-over-month comparisons. Private, browser-based. No sign-up needed.',
     heading: 'Expense Pattern Analyzer — Track & Understand Your Spending',
     paras: [
       'The Expense Pattern Analyzer helps you make sense of where your money goes each month. Add your income and expenses, categorize them, and the tool shows breakdowns by category, spending trends over time, and flags unusual spikes — all privately in your browser.',
@@ -741,6 +833,8 @@ const TOOL_SEO = {
   },
 
   'doc-redaction': {
+    metaTitle: 'Free Document Redaction Online — Remove Sensitive Info',
+    metaDesc: 'Redact sensitive info from PDFs locally. Auto-detects CNICs, emails and phone numbers. Files never leave your browser. Free.',
     heading: 'Smart Document Redaction — Remove Sensitive Information from Files',
     paras: [
       'Rafiqy\'s Smart Document Redaction tool lets you black out (redact) sensitive information from PDFs and documents before sharing. Redact names, CNICs, NTNs, phone numbers, addresses, or any custom pattern — in your browser without uploading to a cloud service.',
@@ -757,6 +851,8 @@ const TOOL_SEO = {
   },
 
   'compress-pdf': {
+    metaTitle: 'Compress PDF Online Free — Reduce File Size | Rafiqy',
+    metaDesc: 'Compress PDF files online for free. Reduce file size without losing quality. 100% browser-based — your files never leave your device.',
     heading: 'Compress PDF Online Free — Reduce File Size Without Uploading',
     paras: [
       'Need to shrink a PDF before emailing it or uploading to a government portal? Rafiqy\'s PDF Compressor reduces file sizes instantly — entirely in your browser, with nothing uploaded to any server.',
@@ -773,6 +869,8 @@ const TOOL_SEO = {
   },
 
   'merge-pdf': {
+    metaTitle: 'Free PDF Merger Online — Combine PDFs | Rafiqy',
+    metaDesc: 'Merge multiple PDFs into one file instantly. Reorder pages, no file size limit. 100% browser-based — files never leave your device.',
     heading: 'Free PDF Merger — Combine Multiple PDFs Into One',
     paras: [
       'Rafiqy\'s PDF Merger combines multiple PDF files into a single document instantly — entirely in your browser. No server upload, no account, no file size limits imposed by cloud services.',
@@ -789,6 +887,8 @@ const TOOL_SEO = {
   },
 
   'split-pdf': {
+    metaTitle: 'Free PDF Splitter Online — Extract Pages | Rafiqy',
+    metaDesc: 'Split PDFs by page range, bookmarks or extract every page. Download as ZIP. Browser-based, files stay private. No sign-up.',
     heading: 'Free PDF Splitter — Split a PDF Into Pages or Ranges',
     paras: [
       'Rafiqy\'s PDF Splitter lets you extract specific pages or ranges from a PDF and save them as separate files. No account, no cloud upload, no file size restrictions — all processing in your browser.',
@@ -805,6 +905,8 @@ const TOOL_SEO = {
   },
 
   'pdf-convert': {
+    metaTitle: 'Free PDF Converter Online — To Word & Images | Rafiqy',
+    metaDesc: 'Convert PDF to Word, images or text — and vice versa. All conversions run locally. Files never leave your browser. No sign-up.',
     heading: 'Free PDF Converter — Convert PDF to Word, Images & More',
     paras: [
       'Rafiqy\'s PDF Converter transforms PDF files into other formats and converts other files to PDF — entirely in your browser without uploading to a cloud service. Convert PDF to Word (DOCX), images (PNG/JPG), or plain text.',
@@ -821,6 +923,8 @@ const TOOL_SEO = {
   },
 
   'doc-converter': {
+    metaTitle: 'Free Document Converter — DOCX, PDF & More | Rafiqy',
+    metaDesc: 'Convert between DOCX, PDF, RTF and plain text in your browser. No Office or Acrobat needed. Free, private. No sign-up required.',
     heading: 'Free Document Converter — Convert Between Word, PDF, and Text Formats',
     paras: [
       'Rafiqy\'s Doc Converter handles document format conversions that you\'d normally need Microsoft Word or Adobe Acrobat for — right in your browser. Convert DOCX to PDF, PDF to DOCX, RTF to DOCX, or plain text to formatted document.',
@@ -837,6 +941,8 @@ const TOOL_SEO = {
   },
 
   'text-extractor': {
+    metaTitle: 'Free OCR Text Extractor — Images to Text | Rafiqy',
+    metaDesc: 'Extract text from images and scanned PDFs using OCR. Supports Urdu, English, Arabic. Files never leave your browser. Free.',
     heading: 'Free OCR Text Extractor — Extract Text from Images & Scanned PDFs',
     paras: [
       'Rafiqy\'s Text Extractor uses OCR (Optical Character Recognition) to extract text from images and scanned PDFs directly in your browser. Upload a photo of a document, receipt, or scanned page — the tool converts it to editable text.',
@@ -853,6 +959,8 @@ const TOOL_SEO = {
   },
 
   'pdf-search': {
+    metaTitle: 'Free PDF Search Online — Find Text in PDFs | Rafiqy',
+    metaDesc: 'Search inside PDFs without uploading. OCR support for scanned documents. Supports Urdu. Free, browser-based, fully private.',
     heading: 'PDF Search — Search Text Inside PDF Files Without Uploading',
     paras: [
       'Rafiqy\'s PDF Search lets you search for any text inside a PDF file directly in your browser. Upload a PDF, type your search term, and instantly see all matching pages with context — no cloud upload required.',
@@ -868,6 +976,8 @@ const TOOL_SEO = {
     ],
   },
   'image-suite': {
+    metaTitle: 'Free Image Tools Online — Compress & Convert | Rafiqy',
+    metaDesc: 'Compress, convert, rotate and watermark images in your browser. JPG, PNG and WebP. Files stay private. Free, instant, no sign-up.',
     heading: 'Free Online Image Tools — Compress, Convert & Watermark',
     paras: [
       'Rafiqy Image Tools Suite gives you four powerful image editing capabilities in one privacy-first tool: compression, format conversion, rotation/flip, and watermarking — entirely in your browser with zero server uploads.',
@@ -883,6 +993,8 @@ const TOOL_SEO = {
     ],
   },
   'resume-builder': {
+    metaTitle: 'Free Resume Builder Online — Professional CV | Rafiqy',
+    metaDesc: 'Build a professional resume with live preview. ATS-friendly templates for Pakistan. Export to PDF. Free, private, no sign-up needed.',
     heading: 'Free Resume Builder — Professional CV in Minutes',
     paras: [
       'Rafiqy Resume Builder helps you create a polished, professional resume without any account or subscription. Fill in your details using the structured form and watch your resume take shape in real-time with the live preview panel.',
@@ -898,6 +1010,8 @@ const TOOL_SEO = {
     ],
   },
   'whatsapp-tools': {
+    metaTitle: 'Free WhatsApp Tools Online — Format & Links | Rafiqy',
+    metaDesc: 'Format WhatsApp messages, create templates and generate wa.me links. Pakistan number support. Free, private, no sign-up needed.',
     heading: 'WhatsApp Tools — Format, Template & Link Generator for Pakistan',
     paras: [
       'Rafiqy WhatsApp Tools is a free toolkit for power users and small business owners who rely on WhatsApp for communication. Format messages with bold, italic, and strikethrough before sending, so you always get the look right without trial and error.',

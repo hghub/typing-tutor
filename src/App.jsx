@@ -398,16 +398,16 @@ function App() {
   return (
     <Suspense fallback={null}>
     <Helmet>
-      <title>Typely — Free Typing Speed Test &amp; Tutor Online | Rafiqy</title>
-      <meta name="description" content="Free online typing tutor and speed test. Measure your WPM, improve accuracy, and practice with English and Urdu text. No account needed — runs entirely in your browser." />
-      <link rel="canonical" href="https://rafiqy.app/tools/typely" />
-      <meta property="og:title" content="Typely — Free Typing Speed Test &amp; Tutor Online | Rafiqy" />
-      <meta property="og:description" content="Free online typing tutor and speed test. Measure your WPM, improve accuracy, and practice with English and Urdu text." />
-      <meta property="og:url" content="https://rafiqy.app/tools/typely" />
+      <title>Free Online Typing Tutor — Improve Typing Speed | Rafiqy</title>
+      <meta name="description" content="Free typing speed test and tutor online. Improve your WPM with targeted drills, accuracy tracking, Urdu support and XP rewards. No sign-up needed." />
+      <link rel="canonical" href="https://rafiqy.app/typing-tutor-online-free" />
+      <meta property="og:title" content="Free Online Typing Tutor — Improve Typing Speed | Rafiqy" />
+      <meta property="og:description" content="Free typing speed test and tutor online. Improve your WPM with targeted drills, accuracy tracking, Urdu support and XP rewards." />
+      <meta property="og:url" content="https://rafiqy.app/typing-tutor-online-free" />
       <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:title" content="Typely — Free Typing Speed Test &amp; Tutor Online | Rafiqy" />
-      <meta name="twitter:description" content="Free online typing tutor and speed test. Measure your WPM, improve accuracy, and practice in your browser." />
+      <meta name="twitter:title" content="Free Online Typing Tutor — Improve Typing Speed | Rafiqy" />
+      <meta name="twitter:description" content="Free typing speed test and tutor online. Improve your WPM with targeted drills, accuracy tracking and Urdu support." />
     </Helmet>
     <div style={{ minHeight: '100vh', background: colors.bg, transition: 'background 0.3s ease' }}>
       <AnimatedBackground />

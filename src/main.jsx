@@ -74,6 +74,7 @@ const About              = lazy(() => import('./pages/About.jsx'))
 const Help               = lazy(() => import('./pages/Help.jsx'))
 const BlogHome           = lazy(() => import('./pages/BlogHome.jsx'))
 const BlogPost           = lazy(() => import('./pages/BlogPost.jsx'))
+const CategoryPage       = lazy(() => import('./pages/CategoryPage.jsx'))
 
 const fallback = (
   <div style={{
@@ -104,20 +105,26 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools" element={<ToolsHome />} />
 
           {/* Typing tutor */}
-          <Route path="/tools/typely" element={<App />} />
-          <Route path="/tools/typing-tutor" element={<Navigate to="/tools/typely" replace />} />
+          <Route path="/typing-tutor-online-free" element={<App />} />
+          <Route path="/tools/typing-tutor" element={<Navigate to="/typing-tutor-online-free" replace />} />
+          <Route path="/tools/typely" element={<Navigate to="/typing-tutor-online-free" replace />} />
 
           {/* Individual tools */}
-          <Route path="/tools/word-counter"  element={<WordCounter />} />
+          <Route path="/word-counter-online-free"  element={<WordCounter />} />
+          <Route path="/tools/word-counter"  element={<Navigate to="/word-counter-online-free" replace />} />
           <Route path="/tools/text-cleaner"  element={<TextCleaner />} />
-          <Route path="/tools/urdu-keyboard" element={<UrduKeyboard />} />
+          <Route path="/urdu-keyboard-online" element={<UrduKeyboard />} />
+          <Route path="/tools/urdu-keyboard" element={<Navigate to="/urdu-keyboard-online" replace />} />
           <Route path="/tools/text-encryptor" element={<TextEncryptor />} />
           <Route path="/tools/doc-composer"  element={<DocComposer />} />
           <Route path="/tools/tax-calculator"    element={<TaxCalculator />} />
-          <Route path="/tools/loan-emi"           element={<LoanEMI />} />
-          <Route path="/tools/pomodoro"           element={<Pomodoro />} />
+          <Route path="/loan-emi-calculator"           element={<LoanEMI />} />
+          <Route path="/tools/loan-emi"           element={<Navigate to="/loan-emi-calculator" replace />} />
+          <Route path="/pomodoro-focus-engine"           element={<Pomodoro />} />
+          <Route path="/tools/pomodoro"           element={<Navigate to="/pomodoro-focus-engine" replace />} />
           <Route path="/tools/tax-optimizer"     element={<TaxOptimizer />} />
-          <Route path="/tools/currency-converter" element={<CurrencyConverter />} />
+          <Route path="/currency-converter-live" element={<CurrencyConverter />} />
+          <Route path="/tools/currency-converter" element={<Navigate to="/currency-converter-live" replace />} />
           <Route path="/tools/packing-list"       element={<PackingList />} />
           <Route path="/tools/budget-splitter"    element={<BudgetSplitter />} />
           <Route path="/tools/drug-checker"       element={<DrugChecker />} />
@@ -142,14 +149,16 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/trace-correlator"   element={<TraceCorrelator />} />
           <Route path="/tools/schema-mapper"         element={<SchemaMapper />} />
           <Route path="/tools/measurement-tracker"   element={<MeasurementTracker />} />
-          <Route path="/tools/compress-pdf"          element={<CompressPDF />} />
+          <Route path="/compress-pdf-online-free"          element={<CompressPDF />} />
+          <Route path="/tools/compress-pdf"          element={<Navigate to="/compress-pdf-online-free" replace />} />
           <Route path="/tools/merge-pdf"             element={<MergePDF />} />
           <Route path="/tools/split-pdf"             element={<SplitPDF />} />
           <Route path="/tools/pdf-convert"           element={<PDFConvert />} />
           <Route path="/tools/doc-converter"      element={<DocConverter />} />
           <Route path="/tools/text-extractor"     element={<TextExtractor />} />
           <Route path="/tools/pdf-search"          element={<PDFSearch />} />
-          <Route path="/tools/salary-slip"         element={<SalarySlip />} />
+          <Route path="/salary-slip-generator"         element={<SalarySlip />} />
+          <Route path="/tools/salary-slip"         element={<Navigate to="/salary-slip-generator" replace />} />
           <Route path="/tools/world-time"          element={<WorldTime />} />
           <Route path="/tools/voice-diary"         element={<VoiceDiary />} />
           <Route path="/tools/kameti"              element={<Kameti />} />
@@ -159,7 +168,8 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/pk-id-tax-hub"       element={<PkIdTaxHub />} />
           <Route path="/tools/loan-manager"        element={<LoanManager />} />
           <Route path="/tools/regex-tester"        element={<RegexTester />} />
-          <Route path="/tools/json-formatter"      element={<JsonFormatter />} />
+          <Route path="/json-formatter"      element={<JsonFormatter />} />
+          <Route path="/tools/json-formatter"      element={<Navigate to="/json-formatter" replace />} />
           <Route path="/tools/gold-price"          element={<GoldPrice />} />
           <Route path="/tools/image-suite"      element={<ImageSuite />} />
           <Route path="/tools/resume-builder"   element={<ResumeBuilder />} />
@@ -168,6 +178,13 @@ createRoot(document.getElementById('root')).render(
           <Route path="/blogs/tools/:slug"          element={<BlogPost />} />
           <Route path="/about"                     element={<About />} />
           <Route path="/help"                      element={<Help />} />
+
+          {/* Category pages */}
+          <Route path="/category/productivity-tools" element={<CategoryPage category="productivity-tools" />} />
+          <Route path="/category/finance-tools" element={<CategoryPage category="finance-tools" />} />
+          <Route path="/category/pdf-tools" element={<CategoryPage category="pdf-tools" />} />
+          <Route path="/category/developer-tools" element={<CategoryPage category="developer-tools" />} />
+          <Route path="/category/pakistan-tools" element={<CategoryPage category="pakistan-tools" />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

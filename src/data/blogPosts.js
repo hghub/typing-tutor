@@ -90,50 +90,224 @@ export const BLOG_POSTS = [
   },
   {
     slug: 'typing-learning',
-    title: 'Master Touch Typing in Urdu & English with Rafiqy\'s Typing Tutor',
-    description: "Level up your typing speed with Rafiqy's Typely — WPM tracking, accuracy stats, Urdu mode, structured lessons and live typing battles. Free forever.",
+    title: 'Typely: The Complete Guide to Every Feature — Battles, Kids Mode, Urdu, Arabic, Persian & More',
+    description: "Everything Typely can do: 1v1 battles, group rooms, tournaments, Kids Mode, sound effects, virtual keyboard, per-key drills, stats history, leaderboard, custom passages, 8 languages including Urdu, Arabic & Persian.",
     category: 'education',
     publishDate: '2025-01-25',
-    readTime: '7 min read',
+    readTime: '14 min read',
     hero: '⌨️',
-    tags: ['Typing', 'WPM', 'Urdu', 'Education'],
+    tags: ['Typing', 'WPM', 'Urdu', 'Arabic', 'Persian', 'Kids', 'Education', 'Battle'],
     content: `
 <div class="blog-content">
-<h2>Why Touch Typing Still Matters</h2>
-<p>In an age of voice input and autocomplete, touch typing remains the single highest-ROI skill for knowledge workers. A professional who types at 70 WPM produces the equivalent of two hours of written output for every hour a 35 WPM typist produces. For software developers, content writers, lawyers, and anyone who types for a living, the investment in proper technique pays back within weeks.</p>
-<p>Rafiqy's <a href="/tools/typely">Typely</a> is a free, browser-based typing tutor that teaches touch typing from scratch and accelerates the speed of experienced typists — in both English and Urdu.</p>
+<h2>Why Touch Typing Is Still the Highest-ROI Skill</h2>
+<p>Voice input and autocomplete are everywhere, but touch typing remains the single most impactful technical skill a knowledge worker can develop. A professional who types at 70 WPM produces roughly double the written output of one typing at 35 WPM. For developers, content writers, lawyers, students, and remote workers in Pakistan and across the world, an investment of 30 minutes a day for two weeks pays back for decades.</p>
+<p><a href="/tools/typely"><strong>Typely</strong></a> is Rafiqy's free, browser-based typing tutor and speed test. It has grown into one of the most feature-complete typing tools available — with 8 languages, multiplayer modes, Kids Mode, per-key analysis, XP progression, tournaments, and more. This guide covers every single feature so you know exactly what's possible.</p>
 
-<h2>Understanding WPM and Accuracy</h2>
-<p><strong>Words Per Minute (WPM)</strong> is calculated as the number of correctly typed words divided by elapsed time in minutes. Typely measures gross WPM (raw speed) and net WPM (adjusted for errors) so you understand both your ceiling and your practical output rate.</p>
-<p><strong>Accuracy</strong> is equally important. A typist at 80 WPM with 95% accuracy produces fewer usable words per minute than one at 65 WPM with 99% accuracy — the latter requires almost no correction time. Typely displays both metrics after every session and tracks trends over time.</p>
-
-<h2>Lesson Structure: Beginner to Advanced</h2>
-<p>Typely's curriculum is structured in five progressive levels:</p>
+<h2>Languages: English, Urdu, Arabic, Persian &amp; More</h2>
+<p>Typely supports <strong>8 languages</strong> and is uniquely built for the South Asian and Middle Eastern context:</p>
 <ul>
-  <li><strong>Level 1 — Home Row:</strong> ASDF JKL; — the foundation of touch typing. Every session begins with reinforcing home row muscle memory.</li>
-  <li><strong>Level 2 — Top Row:</strong> QWERT YUIOP — the most commonly used letters in English.</li>
-  <li><strong>Level 3 — Bottom Row:</strong> ZXCVB NM, — completing the letter alphabet.</li>
-  <li><strong>Level 4 — Numbers &amp; Symbols:</strong> Numeric row, punctuation, brackets.</li>
-  <li><strong>Level 5 — Speed Drills:</strong> Real-world text passages timed for speed and accuracy.</li>
+  <li><strong>English</strong> — the default. Five difficulty tiers plus specialised content packs for emails, coding, Islamic texts, poetry, freelancing, and academic writing.</li>
+  <li><strong>Urdu (اردو)</strong> — phonetic keyboard mapping matching the standard Pakistani phonetic layout. Passages drawn from Urdu literature, poetry, and everyday business writing. Type in Roman Urdu and the letters automatically convert to Urdu script.</li>
+  <li><strong>Arabic (عربي)</strong> — full right-to-left mode with Arabic script passages. Phonetic input available — type Roman characters that transliterate to Arabic automatically.</li>
+  <li><strong>Persian / Farsi (فارسی)</strong> — Persian passages with phonetic input support, right-to-left layout, and proper script rendering.</li>
+  <li><strong>Roman Urdu</strong> — type Urdu words using English letters, ideal for users who are comfortable with Roman Urdu in messaging apps.</li>
+  <li>Plus 3 additional languages including multilingual everyday content.</li>
+</ul>
+<p>Switch languages at any time using the selector in the navigation bar. Typely automatically adjusts text direction, passage content, difficulty packs, and keyboard layout guidance for each language.</p>
+
+<h2>Phonetic Input — Type Arabic Script Without Switching Layouts</h2>
+<p>This is one of Typely's most practical features for South Asian users. When you select Urdu, Arabic, or Persian, a <strong>Phonetic Input</strong> toggle appears. Turn it on and type Roman characters on your standard English keyboard — Typely maps them in real time to the correct Urdu, Arabic, or Persian letters. You never need to change your keyboard layout or memorise a new key arrangement. This is how millions of Pakistanis type Urdu every day in WhatsApp, and Typely makes that same skill trainable at speed.</p>
+
+<h2>Difficulty Levels and Content Packs</h2>
+<p>Typely is not just "easy/medium/hard". It has a rich set of content packs organised by purpose:</p>
+<ul>
+  <li><strong>Beginner</strong> — the most common short words, large font, slow pace. Perfect for children and first-time touch typists.</li>
+  <li><strong>Easy</strong> — everyday vocabulary, no special characters.</li>
+  <li><strong>Medium</strong> — longer words, light punctuation, mixed case.</li>
+  <li><strong>Hard</strong> — complex sentences, varied punctuation, longer passages.</li>
+  <li><strong>Emails Pack</strong> — professional email phrasing, formal salutations, corporate vocabulary.</li>
+  <li><strong>Coding Pack</strong> — code snippets, camelCase, brackets, semicolons, and developer vocabulary.</li>
+  <li><strong>Islamic Pack</strong> — passages from Islamic texts, duas, and Quranic transliterations.</li>
+  <li><strong>Poetry Pack</strong> — Urdu poetry, ghazals, and literary passages for creative writers.</li>
+  <li><strong>Freelance Pack</strong> — proposals, briefs, client communication templates.</li>
+  <li><strong>Academic / Study Pack</strong> — academic prose, essay extracts, research writing.</li>
+  <li><strong>Numbers Drill</strong> — numeric row training, great for accountants and data entry.</li>
+  <li><strong>Symbols Drill</strong> — punctuation, brackets, special characters.</li>
+</ul>
+<p>Each pack contains multiple passages that rotate to prevent memorisation from inflating your score.</p>
+
+<h2>Custom Passage Mode — Type Any Text You Want</h2>
+<p>Select <strong>Custom</strong> from the pack selector and paste any text into the input box. Typely will use it as your typing passage. Use cases:</p>
+<ul>
+  <li>Practice a document you're preparing for a deadline</li>
+  <li>Drill a specific code file or snippet</li>
+  <li>Type out Quranic verses or religious texts in Arabic</li>
+  <li>Practice company templates and standard emails</li>
+  <li>Train on texts in any language not natively included</li>
+</ul>
+<p>Custom mode works in all 8 languages and respects right-to-left direction for Arabic, Urdu, and Persian.</p>
+
+<h2>Timer Mode — Pressure Practice with a Countdown</h2>
+<p><strong>Timer Mode</strong> gives you a countdown clock — 1 minute, 2 minutes, or 5 minutes — and you type as much as possible before it runs out. This simulates real typing test conditions (used in job interviews, government exams, and speed competitions) and trains your ability to perform under pressure. Your WPM is calculated for the entire timed duration, giving you a standardised score comparable to industry benchmarks.</p>
+
+<h2>Kids Mode — A Safe Learning Environment for Children</h2>
+<p><strong>Kids Mode</strong> transforms Typely into a child-friendly interface:</p>
+<ul>
+  <li>Simplified, age-appropriate vocabulary (short, common words)</li>
+  <li>Larger font size for easier reading</li>
+  <li>Encouraging sound effects on correct keystrokes — a musical chime rewards each correct letter</li>
+  <li>Fun emoji celebrations when a passage is completed</li>
+  <li>All multiplayer features (battles, tournaments, group rooms) are hidden to keep the experience focused and safe</li>
+</ul>
+<p>Toggle Kids Mode with the 🧒 button in the action bar. Parents can set it up on a shared device and the mode persists on reload. Children as young as 6 can start typing with Kids Mode and graduate to standard mode naturally as their speed increases.</p>
+
+<h2>Sound Effects — Keyboard Audio Feedback</h2>
+<p>Every keystroke in Typely can produce an audible click — the familiar mechanical keyboard sound that professional typists love. Activate it with the 🔊 button in the action bar.</p>
+<ul>
+  <li>In standard mode: a soft click on every keystroke gives tactile-style audio feedback that helps maintain rhythm</li>
+  <li>In Kids Mode: correct letters produce a pleasant musical chime; wrong letters produce a gentle "wrong" tone, training children through audio cues without text feedback</li>
+</ul>
+<p>Sound is off by default to respect shared environments (libraries, offices). It remembers your preference.</p>
+
+<h2>Virtual Keyboard — Show Keys on Screen</h2>
+<p>Click <strong>⌨️ Show Keys</strong> in the action bar (desktop only) to display a full keyboard layout on screen below the typing area. The virtual keyboard:</p>
+<ul>
+  <li>Highlights the next key you need to press in real time</li>
+  <li>Guides correct finger placement — home row keys are colour-coded by hand and finger</li>
+  <li>Updates instantly as you type each character</li>
+  <li>Adapts to the selected language (shows Arabic, Persian, or Urdu characters for RTL modes)</li>
+</ul>
+<p>This is invaluable for beginners learning correct finger placement without looking at a physical keyboard. Combined with the typing analysis that shows your slowest keys, the virtual keyboard makes targeted finger-by-finger improvement possible.</p>
+
+<h2>Per-Key Typing Analysis — Find Your Weakest Keys</h2>
+<p>After every completed session, Typely shows a detailed <strong>Per-Key Analysis</strong> panel:</p>
+<ul>
+  <li>A heatmap showing every key you pressed during the session</li>
+  <li>Error rate per key — which letters caused the most mistakes</li>
+  <li>Reaction time per key — which keys you consistently hesitate on</li>
+  <li>Your slowest and most error-prone keys ranked in order</li>
+</ul>
+<p>This is the core of Typely's intelligent training approach. Most typing practice apps just repeat random text. Typely tells you that, for example, you always hesitate on 'Q' and mistype 'P' — and then lets you start a <strong>targeted drill</strong> focused on exactly those keys. Tap "Start Drill" on any flagged key to generate a passage heavy with that character.</p>
+
+<h2>Targeted Drills — Practice Your Weak Keys, Not Random Text</h2>
+<p>The <strong>drill system</strong> is what separates Typely from a simple speed test. Rather than practising the same passages repeatedly, you identify your specific gaps through analysis and drill those keys intensively. The process:</p>
+<ol>
+  <li>Complete any session</li>
+  <li>Review the Per-Key Analysis panel</li>
+  <li>Click "Start Drill" on your weakest key</li>
+  <li>Typely generates a passage weighted heavily toward that character</li>
+  <li>Repeat until the key no longer appears in your weakness list</li>
+</ol>
+<p>This targeted methodology improves typing speed far faster than random practice. Research on motor learning shows that deliberate practice on specific weaknesses outperforms general practice by 3–5x.</p>
+
+<h2>Stats History — Track Your Progress Over Time</h2>
+<p>Every completed session is saved to your browser's localStorage. Click <strong>📊 Stats</strong> to open the Statistics panel, which shows:</p>
+<ul>
+  <li>Your WPM trend chart over the last 30 sessions</li>
+  <li>Average accuracy trend</li>
+  <li>Best WPM, best accuracy, and total sessions</li>
+  <li>Breakdown by language and difficulty</li>
+  <li>Day-by-day session count for streak tracking</li>
+</ul>
+<p>Stats are stored entirely in your browser — no account, no server, no privacy concern. They persist as long as you don't clear your browser data. The WPM chart makes it easy to see week-over-week improvement even on days when individual performance varies.</p>
+
+<h2>XP, Levels &amp; Streaks — Gamified Progression</h2>
+<p>Typely has a full <strong>XP and Levels system</strong> that rewards consistent practice:</p>
+<ul>
+  <li>Every completed session earns XP based on WPM, accuracy, and session length</li>
+  <li>Accumulate XP to level up — each new level unlocks acknowledgement and a level-up animation</li>
+  <li>Maintain a <strong>daily Streak</strong> by completing at least one session per day — the streak counter is displayed prominently with a 🔥 icon</li>
+  <li>Earn <strong>Achievements</strong> for milestones: first session, 7-day streak, 60 WPM, 100 WPM, first battle win, and more</li>
+</ul>
+<p>The XP bar is always visible at the top of the screen so you can see your progress at a glance. Level and streak data are stored locally in your browser and persist across sessions.</p>
+
+<h2>Goal Setting — Focus Your Practice</h2>
+<p>On your first visit (or any time via the Change Goal link), Typely asks you what you want to achieve:</p>
+<ul>
+  <li>🚀 Get faster (improve raw WPM)</li>
+  <li>🎯 Improve accuracy</li>
+  <li>💼 Professional typing (career readiness)</li>
+  <li>📚 Learn Urdu/Arabic script</li>
+  <li>👧 Kids learning</li>
+</ul>
+<p>Your goal shapes which packs and features Typely surfaces first. Goals are remembered and displayed as a badge on the main screen. You can change your goal at any time.</p>
+
+<h2>1v1 Battle Mode — Real-Time Typing Race</h2>
+<p><strong>1v1 Battle</strong> lets two players race each other on the same passage in real time:</p>
+<ol>
+  <li>Click <strong>⚔️ 1v1 Battle</strong> in the action bar</li>
+  <li>Create a battle room — a unique code is generated</li>
+  <li>Share the code with your opponent</li>
+  <li>Both players see a countdown, then type the same passage simultaneously</li>
+  <li>A live race-track visualisation shows both players' progress in real time</li>
+  <li>The result card shows both WPM scores and declares a winner</li>
+</ol>
+<p>Battle mode works across devices and requires only an internet connection. It's particularly effective in classrooms, where teachers run quick 5-minute competitions to energise practice sessions.</p>
+
+<h2>Group Rooms — Team Practice Sessions</h2>
+<p><strong>Group Rooms</strong> extend the multiplayer experience to 3+ players:</p>
+<ol>
+  <li>Click <strong>👥 Group</strong> to create or join a room</li>
+  <li>Share the 6-character room code with participants</li>
+  <li>All members type the same passage — live progress is visible for all</li>
+  <li>A leaderboard updates in real time as each member finishes</li>
+</ol>
+<p>Group rooms are ideal for study groups, corporate typing training sessions, and competitive classroom environments. The room persists until it expires, so latecomers can still join ongoing sessions.</p>
+
+<h2>Tournament Mode — Bracket Competitions</h2>
+<p><strong>Tournament Mode</strong> organises bracket-style competitions:</p>
+<ol>
+  <li>Click <strong>🎯 Tournament</strong> to create a bracket</li>
+  <li>Add participants and set the passage/difficulty</li>
+  <li>Players compete in head-to-head rounds</li>
+  <li>Winners progress through the bracket until a champion is declared</li>
+</ol>
+<p>Tournaments are perfect for typing competitions in schools, offices, and typing clubs. All bracket management is handled within Typely — no external tools needed.</p>
+
+<h2>Challenge Links — Async Head-to-Head</h2>
+<p>Not online at the same time? <strong>Challenge Links</strong> let you compete asynchronously:</p>
+<ol>
+  <li>After completing a session, click the Challenge Link button in the results card</li>
+  <li>A unique URL is generated encoding your WPM, accuracy, passage, difficulty, and language</li>
+  <li>Share the link via WhatsApp, SMS, or email</li>
+  <li>Your friend opens the link, types the same passage, and Typely compares their score to yours</li>
+  <li>A result card shows both scores side by side with the winner highlighted</li>
+</ol>
+<p>Challenge links work without any accounts — the data is encoded directly in the URL. They're the lightest possible way to challenge someone to a typing race.</p>
+
+<h2>Global Leaderboard</h2>
+<p>Click <strong>🏆 Leaderboard</strong> to see the global rankings. The leaderboard shows top WPM scores submitted by players worldwide. When you complete a session, your score (WPM, accuracy, language, difficulty) is submitted anonymously — no name or account required. You're assigned a random player ID that is stored in your browser.</p>
+<p>The leaderboard is filterable by language and difficulty, so you can see how your Urdu WPM ranks against other Urdu typists, or compare English speed separately.</p>
+
+<h2>Career Readiness Mode</h2>
+<p><strong>Career Readiness</strong> is a post-session feature (displayed after completing certain packs) that evaluates your typing speed against professional benchmarks:</p>
+<ul>
+  <li>General Office: 40 WPM minimum, 60 WPM preferred</li>
+  <li>Data Entry: 50 WPM minimum, 75+ WPM preferred</li>
+  <li>Content Writing / Journalism: 60 WPM minimum, 80+ WPM preferred</li>
+  <li>Medical Transcription: 65 WPM minimum, 90+ WPM preferred</li>
+  <li>Legal / Court Reporting: 80 WPM minimum, 100+ WPM preferred</li>
+  <li>Programming / Development: 50 WPM minimum with high accuracy</li>
+</ul>
+<p>This feature helps job-seekers understand whether they meet typing requirements for specific roles and gives them a concrete WPM target to train toward.</p>
+
+<h2>Progressive Web App — Works Offline</h2>
+<p>Typely is a <strong>Progressive Web App (PWA)</strong>. After the first visit, it caches entirely in your browser and works offline. You can install it to your home screen or desktop and open it instantly without a browser address bar — it behaves like a native app. No Play Store, no App Store, no installation file. Just visit the URL and click "Add to Home Screen" when prompted.</p>
+
+<h2>Tips for Rapid Improvement with Typely</h2>
+<ul>
+  <li><strong>Practice daily for 20–30 minutes</strong> rather than hour-long sessions once a week. Muscle memory forms through repetition over time, not duration in one sitting.</li>
+  <li><strong>Focus on accuracy first.</strong> Do not rush. Set a target of 98% accuracy and only gradually increase difficulty once you hold that accuracy consistently.</li>
+  <li><strong>Never look at the keyboard.</strong> Enable the virtual keyboard on screen if you need guidance, but keep your eyes on the passage text at all times.</li>
+  <li><strong>Use the analysis after every session.</strong> The per-key heatmap is your most valuable feedback. Drill the red keys immediately while they're fresh in mind.</li>
+  <li><strong>Use challenge links with a study partner.</strong> External accountability dramatically increases practice consistency. A weekly challenge with a friend doubles the improvement rate.</li>
+  <li><strong>Set a specific WPM goal.</strong> "I want to be faster" is less effective than "I want to reach 65 WPM by end of month." Use the Goal feature to anchor your practice.</li>
+  <li><strong>Try Timer Mode weekly</strong> to track your standardised WPM progress. The timed format removes passage length as a variable and gives you a clean benchmark.</li>
+  <li><strong>Use the Urdu/Arabic phonetic input even if your target is English.</strong> Cross-script practice strengthens finger independence and builds typing stamina surprisingly fast.</li>
 </ul>
 
-<h2>Urdu Typing Mode</h2>
-<p>Switch to Urdu mode using the language toggle at the top of the Typely interface. Urdu lessons use phonetic keyboard mapping — the same layout as the <a href="/tools/urdu-keyboard">Urdu Keyboard</a> tool — so skills transfer directly to real-world typing. Urdu practice passages range from simple vocabulary to complex sentences from Pakistani literature.</p>
-
-<h2>Live Typing Battles</h2>
-<p>The battle feature lets two users compete in real time on the same passage. Invite a colleague, student, or friend with a shareable link. Both participants see each other's live progress on a race track visualisation. Battles are an exceptionally effective motivational tool, especially in classroom settings.</p>
-
-<h2>Leaderboard and Progress Tracking</h2>
-<p>Typely maintains a local leaderboard stored in your browser. Every completed session is logged with date, WPM, accuracy, and lesson type. The progress chart shows your WPM trend over the last 30 sessions so you can see improvement over time — even when day-to-day variation makes it hard to notice.</p>
-
-<h2>Tips for Rapid Improvement</h2>
-<ul>
-  <li>Practice for 15–20 minutes daily rather than hour-long sessions once a week.</li>
-  <li>Focus on accuracy first — speed follows naturally as errors decrease.</li>
-  <li>Never look at the keyboard. Cover your hands if necessary during the first week.</li>
-  <li>Use the Level 1 home row drill as a warm-up before every session.</li>
-  <li>Target 60 WPM at 98% accuracy before moving to speed drills.</li>
-</ul>
+<h2>Start Typing Now — Free, No Account, Works Instantly</h2>
+<p><a href="/tools/typely"><strong>Open Typely</strong></a> — it loads in under 2 seconds and your first session takes exactly 60 seconds. No sign-up, no paywall, no ads. Whether you're a student preparing for an exam, a professional trying to meet a 60 WPM job requirement, a parent setting up a learning tool for your child, or a competitive typist chasing 100 WPM — Typely has a mode built for you.</p>
 </div>
 `,
   },

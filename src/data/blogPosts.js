@@ -1,4 +1,6 @@
 export const BLOG_POSTS = [
+// FILE REWRITTEN — see individual post entries below
+
   {
     slug: 'pakistan-tools-guide',
     title: 'The Ultimate Guide to Pakistan-Specific Online Tools on Rafiqy',

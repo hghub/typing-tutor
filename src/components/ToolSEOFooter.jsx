@@ -21,7 +21,7 @@ export default function ToolSEOFooter({ heading, paras = [], faqs = [] }) {
       paddingTop: '2.5rem',
     }}>
       {/* Description */}
-      <div style={{ maxWidth: 720, marginBottom: '2.5rem' }}>
+      <div style={{ maxWidth: 720, margin: '0 auto', marginBottom: '2.5rem' }}>
         <h2 style={{
           fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.25rem',
           color: colors.text, lineHeight: 1.3,
@@ -36,7 +36,7 @@ export default function ToolSEOFooter({ heading, paras = [], faqs = [] }) {
 
       {/* FAQ */}
       {faqs.length > 0 && (
-        <div style={{ maxWidth: 720 }}>
+        <div style={{ maxWidth: 720, margin: '0 auto' }}>
           <h3 style={{
             fontSize: '1rem', fontWeight: 700, marginBottom: '1rem',
             color: colors.text,

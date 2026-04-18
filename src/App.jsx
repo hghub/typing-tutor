@@ -33,6 +33,7 @@ import AchievementToast from './components/AchievementToast'
 import InstallBanner from './components/InstallBanner'
 import EmojiPopup from './components/EmojiPopup'
 import ToolSEOFooter from './components/ToolSEOFooter'
+import { BLOG_POSTS } from './data/blogPosts'
 
 // Lazy-loaded — only downloaded when user actually opens them
 const TypingAnalysis     = lazy(() => import('./components/TypingAnalysis'))
@@ -927,22 +928,62 @@ function App() {
 
       {/* SEO Footer */}
       <ToolSEOFooter
-        heading="Free Typing Speed Test & Tutor — Improve Your WPM Online"
+        heading="Free Online Typing Tutor — Speed Test, 1v1 Battles, Kids Mode & 8 Languages"
         paras={[
-          "Typely is a free online typing tutor and speed test that helps you measure and improve your typing speed in words per minute (WPM). Whether you're a complete beginner or an experienced typist looking to push past 80 WPM, Typely adapts to your skill level and tracks your progress over time.",
-          "Unlike other typing tests that just show your speed, Typely provides a full training environment: targeted drills for problem keys, customizable difficulty levels, accuracy tracking, and a leaderboard to compete with others. Practice with real English passages, code snippets, and even Urdu text.",
-          "The average person types at 40 WPM. Touch typists average 60–70 WPM. Professional typists and transcriptionists reach 80–100 WPM. Top competitive typists on platforms like TypeRacer exceed 120 WPM. With consistent daily practice using Typely, most users see measurable improvement within 2–3 weeks.",
-          "Typely runs entirely in your browser — no download, no account, no subscription. Your typing history is saved locally in your browser so you can track your progress without ever signing up. It works on desktop and tablet, with a physical keyboard.",
+          "Typely is a free online typing tutor and speed test that helps you measure and dramatically improve your typing speed in words per minute (WPM). Whether you're a complete beginner learning to touch-type or an experienced typist aiming past 100 WPM, Typely offers a full training environment that adapts to your level. Practice in 8 languages — English, Urdu, Arabic, Persian, Roman Urdu, and more — with curated passages spanning everyday, academic, Islamic, and professional themes.",
+          "What sets Typely apart is its complete feature set for every type of learner. Kids Mode provides a safe, encouraging interface with simpler words designed for children. Career Readiness mode uses professional vocabulary and office-style passages to prepare job-seekers and office workers for real workplace typing demands. Per-key Typing Analysis highlights your slowest and most error-prone keys so you can drill exactly where you need improvement. A Virtual Keyboard on screen shows correct finger placement in real time, and optional Sound Effects provide satisfying audio feedback on every keystroke.",
+          "Compete and stay motivated with Typely's social features. Challenge a friend by sharing a unique Challenge Link — they type the same passage under the same conditions and you compare WPM side by side. 1v1 Battle mode lets two players race in real time. Group Rooms support team practice sessions. Tournament mode sets up bracket-style typing competitions, perfect for classrooms and office events. A global Leaderboard tracks top WPM scores across all players.",
+          "The XP and Levels system rewards consistent practice — earn experience points after every session, level up your profile, and maintain Streaks by practising daily. Set personal Goals (target WPM, daily session count, accuracy threshold) and track them on your dashboard. Full Stats History shows your WPM, accuracy, and session count over any time range. You can also type your own Custom Passage — paste any text you want to practise.",
+          "Typely supports Phonetic Input for Urdu, Arabic, and Persian — type Roman characters and they automatically transliterate to the correct script. Difficulty levels range from Beginner through Easy, Medium, Hard, to Islamic. Timer Mode adds a countdown constraint for pressure-based training. Everything runs 100% in your browser, with no account required. Your personal history and XP are stored locally and stay completely private on your device.",
         ]}
         faqs={[
-          { q: "What is a good typing speed in WPM?", a: "The average is 40 WPM. Above 60 WPM is considered proficient. 80+ WPM is excellent. Professional typists typically reach 75–100 WPM. Speed above 120 WPM is elite-level." },
-          { q: "How long does it take to improve typing speed?", a: "With 20–30 minutes of daily practice, most people improve by 10–15 WPM within 2–3 weeks. Touch typing (not looking at the keyboard) is the key technique to develop first." },
-          { q: "Does this work for beginners?", a: "Yes. Typely includes beginner modes with simpler words, slower pacing, and key-by-key guidance. Start with the Beginner lesson and work your way up." },
-          { q: "Can I practice Urdu typing?", a: "Yes. Typely includes Urdu text passages and Urdu keyboard layout support. Switch to Urdu mode in the settings to practice Roman Urdu or native Urdu script." },
-          { q: "Is my typing data private?", a: "Yes. All data is stored only in your browser's localStorage. Nothing is sent to any server. Your typing history, scores, and progress stay on your device only." },
-          { q: "Does it work on mobile?", a: "Typely is optimised for desktop with a physical keyboard. Mobile/touchscreen typing is not the intended use case, though the tool will load on mobile browsers." },
+          { q: "What is a good typing speed in WPM?", a: "The average person types at 40 WPM. 60 WPM is considered proficient. 80+ WPM is excellent and suitable for most professional roles. Competitive typists exceed 120 WPM. With consistent daily practice on Typely, most users gain 10–20 WPM within 2–3 weeks." },
+          { q: "How long does it take to improve typing speed?", a: "With 20–30 minutes of daily practice, most people improve by 10–15 WPM within 2–3 weeks. The key habit is touch typing — never looking at the keyboard. Use Typely's per-key analysis to identify your weakest keys and drill those specifically." },
+          { q: "Does Typely work for kids and beginners?", a: "Yes. Kids Mode provides a simplified, encouraging interface with shorter words and a larger font. Beginner difficulty uses the most common short words. Children as young as 6 can start with Kids Mode and progress naturally through difficulty levels." },
+          { q: "What languages does Typely support?", a: "Typely supports 8 languages including English, Urdu, Arabic, Persian, Roman Urdu, and more. For Urdu, Arabic, and Persian, Phonetic Input lets you type in Roman characters which automatically convert to the correct script — no keyboard layout change needed." },
+          { q: "How do I challenge a friend to a typing race?", a: "After completing a session, click the Challenge Link button. It generates a unique URL containing the passage, difficulty, and language. Share that link — your friend types the same passage and Typely compares your WPM scores. For live real-time racing, use 1v1 Battle or Group Room mode." },
+          { q: "What is the XP and Levels system?", a: "Every completed typing session earns you XP based on your WPM and accuracy. Accumulate enough XP to level up your profile. Maintain a daily Streak by completing at least one session per day. Your level and streak are saved in your browser." },
+          { q: "What is Career Readiness mode?", a: "Career Readiness mode uses professional vocabulary and realistic office-style passages — emails, reports, meeting notes. It's designed for job-seekers, office workers, and students who need to demonstrate fast, accurate typing in professional settings." },
+          { q: "What does per-key Typing Analysis show?", a: "After each session, Typely shows a heatmap of every key you pressed, highlighting which keys had the most errors and slowest reaction time. This tells you exactly which fingers and keys to focus your practice on." },
+          { q: "Can I practise with my own custom text?", a: "Yes. Select Custom Passage in the settings, paste any text you want, and Typely will use it as your typing passage. Useful for practising specific documents, code snippets, or emails relevant to your work." },
+          { q: "What is Timer Mode?", a: "Timer Mode adds a countdown clock (1 min, 2 min, 5 min) to your session. You type as much as possible before time runs out, and Typely calculates your WPM and accuracy for the duration — simulating real typing tests." },
+          { q: "What difficulty levels are available?", a: "Typely has 5 difficulty levels: Beginner, Easy, Medium, Hard, and Islamic. Beginner uses very common short words. Islamic difficulty features passages from Islamic texts, ideal for students of religious studies." },
+          { q: "How does the Leaderboard work?", a: "The global leaderboard shows top WPM scores submitted by all players. When you complete a session, your score (WPM, accuracy, language, difficulty) is submitted anonymously to a shared leaderboard — no name or account required, just a randomly assigned player ID. Your personal history and stats remain stored only on your device." },
+          { q: "Is my personal typing data private?", a: "Yes. Your personal data — WPM history, XP, level, streaks, and settings — is stored only in your browser's localStorage and never shared. The only data that leaves your device is your anonymous score submission to the leaderboard (WPM + accuracy only, no personal details)." },
+          { q: "Does Typely work without an account or internet?", a: "No account is required — ever. After the first load, Typely works fully offline as a Progressive Web App (PWA). You can install it to your home screen or desktop for instant access without opening a browser." },
         ]}
       />
+
+      {/* Related blog posts */}
+      {(() => {
+        const related = BLOG_POSTS.filter(p =>
+          p.category === 'typing-learning' || p.tags?.some(t => ['typing','urdu','learning','productivity'].includes(t?.toLowerCase()))
+        ).slice(0, 3)
+        if (!related.length) return null
+        return (
+          <div style={{ maxWidth: 720, margin: '2rem auto 0', padding: '0 1rem' }}>
+            <h3 style={{ fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#06b6d4', marginBottom: '0.85rem' }}>
+              📖 Related Guides
+            </h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(200px,1fr))', gap: '0.75rem' }}>
+              {related.map(post => (
+                <a key={post.slug} href={`/blogs/${post.slug}`} style={{
+                  display: 'block', padding: '0.85rem 1rem',
+                  background: 'rgba(6,182,212,0.06)', border: '1px solid rgba(6,182,212,0.2)',
+                  borderRadius: '0.75rem', textDecoration: 'none', transition: 'border-color 0.15s',
+                }}
+                onMouseEnter={e => e.currentTarget.style.borderColor='#06b6d4'}
+                onMouseLeave={e => e.currentTarget.style.borderColor='rgba(6,182,212,0.2)'}
+                >
+                  <div style={{ fontSize: '1.3rem', marginBottom: '0.35rem' }}>{post.hero}</div>
+                  <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#06b6d4', lineHeight: 1.35, marginBottom: '0.25rem' }}>{post.title}</div>
+                  <div style={{ fontSize: '0.72rem', color: 'rgba(148,163,184,0.8)' }}>{post.readTime}</div>
+                </a>
+              ))}
+            </div>
+          </div>
+        )
+      })()}
       {/* Footer */}
       <div style={{ textAlign: 'center', marginTop: '2rem', paddingBottom: '1rem' }}>
         <p style={{ color: colors.textSecondary, fontSize: '0.75rem', margin: 0 }}>

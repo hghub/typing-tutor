@@ -123,8 +123,8 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/urdu-keyboard" element={<Navigate to="/urdu-keyboard-online" replace />} />
           <Route path="/tools/text-encryptor" element={<TextEncryptor />} />
           <Route path="/tools/doc-composer"  element={<DocComposer />} />
-          <Route path="/pakistan-tax-calculator"  element={<TaxCalculator />} />
-          <Route path="/tools/tax-calculator"    element={<Navigate to="/pakistan-tax-calculator" replace />} />
+          <Route path="/tools/tax-calculator"      element={<TaxCalculator />} />
+          <Route path="/pakistan-tax-calculator"  element={<Navigate to="/tools/tax-calculator" replace />} />
           <Route path="/loan-emi-calculator"           element={<LoanEMI />} />
           <Route path="/tools/loan-emi"           element={<Navigate to="/loan-emi-calculator" replace />} />
           <Route path="/pomodoro-focus-engine"           element={<Pomodoro />} />

@@ -121,7 +121,7 @@ export const TOOLS = [
     taglineUrdu: 'آمدنی ٹیکس کا تخمینہ لگائیں اور بچت ڈھونڈیں',
     description: 'Calculate your salary tax under Finance Act 2025. See your tax shields (VPS, charity, health) and how much you can legally save.',
     icon: '🧮',
-    path: '/pakistan-tax-calculator',
+    path: '/tools/tax-calculator',
     color: '#f97316',
     category: 'pakistan',
     tags: ['tax', 'pakistan', 'salary', 'fbr', '2025', 'income tax'],

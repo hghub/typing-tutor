@@ -52,7 +52,7 @@ export default function TaxCalculator() {
   const [isTeacher, setIsTeacher] = useState(false)
   const [vpsInvestment, setVpsInvestment] = useState('')
   const [charityAmount, setCharityAmount] = useState('')
-  const [showDisclaimer, setShowDisclaimer] = useState(true)
+
 
   const annualIncome = useMemo(() => {
     const sal = parseFloat(monthlySalary) || 0
@@ -117,45 +117,6 @@ export default function TaxCalculator() {
 
   return (
     <ToolLayout toolId="tax-calculator">
-      {/* Disclaimer popup */}
-      {showDisclaimer && (
-        <div style={{
-          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)',
-          backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center',
-          justifyContent: 'center', zIndex: 1100, padding: '1rem',
-        }}>
-          <div style={{
-            background: isDark ? '#0f172a' : '#fff',
-            border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
-            borderRadius: '1.25rem', padding: '1.75rem',
-            maxWidth: '480px', width: '100%',
-            boxShadow: '0 30px 60px rgba(0,0,0,0.4)',
-          }}>
-            <div style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>⚠️</div>
-            <h2 style={{ margin: '0 0 0.75rem', color: colors.text, fontSize: '1.1rem', fontWeight: 700 }}>
-              Important Disclaimer
-            </h2>
-            <p style={{ margin: '0 0 1rem', color: colors.textSecondary, fontSize: '0.85rem', lineHeight: 1.7 }}>
-              This tool is for <strong>educational and informational purposes only</strong>. It is not affiliated with the FBR or any government agency. Calculations are based on the Finance Act 2025 and are <strong>estimates only</strong>. This does not constitute professional tax or financial advice.
-            </p>
-            <p style={{ margin: '0 0 1.25rem', color: colors.textSecondary, fontSize: '0.85rem', lineHeight: 1.7 }}>
-              Please consult a <strong>certified tax practitioner (RTP) or CA</strong> before filing your returns.
-            </p>
-            <button
-              onClick={() => setShowDisclaimer(false)}
-              style={{
-                width: '100%', padding: '0.7rem',
-                background: 'linear-gradient(to right, #f97316, #f59e0b)',
-                color: '#fff', border: 'none', borderRadius: '0.75rem',
-                fontWeight: 700, fontSize: '0.95rem', cursor: 'pointer',
-              }}
-            >
-              I Understand — Let's Calculate
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* Header */}
       <div style={{ marginBottom: '1.75rem' }}>
         <h1 style={{
@@ -167,10 +128,7 @@ export default function TaxCalculator() {
           🧮 Pakistan Tax Calculator
         </h1>
         <p style={{ color: colors.textSecondary, fontSize: '0.9rem', margin: 0 }}>
-          Finance Act 2025 · FY 2025-26 · Salaried individuals ·{' '}
-          <button onClick={() => setShowDisclaimer(true)} style={{ background: 'none', border: 'none', color: '#f97316', cursor: 'pointer', fontSize: '0.9rem', padding: 0, textDecoration: 'underline' }}>
-            Disclaimer
-          </button>
+          Finance Act 2025 · FY 2025-26 · Salaried individuals · ⚠️ Estimates only — not affiliated with FBR
         </p>
       </div>
 

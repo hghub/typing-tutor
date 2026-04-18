@@ -513,35 +513,100 @@ function App() {
 
         {/* How It Works — shown before typing begins */}
         {typed.length === 0 && !finished && (
-          <div style={{
-            display: 'flex', gap: '0.75rem', marginBottom: '1.25rem',
-            flexDirection: isMobile ? 'column' : 'row',
-          }}>
-            {[
-              { n: '1', icon: '⚡', title: 'Take a 60-sec test', sub: 'Measure speed & accuracy' },
-              { n: '2', icon: '🧠', title: 'See weak keys & patterns', sub: 'Get diagnosed, not just scored' },
-              { n: '3', icon: '🎯', title: 'Practice targeted drills', sub: 'Focused training for your gaps' },
-            ].map(s => (
-              <div key={s.n} style={{
-                flex: 1, display: 'flex', alignItems: 'center', gap: '0.6rem',
-                padding: '0.65rem 0.9rem',
-                background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
-                border: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`,
-                borderRadius: '0.65rem',
-              }}>
+          <>
+            {/* Feature badges */}
+            <div style={{
+              display: 'flex', flexWrap: 'wrap', gap: '0.45rem',
+              justifyContent: 'center', marginBottom: '1.25rem',
+            }}>
+              {[
+                { icon: '🆓', text: 'Free forever' },
+                { icon: '🔒', text: 'No sign-up' },
+                { icon: '🌐', text: '8 languages' },
+                { icon: '👧', text: 'Kids Mode' },
+                { icon: '⚔️', text: '1v1 Battles' },
+                { icon: '📊', text: 'XP & Levels' },
+                { icon: '🎯', text: 'Key Analysis' },
+              ].map((b) => (
+                <span key={b.text} style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '0.3rem',
+                  padding: '0.25rem 0.65rem',
+                  background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(6,182,212,0.07)',
+                  border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(6,182,212,0.2)'}`,
+                  borderRadius: '99px', fontSize: '0.73rem', fontWeight: 600,
+                  color: isDark ? '#94a3b8' : '#475569',
+                }}>
+                  {b.icon} {b.text}
+                </span>
+              ))}
+            </div>
+
+            {/* Returning-user stats teaser */}
+            {(() => {
+              const scores = JSON.parse(localStorage.getItem('typingScores') || '[]')
+              const bestWpm = scores.length ? Math.max(...scores.map((s) => s.wpm)) : 0
+              if (!bestWpm) return null
+              return (
                 <div style={{
-                  width: '1.8rem', height: '1.8rem', borderRadius: '50%',
-                  background: 'rgba(6,182,212,0.15)', display: 'flex', alignItems: 'center',
-                  justifyContent: 'center', fontSize: '0.7rem', fontWeight: 800,
-                  color: '#06b6d4', flexShrink: 0,
-                }}>{s.n}</div>
-                <div>
-                  <div style={{ fontSize: '0.78rem', fontWeight: 700, color: colors.text }}>{s.icon} {s.title}</div>
-                  <div style={{ fontSize: '0.7rem', color: colors.textSecondary }}>{s.sub}</div>
+                  display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap',
+                  marginBottom: '1.25rem', padding: '0.85rem 1.25rem',
+                  background: isDark ? 'rgba(6,182,212,0.07)' : 'rgba(6,182,212,0.05)',
+                  border: `1px solid ${isDark ? 'rgba(6,182,212,0.2)' : 'rgba(6,182,212,0.2)'}`,
+                  borderRadius: '0.9rem',
+                }}>
+                  <div style={{ textAlign: 'center' }}>
+                    <div style={{ fontSize: '1.35rem', fontWeight: 800, color: '#06b6d4' }}>{bestWpm}</div>
+                    <div style={{ fontSize: '0.68rem', color: colors.textSecondary, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Best WPM</div>
+                  </div>
+                  <div style={{ textAlign: 'center' }}>
+                    <div style={{ fontSize: '1.35rem', fontWeight: 800, color: '#06b6d4' }}>{scores.length}</div>
+                    <div style={{ fontSize: '0.68rem', color: colors.textSecondary, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Sessions</div>
+                  </div>
+                  {streak > 0 && (
+                    <div style={{ textAlign: 'center' }}>
+                      <div style={{ fontSize: '1.35rem', fontWeight: 800, color: '#f59e0b' }}>🔥 {streak}</div>
+                      <div style={{ fontSize: '0.68rem', color: colors.textSecondary, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Day Streak</div>
+                    </div>
+                  )}
                 </div>
-              </div>
-            ))}
-          </div>
+              )
+            })()}
+
+            {/* How It Works cards */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+              gap: '0.85rem', marginBottom: '1.25rem',
+            }}>
+              {[
+                { n: '1', icon: '⚡', title: 'Take a 60-second test', sub: 'Type a real passage and measure your WPM & accuracy' },
+                { n: '2', icon: '🧠', title: 'Diagnose your weak keys', sub: 'Per-key heatmap reveals exactly where you slow down' },
+                { n: '3', icon: '🎯', title: 'Practice targeted drills', sub: 'Focused training on your gaps — not random repetition' },
+              ].map((s) => (
+                <div key={s.n} style={{
+                  display: 'flex', alignItems: 'flex-start', gap: '0.85rem',
+                  padding: '1rem 1.1rem',
+                  background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
+                  border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)'}`,
+                  borderRadius: '0.85rem',
+                }}>
+                  <div style={{
+                    width: '2.1rem', height: '2.1rem', borderRadius: '50%', flexShrink: 0,
+                    background: 'linear-gradient(135deg, rgba(6,182,212,0.25), rgba(6,182,212,0.1))',
+                    border: '1.5px solid rgba(6,182,212,0.35)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: '0.75rem', fontWeight: 800, color: '#06b6d4',
+                  }}>{s.n}</div>
+                  <div>
+                    <div style={{ fontSize: '0.83rem', fontWeight: 700, color: colors.text, marginBottom: '0.2rem' }}>
+                      {s.icon} {s.title}
+                    </div>
+                    <div style={{ fontSize: '0.73rem', color: colors.textSecondary, lineHeight: 1.5 }}>{s.sub}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
         )}
 
         {difficulty === 'custom' && (

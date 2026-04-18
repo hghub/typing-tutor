@@ -309,6 +309,45 @@ export default function CurrencyConverter() {
           </p>
         )}
 
+        {/* ── Trend Chart ── */}
+        {(chartLoading || chartData || chartError) && (
+          <div style={{
+            marginBottom: '1.25rem',
+            background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
+            border: `1px solid ${colors.border}`,
+            borderRadius: '0.85rem',
+            padding: '1rem 1.25rem',
+          }}>
+            <p style={{ color: colors.textSecondary, fontSize: '0.72rem', fontWeight: 700, margin: '0 0 0.65rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+              📈 7-day {fromCurrency}/{toCurrency} trend
+            </p>
+            {chartLoading ? (
+              <p style={{ color: colors.textSecondary, fontSize: '0.85rem', margin: 0 }}>Loading chart…</p>
+            ) : chartError ? (
+              <p style={{ color: colors.textSecondary, fontSize: '0.82rem', margin: 0 }}>No historical data for this pair.</p>
+            ) : chartData && (
+              <>
+                <div style={{ overflowX: 'auto' }}>
+                  <Sparkline data={chartData} color={ACCENT} width={300} height={60} />
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.3rem', maxWidth: 300 }}>
+                  {chartDates.map(d => (
+                    <span key={d} style={{ fontSize: '0.62rem', color: colors.textSecondary }}>{parseInt(d.slice(8), 10)}</span>
+                  ))}
+                </div>
+                {(() => {
+                  const pct = ((chartData[chartData.length - 1] - chartData[0]) / chartData[0]) * 100
+                  return (
+                    <p style={{ fontSize: '0.78rem', color: pct >= 0 ? '#10b981' : '#ef4444', margin: '0.45rem 0 0', fontWeight: 600 }}>
+                      {pct >= 0 ? '▲' : '▼'} {Math.abs(pct).toFixed(2)}% over 7 days
+                    </p>
+                  )
+                })()}
+              </>
+            )}
+          </div>
+        )}
+
         {/* ── Quick currency strip ── */}
         <div>
           <p style={{ color: colors.textSecondary, fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', margin: '0 0 0.55rem' }}>
@@ -359,6 +398,65 @@ export default function CurrencyConverter() {
       <p style={{ color: colors.textSecondary, fontSize: '0.75rem', marginTop: '1rem', maxWidth: '600px' }}>
         ℹ️ Rates are updated daily via Open Exchange Rates API. Mid-market rates only — not for financial transactions.
       </p>
+
+      {/* ── Static SEO reference section — always in HTML, no API needed ── */}
+      <div style={{ maxWidth: '600px', marginTop: '2.5rem' }}>
+        <h2 style={{ fontSize: '1.1rem', fontWeight: 700, color: colors.text, margin: '0 0 0.75rem' }}>
+          USD to PKR &amp; Key Exchange Rates — Reference Guide
+        </h2>
+        <p style={{ fontSize: '0.85rem', color: colors.textSecondary, margin: '0 0 1rem', lineHeight: 1.6 }}>
+          The Pakistani Rupee (PKR) fluctuates daily against major currencies. The table below shows
+          typical reference ranges based on recent market data. Use the live converter above for today's exact rate.
+        </p>
+
+        <div style={{
+          border: `1px solid ${colors.border}`,
+          borderRadius: '0.75rem',
+          overflow: 'hidden',
+          marginBottom: '1.25rem',
+          fontSize: '0.82rem',
+        }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)' }}>
+                {['Currency Pair', 'Approx. Rate (PKR)', 'Common Use'].map(h => (
+                  <th key={h} style={{ padding: '0.6rem 0.9rem', textAlign: 'left', color: colors.textSecondary, fontWeight: 600 }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['USD → PKR', '~278–282', 'Freelancing, imports'],
+                ['AED → PKR', '~75–77',  'UAE remittances'],
+                ['SAR → PKR', '~74–76',  'Saudi remittances'],
+                ['GBP → PKR', '~350–360', 'UK transfers'],
+                ['EUR → PKR', '~305–315', 'Europe trade'],
+                ['CAD → PKR', '~200–205', 'Canada transfers'],
+                ['AUD → PKR', '~175–180', 'Australia transfers'],
+              ].map(([pair, rate, use], i) => (
+                <tr key={pair} style={{ borderTop: `1px solid ${colors.border}`, background: i % 2 === 0 ? 'transparent' : (isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.015)') }}>
+                  <td style={{ padding: '0.55rem 0.9rem', color: colors.text, fontWeight: 600 }}>{pair}</td>
+                  <td style={{ padding: '0.55rem 0.9rem', color: ACCENT, fontWeight: 700 }}>{rate}</td>
+                  <td style={{ padding: '0.55rem 0.9rem', color: colors.textSecondary }}>{use}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <p style={{ fontSize: '0.78rem', color: colors.textSecondary, lineHeight: 1.6, margin: '0 0 0.75rem' }}>
+          <strong style={{ color: colors.text }}>Why does PKR fluctuate?</strong> The PKR/USD rate is influenced
+          by Pakistan's foreign exchange reserves, trade deficit, remittances from Pakistanis abroad
+          (mainly UAE, Saudi Arabia, UK), and State Bank of Pakistan (SBP) policy.
+          Remittances are Pakistan's largest foreign exchange source, exceeding $27 billion annually.
+        </p>
+        <p style={{ fontSize: '0.78rem', color: colors.textSecondary, lineHeight: 1.6, margin: 0 }}>
+          <strong style={{ color: colors.text }}>Open market vs interbank rate:</strong> The interbank rate
+          is set by SBP and used for official transactions. The open market rate (from money changers)
+          may differ by Rs 1–5. For remittances via banks or services like Wise, use the live tool above
+          to compare and pick the best rate.
+        </p>
+      </div>
     </ToolLayout>
   )
 }

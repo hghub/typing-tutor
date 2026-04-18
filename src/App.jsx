@@ -553,7 +553,7 @@ function App() {
               {[
                 { icon: '🆓', text: 'Free forever' },
                 { icon: '🔒', text: 'No sign-up' },
-                { icon: '🌐', text: '8 languages' },
+                { icon: '🌐', text: '4 languages + custom text' },
                 { icon: '👧', text: 'Kids Mode' },
                 { icon: '⚔️', text: '1v1 Battles' },
                 { icon: '📊', text: 'XP & Levels' },

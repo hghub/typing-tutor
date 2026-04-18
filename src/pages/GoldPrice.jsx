@@ -51,6 +51,21 @@ function pricePerGram(perTola) {
   return perTola / 11.664
 }
 
+// ─── Sparkline ────────────────────────────────────────────────────────────────
+
+function Sparkline({ data, color = '#06b6d4', width = 300, height = 60 }) {
+  if (!data || data.length < 2) return null
+  const min = Math.min(...data), max = Math.max(...data)
+  const range = max - min || 1
+  const pts = data.map((v, i) => `${(i / (data.length - 1)) * width},${height - ((v - min) / range) * height}`)
+  return (
+    <svg width={width} height={height} style={{ overflow: 'visible' }}>
+      <polyline points={pts.join(' ')} fill="none" stroke={color} strokeWidth="2" strokeLinejoin="round" />
+      <circle cx={pts[pts.length-1].split(',')[0]} cy={pts[pts.length-1].split(',')[1]} r="3" fill={color} />
+    </svg>
+  )
+}
+
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
 function SectionCard({ children, colors, style = {} }) {
@@ -221,6 +236,11 @@ export default function GoldPrice() {
   const [liveTs,     setLiveTs]     = useState(null)   // Date of last successful fetch
   const [isManual,   setIsManual]   = useState(false)  // user overrode the live rate
 
+  // Chart state
+  const [goldChartData,    setGoldChartData]    = useState(null)
+  const [goldChartLoading, setGoldChartLoading] = useState(false)
+  const [goldChartError,   setGoldChartError]   = useState(null)
+
   // ── Live gold price fetch (CoinGecko, no API key, CORS-enabled) ────────────
   const fetchLiveRate = useCallback(async () => {
     setApiStatus('loading')
@@ -252,6 +272,20 @@ export default function GoldPrice() {
     const id = setInterval(fetchLiveRate, 5 * 60 * 1000)
     return () => clearInterval(id)
   }, [fetchLiveRate])
+
+  // Fetch 7-day gold price chart from CoinGecko
+  useEffect(() => {
+    setGoldChartLoading(true)
+    fetch('https://api.coingecko.com/api/v3/coins/pax-gold/market_chart?vs_currency=usd&days=7&interval=daily')
+      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json() })
+      .then(data => {
+        const prices = (data.prices || []).map(([, price]) => price)
+        if (prices.length < 2) throw new Error('insufficient data')
+        setGoldChartData(prices)
+      })
+      .catch(() => setGoldChartError(true))
+      .finally(() => setGoldChartLoading(false))
+  }, [])
 
   // "X min ago" helper
   const minutesAgo = liveTs
@@ -474,6 +508,36 @@ export default function GoldPrice() {
             </span>
           </div>
         </SectionCard>
+
+        {/* ── Gold Price Trend Chart ─────────────────────────────────────────── */}
+        {(goldChartLoading || goldChartData || goldChartError) && (
+          <SectionCard colors={colors}>
+            <SectionTitle colors={colors} icon="📈">7-day gold price trend (USD/oz)</SectionTitle>
+            {goldChartLoading ? (
+              <p style={{ color: colors.muted, fontSize: '0.85rem', margin: 0 }}>Loading chart…</p>
+            ) : goldChartError ? (
+              <p style={{ color: colors.muted, fontSize: '0.82rem', margin: 0 }}>No historical data available.</p>
+            ) : goldChartData && (
+              <>
+                <div style={{ overflowX: 'auto' }}>
+                  <Sparkline data={goldChartData} color={ACCENT} width={300} height={60} />
+                </div>
+                {(() => {
+                  const pct = ((goldChartData[goldChartData.length - 1] - goldChartData[0]) / goldChartData[0]) * 100
+                  return (
+                    <p style={{ fontSize: '0.78rem', color: pct >= 0 ? '#10b981' : '#ef4444', margin: '0.5rem 0 0', fontWeight: 600 }}>
+                      {pct >= 0 ? '▲' : '▼'} {Math.abs(pct).toFixed(2)}% over 7 days
+                      {' · '}
+                      <span style={{ color: colors.muted, fontWeight: 400 }}>
+                        ${Math.round(goldChartData[0]).toLocaleString()} → ${Math.round(goldChartData[goldChartData.length - 1]).toLocaleString()} USD/oz
+                      </span>
+                    </p>
+                  )
+                })()}
+              </>
+            )}
+          </SectionCard>
+        )}
 
         {/* ── Weight Input + Purity ─────────────────────────────────────────── */}
         <SectionCard colors={colors}>
@@ -967,6 +1031,69 @@ export default function GoldPrice() {
           type="financial"
           overrideBodyEn="This calculator uses manually entered rates and standard weight conversions. Gold and silver prices fluctuate daily — always verify today's rate with a certified jeweller or sarafa bazar before buying, selling, or calculating zakat. This tool does not constitute financial or religious advice."
         />
+
+        {/* ── Static SEO reference section — always in HTML, no API needed ── */}
+        <div style={{ marginTop: '2rem' }}>
+          <h2 style={{ fontSize: '1.1rem', fontWeight: 700, color: colors.text, margin: '0 0 0.75rem' }}>
+            Gold Price in Pakistan — Reference Rates &amp; Guide
+          </h2>
+          <p style={{ fontSize: '0.85rem', color: colors.muted, margin: '0 0 1rem', lineHeight: 1.6 }}>
+            Pakistan gold prices are derived from the international spot price (XAU/USD) converted to PKR.
+            The table below shows typical reference ranges. Use the live tool above for today's exact rate.
+          </p>
+
+          <div style={{
+            border: `1px solid ${colors.border}`,
+            borderRadius: '0.75rem',
+            overflow: 'hidden',
+            marginBottom: '1.25rem',
+            fontSize: '0.82rem',
+          }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <thead>
+                <tr style={{ background: `${ACCENT}15` }}>
+                  {['Purity', 'Per Tola (PKR)', 'Per Gram (PKR)', 'Common Use'].map(h => (
+                    <th key={h} style={{ padding: '0.6rem 0.9rem', textAlign: 'left', color: colors.muted, fontWeight: 600 }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ['24K — Pure Gold',     '~Rs 335,000–360,000', '~Rs 28,700–30,850', 'Bullion, investment'],
+                  ['22K — Standard',      '~Rs 307,000–330,000', '~Rs 26,300–28,300', 'Pakistani jewellery'],
+                  ['21K',                 '~Rs 293,000–315,000', '~Rs 25,100–27,000', 'Gulf-style jewellery'],
+                  ['18K',                 '~Rs 252,000–270,000', '~Rs 21,600–23,100', 'Modern/hallmark gold'],
+                ].map(([purity, tola, gram, use], i) => (
+                  <tr key={purity} style={{ borderTop: `1px solid ${colors.border}`, background: i % 2 ? `${ACCENT}06` : 'transparent' }}>
+                    <td style={{ padding: '0.55rem 0.9rem', color: colors.text, fontWeight: 600 }}>{purity}</td>
+                    <td style={{ padding: '0.55rem 0.9rem', color: ACCENT, fontWeight: 700 }}>{tola}</td>
+                    <td style={{ padding: '0.55rem 0.9rem', color: ACCENT, fontWeight: 700 }}>{gram}</td>
+                    <td style={{ padding: '0.55rem 0.9rem', color: colors.muted }}>{use}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem', marginBottom: '1rem' }}>
+            {[
+              { title: 'How is gold price set in Pakistan?', body: 'Pakistan gold price = International XAU/USD spot price × PKR/USD rate. The All Pakistan Sarafa Gems &amp; Jewellers Association (APSGJA) announces rates daily based on interbank PKR and the London Bullion Market Association (LBMA) fix.' },
+              { title: 'Tola vs gram — which to use?', body: '1 tola = 11.664 grams. Tola is the traditional unit used in Pakistani sarafa markets and for quoting gold prices. Most jewellers quote per tola. Internationally, troy ounce (31.1035 g) is standard.' },
+              { title: 'Zakat on gold (Nisab)', body: 'Zakat (2.5%) is due on gold owned for one lunar year that meets the nisab threshold: 7.5 tola (87.48 g) for gold, or 52.5 tola for silver. The Zakat calculator above checks this automatically.' },
+            ].map(({ title, body }) => (
+              <div key={title} style={{ background: colors.surface, border: `1px solid ${colors.border}`, borderRadius: '0.75rem', padding: '0.85rem 1rem' }}>
+                <p style={{ fontSize: '0.8rem', fontWeight: 700, color: colors.text, margin: '0 0 0.35rem' }}>{title}</p>
+                <p style={{ fontSize: '0.77rem', color: colors.muted, margin: 0, lineHeight: 1.55 }} dangerouslySetInnerHTML={{ __html: body }} />
+              </div>
+            ))}
+          </div>
+
+          <p style={{ fontSize: '0.75rem', color: colors.muted, margin: 0 }}>
+            ⚠️ Reference rates above are approximate and for educational purposes only.
+            Actual rates change daily — always use the live calculator above or check with your local sarafa market.
+          </p>
+        </div>
+
       </div>
     </ToolLayout>
   )

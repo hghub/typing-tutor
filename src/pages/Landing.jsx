@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { useTheme } from '../hooks/useTheme'
 import { TOOLS } from '../tools/registry'
+import { BLOG_POSTS } from '../data/blogPosts'
 
 const FEATURED_IDS = [
   'typing-tutor', 'loan-emi', 'tax-calculator',
@@ -66,6 +67,7 @@ const WHAT_YOU_CAN_DO = [
 export default function Landing() {
   const { theme, toggleTheme } = useTheme()
   const featured = FEATURED_IDS.map(id => TOOLS.find(t => t.id === id)).filter(Boolean)
+  const recentPosts = BLOG_POSTS.slice(-3)
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-bg)', color: 'var(--color-text)', fontFamily: 'sans-serif' }}>
@@ -251,6 +253,44 @@ export default function Landing() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── From Our Blog ── */}
+      <section style={{ padding: '3rem 2rem', maxWidth: 1100, margin: '0 auto' }}>
+        <h2 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.4rem' }}>📖 From Our Blog</h2>
+        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', marginBottom: '2rem' }}>
+          Tips, guides and tool walkthroughs for getting the most out of Rafiqy.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: '1.25rem' }}>
+          {recentPosts.map(post => (
+            <Link key={post.slug} to={`/blog/${post.slug}`} style={{ textDecoration: 'none' }}>
+              <div
+                style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 12, padding: '1.5rem', height: '100%', boxSizing: 'border-box', transition: 'border-color .2s', cursor: 'pointer' }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--color-primary)' }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--color-border)' }}
+              >
+                <div style={{ fontSize: '2rem', marginBottom: '0.6rem' }}>{post.hero}</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.6rem', flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: '0.68rem', background: 'rgba(6,182,212,0.1)', color: 'var(--color-primary)', border: '1px solid rgba(6,182,212,0.25)', borderRadius: 999, padding: '0.15rem 0.6rem', fontWeight: 600, textTransform: 'capitalize' }}>
+                    {post.category}
+                  </span>
+                  <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>{post.readTime}</span>
+                </div>
+                <div style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--color-text)', marginBottom: '0.4rem', lineHeight: 1.4 }}>
+                  {post.title}
+                </div>
+                <div style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', lineHeight: 1.55 }}>
+                  {post.description.length > 100 ? post.description.slice(0, 100) + '…' : post.description}
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+          <Link to="/blog" style={{ color: 'var(--color-primary)', fontWeight: 600, textDecoration: 'none' }}>
+            Read all articles →
+          </Link>
         </div>
       </section>
 

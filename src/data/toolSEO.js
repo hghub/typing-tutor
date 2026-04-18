@@ -359,20 +359,20 @@ const TOOL_SEO = {
   },
 
   'gold-price': {
-    metaTitle: 'Live Gold Price Pakistan Today — PKR Rates | Rafiqy',
-    metaDesc: 'Check live gold and silver prices in Pakistan in PKR per tola, gram and ounce. 24K, 22K, 21K and 18K. Free gold value calculator.',
-    heading: 'Live Gold & Silver Price Pakistan — PKR Rates Today',
+    metaTitle: 'Gold Price in Pakistan Today — Per Tola & Gram in PKR | Rafiqy',
+    metaDesc: 'Live gold price in Pakistan per tola and per gram. 24K ~Rs 346,000/tola, 22K ~Rs 317,000/tola. Free PKR gold calculator with Zakat, making charges & 7-day trend.',
+    heading: 'Gold Price in Pakistan Today — PKR per Tola, Gram & Ounce',
     paras: [
-      'Check today\'s live gold and silver prices in Pakistan in PKR (Pakistani Rupee). See prices per tola, per gram, and per ounce for 24K, 22K, 21K, and 18K gold. Rates are updated regularly and sourced from reliable market data.',
-      'Use the built-in calculator to convert any weight of gold to its current PKR value — perfect for buying/selling jewelry, evaluating gold loans, or tracking investments. Silver prices in per tola and per gram are also shown.',
-      'The tool also shows price trends over the past 7 and 30 days, helping you see whether gold is trending up or down before making a purchase or sale decision.',
+      'Check today\'s live gold price in Pakistan in PKR (Pakistani Rupee) per tola, per gram, and per troy ounce. Rates for 24K (pure gold), 22K, 21K, and 18K are shown. As of 2025, 24K gold trades at approximately Rs 335,000-360,000 per tola (Rs 28,700-30,850 per gram), driven by international XAU/USD spot prices and the PKR/USD exchange rate.',
+      'Pakistan gold prices are announced daily by the All Pakistan Sarafa Gems & Jewellers Association (APSGJA) and closely follow the London Bullion Market Association (LBMA) benchmark. The built-in value calculator lets you enter any weight in tola, gram, masha, ratti, or troy ounce - and instantly see today\'s PKR market value for your gold.',
+      'The page also shows the 7-day gold price trend chart, automatic Zakat calculation (nisab: 7.5 tola), making charges, and a Silver price companion. All calculations run in your browser - no data is stored or transmitted.',
     ],
     faqs: [
-      { q: 'How often are gold prices updated?', a: 'Prices are updated throughout the day based on international spot prices converted to PKR at the current exchange rate. Check back for the latest rates.' },
-      { q: 'What is the difference between 24K and 22K gold?', a: '24K gold is pure gold (99.9% purity). 22K gold is 91.7% pure (the rest is alloy for durability). Most Pakistani jewelry is 22K or 21K.' },
-      { q: 'How do I calculate the value of my gold jewelry?', a: 'Enter the weight in tolas or grams and select the purity (24K/22K/21K/18K). The tool instantly shows the current market value in PKR.' },
-      { q: 'Are gold prices different in different cities?', a: 'Spot gold price is a global benchmark, but local jewelry shop prices vary slightly by city due to local making charges and margins. This tool shows the bullion/spot price.' },
-      { q: 'Is gold a good investment in Pakistan?', a: 'Gold has historically served as a hedge against inflation and PKR devaluation. However, investment decisions should be based on your full financial situation. This tool provides price data, not investment advice.' },
+      { q: 'What is today\'s gold price in Pakistan per tola?', a: 'As of 2025, 24K gold is approximately Rs 335,000-360,000 per tola. 22K (the most common jewellery purity) is approximately Rs 307,000-330,000 per tola. Use the live calculator above for the exact rate updated throughout the day.' },
+      { q: 'What is the difference between 24K and 22K gold?', a: '24K gold is pure gold (99.9% purity). 22K gold is 91.67% pure (the rest is alloy for durability). Most Pakistani jewellery is 22K or 21K. Investment gold bars and coins are typically 24K.' },
+      { q: 'How do I calculate the value of my gold jewelry?', a: 'Enter the weight in tolas or grams, select the purity (24K/22K/21K/18K), and optionally enter making charges. The tool instantly shows the current market value in PKR.' },
+      { q: 'How is zakat calculated on gold?', a: 'Zakat (2.5%) is due on gold you have owned for one complete lunar year, provided it meets the nisab threshold of 7.5 tola (87.48 grams). The Zakat calculator on this page checks this automatically.' },
+      { q: 'Are gold prices different in Karachi, Lahore, and Islamabad?', a: 'The APSGJA spot rate is a national benchmark, but local jeweller prices may vary by Rs 500–2,000/tola due to making charges and local demand. This tool shows the standard bullion/spot price.' },
     ],
   },
 
@@ -431,20 +431,20 @@ const TOOL_SEO = {
   },
 
   'currency-converter': {
-    metaTitle: 'Free Currency Converter Online — Live Rates | Rafiqy',
-    metaDesc: 'Convert between 30+ currencies with live exchange rates. PKR, USD, GBP, AED and more. Free, fast and works offline.',
-    heading: 'Free Currency Converter — Live Exchange Rates Including PKR',
+    metaTitle: 'USD to PKR Today — Live Currency Converter | Rafiqy',
+    metaDesc: 'Convert USD, AED, SAR, GBP to PKR with live rates. 1 USD ≈ Rs 278–282, 1 AED ≈ Rs 75–77. Free, no sign-up, 150+ currencies including PKR.',
+    heading: 'Currency Converter — USD to PKR & 150+ Live Exchange Rates',
     paras: [
-      'Rafiqy\'s Currency Converter provides live exchange rates for all major currencies including Pakistani Rupee (PKR), UAE Dirham (AED), Saudi Riyal (SAR), US Dollar (USD), and more. Convert any amount between currencies instantly.',
-      'The tool is particularly useful for Pakistanis sending or receiving remittances, freelancers getting paid in foreign currencies, and travelers. See the interbank rate alongside the typical market rate to understand the spread.',
-      'Exchange rates are fetched from a reliable public API and updated regularly. All conversions are calculated in your browser — your amounts are never stored or transmitted.',
+      'Convert between USD, AED, SAR, GBP, EUR, CAD and Pakistani Rupee (PKR) with live exchange rates. As of 2025, 1 US Dollar (USD) = approximately Rs 278–282 PKR. Key rates: 1 AED ≈ Rs 75–77, 1 SAR ≈ Rs 74–76, 1 GBP ≈ Rs 350–360, 1 EUR ≈ Rs 305–315. Rates update daily based on interbank market data.',
+      'Particularly useful for Pakistani freelancers receiving USD/EUR payments, families receiving remittances from the UAE or Saudi Arabia, and travelers comparing exchange rates. The 7-day trend sparkline shows whether PKR is strengthening or weakening against your chosen pair.',
+      'All conversions run in your browser using the Open Exchange Rates public API. Your amounts are never stored. Supports 150+ world currencies. Mid-market rates shown — actual bank/money changer rates may include a spread of 0.5–2%.',
     ],
     faqs: [
-      { q: 'How often are exchange rates updated?', a: 'Rates are updated multiple times daily from a public exchange rate API. For real-time interbank rates, always verify with your bank or exchange service before transacting.' },
-      { q: 'Does this show the Pakistani open market rate?', a: 'The tool shows market reference rates. Pakistani open market rates (from money changers) may differ slightly from the interbank rate shown.' },
-      { q: 'Can I convert PKR to AED or SAR for remittances?', a: 'Yes. Enter any PKR amount and select AED, SAR, or any other currency to see the conversion. Compare with your bank\'s rate to understand the exchange cost.' },
-      { q: 'How many currencies are supported?', a: 'The tool supports 150+ world currencies including all major and most minor currencies.' },
-      { q: 'Is my conversion history saved?', a: 'Recent conversions are saved in your browser session for quick reference. They are not sent to any server.' },
+      { q: 'What is today\'s USD to PKR rate?', a: 'As of 2025, 1 USD = approximately Rs 278–282 PKR (interbank rate). The open market rate from money changers is typically Rs 1–3 higher. Use the live tool above for the exact current rate.' },
+      { q: 'What is the AED to PKR rate for UAE remittances?', a: '1 AED (UAE Dirham) = approximately Rs 75–77 PKR. If you are sending money from UAE, remittance services like Wise, Western Union, or Pakistani banks may offer rates slightly different from the mid-market rate.' },
+      { q: 'Does this show the Pakistani open market rate?', a: 'The tool shows mid-market (interbank) reference rates from a public API. The Pakistani open market rate (from money changers and exchange companies) can be Rs 1–5 different. Always confirm with your bank or exchange service before transacting.' },
+      { q: 'How often are exchange rates updated?', a: 'Rates are fetched live when you use the tool, and the underlying API updates multiple times daily. The page shows a timestamp of when rates were last fetched.' },
+      { q: 'How many currencies are supported?', a: 'The tool supports 150+ world currencies including all major and most minor currencies. Start typing a currency code in the selector to filter the list.' },
     ],
   },
 

@@ -4,9 +4,16 @@ import { useTheme } from '../hooks/useTheme'
 
 const ACCENT = '#06b6d4'
 const QUICK_CURRENCIES = ['PKR', 'USD', 'GBP', 'EUR', 'AED', 'SAR', 'CAD', 'AUD']
-
-// open.er-api.com — free, no key, supports PKR and 150+ currencies
 const BASE_URL = 'https://open.er-api.com/v6/latest'
+
+// Frankfurter only covers ECB currencies — skip chart fetch for unsupported pairs (PKR, AED, SAR etc.)
+const FRANKFURTER_SUPPORTED = new Set([
+  'AUD','BGN','BRL','CAD','CHF','CNY','CZK','DKK','EUR','GBP',
+  'HKD','HUF','IDR','ILS','INR','ISK','JPY','KRW','MXN','MYR',
+  'NOK','NZD','PHP','PLN','RON','SEK','SGD','THB','TRY','USD','ZAR',
+])
+
+
 
 function Sparkline({ data, color = '#06b6d4', width = 300, height = 60 }) {
   if (!data || data.length < 2) return null
@@ -99,9 +106,13 @@ export default function CurrencyConverter() {
     return () => clearTimeout(t)
   }, [convert])
 
-  // Fetch 7-day historical data from Frankfurter API
+  // Fetch 7-day historical data from Frankfurter API (ECB currencies only)
   useEffect(() => {
     if (!fromCurrency || !toCurrency || fromCurrency === toCurrency) {
+      setChartData(null); setChartDates([]); setChartError(null); return
+    }
+    // Skip fetch entirely for currencies not covered by Frankfurter/ECB — prevents CORS errors
+    if (!FRANKFURTER_SUPPORTED.has(fromCurrency) || !FRANKFURTER_SUPPORTED.has(toCurrency)) {
       setChartData(null); setChartDates([]); setChartError(null); return
     }
     setChartLoading(true)

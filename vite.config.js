@@ -10,9 +10,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
-        name: 'Typely',
-        short_name: 'Typely',
-        description: 'Your smart typing system — personalized drills, weak-key detection, Urdu & English practice',
+        name: 'Rafiqy',
+        short_name: 'Rafiqy',
+        description: 'Your everyday companion for getting things done — 58 privacy-first browser tools',
         theme_color: '#06b6d4',
         background_color: '#0f172a',
         display: 'standalone',

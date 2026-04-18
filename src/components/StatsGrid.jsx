@@ -23,7 +23,7 @@ const STAT_CARDS = [
   },
 ]
 
-export default function StatsGrid({ wpm, cpm, accuracy, typed, passage, isTimerMode, timeLeft, colors, isDark, isMobile }) {
+export default function StatsGrid({ wpm, cpm, accuracy, typed, passage, isTimerMode, timeLeft, colors, isDark, isMobile, hideLive }) {
   const progressValue = isTimerMode ? `${timeLeft}s` : `${typed.length}/${passage.length}`
   const progressLabel = isTimerMode ? 'Time Left' : 'Progress'
   const values = { wpm, cpm, accuracy, progress: progressValue }
@@ -38,6 +38,7 @@ export default function StatsGrid({ wpm, cpm, accuracy, typed, passage, isTimerM
     <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: '0.75rem', marginBottom: '1.5rem' }}>
       {STAT_CARDS.map(({ key, label, accentColor }) => {
         const valueColor = key === 'accuracy' ? getAccuracyColor(accuracy) : (accentColor || textColor)
+        const isHidden = hideLive && key !== 'progress'
         return (
           <div
             key={key}
@@ -47,12 +48,15 @@ export default function StatsGrid({ wpm, cpm, accuracy, typed, passage, isTimerM
               padding: isMobile ? '0.875rem' : '1.25rem',
               border: `1px solid ${cardBorder}`,
               transition: 'box-shadow 0.2s ease',
+              opacity: isHidden ? 0.35 : 1,
             }}
             onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.12)' }}
             onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none' }}
           >
             <p style={{ color: labelColor, fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.5rem', margin: '0 0 0.5rem' }}>{labels[key]}</p>
-            <p style={{ fontSize: key === 'progress' ? '1.5rem' : '2rem', fontWeight: 700, color: valueColor, margin: 0, lineHeight: 1.1 }}>{values[key]}</p>
+            <p style={{ fontSize: key === 'progress' ? '1.5rem' : '2rem', fontWeight: 700, color: isHidden ? labelColor : valueColor, margin: 0, lineHeight: 1.1 }}>
+              {isHidden ? '—' : values[key]}
+            </p>
           </div>
         )
       })}

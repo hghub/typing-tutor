@@ -73,10 +73,11 @@ function App() {
 
   const [isKidsMode, setIsKidsMode] = useState(() => localStorage.getItem('typingKidsMode') === 'true')
   const [emojiTrigger, setEmojiTrigger] = useState(0)
-  const [showGoalModal, setShowGoalModal] = useState(() => !localStorage.getItem('typely_goal'))
+  const [showGoalModal, setShowGoalModal] = useState(false)
   const [selectedGoal, setSelectedGoal] = useState(() => localStorage.getItem('typely_goal'))
   const [phoneticMode, setPhoneticMode] = useState(false)
   const [latinBuffer, setLatinBuffer] = useState('')
+  const [focusMode, setFocusMode] = useState(() => localStorage.getItem('typely_focusMode') === 'true')
 
   const { isDark, toggleTheme, colors } = useTheme()
   const { passage, setPassage, typed, setTyped, wpm, cpm, accuracy, finished, timeLeft, isTimerMode, inputRef, handleKeyDown, handleChange, resetTest, analysis, passageIndex } = useTypingTest({ difficulty, language, phoneticMode })
@@ -107,6 +108,19 @@ function App() {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finished])
+
+  // Show goal modal after first ever session if no goal set
+  useEffect(() => {
+    if (!finished || selectedGoal) return
+    const scores = JSON.parse(localStorage.getItem('typingScores') || '[]')
+    if (scores.length <= 1) setShowGoalModal(true)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [finished])
+
+  // Persist focus mode preference
+  useEffect(() => {
+    localStorage.setItem('typely_focusMode', String(focusMode))
+  }, [focusMode])
 
   useEffect(() => {
     if (!finished || !identity.userId) return
@@ -413,32 +427,42 @@ function App() {
     <div style={{ minHeight: '100vh', background: colors.bg, transition: 'background 0.3s ease' }}>
       <AnimatedBackground />
 
-      <ToolsNav rightExtras={
-        <select
-          value={language}
-          onChange={(e) => setLanguage(e.target.value)}
-          style={{
-            background: isDark ? '#1e293b' : '#ffffff',
-            border: `1px solid ${colors.border}`,
-            color: colors.text,
-            padding: '0.3rem 0.6rem',
-            borderRadius: '8px',
-            cursor: 'pointer',
-            fontSize: '0.82rem',
-            fontWeight: 500,
-            outline: 'none',
-          }}
-        >
-          {Object.entries(LANGUAGES).map(([key, lang]) => (
-            <option key={key} value={key}>{lang.flag} {lang.name}</option>
-          ))}
-        </select>
-      } />
+      <ToolsNav />
 
       <div style={{ padding: isMobile ? '1.25rem 0.75rem' : '1.75rem 2rem', direction: currentLangDir }}>
       <div style={{ position: 'relative', maxWidth: '56rem', margin: '0 auto' }}>
         <XPBar xp={xp} level={level} streak={streak} colors={colors} isDark={isDark} />
-        {!isKidsMode && <DifficultySelector difficulty={difficulty} onSelect={(d) => { setDifficulty(d) }} language={language} availablePacks={Object.keys(PASSAGES[language] || {})} colors={colors} isDark={isDark} />}
+
+        {/* Language + Difficulty in one unified row */}
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
+          <div style={{ flexShrink: 0 }}>
+            <p style={{ margin: '0 0 0.35rem', fontSize: '0.68rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: colors.textSecondary }}>Language</p>
+            <select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              style={{
+                background: isDark ? '#1e293b' : '#ffffff',
+                border: `1px solid ${colors.border}`,
+                color: colors.text,
+                padding: '0.45rem 0.75rem',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                outline: 'none',
+                height: '2.5rem',
+              }}
+            >
+              {Object.entries(LANGUAGES).map(([key, lang]) => (
+                <option key={key} value={key}>{lang.flag} {lang.name}</option>
+              ))}
+            </select>
+          </div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <p style={{ margin: '0 0 0.35rem', fontSize: '0.68rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: colors.textSecondary }}>Mode &amp; Pack</p>
+            {!isKidsMode && <DifficultySelector difficulty={difficulty} onSelect={(d) => { setDifficulty(d) }} language={language} availablePacks={Object.keys(PASSAGES[language] || {})} colors={colors} isDark={isDark} />}
+          </div>
+        </div>
 
         {/* Phonetic input toggle — only for RTL languages */}
         {['urdu', 'arabic', 'persian'].includes(language) && !isKidsMode && (
@@ -457,7 +481,10 @@ function App() {
                 transition: 'all 0.15s',
               }}
             >
-              ⌨️ Phonetic Input {phoneticMode ? '(ON)' : '(OFF)'}
+              ⌨️ {phoneticMode
+                ? `Phonetic ON — Roman → ${language === 'urdu' ? 'Urdu' : language === 'arabic' ? 'Arabic' : 'Persian'}`
+                : `Type Roman → get ${language === 'urdu' ? 'Urdu اردو' : language === 'arabic' ? 'Arabic عربي' : 'Persian فارسی'}`
+              }
             </button>
             {phoneticMode && (
               <span style={{ marginLeft: '0.75rem', alignSelf: 'center', fontSize: '0.76rem', color: colors.textSecondary }}>
@@ -512,8 +539,11 @@ function App() {
           </div>
         )}
 
-        {/* How It Works — shown before typing begins */}
-        {typed.length === 0 && !finished && (
+        {/* How It Works — only shown before typing begins AND for new users (<3 sessions) */}
+        {typed.length === 0 && !finished && (() => {
+          const sessionCount = JSON.parse(localStorage.getItem('typingScores') || '[]').length
+          if (sessionCount >= 3) return null
+          return (
           <>
             {/* Feature badges */}
             <div style={{
@@ -608,7 +638,8 @@ function App() {
               ))}
             </div>
           </>
-        )}
+          )
+        })()}
 
         {difficulty === 'custom' && (
           <CustomPassagePanel colors={colors} isDark={isDark} onStart={handleCustomStart} />
@@ -686,7 +717,10 @@ function App() {
           )}
 
           {/* Hero microcopy — only on very first visit before typing begins */}
-          {!finished && typed.length === 0 && !isKidsMode && (
+          {!finished && typed.length === 0 && !isKidsMode && (() => {
+            const sessionCount = JSON.parse(localStorage.getItem('typingScores') || '[]').length
+            if (sessionCount >= 3) return null
+            return (
             <div style={{
               textAlign: 'center',
               marginBottom: '1.25rem',
@@ -699,11 +733,34 @@ function App() {
                 ⚡ <strong style={{ color: colors.text }}>Takes 60 seconds</strong> · We'll detect your weak keys and build a personalised drill · No sign-up required
               </p>
             </div>
-          )}
+            )
+          })()}
 
           <PassageDisplay passage={passage} typed={typed} isDark={isDark} currentLangDir={currentLangDir} colors={colors} isKidsMode={isKidsMode} />
           <EmojiPopup trigger={emojiTrigger} />
-          <StatsGrid wpm={wpm} cpm={cpm} accuracy={accuracy} typed={typed} passage={passage} isTimerMode={isTimerMode} timeLeft={timeLeft} colors={colors} isDark={isDark} isMobile={isMobile} />
+
+          {/* Focus Mode toggle — small, unobtrusive */}
+          {!finished && typed.length === 0 && (
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.4rem', marginTop: '-0.5rem' }}>
+              <button
+                onClick={() => setFocusMode(v => !v)}
+                title={focusMode ? 'Show live stats while typing' : 'Hide live stats for distraction-free practice'}
+                style={{
+                  background: 'none', border: 'none', cursor: 'pointer',
+                  fontSize: '0.72rem', fontWeight: 600, padding: '0.2rem 0.5rem',
+                  color: focusMode ? '#06b6d4' : colors.textSecondary,
+                  opacity: 0.7, transition: 'opacity 0.15s',
+                  display: 'flex', alignItems: 'center', gap: '0.25rem',
+                }}
+                onMouseEnter={e => e.currentTarget.style.opacity = '1'}
+                onMouseLeave={e => e.currentTarget.style.opacity = '0.7'}
+              >
+                {focusMode ? '👁 Stats hidden' : '🎯 Focus mode'}
+              </button>
+            </div>
+          )}
+
+          <StatsGrid wpm={wpm} cpm={cpm} accuracy={accuracy} typed={typed} passage={passage} isTimerMode={isTimerMode} timeLeft={timeLeft} colors={colors} isDark={isDark} isMobile={isMobile} hideLive={focusMode && typed.length > 0 && !finished} />
           <TypingInput typed={typed} finished={finished} inputRef={inputRef} handleChange={handleChangeWithKids} handleKeyDown={handleTypingKeyDown} colors={colors} currentLangDir={currentLangDir} phoneticMode={phoneticMode} latinValue={latinBuffer} />
 
           {/* Virtual Keyboard — hidden on mobile (touch users don't need it) */}
@@ -763,6 +820,46 @@ function App() {
             isDark={isDark}
             colors={colors}
           />
+        )}
+
+        {/* Sticky Try Again bar — floats at bottom after completion so user never hunts for reset */}
+        {finished && (
+          <div style={{
+            position: 'fixed', bottom: 0, left: 0, right: 0,
+            padding: '0.85rem 1rem',
+            background: isDark ? 'rgba(15,23,42,0.92)' : 'rgba(255,255,255,0.92)',
+            backdropFilter: 'blur(12px)',
+            borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}`,
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem',
+            zIndex: 200,
+            boxShadow: '0 -4px 24px rgba(0,0,0,0.12)',
+          }}>
+            <span style={{ fontSize: '0.82rem', color: colors.textSecondary, fontWeight: 600 }}>
+              {wpm} WPM · {accuracy}% accuracy
+            </span>
+            <button
+              onClick={handleResetTest}
+              style={{
+                background: 'linear-gradient(to right, #06b6d4, #3b82f6)',
+                color: 'white', border: 'none', borderRadius: '0.75rem',
+                padding: '0.55rem 1.5rem', fontWeight: 700, cursor: 'pointer',
+                fontSize: '0.9rem', letterSpacing: '0.01em',
+                boxShadow: '0 4px 12px rgba(6,182,212,0.35)',
+              }}
+            >
+              ↺ Try Again
+            </button>
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              style={{
+                background: 'none', border: `1px solid ${colors.border}`, borderRadius: '0.75rem',
+                padding: '0.55rem 1rem', fontWeight: 600, cursor: 'pointer',
+                fontSize: '0.82rem', color: colors.textSecondary,
+              }}
+            >
+              ↑ Review
+            </button>
+          </div>
         )}
 
         {/* Tools strip — discover the full Rafiqy platform */}

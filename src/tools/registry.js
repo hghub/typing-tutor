@@ -571,6 +571,28 @@ export const TOOLS = [
     path: '/json-formatter',
     addedOn: '2026-04-16',
   },
+  {
+    id: 'text-diff',
+    name: 'Text Diff Checker',
+    nameUrdu: 'متن موازنہ',
+    icon: '⚡',
+    tagline: 'Compare two texts side by side with inline word highlighting',
+    taglineUrdu: 'دو متن کا موازنہ کریں — فرق نمایاں ہو',
+    description: 'Paste two versions of any text and instantly see what changed — added, removed and unchanged lines, with optional inline word-level diff highlighting. 100% browser-based.',
+    category: 'developer',
+    path: '/text-diff-checker',
+    addedOn: '2026-04-18',
+    tags: ['diff', 'compare', 'text compare', 'code diff', 'developer', 'tools'],
+    related: ['regex-tester', 'json-formatter', 'word-counter'],
+    features: [
+      'Line-by-line diff with added/removed highlighting',
+      'Inline word-level diff on changed lines',
+      'Ignore whitespace option',
+      'Ignore case option',
+      'Copy diff to clipboard',
+      'Stats: lines added, removed, unchanged',
+    ],
+  },
   // ── Education & Teaching ────────────────────────────────────────
   {
     id: 'student-groups',

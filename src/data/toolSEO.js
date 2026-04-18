@@ -32,6 +32,26 @@ const TOOL_SEO = {
     ],
   },
 
+  'text-diff': {
+    metaTitle: 'Free Text Diff Checker Online — Compare Two Texts | Rafiqy',
+    metaDesc: 'Compare two texts instantly — see added, removed and unchanged lines with inline word highlighting. Ignore whitespace/case. 100% browser-based, private.',
+    heading: 'Free Online Text Diff Checker — Side-by-Side Text Comparison',
+    paras: [
+      'Rafiqy\'s Text Diff Checker is the fastest way to compare two versions of any text — code, documents, emails, or configurations. Paste your original and modified text, and the tool instantly shows a colour-coded diff: green for added lines, red for removed lines, and grey for unchanged lines. No uploads, no sign-in — everything runs in your browser.',
+      'Word-level inline diff highlights exactly which words within a changed line were added or removed, giving you surgical precision on what changed rather than just flagging the entire line. Toggle it on or off depending on whether you need a high-level overview or a character-precise comparison.',
+      'Three options give you full control: Ignore Whitespace trims leading/trailing spaces before comparing (useful for code reformatting diffs), Ignore Case treats uppercase and lowercase as identical, and Copy Diff exports the unified diff output to your clipboard for pasting into a ticket, email, or PR description.',
+      'Use cases include reviewing document revisions, comparing API responses, auditing configuration file changes, checking translation edits, and debugging why two outputs differ. The diff engine uses LCS (Longest Common Subsequence) for accurate, minimal diffs.',
+    ],
+    faqs: [
+      { q: 'What is a text diff checker?', a: 'A text diff checker compares two versions of text and highlights what changed — added lines (green), removed lines (red), and unchanged lines. It\'s the same technique used by Git to show code changes.' },
+      { q: 'Does this work for code comparison?', a: 'Yes. Paste code in both panels. The tool compares line by line with a monospace font. Enable "Inline word diff" to see exactly which tokens changed within a line.' },
+      { q: 'What does "Ignore whitespace" do?', a: 'It trims leading and trailing spaces from each line before comparing. Useful when indentation was reformatted but the actual content didn\'t change — you\'ll see only semantic changes, not formatting noise.' },
+      { q: 'Is my text sent to any server?', a: 'No. The diff algorithm runs entirely in your browser using JavaScript. Your text is never uploaded, logged, or transmitted.' },
+      { q: 'Can I copy the diff output?', a: 'Yes. Click the "Copy diff" button to copy the full unified diff (with + and − prefixes) to your clipboard for sharing in emails, Slack, or Git comments.' },
+      { q: 'What algorithm does the diff use?', a: 'It uses LCS (Longest Common Subsequence), the same algorithm used by GNU diff and Git. This produces minimal diffs — it only marks lines as changed when necessary, not arbitrary cuts.' },
+    ],
+  },
+
   'pomodoro': {
     metaTitle: 'Free Pomodoro Timer Online — Focus Engine | Rafiqy',
     metaDesc: 'Stay focused with our free Pomodoro timer. Track sessions, set daily targets and beat distraction. Works offline. No account needed.',

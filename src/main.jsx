@@ -66,6 +66,7 @@ const PkIdTaxHub        = lazy(() => import('./pages/PkIdTaxHub.jsx'))
 const LoanManager        = lazy(() => import('./pages/LoanManager.jsx'))
 const RegexTester        = lazy(() => import('./pages/RegexTester.jsx'))
 const JsonFormatter      = lazy(() => import('./pages/JsonFormatter.jsx'))
+const TextDiff           = lazy(() => import('./pages/TextDiff.jsx'))
 const GoldPrice          = lazy(() => import('./pages/GoldPrice.jsx'))
 const ImageSuite     = lazy(() => import('./pages/ImageSuite.jsx'))
 const ResumeBuilder  = lazy(() => import('./pages/ResumeBuilder.jsx'))
@@ -177,6 +178,8 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/regex-tester"        element={<RegexTester />} />
           <Route path="/json-formatter"      element={<JsonFormatter />} />
           <Route path="/tools/json-formatter"      element={<Navigate to="/json-formatter" replace />} />
+          <Route path="/text-diff-checker"   element={<TextDiff />} />
+          <Route path="/tools/text-diff"     element={<Navigate to="/text-diff-checker" replace />} />
           <Route path="/tools/gold-price"          element={<GoldPrice />} />
           <Route path="/tools/image-suite"      element={<ImageSuite />} />
           <Route path="/tools/resume-builder"   element={<ResumeBuilder />} />

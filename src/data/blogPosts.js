@@ -151,4 +151,204 @@ export const BLOG_POSTS = [
 <p>Set a weekly reminder, use the Timer mode result as your weekly KPI, and expect 10–15 WPM improvement within a month of consistent practice. At that rate, an average 50 WPM typist reaches professional 80 WPM in six to eight weeks — which can meaningfully change the pace of every document, email, and code file you produce for the rest of your career.</p>
 `,
   },
+  {
+    slug: 'productivity-tools',
+    title: 'Best Free Productivity Tools for Professionals — Pomodoro, Planner, Habits & More',
+    description: 'Discover the best free productivity tools on Rafiqy.app — Pomodoro timer, daily planner, habit tracker, world time converter, voice diary, AI resume builder, and WhatsApp tools.',
+    hero: '🚀',
+    category: 'Productivity',
+    readTime: '8 min read',
+    publishDate: '2025-08-01',
+    tags: ['productivity', 'pomodoro', 'habit tracker', 'daily planner', 'focus', 'time management'],
+    content: `
+<h2>1. Why Free Productivity Tools Matter</h2>
+<p>Professionals, students, and freelancers lose hours every week to context-switching, disorganised schedules, and forgotten habits. Paid productivity suites like Notion or Monday.com solve some of these problems — but they come with steep learning curves and monthly subscriptions. Rafiqy.app offers a growing suite of <strong>free, browser-based productivity tools</strong> that require no sign-up and work on any device.</p>
+<p>This guide covers every productivity tool currently available on Rafiqy.app, explaining what each one does, which features make it stand out, and who will benefit most from it.</p>
+
+<h2>2. Key Features at a Glance</h2>
+<ul>
+  <li><strong>Pomodoro — Focus Engine:</strong> custom work/break durations, task labels per session, session history, streak counter, audio alerts, export session log as CSV</li>
+  <li><strong>Daily Planner:</strong> time-block scheduling, drag-reorder tasks, priority tags (urgent/important), carry-forward incomplete tasks, export to PDF</li>
+  <li><strong>Habit Tracker:</strong> daily/weekly habits, streak counter, heatmap calendar, custom colours per habit, notes per entry, export to CSV</li>
+  <li><strong>World Time Converter:</strong> compare up to 5 cities at once, business hours overlay, DST-aware, meeting scheduler suggestion</li>
+  <li><strong>Voice Diary:</strong> speech-to-text in English and Urdu, auto-save entries, tag entries, export as text, works offline</li>
+  <li><strong>AI Resume Builder:</strong> guided sections, ATS-friendly templates, export to PDF, live preview</li>
+  <li><strong>WhatsApp Tools:</strong> send message without saving contact, format text bold/italic/strikethrough, generate link previews, bulk message formatter</li>
+</ul>
+
+<h2>3. Pomodoro — Focus Engine</h2>
+<p>The Pomodoro Technique divides work into focused intervals (typically 25 minutes) separated by short breaks. Research consistently shows this method reduces mental fatigue and improves sustained concentration. Rafiqy's <strong>Pomodoro Focus Engine</strong> goes far beyond a basic countdown timer.</p>
+<p>You can set <strong>custom work and break durations</strong> — perfect if you find 25 minutes too short or too long. Each session can carry a <strong>task label</strong> so your history tells you not just how long you worked, but what you worked on. The built-in <strong>streak counter</strong> rewards consistency: miss a day and it resets, creating gentle accountability. <strong>Audio alerts</strong> play at the end of each interval so you stay in flow without watching the clock. Every completed session lands in a <strong>session history log</strong> that you can <strong>export as CSV</strong> — useful for billing clients by the Pomodoro or analysing your most productive hours.</p>
+
+<h2>4. Daily Planner</h2>
+<p>A to-do list is not the same as a daily plan. Rafiqy's <strong>Daily Planner</strong> uses <strong>time-block scheduling</strong> — you assign each task a specific time slot, which forces you to confront how much time you actually have in a day rather than adding tasks indefinitely to a list.</p>
+<p>Tasks can be <strong>drag-reordered</strong> as priorities shift throughout the day. Each task can carry a <strong>priority tag</strong> — Urgent, Important, or both — so you always know where to focus first. If you do not finish everything, the planner offers a <strong>carry-forward</strong> option that moves incomplete tasks to tomorrow's plan automatically. When you are done, <strong>export to PDF</strong> gives you a printable daily schedule to keep at your desk.</p>
+
+<h2>5. Habit Tracker</h2>
+<p>Habits are the compound interest of productivity. Rafiqy's <strong>Habit Tracker</strong> helps you build and maintain routines with minimal friction. You can track habits on a <strong>daily or weekly cadence</strong>, assign <strong>custom colours</strong> to each habit for quick visual scanning, and add a <strong>note per entry</strong> to record context ("skipped gym — travelling") without breaking your streak data.</p>
+<p>The <strong>heatmap calendar</strong> — inspired by GitHub's contribution graph — gives you an instant visual history of consistency. Seeing a month of dark green squares is genuinely motivating. The <strong>streak counter</strong> tracks your current and longest streak per habit. All data can be <strong>exported to CSV</strong> for further analysis in Excel or Google Sheets.</p>
+
+<h2>6. World Time Converter & Voice Diary</h2>
+<p>Remote teams and freelancers with international clients live and die by time zone awareness. The <strong>World Time Converter</strong> lets you compare <strong>up to 5 cities simultaneously</strong>, overlays standard <strong>business hours</strong> (9 am – 5 pm) so you can spot overlapping work windows at a glance, and is fully <strong>DST-aware</strong> — it updates automatically when daylight saving changes. A <strong>meeting scheduler suggestion</strong> recommends the best meeting slot given everyone's business hours.</p>
+<p>The <strong>Voice Diary</strong> is a reflective journalling tool that uses <strong>speech-to-text</strong> in both English and Urdu, making it one of the few tools designed with Pakistani and South Asian professionals in mind. Entries are <strong>auto-saved</strong> locally, can be <strong>tagged</strong> for later retrieval, and <strong>exported as plain text</strong>. Because it processes audio on-device, the Voice Diary <strong>works fully offline</strong>.</p>
+
+<h2>7. AI Resume Builder & WhatsApp Tools</h2>
+<p>The <strong>AI Resume Builder</strong> guides you through every resume section — professional summary, work experience, skills, and education — with contextual prompts at each step. The output uses <strong>ATS-friendly templates</strong> designed to pass automated applicant tracking systems used by large employers. A <strong>live preview</strong> updates as you type, and the finished resume <strong>exports to PDF</strong> in one click.</p>
+<p>The <strong>WhatsApp Tools</strong> suite addresses everyday friction points: sending a one-off message without saving a number to your contacts, formatting text with <strong>bold, italic, and strikethrough</strong> using WhatsApp's markdown syntax, generating shareable <strong>link previews</strong>, and processing bulk messages through a <strong>bulk message formatter</strong> that handles personalisation tokens.</p>
+
+<h2>8. Building a Complete Productivity System</h2>
+<p>Each tool on Rafiqy works independently, but they are designed to complement each other. A practical daily workflow: open the <strong>Daily Planner</strong> first thing to time-block your day, run <strong>Pomodoro</strong> sessions as you execute tasks, check in the <strong>Habit Tracker</strong> each evening, and end with a two-minute <strong>Voice Diary</strong> entry to capture reflections before tomorrow. Over weeks, your exported CSVs and PDFs become a personal productivity record that most people only get from expensive enterprise tools.</p>
+
+<p><a href="/tools/pomodoro">Try the Pomodoro Focus Engine free →</a></p>
+`,
+  },
+  {
+    slug: 'writing-tools',
+    title: 'Free Writing & Text Tools — Word Counter, Formatter, Doc Composer & Image Tools',
+    description: 'Explore Rafiqy.app\'s free writing tools: word counter with readability scores, text formatter, doc composer with Urdu support, and a browser-based image tools suite.',
+    hero: '✍️',
+    category: 'Writing',
+    readTime: '6 min read',
+    publishDate: '2025-08-01',
+    tags: ['writing', 'word counter', 'text formatter', 'doc composer', 'image tools', 'productivity'],
+    content: `
+<h2>1. Writing Tools Built for Modern Professionals</h2>
+<p>Whether you are drafting a client proposal, optimising an article for SEO, or preparing images for a blog post, switching between multiple apps creates unnecessary friction. Rafiqy.app consolidates the most-needed writing and text utilities into a single, free, browser-based suite — no installations, no subscriptions, no data uploaded to third-party servers.</p>
+<p>This guide covers all four writing tools: <strong>Word Counter</strong>, <strong>Text Formatter</strong>, <strong>Doc Composer</strong>, and the <strong>Image Tools Suite</strong>.</p>
+
+<h2>2. Key Features at a Glance</h2>
+<ul>
+  <li><strong>Word Counter:</strong> live word/character/sentence/paragraph/reading-time count, keyword density analysis, Flesch readability score, copy-clean text</li>
+  <li><strong>Text Formatter:</strong> UPPERCASE/lowercase/Title Case/Sentence case, remove extra spaces, remove line breaks, reverse text, count duplicates, slug generator</li>
+  <li><strong>Doc Composer:</strong> rich text editor, templates (letter, report, CV), export to PDF/DOCX/TXT, phonetic Urdu input support, print-ready layout</li>
+  <li><strong>Image Tools Suite:</strong> resize, compress, crop, convert format (PNG/JPG/WebP), add watermark, batch process — all in-browser with no server upload</li>
+</ul>
+
+<h2>3. Word Counter — More Than Just Counting Words</h2>
+<p>The Rafiqy <strong>Word Counter</strong> updates in real time as you type or paste text. It tracks six metrics simultaneously: <strong>word count</strong>, <strong>character count</strong> (with and without spaces), <strong>sentence count</strong>, <strong>paragraph count</strong>, and <strong>estimated reading time</strong> — calculated at the standard 200 words per minute adult reading speed.</p>
+<p>Beyond raw counts, the tool calculates <strong>keyword density</strong> — showing the top recurring words and their percentage frequency. This is invaluable for on-page SEO: you can see at a glance whether your primary keyword appears at the recommended 1–2 % density or whether you are over-optimising. The <strong>Flesch Reading Ease score</strong> tells you how accessible your writing is: a score above 60 is comfortable for a general audience; below 30 is academic or technical. The <strong>copy-clean text</strong> button strips all formatting, extra spaces, and invisible characters, giving you a plain-text version ready to paste anywhere.</p>
+
+<h2>4. Text Formatter — Fix Any Text in Seconds</h2>
+<p>Copy-pasted text from PDFs, web pages, or legacy documents often arrives full of inconsistent casing, double spaces, and stray line breaks. The <strong>Text Formatter</strong> fixes all of it with single clicks.</p>
+<p>Case conversion supports all four standard modes: <strong>UPPERCASE</strong>, <strong>lowercase</strong>, <strong>Title Case</strong> (capitalises every word), and <strong>Sentence case</strong> (capitalises only the first word of each sentence). Additional transformations include <strong>remove extra spaces</strong> (collapses multiple spaces into one), <strong>remove line breaks</strong> (converts multi-line text to a single paragraph), and <strong>reverse text</strong> (useful for certain encryption or design tasks). The <strong>duplicate counter</strong> flags repeated words or lines — handy for catching unintentional repetition in long documents. The <strong>slug generator</strong> converts any title or phrase into a URL-safe slug (<em>my-article-title</em>), saving time for developers and content managers.</p>
+
+<h2>5. Doc Composer — Write, Format, Export</h2>
+<p>The <strong>Doc Composer</strong> is a full <strong>rich text editor</strong> that runs entirely in your browser. It supports headings, bold, italic, underline, lists, tables, and text alignment — everything you need for professional documents without installing a word processor.</p>
+<p>Pre-built <strong>templates</strong> for common document types — formal letter, business report, and CV — give you a structured starting point. The standout feature for South Asian users is <strong>phonetic Urdu input</strong>: type Roman characters on a standard keyboard and the composer renders Urdu Unicode in real time, just like Rafiqy's typing tutor. Finished documents export to <strong>PDF</strong>, <strong>DOCX</strong> (compatible with Microsoft Word and Google Docs), or plain <strong>TXT</strong>. The <strong>print-ready layout</strong> ensures margins and typography look correct on A4 or Letter paper without any adjustment.</p>
+
+<h2>6. Image Tools Suite — Full Image Editing Without Uploads</h2>
+<p>Most online image tools send your files to a remote server for processing — a privacy concern for sensitive images and a bottleneck for large files. Rafiqy's <strong>Image Tools Suite</strong> processes everything <strong>in the browser using the Canvas API</strong>, so your images never leave your device.</p>
+<p>The suite covers the full everyday workflow: <strong>resize</strong> by pixel dimensions or percentage while preserving aspect ratio; <strong>compress</strong> JPEG/PNG to reduce file size for web use; <strong>crop</strong> to a custom area or preset aspect ratio (1:1, 16:9, 4:3); <strong>convert format</strong> between PNG, JPG, and WebP; and <strong>add watermark</strong> (text or image overlay) at configurable opacity and position. For high-volume tasks, <strong>batch processing</strong> lets you apply the same operation to multiple images simultaneously — saving hours for bloggers, photographers, and e-commerce managers who process dozens of product images at once.</p>
+
+<h2>7. Combining the Tools for a Writing Workflow</h2>
+<p>The four tools fit naturally into an end-to-end content workflow. Draft in <strong>Doc Composer</strong> with Urdu support if needed. Paste the finished text into <strong>Word Counter</strong> to check length, readability, and keyword density before publishing. Run it through <strong>Text Formatter</strong> to clean up any copy-paste artefacts. Process your featured images through <strong>Image Tools</strong> to compress and resize them to web specifications. The entire workflow — from blank page to publish-ready content — without leaving Rafiqy.app.</p>
+
+<p><a href="/tools/word-counter">Try the Word Counter free →</a></p>
+`,
+  },
+  {
+    slug: 'developer-tools',
+    title: 'Free Developer Tools — JSON Formatter, Regex Tester, Mock Data, Log Analyzer & More',
+    description: 'Rafiqy.app\'s free developer tools: JSON formatter, regex tester, mock data generator, text diff, config converter, log analyzer, markdown scraper, and more — all browser-based.',
+    hero: '🛠️',
+    category: 'Developer',
+    readTime: '9 min read',
+    publishDate: '2025-08-01',
+    tags: ['developer tools', 'JSON formatter', 'regex', 'mock data', 'log analyzer', 'developer'],
+    content: `
+<h2>1. A Developer Toolbox That Lives in Your Browser</h2>
+<p>Every developer accumulates a personal collection of bookmarked utilities — a JSON formatter here, a regex tester there, a mock data generator for test fixtures. The problem is that these tools are scattered across dozens of different sites, each with different UIs, different privacy policies, and varying reliability. Rafiqy.app consolidates eleven of the most-used developer tools into a single, fast, privacy-respecting platform where everything runs in the browser and no data is sent to any server.</p>
+
+<h2>2. Key Features at a Glance</h2>
+<ul>
+  <li><strong>JSON Formatter:</strong> format/minify/validate JSON, interactive tree view, copy path, diff two JSONs</li>
+  <li><strong>Regex Tester:</strong> live match highlighting, named groups, flags (g/i/m/s), match count, replace mode, save patterns</li>
+  <li><strong>Mock Data Generator:</strong> generate name/email/phone/address/UUID/date/custom fields, set row count, export CSV/JSON/SQL</li>
+  <li><strong>Text Diff Checker:</strong> side-by-side or inline diff, character-level diff, ignore whitespace option, copy changed lines</li>
+  <li><strong>Config Polyglot Converter:</strong> convert between JSON/YAML/TOML/ENV/.properties, syntax validation, copy output</li>
+  <li><strong>Smart Log Analyzer:</strong> paste logs, auto-detect ERROR/WARN/INFO, filter by level, highlight patterns, export filtered logs</li>
+  <li><strong>LLM-Ready Markdown Scraper:</strong> paste URL, extract clean markdown, remove ads/nav/footers, copy for LLM context</li>
+  <li><strong>Privacy-First Data Transformer:</strong> mask PII (emails, phones, IDs), hash fields, fake-replace sensitive data, export sanitised CSV</li>
+  <li><strong>Color Palette Generator:</strong> generate palettes from seed colour, complementary/triadic/analogous modes, export hex/CSS/Tailwind config</li>
+  <li><strong>Schema Field Mapper:</strong> map fields between two schemas, drag-and-drop interface, export mapping as JSON/JS</li>
+  <li><strong>Distributed Trace Correlator:</strong> paste trace IDs from multiple services, correlate by request ID, timeline view</li>
+</ul>
+
+<h2>3. JSON Formatter & Regex Tester</h2>
+<p>The <strong>JSON Formatter</strong> handles the daily developer task of reading dense API responses. Paste any JSON — minified or broken — and it formats it with consistent indentation and syntax highlighting. The <strong>tree view</strong> lets you collapse and expand nested objects, and <strong>copy path</strong> gives you the dot-notation or bracket-notation path to any node in one click (e.g., <code>data.users[0].email</code>). The <strong>diff two JSONs</strong> feature highlights additions, deletions, and changes between two JSON payloads — essential for debugging API version changes or comparing environment configs.</p>
+<p>The <strong>Regex Tester</strong> shows matches highlighted in real time as you type your pattern. It supports all four standard flags: <strong>g</strong> (global), <strong>i</strong> (case-insensitive), <strong>m</strong> (multiline), and <strong>s</strong> (dotAll). A match count appears live, named capture groups are displayed in a structured table, and <strong>replace mode</strong> lets you preview substitutions before running them in code. Patterns can be <strong>saved</strong> to a local library so you can build a personal collection of tested, working expressions.</p>
+
+<h2>4. Mock Data Generator & Text Diff Checker</h2>
+<p>Writing tests with real-looking data is far more useful than using <code>foo</code> and <code>bar</code> as placeholder values. The <strong>Mock Data Generator</strong> produces realistic test fixtures across standard field types: name, email, phone, address, UUID, date, and custom fields with user-defined formats. Set the <strong>row count</strong> (from 1 to tens of thousands), then export as <strong>CSV</strong>, <strong>JSON</strong>, or <strong>SQL INSERT statements</strong> — ready to drop directly into your test database or seed file.</p>
+<p>The <strong>Text Diff Checker</strong> compares two text blocks with the clarity of a code review tool. Choose between <strong>side-by-side</strong> view (two columns, changes highlighted) or <strong>inline</strong> view (single column with insertions and deletions marked). <strong>Character-level diff</strong> goes beyond line comparisons to show exactly which characters changed within a line — invaluable for spotting a single changed comma or quote. An <strong>ignore whitespace</strong> option filters out pure indentation changes so you can focus on meaningful differences. Any changed line can be <strong>copied individually</strong> to the clipboard.</p>
+
+<h2>5. Config Converter & Log Analyzer</h2>
+<p>Modern applications use a patchwork of configuration formats. The <strong>Config Polyglot Converter</strong> translates between <strong>JSON</strong>, <strong>YAML</strong>, <strong>TOML</strong>, <strong>ENV</strong>, and <strong>.properties</strong> in any direction. Paste your source config, pick the target format, and get a validated output instantly. Syntax errors in the source are flagged before conversion so you never silently produce a broken config file.</p>
+<p>When production goes wrong at 2 am, the <strong>Smart Log Analyzer</strong> is the tool you want open. Paste any log output — from Node.js, Python, Java, nginx, or any structured logger — and it <strong>auto-detects</strong> ERROR, WARN, and INFO entries using pattern matching. Filter the view to show only the level you care about, <strong>highlight custom patterns</strong> (like a specific request ID or user ID), and <strong>export filtered logs</strong> as a clean text file to share with teammates or attach to a bug report.</p>
+
+<h2>6. LLM-Ready Markdown Scraper & Privacy-First Data Transformer</h2>
+<p>As LLMs become standard tools in development workflows, feeding them clean context is increasingly important. The <strong>LLM-Ready Markdown Scraper</strong> takes a URL, fetches the page, and strips everything that adds noise — navigation, advertisements, sidebars, footers, cookie banners — leaving only the core article or documentation content in clean <strong>Markdown format</strong>. Copy the output directly into your LLM prompt as context. This is particularly useful when asking an AI assistant to summarise, explain, or work with external documentation.</p>
+<p>The <strong>Privacy-First Data Transformer</strong> solves a common problem: you have a real CSV with customer data that you want to use for testing or share with a third party, but it contains PII. The tool <strong>masks</strong> detected emails, phone numbers, and ID numbers, can <strong>hash</strong> specific fields (useful when you need consistent fake IDs across a dataset), or <strong>fake-replaces</strong> sensitive values with realistic but fabricated data. The result is a <strong>sanitised CSV</strong> that preserves data structure and volume without exposing real information.</p>
+
+<h2>7. Color Palette Generator, Schema Field Mapper & Trace Correlator</h2>
+<p>The <strong>Color Palette Generator</strong> takes a single seed colour and derives a full palette using colour theory: <strong>complementary</strong> (opposite on the colour wheel), <strong>triadic</strong> (three equidistant colours), or <strong>analogous</strong> (adjacent colours). Export results as <strong>hex codes</strong>, <strong>CSS custom properties</strong>, or a <strong>Tailwind CSS configuration snippet</strong> — drop it straight into your <code>tailwind.config.js</code>.</p>
+<p>The <strong>Schema Field Mapper</strong> addresses a perennial integration challenge: mapping fields from one data schema to another (e.g., a vendor API response to your internal model). Drag and drop source fields onto target fields, handle transformations, and <strong>export the mapping</strong> as a JSON specification or a JavaScript mapping function. The <strong>Distributed Trace Correlator</strong> is built for microservice debugging: paste trace IDs or log snippets from multiple services, enter your correlation field (request ID, session ID), and the tool assembles a <strong>timeline view</strong> showing the full request flow across services — turning what would be a manual log-grep exercise into a visual trace in seconds.</p>
+
+<h2>8. When to Use Browser-Based Developer Tools</h2>
+<p>Browser-based tools are not a replacement for your IDE or CLI — they are the right choice for quick, one-off tasks, for situations where you are on a machine that is not your primary workstation, or when you want to avoid installing yet another npm package or binary. They are also the right choice whenever privacy matters: because Rafiqy processes everything client-side, sensitive data never leaves your browser. All eleven tools are free, require no account, and are designed to open instantly so you can get the answer and get back to work.</p>
+
+<p><a href="/tools/json-formatter">Try the JSON Formatter free →</a></p>
+`,
+  },
+  {
+    slug: 'pakistan-tools-guide',
+    title: 'Pakistan-Specific Tools — Tax Calculator, Salary Slip, Kameti, Gold Price & CNIC Decoder',
+    description: 'Free Pakistan-specific tools on Rafiqy.app: FBR tax calculator, salary slip generator, Kameti tracker, gold & silver calculator, CNIC decoder, tax shield optimizer, and driving fine tracker.',
+    hero: '🇵🇰',
+    category: 'Pakistan',
+    readTime: '7 min read',
+    publishDate: '2025-08-01',
+    tags: ['Pakistan', 'tax calculator', 'salary slip', 'kameti', 'gold price', 'CNIC', 'FBR'],
+    content: `
+<h2>1. Tools Designed for Pakistan's Financial Reality</h2>
+<p>Most financial and productivity tools are built with the US or European market in mind. Pakistani professionals routinely deal with FBR tax slabs, EOBI contributions, informal savings circles (kameti), and city-specific gold prices — none of which are handled by generic calculators. Rafiqy.app has built a dedicated suite of <strong>Pakistan-specific tools</strong> that understand local regulations, currencies, and customs. All tools are free, require no sign-up, and work in any browser.</p>
+
+<h2>2. Key Features at a Glance</h2>
+<ul>
+  <li><strong>Pakistan Tax Calculator:</strong> FBR slab-based income tax for salaried/business income, tax year selector, deductions panel, zakat toggle, monthly breakdown, shareable result link</li>
+  <li><strong>Salary Slip Generator:</strong> gross/net salary computation, EOBI (Rs 370/month), PESSI/SESSI (6% employee contribution), income tax deduction, allowances (house rent, medical, conveyance), PDF export</li>
+  <li><strong>Kameti Tracker:</strong> add members, set monthly contribution, auto-rotate draw order, mark payments, send reminders, export rotation schedule</li>
+  <li><strong>Gold & Silver Calculator:</strong> live gold price (USD + PKR), manual price fallback, calculate value for tola/gram/kg, local city price context (Karachi, Lahore, Islamabad)</li>
+  <li><strong>Tax Shield Optimizer:</strong> Section 62 (mutual funds), 63 (life insurance), 64 (pension) deduction analysis, exact tax saving per rupee, optimal allocation across instruments</li>
+  <li><strong>Pakistan ID & Tax Hub:</strong> CNIC province/division/gender/year decoder, NTN lookup helper, driving fine categories by province, penalty amounts</li>
+  <li><strong>Driving Fine Tracker:</strong> log fines by category, track payment status and due dates, by province (Punjab, Sindh, KPK, Balochistan), calculate total outstanding</li>
+</ul>
+
+<h2>3. Pakistan Tax Calculator</h2>
+<p>Pakistan's income tax system uses a slab-based structure that changes every budget year, making manual calculations error-prone. Rafiqy's <strong>Pakistan Tax Calculator</strong> is updated for the current FBR tax year and supports both <strong>salaried</strong> and <strong>business income</strong> categories, which attract different rates under Pakistani tax law.</p>
+<p>The <strong>tax year selector</strong> lets you calculate for past years — useful for filing amended returns or comparing tax liability across years. The <strong>deductions panel</strong> allows you to enter allowable deductions such as medical expenses and charitable donations. A <strong>zakat toggle</strong> deducts the standard 2.5 % zakat for eligible individuals. The tool shows a <strong>monthly breakdown</strong> — critical for salaried employees and employers calculating monthly withholding — and a <strong>shareable result link</strong> so you can send your calculation to your accountant or HR department without re-entering data.</p>
+
+<h2>4. Salary Slip Generator</h2>
+<p>Generating a compliant salary slip in Pakistan requires applying several mandatory deductions correctly. Rafiqy's <strong>Salary Slip Generator</strong> handles all of them automatically. Enter gross salary and the tool computes <strong>EOBI contribution</strong> (Rs 370 per month employee contribution as per current EOBI Act), <strong>PESSI or SESSI contribution</strong> (6 % employee share — PESSI for Punjab, SESSI for Sindh), and the correct <strong>income tax withholding</strong> based on FBR slabs.</p>
+<p>Standard <strong>allowances</strong> — house rent allowance, medical allowance, and conveyance allowance — can be entered individually and are reflected in the gross-to-net breakdown. The finished salary slip <strong>exports to PDF</strong> in a format that meets standard HR and audit requirements. Whether you are an HR manager processing payroll for a small team or an employee verifying your own deductions, this tool removes the spreadsheet complexity entirely.</p>
+
+<h2>5. Kameti Tracker</h2>
+<p>The <em>kameti</em> (also known as <em>committee</em> or <em>chit fund</em>) is an informal rotating savings circle widely used in Pakistan. A group of people each contribute a fixed amount monthly, and one member receives the entire pool each month. Managing it manually — tracking who has paid, whose turn is next, and who owes what — creates endless confusion and disputes.</p>
+<p>Rafiqy's <strong>Kameti Tracker</strong> formalises the process digitally. Add all <strong>members</strong> by name, set the <strong>monthly contribution amount</strong>, and the tool automatically generates and manages the <strong>draw rotation order</strong>. Mark each month's payments as received or pending, and the tracker sends optional <strong>payment reminders</strong>. The full <strong>rotation schedule</strong> — showing who receives the pool in which month — can be <strong>exported</strong> and shared with all members, creating transparency and accountability without requiring a separate group chat.</p>
+
+<h2>6. Gold & Silver Calculator</h2>
+<p>Gold is a primary savings vehicle in Pakistan, and its price fluctuates daily in both USD and PKR. Rafiqy's <strong>Gold & Silver Calculator</strong> auto-fetches the <strong>live gold price</strong> in both currencies so your calculation always uses today's rate. If you are offline or prefer a specific rate (e.g., from your local jeweller), a <strong>manual price entry fallback</strong> overrides the live feed.</p>
+<p>Enter any weight in <strong>tola</strong> (the traditional South Asian unit), <strong>grams</strong>, or <strong>kilograms</strong> and the tool instantly calculates the total value. Critically, the calculator provides <strong>local city price context</strong> for Pakistan's three major markets — Karachi, Lahore, and Islamabad — because gold prices in Pakistan's physical markets vary slightly by city due to local demand and dealer margins. This makes the tool far more useful for practical buying and selling decisions than a generic international gold calculator.</p>
+
+<h2>7. Tax Shield Optimizer & Pakistan ID Hub</h2>
+<p>Many salaried Pakistanis pay more tax than necessary simply because they are unaware of the investment-linked tax deductions available under the Income Tax Ordinance. The <strong>Tax Shield Optimizer</strong> maps your income against three key sections: <strong>Section 62</strong> (investment in mutual funds — up to 20 % of taxable income deductible), <strong>Section 63</strong> (life insurance premiums), and <strong>Section 64</strong> (contributions to approved pension funds). For each section, it shows the <strong>exact tax saving per rupee invested</strong> at your marginal rate, and recommends the <strong>optimal allocation</strong> across all three instruments to maximise your total tax shield without exceeding statutory limits.</p>
+<p>The <strong>Pakistan ID & Tax Hub</strong> provides a set of reference utilities: the <strong>CNIC decoder</strong> reads the structure of a 13-digit CNIC to tell you the province, division, gender code, and registration year encoded in the number — useful for data validation and HR processes. An <strong>NTN lookup helper</strong> guides you through the FBR portal lookup process. Driving fine categories and penalty amounts by province are also included, giving you a quick reference before visiting a traffic court.</p>
+
+<h2>8. Driving Fine Tracker</h2>
+<p>Pakistan's provincial traffic authorities issue fines under different schedules — a speed violation in Punjab carries a different penalty than the same violation in Sindh or KPK. The <strong>Driving Fine Tracker</strong> lets you log fines by <strong>category</strong> (speeding, signal violation, document offence, etc.), track <strong>payment status</strong> and <strong>due dates</strong>, and filter your record by <strong>province</strong> (Punjab, Sindh, KPK, Balochistan). The tracker shows your <strong>total outstanding amount</strong> across all unpaid fines — a clear, consolidated view that is far easier to manage than paper challans scattered in a glove box.</p>
+<p>Together, these seven tools cover the financial lifecycle of a working Pakistani professional: earning (salary slip, tax calculator), saving (gold calculator, tax shield), community finance (kameti), compliance (CNIC/NTN hub), and day-to-day obligations (driving fines). All free, all local, all in one place.</p>
+
+<p><a href="/tools/tax-calculator">Try the Pakistan Tax Calculator free →</a></p>
+`,
+  },
 ]

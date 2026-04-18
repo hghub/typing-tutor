@@ -423,8 +423,21 @@ export default function GoldPrice() {
               />
               {livePKR && !isManual && (
                 <div style={{ fontSize: '0.7rem', color: '#10b981', marginTop: '0.25rem' }}>
-                  Auto-filled from live international rate
+                  ✓ Auto-filled from live international rate
                 </div>
+              )}
+              {isManual && (
+                <button
+                  onClick={() => { setGoldRate(livePKR || goldRate); setIsManual(false) }}
+                  style={{
+                    marginTop: '0.35rem', display: 'block', width: '100%',
+                    background: 'none', border: `1px dashed ${ACCENT}`,
+                    borderRadius: '0.4rem', padding: '0.3rem 0.5rem',
+                    fontSize: '0.72rem', color: ACCENT, cursor: 'pointer', textAlign: 'center',
+                  }}
+                >
+                  ↺ Reset to live rate
+                </button>
               )}
             </div>
             <div style={{ flex: 1, minWidth: '160px' }}>
@@ -455,8 +468,9 @@ export default function GoldPrice() {
           }}>
             <span style={{ flexShrink: 0 }}>ℹ️</span>
             <span>
-              Gold rate is auto-fetched from the international market (PAXG, CoinGecko) and converted to PKR/tola.
-              Silver rate is manual — enter from your <em>sarafa bazar</em>. Always verify before transacting.
+              Gold rate is auto-fetched from the international spot price (converted to PKR/tola).
+              Local <em>sarafa bazar</em> rates vary by city — <strong style={{ color: colors.text }}>edit the Gold Rate field above to enter your city's rate</strong> (Lahore, Karachi, etc. may differ by Rs 500–2,000/tola).
+              Silver rate is always manual — check your local market.
             </span>
           </div>
         </SectionCard>

@@ -1,4 +1,301 @@
 {
+  "redirects": [
+    {
+      "source": "/tools/typing-tutor",
+      "destination": "/typing-tutor-online-free",
+      "permanent": true
+    },
+    {
+      "source": "/tools/typely",
+      "destination": "/typing-tutor-online-free",
+      "permanent": true
+    },
+    {
+      "source": "/tools/word-counter",
+      "destination": "/word-counter-online-free",
+      "permanent": true
+    },
+    {
+      "source": "/tools/text-cleaner",
+      "destination": "/text-cleaner",
+      "permanent": true
+    },
+    {
+      "source": "/tools/urdu-keyboard",
+      "destination": "/urdu-keyboard-online",
+      "permanent": true
+    },
+    {
+      "source": "/tools/text-encryptor",
+      "destination": "/text-encryptor",
+      "permanent": true
+    },
+    {
+      "source": "/tools/doc-composer",
+      "destination": "/doc-composer",
+      "permanent": true
+    },
+    {
+      "source": "/tools/tax-calculator",
+      "destination": "/pakistan-tax-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/tools/loan-emi",
+      "destination": "/loan-emi-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/tools/pomodoro",
+      "destination": "/pomodoro-focus-engine",
+      "permanent": true
+    },
+    {
+      "source": "/tools/tax-optimizer",
+      "destination": "/tax-optimizer",
+      "permanent": true
+    },
+    {
+      "source": "/tools/currency-converter",
+      "destination": "/currency-converter-live",
+      "permanent": true
+    },
+    {
+      "source": "/tools/packing-list",
+      "destination": "/smart-packing-list",
+      "permanent": true
+    },
+    {
+      "source": "/tools/budget-splitter",
+      "destination": "/budget-splitter",
+      "permanent": true
+    },
+    {
+      "source": "/tools/drug-checker",
+      "destination": "/drug-checker",
+      "permanent": true
+    },
+    {
+      "source": "/tools/symptom-tracker",
+      "destination": "/symptom-tracker",
+      "permanent": true
+    },
+    {
+      "source": "/tools/data-transformer",
+      "destination": "/data-transformer",
+      "permanent": true
+    },
+    {
+      "source": "/tools/markdown-scraper",
+      "destination": "/markdown-scraper",
+      "permanent": true
+    },
+    {
+      "source": "/tools/log-analyzer",
+      "destination": "/log-analyzer",
+      "permanent": true
+    },
+    {
+      "source": "/tools/config-converter",
+      "destination": "/config-converter",
+      "permanent": true
+    },
+    {
+      "source": "/tools/mock-data",
+      "destination": "/mock-data",
+      "permanent": true
+    },
+    {
+      "source": "/tools/timeline-builder",
+      "destination": "/timeline-builder",
+      "permanent": true
+    },
+    {
+      "source": "/tools/position-size-calc",
+      "destination": "/position-size-calc",
+      "permanent": true
+    },
+    {
+      "source": "/tools/voice-invoice",
+      "destination": "/voice-invoice",
+      "permanent": true
+    },
+    {
+      "source": "/tools/property-comp",
+      "destination": "/property-comp",
+      "permanent": true
+    },
+    {
+      "source": "/tools/student-groups",
+      "destination": "/student-groups",
+      "permanent": true
+    },
+    {
+      "source": "/tools/refrigerant-calc",
+      "destination": "/refrigerant-calc",
+      "permanent": true
+    },
+    {
+      "source": "/tools/data-leak-detector",
+      "destination": "/data-leak-detector",
+      "permanent": true
+    },
+    {
+      "source": "/tools/doc-redaction",
+      "destination": "/doc-redaction",
+      "permanent": true
+    },
+    {
+      "source": "/tools/freelancer-risk",
+      "destination": "/freelancer-risk",
+      "permanent": true
+    },
+    {
+      "source": "/tools/expense-analyzer",
+      "destination": "/expense-pattern-analyzer",
+      "permanent": true
+    },
+    {
+      "source": "/tools/warranty-tracker",
+      "destination": "/warranty-tracker-online",
+      "permanent": true
+    },
+    {
+      "source": "/tools/driving-fines",
+      "destination": "/driving-fines",
+      "permanent": true
+    },
+    {
+      "source": "/tools/trace-correlator",
+      "destination": "/trace-correlator",
+      "permanent": true
+    },
+    {
+      "source": "/tools/schema-mapper",
+      "destination": "/schema-mapper",
+      "permanent": true
+    },
+    {
+      "source": "/tools/measurement-tracker",
+      "destination": "/measurement-tracker-online",
+      "permanent": true
+    },
+    {
+      "source": "/tools/compress-pdf",
+      "destination": "/compress-pdf-online-free",
+      "permanent": true
+    },
+    {
+      "source": "/tools/merge-pdf",
+      "destination": "/merge-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/tools/split-pdf",
+      "destination": "/split-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/tools/pdf-convert",
+      "destination": "/pdf-convert",
+      "permanent": true
+    },
+    {
+      "source": "/tools/doc-converter",
+      "destination": "/doc-converter",
+      "permanent": true
+    },
+    {
+      "source": "/tools/text-extractor",
+      "destination": "/text-extractor",
+      "permanent": true
+    },
+    {
+      "source": "/tools/pdf-search",
+      "destination": "/pdf-search",
+      "permanent": true
+    },
+    {
+      "source": "/tools/salary-slip",
+      "destination": "/salary-slip-generator",
+      "permanent": true
+    },
+    {
+      "source": "/tools/world-time",
+      "destination": "/world-time",
+      "permanent": true
+    },
+    {
+      "source": "/tools/voice-diary",
+      "destination": "/voice-diary",
+      "permanent": true
+    },
+    {
+      "source": "/tools/kameti",
+      "destination": "/kameti-committee-tracker",
+      "permanent": true
+    },
+    {
+      "source": "/tools/daily-planner",
+      "destination": "/daily-planner-online",
+      "permanent": true
+    },
+    {
+      "source": "/tools/habit-tracker",
+      "destination": "/habit-tracker",
+      "permanent": true
+    },
+    {
+      "source": "/tools/color-palette",
+      "destination": "/color-palette",
+      "permanent": true
+    },
+    {
+      "source": "/tools/pk-id-tax-hub",
+      "destination": "/pk-id-tax-hub",
+      "permanent": true
+    },
+    {
+      "source": "/tools/loan-manager",
+      "destination": "/loan-manager",
+      "permanent": true
+    },
+    {
+      "source": "/tools/regex-tester",
+      "destination": "/regex-tester",
+      "permanent": true
+    },
+    {
+      "source": "/tools/json-formatter",
+      "destination": "/json-formatter",
+      "permanent": true
+    },
+    {
+      "source": "/tools/text-diff",
+      "destination": "/text-diff-checker",
+      "permanent": true
+    },
+    {
+      "source": "/tools/gold-price",
+      "destination": "/gold-price",
+      "permanent": true
+    },
+    {
+      "source": "/tools/image-suite",
+      "destination": "/image-suite",
+      "permanent": true
+    },
+    {
+      "source": "/tools/resume-builder",
+      "destination": "/resume-builder",
+      "permanent": true
+    },
+    {
+      "source": "/tools/whatsapp-tools",
+      "destination": "/whatsapp-tools",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/((?!.*\\.).*)",

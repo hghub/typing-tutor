@@ -193,7 +193,7 @@ export default function Landing() {
           </div>
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
             <Link to="/tools" style={{ color: 'var(--color-primary)', fontWeight: 600, textDecoration: 'none' }}>
-              Browse all 57 tools →
+              Browse all 58 tools →
             </Link>
           </div>
         </div>
@@ -225,7 +225,7 @@ export default function Landing() {
         </div>
         <div style={{ textAlign: 'center', marginTop: '2rem' }}>
           <Link to="/tools" style={{ color: 'var(--color-primary)', textDecoration: 'none', fontWeight: 600 }}>
-            View all 57 tools →
+            View all 58 tools →
           </Link>
         </div>
       </section>

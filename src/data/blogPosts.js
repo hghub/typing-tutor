@@ -351,4 +351,306 @@ export const BLOG_POSTS = [
 <p><a href="/tools/tax-calculator">Try the Pakistan Tax Calculator free →</a></p>
 `,
   },
+  {
+    slug: 'finance-investing',
+    title: 'Free Finance Tools — EMI Calculator, Loan Manager, Expense Tracker & Position Sizing',
+    description: 'Manage loans, track expenses, analyze spending patterns, monitor fines, and size trading positions — all free tools for smarter personal finance.',
+    hero: '💰',
+    category: 'Finance',
+    readTime: '9 min read',
+    publishDate: '2025-08-15',
+    tags: ['finance', 'EMI calculator', 'loan', 'expense tracker', 'investing', 'position sizing'],
+    content: `<h2>Take Control of Your Financial Life</h2>
+<p>Whether you are taking out a home loan, tracking monthly spending, managing multiple debts, or sizing a trading position, having the right tools makes the difference between guessing and knowing. Rafiqy's suite of free finance tools gives you a clear picture of your money — with no sign-up required and no data ever leaving your browser.</p>
+
+<h2>Key Features at a Glance</h2>
+<ul>
+  <li><strong>Loan EMI Calculator</strong> — compute monthly EMI, total interest, and full amortization table; compare two loan options side-by-side</li>
+  <li><strong>Loan Manager</strong> — track multiple active loans, record each payment, view remaining balance and interest accrued, export statement</li>
+  <li><strong>Expense Pattern Analyzer</strong> — paste a bank statement CSV, get auto-categorized spending (food, transport, bills), monthly trend chart, and anomaly detection</li>
+  <li><strong>Driving Fine Tracker</strong> — log traffic fines, track payment status and due dates, see running total outstanding</li>
+  <li><strong>Position Size Calculator</strong> — enter account size, risk percentage, and stop-loss distance to calculate lot size, max loss, and R:R ratio for stocks, forex, or crypto</li>
+</ul>
+
+<h2>1. Loan EMI Calculator</h2>
+<p>Before signing any loan agreement, you need to know exactly what you are committing to. Rafiqy's <strong>Loan EMI Calculator</strong> takes your <strong>principal amount</strong>, <strong>annual interest rate</strong>, and <strong>loan tenure</strong> and instantly computes your <strong>monthly EMI</strong>, <strong>total interest paid</strong> over the life of the loan, and a complete <strong>amortization table</strong> showing how each payment is split between principal and interest.</p>
+<p>The standout feature is <strong>side-by-side loan comparison</strong>: enter two loan offers simultaneously and see which one costs less in total — even if one has a lower EMI but a longer tenure. This alone can save you hundreds of thousands of rupees on a home or car loan by making the true cost of each option immediately visible.</p>
+
+<h2>2. Loan Manager</h2>
+<p>Most people carry more than one loan — a car loan, a personal loan, a credit card balance. The <strong>Loan Manager</strong> lets you add all your active loans in one place, <strong>record payments</strong> as you make them, and always know your <strong>remaining balance</strong> and <strong>total interest accrued to date</strong> for each loan. No more digging through bank statements to figure out how much you still owe.</p>
+<p>When you need a formal record — for a tax filing, a mortgage application, or your own audit — you can <strong>export a full payment statement</strong> covering the entire history of any loan. All data is stored locally in your browser, so your financial information stays private.</p>
+
+<h2>3. Expense Pattern Analyzer</h2>
+<p>Most people have a vague sense that they spend too much on food or dining out, but rarely know the actual number. The <strong>Expense Pattern Analyzer</strong> fixes this by letting you <strong>paste your bank statement CSV</strong> directly into the tool. It automatically <strong>categorizes each transaction</strong> into spending buckets — food and dining, transport, utility bills, shopping, entertainment, and more — using pattern-matching on the transaction descriptions.</p>
+<p>The output is a <strong>monthly trend chart</strong> showing how your spending in each category has changed over time, a <strong>top spending categories</strong> breakdown, and an <strong>anomaly detection</strong> flag that highlights months or transactions that deviate significantly from your normal pattern — useful for catching unusual charges or billing errors.</p>
+
+<h2>4. Driving Fine Tracker</h2>
+<p>Traffic fines have a habit of accumulating, getting lost in piles of paper challans, and then arriving as compounded penalties. The <strong>Driving Fine Tracker</strong> lets you <strong>log each fine</strong> with its category, amount, issue date, and due date. Mark fines as paid when settled, and the tracker maintains a <strong>running total of outstanding fines</strong> so you always know your exposure before a vehicle token renewal or license check.</p>
+<p>Filtering by province (Punjab, Sindh, KPK, Balochistan) and by fine type helps you spot patterns — whether you need to slow down on school zones or sort out your vehicle documentation once and for all.</p>
+
+<h2>5. Position Size Calculator</h2>
+<p>Risk management is the foundation of trading longevity, and <strong>position sizing</strong> is its most important mechanic. The <strong>Position Size Calculator</strong> is built for traders in stocks, forex, and cryptocurrency. Enter your <strong>account size</strong>, the <strong>percentage of capital you are willing to risk on this trade</strong>, and the <strong>stop-loss distance</strong> in price units, and the tool instantly calculates the <strong>correct lot or share size</strong>, your <strong>maximum loss in currency terms</strong>, and the <strong>risk-to-reward ratio</strong> if you also enter a target price.</p>
+<p>This prevents the most common trading mistake: sizing positions by gut feel and then experiencing a loss far larger than planned. Whether you trade the PSX, forex pairs involving PKR, or crypto, the calculator keeps your risk consistent and your account intact.</p>
+
+<h2>Why These Tools Are Different</h2>
+<p>Most finance calculators are single-purpose and show you a number without context. Rafiqy's tools are designed to work together as a personal finance dashboard — from planning a loan before you take it, to managing repayment while you hold it, to understanding where the rest of your money goes and protecting your trading capital. All tools are free, browser-based, and require no account or download.</p>
+
+<p><a href="/tools/emi-calculator">Try the Loan EMI Calculator free →</a></p>
+`,
+  },
+  {
+    slug: 'security-privacy-tools',
+    title: 'Free Privacy & Security Tools — Encrypt Text, Detect Data Leaks & Redact Documents',
+    description: 'Protect sensitive information with AES-256 encryption, automatic data leak detection, and smart document redaction — all running offline in your browser.',
+    hero: '🔒',
+    category: 'Security',
+    readTime: '7 min read',
+    publishDate: '2025-08-15',
+    tags: ['security', 'privacy', 'encryption', 'data leak', 'redaction', 'AES'],
+    content: `<h2>Why Privacy Tools Matter More Than Ever</h2>
+<p>Every day, sensitive information is shared carelessly — in emails, in documents sent to vendors, in code committed to repositories, in CSV exports forwarded through WhatsApp. A single exposed API key can drain a cloud account. A CNIC number in an unredacted document can enable identity fraud. Rafiqy's privacy and security tools give you the ability to <strong>encrypt</strong>, <strong>detect exposure</strong>, and <strong>redact</strong> sensitive data before it causes damage — all running locally in your browser, with nothing sent to any server.</p>
+
+<h2>Key Features at a Glance</h2>
+<ul>
+  <li><strong>Text Encryptor</strong> — AES-256 encryption and decryption, password-protected, works fully offline, copy encrypted text to share safely</li>
+  <li><strong>Data Leak Detector</strong> — paste any text or code, automatically detect exposed emails, phone numbers, IP addresses, API keys, passwords, and credit card patterns</li>
+  <li><strong>Smart Document Redaction</strong> — upload a PDF or paste text, auto-detect PII (names, CNICs, phone numbers, emails), redact with black bars or replace with placeholders, export redacted PDF</li>
+</ul>
+
+<h2>1. Text Encryptor</h2>
+<p>When you need to send a password, a secret note, or confidential information through an insecure channel — a chat app, an email, a shared document — encrypting it first ensures that only the intended recipient can read it. Rafiqy's <strong>Text Encryptor</strong> uses <strong>AES-256</strong>, the same encryption standard used by governments and banks worldwide, to convert your plaintext into unreadable ciphertext locked by a password you choose.</p>
+<p>The tool works <strong>entirely offline</strong> — encryption happens in your browser using the Web Crypto API, so the original text and the password never leave your device. The encrypted output is a compact string you can paste anywhere. The recipient uses the same tool with the same password to decrypt. No accounts, no keys to manage, no server-side storage. Just pure, strong encryption available instantly.</p>
+
+<h2>2. Data Leak Detector</h2>
+<p>Before publishing a blog post, committing code, sharing a spreadsheet, or sending a document externally, it is worth checking whether any sensitive data is accidentally included. The <strong>Data Leak Detector</strong> lets you <strong>paste any text</strong> — a code file, an email draft, a CSV export, a log file — and automatically scans it for patterns that indicate sensitive data exposure.</p>
+<p>The detector identifies: <strong>email addresses</strong>, <strong>phone numbers</strong> (including Pakistani formats), <strong>IP addresses</strong>, <strong>API keys and tokens</strong> (common patterns like AWS, Google, Stripe, OpenAI), <strong>password-like strings</strong> in configuration files, and <strong>credit card number patterns</strong>. Each match is <strong>highlighted in the text</strong> and counted in a summary report, giving you a clear picture of what needs to be removed or replaced before sharing.</p>
+
+<h2>3. Smart Document Redaction</h2>
+<p>Legal firms, HR departments, healthcare providers, and government offices regularly need to share documents with sensitive information removed. Doing this manually — drawing black boxes in a PDF editor, hoping you caught everything — is slow and error-prone. The <strong>Smart Document Redaction</strong> tool automates the detection and removal of personally identifiable information.</p>
+<p>Upload a PDF or paste text, and the tool automatically detects <strong>PII patterns</strong>: full names (using NLP heuristics), <strong>CNIC numbers</strong> (13-digit Pakistani format), <strong>phone numbers</strong>, <strong>email addresses</strong>, and other sensitive patterns. You can choose to <strong>redact with black bars</strong> (standard legal redaction) or <strong>replace with fake-but-plausible placeholders</strong> (useful for test data generation). The output is an <strong>exported redacted PDF</strong> or text that is safe to share, with all detected PII removed or masked.</p>
+
+<h2>The Offline-First Principle</h2>
+<p>The most important aspect of all three tools is that they process data <strong>locally in your browser</strong>. There is no upload to a cloud service, no logging of your input, no analytics on your content. For genuinely sensitive documents — legal files, medical records, financial data — this is not just a convenience: it is a requirement. Rafiqy's security tools are built on this offline-first principle, so you can use them even for your most confidential information.</p>
+
+<h2>When to Use Each Tool</h2>
+<p>Use the <strong>Text Encryptor</strong> whenever you need to share a secret over an insecure channel. Use the <strong>Data Leak Detector</strong> as a pre-flight check before any document leaves your hands. Use the <strong>Document Redaction</strong> tool when sharing documents that contain other people's information. Together, they cover the full privacy lifecycle: protect, detect, and redact.</p>
+
+<p><a href="/tools/text-encryptor">Try the Text Encryptor free →</a></p>
+`,
+  },
+  {
+    slug: 'health-wellness-tools',
+    title: 'Free Health & Wellness Tools — Drug Interactions, Symptom Tracker & Measurements',
+    description: 'Check drug interactions, log symptoms over time, and track health measurements like blood pressure and glucose — all private, all free, all browser-based.',
+    hero: '🏥',
+    category: 'Health',
+    readTime: '7 min read',
+    publishDate: '2025-08-15',
+    tags: ['health', 'drug interactions', 'symptom tracker', 'wellness', 'medication', 'health tools'],
+    content: `<h2>Your Personal Health Companion</h2>
+<p>Managing your health between doctor visits requires more than memory. Knowing which medications interact, remembering when symptoms started, and tracking whether blood pressure is trending up or down — these are exactly the kinds of questions that well-designed tools can answer. Rafiqy's health and wellness tools are built for personal use: they are private, free, require no account, and keep all your data on your device.</p>
+
+<h2>Key Features at a Glance</h2>
+<ul>
+  <li><strong>Drug Interaction Checker</strong> — enter multiple medications and check interactions via FDA database data, with severity levels (major, moderate, minor) and clear disclaimers</li>
+  <li><strong>Symptom Context Tracker</strong> — log symptoms with date, time, severity, and notes; track patterns over time; export a summary for your doctor visit</li>
+  <li><strong>Measurement Tracker</strong> — log weight, blood pressure, blood glucose, or any custom metric; chart trends over time; set target ranges; export CSV</li>
+</ul>
+
+<h2>1. Drug Interaction Checker</h2>
+<p>Polypharmacy — taking multiple medications simultaneously — is common among patients managing chronic conditions, and drug interactions are one of the leading causes of preventable hospital admissions. The <strong>Drug Interaction Checker</strong> lets you enter all the medications you are currently taking and checks every combination for known interactions using FDA drug interaction database data.</p>
+<p>Each identified interaction is flagged with a <strong>severity level</strong>: <strong>major</strong> (avoid combination), <strong>moderate</strong> (use with caution and monitoring), or <strong>minor</strong> (generally manageable). A plain-language description explains the nature of the interaction — for example, that two medications both prolong the QT interval, or that one increases the blood concentration of another. Every result includes a prominent <strong>disclaimer</strong> directing you to consult a pharmacist or physician before making any medication decisions. This tool is designed to inform, not replace, professional advice.</p>
+
+<h2>2. Symptom Context Tracker</h2>
+<p>When you finally get a doctor's appointment, the most valuable thing you can bring is an accurate, timestamped record of your symptoms. "I've had this pain for a few weeks, maybe since I started the new medication" is far less useful than a log showing that the pain began on a specific date, peaks in the evening, rates 6/10 in severity, and correlates with a particular activity.</p>
+<p>The <strong>Symptom Context Tracker</strong> lets you log each symptom occurrence with <strong>date and time</strong>, a <strong>severity rating</strong> (1–10), and <strong>free-text notes</strong> for context. Over time, the tracker surfaces <strong>patterns</strong>: which symptoms recur, how often, at what severity, and whether they are trending better or worse. A one-tap <strong>export function</strong> generates a clean summary you can print or show your doctor, turning weeks of scattered notes into a coherent clinical history. <strong>No data ever leaves your browser</strong> — your health diary stays completely private.</p>
+
+<h2>3. Measurement Tracker</h2>
+<p>Chronic conditions like hypertension, diabetes, and obesity require regular monitoring of specific metrics. The <strong>Measurement Tracker</strong> supports the most common health measurements — <strong>weight</strong>, <strong>blood pressure</strong> (systolic and diastolic), <strong>blood glucose</strong>, and <strong>SpO2</strong> — as well as fully <strong>custom metrics</strong> you can define yourself (HbA1c, medication dose, step count, sleep hours, or anything else).</p>
+<p>Each metric is displayed as a <strong>chart over time</strong>, making trends immediately visible. You can set a <strong>target range</strong> for any metric — for example, blood pressure between 110/70 and 130/85 — and the chart highlights readings outside the target in a different colour. The complete history can be <strong>exported as CSV</strong> for sharing with your doctor, importing into a spreadsheet, or as a personal archive. All processing happens locally; nothing is sent to any server.</p>
+
+<h2>4. Privacy as a Design Principle</h2>
+<p>Health data is among the most sensitive personal information that exists. Rafiqy's health tools are designed with an explicit commitment to <strong>local-only storage</strong>: all data is stored in your browser's local storage or IndexedDB and is never transmitted to any server, never analyzed, and never monetized. There is no account to create, no email to verify, and no terms of service requiring you to grant data rights. If you clear your browser data, your health records are deleted — because they only ever existed on your device.</p>
+
+<h2>A Note on Medical Advice</h2>
+<p>These tools are designed to help you <strong>track, understand, and communicate</strong> your health information more effectively. They are not diagnostic tools and do not replace the advice of a qualified healthcare professional. Use them to become a more informed and prepared patient, not as a substitute for medical consultation.</p>
+
+<p><a href="/tools/drug-interactions">Try the Drug Interaction Checker free →</a></p>
+`,
+  },
+  {
+    slug: 'travel-tools',
+    title: 'Free Travel Tools — Currency Converter, Packing List & Trip Budget Splitter',
+    description: 'Plan and manage every trip with live currency conversion, smart packing lists, and an automatic group expense splitter — free tools for smarter travel.',
+    hero: '✈️',
+    category: 'Travel',
+    readTime: '7 min read',
+    publishDate: '2025-08-15',
+    tags: ['travel', 'currency converter', 'packing list', 'budget splitter', 'trip planning', 'PKR'],
+    content: `<h2>Travel Smarter, Not Harder</h2>
+<p>Traveling — whether domestically or abroad — involves dozens of small decisions that compound into big outcomes: how much local currency to carry, whether you packed the right gear for the climate, and who owes whom after splitting fourteen shared meals and two hotel rooms. Rafiqy's travel tools solve each of these problems with free, browser-based utilities that work even when you are offline mid-journey.</p>
+
+<h2>Key Features at a Glance</h2>
+<ul>
+  <li><strong>Currency Converter</strong> — live exchange rates for 170+ currencies, PKR prominently featured, convert multiple amounts simultaneously, historical rate context</li>
+  <li><strong>Smart Packing List</strong> — trip-type presets (beach, business, hiking, cold weather), custom items, check off as you pack, duplicate list for repeat trips, export PDF</li>
+  <li><strong>Trip Budget Splitter</strong> — add travelers, log shared expenses, auto-calculate who owes whom, supports multiple currencies, export settlement summary</li>
+</ul>
+
+<h2>1. Currency Converter</h2>
+<p>Currency confusion is one of the most common sources of travel overspending. Not knowing whether you are getting a fair rate, mentally converting every price, or carrying the wrong amount of cash all create friction and cost money. Rafiqy's <strong>Currency Converter</strong> covers <strong>170+ world currencies</strong> with <strong>live exchange rates</strong> updated regularly, so you always have the current rate at your fingertips.</p>
+<p><strong>PKR (Pakistani Rupee)</strong> is featured prominently given Rafiqy's user base, with common PKR conversion pairs — USD/PKR, AED/PKR, SAR/PKR, GBP/PKR, EUR/PKR — accessible in one tap. The <strong>multi-amount conversion</strong> feature lets you convert several amounts simultaneously — useful when comparing prices across stores in different currencies. A <strong>historical rate context</strong> indicator shows whether the current rate is stronger or weaker than recent history, giving you a sense of whether now is a good time to exchange.</p>
+
+<h2>2. Smart Packing List</h2>
+<p>Forgetting a charging cable, arriving in Lahore summer heat with only winter clothes, or over-packing a carry-on to the point of checked-bag fees — these are problems that a good packing list solves. Rafiqy's <strong>Smart Packing List</strong> offers pre-built <strong>trip-type presets</strong> that cover the most common packing scenarios: <strong>beach trip</strong>, <strong>business travel</strong>, <strong>hiking or trekking</strong>, and <strong>cold weather travel</strong>. Each preset starts with a sensible default list of items appropriate for that trip type.</p>
+<p>You can add <strong>custom items</strong> to any preset, remove items you do not need, and <strong>check off items</strong> as you pack them. The progress indicator shows how much of your list is complete. Finished packing? <strong>Export your list as a PDF</strong> to print or save. Going on the same trip again? <strong>Duplicate the list</strong> with one click rather than rebuilding it from scratch. The result is a packing workflow that is faster, less stressful, and far less likely to result in "I can't believe I forgot my ___".</p>
+
+<h2>3. Trip Budget Splitter</h2>
+<p>Group travel is wonderful until someone asks "so who paid for the hotel?" at the end of the trip. The <strong>Trip Budget Splitter</strong> makes settling group expenses completely painless. Add all <strong>travelers</strong> by name, then log each <strong>shared expense</strong> — meals, accommodation, transport, activities — noting who paid and how much. The tool supports <strong>multiple currencies</strong>, converting everything to a base currency so that a meal paid in Euros and a taxi paid in dirhams can coexist in the same calculation.</p>
+<p>The algorithm automatically computes the <strong>minimum number of transactions</strong> needed to settle all debts — so instead of seven people making fourteen payments to each other, you might end up with just three payments that balance everything. The <strong>settlement summary</strong> is exportable so you can share it with the group via WhatsApp or email, with no ambiguity about who owes whom and how much.</p>
+
+<h2>4. Planning Your Next Trip</h2>
+<p>The three tools work together naturally as a trip planning workflow: use the <strong>Currency Converter</strong> to set a daily budget in local currency before you depart, the <strong>Smart Packing List</strong> to make sure you have everything you need, and the <strong>Trip Budget Splitter</strong> to keep finances clean if you are traveling with others. All three are free, require no sign-up, and work on any device — including mobile, which is exactly where you need them when standing in a currency exchange queue at an airport.</p>
+
+<p><a href="/tools/currency-converter">Try the Currency Converter free →</a></p>
+`,
+  },
+  {
+    slug: 'pdf-tools-guide',
+    title: 'Free Online PDF Tools — Compress, Merge, Split, Convert & Extract Text',
+    description: 'A complete guide to Rafiqy\'s free PDF tools: compress, merge, split, convert PDFs, extract text with OCR (supports Urdu), and search within PDFs.',
+    hero: '📄',
+    category: 'PDF',
+    readTime: '8 min read',
+    publishDate: '2025-08-15',
+    tags: ['PDF tools', 'compress PDF', 'merge PDF', 'OCR', 'PDF converter', 'split PDF'],
+    content: `<h2>Everything You Need for PDF Files, Free</h2>
+<p>PDF is the universal format for documents — but working with PDF files has traditionally required expensive software like Adobe Acrobat. Rafiqy brings together a complete set of <strong>free, browser-based PDF tools</strong> that handle every common PDF task: compression, merging, splitting, conversion, text extraction with OCR, and in-document search. No installation, no account, no file size surprise fees.</p>
+
+<h2>Key Features at a Glance</h2>
+<ul>
+  <li><strong>Compress PDF</strong> — reduce file size without perceptible quality loss; choose compression level; see before/after size comparison</li>
+  <li><strong>Merge PDF</strong> — drag and drop multiple PDFs, reorder pages, merge into a single file, download instantly</li>
+  <li><strong>Split PDF</strong> — extract specific page ranges, split by every N pages, or save individual pages as separate files</li>
+  <li><strong>PDF Convert</strong> — convert PDF to Word, Excel, PowerPoint, or images, and back again; preserves original formatting</li>
+  <li><strong>Doc Converter</strong> — convert DOCX, ODT, and RTF files to PDF, or Word documents to images</li>
+  <li><strong>Text Extractor (OCR)</strong> — extract text from scanned PDFs and images; supports English and Urdu; copy or download extracted text</li>
+  <li><strong>PDF Search</strong> — upload a PDF, search within it, highlight matches, jump to the matching page</li>
+</ul>
+
+<h2>1. Compress PDF</h2>
+<p>A 20 MB PDF that could be 2 MB creates problems everywhere: email attachment limits, slow WhatsApp transfers, storage quotas. Rafiqy's <strong>Compress PDF</strong> tool reduces file size by optimizing internal PDF structure, downsampling embedded images appropriately, and removing redundant metadata. You choose the <strong>compression level</strong> — from light (minimal quality change) to aggressive (maximum size reduction) — and see the <strong>before and after file size</strong> before downloading. Typical compression ratios range from 30% to 80% depending on the content type.</p>
+
+<h2>2. Merge PDF</h2>
+<p>Combining multiple PDF files into a single document — a tender submission, a collection of scanned forms, a multi-chapter report — is one of the most requested PDF operations. Rafiqy's <strong>Merge PDF</strong> tool accepts <strong>multiple PDF uploads via drag and drop</strong>, lets you <strong>reorder files and individual pages</strong> in the merged output, and produces a single combined PDF you can download immediately. The tool handles PDFs of different sizes and orientations without distortion.</p>
+
+<h2>3. Split PDF</h2>
+<p>The reverse operation — extracting a subset of pages from a large PDF — is equally common. Use <strong>Split PDF</strong> to extract a specific <strong>page range</strong> (e.g., pages 15–22 from a 200-page report), split a document into files of <strong>every N pages</strong> (e.g., every 10 pages), or extract <strong>individual pages</strong> as separate PDF files. This is useful for extracting a single contract from a multi-contract PDF, or separating a combined bank statement into monthly files.</p>
+
+<h2>4. PDF Convert and Doc Converter</h2>
+<p>Rafiqy's <strong>PDF Convert</strong> tool handles bidirectional conversion: <strong>PDF to Word</strong> (DOCX), <strong>PDF to Excel</strong> (XLSX), <strong>PDF to PowerPoint</strong> (PPTX), and <strong>PDF to images</strong> (PNG/JPG). It also handles the reverse — converting Word, Excel, or PowerPoint files back to PDF. The conversion engine preserves <strong>original formatting</strong>, including tables, columns, and embedded fonts, as closely as possible.</p>
+<p>The <strong>Doc Converter</strong> complements this with support for less common formats: converting <strong>DOCX, ODT, and RTF</strong> files to PDF (useful for LibreOffice and Google Docs exports), and converting Word documents to images for embedding in presentations or social media.</p>
+
+<h2>5. Text Extractor with OCR (English & Urdu)</h2>
+<p>Scanned documents — a photographed receipt, a scanned government letter, an image-based PDF from a court — contain text that is visually present but not machine-readable. <strong>Optical Character Recognition (OCR)</strong> converts that visual text into actual characters you can copy, search, and edit. Rafiqy's <strong>Text Extractor</strong> runs OCR on scanned PDFs and images and supports both <strong>English</strong> and <strong>Urdu</strong> — a critical feature for users dealing with Pakistani government documents, Urdu newspapers, or bilingual official correspondence.</p>
+<p>The extracted text can be <strong>copied to clipboard</strong> or <strong>downloaded as a text file</strong>, making it available for translation, summarization, or import into any document editor.</p>
+
+<h2>6. PDF Search</h2>
+<p>Finding information in a long PDF without a built-in search (common in browser-opened or downloaded files) is tedious. <strong>PDF Search</strong> lets you upload any PDF, enter a search term, and instantly see all <strong>highlighted matches</strong> with the ability to <strong>jump to any matching page</strong>. This is particularly useful for legal documents, academic papers, and government notifications where you need to locate a specific clause or reference quickly.</p>
+
+<h2>The Complete PDF Workflow</h2>
+<p>These seven tools cover the entire PDF lifecycle: receive a large scanned PDF → <em>OCR extract</em> the text → <em>split</em> out relevant pages → <em>edit</em> in Word via <em>PDF Convert</em> → <em>merge</em> with supporting documents → <em>compress</em> for email attachment. All steps are free, browser-based, and require no account or software installation.</p>
+
+<p><a href="/tools/compress-pdf">Try the PDF Compressor free →</a></p>
+`,
+  },
+  {
+    slug: 'urdu-tools-guide',
+    title: 'Free Urdu Language Tools — Urdu Keyboard, Phonetic Typing, Voice Diary in Urdu',
+    description: 'Type, transcribe, and write in Urdu using free tools: on-screen keyboard, phonetic Roman-to-Urdu conversion, and voice diary in Urdu — all browser-based.',
+    hero: 'اردو',
+    category: 'Language',
+    readTime: '7 min read',
+    publishDate: '2025-08-15',
+    tags: ['Urdu tools', 'Urdu keyboard', 'phonetic Urdu', 'voice diary Urdu', 'Urdu typing', 'اردو'],
+    content: `<h2>اردو میں لکھیں — Write in Urdu, Your Way</h2>
+<p>Urdu is spoken by over 100 million people as a first language and is the national language of Pakistan, yet digital tools for composing, typing, and transcribing Urdu remain frustratingly limited. Most people resort to typing Roman Urdu (Romanized phonetic text) because proper Urdu input is too cumbersome. Rafiqy changes that with a suite of free, browser-based tools designed specifically for Urdu composition — no special keyboard hardware required, no app installation, no account needed.</p>
+
+<h2>Key Features at a Glance</h2>
+<ul>
+  <li><strong>Urdu Keyboard</strong> — full on-screen keyboard with Nastaliq font support; type with mouse or physical keyboard using phonetic or Inpage-style layouts; copy Urdu text anywhere</li>
+  <li><strong>Typely Phonetic Urdu Mode</strong> — type Roman Urdu (e.g. "pakistan") and watch it auto-convert to اردو script in real-time; practice passages available in Urdu, Arabic, and Persian</li>
+  <li><strong>Voice Diary in Urdu</strong> — speak in Urdu and the tool transcribes using the browser's speech API; save and tag diary entries; export as Urdu text</li>
+  <li><strong>Urdu UI Toggle</strong> — every Rafiqy tool can display its interface in Urdu; a language toggle in the navigation bar switches all labels, instructions, and tooltips to Urdu</li>
+</ul>
+
+<h2>1. Urdu On-Screen Keyboard</h2>
+<p>The <strong>Urdu Keyboard</strong> provides a complete on-screen keyboard rendered in authentic <strong>Nastaliq calligraphic font</strong> — the traditional Urdu script style used in Pakistani print media, books, and official documents. You can operate it entirely with a <strong>mouse or touchscreen</strong>, making it ideal for tablets and situations where switching keyboard layouts is impractical.</p>
+<p>For users who prefer physical keyboard input, the tool supports two layout modes: <strong>phonetic layout</strong> (where English keys map to the closest Urdu sound — "k" types "ک", "p" types "پ") and <strong>Inpage-style layout</strong> (the standard used by Pakistan's Inpage Urdu software, familiar to typographers and publishers). Text composed in the keyboard tool can be <strong>copied with one click</strong> and pasted into any application — WhatsApp Web, email, Google Docs, social media — without any special font or encoding requirements.</p>
+
+<h2>2. Typely — Phonetic Urdu Typing Mode</h2>
+<p>Typely is Rafiqy's typing practice tool, and its <strong>Phonetic Urdu Mode</strong> is one of its most distinctive features. When this mode is active, you type in <strong>Roman Urdu</strong> — the way most Pakistanis naturally write Urdu in informal digital contexts — and Typely <strong>automatically converts your input to proper Urdu script in real-time</strong> as you type. Type "pakistan" and see "پاکستان" appear. Type "shukriya" and see "شکریہ".</p>
+<p>This serves two purposes simultaneously: it makes Urdu script typing accessible to people who have never learned formal Urdu keyboard layouts, and it trains muscle memory for phonetic-to-script mapping so you improve over time. Typely also offers <strong>practice passages in Urdu, Arabic, and Persian</strong>, making it useful for students studying any of these languages or professionals who need to type in these scripts regularly.</p>
+
+<h2>3. Voice Diary in Urdu</h2>
+<p>Speaking is the most natural form of Urdu expression for most native speakers, and the <strong>Voice Diary in Urdu</strong> tool harnesses this. Tap the microphone button, speak naturally in Urdu, and the tool uses your browser's built-in <strong>Web Speech API</strong> to transcribe your speech into Urdu script in real-time. The result is a text entry you can review, edit if needed, then save as a diary entry.</p>
+<p>Each entry is <strong>timestamped</strong> and can be given <strong>tags</strong> for later retrieval (e.g., "work", "family", "ideas"). The full diary is stored locally in your browser — it never leaves your device, making it appropriate for private personal reflection. Entries can be <strong>exported as Urdu text</strong> for use in other applications, printing, or archiving. The tool is particularly useful for people who think and express themselves more fluently in spoken Urdu than in typed form.</p>
+
+<h2>4. Urdu UI Across All Rafiqy Tools</h2>
+<p>Beyond the dedicated Urdu tools, Rafiqy supports an <strong>Urdu interface language toggle</strong> in the main navigation bar. Activating it switches the entire interface — tool labels, instructions, placeholder text, tooltips, and error messages — to Urdu. This makes all of Rafiqy's 50+ tools accessible to users who are more comfortable reading in Urdu than in English, without requiring a separate Urdu-language version of the site.</p>
+<p>This is particularly significant for the finance, health, and legal tools, where understanding the instructions correctly is important. A salary slip generator that explains its fields in Urdu is simply more useful for the large proportion of Pakistani professionals who read Urdu more fluently than English.</p>
+
+<h2>Urdu in the Digital Age</h2>
+<p>Urdu's online presence has grown substantially with the rise of Pakistani social media, Urdu news sites, and digital publishing. The tools above are designed to meet Urdu users where they are — lowering the barrier to composing in proper Urdu script, making voice-based entry natural, and ensuring that language is never a barrier to accessing useful digital tools. All free, all browser-based, all respectful of your privacy.</p>
+
+<p><a href="/tools/urdu-keyboard">Try the Urdu Keyboard free →</a></p>
+`,
+  },
+  {
+    slug: 'business-tools',
+    title: 'Free Business Tools — Voice Invoice, Freelancer Risk, Property Adjuster & Warranty Tracker',
+    description: 'Run your business smarter with free tools: voice-to-invoice generation, freelancer client risk scoring, property value comparison, HVAC refrigerant tracking, and warranty management.',
+    hero: '💼',
+    category: 'Business',
+    readTime: '9 min read',
+    publishDate: '2025-08-15',
+    tags: ['business tools', 'invoice', 'freelancer', 'warranty tracker', 'property', 'HVAC'],
+    content: `<h2>Business Tools Built for Real Work</h2>
+<p>Running a business — whether you are a freelancer, a property professional, an HVAC technician, or a small business owner managing equipment — involves repetitive administrative tasks that eat into productive time. Rafiqy's business tools automate and streamline the tasks that should not require expensive software or manual spreadsheets: generating invoices by voice, scoring client risk before accepting a project, comparing property values fairly, tracking refrigerant compliance, and never letting a warranty expire unnoticed.</p>
+
+<h2>Key Features at a Glance</h2>
+<ul>
+  <li><strong>Voice-to-Invoice</strong> — speak your invoice details aloud, auto-fill fields, generate professional PDF invoice with PKR support and custom logo</li>
+  <li><strong>Freelancer Risk Analyzer</strong> — input project size, payment history, contract terms, and jurisdiction to receive a go/no-go risk score for a new client</li>
+  <li><strong>Property Comp Adjuster</strong> — compare two properties with adjustment factors (location, size, age, features) to calculate a fair adjusted value for each</li>
+  <li><strong>Refrigerant Leak Calculator</strong> — calculate leak rate, check EPA 608 compliance, log repairs, and track cylinder weights for HVAC professionals</li>
+  <li><strong>Warranty Tracker</strong> — add products with purchase dates and warranty periods, receive alerts before expiry, store receipt photos, export warranty list</li>
+</ul>
+
+<h2>1. Voice-to-Invoice</h2>
+<p>Invoicing is the last step between completing work and getting paid, yet many freelancers and small business owners delay it because opening an invoice template, filling in all the fields, and formatting it correctly takes time. <strong>Voice-to-Invoice</strong> eliminates that friction: tap the microphone, speak your invoice details naturally ("client is Ahmed Enterprises, project is website redesign, amount is 85,000 rupees, due in 15 days"), and the tool <strong>auto-fills all invoice fields</strong> from your speech.</p>
+<p>The generated invoice is a <strong>professional PDF</strong> with clean formatting, support for <strong>PKR amounts</strong> (with correct Pakistani number formatting), customizable <strong>logo and business details</strong>, and configurable <strong>payment terms</strong>. The result looks like it was created in dedicated invoicing software — because the template quality is the same — but it took seconds instead of minutes. Repeat clients can be saved so their details fill in automatically.</p>
+
+<h2>2. Freelancer Risk Analyzer</h2>
+<p>Every freelancer has a story about a client who disappeared after delivery, disputed the scope after sign-off, or paid three months late. The <strong>Freelancer Risk Analyzer</strong> helps you spot high-risk client engagements before you accept them. Enter the key variables of a potential project: <strong>project size</strong> (in rupees or USD), <strong>payment history</strong> with this client if any, <strong>contract terms</strong> (written contract vs. verbal agreement, milestone payments vs. lump sum at end), and <strong>jurisdiction</strong> (local vs. international, dispute-resolution mechanism available).</p>
+<p>The analyzer produces a <strong>risk score</strong> and a clear <strong>go / proceed with caution / no-go recommendation</strong>, along with the specific risk factors that drove the score. For example: "High risk — no written contract, large lump-sum payment at delivery, overseas client with no dispute mechanism." This gives you an objective basis to either negotiate better terms or walk away from a project that is likely to cause problems.</p>
+
+<h2>3. Property Comp Adjuster</h2>
+<p>Comparing two properties on raw price alone is misleading — a larger house in a less desirable location is not directly comparable to a smaller house in a prime area. Real estate appraisers use a process called <strong>comparable adjustment</strong> to bring properties to an equivalent basis before comparing values. Rafiqy's <strong>Property Comp Adjuster</strong> makes this professional methodology available to anyone.</p>
+<p>Enter the <strong>sale price of a comparable property</strong> along with its key attributes (size, location score, age, condition, features like parking and extra rooms). Then enter the same attributes for your target property. The tool applies <strong>adjustment factors</strong> to each variable — adding value for advantages your property has, subtracting for disadvantages — and calculates the <strong>adjusted value</strong> of the comparable, which represents what it would have sold for if it were identical to your property. This gives you a defensible, methodology-based estimate for negotiations, rental pricing, or purchase decisions.</p>
+
+<h2>4. Refrigerant Leak Calculator</h2>
+<p>HVAC professionals in Pakistan and internationally must comply with environmental regulations on refrigerant handling, including the US EPA 608 rules (relevant for equipment exported to or imported from the US market) and HCFC phase-down requirements. The <strong>Refrigerant Leak Calculator</strong> is designed for this specific professional need: enter your <strong>system's refrigerant charge size</strong> and the <strong>amount of refrigerant added</strong> during a service visit, and the tool calculates the <strong>annual leak rate percentage</strong>.</p>
+<p>If the leak rate exceeds the EPA 608 threshold (currently 10% annually for commercial refrigeration), the tool flags the <strong>compliance obligation</strong> to repair the leak within 30 days. A <strong>repair log</strong> records each service visit with date, technician, refrigerant added, and notes. <strong>Cylinder weight tracking</strong> helps manage refrigerant inventory across multiple service calls. The result is a complete compliance and maintenance record for each system.</p>
+
+<h2>5. Warranty Tracker</h2>
+<p>The average household owns dozens of warranted products — appliances, electronics, tools, vehicles, construction materials — yet most warranties expire unclaimed because the owner lost the receipt, forgot the purchase date, or simply did not realize the item was still under warranty when it failed. The <strong>Warranty Tracker</strong> solves this comprehensively.</p>
+<p>Add each product with its <strong>purchase date</strong>, <strong>retailer</strong>, <strong>warranty period</strong>, and a <strong>photo of the receipt or warranty card</strong> (stored locally). The tracker automatically calculates the <strong>expiry date</strong> and sends an <strong>alert notification before expiry</strong> — configurable to 30, 60, or 90 days in advance — giving you time to conduct a pre-warranty inspection or claim service. The full <strong>warranty list is exportable</strong> as a PDF or CSV, useful for insurance documentation or household inventory purposes. For businesses tracking equipment warranties across multiple locations, the same tool scales up naturally.</p>
+
+<h2>Running a Better Business</h2>
+<p>Each of these tools removes a specific friction point in business operations — the delay in invoicing, the uncertainty in client selection, the complexity in property valuation, the risk of compliance failure, and the loss from expired warranties. Together they represent the kinds of operational improvements that, compounded over a year, translate into meaningful time savings and financial gains. All are free, browser-based, and available immediately.</p>
+
+<p><a href="/tools/voice-invoice">Try Voice-to-Invoice free →</a></p>
+`,
+  },
 ]

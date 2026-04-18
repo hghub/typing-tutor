@@ -1054,7 +1054,7 @@ function App() {
       {/* Related blog posts */}
       {(() => {
         const related = BLOG_POSTS.filter(p =>
-          p.category === 'typing-learning' || p.tags?.some(t => ['typing','urdu','learning','productivity'].includes(t?.toLowerCase()))
+          p.category?.toLowerCase() === 'typing' || p.tags?.some(t => ['typing','urdu','learning','productivity'].includes(t?.toLowerCase()))
         ).slice(0, 3)
         if (!related.length) return null
         return (
@@ -1064,7 +1064,7 @@ function App() {
             </h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(200px,1fr))', gap: '0.75rem' }}>
               {related.map(post => (
-                <a key={post.slug} href={`/blogs/${post.slug}`} style={{
+                <a key={post.slug} href={`/blog/${post.slug}`} style={{
                   display: 'block', padding: '0.85rem 1rem',
                   background: 'rgba(6,182,212,0.06)', border: '1px solid rgba(6,182,212,0.2)',
                   borderRadius: '0.75rem', textDecoration: 'none', transition: 'border-color 0.15s',

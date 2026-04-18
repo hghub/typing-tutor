@@ -118,6 +118,35 @@
   <url><loc>https://rafiqy.app/category/writing-tools</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://rafiqy.app/category/image-tools</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://rafiqy.app/category/security-tools</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+
+  <!-- Blog listing -->
+  <url><loc>https://rafiqy.app/blog</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Blog posts -->
+  <url><loc>https://rafiqy.app/blog/typing-learning</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/how-to-improve-typing-speed</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/typing-tips-for-beginners</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/productivity-tools</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/pomodoro-technique-guide</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/writing-tools</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/word-count-for-seo</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/developer-tools</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/finance-investing</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/how-to-calculate-emi</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/pakistan-tools-guide</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/pakistan-income-tax-calculator</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/salary-slip-pakistan</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/gold-price-pakistan-today</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/security-privacy-tools</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/health-wellness-tools</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/travel-tools</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/pdf-tools-guide</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/compress-pdf-online</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/urdu-tools-guide</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/urdu-typing-online</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/business-tools</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/student-group-randomizer-for-teachers</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/how-to-build-a-legal-timeline</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
 
 

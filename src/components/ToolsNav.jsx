@@ -214,14 +214,14 @@ export default function ToolsNav({ rightExtras }) {
             </>
           )}
 
-          <Link to="/blogs" style={{
-            fontSize: '0.82rem', fontWeight: pathname.startsWith('/blogs') ? 700 : 500,
-            color: pathname.startsWith('/blogs') ? '#06b6d4' : colors.textSecondary,
+          <Link to="/blog" style={{
+            fontSize: '0.82rem', fontWeight: pathname.startsWith('/blog') ? 700 : 500,
+            color: pathname.startsWith('/blog') ? '#06b6d4' : colors.textSecondary,
             textDecoration: 'none', padding: '0.4rem 0.65rem', borderRadius: '0.4rem',
             transition: 'color 0.15s', whiteSpace: 'nowrap',
           }}
-            onMouseEnter={e => { if (!pathname.startsWith('/blogs')) e.currentTarget.style.color = colors.text }}
-            onMouseLeave={e => { if (!pathname.startsWith('/blogs')) e.currentTarget.style.color = colors.textSecondary }}
+            onMouseEnter={e => { if (!pathname.startsWith('/blog')) e.currentTarget.style.color = colors.text }}
+            onMouseLeave={e => { if (!pathname.startsWith('/blog')) e.currentTarget.style.color = colors.textSecondary }}
           >Blog</Link>
 
           <Link to="/help" style={{

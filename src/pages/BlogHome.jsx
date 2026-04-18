@@ -20,7 +20,7 @@ export default function BlogHome() {
       <Helmet>
         <title>Rafiqy Blog — Guides, Tips & Tool Tutorials</title>
         <meta name="description" content="In-depth guides, tutorials and tips for all 58 Rafiqy tools. Learn about Pakistani tax tools, Urdu features, developer utilities and more." />
-        <link rel="canonical" href="https://rafiqy.app/blogs" />
+        <link rel="canonical" href="https://rafiqy.app/blog" />
       </Helmet>
 
       <ToolsNav />
@@ -78,7 +78,7 @@ export default function BlogHome() {
             {filtered.map(post => (
               <Link
                 key={post.slug}
-                to={`/blogs/tools/${post.slug}`}
+                to={`/blog/${post.slug}`}
                 style={{ textDecoration: 'none' }}
               >
                 <article

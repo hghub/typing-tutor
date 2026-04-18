@@ -105,7 +105,7 @@ export default function BlogPost() {
           <div style={{ fontSize: '3rem' }}>🔍</div>
           <h1 style={{ color: colors.text, fontSize: '1.5rem', fontWeight: 700 }}>Post Not Found</h1>
           <p style={{ color: colors.textSecondary }}>This blog post doesn&apos;t exist or has been moved.</p>
-          <Link to="/blogs" style={{ color: '#06b6d4', textDecoration: 'none', fontWeight: 600 }}>← Back to all guides</Link>
+          <Link to="/blog" style={{ color: '#06b6d4', textDecoration: 'none', fontWeight: 600 }}>← Back to all guides</Link>
         </div>
       </>
     )
@@ -124,14 +124,24 @@ export default function BlogPost() {
       <Helmet>
         <title>{post.title} | Rafiqy Blog</title>
         <meta name="description" content={post.description} />
-        <link rel="canonical" href={`https://rafiqy.app/blogs/tools/${post.slug}`} />
+        <link rel="canonical" href={`https://rafiqy.app/blog/${post.slug}`} />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.description} />
-        <meta property="og:url" content={`https://rafiqy.app/blogs/tools/${post.slug}`} />
+        <meta property="og:url" content={`https://rafiqy.app/blog/${post.slug}`} />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.description} />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": post.title,
+          "description": post.description,
+          "datePublished": post.publishDate,
+          "author": { "@type": "Organization", "name": "Rafiqy", "url": "https://rafiqy.app" },
+          "publisher": { "@type": "Organization", "name": "Rafiqy", "url": "https://rafiqy.app" },
+          "url": `https://rafiqy.app/blog/${post.slug}`
+        })}</script>
       </Helmet>
 
       <ToolsNav />
@@ -202,7 +212,7 @@ export default function BlogPost() {
             <nav aria-label="breadcrumb" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.8rem', color: colors.muted, marginBottom: '2rem', flexWrap: 'wrap' }}>
               <Link to="/" style={{ color: colors.muted, textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = '#06b6d4'} onMouseLeave={e => e.currentTarget.style.color = colors.muted}>Home</Link>
               <span>›</span>
-              <Link to="/blogs" style={{ color: colors.muted, textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = '#06b6d4'} onMouseLeave={e => e.currentTarget.style.color = colors.muted}>Blog</Link>
+              <Link to="/blog" style={{ color: colors.muted, textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.color = '#06b6d4'} onMouseLeave={e => e.currentTarget.style.color = colors.muted}>Blog</Link>
               <span>›</span>
               <span style={{ color: colors.text, fontWeight: 500 }}>{post.title}</span>
             </nav>
@@ -232,7 +242,7 @@ export default function BlogPost() {
             <hr style={{ border: 'none', borderTop: `1px solid ${colors.border}`, margin: '2.5rem 0' }} />
 
             <div style={{ marginBottom: '2rem' }}>
-              <Link to="/blogs" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#06b6d4', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}
+              <Link to="/blog" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#06b6d4', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}
                 onMouseEnter={e => e.currentTarget.style.opacity = '0.8'}
                 onMouseLeave={e => e.currentTarget.style.opacity = '1'}
               >← Back to all guides</Link>
@@ -243,7 +253,7 @@ export default function BlogPost() {
                 <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: colors.text, marginBottom: '1rem' }}>Related Guides</h2>
                 <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))' }}>
                   {fallbackRelated.map(rel => (
-                    <Link key={rel.slug} to={`/blogs/tools/${rel.slug}`} style={{ textDecoration: 'none' }}>
+                    <Link key={rel.slug} to={`/blog/${rel.slug}`} style={{ textDecoration: 'none' }}>
                       <div style={{ background: colors.card, border: `1px solid ${colors.border}`, borderRadius: '0.75rem', padding: '1rem', transition: 'border-color 0.2s ease' }}
                         onMouseEnter={e => e.currentTarget.style.borderColor = '#06b6d4'}
                         onMouseLeave={e => e.currentTarget.style.borderColor = colors.border}

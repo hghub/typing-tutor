@@ -95,7 +95,7 @@ export default function Landing() {
         <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
           <Link to="/tools" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Tools</Link>
           <Link to="/help" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Help</Link>
-          <Link to="/blogs" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Blog</Link>
+          <Link to="/blog" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Blog</Link>
           <Link to="/about" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>About</Link>
           <button onClick={toggleTheme} style={{ background: 'none', border: '1px solid var(--color-border)', borderRadius: 6, padding: '0.3rem 0.6rem', cursor: 'pointer', color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
             {theme === 'dark' ? '☀' : '🌙'}

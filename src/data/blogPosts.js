@@ -4,7 +4,7 @@ export const BLOG_POSTS = [
     title: 'The Complete Guide to Learning Typing with Typely',
     description: 'Master touch typing from scratch with Typely — covering WPM tests, per-key analysis, finger speed breakdown, slow-key drills, challenge modes, Focus Mode, and every feature built to make you faster.',
     hero: '⌨️',
-    category: 'Typing',
+    category: 'typing',
     readTime: '16 min read',
     publishDate: '2025-07-10',
     tags: ['typing', 'WPM', 'touch typing', 'keyboard', 'speed', 'accuracy', 'drills', 'finger speed'],
@@ -156,7 +156,7 @@ export const BLOG_POSTS = [
     title: 'Best Free Productivity Tools for Professionals — Pomodoro, Planner, Habits & More',
     description: 'Discover the best free productivity tools on Rafiqy.app — Pomodoro timer, daily planner, habit tracker, world time converter, voice diary, AI resume builder, and WhatsApp tools.',
     hero: '🚀',
-    category: 'Productivity',
+    category: 'productivity',
     readTime: '8 min read',
     publishDate: '2025-08-01',
     tags: ['productivity', 'pomodoro', 'habit tracker', 'daily planner', 'focus', 'time management'],
@@ -207,7 +207,7 @@ export const BLOG_POSTS = [
     title: 'Free Writing & Text Tools — Word Counter, Formatter, Doc Composer & Image Tools',
     description: 'Explore Rafiqy.app\'s free writing tools: word counter with readability scores, text formatter, doc composer with Urdu support, and a browser-based image tools suite.',
     hero: '✍️',
-    category: 'Writing',
+    category: 'writing',
     readTime: '6 min read',
     publishDate: '2025-08-01',
     tags: ['writing', 'word counter', 'text formatter', 'doc composer', 'image tools', 'productivity'],
@@ -251,7 +251,7 @@ export const BLOG_POSTS = [
     title: 'Free Developer Tools — JSON Formatter, Regex Tester, Mock Data, Log Analyzer & More',
     description: 'Rafiqy.app\'s free developer tools: JSON formatter, regex tester, mock data generator, text diff, config converter, log analyzer, markdown scraper, and more — all browser-based.',
     hero: '🛠️',
-    category: 'Developer',
+    category: 'developer',
     readTime: '9 min read',
     publishDate: '2025-08-01',
     tags: ['developer tools', 'JSON formatter', 'regex', 'mock data', 'log analyzer', 'developer'],
@@ -305,7 +305,7 @@ export const BLOG_POSTS = [
     title: 'Pakistan-Specific Tools — Tax Calculator, Salary Slip, Kameti, Gold Price & CNIC Decoder',
     description: 'Free Pakistan-specific tools on Rafiqy.app: FBR tax calculator, salary slip generator, Kameti tracker, gold & silver calculator, CNIC decoder, tax shield optimizer, and driving fine tracker.',
     hero: '🇵🇰',
-    category: 'Pakistan',
+    category: 'pakistan',
     readTime: '7 min read',
     publishDate: '2025-08-01',
     tags: ['Pakistan', 'tax calculator', 'salary slip', 'kameti', 'gold price', 'CNIC', 'FBR'],
@@ -356,7 +356,7 @@ export const BLOG_POSTS = [
     title: 'Free Finance Tools — EMI Calculator, Loan Manager, Expense Tracker & Position Sizing',
     description: 'Manage loans, track expenses, analyze spending patterns, monitor fines, and size trading positions — all free tools for smarter personal finance.',
     hero: '💰',
-    category: 'Finance',
+    category: 'finance',
     readTime: '9 min read',
     publishDate: '2025-08-15',
     tags: ['finance', 'EMI calculator', 'loan', 'expense tracker', 'investing', 'position sizing'],
@@ -403,7 +403,7 @@ export const BLOG_POSTS = [
     title: 'Free Privacy & Security Tools — Encrypt Text, Detect Data Leaks & Redact Documents',
     description: 'Protect sensitive information with AES-256 encryption, automatic data leak detection, and smart document redaction — all running offline in your browser.',
     hero: '🔒',
-    category: 'Security',
+    category: 'security',
     readTime: '7 min read',
     publishDate: '2025-08-15',
     tags: ['security', 'privacy', 'encryption', 'data leak', 'redaction', 'AES'],
@@ -443,7 +443,7 @@ export const BLOG_POSTS = [
     title: 'Free Health & Wellness Tools — Drug Interactions, Symptom Tracker & Measurements',
     description: 'Check drug interactions, log symptoms over time, and track health measurements like blood pressure and glucose — all private, all free, all browser-based.',
     hero: '🏥',
-    category: 'Health',
+    category: 'health',
     readTime: '7 min read',
     publishDate: '2025-08-15',
     tags: ['health', 'drug interactions', 'symptom tracker', 'wellness', 'medication', 'health tools'],
@@ -483,7 +483,7 @@ export const BLOG_POSTS = [
     title: 'Free Travel Tools — Currency Converter, Packing List & Trip Budget Splitter',
     description: 'Plan and manage every trip with live currency conversion, smart packing lists, and an automatic group expense splitter — free tools for smarter travel.',
     hero: '✈️',
-    category: 'Travel',
+    category: 'travel',
     readTime: '7 min read',
     publishDate: '2025-08-15',
     tags: ['travel', 'currency converter', 'packing list', 'budget splitter', 'trip planning', 'PKR'],
@@ -520,7 +520,7 @@ export const BLOG_POSTS = [
     title: 'Free Online PDF Tools — Compress, Merge, Split, Convert & Extract Text',
     description: 'A complete guide to Rafiqy\'s free PDF tools: compress, merge, split, convert PDFs, extract text with OCR (supports Urdu), and search within PDFs.',
     hero: '📄',
-    category: 'PDF',
+    category: 'pdf',
     readTime: '8 min read',
     publishDate: '2025-08-15',
     tags: ['PDF tools', 'compress PDF', 'merge PDF', 'OCR', 'PDF converter', 'split PDF'],
@@ -569,7 +569,7 @@ export const BLOG_POSTS = [
     title: 'Free Urdu Language Tools — Urdu Keyboard, Phonetic Typing, Voice Diary in Urdu',
     description: 'Type, transcribe, and write in Urdu using free tools: on-screen keyboard, phonetic Roman-to-Urdu conversion, and voice diary in Urdu — all browser-based.',
     hero: 'اردو',
-    category: 'Language',
+    category: 'language',
     readTime: '7 min read',
     publishDate: '2025-08-15',
     tags: ['Urdu tools', 'Urdu keyboard', 'phonetic Urdu', 'voice diary Urdu', 'Urdu typing', 'اردو'],
@@ -611,7 +611,7 @@ export const BLOG_POSTS = [
     title: 'Free Business Tools — Voice Invoice, Freelancer Risk, Property Adjuster & Warranty Tracker',
     description: 'Run your business smarter with free tools: voice-to-invoice generation, freelancer client risk scoring, property value comparison, HVAC refrigerant tracking, and warranty management.',
     hero: '💼',
-    category: 'Business',
+    category: 'business',
     readTime: '9 min read',
     publishDate: '2025-08-15',
     tags: ['business tools', 'invoice', 'freelancer', 'warranty tracker', 'property', 'HVAC'],
@@ -658,7 +658,7 @@ export const BLOG_POSTS = [
     title: 'How to Improve Your Typing Speed: 7 Proven Techniques That Actually Work',
     description: 'Learn how to improve typing speed with 7 proven techniques. Go from average 40 WPM to 80+ WPM using touch typing, drills, and a free typing tutor.',
     hero: '⌨️',
-    category: 'Typing',
+    category: 'typing',
     readTime: '6 min read',
     publishDate: '2025-09-01',
     tags: ['typing speed', 'WPM', 'touch typing', 'keyboard practice'],
@@ -727,7 +727,7 @@ export const BLOG_POSTS = [
     title: 'Typing Tips for Beginners: From Hunt-and-Peck to Touch Typing',
     description: 'Essential typing tips for beginners. Learn home row keys, correct posture, how to build muscle memory, and move from hunt-and-peck to confident touch typing.',
     hero: '🎯',
-    category: 'Typing',
+    category: 'typing',
     readTime: '5 min read',
     publishDate: '2025-09-02',
     tags: ['typing tips', 'beginners', 'touch typing', 'home row', 'keyboard'],
@@ -810,7 +810,7 @@ export const BLOG_POSTS = [
     title: 'The Pomodoro Technique: How 25-Minute Focus Blocks Changed How I Work',
     description: 'A complete guide to the Pomodoro Technique — how 25-minute work blocks improve focus, reduce burnout, and boost daily output. Includes setup tips and customization.',
     hero: '🍅',
-    category: 'Productivity',
+    category: 'productivity',
     readTime: '6 min read',
     publishDate: '2025-09-03',
     tags: ['pomodoro technique', 'productivity', 'focus', 'time management', 'deep work'],
@@ -884,7 +884,7 @@ export const BLOG_POSTS = [
     title: 'How to Calculate Your Loan EMI: Formula, Examples & Free Calculator',
     description: 'Learn how to calculate EMI for any loan using the standard formula. Includes a worked car loan example, amortization explained, and a free EMI calculator.',
     hero: '💰',
-    category: 'Finance',
+    category: 'finance',
     readTime: '7 min read',
     publishDate: '2025-09-04',
     tags: ['EMI calculator', 'loan', 'finance', 'Pakistan finance', 'amortization'],
@@ -968,7 +968,7 @@ export const BLOG_POSTS = [
     title: 'How to Compress a PDF Online Without Losing Quality',
     description: 'Learn how to compress a PDF online while preserving quality. Understand why PDFs get large, compression levels, and when to use compress vs convert.',
     hero: '📄',
-    category: 'PDF',
+    category: 'pdf',
     readTime: '5 min read',
     publishDate: '2025-09-05',
     tags: ['compress PDF', 'PDF tools', 'reduce PDF size', 'PDF online'],
@@ -1035,7 +1035,7 @@ export const BLOG_POSTS = [
     title: 'How to Type Urdu Online: Phonetic Keyboard, Practice & Free Tools',
     description: 'Learn how to type Urdu online using phonetic Roman-to-Urdu input. Practice Urdu typing, use a virtual Urdu keyboard, and copy text to Word or WhatsApp.',
     hero: 'اُ',
-    category: 'Language',
+    category: 'language',
     readTime: '5 min read',
     publishDate: '2025-09-06',
     tags: ['Urdu typing', 'Urdu keyboard', 'phonetic Urdu', 'online Urdu'],
@@ -1100,7 +1100,7 @@ export const BLOG_POSTS = [
     title: 'Pakistan Income Tax 2024–25: How to Calculate Your Tax with the FBR Slabs',
     description: 'Calculate your Pakistan income tax for 2024-25 using the official FBR slab system. Includes salaried vs business income, zakat deduction, and a free tax calculator.',
     hero: '🇵🇰',
-    category: 'Pakistan',
+    category: 'pakistan',
     readTime: '7 min read',
     publishDate: '2025-09-07',
     tags: ['Pakistan income tax', 'FBR tax slabs', 'tax calculator Pakistan', 'salaried income tax'],
@@ -1172,7 +1172,7 @@ export const BLOG_POSTS = [
     title: 'Ideal Word Count for Blog Posts: What the Data Actually Says About SEO',
     description: 'What is the ideal word count for SEO? Data shows 1500–2500 words ranks best for competitive keywords. Learn when shorter wins and how to check word count live.',
     hero: '✍️',
-    category: 'Writing',
+    category: 'writing',
     readTime: '5 min read',
     publishDate: '2025-09-08',
     tags: ['word count SEO', 'blog post length', 'content writing', 'SEO writing'],
@@ -1245,7 +1245,7 @@ export const BLOG_POSTS = [
     title: 'How to Create a Salary Slip in Pakistan: EOBI, PESSI, Tax & Net Pay Explained',
     description: 'Learn what goes on a Pakistani salary slip — EOBI, PESSI/SESSI deductions, income tax, and net pay. Includes a worked example for Rs 80,000 gross salary.',
     hero: '💼',
-    category: 'Pakistan',
+    category: 'pakistan',
     readTime: '7 min read',
     publishDate: '2025-09-09',
     tags: ['salary slip Pakistan', 'EOBI', 'PESSI', 'income tax Pakistan', 'payroll Pakistan'],
@@ -1324,7 +1324,7 @@ export const BLOG_POSTS = [
     title: 'Gold Price in Pakistan Today: How to Check Live Rates & Calculate Your Gold\'s Value',
     description: 'Check live gold price in Pakistan today. Learn how 24K/22K/18K rates are set, city-wise differences, and how to calculate the value of your gold in tola or grams.',
     hero: '🥇',
-    category: 'Pakistan',
+    category: 'pakistan',
     readTime: '6 min read',
     publishDate: '2025-09-10',
     tags: ['gold price Pakistan', 'gold rate today', '24K gold Pakistan', 'tola gold price'],
@@ -1397,6 +1397,138 @@ export const BLOG_POSTS = [
 </ul>
 
 <div class="cta-box"><p>Want to check live gold rates in Pakistan and calculate the exact value of your gold?</p><a href="/tools/gold-price">Check Live Gold Price →</a></div>
+`,
+  },
+  {
+    slug: 'student-group-randomizer-for-teachers',
+    title: 'How to Create Balanced Student Groups — A Teacher\'s Guide',
+    description: 'Learn how to split students into fair, skill-balanced groups in seconds. Stop manual sorting and use a free online student group randomizer built for Pakistani classrooms.',
+    hero: '🎓',
+    category: 'education',
+    readTime: '6 min read',
+    publishDate: '2026-04-18',
+    tags: ['education', 'teaching', 'classroom', 'groups', 'students', 'Pakistan'],
+    content: `
+<h2>The Classroom Grouping Problem Every Teacher Knows</h2>
+<p>Whether you are dividing a class for a group project, a science experiment, or a peer-learning exercise, the same challenge appears every time: how do you create fair groups that mix ability levels without spending 20 minutes with a spreadsheet? Randomly calling out names produces unbalanced groups. Letting students self-select means friends cluster together and weaker students get left out. There is a smarter way.</p>
+<p>Rafiqy's <a href="/tools/student-group-randomizer">Student Group Randomizer</a> is a free, browser-based tool built specifically for this problem. Paste your class list, specify group size, and it instantly generates balanced groups that mix skill levels — no account, no download, no cost.</p>
+
+<h2>Why Balanced Groups Matter</h2>
+<p>Research in cooperative learning consistently shows that heterogeneous groups — where high, medium, and low performers are mixed — produce better outcomes for all students than homogeneous ability grouping. High performers deepen understanding through explanation. Average students gain exposure to stronger thinking. Weaker students benefit from peer support rather than classroom pressure.</p>
+<p>The challenge is not knowing <em>that</em> balanced groups are better — it is the time cost of creating them manually for a class of 30, 40, or 50 students. The randomizer eliminates that cost entirely.</p>
+
+<h2>How to Use the Student Group Randomizer</h2>
+<ol>
+  <li><strong>Paste your class roster</strong> — one name per line. You can optionally add a skill level tag next to each name (e.g. "Ayesha — High", "Bilal — Medium", "Sara — Low").</li>
+  <li><strong>Set group size</strong> — choose how many students per group (2–8). The tool calculates the number of groups automatically.</li>
+  <li><strong>Generate groups</strong> — the algorithm mixes skill levels across groups, ensuring no group is all-high or all-low performers.</li>
+  <li><strong>Copy or print</strong> — copy the group list to paste into a message, or print directly from the browser.</li>
+  <li><strong>Run multiple rounds</strong> — for rotating activities, generate a new arrangement each time without repeating the same pairs.</li>
+</ol>
+
+<h2>Tips for Pakistani Classroom Contexts</h2>
+<p>Pakistani classrooms often have large class sizes — 40 to 60 students is common in government schools, and 30 to 40 in private schools. The tool handles any roster size comfortably. A few tips for making grouping work in large classes:</p>
+<ul>
+  <li><strong>Use three skill levels</strong>: High, Medium, Low maps cleanly to the tool. If you use your own marks, a simple rule works: top 25% = High, bottom 25% = Low, middle 50% = Medium.</li>
+  <li><strong>Name the groups</strong>: For younger students, assign colour or animal names to each group (Red Group, Blue Group) so movement is orderly.</li>
+  <li><strong>Rotate weekly</strong>: For ongoing group work, regenerate groups every week or two. The tool's "no repeat pairs" feature helps keep combinations fresh.</li>
+  <li><strong>Print before class</strong>: Generate and print the list the night before. Announcing groups from a printed sheet is far smoother than reading off a phone screen.</li>
+</ul>
+
+<h2>Other Rafiqy Tools for Educators</h2>
+<p>Rafiqy is built with Pakistani teachers and students in mind. Alongside the group randomizer, these tools are useful in educational settings:</p>
+<ul>
+  <li><a href="/typing-tutor-online-free">Typing Tutor</a> — improve keyboard speed for students learning computer skills. Urdu phonetic typing mode is included for local language instruction.</li>
+  <li><a href="/tools/word-counter">Word Counter</a> — students can paste essays to check word count, reading level, and sentence structure instantly.</li>
+  <li><a href="/tools/pomodoro">Pomodoro Timer</a> — a focused study timer for students preparing for exams. 25-minute work blocks with structured breaks improve retention.</li>
+  <li><a href="/tools/daily-planner">Daily Planner</a> — students can organise homework and assignment deadlines in a private, browser-based planner.</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+<h3>Can I save my class list for next time?</h3>
+<p>Yes — the tool saves your class roster in your browser's local storage. When you return to the page, your previous list is restored automatically. No account is needed and your data never leaves your device.</p>
+
+<h3>Does the tool work for groups of 2 (pairs)?</h3>
+<p>Yes. Pair grouping is one of the most common use cases — for peer review, buddy reading, or lab partners. Set group size to 2 and the tool creates balanced pairs mixing skill levels.</p>
+
+<h3>What if my class size is not evenly divisible by the group size?</h3>
+<p>The tool handles remainders automatically. If you have 31 students and want groups of 4, it creates seven groups of 4 and one group of 3, distributing the remainder evenly.</p>
+
+<h3>Is it free?</h3>
+<p>Completely free. No sign-up, no premium tier, no ads on the tool page. Rafiqy is funded by keeping infrastructure costs minimal — all processing happens in your browser.</p>
+
+<div class="cta-box"><p>Ready to create balanced student groups in seconds?</p><a href="/tools/student-group-randomizer">Try Student Group Randomizer Free →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-build-a-legal-timeline',
+    title: 'How to Build a Legal Timeline Online — Step-by-Step Guide',
+    description: 'Learn how to create a clear, printable legal timeline from case notes, emails, and documents. Free online timeline builder — no software installation required.',
+    hero: '⚖️',
+    category: 'legal',
+    readTime: '7 min read',
+    publishDate: '2026-04-18',
+    tags: ['legal', 'timeline', 'research', 'law', 'case management', 'documents'],
+    content: `
+<h2>Why Timelines Are Critical in Legal Work</h2>
+<p>In any legal matter — a contract dispute, a personal injury claim, a family case, or a regulatory inquiry — the sequence of events is often more important than any single document. Judges, arbitrators, and opposing counsel all need to understand not just <em>what</em> happened but <em>when</em>. A clear, accurate timeline transforms scattered emails, receipts, and notes into a coherent narrative that supports your case.</p>
+<p>Building that timeline manually — in a Word document or on paper — is slow and error-prone. Dates get entered incorrectly. New information arrives and the entire timeline must be reshuffled. Rafiqy's <a href="/tools/timeline-builder">Timeline Builder</a> solves this. Paste your events in any format, and it auto-extracts dates and renders an interactive visual timeline you can export as PDF or image.</p>
+
+<h2>What Makes a Good Legal Timeline</h2>
+<p>Legal timelines differ from general project timelines in important ways:</p>
+<ul>
+  <li><strong>Precision</strong>: Dates must be exact where known. "Around March 2024" is less useful than "15 March 2024". The tool lets you enter approximate dates with a note when exact dates are unknown.</li>
+  <li><strong>Source attribution</strong>: Each event should reference its source document (email, invoice, contract clause, witness statement). Add source references in the event notes field.</li>
+  <li><strong>Disputed vs. undisputed facts</strong>: Visually distinguishing events that are agreed upon versus those in dispute helps the reviewer immediately understand the contested areas.</li>
+  <li><strong>Gaps</strong>: Unexplained gaps in a timeline can be as significant as the events themselves. A good legal timeline makes gaps visible rather than hiding them.</li>
+</ul>
+
+<h2>How to Build a Legal Timeline with Rafiqy</h2>
+<ol>
+  <li><strong>Collect your raw events</strong> — gather emails, court filings, invoices, messages, and notes into a single text document. Do not worry about order yet.</li>
+  <li><strong>Paste into the Timeline Builder</strong> — go to <a href="/tools/timeline-builder">Rafiqy Timeline Builder</a> and paste all your raw text. The tool uses natural language date recognition to identify dates in formats like "3rd February 2023", "Feb 3 2023", "03/02/2023", or even "three months after signing".</li>
+  <li><strong>Review extracted events</strong> — the tool lists each detected event with its date. Review and correct any date it missed or misread. Add a brief description and optional source note for each event.</li>
+  <li><strong>View the visual timeline</strong> — the timeline renders as a horizontal or vertical visual with events plotted to scale. Zoom in on dense periods, zoom out to see the full span.</li>
+  <li><strong>Export</strong> — download as PDF for submission, or as an image to embed in a presentation or report.</li>
+</ol>
+
+<h2>Common Legal Use Cases</h2>
+<h3>Contract Disputes</h3>
+<p>Map every communication, amendment, and performance milestone. A clear timeline often reveals whether a breach occurred before or after a waiver — a distinction that can determine liability.</p>
+
+<h3>Personal Injury Claims</h3>
+<p>Document the incident, medical consultations, diagnoses, treatments, and return-to-work dates. Insurance adjusters and courts routinely scrutinise the gap between injury and first medical visit.</p>
+
+<h3>Family Law Matters</h3>
+<p>In custody disputes or divorce proceedings, a chronological record of key events, communications, and incidents provides an evidence-based foundation for filings.</p>
+
+<h3>Regulatory and Compliance Cases</h3>
+<p>Compliance officers and legal teams handling regulatory investigations use timelines to demonstrate when controls were in place, when issues were identified, and what remedial steps were taken and when.</p>
+
+<h2>Privacy and Confidentiality</h2>
+<p>Legal information is highly sensitive. Rafiqy's Timeline Builder processes everything locally in your browser — your case details are never uploaded to any server and never stored beyond your session (or local storage if you choose to save). This makes it safe to use with client-sensitive information without signing NDAs with a cloud service provider.</p>
+
+<h2>Other Rafiqy Tools Useful for Legal Professionals</h2>
+<ul>
+  <li><a href="/tools/text-encryptor">Text Encryptor</a> — encrypt sensitive notes and messages using AES-256 before sharing with colleagues over email or messaging apps.</li>
+  <li><a href="/compress-pdf-online-free">PDF Compressor</a> — reduce the size of large legal documents before attaching to emails or uploading to court portals with file size limits.</li>
+  <li><a href="/tools/word-counter">Word Counter</a> — check word and character count for court filings, witness statements, or submissions that have strict length requirements.</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+<h3>Is the Timeline Builder free to use?</h3>
+<p>Yes, completely free. No account required and no usage limits. All processing is done in your browser.</p>
+
+<h3>Can I import events from a spreadsheet?</h3>
+<p>You can paste tab-separated or CSV-style text and the tool will attempt to parse it. For best results, use the free-text paste — the natural language date parser handles most formats found in legal documents.</p>
+
+<h3>Does the exported PDF include source references?</h3>
+<p>Yes. Any source or note text you enter for each event appears in the PDF export below the event description, making it suitable for inclusion in legal submissions.</p>
+
+<h3>Is my data private?</h3>
+<p>Completely. All processing happens in your browser. No data is sent to Rafiqy's servers. You can use it safely with client-confidential case information.</p>
+
+<div class="cta-box"><p>Build your legal timeline online — free, private, and exportable as PDF.</p><a href="/tools/timeline-builder">Open Timeline Builder →</a></div>
 `,
   },
 ]

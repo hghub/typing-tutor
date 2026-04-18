@@ -1,7 +1,12 @@
 import { StrictMode, lazy, Suspense, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
+
+function BlogPostRedirect() {
+  const { slug } = useParams()
+  return <Navigate to={`/blog/${slug}`} replace />
+}
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -184,8 +189,10 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/image-suite"      element={<ImageSuite />} />
           <Route path="/tools/resume-builder"   element={<ResumeBuilder />} />
           <Route path="/tools/whatsapp-tools"   element={<WhatsAppTools />} />
-          <Route path="/blogs"                      element={<BlogHome />} />
-          <Route path="/blogs/tools/:slug"          element={<BlogPost />} />
+          <Route path="/blog"                           element={<BlogHome />} />
+          <Route path="/blog/:slug"                     element={<BlogPost />} />
+          <Route path="/blogs"                          element={<Navigate to="/blog" replace />} />
+          <Route path="/blogs/tools/:slug"              element={<BlogPostRedirect />} />
           <Route path="/about"                     element={<About />} />
           <Route path="/help"                      element={<Help />} />
 

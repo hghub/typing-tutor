@@ -131,14 +131,13 @@ export default function CategoryPage({ category }) {
 
         <div style={{ marginTop: '3rem', textAlign: 'center' }}>
           <Link to="/tools" style={{ color: '#06b6d4', fontWeight: 600, textDecoration: 'none' }}>
-            ← Browse all 57 tools
+            ← Browse all 58 tools
           </Link>
         </div>
 
         {/* Related Blog Posts */}
         {(() => {
-          const blogCat = data.categories[0]
-          const related = BLOG_POSTS.filter(p => p.category === blogCat || data.categories.includes(p.category)).slice(0, 3)
+          const related = BLOG_POSTS.filter(p => data.categories.includes(p.category?.toLowerCase())).slice(0, 3)
           if (!related.length) return null
           return (
             <div style={{ marginTop: '3rem' }}>
@@ -147,7 +146,7 @@ export default function CategoryPage({ category }) {
               </h2>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px,1fr))', gap: '0.75rem' }}>
                 {related.map(post => (
-                  <Link key={post.slug} to={`/blogs/tools/${post.slug}`} style={{ textDecoration: 'none' }}>
+                  <Link key={post.slug} to={`/blog/${post.slug}`} style={{ textDecoration: 'none' }}>
                     <div style={{
                       background: colors.surface,
                       border: `1px solid ${colors.border}`,

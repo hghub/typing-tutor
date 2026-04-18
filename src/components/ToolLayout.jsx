@@ -146,9 +146,8 @@ export default function ToolLayout({ toolId, children }) {
       {/* Related Blog Posts */}
       {tool && (() => {
         const related = BLOG_POSTS.filter(p =>
-          p.category === tool.category ||
-          (tool.id === 'typing-tutor' && p.slug === 'typing-learning') ||
-          (tool.category === 'pakistan' && ['pakistan-tools-guide','pakistan-category'].includes(p.slug))
+          p.category?.toLowerCase() === tool.category ||
+          (tool.id === 'typing-tutor' && p.slug === 'typing-learning')
         ).slice(0, 3)
         if (!related.length) return null
         return (
@@ -158,7 +157,7 @@ export default function ToolLayout({ toolId, children }) {
             </h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px,1fr))', gap: '0.75rem' }}>
               {related.map(post => (
-                <Link key={post.slug} to={`/blogs/tools/${post.slug}`} style={{ textDecoration: 'none' }}>
+                <Link key={post.slug} to={`/blog/${post.slug}`} style={{ textDecoration: 'none' }}>
                   <div style={{
                     background: colors.surface,
                     border: `1px solid ${colors.border}`,
@@ -188,7 +187,7 @@ export default function ToolLayout({ toolId, children }) {
         borderTop: `1px solid ${colors.border}`,
       }}>
         © {new Date().getFullYear()} Rafiqy · Privacy-first browser tools &nbsp;·&nbsp;
-        <a href="/blogs" style={{ color: 'inherit', textDecoration: 'underline' }}>Blog</a>
+        <a href="/blog" style={{ color: 'inherit', textDecoration: 'underline' }}>Blog</a>
         &nbsp;·&nbsp;
         <a href="/about" style={{ color: 'inherit', textDecoration: 'underline' }}>About</a>
       </footer>

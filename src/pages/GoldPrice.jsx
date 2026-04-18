@@ -214,7 +214,51 @@ export default function GoldPrice() {
   const [goldRate, setGoldRate]     = useState(265000)
   const [silverRate, setSilverRate] = useState(3000)
 
-  // Weight input
+  // Live API state
+  const [liveUSD,    setLiveUSD]    = useState(null)   // USD per troy oz
+  const [livePKR,    setLivePKR]    = useState(null)   // PKR per tola (auto-filled)
+  const [apiStatus,  setApiStatus]  = useState('idle') // 'idle'|'loading'|'ok'|'error'
+  const [liveTs,     setLiveTs]     = useState(null)   // Date of last successful fetch
+  const [isManual,   setIsManual]   = useState(false)  // user overrode the live rate
+
+  // ── Live gold price fetch (CoinGecko, no API key, CORS-enabled) ────────────
+  const fetchLiveRate = useCallback(async () => {
+    setApiStatus('loading')
+    try {
+      const res = await fetch(
+        'https://api.coingecko.com/api/v3/simple/price?ids=pax-gold&vs_currencies=usd,pkr',
+        { cache: 'no-store' }
+      )
+      if (!res.ok) throw new Error('HTTP ' + res.status)
+      const data = await res.json()
+      const usd = data?.['pax-gold']?.usd
+      const pkr = data?.['pax-gold']?.pkr
+      if (!usd || !pkr) throw new Error('Bad response')
+      const pkrPerTola = Math.round(pkr * (11.664 / 31.1035))
+      setLiveUSD(usd)
+      setLivePKR(pkrPerTola)
+      setLiveTs(new Date())
+      setGoldRate(pkrPerTola)
+      setIsManual(false)
+      setApiStatus('ok')
+    } catch {
+      setApiStatus('error')
+    }
+  }, [])
+
+  // Fetch on mount + every 5 minutes
+  useEffect(() => {
+    fetchLiveRate()
+    const id = setInterval(fetchLiveRate, 5 * 60 * 1000)
+    return () => clearInterval(id)
+  }, [fetchLiveRate])
+
+  // "X min ago" helper
+  const minutesAgo = liveTs
+    ? Math.floor((Date.now() - liveTs.getTime()) / 60000)
+    : null
+
+  // ── Weight input ─────────────────────────────────────────────────────────
   const [weightQty,  setWeightQty]  = useState(1)
   const [weightUnit, setWeightUnit] = useState('tola')
 
@@ -323,18 +367,65 @@ export default function GoldPrice() {
         <SectionCard colors={colors}>
           <SectionTitle colors={colors} icon="📋">Today's Rates (PKR per Tola)</SectionTitle>
 
+          {/* Live rate status bar */}
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: '0.5rem',
+            marginBottom: '0.85rem', flexWrap: 'wrap',
+          }}>
+            {apiStatus === 'loading' && (
+              <span style={{ fontSize: '0.77rem', color: ACCENT }}>⏳ Fetching live rate…</span>
+            )}
+            {apiStatus === 'ok' && liveUSD && (
+              <>
+                <span style={{
+                  background: '#10b98120', color: '#10b981',
+                  borderRadius: '99px', padding: '0.15rem 0.65rem',
+                  fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.04em',
+                }}>● LIVE</span>
+                <span style={{ fontSize: '0.77rem', color: colors.muted }}>
+                  ${liveUSD.toLocaleString()} / troy oz (international)
+                </span>
+                <span style={{ fontSize: '0.72rem', color: colors.muted, marginLeft: 'auto' }}>
+                  {minutesAgo === 0 ? 'just now' : `${minutesAgo} min ago`}
+                  {' · '}
+                  <button onClick={fetchLiveRate} style={{
+                    background: 'none', border: 'none', color: ACCENT,
+                    cursor: 'pointer', fontSize: '0.72rem', padding: 0,
+                  }}>refresh</button>
+                </span>
+              </>
+            )}
+            {apiStatus === 'error' && (
+              <span style={{ fontSize: '0.77rem', color: '#ef4444' }}>
+                ⚠️ Live rate unavailable — enter manually
+              </span>
+            )}
+            {isManual && apiStatus === 'ok' && (
+              <span style={{
+                background: '#f59e0b20', color: ACCENT,
+                borderRadius: '99px', padding: '0.15rem 0.65rem',
+                fontSize: '0.72rem', fontWeight: 700,
+              }}>MANUAL OVERRIDE</span>
+            )}
+          </div>
+
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '0.85rem' }}>
             <div style={{ flex: 1, minWidth: '160px' }}>
               <FieldLabel colors={colors}>Gold Rate / Tola</FieldLabel>
               <NumberInput
                 value={goldRate}
-                onChange={setGoldRate}
+                onChange={(v) => { setGoldRate(v); setIsManual(true) }}
                 min={0}
                 step={500}
                 prefix="Rs"
                 colors={colors}
                 isDark={isDark}
               />
+              {livePKR && !isManual && (
+                <div style={{ fontSize: '0.7rem', color: '#10b981', marginTop: '0.25rem' }}>
+                  Auto-filled from live international rate
+                </div>
+              )}
             </div>
             <div style={{ flex: 1, minWidth: '160px' }}>
               <FieldLabel colors={colors}>Silver Rate / Tola</FieldLabel>
@@ -364,8 +455,8 @@ export default function GoldPrice() {
           }}>
             <span style={{ flexShrink: 0 }}>ℹ️</span>
             <span>
-              Enter today's rate from your jeweller or <em>sarafa bazar</em> — we cannot fetch live prices.
-              Rates are pre-filled with typical values; always verify before transacting.
+              Gold rate is auto-fetched from the international market (PAXG, CoinGecko) and converted to PKR/tola.
+              Silver rate is manual — enter from your <em>sarafa bazar</em>. Always verify before transacting.
             </span>
           </div>
         </SectionCard>

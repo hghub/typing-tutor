@@ -415,10 +415,10 @@ function App() {
     <Helmet>
       <title>Free Online Typing Tutor — Improve Typing Speed | Rafiqy</title>
       <meta name="description" content="Free typing speed test and tutor online. Improve your WPM with targeted drills, accuracy tracking, Urdu support and XP rewards. No sign-up needed." />
-      <link rel="canonical" href="https://rafiqy.app/typing-tutor-online-free" />
+      <link rel="canonical" href="https://rafiqy.app/tools/typing-tutor" />
       <meta property="og:title" content="Free Online Typing Tutor — Improve Typing Speed | Rafiqy" />
       <meta property="og:description" content="Free typing speed test and tutor online. Improve your WPM with targeted drills, accuracy tracking, Urdu support and XP rewards." />
-      <meta property="og:url" content="https://rafiqy.app/typing-tutor-online-free" />
+      <meta property="og:url" content="https://rafiqy.app/tools/typing-tutor" />
       <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:title" content="Free Online Typing Tutor — Improve Typing Speed | Rafiqy" />

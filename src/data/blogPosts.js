@@ -395,7 +395,7 @@ export const BLOG_POSTS = [
 <h2>Why These Tools Are Different</h2>
 <p>Most finance calculators are single-purpose and show you a number without context. Rafiqy's tools are designed to work together as a personal finance dashboard — from planning a loan before you take it, to managing repayment while you hold it, to understanding where the rest of your money goes and protecting your trading capital. All tools are free, browser-based, and require no account or download.</p>
 
-<p><a href="/tools/emi-calculator">Try the Loan EMI Calculator free →</a></p>
+<p><a href="/tools/loan-emi">Try the Loan EMI Calculator free →</a></p>
 `,
   },
   {
@@ -475,7 +475,7 @@ export const BLOG_POSTS = [
 <h2>A Note on Medical Advice</h2>
 <p>These tools are designed to help you <strong>track, understand, and communicate</strong> your health information more effectively. They are not diagnostic tools and do not replace the advice of a qualified healthcare professional. Use them to become a more informed and prepared patient, not as a substitute for medical consultation.</p>
 
-<p><a href="/tools/drug-interactions">Try the Drug Interaction Checker free →</a></p>
+<p><a href="/tools/drug-checker">Try the Drug Interaction Checker free →</a></p>
 `,
   },
   {
@@ -680,8 +680,8 @@ export const BLOG_POSTS = [
 <p>A practical rule: if your accuracy falls below 95%, reduce your speed. Only increase speed when you can hold 98%+ accuracy at your current pace.</p>
 
 <h2>4. Use a Typing Tutor with Analytics</h2>
-<p>Generic typing tests tell you your WPM but not <em>why</em> you are slow. A proper typing tutor like <a href="/typing">Typely</a> breaks down exactly which keys are slowing you down, which finger is your bottleneck, and which two-key combinations ("digraphs") cause hesitation. That data lets you drill the specific weak spots instead of practicing your strengths.</p>
-<p>After each session on <a href="/typing">Typely</a>, you will see a full diagnostic panel with finger heatmaps and slow-key highlights. Click "Start My Targeted Drill" and it generates a custom passage loaded with extra repetitions of your slowest keys. This targeted approach produces 3–5× more WPM improvement per hour of practice compared to random text practice.</p>
+<p>Generic typing tests tell you your WPM but not <em>why</em> you are slow. A proper typing tutor like <a href="/tools/typing-tutor">Typely</a> breaks down exactly which keys are slowing you down, which finger is your bottleneck, and which two-key combinations ("digraphs") cause hesitation. That data lets you drill the specific weak spots instead of practicing your strengths.</p>
+<p>After each session on <a href="/tools/typing-tutor">Typely</a>, you will see a full diagnostic panel with finger heatmaps and slow-key highlights. Click "Start My Targeted Drill" and it generates a custom passage loaded with extra repetitions of your slowest keys. This targeted approach produces 3–5× more WPM improvement per hour of practice compared to random text practice.</p>
 
 <h2>5. Practice Consistently (Not Intensively)</h2>
 <p>Twenty minutes of focused practice every day beats a 3-hour marathon session on Sunday. Typing speed is stored in procedural memory — the same system that remembers how to ride a bike. Procedural memory consolidates during sleep and degrades without regular activation.</p>
@@ -719,7 +719,7 @@ export const BLOG_POSTS = [
 <h2>The Right Mindset</h2>
 <p>Learning to type faster is a process of unlearning bad habits as much as learning good ones. Expect your speed to drop temporarily when you switch to proper touch typing — that is your old muscle memory resisting the change. Stay the course. Every experienced fast typist went through the same awkward transition period.</p>
 
-<div class="cta-box"><p>Ready to measure your speed and start improving with targeted drills?</p><a href="/typing">Try Typely Free →</a></div>
+<div class="cta-box"><p>Ready to measure your speed and start improving with targeted drills?</p><a href="/tools/typing-tutor">Try Typely Free →</a></div>
 `,
   },
   {
@@ -761,8 +761,8 @@ export const BLOG_POSTS = [
 <p>The rule to follow: <strong>always type at a speed where you can be accurate.</strong> If you are making more than 1–2 errors per 20 keystrokes, slow down. Rushing and constantly hitting backspace teaches your fingers the wrong movements. Slow, correct repetitions build the right muscle memory that eventually enables fast typing.</p>
 
 <h2>Tip 4: Use a Typing Tutor with Difficulty Levels</h2>
-<p>A structured typing tool is far more effective than random practice for beginners. <a href="/typing">Typely</a> offers multiple difficulty levels — Easy (common short words), Medium (normal sentences), Hard (technical vocabulary), and Custom (paste your own text). As a beginner, start on Easy and only move up when you can maintain 95%+ accuracy.</p>
-<p>The diagnostic feature in <a href="/typing">Typely</a> is particularly useful for beginners: after each session it shows exactly which keys you struggle with. Instead of practicing the same texts repeatedly, you can drill your specific weak spots. This targeted approach accelerates improvement significantly compared to generic practice.</p>
+<p>A structured typing tool is far more effective than random practice for beginners. <a href="/tools/typing-tutor">Typely</a> offers multiple difficulty levels — Easy (common short words), Medium (normal sentences), Hard (technical vocabulary), and Custom (paste your own text). As a beginner, start on Easy and only move up when you can maintain 95%+ accuracy.</p>
+<p>The diagnostic feature in <a href="/tools/typing-tutor">Typely</a> is particularly useful for beginners: after each session it shows exactly which keys you struggle with. Instead of practicing the same texts repeatedly, you can drill your specific weak spots. This targeted approach accelerates improvement significantly compared to generic practice.</p>
 
 <h2>Tip 5: Build Muscle Memory Through Repetition</h2>
 <p>Muscle memory — technically called procedural memory — is what allows expert typists to type without thinking about individual keys. It develops through repetition over time, not through single intense sessions.</p>
@@ -802,7 +802,7 @@ export const BLOG_POSTS = [
   <li><strong>Ignoring accuracy to chase WPM</strong>: Speed without accuracy is not real progress</li>
 </ul>
 
-<div class="cta-box"><p>Ready to start your typing journey with structured practice and real-time feedback?</p><a href="/typing">Start Your Typing Journey →</a></div>
+<div class="cta-box"><p>Ready to start your typing journey with structured practice and real-time feedback?</p><a href="/tools/typing-tutor">Start Your Typing Journey →</a></div>
 `,
   },
   {
@@ -939,7 +939,7 @@ export const BLOG_POSTS = [
   <li><strong>Insurance bundling</strong>: Some loans include mandatory insurance that increases the effective cost</li>
   <li><strong>Variable vs fixed rate</strong>: Variable rates may start lower but can increase significantly over the loan term</li>
 </ul>
-<p>Use the <a href="/tools/emi-calculator">Rafiqy EMI Calculator</a> to compare different loan scenarios side by side — adjusting principal, rate, and tenure to see the impact on both monthly EMI and total interest paid.</p>
+<p>Use the <a href="/tools/loan-emi">Rafiqy EMI Calculator</a> to compare different loan scenarios side by side — adjusting principal, rate, and tenure to see the impact on both monthly EMI and total interest paid.</p>
 
 <h2>Understanding the Amortization Table</h2>
 <p>An amortization table shows the breakdown of each monthly payment into principal and interest components. In the early months of a loan, most of your EMI goes toward interest — very little reduces the principal. As the loan matures, the interest component shrinks and the principal component grows.</p>
@@ -960,7 +960,7 @@ export const BLOG_POSTS = [
 </ul>
 <p>The pattern is clear: doubling the loan tenure from 5 to 10 years saves Rs 7,897/month in EMI payments but costs an additional Rs 3.87 lakh in total interest.</p>
 
-<div class="cta-box"><p>Need to calculate your exact EMI in seconds without doing the math manually?</p><a href="/tools/emi-calculator">Calculate Your EMI Free →</a></div>
+<div class="cta-box"><p>Need to calculate your exact EMI in seconds without doing the math manually?</p><a href="/tools/loan-emi">Calculate Your EMI Free →</a></div>
 `,
   },
   {
@@ -1060,7 +1060,7 @@ export const BLOG_POSTS = [
 <p>The phonetic system handles the complexity of Urdu's multiple characters with similar sounds (like three versions of "s" — س، ص، ث) by assigning the most common character to the simple Roman key and variants to shifted or compound inputs.</p>
 
 <h2>Practicing Urdu Typing with Typely</h2>
-<p><a href="/typing">Typely</a> supports Urdu phonetic typing practice. Switch the language selector to Urdu and the typing area loads Urdu passages rendered in Nastaliq-style script. As you type Roman phonetic input, Typely converts and displays the Urdu Unicode text in real time.</p>
+<p><a href="/tools/typing-tutor">Typely</a> supports Urdu phonetic typing practice. Switch the language selector to Urdu and the typing area loads Urdu passages rendered in Nastaliq-style script. As you type Roman phonetic input, Typely converts and displays the Urdu Unicode text in real time.</p>
 <p>This makes Typely uniquely useful for Urdu learners: you are not just composing Urdu text, you are practicing it under the same WPM and accuracy feedback loop as English practice. After your session, the diagnostic panel shows which Urdu sounds and characters slowed you down — giving you targeted drills for your specific weak spots in Urdu phonetic input.</p>
 <p>The difficulty levels in Typely adapt for Urdu — Easy mode uses common everyday Urdu vocabulary, while Hard mode introduces less common words and longer compound constructions typical of formal Urdu writing.</p>
 
@@ -1092,7 +1092,7 @@ export const BLOG_POSTS = [
   <li><strong>Month 2</strong>: Speed reaches 30–40 Urdu WPM for most learners practicing daily.</li>
 </ul>
 
-<div class="cta-box"><p>Ready to start typing Urdu with phonetic input — no special keyboard required?</p><a href="/typing">Try Urdu Typing Free →</a></div>
+<div class="cta-box"><p>Ready to start typing Urdu with phonetic input — no special keyboard required?</p><a href="/tools/typing-tutor">Try Urdu Typing Free →</a></div>
 `,
   },
   {
@@ -1152,7 +1152,7 @@ export const BLOG_POSTS = [
   <li><strong>Donations to approved organizations</strong>: Donations to FBR-approved non-profits and charities can be claimed as deductions</li>
   <li><strong>Mortgage interest</strong>: Interest paid on housing loans for owner-occupied properties may qualify for a tax credit</li>
 </ul>
-<p>Use the <a href="/tools/tax-shield">Rafiqy Tax Shield Calculator</a> to see which deductions apply to your situation and how much tax they save you.</p>
+<p>Use the <a href="/tools/tax-optimizer">Rafiqy Tax Shield Calculator</a> to see which deductions apply to your situation and how much tax they save you.</p>
 
 <h2>How to File Your Tax Return</h2>
 <p>Filing your annual income tax return in Pakistan is done through FBR's IRIS portal (iris.fbr.gov.pk). Key deadlines:</p>
@@ -1411,7 +1411,7 @@ export const BLOG_POSTS = [
     content: `
 <h2>The Classroom Grouping Problem Every Teacher Knows</h2>
 <p>Whether you are dividing a class for a group project, a science experiment, or a peer-learning exercise, the same challenge appears every time: how do you create fair groups that mix ability levels without spending 20 minutes with a spreadsheet? Randomly calling out names produces unbalanced groups. Letting students self-select means friends cluster together and weaker students get left out. There is a smarter way.</p>
-<p>Rafiqy's <a href="/tools/student-group-randomizer">Student Group Randomizer</a> is a free, browser-based tool built specifically for this problem. Paste your class list, specify group size, and it instantly generates balanced groups that mix skill levels — no account, no download, no cost.</p>
+<p>Rafiqy's <a href="/tools/student-groups">Student Group Randomizer</a> is a free, browser-based tool built specifically for this problem. Paste your class list, specify group size, and it instantly generates balanced groups that mix skill levels — no account, no download, no cost.</p>
 
 <h2>Why Balanced Groups Matter</h2>
 <p>Research in cooperative learning consistently shows that heterogeneous groups — where high, medium, and low performers are mixed — produce better outcomes for all students than homogeneous ability grouping. High performers deepen understanding through explanation. Average students gain exposure to stronger thinking. Weaker students benefit from peer support rather than classroom pressure.</p>
@@ -1438,7 +1438,7 @@ export const BLOG_POSTS = [
 <h2>Other Rafiqy Tools for Educators</h2>
 <p>Rafiqy is built with Pakistani teachers and students in mind. Alongside the group randomizer, these tools are useful in educational settings:</p>
 <ul>
-  <li><a href="/typing-tutor-online-free">Typing Tutor</a> — improve keyboard speed for students learning computer skills. Urdu phonetic typing mode is included for local language instruction.</li>
+  <li><a href="/tools/typing-tutor">Typing Tutor</a> — improve keyboard speed for students learning computer skills. Urdu phonetic typing mode is included for local language instruction.</li>
   <li><a href="/tools/word-counter">Word Counter</a> — students can paste essays to check word count, reading level, and sentence structure instantly.</li>
   <li><a href="/tools/pomodoro">Pomodoro Timer</a> — a focused study timer for students preparing for exams. 25-minute work blocks with structured breaks improve retention.</li>
   <li><a href="/tools/daily-planner">Daily Planner</a> — students can organise homework and assignment deadlines in a private, browser-based planner.</li>
@@ -1457,7 +1457,7 @@ export const BLOG_POSTS = [
 <h3>Is it free?</h3>
 <p>Completely free. No sign-up, no premium tier, no ads on the tool page. Rafiqy is funded by keeping infrastructure costs minimal — all processing happens in your browser.</p>
 
-<div class="cta-box"><p>Ready to create balanced student groups in seconds?</p><a href="/tools/student-group-randomizer">Try Student Group Randomizer Free →</a></div>
+<div class="cta-box"><p>Ready to create balanced student groups in seconds?</p><a href="/tools/student-groups">Try Student Group Randomizer Free →</a></div>
 `,
   },
   {
@@ -1511,7 +1511,7 @@ export const BLOG_POSTS = [
 <h2>Other Rafiqy Tools Useful for Legal Professionals</h2>
 <ul>
   <li><a href="/tools/text-encryptor">Text Encryptor</a> — encrypt sensitive notes and messages using AES-256 before sharing with colleagues over email or messaging apps.</li>
-  <li><a href="/compress-pdf-online-free">PDF Compressor</a> — reduce the size of large legal documents before attaching to emails or uploading to court portals with file size limits.</li>
+  <li><a href="/tools/compress-pdf">PDF Compressor</a> — reduce the size of large legal documents before attaching to emails or uploading to court portals with file size limits.</li>
   <li><a href="/tools/word-counter">Word Counter</a> — check word and character count for court filings, witness statements, or submissions that have strict length requirements.</li>
 </ul>
 

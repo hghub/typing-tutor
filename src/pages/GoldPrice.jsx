@@ -226,8 +226,8 @@ export default function GoldPrice() {
   const { isDark, colors } = useTheme()
 
   // Rates
-  const [goldRate, setGoldRate]     = useState(265000)
-  const [silverRate, setSilverRate] = useState(3000)
+  const [goldRate, setGoldRate]     = useState(505800)
+  const [silverRate, setSilverRate] = useState(9002)
 
   // Live API state
   const [liveUSD,    setLiveUSD]    = useState(null)   // USD per troy oz

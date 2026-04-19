@@ -1126,7 +1126,25 @@ const TOOL_SEO = {
       { q: 'How do I create a WiFi QR code?', a: 'Select the WiFi tab, enter your network name (SSID), password, and security type (WPA/WPA2 is most common). The QR code is generated instantly. When scanned by a smartphone, it prompts to join that network automatically.' },
     ],
   },
-
+  'solar-planner': {
+    metaTitle: 'Solar Planner Pakistan — System Size, Cost & Payback Calculator | Rafiqy',
+    metaDesc: 'Free solar planning tool for Pakistan. Enter your electricity bill, add appliances, and get a recommended system size, cost range (PKR), payback period, battery advice, and a solar worth-it verdict.',
+    heading: 'Solar Planner for Pakistan — Estimate System Size, Cost & Payback',
+    paras: [
+      'Rafiqy Solar Planner is a free 3-step solar planning wizard designed specifically for Pakistani homeowners and businesses. In under two minutes, you can estimate the right solar system size for your home, understand the total installation cost in PKR, and see how many years it will take to recover your investment. No technical knowledge required — just enter your monthly electricity bill, select your city, and toggle the appliances you use every day.',
+      'The tool uses real 2025 Pakistan market data: city-specific peak sun hours for 11 cities including Karachi (5.5 hrs), Quetta (6.0 hrs), Lahore (5.0 hrs), and Islamabad (4.8 hrs). Installation costs are calculated at PKR 80–120 per watt (on-grid, fully installed), which translates to roughly PKR 4–8 lakh for a typical 4–6 kW household system. Monthly savings are estimated using the current residential electricity tariff baseline, giving you a realistic payback projection.',
+      'The appliance load calculator in Step 2 lets you select from 10 common household loads. Adjusting quantities and daily hours gives a more accurate daily kWh load than the bill-based estimate alone.',
+      'Battery storage advice is included based on your load-shedding situation. The final "Is Solar Worth It?" verdict gives you a clear answer based on your bill size. Copy your complete estimate as text to share with family or your solar installer.',
+    ],
+    faqs: [
+      { q: 'How accurate is this solar calculator for Pakistan?', a: 'The Solar Planner gives range-based estimates for initial planning. Cost estimates use 2025 Pakistan market rates of PKR 80–120/W installed. Always get 2–3 installer quotes before committing.' },
+      { q: 'What solar system size do I need in Pakistan?', a: 'Most homes with a PKR 10,000–20,000/month bill need a 4–6 kW on-grid system. The Solar Planner calculates your specific load using your bill and appliance usage, then divides by your city peak sun hours and 80% efficiency.' },
+      { q: 'How much does solar cost in Pakistan in 2025?', a: 'A fully installed on-grid system costs PKR 80,000–120,000 per kW in 2025. A 5 kW system costs PKR 4–6 lakh including panels, inverter, mounting, wiring, and installation.' },
+      { q: 'Which cities in Pakistan have the best solar potential?', a: 'Quetta and Sukkur lead with 6.0 peak sun hours/day. Karachi, Hyderabad, and Multan average 5.5 hours. Lahore, Faisalabad, and Peshawar get 5.0 hours. Islamabad receives 4.8 hours.' },
+      { q: 'Do I need a battery with my solar system in Pakistan?', a: 'If you face 4+ hours of daily load-shedding, a battery is strongly recommended. Without a battery, a grid-tied inverter shuts down during load-shedding. A 5 kWh lithium battery covers essential loads through a 4–6 hour outage.' },
+      { q: 'How long is the solar payback period in Pakistan?', a: 'For bills above PKR 20,000/month, payback is typically 3–4 years. For PKR 10,000–15,000, expect 4–6 years. Smaller bills mean longer payback, making solar less compelling below PKR 5,000/month.' },
+      { q: 'Is net metering available in Pakistan?', a: 'Yes. NEPRA allows net metering. Excess units you generate are credited to your bill. Apply through your DISCO with system documentation. Net metering significantly improves the payback calculation for on-grid systems.' },
+    ],
+  },
 }
-
 export default TOOL_SEO

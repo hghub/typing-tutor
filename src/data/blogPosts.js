@@ -1671,4 +1671,74 @@ export const BLOG_POSTS = [
 <div class="cta-box"><p>Generate QR codes for URLs, WiFi, email and phone — free, private, download as PNG.</p><a href="/tools/qr-generator">Open QR Code Generator →</a></div>
 `,
   },
+  {
+    slug: 'solar-planner-pakistan',
+    title: 'Solar Planning for Pakistan Homes: What Size, Cost & Payback to Expect',
+    description: 'A practical guide to planning solar in Pakistan — how to calculate system size, what on-grid solar costs in 2025, payback period, battery advice, and city-by-city sun data.',
+    hero: '☀️',
+    category: 'pakistan',
+    readTime: '10 min read',
+    publishDate: '2026-04-19',
+    tags: ['solar', 'solar panel', 'pakistan', 'electricity bill', 'energy', 'battery', 'net metering'],
+    content: `
+<h2>Why Solar Makes Sense in Pakistan (for the Right Bill)</h2>
+<p>Pakistan's electricity tariffs have climbed sharply — residential consumers in 2025 pay PKR 40–60 per kWh depending on their slab. For a household with a PKR 15,000–25,000/month bill, a solar investment pays itself back in 3–5 years and then generates essentially free electricity for 20+ more years. But solar isn't a no-brainer for everyone — small-bill homes (under PKR 5,000/month) face payback periods exceeding 10 years, which makes the math much less compelling.</p>
+<p>This guide helps you figure out which camp you're in — and what to do about it.</p>
+
+<h2>Step 1: Know Your Load</h2>
+<p>The most common mistake people make is going straight to a solar company without knowing their actual daily load. Installers will quote you based on your bill, but your bill includes distribution losses and slab penalties that solar doesn't eliminate. A better approach: list your appliances, their wattage, and how many hours per day you run them.</p>
+<p>Example: A household running 2 × 1.5-ton ACs for 8 hrs, 4 fans for 18 hrs, fridge 24 hrs, and lights 5 hrs has a daily load of roughly 32–35 kWh — requiring a 7–8 kW system.</p>
+<p>Use the <a href="/tools/solar-planner">Rafiqy Solar Planner</a> to do this calculation in under 2 minutes.</p>
+
+<h2>Step 2: System Sizing</h2>
+<p>System size (kW) = Daily kWh ÷ peak sun hours ÷ 0.80 derating factor</p>
+<p>Peak sun hours vary by city:</p>
+<ul>
+  <li><strong>Quetta, Sukkur:</strong> 6.0 hrs/day — best solar potential in Pakistan</li>
+  <li><strong>Karachi, Hyderabad, Multan:</strong> 5.5 hrs/day</li>
+  <li><strong>Lahore, Faisalabad, Peshawar:</strong> 5.0 hrs/day</li>
+  <li><strong>Islamabad, Rawalpindi:</strong> 4.8 hrs/day</li>
+</ul>
+<p>The 0.80 derating accounts for panel degradation, dust, heat losses, and inverter inefficiency. So a Lahore home needing 20 kWh/day needs: 20 ÷ 5.0 ÷ 0.80 = 5 kW system.</p>
+
+<h2>Step 3: What Does It Cost?</h2>
+<p>As of 2025, a fully installed on-grid solar system in Pakistan costs PKR 80,000–120,000 per kW. This includes:</p>
+<ul>
+  <li>Solar panels (monocrystalline, tier-1 brands like LONGi, JA Solar)</li>
+  <li>Grid-tie inverter (Sungrow, Growatt, Fronius)</li>
+  <li>Mounting structure (rooftop or ground mount)</li>
+  <li>DC/AC wiring, combiner box, earthing</li>
+  <li>Installation labour and 1-year service</li>
+</ul>
+<p>So a 5 kW system costs PKR 4–6 lakh. A 10 kW system costs PKR 8–12 lakh. Hybrid systems (with battery) add PKR 1.5–4 lakh for a 5 kWh lithium battery pack.</p>
+
+<h2>Do You Need a Battery?</h2>
+<p>This is one of the most asked questions — and the answer depends entirely on your load-shedding situation:</p>
+<ul>
+  <li><strong>0–2 hours load-shedding:</strong> A grid-tie inverter (no battery) is usually sufficient. It's the cheapest setup.</li>
+  <li><strong>4–6 hours load-shedding:</strong> A battery is strongly recommended. Without it, a grid-tie inverter shuts down during outages (NEPRA safety requirement).</li>
+  <li><strong>8+ hours load-shedding:</strong> A hybrid or off-grid setup with a 10 kWh+ battery bank is ideal.</li>
+</ul>
+<p>For most urban Pakistan homes experiencing 4–6 hours of load-shedding, a 5 kWh LiFePO4 battery (PKR 1.5–2.5 lakh) covers essential loads — fans, lights, router — through the outage window.</p>
+
+<h2>Payback Period Reality Check</h2>
+<p>At PKR 50/kWh and a 5 kW system generating ~600 kWh/month, monthly savings are approximately PKR 30,000. At a cost of PKR 5 lakh, payback = 5,00,000 ÷ (30,000 × 12) = 1.4 years — but this assumes your bill is fully offset, which it won't be unless your system exactly matches your load.</p>
+<p>A more realistic estimate: a 5 kW system reduces a PKR 20,000/month bill to PKR 3,000–5,000/month (offsetting ~PKR 15,000/month). Payback = 5,00,000 ÷ (15,000 × 12) ≈ 2.8 years. Add battery: 7,00,000 ÷ (15,000 × 12) ≈ 3.9 years.</p>
+
+<h2>Net Metering in Pakistan</h2>
+<p>NEPRA's net metering policy allows on-grid solar users to export excess daytime generation back to the grid and receive credits on their bill. The process: apply to your DISCO (LESCO, KESC, FESCO etc.), get system approved, DISCO installs bidirectional meter. Net metering can reduce your effective bill further, especially for oversized systems.</p>
+
+<h2>How to Use the Rafiqy Solar Planner</h2>
+<p>The <a href="/tools/solar-planner">Solar Planner</a> does all this math in a 3-step wizard:</p>
+<ol>
+  <li><strong>Step 1:</strong> Enter your monthly bill and city. Set your daily load-shedding hours.</li>
+  <li><strong>Step 2:</strong> Toggle your major appliances. Adjust qty and hours/day for accuracy.</li>
+  <li><strong>Step 3:</strong> See your recommended system size, cost range, monthly savings, payback, battery advice, and a "Is Solar Worth It?" verdict. Copy the full estimate as text to share with your installer.</li>
+</ol>
+<div style="background:#451a0318;border:1px solid #92400e40;border-radius:8px;padding:1rem;margin-top:1rem;">
+<p style="color:#92400e;font-size:0.85rem;margin:0;">⚠️ All estimates are based on average 2025 Pakistan market data. Actual costs and savings depend on your installer, panel brand, roof type, and electricity tariff. Get 2–3 quotes before deciding.</p>
+<p style="margin:0.5rem 0 0;"><a href="/tools/solar-planner">Open Solar Planner →</a></p>
+</div>
+`,
+  },
 ]

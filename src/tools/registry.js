@@ -959,6 +959,23 @@ export const TOOLS = [
     related: ['text-encryptor', 'data-leak-detector', 'doc-redaction'],
     features: ['Adjustable length (8–64) with character type toggles', 'Entropy-based strength meter with crack-time estimate', 'Test your own existing password strength', '100% local — no data leaves your browser'],
   },
+  // ── Solar Planner ──
+  {
+    id: 'solar-planner',
+    addedOn: '2026-04-19',
+    name: 'Solar Planner',
+    nameUrdu: 'سولر پلانر',
+    tagline: 'Estimate solar system size & cost for Pakistan homes',
+    taglineUrdu: 'پاکستانی گھروں کے لیے سولر سسٹم کا تخمینہ لگائیں',
+    description: 'A 3-step solar planning wizard for Pakistan. Enter your bill, pick appliances, and get a recommended system size, cost range, payback period, battery advice, and "Is Solar Worth It?" verdict.',
+    icon: '☀️',
+    path: '/tools/solar-planner',
+    color: '#f59e0b',
+    category: 'pakistan',
+    tags: ['solar', 'solar panel', 'electricity bill', 'pakistan', 'energy', 'load calculator', 'payback', 'battery'],
+    related: ['tax-calculator', 'loan-emi', 'currency-converter'],
+    features: ['3-step wizard: bill → appliances → results', 'City-based peak sun hours for 11 Pakistani cities', 'Load calculator with 10 common appliances', 'System size, cost range (PKR), payback & battery recommendation', '"Is Solar Worth It?" verdict + copy-as-text summary'],
+  },
   // ── QR Code Generator ──
   {
     id: 'qr-generator',

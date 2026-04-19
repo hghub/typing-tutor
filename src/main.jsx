@@ -80,6 +80,7 @@ const AgeCalculator  = lazy(() => import('./pages/AgeCalculator.jsx'))
 const UnitConverter  = lazy(() => import('./pages/UnitConverter.jsx'))
 const PasswordGenerator = lazy(() => import('./pages/PasswordGenerator.jsx'))
 const QRGenerator    = lazy(() => import('./pages/QRGenerator.jsx'))
+const SolarPlanner   = lazy(() => import('./pages/SolarPlanner.jsx'))
 const About              = lazy(() => import('./pages/About.jsx'))
 const Help               = lazy(() => import('./pages/Help.jsx'))
 const BlogHome           = lazy(() => import('./pages/BlogHome.jsx'))
@@ -179,6 +180,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/unit-converter" element={<UnitConverter />} />
           <Route path="/tools/password-generator" element={<PasswordGenerator />} />
           <Route path="/tools/qr-generator" element={<QRGenerator />} />
+          <Route path="/tools/solar-planner" element={<SolarPlanner />} />
           <Route path="/blog" element={<BlogHome />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/blogs/tools/:slug" element={<BlogPostRedirect />} />

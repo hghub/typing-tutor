@@ -110,7 +110,7 @@ function MarqueeTicker({ tools, isDark, colors }) {
     { label: '📏 Track anything · Measurement Tracker', color: '#8b5cf6', path: '/tools/measurement-tracker' },
     { label: '🔒 Encrypt your messages privately', color: '#06b6d4', path: '/tools/text-encryptor' },
     { label: '🚗 Track driving fines & violations', color: '#f97316', path: '/tools/driving-fines' },
-    { label: '📊 62 free tools · No signup needed', color: '#3b82f6', path: '/tools' },
+    { label: '📊 63 free tools · No signup needed', color: '#3b82f6', path: '/tools' },
   ]
   const doubled = [...items, ...items]
 
@@ -320,7 +320,7 @@ export default function ToolsHome() {
 
       <Helmet>
         <title>Free Online Tools – Productivity, Finance, PDF & More | Rafiqy</title>
-        <meta name="description" content="62 free browser-based tools for everyday digital tasks — typing, PDFs, finance calculators, productivity timers, developer utilities and more. No sign-up, 100% private." />
+        <meta name="description" content="63 free browser-based tools for everyday digital tasks — typing, PDFs, finance calculators, productivity timers, developer utilities and more. No sign-up, 100% private." />
         <link rel="canonical" href="https://rafiqy.app/tools" />
       </Helmet>
 

@@ -18,8 +18,8 @@ export default function BlogHome() {
   return (
     <>
       <Helmet>
-        <title>Rafiqy Blog — Guides, Tips & Tool Tutorials</title>
-        <meta name="description" content="In-depth guides, tutorials and tips for all 58 Rafiqy tools. Learn about Pakistani tax tools, Urdu features, developer utilities and more." />
+        <title>Guides & Tips – Productivity, Tools & Digital Workflows | Rafiqy</title>
+        <meta name="description" content="Practical guides, tutorials, and productivity tips to help you work faster using digital tools. From typing and PDFs to finance and developer tools." />
         <link rel="canonical" href="https://rafiqy.app/blog" />
       </Helmet>
 
@@ -36,10 +36,10 @@ export default function BlogHome() {
           <div style={{ maxWidth: '720px', margin: '0 auto' }}>
             <div style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>📝</div>
             <h1 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 800, color: colors.text, margin: '0 0 0.75rem' }}>
-              Rafiqy Blog
+              Learn Smarter Ways to Use Digital Tools
             </h1>
             <p style={{ fontSize: '1.1rem', color: colors.textSecondary, lineHeight: 1.7, margin: 0 }}>
-              In-depth guides, tutorials and tips for all 58 tools. Built for Pakistani professionals, developers and students.
+              Practical guides, tutorials, and productivity tips to help you work faster using digital tools.
             </p>
           </div>
         </div>

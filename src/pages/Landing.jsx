@@ -11,11 +11,11 @@ const FEATURED_IDS = [
 ]
 
 const QUICK_ACTIONS = [
-  { label: '⌨ Typely', path: '/typing-tutor-online-free', desc: 'Typing tutor' },
-  { label: '⏱ Pomodoro', path: '/pomodoro-focus-engine', desc: 'Focus timer' },
+  { label: '⌨ Typing Tutor', path: '/tools/typing-tutor', desc: 'Typing tutor' },
+  { label: '⏱ Pomodoro', path: '/tools/pomodoro', desc: 'Focus timer' },
   { label: '🌍 World Time', path: '/tools/world-time', desc: 'Time zones' },
-  { label: '📄 Compress PDF', path: '/compress-pdf-online-free', desc: 'Shrink files' },
-  { label: '💰 EMI Calc', path: '/loan-emi-calculator', desc: 'Loan calculator' },
+  { label: '📄 Compress PDF', path: '/tools/compress-pdf', desc: 'Shrink files' },
+  { label: '💰 EMI Calc', path: '/tools/loan-emi', desc: 'Loan calculator' },
   { label: '🧮 Tax Calc', path: '/tools/tax-calculator', desc: 'FBR 2025-26' },
 ]
 
@@ -24,21 +24,21 @@ const WHAT_YOU_CAN_DO = [
     icon: '📝',
     title: 'Write & Format',
     desc: 'Word counter, text formatter, doc composer, Urdu keyboard — everything for your writing workflow.',
-    tools: ['/word-counter-online-free', '/tools/text-cleaner', '/tools/doc-composer'],
+    tools: ['/tools/word-counter', '/tools/text-cleaner', '/tools/doc-composer'],
     labels: ['Word Counter', 'Text Formatter', 'Doc Composer'],
   },
   {
     icon: '💰',
     title: 'Finance & Tax',
     desc: 'Pakistan tax calculator, EMI planner, expense tracker, salary slip generator and more.',
-    tools: ['/tools/tax-calculator', '/loan-emi-calculator', '/tools/expense-analyzer'],
+    tools: ['/tools/tax-calculator', '/tools/loan-emi', '/tools/expense-analyzer'],
     labels: ['Tax Calculator', 'Loan EMI', 'Expense Analyzer'],
   },
   {
     icon: '📄',
     title: 'PDF Tools',
     desc: 'Compress, merge, split, convert and extract text from PDFs — all in your browser, nothing uploaded.',
-    tools: ['/compress-pdf-online-free', '/tools/merge-pdf', '/tools/text-extractor'],
+    tools: ['/tools/compress-pdf', '/tools/merge-pdf', '/tools/text-extractor'],
     labels: ['Compress', 'Merge', 'Extract Text'],
   },
   {
@@ -59,7 +59,7 @@ const WHAT_YOU_CAN_DO = [
     icon: '🛠',
     title: 'Developer Tools',
     desc: 'Regex tester, JSON formatter, mock data generator, config converter — for devs on the go.',
-    tools: ['/tools/regex-tester', '/json-formatter', '/tools/mock-data'],
+    tools: ['/tools/regex-tester', '/tools/json-formatter', '/tools/mock-data'],
     labels: ['Regex Tester', 'JSON Formatter', 'Mock Data'],
   },
 ]
@@ -72,11 +72,11 @@ export default function Landing() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-bg)', color: 'var(--color-text)', fontFamily: 'sans-serif' }}>
       <Helmet>
-        <title>Free Online Tools for Productivity, Finance & PDF | Rafiqy</title>
-        <meta name="description" content="57 free browser-based tools — typing tutor, PDF compressor, loan EMI calculator, word counter, Pakistan tax tools and more. No sign-up, 100% private." />
+        <title>Rafiqy – A Simple Digital Companion for Everyday Tasks</title>
+        <meta name="description" content="Fast, free, and secure online tools for everyday tasks — typing, PDFs, finance, timers, productivity and more. All in one simple digital toolbox. No sign-up." />
         <link rel="canonical" href="https://rafiqy.app/" />
-        <meta property="og:title" content="Free Online Tools for Productivity, Finance & PDF | Rafiqy" />
-        <meta property="og:description" content="57 free browser-based tools — typing tutor, PDF compressor, loan EMI calculator, word counter, Pakistan tax tools and more. No sign-up, 100% private." />
+        <meta property="og:title" content="Rafiqy – A Simple Digital Companion for Everyday Tasks" />
+        <meta property="og:description" content="Fast, free, and secure online tools for everyday tasks — typing, PDFs, finance, timers, productivity and more. All in one simple digital toolbox. No sign-up." />
         <meta property="og:url" content="https://rafiqy.app/" />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify({
@@ -84,7 +84,7 @@ export default function Landing() {
           '@type': 'WebSite',
           'name': 'Rafiqy',
           'url': 'https://rafiqy.app',
-          'description': '57 free browser-based tools for productivity, finance, PDF, and more.',
+          'description': 'A simple digital companion for everyday tasks — 58 free browser-based tools for productivity, finance, PDF, typing, and more.',
           'potentialAction': { '@type': 'SearchAction', 'target': 'https://rafiqy.app/tools?q={search_term_string}', 'query-input': 'required name=search_term_string' }
         })}</script>
       </Helmet>
@@ -111,21 +111,21 @@ export default function Landing() {
           🔒 Files never leave your browser · 100% Private · No sign-up
         </div>
         <h1 style={{ fontSize: 'clamp(2rem,5vw,3.5rem)', fontWeight: 800, margin: '0 0 1rem', lineHeight: 1.2 }}>
-          Free Online Tools —<br />
-          <span style={{ color: 'var(--color-primary)' }}>Productivity, Finance & PDF</span>
+          Your everyday digital toolbox<br />
+          <span style={{ color: 'var(--color-primary)' }}>for faster work online</span>
         </h1>
-        <p style={{ color: 'var(--color-text-muted)', fontSize: '1.15rem', maxWidth: 560, margin: '0 auto 0.75rem' }}>
-          57 free tools — typing tutor, PDF suite, finance calculators, Pakistan tools, developer utilities and more.
+        <p style={{ color: 'var(--color-text-muted)', fontSize: '1.15rem', maxWidth: 580, margin: '0 auto 0.5rem' }}>
+          A simple, fast, and secure collection of tools for productivity, learning, finance, and daily digital tasks.
         </p>
-        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', maxWidth: 520, margin: '0 auto 2.5rem', opacity: 0.7 }}>
-          Fast. Simple. Always there when you need it.
+        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.85rem', maxWidth: 520, margin: '0 auto 2.5rem', opacity: 0.65, fontStyle: 'italic' }}>
+          A simple digital companion for everyday tasks.
         </p>
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link to="/tools" style={{ background: 'var(--color-primary)', color: '#0f172a', padding: '0.8rem 2.25rem', borderRadius: 8, textDecoration: 'none', fontWeight: 700, fontSize: '1rem' }}>
             Open Tools →
           </Link>
-          <Link to="/typing-tutor-online-free" style={{ background: 'transparent', border: '1px solid var(--color-border)', color: 'var(--color-text)', padding: '0.8rem 2rem', borderRadius: 8, textDecoration: 'none', fontWeight: 600, fontSize: '1rem' }}>
-            ⌨ Try Typely
+          <Link to="/tools/typing-tutor" style={{ background: 'transparent', border: '1px solid var(--color-border)', color: 'var(--color-text)', padding: '0.8rem 2rem', borderRadius: 8, textDecoration: 'none', fontWeight: 600, fontSize: '1rem' }}>
+            ⌨ Try Typing Tutor
           </Link>
         </div>
       </section>
@@ -133,16 +133,15 @@ export default function Landing() {
       {/* SEO Intro */}
       <section style={{ maxWidth: 800, margin: '0 auto', padding: '0 2rem 2rem', textAlign: 'center' }}>
         <p style={{ color: 'var(--color-text-muted)', fontSize: '0.92rem', lineHeight: 1.8 }}>
-          Rafiqy is a free, privacy-first collection of 57 online tools built for students, professionals, 
-          and developers in Pakistan and beyond. Every tool runs entirely in your browser — your files, text, 
-          and data never leave your device. No account, no subscription, no tracking.
+          Rafiqy is a modern digital toolbox designed to help you complete everyday tasks faster. Whether you're a student, professional, developer or freelancer — there's a tool for your daily digital needs. Every tool runs entirely in your browser, so your files and data never leave your device.
         </p>
         <p style={{ color: 'var(--color-text-muted)', fontSize: '0.92rem', lineHeight: 1.8, marginTop: '0.75rem' }}>
-          Whether you need to <a href="/typing-tutor-online-free" style={{ color: 'var(--color-primary)' }}>improve your typing speed</a>, 
-          <a href="/compress-pdf-online-free" style={{ color: 'var(--color-primary)', margin: '0 4px' }}>compress a PDF</a>, 
-          <a href="/loan-emi-calculator" style={{ color: 'var(--color-primary)' }}>calculate your loan EMI</a>, or 
-          <a href="/word-counter-online-free" style={{ color: 'var(--color-primary)', marginLeft: 4 }}>count words</a> — 
-          Rafiqy has a tool for it. All free, all instant, all private.
+          From{' '}
+          <Link to="/tools/typing-tutor" style={{ color: 'var(--color-primary)' }}>improving your typing speed</Link>,{' '}
+          <Link to="/tools/compress-pdf" style={{ color: 'var(--color-primary)' }}>compressing a PDF</Link>,{' '}
+          <Link to="/tools/loan-emi" style={{ color: 'var(--color-primary)' }}>calculating your loan EMI</Link>, or{' '}
+          <Link to="/tools/word-counter" style={{ color: 'var(--color-primary)', marginLeft: 4 }}>counting words</Link>{' '}
+          — Rafiqy has a tool for it. All free, all instant, all private.
         </p>
       </section>
 
@@ -171,7 +170,7 @@ export default function Landing() {
             What you can do with Rafiqy
           </h2>
           <p style={{ textAlign: 'center', color: 'var(--color-text-muted)', marginBottom: '2.5rem', fontSize: '0.95rem' }}>
-            Everything runs in your browser. Nothing is uploaded. No account needed.
+            No clutter. No distractions. Just useful tools — all running in your browser.
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(300px,1fr))', gap: '1.25rem' }}>
             {WHAT_YOU_CAN_DO.map(cat => (
@@ -234,10 +233,10 @@ export default function Landing() {
       <section style={{ background: 'var(--color-surface)', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)', padding: '2.5rem 2rem' }}>
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
           <h2 style={{ textAlign: 'center', fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.5rem' }}>
-            Always there when you need it
+            Your simple digital companion
           </h2>
           <p style={{ textAlign: 'center', color: 'var(--color-text-muted)', fontSize: '0.9rem', marginBottom: '2rem' }}>
-            Rafiqy — your pocket companion for everyday tools
+            A digital toolbox built to help you get everyday tasks done — fast, free, and private.
           </p>
           <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
             {[
@@ -300,7 +299,7 @@ export default function Landing() {
         <Link to="/blog" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', marginRight: '1rem' }}>Blog</Link>
         <Link to="/help" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', marginRight: '1rem' }}>Help</Link>
         <Link to="/about" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', marginRight: '1rem' }}>About</Link>
-        <span>© {new Date().getFullYear()} Rafiqy — Your pocket companion for everyday tools</span>
+        <span>© {new Date().getFullYear()} Rafiqy — A simple digital companion for everyday tasks</span>
       </footer>
     </div>
   )

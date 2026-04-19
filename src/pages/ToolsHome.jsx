@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { TOOLS, TOOL_CATEGORIES } from '../tools/registry'
 import ToolsNav from '../components/ToolsNav'
 import SmartSearch from '../components/SmartSearch'
@@ -317,6 +318,12 @@ export default function ToolsHome() {
 
       <ToolsNav />
 
+      <Helmet>
+        <title>Free Online Tools – Productivity, Finance, PDF & More | Rafiqy</title>
+        <meta name="description" content="58 free browser-based tools for everyday digital tasks — typing, PDFs, finance calculators, productivity timers, developer utilities and more. No sign-up, 100% private." />
+        <link rel="canonical" href="https://rafiqy.app/tools" />
+      </Helmet>
+
       <main style={{ maxWidth: '1140px', margin: '0 auto', padding: '3rem 1.25rem 2rem' }}>
 
         {/* ── Hero ── */}
@@ -329,11 +336,11 @@ export default function ToolsHome() {
           </div>
 
           <h1 style={{ fontSize: 'clamp(2rem, 4.5vw, 3rem)', fontWeight: 900, background: 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', margin: '0 0 0.8rem', letterSpacing: '-0.03em', lineHeight: 1.15 }}>
-            Privacy-first tools that run in your browser
+            All Your Daily Tools in One Place
           </h1>
 
           <p style={{ color: colors.textSecondary, fontSize: '1.05rem', maxWidth: '580px', margin: '0 auto 2rem', lineHeight: 1.6 }}>
-            {totalTools}+ free tools for developers, professionals &amp; students — no uploads, no accounts, nothing leaves your device.
+            Rafiqy tools help you get everyday tasks done faster — from typing and productivity to finance, writing, and file management.
           </p>
 
           {/* ── Smart Search — primary CTA ── */}
@@ -590,6 +597,13 @@ export default function ToolsHome() {
           })}
         </div>
       </main>
+
+      {/* SEO Paragraph */}
+      <div style={{ maxWidth: '700px', margin: '3rem auto 0', textAlign: 'center', padding: '0 1rem' }}>
+        <p style={{ color: colors.textSecondary, fontSize: '0.88rem', lineHeight: 1.75 }}>
+          Rafiqy is a simple digital toolbox for everyday online tasks. From productivity timers and finance calculators to PDF utilities and writing tools — everything is built to be fast, free, and accessible from any device. No uploads, no accounts, no distractions.
+        </p>
+      </div>
 
       {/* ── Trust Strip ── */}
       <div style={{ borderTop: `1px solid ${colors.border}`, marginTop: '3rem', padding: '1.5rem 1rem', background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.02)' }}>

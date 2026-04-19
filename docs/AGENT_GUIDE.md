@@ -107,10 +107,64 @@ Add to `public/sitemap.xml` (keep alphabetical within the tools block):
 
 ---
 
-### ✅ Step 6 — Update tool count in Landing.jsx
-Search `Landing.jsx` for the tool count number and increment it. It appears in:
-- Hero section (e.g. "58 free tools")
-- Browse button (e.g. "Browse All 58 Tools")
+### ✅ Step 6 — Update tool count everywhere
+
+The tool count is hardcoded in **17 places** across the codebase. When you add a tool, grep for the current number (e.g. `58`) and increment every occurrence below. **All are user-facing or crawled by Google — none can be skipped.**
+
+#### 📄 `src/pages/Landing.jsx` (3 places)
+| Line area | What |
+|---|---|
+| JSON-LD description in `<Helmet>` | `"58 free browser-based tools"` |
+| Hero "Browse" CTA button | `"Browse all 58 tools →"` |
+| Tools strip "View all" link | `"View all 58 tools →"` |
+
+#### 📄 `src/pages/ToolsHome.jsx` (2 places)
+| Line area | What |
+|---|---|
+| Marquee ticker label | `"📊 58 free tools · No signup needed"` |
+| `<Helmet>` meta description | `"58 free browser-based tools…"` |
+
+#### 📄 `src/pages/About.jsx` (2 places)
+| Line area | What |
+|---|---|
+| Body paragraph | `"58 free, browser-native tools"` |
+| Stats card `value` | `{ value: '58', label: 'Free Tools' }` |
+
+#### 📄 `src/pages/BlogHome.jsx` (1 place)
+| Line area | What |
+|---|---|
+| Footer CTA | `"⚡ Explore all 58 tools →"` |
+
+#### 📄 `src/pages/BlogPost.jsx` (1 place)
+| Line area | What |
+|---|---|
+| Bottom CTA | `"⚡ Explore all 58 tools →"` |
+
+#### 📄 `src/pages/CategoryPage.jsx` (1 place)
+| Line area | What |
+|---|---|
+| Back-to-tools link | `"← Browse all 58 tools"` |
+
+#### 📄 `index.html` (7 places)
+| Line area | What |
+|---|---|
+| `<meta name="description">` | `"58 browser-based tools"` |
+| `<meta property="og:description">` | `"58 browser-based tools"` |
+| `<meta name="twitter:description">` | `"58 browser-based tools"` |
+| WebApplication JSON-LD `description` | `"58 free browser-based tools"` |
+| ItemList JSON-LD `"numberOfItems"` | `58` (integer — must be exact) |
+| WebSite JSON-LD `description` | `"58 free browser-based tools"` |
+| FAQPage JSON-LD answer | `"all 58 tools on Rafiqy"` |
+
+#### 📄 Docs (update so future agents don't get confused)
+| File | What |
+|---|---|
+| `docs/ARCHITECTURE.md` | 5 occurrences of "58 tools" / "58 free utilities" |
+| `docs/SEO_PLAYBOOK.md` | 3 occurrences + sitemap URL total (e.g. "94 URLs → 95 URLs") |
+| `docs/URL_REFERENCE.md` | Section heading `## Tools (58 total)` |
+| `docs/AGENT_GUIDE.md` | This very checklist — update the number throughout |
+
+> **Tip:** Run a global search for the old number (e.g. `58`) in `src/` and `docs/` to catch anything missed. Skip `node_modules/`, `dist/`, and `src/constants/passages.js` (contains unrelated numbers like "9.58 seconds").
 
 ---
 
@@ -184,7 +238,7 @@ Then open `https://rafiqy.app/tools/your-tool-slug` in browser and verify:
 | `src/data/toolSEO.js` | Add SEO entry (metaTitle, metaDesc, heading, paras, faqs) |
 | `src/main.jsx` | Add `<Route path="/tools/your-slug" element={<YourTool />} />` |
 | `public/sitemap.xml` | Add tool URL (and blog URL if writing a post) |
-| `src/pages/Landing.jsx` | Increment tool count in hero + browse button |
+| `src/pages/Landing.jsx` | Increment tool count (JSON-LD desc + 2 CTA buttons) |
 | `src/data/blogPosts.js` | Add blog post (recommended) |
 | `index.html` | Update CSP if new external domain needed |
 
@@ -351,5 +405,5 @@ Examples:
 | Change tool URL | `registry.js`, `sitemap.xml` |
 | Add category page | `CategoryPage.jsx`, `main.jsx`, `sitemap.xml` |
 | Add blog post | `blogPosts.js`, `sitemap.xml` |
-| Update tool count | `Landing.jsx` (hero + browse button), `CategoryPage.jsx` browse link |
+| Update tool count | **17 hardcoded places** — see "Step 6" checklist above for the full list |
 | Improve SEO for a tool | `toolSEO.js` (metaTitle, metaDesc, paras, faqs) |

@@ -6,28 +6,26 @@
 
 ## 1. URL Strategy
 
-### Rule: Keyword-First Flat URLs for Priority Tools
-High-traffic tools get flat, keyword-rich URLs instead of `/tools/slug`:
+### Rule: All Tools Use `/tools/[slug]`
+Every tool has exactly one URL: `https://rafiqy.app/tools/[slug]`
 
-**Format:** `/[primary-keyword]-[modifier]`
+✅ Good: `/tools/compress-pdf`, `/tools/tax-calculator`, `/tools/typing-tutor`  
+❌ Bad: `/compress-pdf-online-free`, `/pakistan-tax-calculator`, `/typing-tutor-online-free`
 
-✅ Good: `/compress-pdf-online-free`, `/pakistan-tax-calculator`, `/typing-tutor-online-free`
-❌ Bad: `/tools/compress-pdf`, `/tools/tax`, `/typely`
+### Rule: Clean, Descriptive Slugs
+Slugs should be short and descriptive — not keyword-stuffed:
+✅ `/tools/compress-pdf`  
+❌ `/tools/compress-pdf-online-free-no-upload`
 
-### Rule: Always Redirect Old URLs
-When a URL changes, the old path MUST redirect:
-```jsx
-<Route path="/tools/compress-pdf" element={<Navigate to="/compress-pdf-online-free" replace />} />
-```
-Keep old URL in sitemap for 3–6 months, then remove.
-
-### Rule: Standard Tools Use `/tools/[slug]`
-For tools not yet promoted to flat SEO URL, use `/tools/[descriptive-slug]`.
+### Rule: No Redirects Needed
+Since all tools have always been at `/tools/X` (our canonical), no redirect infrastructure is needed.
 
 ### Rule: Categories at `/category/[name]`
 Category pages always at `/category/[name]`. Name must be human-readable:
 ✅ `/category/productivity-tools`, `/category/pakistan-tools`
-❌ `/category/prod`, `/category/pk`
+
+### Rule: Blog at `/blog/[slug]`
+All blog posts at `/blog/[slug]` (not `/blogs/`).
 
 ---
 
@@ -200,7 +198,7 @@ Handled automatically by `CategoryPage.jsx` — matches by category.
 
 ### Blog Posts → Tools (MANUAL — must be done by author)
 Every tool mentioned in a blog must:
-1. Be linked with its canonical flat URL
+1. Be linked with its canonical URL (`/tools/slug`)
 2. Have a features list
 3. Have a CTA: `<a href="/tool-url">Try [Tool] Free →</a>`
 
@@ -226,8 +224,7 @@ The 300-word SEO intro on Landing.jsx links to 4+ priority tools inline. Keep up
 | Page type | Priority |
 |---|---|
 | Homepage | 1.0 |
-| Priority tools (flat URLs) | 0.9 |
-| Standard tools | 0.7 |
+| All tools | 0.7-0.8 |
 | Category pages | 0.6 |
 | Blog posts | 0.6 |
 | Static pages (About, Help) | 0.5 |
@@ -249,7 +246,7 @@ The 300-word SEO intro on Landing.jsx links to 4+ priority tools inline. Keep up
 - Format: `https://rafiqy.app/path` (no trailing slash, no `www.`)
 - Set via `<link rel="canonical">` in Helmet
 - ToolLayout sets canonical automatically from `tool.path`
-- App.jsx (Typely) sets canonical manually — must be updated when URL changes
+- App.jsx (Typing Tutor) sets canonical manually — canonical is `/tools/typing-tutor`
 - Old redirected URLs must NOT have a canonical (they 301 redirect, so Google follows)
 
 ---
@@ -287,8 +284,8 @@ All tool pages automatically get from ToolLayout:
 ## 12. Current SEO Status (April 2026)
 
 ### ✅ Implemented
-- 16 priority tools with flat SEO URLs + redirects
-- `metaTitle` + `metaDesc` for all 57 tools in toolSEO.js
+- All 58 tools at single canonical `/tools/X` URLs
+- `metaTitle` + `metaDesc` for all 58 tools in toolSEO.js
 - JSON-LD `WebApplication` + `FAQPage` for all tool pages (via ToolLayout)
 - Homepage Helmet + WebSite JSON-LD + keyword H1 + SEO intro
 - 8 category pages with Helmet + CollectionPage JSON-LD
@@ -296,13 +293,11 @@ All tool pages automatically get from ToolLayout:
 - Blog links on category pages (auto-matched by category)
 - Google Search Console verified
 - Bing Webmaster verified (BingSiteAuth.xml)
-- sitemap.xml with all URLs
+- sitemap.xml with all 94 URLs (58 tools + 8 categories + 24 blogs + 4 core pages)
+- CSP allows Google Fonts (fonts.googleapis.com) for Urdu Keyboard
+- SW registration via external registerSW.js (no CSP violations)
 
 ### ⏳ Pending / To Do
-- Typely SEO content update — cover all 24 features in paras + 14 FAQs
-- All 16 blog posts — expand to cover all tool features
 - OG image (1200×630) for social sharing
 - Blog Article JSON-LD schema in BlogPost.jsx
-- Live gold price integration (CoinGecko API)
-- Text diff tool (new developer tool)
-- Typely UI redesign (start screen)
+- Expand blog posts to cover all tool features

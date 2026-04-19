@@ -6,7 +6,7 @@
 
 ## 1. What Is Rafiqy?
 
-Rafiqy (`rafiqy.app`) is a **privacy-first, browser-only tool platform** with 57 free utilities built for Pakistani users and beyond. Every tool runs 100% in the browser — no data is ever sent to a server (except where explicitly stated, e.g. Supabase leaderboard).
+Rafiqy (`rafiqy.app`) is a **privacy-first, browser-only tool platform** with 58 free utilities built for Pakistani users and beyond. Every tool runs 100% in the browser — no data is ever sent to a server (except where explicitly stated, e.g. Supabase leaderboard).
 
 **Stack:** React 18 + Vite + React Router v6 + React Helmet Async + Supabase (leaderboard only) + TailwindCSS (minimal use) + inline styles (primary styling approach)
 
@@ -17,10 +17,10 @@ Rafiqy (`rafiqy.app`) is a **privacy-first, browser-only tool platform** with 57
 ```
 typing-tutor/                    ← Git root (project name is legacy)
 ├── src/
-│   ├── App.jsx                  ← Typely (typing tutor) — standalone, NOT wrapped in ToolLayout
+│   ├── App.jsx                  ← Typing Tutor — standalone, NOT wrapped in ToolLayout
 │   ├── main.jsx                 ← ALL routes defined here
 │   ├── components/
-│   │   ├── ToolLayout.jsx       ← Shared wrapper for all 57 tools (except Typely)
+│   │   ├── ToolLayout.jsx       ← Shared wrapper for all 58 tools (except Typing Tutor)
 │   │   ├── ToolSEOFooter.jsx    ← Renders heading/paras/faqs from toolSEO.js
 │   │   ├── RelatedTools.jsx     ← Shows related tools from registry.js
 │   │   ├── ToolsNav.jsx         ← Global sticky nav
@@ -30,16 +30,16 @@ typing-tutor/                    ← Git root (project name is legacy)
 │   │   ├── Landing.jsx          ← Homepage (/)
 │   │   ├── ToolsHome.jsx        ← All tools grid (/tools)
 │   │   ├── CategoryPage.jsx     ← Category pages (/category/*)
-│   │   ├── BlogHome.jsx         ← Blog listing (/blogs)
-│   │   ├── BlogPost.jsx         ← Blog reader (/blogs/tools/:slug)
+│   │   ├── BlogHome.jsx         ← Blog listing (/blog)
+│   │   ├── BlogPost.jsx         ← Blog reader (/blog/:slug)
 │   │   ├── About.jsx            ← About page (/about)
 │   │   ├── Help.jsx             ← Help/FAQ (/help)
 │   │   └── [ToolName].jsx       ← Individual tool pages (57 tools)
 │   ├── data/
-│   │   ├── toolSEO.js           ← SEO content for all 57 tools (metaTitle, metaDesc, heading, paras, faqs)
-│   │   └── blogPosts.js         ← All 16 blog posts (slug, title, category, content HTML)
+│   │   ├── toolSEO.js           ← SEO content for all 58 tools (metaTitle, metaDesc, heading, paras, faqs)
+│   │   └── blogPosts.js         ← All 24 blog posts (slug, title, category, content HTML)
 │   ├── tools/
-│   │   └── registry.js          ← Single source of truth for all 57 tools
+│   │   └── registry.js          ← Single source of truth for all 58 tools
 │   ├── hooks/                   ← Custom React hooks
 │   ├── constants/               ← Languages, passages, etc.
 │   └── utils/                   ← Supabase client, helpers
@@ -88,51 +88,32 @@ export const CATEGORIES = [
 
 ---
 
-## 4. URL Structure
+## 4. URL Strategy
 
-### Priority Tools — Flat SEO URLs (16 tools)
-These tools have keyword-rich flat URLs for SEO. Old `/tools/` paths redirect via `<Navigate replace>`.
+**All 58 tools use `/tools/[slug]` as the single canonical URL.** No flat keyword URLs. No redirects.
 
-| Tool | Canonical URL |
-|---|---|
-| Typely (Typing Tutor) | `/typing-tutor-online-free` |
-| Word Counter | `/word-counter-online-free` |
-| Pomodoro Timer | `/pomodoro-focus-engine` |
-| Loan EMI Calculator | `/loan-emi-calculator` |
-| Compress PDF | `/compress-pdf-online-free` |
-| Currency Converter | `/currency-converter-live` |
-| Salary Slip Generator | `/salary-slip-generator` |
-| JSON Formatter | `/json-formatter` |
-| Urdu Keyboard | `/urdu-keyboard-online` |
-| Daily Planner | `/daily-planner-online` |
-| Kameti Tracker | `/kameti-committee-tracker` |
-| Measurement Tracker | `/measurement-tracker-online` |
-| Expense Analyzer | `/expense-pattern-analyzer` |
-| Pakistan Tax Calculator | `/pakistan-tax-calculator` |
-| Smart Packing List | `/smart-packing-list` |
-| Warranty Tracker | `/warranty-tracker-online` |
-
-### Standard Tools — `/tools/[slug]`
-All other 41 tools use `/tools/[name]` URLs.
+### Tool URLs — `/tools/[slug]`
+All tools: `https://rafiqy.app/tools/[slug]`
 
 ### Category Pages — `/category/[name]`
-| URL | Tool Category Filter |
+| URL | Category |
 |---|---|
-| `/category/productivity-tools` | `productivity` |
-| `/category/finance-tools` | `finance`, `pakistan` |
-| `/category/pdf-tools` | `pdf` |
-| `/category/developer-tools` | `developer` |
-| `/category/pakistan-tools` | `pakistan` |
-| `/category/writing-tools` | `writing` |
-| `/category/image-tools` | `media` |
-| `/category/security-tools` | `security` |
+| `/category/productivity-tools` | productivity |
+| `/category/finance-tools` | finance, pakistan |
+| `/category/pdf-tools` | pdf |
+| `/category/developer-tools` | developer |
+| `/category/pakistan-tools` | pakistan |
+| `/category/writing-tools` | writing |
+| `/category/image-tools` | media |
+| `/category/security-tools` | security |
 
 ### Special Routes
 - `/` → Landing.jsx
 - `/tools` → ToolsHome.jsx
-- `/blogs` → BlogHome.jsx
-- `/blogs/tools/:slug` → BlogPost.jsx
-- `/about`, `/help`, `/privacy` → Static pages
+- `/blog` → BlogHome.jsx
+- `/blog/:slug` → BlogPost.jsx
+- `/blogs/tools/:slug` → BlogPostRedirect (redirects to `/blog/:slug`)
+- `/about`, `/help` → Static pages
 
 ---
 
@@ -200,11 +181,11 @@ Each post:
 }
 ```
 
-**16 existing blog posts** (as of April 2026):
+**24 existing blog posts** (as of April 2026):
 `pakistan-tools-guide`, `urdu-tools-guide`, `typing-learning`, `productivity-tools`, `writing-tools`, `language-input`, `finance-investing`, `pakistan-category`, `travel-recreation`, `health-wellness`, `developer-tools`, `education-teaching`, `legal-research`, `business-fieldwork`, `security-privacy`, `pdf-tools`
 
 **Blog → Tool linking:** Every tool mentioned in a blog must:
-1. Have a hyperlink to its canonical URL (use the new flat URL if available)
+1. Have a hyperlink to its canonical URL (`/tools/slug`)
 2. Have a "Key Features" bullet list
 3. Have a CTA button: `<a href="/tool-url" class="blog-cta-btn">Try [Tool Name] Free →</a>`
 
@@ -214,16 +195,14 @@ Each post:
 
 ---
 
-## 7. Typely (Typing Tutor) — Special Case
+## 7. Typing Tutor — Special Case
 
-Typely is **different from all other tools**:
+Typing Tutor is **different from all other tools**:
 - **File:** `src/App.jsx` (not a page in `src/pages/`)
 - **Does NOT use ToolLayout** — has its own full-page layout
 - **Has its own Helmet** — manually maintained in App.jsx
-- **Canonical URL:** `https://rafiqy.app/typing-tutor-online-free`
-- **Route:** `/typing-tutor-online-free` → `<App />`
-- **Old route:** `/tools/typely` → Navigate redirect
-- **Also:** `/tools/typing-tutor` → Navigate redirect (legacy)
+- **Canonical URL:** `https://rafiqy.app/tools/typing-tutor`
+- **Route:** `/tools/typing-tutor` → `<App />`
 
 **Typely Features (all 24+ must be in SEO content):**
 1. WPM + CPM + accuracy measurement
@@ -291,8 +270,7 @@ Returns `{ isDark, toggleTheme, colors }`.
 
 Priority guidelines:
 - Homepage: 1.0
-- Priority tools (flat URLs): 0.9
-- Standard tools: 0.7
+- All tools: 0.7-0.8
 - Category pages: 0.6
 - Blog posts: 0.6
 - Static pages: 0.5

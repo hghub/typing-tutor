@@ -42,8 +42,7 @@ Add an entry to `src/tools/registry.js`:
   icon: '🛠️',
   color: '#hexcolor',
   category: 'productivity',   // Must match an existing CATEGORIES id
-  path: '/your-tool-slug',    // For SEO priority tools: use keyword-rich flat URL
-                              // For standard tools: use /tools/your-tool-slug
+  path: '/tools/your-tool-slug',   // Always use /tools/ prefix
   tags: ['tag1', 'tag2'],
   features: ['Feature 1', 'Feature 2'],
   related: ['other-tool-id', 'another-tool-id'],  // 2-3 related tool IDs
@@ -73,19 +72,16 @@ Add an entry to `src/data/toolSEO.js`:
 
 ### Step 4 — Add route to main.jsx
 ```jsx
-// For SEO priority tools (flat URL):
 const YourTool = lazy(() => import('./pages/YourTool.jsx'))
-<Route path="/your-tool-slug" element={<YourTool />} />
-
-// If migrating from /tools/ path, add redirect:
-<Route path="/tools/your-tool-slug" element={<Navigate to="/your-tool-slug" replace />} />
+// Add inside <Routes>:
+<Route path="/tools/your-tool-slug" element={<YourTool />} />
 ```
 
 ### Step 5 — Update sitemap.xml
 Add to `public/sitemap.xml`:
 ```xml
 <url>
-  <loc>https://rafiqy.app/your-tool-slug</loc>
+  <loc>https://rafiqy.app/tools/your-tool-slug</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
@@ -125,7 +121,7 @@ Add to `src/data/blogPosts.js`:
 ```
 
 **Blog content rules:**
-1. Every tool mentioned must have a hyperlink to its **canonical URL** (flat URL if available)
+1. Every tool mentioned must have a hyperlink to its **canonical URL** (`/tools/slug`)
 2. Every tool section must have a "Key Features" `<ul>` listing ALL tool features
 3. Link to at least 3 different tools per blog post
 4. Content should be 600-1500 words
@@ -161,13 +157,11 @@ Add to `src/data/blogPosts.js`:
 
 ## 🔗 URL Change Rules
 
-**NEVER** simply change a URL without adding a redirect. The process:
-
-1. Update `path` in `registry.js` to the new URL
-2. In `main.jsx`: add new route + `<Navigate from="/old-path" to="/new-path" replace />` for old path
-3. Update `public/sitemap.xml` — add new URL, keep old URL for now (Google needs time)
-4. Update `App.jsx` Helmet if it's the typing tutor (special case)
-5. Check `Landing.jsx` QUICK_ACTIONS and WHAT_YOU_CAN_DO arrays for hardcoded paths
+The canonical URL format is `/tools/[slug]` for all tools. If you must change a tool's URL:
+1. Update `path` in `registry.js`
+2. In `main.jsx`: update the route path
+3. Update `public/sitemap.xml`
+4. Check `Landing.jsx` QUICK_ACTIONS for hardcoded paths
 
 ---
 
@@ -239,7 +233,6 @@ Examples:
 
 | Mistake | Correct Approach |
 |---|---|
-| Changing a URL without adding a redirect | Always add `<Navigate replace />` for old path |
 | Hardcoding `#fff`/`#000` in styles | Use `colors.bg`, `colors.text` from `useTheme()` |
 | Using `window.location.search` in React | Use `useSearchParams()` from react-router-dom |
 | Adding a tool without SEO content | Always add `metaTitle`, `metaDesc`, `heading`, `paras`, `faqs` to toolSEO.js |
@@ -257,7 +250,7 @@ Examples:
 | Task | Files to Update |
 |---|---|
 | Add new tool | `registry.js`, `toolSEO.js`, `main.jsx`, `sitemap.xml`, new page file |
-| Change tool URL | `registry.js`, `main.jsx` (add redirect), `sitemap.xml`, `App.jsx` (if Typely) |
+| Change tool URL | `registry.js`, `sitemap.xml` |
 | Add category page | `CategoryPage.jsx`, `main.jsx`, `sitemap.xml` |
 | Add blog post | `blogPosts.js`, `sitemap.xml` |
 | Update tool count | `Landing.jsx` (hero + browse button), `CategoryPage.jsx` browse link |

@@ -15,10 +15,12 @@
 
 ---
 
-## 🏗️ How to Add a New Tool
+## 🏗️ How to Add a New Tool — Complete Checklist
 
-### Step 1 — Create the tool page
-Create `src/pages/YourTool.jsx`. Wrap it in `ToolLayout`:
+> **Copy this checklist.** Every item is required unless marked optional.
+
+### ✅ Step 1 — Create the tool page
+Create `src/pages/YourTool.jsx`. **Always wrap in `ToolLayout`** — this auto-injects all SEO meta tags, canonical URL, JSON-LD, related tools, blog links, and the SEO footer:
 ```jsx
 import ToolLayout from '../components/ToolLayout'
 
@@ -30,65 +32,161 @@ export default function YourTool() {
   )
 }
 ```
+> ⚠️ Exception: Typing Tutor (`src/App.jsx`) does NOT use ToolLayout — it has its own full-page layout.
 
-### Step 2 — Add to registry.js
-Add an entry to `src/tools/registry.js`:
+---
+
+### ✅ Step 2 — Add to registry.js
+`src/tools/registry.js` is the **single source of truth**. The `id` drives favourites, recent views, related tools, and all navigation. The `path` drives canonical URLs, sitemap, and links everywhere.
+
 ```js
 {
-  id: 'your-tool-id',
-  name: 'Your Tool Name',
-  tagline: 'One line benefit description',
-  description: 'Full description for the tools hub card',
+  id: 'your-tool-id',           // kebab-case, unique, NEVER change after launch
+  name: 'Your Tool Name',       // Display name shown everywhere
+  tagline: 'One line benefit',  // Short CTA shown on tool cards
+  description: 'Full description for the /tools grid card',
   icon: '🛠️',
-  color: '#hexcolor',
-  category: 'productivity',   // Must match an existing CATEGORIES id
-  path: '/tools/your-tool-slug',   // Always use /tools/ prefix
+  color: '#hexcolor',           // Accent colour for hover/highlight states
+  category: 'productivity',    // Must match an existing CATEGORIES id in registry.js
+  path: '/tools/your-tool-slug', // ALWAYS /tools/ prefix — this IS the canonical URL
   tags: ['tag1', 'tag2'],
-  features: ['Feature 1', 'Feature 2'],
-  related: ['other-tool-id', 'another-tool-id'],  // 2-3 related tool IDs
+  features: ['Feature 1', 'Feature 2'],  // Shown in tool card
+  related: ['other-tool-id', 'another-tool-id'],  // 2-3 tool IDs for RelatedTools widget
 }
 ```
 
-### Step 3 — Add SEO content to toolSEO.js
-Add an entry to `src/data/toolSEO.js`:
+> 🎯 **Favourites & Recent Views are automatic.** Once your tool's `id` is in registry.js, it appears in "❤️ My Favourites" and "🕐 Recently Used" on the `/tools` page with zero extra code. The `ToolsHome.jsx` handles this via `localStorage` keys `typely_favourites` and `typely_recent_tools`.
+
+---
+
+### ✅ Step 3 — Add SEO content to toolSEO.js
+`src/data/toolSEO.js` — keyed by `tool.id`. **ToolLayout reads this automatically** to inject `<title>`, `<meta description>`, OG tags, H1, paragraphs, and FAQPage JSON-LD.
+
 ```js
 'your-tool-id': {
-  metaTitle: 'Primary Keyword — Benefit | Rafiqy',  // <60 chars, keyword first
-  metaDesc: 'Benefit-driven description 120-155 chars. Use [tool] to [benefit]. Free, private, no sign-up.',
+  metaTitle: 'Primary Keyword — Benefit | Rafiqy',  // ≤60 chars, keyword first
+  metaDesc: 'Benefit-driven 120-155 char description. Use [tool] to [benefit]. Free, private, no sign-up.',
   heading: 'Full H1 heading with primary keyword',
   paras: [
-    'Para 1: What the tool does and why it matters (mention primary keyword)',
-    'Para 2: Key features — cover ALL features, not just the basic ones',
-    'Para 3: Privacy/privacy angle + who it is for',
+    'Para 1: What the tool does + primary keyword',
+    'Para 2: ALL features — list every capability (not just the main one)',
+    'Para 3: Who it is for + use cases (specific: "Pakistani freelancers", "students")',
+    'Para 4: Privacy/trust — all processing in browser, nothing sent to server',
   ],
   faqs: [
     { q: 'What does this tool do?', a: 'Comprehensive answer...' },
-    { q: 'Is it free?', a: 'Yes. Completely free, no sign-up, no watermarks.' },
-    { q: 'Is my data private?', a: 'Yes. All processing happens in your browser. Nothing is sent to any server.' },
-    // Add 5-10 FAQs covering every feature
+    { q: 'Is it free?', a: 'Yes. Completely free, no sign-up required.' },
+    { q: 'Is my data private?', a: 'Yes. All processing in your browser. Nothing is sent to any server.' },
+    // Add 5–15 FAQs — each FAQ = one rich snippet opportunity in Google
   ],
 }
 ```
 
-### Step 4 — Add route to main.jsx
+---
+
+### ✅ Step 4 — Add route to main.jsx
 ```jsx
 const YourTool = lazy(() => import('./pages/YourTool.jsx'))
-// Add inside <Routes>:
+// Add inside <Routes> in src/main.jsx:
 <Route path="/tools/your-tool-slug" element={<YourTool />} />
 ```
+> No redirects needed. One route, one canonical URL.
 
-### Step 5 — Update sitemap.xml
-Add to `public/sitemap.xml`:
+---
+
+### ✅ Step 5 — Update sitemap.xml
+Add to `public/sitemap.xml` (keep alphabetical within the tools block):
 ```xml
 <url>
   <loc>https://rafiqy.app/tools/your-tool-slug</loc>
+  <lastmod>YYYY-MM-DD</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
 ```
 
-### Step 6 — Add a blog reference (optional but recommended)
-If a relevant blog post exists in `blogPosts.js`, add a mention of the new tool with a link and feature list.
+---
+
+### ✅ Step 6 — Update tool count in Landing.jsx
+Search `Landing.jsx` for the tool count number and increment it. It appears in:
+- Hero section (e.g. "58 free tools")
+- Browse button (e.g. "Browse All 58 Tools")
+
+---
+
+### ✅ Step 7 — Write a blog post (strongly recommended)
+Every new tool should have at least one blog post. Add to `src/data/blogPosts.js`:
+```js
+{
+  slug: 'your-blog-slug',          // kebab-case, must be unique
+  title: 'Full Blog Title — How to [Action] | Rafiqy Blog',
+  description: '120-155 char meta description — keyword-rich, benefit-driven',
+  category: 'productivity',        // Must match tool.category → auto-links blog↔tool
+  publishDate: 'YYYY-MM-DD',
+  readTime: 'X min read',
+  hero: '🎯',
+  tags: ['Tag1', 'Tag2'],
+  content: `
+<div class="blog-content">
+  <h2>Section Heading</h2>
+  <p>Use <a href="/tools/your-tool-slug">Your Tool Name</a> to...</p>
+  <ul>
+    <li><strong>Feature 1:</strong> What it does</li>
+    <li><strong>Feature 2:</strong> What it does</li>
+  </ul>
+  <p><a href="/tools/your-tool-slug" class="blog-cta-btn">Try Your Tool Free →</a></p>
+</div>
+  `,
+}
+```
+
+Then add the blog to `public/sitemap.xml`:
+```xml
+<url>
+  <loc>https://rafiqy.app/blog/your-blog-slug</loc>
+  <lastmod>YYYY-MM-DD</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.6</priority>
+</url>
+```
+
+> **Auto-linking:** Blog posts auto-appear on tool pages and category pages when `post.category === tool.category`. No extra wiring needed — just match the category.
+
+---
+
+### ✅ Step 8 — Check CSP if adding external APIs
+If your tool calls an external API or loads an external font/script, update the CSP in `index.html` (line 7):
+- New API domain → add to `connect-src`
+- New font service → add to `style-src` and `font-src`
+- External script → add to `script-src`
+
+---
+
+### ✅ Step 9 — Build and verify
+```bash
+npm run build   # Must pass with 0 errors
+```
+Then open `https://rafiqy.app/tools/your-tool-slug` in browser and verify:
+- Page loads correctly
+- Title tag = your `metaTitle`
+- SEO footer (H1, paragraphs, FAQs) appears at the bottom
+- Related Tools widget shows 2-3 tools
+- Related Blog Posts shows if category matches a blog
+
+---
+
+### 📋 New Tool — Files Summary
+
+| File | What to change |
+|---|---|
+| `src/pages/YourTool.jsx` | **CREATE** — wrap in ToolLayout |
+| `src/tools/registry.js` | Add tool object (id, name, path, category, related…) |
+| `src/data/toolSEO.js` | Add SEO entry (metaTitle, metaDesc, heading, paras, faqs) |
+| `src/main.jsx` | Add `<Route path="/tools/your-slug" element={<YourTool />} />` |
+| `public/sitemap.xml` | Add tool URL (and blog URL if writing a post) |
+| `src/pages/Landing.jsx` | Increment tool count in hero + browse button |
+| `src/data/blogPosts.js` | Add blog post (recommended) |
+| `index.html` | Update CSP if new external domain needed |
 
 ---
 

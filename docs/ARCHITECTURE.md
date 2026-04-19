@@ -69,7 +69,7 @@ Every tool is defined here. The `path` field is used everywhere automatically (T
   icon: '📝',
   color: '#10b981',            // Accent colour for hover states
   category: 'writing',         // Maps to blog categories + CategoryPage filter
-  path: '/word-counter-online-free',  // ← CANONICAL URL — change here, propagates everywhere
+  path: '/tools/word-counter',  // ← CANONICAL URL — always /tools/ prefix. Change here, propagates everywhere
   tags: ['word', 'count', ...],
   features: ['Feature 1', ...],
   related: ['text-cleaner', 'doc-composer'],  // Other tool IDs shown in RelatedTools
@@ -157,7 +157,7 @@ Every tool has an entry keyed by `tool.id`:
 
 ### Blog SEO (BlogPost.jsx)
 - Helmet with `article` OG type
-- Canonical: `https://rafiqy.app/blogs/tools/:slug`
+- Canonical: `https://rafiqy.app/blog/:slug`
 - Each blog post should link to 3+ tools with CTA buttons
 
 ---

@@ -272,7 +272,7 @@ All tool pages automatically get from ToolLayout:
 ## 11. Blog SEO Best Practices
 
 1. **Title format:** `[Action/Question] — [Rafiqy Tool Category] | Rafiqy Blog`
-2. **URL format:** `/blogs/tools/[keyword-slug]`
+2. **URL format:** `/blog/[slug]`
 3. **Minimum length:** 600 words (ideal 1000–1500)
 4. **Keyword density:** Mention primary keyword 3–5 times naturally
 5. **Internal links:** Link to at least 3 different Rafiqy tools

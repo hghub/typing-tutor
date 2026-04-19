@@ -83,7 +83,7 @@ export default function Landing() {
           '@type': 'WebSite',
           'name': 'Rafiqy',
           'url': 'https://rafiqy.app',
-          'description': 'A simple digital companion for everyday tasks — 58 free browser-based tools for productivity, finance, PDF, typing, and more.',
+          'description': 'A simple digital companion for everyday tasks — 62 free browser-based tools for productivity, finance, PDF, typing, and more.',
           'potentialAction': { '@type': 'SearchAction', 'target': 'https://rafiqy.app/tools?q={search_term_string}', 'query-input': 'required name=search_term_string' }
         })}</script>
       </Helmet>
@@ -178,7 +178,7 @@ export default function Landing() {
           </div>
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
             <Link to="/tools" style={{ color: 'var(--color-primary)', fontWeight: 600, textDecoration: 'none' }}>
-              Browse all 58 tools →
+              Browse all 62 tools →
             </Link>
           </div>
         </div>
@@ -210,7 +210,7 @@ export default function Landing() {
         </div>
         <div style={{ textAlign: 'center', marginTop: '2rem' }}>
           <Link to="/tools" style={{ color: 'var(--color-primary)', textDecoration: 'none', fontWeight: 600 }}>
-            View all 58 tools →
+            View all 62 tools →
           </Link>
         </div>
       </section>

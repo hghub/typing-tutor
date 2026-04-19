@@ -76,6 +76,10 @@ const GoldPrice          = lazy(() => import('./pages/GoldPrice.jsx'))
 const ImageSuite     = lazy(() => import('./pages/ImageSuite.jsx'))
 const ResumeBuilder  = lazy(() => import('./pages/ResumeBuilder.jsx'))
 const WhatsAppTools  = lazy(() => import('./pages/WhatsAppTools.jsx'))
+const AgeCalculator  = lazy(() => import('./pages/AgeCalculator.jsx'))
+const UnitConverter  = lazy(() => import('./pages/UnitConverter.jsx'))
+const PasswordGenerator = lazy(() => import('./pages/PasswordGenerator.jsx'))
+const QRGenerator    = lazy(() => import('./pages/QRGenerator.jsx'))
 const About              = lazy(() => import('./pages/About.jsx'))
 const Help               = lazy(() => import('./pages/Help.jsx'))
 const BlogHome           = lazy(() => import('./pages/BlogHome.jsx'))
@@ -171,6 +175,10 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/image-suite" element={<ImageSuite />} />
           <Route path="/tools/resume-builder" element={<ResumeBuilder />} />
           <Route path="/tools/whatsapp-tools" element={<WhatsAppTools />} />
+          <Route path="/tools/age-calculator" element={<AgeCalculator />} />
+          <Route path="/tools/unit-converter" element={<UnitConverter />} />
+          <Route path="/tools/password-generator" element={<PasswordGenerator />} />
+          <Route path="/tools/qr-generator" element={<QRGenerator />} />
           <Route path="/blog" element={<BlogHome />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/blogs/tools/:slug" element={<BlogPostRedirect />} />

@@ -1531,4 +1531,144 @@ export const BLOG_POSTS = [
 <div class="cta-box"><p>Build your legal timeline online — free, private, and exportable as PDF.</p><a href="/tools/timeline-builder">Open Timeline Builder →</a></div>
 `,
   },
+  {
+    slug: 'age-calculator-life-stats',
+    title: 'Your Age in Numbers: Days Lived, Hours Awake, and Next Birthday Countdown',
+    description: 'Discover how many days, weeks and hours you have been alive. Calculate days sleeping, days awake, and see when your next birthday falls — with a shareable life stats card.',
+    hero: '🎂',
+    category: 'productivity',
+    readTime: '4 min read',
+    publishDate: '2026-04-19',
+    tags: ['age calculator', 'birthday countdown', 'life stats', 'days lived', 'free tool'],
+    content: `
+<h2>Beyond "You Are 28 Years Old"</h2>
+<p>Most age calculators tell you one number. Rafiqy's <a href="/tools/age-calculator">Age Calculator</a> breaks your life into every meaningful unit — years, months, days, weeks, hours — and adds context that makes the numbers feel real.</p>
+
+<h2>What You'll See</h2>
+<ul>
+  <li><strong>Exact age</strong> — years, months and remaining days, accounting for leap years</li>
+  <li><strong>Total days alive</strong> — the raw number that puts everything in perspective</li>
+  <li><strong>Weeks lived</strong> — most people are surprised how few weeks fit in a decade</li>
+  <li><strong>Hours clocked</strong> — for the truly curious</li>
+  <li><strong>Days sleeping</strong> — roughly one third of your days, based on an 8-hour average</li>
+  <li><strong>Days awake</strong> — your actual productive time on Earth</li>
+</ul>
+
+<h2>The Birthday Countdown</h2>
+<p>The tool calculates exactly how many days remain until your next birthday, which day of the week it falls on, and which age you will be turning. Useful for planning parties, booking leave, or simply knowing how long you have to wait.</p>
+
+<h2>Share Your Life Stats</h2>
+<p>Click <em>Copy &amp; Share Life Stats</em> to get a ready-to-paste summary with all your key numbers. Drop it into WhatsApp, a tweet, or your journal. It works surprisingly well as a conversation starter.</p>
+
+<div class="cta-box"><p>Find out how many days you have been alive — and how many are left until your birthday.</p><a href="/tools/age-calculator">Open Age Calculator →</a></div>
+`,
+  },
+  {
+    slug: 'unit-converter-guide',
+    title: 'The Only Unit Converter You Need: Length, Weight, Temperature, Area & More',
+    description: 'Convert cm to inches, kg to lbs, Celsius to Fahrenheit, Marla to square feet and 60+ other unit pairs instantly. No signup, no ads, works offline.',
+    hero: '📐',
+    category: 'productivity',
+    readTime: '5 min read',
+    publishDate: '2026-04-19',
+    tags: ['unit converter', 'cm to inches', 'kg to lbs', 'celsius to fahrenheit', 'marla', 'free tool'],
+    content: `
+<h2>One Tool, Six Categories</h2>
+<p>Rafiqy's <a href="/tools/unit-converter">Unit Converter</a> covers the six categories you actually need: <strong>Length</strong>, <strong>Weight</strong>, <strong>Temperature</strong>, <strong>Area</strong>, <strong>Volume</strong>, and <strong>Speed</strong>. No clutter, no sign-up, and results update the instant you type.</p>
+
+<h2>Length</h2>
+<p>From millimeters to miles — the full metric and imperial range. Common uses: clothing measurements (cm ↔ inches), construction (feet ↔ meters), running distances (km ↔ miles).</p>
+
+<h2>Weight</h2>
+<p>Milligrams to tonnes, plus ounces and pounds. Useful for cooking recipes (oz ↔ grams), gym goals (kg ↔ lbs), and shipping estimates.</p>
+
+<h2>Temperature</h2>
+<p>Celsius, Fahrenheit, and Kelvin — with dedicated formulas for each pair so the conversions are always exact. Great for weather, cooking, and science.</p>
+
+<h2>Area — Including Pakistani Units</h2>
+<p>Most converters skip Marla and Kanal. Rafiqy includes both. <strong>1 Marla ≈ 25.29 m²</strong>, <strong>1 Kanal = 20 Marla</strong>. Essential for property comparisons across Pakistan.</p>
+
+<h2>Volume and Speed</h2>
+<p>Volume covers ml, liters, US cups, pints, quarts and gallons — handy for recipes and fuel. Speed covers m/s, km/h, mph, knots and Mach — useful for travel and engineering.</p>
+
+<h2>Recently Used Pairs</h2>
+<p>Your last six conversions are remembered locally in your browser. One tap brings you back to any recent pair — no need to re-select the category and units every time.</p>
+
+<div class="cta-box"><p>Convert any unit instantly — 6 categories, 60+ units, works offline.</p><a href="/tools/unit-converter">Open Unit Converter →</a></div>
+`,
+  },
+  {
+    slug: 'password-generator-security',
+    title: 'How Strong Is Your Password? Entropy, Crack Time, and How to Generate Safer Ones',
+    description: 'Learn what makes a password truly strong, understand entropy and crack-time estimates, and generate cryptographically random passwords — all in your browser.',
+    hero: '🔐',
+    category: 'security',
+    readTime: '6 min read',
+    publishDate: '2026-04-19',
+    tags: ['password generator', 'password strength', 'entropy', 'crack time', 'security', 'free tool'],
+    content: `
+<h2>Why "Password123" Is Gone in 0.001 Seconds</h2>
+<p>Modern GPU-based password cracking rigs attempt over <strong>1 billion guesses per second</strong>. A simple 8-character lowercase password has around 200 billion combinations — cracked in under 4 minutes. Add uppercase, digits and symbols, and the math changes dramatically.</p>
+
+<h2>What Is Password Entropy?</h2>
+<p>Entropy (measured in bits) represents how unpredictable a password is. A password drawn from a pool of N characters and L characters long has entropy = L × log₂(N) bits. More bits = more combinations = harder to crack.</p>
+<ul>
+  <li><strong>Under 28 bits</strong> — Very Weak: cracked instantly</li>
+  <li><strong>28–40 bits</strong> — Weak: minutes to hours</li>
+  <li><strong>40–60 bits</strong> — Fair: days to weeks on a consumer GPU</li>
+  <li><strong>60–80 bits</strong> — Strong: years to decades</li>
+  <li><strong>80+ bits</strong> — Very Strong: millions of years</li>
+</ul>
+
+<h2>Generating a Strong Password</h2>
+<p>Rafiqy's <a href="/tools/password-generator">Password Generator</a> uses <code>crypto.getRandomValues()</code> — your browser's cryptographically secure random number generator, the same standard used by security software. Set your length (6–64 characters) and toggle which character types to include.</p>
+<p>A 16-character password using all four character types achieves <strong>95+ bits of entropy</strong> — that's over a million years to crack at 1 billion guesses per second.</p>
+
+<h2>Test Your Own Password</h2>
+<p>Use the <em>Test your own password</em> section to check any password you already use. It runs entirely in your browser — nothing is ever sent to a server. You'll see the entropy score, strength label, and realistic crack-time estimate in real time.</p>
+
+<h2>Quick Rules for Strong Passwords</h2>
+<ol>
+  <li>Use at least 16 characters</li>
+  <li>Mix uppercase, lowercase, digits and symbols</li>
+  <li>Never reuse passwords across accounts</li>
+  <li>Use a password manager to remember them</li>
+</ol>
+
+<div class="cta-box"><p>Generate a strong password or test your existing one — 100% private, nothing leaves your browser.</p><a href="/tools/password-generator">Open Password Generator →</a></div>
+`,
+  },
+  {
+    slug: 'qr-code-generator-guide',
+    title: 'QR Codes for URLs, WiFi, Email and Phone — Generate Free in Your Browser',
+    description: 'Create QR codes for any URL, text, email address, phone number or WiFi network. Customize colors, download PNG. No uploads, fully private.',
+    hero: '⬛',
+    category: 'productivity',
+    readTime: '5 min read',
+    publishDate: '2026-04-19',
+    tags: ['qr code generator', 'wifi qr code', 'url qr code', 'free qr code', 'download png'],
+    content: `
+<h2>What Can a QR Code Hold?</h2>
+<p>A QR code is just a way to encode text so a smartphone camera can read it instantly. Depending on what text you put inside, scanning the code can open a website, start an email draft, dial a phone number, or join a WiFi network automatically.</p>
+<p>Rafiqy's <a href="/tools/qr-generator">QR Code Generator</a> handles all five use cases with dedicated input forms for each type.</p>
+
+<h2>URL QR Codes</h2>
+<p>The most common use. Paste any web address and get a QR code your audience can scan to visit the site — useful for business cards, flyers, menus, and presentations.</p>
+
+<h2>WiFi QR Codes</h2>
+<p>Enter your network name (SSID), password, and security type (WPA2 is the standard). Guests scan the code and their phone asks to join the network automatically — no typing required. Widely used in cafés, offices, and events.</p>
+
+<h2>Email and Phone QR Codes</h2>
+<p>An email QR code opens the phone's compose screen with your address pre-filled. A phone QR code initiates a call. Both save your contacts from having to type anything manually.</p>
+
+<h2>Customizing Your QR Code</h2>
+<p>Use the color pickers to set a custom foreground and background color to match your brand. Choose output size from 128px (digital use) to 512px (print quality). Download as a high-resolution PNG with one click.</p>
+<p><strong>Important:</strong> always maintain high contrast between foreground and background. Light dots on a light background will fail to scan. Dark on white or white on dark works best.</p>
+
+<h2>Is It Private?</h2>
+<p>Yes. QR codes are generated entirely in your browser using the open-source qrcode library. Your URLs, WiFi passwords, and any other data are never sent to any server.</p>
+
+<div class="cta-box"><p>Generate QR codes for URLs, WiFi, email and phone — free, private, download as PNG.</p><a href="/tools/qr-generator">Open QR Code Generator →</a></div>
+`,
+  },
 ]

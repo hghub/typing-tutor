@@ -271,7 +271,7 @@ export default function BlogPost() {
             <div style={{ marginTop: '3rem', padding: '1.5rem', borderRadius: '1rem', background: isDark ? 'rgba(6,182,212,0.08)' : 'rgba(6,182,212,0.05)', border: `1px solid ${isDark ? 'rgba(6,182,212,0.2)' : 'rgba(6,182,212,0.15)'}`, textAlign: 'center' }}>
               <p style={{ color: colors.text, fontWeight: 600, marginBottom: '0.75rem', fontSize: '1rem' }}>Ready to try these tools?</p>
               <Link to="/tools" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.25rem', borderRadius: '0.75rem', background: 'linear-gradient(135deg, #06b6d4, #3b82f6)', color: '#fff', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem' }}>
-                ⚡ Explore all 58 tools →
+                ⚡ Explore all 62 tools →
               </Link>
             </div>
           </article>

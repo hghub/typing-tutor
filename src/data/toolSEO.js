@@ -1056,6 +1056,77 @@ const TOOL_SEO = {
       { q: 'Does the formatter work with Urdu text?', a: 'Yes — WhatsApp formatting (bold, italic, etc.) works the same way for Urdu text. The character counter also detects RTL text.' },
     ],
   },
+
+  'age-calculator': {
+    metaTitle: 'Free Age Calculator — Life Stats, Days Lived & Birthday Countdown | Rafiqy',
+    metaDesc: 'Calculate your exact age in years, months, days and hours. See days you\'ve slept, weeks lived, and your next birthday countdown. Free, instant, shareable.',
+    heading: 'Age Calculator — Your Life in Numbers',
+    paras: [
+      'Rafiqy\'s Age Calculator goes beyond simply showing your age in years. Enter your date of birth and instantly see your life broken down into years, months, days, weeks, hours, and minutes. It\'s a fresh way to appreciate just how much time you\'ve experienced.',
+      'Discover fascinating life stats: approximately one third of your days have been spent sleeping (based on an 8-hour average). See your awake days versus sleeping days in a visual progress bar. Find out exactly how many hours you\'ve been alive.',
+      'The next birthday countdown tells you how many days remain until your next birthday, which day of the week it falls on, and which age you\'ll be turning. Copy and share your full life stats card with friends in one click.',
+    ],
+    faqs: [
+      { q: 'How is the exact age calculated?', a: 'The calculator finds the difference between today\'s date and your birth date, accounting for varying month lengths and leap years. It gives you a precise breakdown in years, months, and days.' },
+      { q: 'How is "days sleeping" calculated?', a: 'The sleeping estimate uses 8 hours per day (1/3 of 24 hours). This is the global average recommended sleep duration. Total days alive × 1/3 = approximate days sleeping.' },
+      { q: 'Is my birth date stored anywhere?', a: 'No. Your date of birth is only used locally in your browser for the calculation. It is never sent to any server.' },
+      { q: 'Can I share my life stats?', a: 'Yes — click the "Copy & Share Life Stats" button to copy a shareable text summary with all your key stats, ready to paste into WhatsApp, Twitter, or any message.' },
+    ],
+  },
+
+  'unit-converter': {
+    metaTitle: 'Free Unit Converter Online — Length, Weight, Temperature, Speed | Rafiqy',
+    metaDesc: 'Convert length, weight, temperature, area, volume and speed units instantly. cm to inches, kg to lbs, °C to °F and 60+ unit pairs. Free, no sign-up.',
+    heading: 'Free Unit Converter — 6 Categories, 60+ Units, Instant Results',
+    paras: [
+      'Rafiqy\'s Unit Converter handles all the everyday conversions you need: length (mm to miles), weight (mg to tonnes), temperature (°C, °F, Kelvin), area (including Pakistani Marla and Kanal), volume (ml to gallons), and speed (km/h to mph to Mach).',
+      'Type a value and see the result update instantly — no submit button needed. Swap units with one click to reverse the conversion. Recently used unit pairs are saved locally so your most frequent conversions are always one tap away.',
+      'The area category includes Marla and Kanal units specific to Pakistan and South Asia, making it ideal for property measurements alongside international units like acres and hectares.',
+    ],
+    faqs: [
+      { q: 'Which unit categories are supported?', a: 'Length, Weight, Temperature, Area (including Marla and Kanal), Volume, and Speed. Each category has multiple units covering both metric and imperial systems.' },
+      { q: 'How does temperature conversion work?', a: 'Temperature uses dedicated formulas: Celsius to Fahrenheit: (°C × 9/5) + 32. Kelvin = °C + 273.15. All other categories use a ratio-based base unit conversion.' },
+      { q: 'What are Marla and Kanal?', a: 'Marla and Kanal are traditional area units used in Pakistan and India. 1 Marla ≈ 25.29 m². 1 Kanal = 20 Marla ≈ 505.86 m².' },
+      { q: 'Are recent conversions saved?', a: 'Yes — your last 6 used conversion pairs (e.g. cm → in) are saved in your browser\'s localStorage. Click any recent pair to jump back to it instantly.' },
+    ],
+  },
+
+  'password-generator': {
+    metaTitle: 'Free Password Generator — Strength Meter & Crack Time | Rafiqy',
+    metaDesc: 'Generate strong random passwords with custom length and character types. See entropy-based strength rating and estimated crack time. Test your own password too. 100% private.',
+    heading: 'Free Password Generator — Entropy Strength Meter & Crack Time Estimator',
+    paras: [
+      'Rafiqy\'s Password Generator creates cryptographically random passwords using your browser\'s built-in crypto.getRandomValues() — the same source used by security software. Set your desired length (6–64 characters) and choose which character types to include: uppercase, lowercase, digits, and symbols.',
+      'The real differentiator is the security scoring system. Every generated password shows an entropy score (in bits), a strength label (Very Weak → Very Strong), and a realistic crack-time estimate based on a 1 billion guesses per second attack model. This helps you understand not just that a password is "strong" but exactly why.',
+      'You can also test any password you already use. Type it into the "Test your own" section — it\'s processed entirely in your browser and never transmitted anywhere. See its entropy and crack time instantly.',
+    ],
+    faqs: [
+      { q: 'How random are the generated passwords?', a: 'Passwords are generated using crypto.getRandomValues() — a cryptographically secure random number generator built into your browser. This is the same standard used by security applications and password managers.' },
+      { q: 'What is entropy and why does it matter?', a: 'Entropy (measured in bits) represents how unpredictable a password is. Higher entropy means more possible combinations, making brute-force attacks harder. A 60-bit entropy password has 2^60 possible values — about 1 quintillion combinations.' },
+      { q: 'How is crack time calculated?', a: 'Crack time assumes an attacker trying 1 billion guesses per second (a realistic GPU-based attack). It calculates how long it would take to try half of all possible combinations (the statistical average to find the password). This is a conservative real-world estimate.' },
+      { q: 'Is my existing password sent to any server?', a: 'No. The "Test your own" section runs entirely in your browser. Your password is never sent anywhere — it\'s only used locally to compute entropy and strength.' },
+      { q: 'What is a good password strength?', a: 'Aim for at least 60 bits of entropy (rated "Strong"). A 16-character password using all character types typically achieves 95+ bits, which would take millions of years to crack.' },
+    ],
+  },
+
+  'qr-generator': {
+    metaTitle: 'Free QR Code Generator Online — URL, WiFi, Text & More | Rafiqy',
+    metaDesc: 'Generate QR codes for URLs, text, email, phone numbers, and WiFi. Custom colors, download PNG. 100% browser-based — no uploads. Free, instant.',
+    heading: 'Free QR Code Generator — URL, WiFi, Email, Phone & Custom Text',
+    paras: [
+      'Rafiqy\'s QR Code Generator creates high-quality QR codes for five use cases: website URLs, plain text, email addresses, phone numbers, and WiFi credentials. Everything runs in your browser using the qrcode library — no data is sent to any server.',
+      'Customize your QR code\'s foreground and background colors to match your brand, and adjust the output size from 128px to 512px. Download the result as a high-resolution PNG ready for printing, presentations, or digital use.',
+      'The WiFi QR type is particularly useful — scan it with any smartphone camera to instantly join a network without typing the password. This is widely used in cafés, offices, and events.',
+    ],
+    faqs: [
+      { q: 'What types of QR codes can I generate?', a: 'URL (web links), plain text, email (opens compose window on scan), phone (initiates a call on scan), and WiFi (auto-connects on scan). Each type formats the data correctly for smartphone QR readers.' },
+      { q: 'Can I use custom colors?', a: 'Yes — you can set any foreground (dot) color and background color using the color pickers. Note: high contrast between foreground and background is important for reliable scanning. Avoid light-on-light or dark-on-dark combinations.' },
+      { q: 'What resolution is the downloaded PNG?', a: 'You can choose 128, 192, 256, 320, 384, or 512 pixels. For print use, select 512px. For digital use (websites, presentations), 256px is sufficient.' },
+      { q: 'Do my URLs or data get stored or tracked?', a: 'No. QR codes are generated entirely in your browser. Your URLs, WiFi passwords, and text are never sent to any server. This is a fully private, offline-capable tool.' },
+      { q: 'How do I create a WiFi QR code?', a: 'Select the WiFi tab, enter your network name (SSID), password, and security type (WPA/WPA2 is most common). The QR code is generated instantly. When scanned by a smartphone, it prompts to join that network automatically.' },
+    ],
+  },
+
 }
 
 export default TOOL_SEO

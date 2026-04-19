@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import { useTheme } from '../hooks/useTheme'
 import { TOOLS } from '../tools/registry'
 import { BLOG_POSTS } from '../data/blogPosts'
+import ToolsNav from '../components/ToolsNav'
 
 const FEATURED_IDS = [
   'typing-tutor', 'loan-emi', 'tax-calculator',
@@ -65,7 +65,6 @@ const WHAT_YOU_CAN_DO = [
 ]
 
 export default function Landing() {
-  const { theme, toggleTheme } = useTheme()
   const featured = FEATURED_IDS.map(id => TOOLS.find(t => t.id === id)).filter(Boolean)
   const recentPosts = BLOG_POSTS.slice(-3)
 
@@ -90,20 +89,7 @@ export default function Landing() {
       </Helmet>
 
       {/* ── Nav ── */}
-      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 2rem', borderBottom: '1px solid var(--color-border)' }}>
-        <span style={{ fontWeight: 800, fontSize: '1.3rem', color: 'var(--color-primary)', letterSpacing: '-0.02em' }}>
-          🧩 Rafiqy
-        </span>
-        <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
-          <Link to="/tools" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Tools</Link>
-          <Link to="/help" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Help</Link>
-          <Link to="/blog" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Blog</Link>
-          <Link to="/about" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>About</Link>
-          <button onClick={toggleTheme} style={{ background: 'none', border: '1px solid var(--color-border)', borderRadius: 6, padding: '0.3rem 0.6rem', cursor: 'pointer', color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
-            {theme === 'dark' ? '☀' : '🌙'}
-          </button>
-        </div>
-      </nav>
+      <ToolsNav />
 
       {/* ── Hero ── */}
       <section style={{ textAlign: 'center', padding: '5rem 2rem 3rem' }}>

@@ -112,28 +112,19 @@ createRoot(document.getElementById('root')).render(
 
           {/* Typing tutor */}
           <Route path="/tools/typing-tutor" element={<App />} />
-          <Route path="/tools/typely" element={<Navigate to="/tools/typing-tutor" replace />} />
-          <Route path="/typing-tutor-online-free" element={<Navigate to="/tools/typing-tutor" replace />} />
 
           {/* Individual tools */}
           <Route path="/tools/word-counter" element={<WordCounter />} />
-          <Route path="/word-counter-online-free" element={<Navigate to="/tools/word-counter" replace />} />
           <Route path="/tools/text-cleaner" element={<TextCleaner />} />
           <Route path="/tools/urdu-keyboard" element={<UrduKeyboard />} />
-          <Route path="/urdu-keyboard-online" element={<Navigate to="/tools/urdu-keyboard" replace />} />
           <Route path="/tools/text-encryptor" element={<TextEncryptor />} />
           <Route path="/tools/doc-composer" element={<DocComposer />} />
           <Route path="/tools/tax-calculator" element={<TaxCalculator />} />
-          <Route path="/pakistan-tax-calculator" element={<Navigate to="/tools/tax-calculator" replace />} />
           <Route path="/tools/loan-emi" element={<LoanEMI />} />
-          <Route path="/loan-emi-calculator" element={<Navigate to="/tools/loan-emi" replace />} />
           <Route path="/tools/pomodoro" element={<Pomodoro />} />
-          <Route path="/pomodoro-focus-engine" element={<Navigate to="/tools/pomodoro" replace />} />
           <Route path="/tools/tax-optimizer" element={<TaxOptimizer />} />
           <Route path="/tools/currency-converter" element={<CurrencyConverter />} />
-          <Route path="/currency-converter-live" element={<Navigate to="/tools/currency-converter" replace />} />
           <Route path="/tools/packing-list" element={<PackingList />} />
-          <Route path="/smart-packing-list" element={<Navigate to="/tools/packing-list" replace />} />
           <Route path="/tools/budget-splitter" element={<BudgetSplitter />} />
           <Route path="/tools/drug-checker" element={<DrugChecker />} />
           <Route path="/tools/symptom-tracker" element={<SymptomTracker />} />
@@ -152,16 +143,12 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/doc-redaction" element={<DocRedaction />} />
           <Route path="/tools/freelancer-risk" element={<FreelancerRisk />} />
           <Route path="/tools/expense-analyzer" element={<ExpenseAnalyzer />} />
-          <Route path="/expense-pattern-analyzer" element={<Navigate to="/tools/expense-analyzer" replace />} />
           <Route path="/tools/warranty-tracker" element={<WarrantyTracker />} />
-          <Route path="/warranty-tracker-online" element={<Navigate to="/tools/warranty-tracker" replace />} />
           <Route path="/tools/driving-fines" element={<DrivingFineTracker />} />
           <Route path="/tools/trace-correlator" element={<TraceCorrelator />} />
           <Route path="/tools/schema-mapper" element={<SchemaMapper />} />
           <Route path="/tools/measurement-tracker" element={<MeasurementTracker />} />
-          <Route path="/measurement-tracker-online" element={<Navigate to="/tools/measurement-tracker" replace />} />
           <Route path="/tools/compress-pdf" element={<CompressPDF />} />
-          <Route path="/compress-pdf-online-free" element={<Navigate to="/tools/compress-pdf" replace />} />
           <Route path="/tools/merge-pdf" element={<MergePDF />} />
           <Route path="/tools/split-pdf" element={<SplitPDF />} />
           <Route path="/tools/pdf-convert" element={<PDFConvert />} />
@@ -169,29 +156,23 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/text-extractor" element={<TextExtractor />} />
           <Route path="/tools/pdf-search" element={<PDFSearch />} />
           <Route path="/tools/salary-slip" element={<SalarySlip />} />
-          <Route path="/salary-slip-generator" element={<Navigate to="/tools/salary-slip" replace />} />
           <Route path="/tools/world-time" element={<WorldTime />} />
           <Route path="/tools/voice-diary" element={<VoiceDiary />} />
           <Route path="/tools/kameti" element={<Kameti />} />
-          <Route path="/kameti-committee-tracker" element={<Navigate to="/tools/kameti" replace />} />
           <Route path="/tools/daily-planner" element={<DailyPlanner />} />
-          <Route path="/daily-planner-online" element={<Navigate to="/tools/daily-planner" replace />} />
           <Route path="/tools/habit-tracker" element={<HabitTracker />} />
           <Route path="/tools/color-palette" element={<ColorPalette />} />
           <Route path="/tools/pk-id-tax-hub" element={<PkIdTaxHub />} />
           <Route path="/tools/loan-manager" element={<LoanManager />} />
           <Route path="/tools/regex-tester" element={<RegexTester />} />
           <Route path="/tools/json-formatter" element={<JsonFormatter />} />
-          <Route path="/json-formatter" element={<Navigate to="/tools/json-formatter" replace />} />
           <Route path="/tools/text-diff" element={<TextDiff />} />
-          <Route path="/text-diff-checker" element={<Navigate to="/tools/text-diff" replace />} />
           <Route path="/tools/gold-price" element={<GoldPrice />} />
           <Route path="/tools/image-suite" element={<ImageSuite />} />
           <Route path="/tools/resume-builder" element={<ResumeBuilder />} />
           <Route path="/tools/whatsapp-tools" element={<WhatsAppTools />} />
           <Route path="/blog" element={<BlogHome />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
-          <Route path="/blogs" element={<Navigate to="/blog" replace />} />
           <Route path="/blogs/tools/:slug" element={<BlogPostRedirect />} />
           <Route path="/about" element={<About />} />
           <Route path="/help" element={<Help />} />

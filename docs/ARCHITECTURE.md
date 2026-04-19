@@ -34,7 +34,7 @@ typing-tutor/                    ← Git root (project name is legacy)
 │   │   ├── BlogPost.jsx         ← Blog reader (/blog/:slug)
 │   │   ├── About.jsx            ← About page (/about)
 │   │   ├── Help.jsx             ← Help/FAQ (/help)
-│   │   └── [ToolName].jsx       ← Individual tool pages (57 tools)
+│   │   └── [ToolName].jsx       ← Individual tool pages (58 tools)
 │   ├── data/
 │   │   ├── toolSEO.js           ← SEO content for all 58 tools (metaTitle, metaDesc, heading, paras, faqs)
 │   │   └── blogPosts.js         ← All 24 blog posts (slug, title, category, content HTML)

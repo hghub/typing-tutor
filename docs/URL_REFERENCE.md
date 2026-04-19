@@ -1,7 +1,7 @@
-# Rafiqy.app — All URLs Reference
+# Rafiqy.app — URL Reference
 
-> **Base URL:** `https://rafiqy.app`  
-> All `/tools/X` paths issue HTTP 301 → flat keyword URL (SEO canonical)
+> **Base URL:** `https://rafiqy.app`
+> **URL strategy:** All tools are at `/tools/X` — this is the single canonical URL. No redirects.
 
 ---
 
@@ -9,197 +9,164 @@
 
 | Page | URL |
 |------|-----|
-| Home / Landing | `https://rafiqy.app/` |
-| All Tools Hub | `https://rafiqy.app/tools` |
-| Blog Home | `https://rafiqy.app/blog` |
-| About | `https://rafiqy.app/about` |
-| Help | `https://rafiqy.app/help` |
-
----
-
-## Category Pages
-
-| Category | URL |
-|----------|-----|
-| Productivity Tools | `https://rafiqy.app/category/productivity-tools` |
-| Finance Tools | `https://rafiqy.app/category/finance-tools` |
-| PDF Tools | `https://rafiqy.app/category/pdf-tools` |
-| Developer Tools | `https://rafiqy.app/category/developer-tools` |
-| Pakistan Tools | `https://rafiqy.app/category/pakistan-tools` |
-| Writing Tools | `https://rafiqy.app/category/writing-tools` |
-| Image Tools | `https://rafiqy.app/category/image-tools` |
-| Security Tools | `https://rafiqy.app/category/security-tools` |
+| Home / Landing | `/` |
+| All Tools Hub | `/tools` |
+| About | `/about` |
+| Help | `/help` |
+| Blog Home | `/blog` |
 
 ---
 
 ## Tools (58 total)
 
-### ⌨️ Typing & Learning
+### Productivity
+| Tool | URL |
+|------|-----|
+| Typing Tutor | `/tools/typing-tutor` |
+| Pomodoro — Focus Engine | `/tools/pomodoro` |
+| World Time Converter | `/tools/world-time` |
+| Voice Diary | `/tools/voice-diary` |
+| Daily Planner | `/tools/daily-planner` |
+| Habit Tracker | `/tools/habit-tracker` |
+| AI Resume Builder | `/tools/resume-builder` |
+| WhatsApp Tools | `/tools/whatsapp-tools` |
 
-| Tool | Canonical URL | 301 Redirect From |
-|------|--------------|-------------------|
-| Typing Tutor | `https://rafiqy.app/typing-tutor-online-free` | `/tools/typing-tutor` |
+### Writing & Language
+| Tool | URL |
+|------|-----|
+| Word Counter | `/tools/word-counter` |
+| Text Formatter | `/tools/text-cleaner` |
+| Doc Composer | `/tools/doc-composer` |
+| Urdu Keyboard | `/tools/urdu-keyboard` |
+| Image Tools Suite | `/tools/image-suite` |
 
-### ⚡ Productivity
+### Finance
+| Tool | URL |
+|------|-----|
+| Loan EMI Calculator | `/tools/loan-emi` |
+| Loan Manager | `/tools/loan-manager` |
+| Driving Fine Tracker | `/tools/driving-fines` |
+| Expense Pattern Analyzer | `/tools/expense-analyzer` |
 
-| Tool | Canonical URL | 301 Redirect From |
-|------|--------------|-------------------|
-| Pomodoro — Focus Engine | `https://rafiqy.app/pomodoro-focus-engine` | `/tools/pomodoro` |
-| Daily Planner | `https://rafiqy.app/daily-planner-online` | `/tools/daily-planner` |
-| Habit Tracker | `https://rafiqy.app/habit-tracker` | `/tools/habit-tracker` |
-| World Time Converter | `https://rafiqy.app/world-time` | `/tools/world-time` |
-| Voice Diary | `https://rafiqy.app/voice-diary` | `/tools/voice-diary` |
-| AI Resume Builder | `https://rafiqy.app/resume-builder` | `/tools/resume-builder` |
-| WhatsApp Tools | `https://rafiqy.app/whatsapp-tools` | `/tools/whatsapp-tools` |
+### Pakistan
+| Tool | URL |
+|------|-----|
+| Pakistan Tax Calculator | `/tools/tax-calculator` |
+| Salary Slip Generator | `/tools/salary-slip` |
+| Kameti Tracker | `/tools/kameti` |
+| Pakistan ID & Tax Hub | `/tools/pk-id-tax-hub` |
+| Gold & Silver Calculator | `/tools/gold-price` |
+| Tax Shield Optimizer | `/tools/tax-optimizer` |
 
-### ✍️ Writing Tools
+### Security
+| Tool | URL |
+|------|-----|
+| Text Encryptor | `/tools/text-encryptor` |
+| Data Leak Detector | `/tools/data-leak-detector` |
+| Smart Document Redaction | `/tools/doc-redaction` |
 
-| Tool | Canonical URL | 301 Redirect From |
-|------|--------------|-------------------|
-| Word Counter | `https://rafiqy.app/word-counter-online-free` | `/tools/word-counter` |
-| Text Formatter | `https://rafiqy.app/text-cleaner` | `/tools/text-cleaner` |
-| Doc Composer | `https://rafiqy.app/doc-composer` | `/tools/doc-composer` |
-| Image Tools Suite | `https://rafiqy.app/image-suite` | `/tools/image-suite` |
+### Travel
+| Tool | URL |
+|------|-----|
+| Currency Converter | `/tools/currency-converter` |
+| Smart Packing List | `/tools/packing-list` |
+| Trip Budget Splitter | `/tools/budget-splitter` |
 
-### 🌍 Language & Input
+### Health
+| Tool | URL |
+|------|-----|
+| Drug Interaction Checker | `/tools/drug-checker` |
+| Symptom Context Tracker | `/tools/symptom-tracker` |
+| Measurement Tracker | `/tools/measurement-tracker` |
 
-| Tool | Canonical URL | 301 Redirect From |
-|------|--------------|-------------------|
-| Urdu Keyboard | `https://rafiqy.app/urdu-keyboard-online` | `/tools/urdu-keyboard` |
+### Developer
+| Tool | URL |
+|------|-----|
+| Color Palette Generator | `/tools/color-palette` |
+| Regex Tester | `/tools/regex-tester` |
+| JSON Formatter | `/tools/json-formatter` |
+| Text Diff Checker | `/tools/text-diff` |
+| Privacy-First Data Transformer | `/tools/data-transformer` |
+| LLM-Ready Markdown Scraper | `/tools/markdown-scraper` |
+| Smart Log Analyzer | `/tools/log-analyzer` |
+| Config Polyglot Converter | `/tools/config-converter` |
+| Mock Data Generator | `/tools/mock-data` |
+| Distributed Trace Correlator | `/tools/trace-correlator` |
+| Schema Field Mapper | `/tools/schema-mapper` |
 
-### 💰 Finance & Investing
+### PDF
+| Tool | URL |
+|------|-----|
+| Compress PDF | `/tools/compress-pdf` |
+| Merge PDF | `/tools/merge-pdf` |
+| Split PDF | `/tools/split-pdf` |
+| PDF Convert | `/tools/pdf-convert` |
+| Doc Converter | `/tools/doc-converter` |
+| Text Extractor (OCR) | `/tools/text-extractor` |
+| PDF Search | `/tools/pdf-search` |
 
-| Tool | Canonical URL | 301 Redirect From |
-|------|--------------|-------------------|
-| Loan EMI Calculator | `https://rafiqy.app/loan-emi-calculator` | `/tools/loan-emi` |
-| Currency Converter | `https://rafiqy.app/currency-converter-live` | `/tools/currency-converter` |
-| Expense Pattern Analyzer | `https://rafiqy.app/expense-pattern-analyzer` | `/tools/expense-analyzer` |
-| Loan Manager | `https://rafiqy.app/loan-manager` | `/tools/loan-manager` |
-| Gold & Silver Calculator | `https://rafiqy.app/gold-price` | `/tools/gold-price` |
-| Trip Budget Splitter | `https://rafiqy.app/budget-splitter` | `/tools/budget-splitter` |
-| Driving Fine Tracker | `https://rafiqy.app/driving-fines` | `/tools/driving-fines` |
-| Position Size Calculator | `https://rafiqy.app/position-size-calc` | `/tools/position-size-calc` |
+### Business
+| Tool | URL |
+|------|-----|
+| Position Size Calculator | `/tools/position-size-calc` |
+| Voice-to-Invoice | `/tools/voice-invoice` |
+| Property Comp Adjuster | `/tools/property-comp` |
+| Refrigerant Leak Calculator | `/tools/refrigerant-calc` |
+| Freelancer Risk Analyzer | `/tools/freelancer-risk` |
+| Warranty Tracker | `/tools/warranty-tracker` |
 
-### 🇵🇰 Pakistan Tools
-
-| Tool | Canonical URL | 301 Redirect From |
-|------|--------------|-------------------|
-| Pakistan Tax Calculator | `https://rafiqy.app/pakistan-tax-calculator` | `/tools/tax-calculator` |
-| Salary Slip Generator | `https://rafiqy.app/salary-slip-generator` | `/tools/salary-slip` |
-| Tax Shield Optimizer | `https://rafiqy.app/tax-optimizer` | `/tools/tax-optimizer` |
-| Pakistan ID & Tax Hub | `https://rafiqy.app/pk-id-tax-hub` | `/tools/pk-id-tax-hub` |
-| Kameti Tracker | `https://rafiqy.app/kameti-committee-tracker` | `/tools/kameti` |
-
-### ✈️ Travel & Recreation
-
-| Tool | Canonical URL | 301 Redirect From |
-|------|--------------|-------------------|
-| Smart Packing List | `https://rafiqy.app/smart-packing-list` | `/tools/packing-list` |
-
-### 🏥 Health & Wellness
-
-| Tool | Canonical URL | 301 Redirect From |
-|------|--------------|-------------------|
-| Drug Interaction Checker | `https://rafiqy.app/drug-checker` | `/tools/drug-checker` |
-| Symptom Context Tracker | `https://rafiqy.app/symptom-tracker` | `/tools/symptom-tracker` |
-| Measurement Tracker | `https://rafiqy.app/measurement-tracker-online` | `/tools/measurement-tracker` |
-
-### 🛠️ Developer Tools
-
-| Tool | Canonical URL | 301 Redirect From |
-|------|--------------|-------------------|
-| JSON Formatter | `https://rafiqy.app/json-formatter` | `/tools/json-formatter` |
-| Text Diff Checker | `https://rafiqy.app/text-diff-checker` | `/tools/text-diff` |
-| Regex Tester | `https://rafiqy.app/regex-tester` | `/tools/regex-tester` |
-| Privacy-First Data Transformer | `https://rafiqy.app/data-transformer` | `/tools/data-transformer` |
-| LLM-Ready Markdown Scraper | `https://rafiqy.app/markdown-scraper` | `/tools/markdown-scraper` |
-| Smart Log Analyzer | `https://rafiqy.app/log-analyzer` | `/tools/log-analyzer` |
-| Config Polyglot Converter | `https://rafiqy.app/config-converter` | `/tools/config-converter` |
-| Mock Data Generator | `https://rafiqy.app/mock-data` | `/tools/mock-data` |
-| Distributed Trace Correlator | `https://rafiqy.app/trace-correlator` | `/tools/trace-correlator` |
-| Schema Field Mapper | `https://rafiqy.app/schema-mapper` | `/tools/schema-mapper` |
-| Color Palette Generator | `https://rafiqy.app/color-palette` | `/tools/color-palette` |
-
-### 🎓 Education & Teaching
-
-| Tool | Canonical URL | 301 Redirect From |
-|------|--------------|-------------------|
-| Student Group Randomizer | `https://rafiqy.app/student-groups` | `/tools/student-groups` |
-
-### ⚖️ Legal & Research
-
-| Tool | Canonical URL | 301 Redirect From |
-|------|--------------|-------------------|
-| Contextual Timeline Builder | `https://rafiqy.app/timeline-builder` | `/tools/timeline-builder` |
-
-### 🏢 Business & Field Work
-
-| Tool | Canonical URL | 301 Redirect From |
-|------|--------------|-------------------|
-| Voice-to-Invoice | `https://rafiqy.app/voice-invoice` | `/tools/voice-invoice` |
-| Property Comp Adjuster | `https://rafiqy.app/property-comp` | `/tools/property-comp` |
-| Refrigerant Leak Calculator | `https://rafiqy.app/refrigerant-calc` | `/tools/refrigerant-calc` |
-| Freelancer Risk Analyzer | `https://rafiqy.app/freelancer-risk` | `/tools/freelancer-risk` |
-| Warranty Tracker | `https://rafiqy.app/warranty-tracker-online` | `/tools/warranty-tracker` |
-
-### 🔒 Security & Privacy
-
-| Tool | Canonical URL | 301 Redirect From |
-|------|--------------|-------------------|
-| Text Encryptor | `https://rafiqy.app/text-encryptor` | `/tools/text-encryptor` |
-| Data Leak Detector | `https://rafiqy.app/data-leak-detector` | `/tools/data-leak-detector` |
-| Smart Document Redaction | `https://rafiqy.app/doc-redaction` | `/tools/doc-redaction` |
-
-### 📄 PDF Tools
-
-| Tool | Canonical URL | 301 Redirect From |
-|------|--------------|-------------------|
-| Compress PDF | `https://rafiqy.app/compress-pdf-online-free` | `/tools/compress-pdf` |
-| Merge PDF | `https://rafiqy.app/merge-pdf` | `/tools/merge-pdf` |
-| Split PDF | `https://rafiqy.app/split-pdf` | `/tools/split-pdf` |
-| PDF Convert | `https://rafiqy.app/pdf-convert` | `/tools/pdf-convert` |
-| Doc Converter | `https://rafiqy.app/doc-converter` | `/tools/doc-converter` |
-| Text Extractor (OCR) | `https://rafiqy.app/text-extractor` | `/tools/text-extractor` |
-| PDF Search | `https://rafiqy.app/pdf-search` | `/tools/pdf-search` |
+### Education / Legal
+| Tool | URL |
+|------|-----|
+| Student Group Randomizer | `/tools/student-groups` |
+| Contextual Timeline Builder | `/tools/timeline-builder` |
 
 ---
 
-## Blog Posts (24 total)
+## Category Pages (8)
 
-### Category Overview Posts
-
-| Title | URL |
-|-------|-----|
-| Typing & Learning Guide | `https://rafiqy.app/blog/typing-learning` |
-| Productivity Tools Guide | `https://rafiqy.app/blog/productivity-tools` |
-| Writing Tools Guide | `https://rafiqy.app/blog/writing-tools` |
-| Developer Tools Guide | `https://rafiqy.app/blog/developer-tools` |
-| Pakistan Tools Guide | `https://rafiqy.app/blog/pakistan-tools-guide` |
-| Finance & Investing Guide | `https://rafiqy.app/blog/finance-investing` |
-| Security & Privacy Tools | `https://rafiqy.app/blog/security-privacy-tools` |
-| Health & Wellness Tools | `https://rafiqy.app/blog/health-wellness-tools` |
-| Travel Tools Guide | `https://rafiqy.app/blog/travel-tools` |
-| PDF Tools Guide | `https://rafiqy.app/blog/pdf-tools-guide` |
-| Urdu Tools Guide | `https://rafiqy.app/blog/urdu-tools-guide` |
-| Business Tools Guide | `https://rafiqy.app/blog/business-tools` |
-
-### How-To / SEO Posts
-
-| Title | URL |
-|-------|-----|
-| How to Improve Typing Speed | `https://rafiqy.app/blog/how-to-improve-typing-speed` |
-| Typing Tips for Beginners | `https://rafiqy.app/blog/typing-tips-for-beginners` |
-| Pomodoro Technique Guide | `https://rafiqy.app/blog/pomodoro-technique-guide` |
-| How to Calculate EMI | `https://rafiqy.app/blog/how-to-calculate-emi` |
-| Compress PDF Online | `https://rafiqy.app/blog/compress-pdf-online` |
-| Urdu Typing Online | `https://rafiqy.app/blog/urdu-typing-online` |
-| Pakistan Income Tax Calculator | `https://rafiqy.app/blog/pakistan-income-tax-calculator` |
-| Word Count for SEO | `https://rafiqy.app/blog/word-count-for-seo` |
-| Salary Slip Pakistan | `https://rafiqy.app/blog/salary-slip-pakistan` |
-| Gold Price Pakistan Today | `https://rafiqy.app/blog/gold-price-pakistan-today` |
-| Student Group Randomizer for Teachers | `https://rafiqy.app/blog/student-group-randomizer-for-teachers` |
-| How to Build a Legal Timeline | `https://rafiqy.app/blog/how-to-build-a-legal-timeline` |
+| Category | URL |
+|----------|-----|
+| Productivity Tools | `/category/productivity-tools` |
+| Finance Tools | `/category/finance-tools` |
+| PDF Tools | `/category/pdf-tools` |
+| Developer Tools | `/category/developer-tools` |
+| Pakistan Tools | `/category/pakistan-tools` |
+| Writing Tools | `/category/writing-tools` |
+| Image Tools | `/category/image-tools` |
+| Security Tools | `/category/security-tools` |
 
 ---
 
-*Last updated: 2026-04-19 | Total: 58 tools · 24 blog posts · 8 category pages*
+## Blog Posts (24)
+
+| Post | URL |
+|------|-----|
+| Typing Learning Guide | `/blog/typing-learning` |
+| Productivity Tools Overview | `/blog/productivity-tools` |
+| Writing Tools Overview | `/blog/writing-tools` |
+| Developer Tools Overview | `/blog/developer-tools` |
+| Pakistan Tools Guide | `/blog/pakistan-tools-guide` |
+| Finance & Investing Tools | `/blog/finance-investing` |
+| Security & Privacy Tools | `/blog/security-privacy-tools` |
+| Health & Wellness Tools | `/blog/health-wellness-tools` |
+| Travel Tools | `/blog/travel-tools` |
+| PDF Tools Guide | `/blog/pdf-tools-guide` |
+| Urdu Tools Guide | `/blog/urdu-tools-guide` |
+| Business Tools | `/blog/business-tools` |
+| How to Improve Typing Speed | `/blog/how-to-improve-typing-speed` |
+| Typing Tips for Beginners | `/blog/typing-tips-for-beginners` |
+| Pomodoro Technique Guide | `/blog/pomodoro-technique-guide` |
+| How to Calculate EMI | `/blog/how-to-calculate-emi` |
+| Compress PDF Online | `/blog/compress-pdf-online` |
+| Urdu Typing Online | `/blog/urdu-typing-online` |
+| Pakistan Income Tax Calculator | `/blog/pakistan-income-tax-calculator` |
+| Word Count for SEO | `/blog/word-count-for-seo` |
+| Salary Slip Pakistan | `/blog/salary-slip-pakistan` |
+| Gold Price Pakistan Today | `/blog/gold-price-pakistan-today` |
+| Student Group Randomizer for Teachers | `/blog/student-group-randomizer-for-teachers` |
+| How to Build a Legal Timeline | `/blog/how-to-build-a-legal-timeline` |
+
+---
+
+_Last updated: 2026-04-19_

@@ -205,7 +205,7 @@ export default function About() {
           padding: '1.75rem',
         }}>
           {[
-            { value: '34+', label: 'Free Tools' },
+            { value: '58', label: 'Free Tools' },
             { value: '11', label: 'Categories' },
             { value: '0', label: 'Logins Required' },
             { value: '100%', label: 'Browser-only' },

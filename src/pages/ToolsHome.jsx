@@ -625,11 +625,11 @@ export default function ToolsHome() {
 
       <footer style={{ textAlign: 'center', padding: '1rem', color: colors.textSecondary, fontSize: '0.75rem', borderTop: `1px solid ${colors.border}` }}>
         © {new Date().getFullYear()} Rafiqy · Privacy-first browser tools &nbsp;·&nbsp;
-        <a href="/blog" style={{ color: 'inherit', textDecoration: 'underline' }}>Blog</a>
+        <Link to="/blog" style={{ color: 'inherit', textDecoration: 'underline' }}>Blog</Link>
         &nbsp;·&nbsp;
-        <a href="/help" style={{ color: 'inherit', textDecoration: 'underline' }}>Help</a>
+        <Link to="/help" style={{ color: 'inherit', textDecoration: 'underline' }}>Help</Link>
         &nbsp;·&nbsp;
-        <a href="/about" style={{ color: 'inherit', textDecoration: 'underline' }}>About</a>
+        <Link to="/about" style={{ color: 'inherit', textDecoration: 'underline' }}>About</Link>
       </footer>
     </div>
   )

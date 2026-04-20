@@ -85,19 +85,13 @@ function fmt(n)    { return Math.round(n).toLocaleString('en-PK') }
 function fmtDec(n) { return n.toFixed(1) }
 
 // Payback with 0.6%/year panel degradation (IEC 61215 standard).
-// Year 1 saves annualSavings, each subsequent year output drops 0.6%.
-// Returns fractional years to break-even (capped at 30).
 function calcPayback(cost, annualSavingsYr1) {
   if (annualSavingsYr1 <= 0) return 0
-  let cumulative = 0
-  let yearSavings = annualSavingsYr1
+  let cumulative = 0, yearSavings = annualSavingsYr1
   for (let yr = 1; yr <= 30; yr++) {
     cumulative += yearSavings
-    if (cumulative >= cost) {
-      const overshoot = cumulative - cost
-      return yr - overshoot / yearSavings   // fractional year interpolation
-    }
-    yearSavings *= 0.994  // 0.6% annual degradation
+    if (cumulative >= cost) return yr - (cumulative - cost) / yearSavings
+    yearSavings *= 0.994
   }
   return 30
 }

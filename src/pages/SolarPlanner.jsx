@@ -85,37 +85,44 @@ function fmtDec(n) { return n.toFixed(1) }
 
 function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling,
                        selfConsumePct, importTariff, buybackRate, costLoPW, costHiPW }) {
-  const sunHours = cityObj.sun
+  const sunHours    = cityObj.sun
+  const safeTariff  = importTariff > 0 ? importTariff : DEFAULTS.importTariff  // guard ÷0
 
   // ── Load ──────────────────────────────────────────────────────────────────
   const anySelected       = Object.values(selected).some(Boolean)
-  const dailyFromBill     = bill / importTariff / 30
+  const dailyFromBill     = bill / safeTariff / 30
   let dailyFromAppliances = 0
   appliances.forEach(a => {
     if (selected[a.id]) dailyFromAppliances += (a.watts * a.hours * a.qty) / 1000
   })
   const dailyKwh = anySelected ? dailyFromAppliances : dailyFromBill
+  const actualMonthlyUsage = dailyKwh * 30   // physical kWh used per month
 
   // ── System sizing ─────────────────────────────────────────────────────────
-  const rawKw  = dailyKwh / sunHours / DEFAULTS.derate
-  const sysKw  = Math.max(1, Math.round(rawKw * 2) / 2)
+  const rawKw   = dailyKwh / sunHours / DEFAULTS.derate
+  const sysKw   = Math.max(1, Math.round(rawKw * 2) / 2)
   const sysKwLo = Math.max(1, sysKw - 0.5)
   const sysKwHi = sysKw + 0.5
 
-  // ── Cost ──────────────────────────────────────────────────────────────────
-  const costLo = sysKw * 1000 * costLoPW
-  const costHi = sysKw * 1000 * costHiPW
+  // ── Cost range (economy = smaller system, premium = larger system) ─────────
+  // Using sysKwLo × economy price and sysKwHi × premium price gives the
+  // realistic market quote range a homeowner would actually receive.
+  const costLo    = sysKwLo * 1000 * costLoPW
+  const costHi    = sysKwHi * 1000 * costHiPW
+  const avgInstall = sysKw  * 1000 * (costLoPW + costHiPW) / 2  // mid-size, mid-price for payback
 
   // ── Monthly generation ────────────────────────────────────────────────────
   const monthlyGen = sysKw * sunHours * 30 * DEFAULTS.derate   // kWh/month
 
   // ── 2026 Net Billing savings model ────────────────────────────────────────
-  // Self-consumed solar avoids buying from grid at import tariff
-  // Exported solar earns buyback rate (PKR 11/unit in 2026 net billing)
-  const selfConsumedKwh = monthlyGen * (selfConsumePct / 100)
-  const exportedKwh     = monthlyGen * (1 - selfConsumePct / 100)
+  // Self-consumption is capped at actual monthly usage — you cannot consume
+  // more solar than your total load, regardless of the slider setting.
+  // Excess beyond actual usage is automatically exported.
+  const selfConsumedRaw = monthlyGen * (selfConsumePct / 100)
+  const selfConsumedKwh = Math.min(selfConsumedRaw, actualMonthlyUsage)
+  const exportedKwh     = monthlyGen - selfConsumedKwh   // physically correct
 
-  const selfSavings   = Math.min(selfConsumedKwh * importTariff, bill)
+  const selfSavings   = Math.min(selfConsumedKwh * safeTariff, bill)
   const exportRevenue = netBilling ? exportedKwh * buybackRate : 0
   const totalSavings  = Math.min(selfSavings + exportRevenue, bill)
   const annualSavings = totalSavings * 12
@@ -123,21 +130,24 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
   const postSolarBill = Math.max(0, bill - selfSavings - exportRevenue)
 
   // ── Payback (includes one-time net billing registration + smart meter fee) ──
-  // Net billing fee: PKR 50k–70k (application + smart meter + inspection)
-  const nbFee    = netBilling ? (NB_FEE_LO + NB_FEE_HI) / 2 : 0
-  const avgCost  = (costLo + costHi) / 2 + nbFee
+  // NB fee range: PKR 55k–90k (IESCO ≈ 55k total, LESCO ≈ 90k total — April 2026)
+  const nbFee      = netBilling ? (NB_FEE_LO + NB_FEE_HI) / 2 : 0
+  const avgCost    = avgInstall + nbFee
   const paybackYrs = annualSavings > 0 ? avgCost / annualSavings : 0
 
   // ── Battery ───────────────────────────────────────────────────────────────
   const needsBattery = loadshed >= 4 || bill >= 25000
 
-  // ── Verdict ───────────────────────────────────────────────────────────────
+  // ── Verdict — based on actual payback period, not just bill size ───────────
+  // Solar panels last 25+ years; payback ≤ 5 yrs = excellent, ≤ 8 = good,
+  // ≤ 12 = marginal but profitable over system life, > 12 = questionable.
   let verdict, verdictColor, verdictIcon
-  // With net billing, payback longer — adjust thresholds
-  if      (bill >= 30000) { verdict = 'Strongly Recommended'; verdictColor = '#22c55e'; verdictIcon = '✅' }
-  else if (bill >= 12000) { verdict = 'Recommended';          verdictColor = '#86efac'; verdictIcon = '✅' }
-  else if (bill >= 6000)  { verdict = 'Depends on Usage';     verdictColor = '#fbbf24'; verdictIcon = '⚠️' }
-  else                    { verdict = 'Not Ideal (Low Bill)';  verdictColor = '#f87171'; verdictIcon = '❌' }
+  if      (bill < 5000)             { verdict = 'Not Ideal (Low Bill)';      verdictColor = '#f87171'; verdictIcon = '❌' }
+  else if (paybackYrs <= 0)         { verdict = 'Insufficient Data';         verdictColor = '#f87171'; verdictIcon = '❌' }
+  else if (paybackYrs <= 5)         { verdict = 'Strongly Recommended';      verdictColor = '#22c55e'; verdictIcon = '✅' }
+  else if (paybackYrs <= 8)         { verdict = 'Recommended';               verdictColor = '#86efac'; verdictIcon = '✅' }
+  else if (paybackYrs <= 12)        { verdict = 'Worth Considering';         verdictColor = '#fbbf24'; verdictIcon = '⚠️' }
+  else                              { verdict = 'Long Payback (>12 yrs)';    verdictColor = '#f87171'; verdictIcon = '❌' }
 
   return {
     dailyKwh: fmtDec(dailyKwh),
@@ -562,12 +572,12 @@ export default function SolarPlanner() {
             <div style={{ ...card, background: '#0f172a', border: '1px solid #1e293b' }}>
               <div style={{ color: '#64748b', fontSize: '0.78rem', lineHeight: 1.8 }}>
                 📐 <strong style={{ color: '#94a3b8' }}>How we calculated:</strong><br />
-                Load: {results.dailyKwh} kWh/day ÷ {CITIES[cityIdx].sun} sun hrs ÷ 0.80 = <strong style={{ color: '#e2e8f0' }}>{results.sysKw} kW</strong><br />
-                Generation: {results.sysKw} kW × {CITIES[cityIdx].sun} hrs × 30 × 0.80 = <strong style={{ color: '#e2e8f0' }}>{results.monthlyGen} kWh/month</strong><br />
-                Self-consumed: {results.selfConsumedKwh} kWh × PKR {importTariff} = PKR {fmt(results.selfSavings)}<br />
-                {netBilling ? `Exported: ${results.exportedKwh} kWh × PKR ${buybackRate} = PKR ${fmt(results.exportRevenue)}` : 'No export (net billing off)'}<br />
-                Install: {results.sysKw} kW × 1000 × PKR {costLoPW}–{costHiPW}/W = PKR {fmt(results.costLo)}–{fmt(results.costHi)}<br />
-                {netBilling ? `Net billing fee (app + smart meter + inspection): ~PKR ${fmt(NB_FEE_LO)}–${fmt(NB_FEE_HI)}` : 'No net billing fee (off-grid / battery only)'}
+                Load: {results.dailyKwh} kWh/day ÷ {CITIES[cityIdx].sun} sun hrs ÷ 0.80 derate = <strong style={{ color: '#e2e8f0' }}>{results.sysKw} kW recommended</strong><br />
+                Generation: {results.sysKw} kW × {CITIES[cityIdx].sun} hrs × 30 days × 0.80 = <strong style={{ color: '#e2e8f0' }}>{results.monthlyGen} kWh/month</strong><br />
+                Self-consumed (capped at actual usage): {results.selfConsumedKwh} kWh × PKR {importTariff} = PKR {fmt(results.selfSavings)}<br />
+                {netBilling ? `Exported (generation − self-consumed): ${results.exportedKwh} kWh × PKR ${buybackRate} = PKR ${fmt(results.exportRevenue)}` : 'No export (net billing off)'}<br />
+                Cost range: {results.sysKwLo}kW×PKR {costLoPW}/W to {results.sysKwHi}kW×PKR {costHiPW}/W = PKR {fmt(results.costLo)}–{fmt(results.costHi)}<br />
+                Payback uses mid-size ({results.sysKw}kW) at avg PKR {Math.round((costLoPW+costHiPW)/2)}/W{netBilling ? ` + PKR ${fmt(NB_FEE_LO)}–${fmt(NB_FEE_HI)} net billing fee (IESCO–LESCO)` : ''}
               </div>
             </div>
 

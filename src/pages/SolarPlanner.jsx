@@ -121,13 +121,15 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
 
   const selfSavings   = Math.min(selfConsumedKwh * safeTariff, bill)
   const exportRevenue = netBilling ? exportedKwh * buybackRate : 0
-  // Under net billing, DISCO pays for exports as a separate credit — NOT capped by the user's bill.
-  // If self-consumption already covers the full bill, extra export revenue carries forward to the next bill.
-  const totalSavings     = selfSavings + exportRevenue   // true economic benefit (uncapped)
-  const exportCarryFwd   = Math.max(0, totalSavings - bill)  // portion exceeding this month's bill
+  // Conservative model: totalSavings capped at bill for payback calculation.
+  // Export credits above the bill are policy-dependent (may carry forward, expire, or be paid out
+  // annually by DISCO — not guaranteed). Show separately so user understands what's certain vs. not.
+  const billOffset       = Math.min(selfSavings + exportRevenue, bill)  // guaranteed bill reduction
+  const exportAboveBill  = Math.max(0, selfSavings + exportRevenue - bill)  // policy-dependent
+  const totalSavings     = billOffset   // conservative — used for payback
   const annualSavings    = totalSavings * 12
   const postSolarBill    = Math.max(0, bill - selfSavings - exportRevenue)
-  const billReductionPct = Math.min(100, Math.round((selfSavings + exportRevenue) / bill * 100))
+  const billReductionPct = Math.min(100, Math.round(billOffset / bill * 100))
 
   // ── Payback ───────────────────────────────────────────────────────────────
   const nbFeeAvg   = (NB_FEE_LO + NB_FEE_HI) / 2
@@ -229,7 +231,7 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
     monthlyGen: Math.round(monthlyGen),
     selfConsumedKwh: Math.round(selfConsumedKwh),
     exportedKwh: Math.round(exportedKwh),
-    selfSavings, exportRevenue, totalSavings, exportCarryFwd, annualSavings,
+    selfSavings, exportRevenue, billOffset, exportAboveBill, totalSavings, annualSavings,
     postSolarBill, billReductionPct,
     paybackYrs: paybackYrs > 0 ? fmtDec(paybackYrs) : '—',
     needsBattery,
@@ -395,7 +397,7 @@ export default function SolarPlanner() {
     const metrics = [
       { label: 'System Size',     value: `${r.sysKwLo}-${r.sysKwHi} kW`,             sub: 'On-grid, Tier-1 panels' },
       { label: 'Install Cost',    value: `PKR ${fmt(r.costLo)}-${fmt(r.costHi)}`,     sub: 'Economy-Premium (battery separate)' },
-      { label: 'Monthly Savings', value: `~PKR ${fmt(r.totalSavings)}`,               sub: `${r.monthlyGen} kWh/month generated` },
+      { label: 'Monthly Savings', value: `~PKR ${fmt(r.billOffset)}`,               sub: `Guaranteed bill reduction (conservative)` },
       { label: 'Post-Solar Bill', value: `~PKR ${fmt(r.postSolarBill)}`,              sub: r.postSolarBill < 1000 ? `Bill reduced ~${r.billReductionPct}% (fixed charges still apply)` : `Down from PKR ${fmt(billNum)}` },
       { label: 'Payback Period',  value: `~${r.paybackYrs} years`,                   sub: 'Net billing model · realistic +1–2 yrs degradation' },
       { label: 'Annual Savings',  value: `PKR ${fmt(r.annualSavings)}`,              sub: 'After payback: free energy' },
@@ -420,7 +422,7 @@ export default function SolarPlanner() {
     const rows = [
       [`Self-consumed (${selfConsume}%)`, `${r.selfConsumedKwh} kWh x PKR ${importTariff}/unit`, `PKR ${fmt(r.selfSavings)}`],
       ...(netBilling ? [[`Exported (${100-selfConsume}%)`, `${r.exportedKwh} kWh x PKR ${buybackRate}/unit (policy-dep.)`, `PKR ${fmt(r.exportRevenue)}`]] : []),
-      ['Total Monthly Economic Benefit', '', `PKR ${fmt(r.totalSavings)}`],
+      ['Guaranteed Bill Reduction', '', `PKR ${fmt(r.billOffset)}`],
     ]
     rows.forEach((row, i) => {
       const isT = i === rows.length - 1
@@ -435,10 +437,11 @@ export default function SolarPlanner() {
       y += 7
     })
     y += 3
-    if (netBilling && r.exportCarryFwd > 0) {
-      doc.setFontSize(6.5); doc.setFont('helvetica', 'italic'); tc(22, 163, 74)
-      doc.text(`✓ Self-consumption covers your full bill. Export credit PKR ${fmt(r.exportCarryFwd)} carries forward to reduce your next bill (or paid out semi-annually by DISCO).`, M, y)
-      y += 5
+    if (netBilling && r.exportAboveBill > 0) {
+      doc.setFontSize(6.5); doc.setFont('helvetica', 'italic'); tc(161, 120, 20)
+      const exportNote = doc.splitTextToSize(`⚠ Export credit PKR ${fmt(r.exportAboveBill)} exceeds this bill — whether DISCO carries it forward, pays annually, or it expires is policy-dependent. Not counted in payback (conservative estimate).`, CW - 4)
+      doc.text(exportNote, M, y)
+      y += exportNote.length * 3.5 + 2
     }
     if (netBilling) {
       doc.setFontSize(6.5); doc.setFont('helvetica', 'italic'); tc(100, 116, 139)
@@ -778,7 +781,7 @@ export default function SolarPlanner() {
               {[
                 { icon: '🔆', label: 'System Size',    value: `${results.sysKwLo}–${results.sysKwHi} kW`,             sub: 'On-grid, Tier-1 panels' },
                 { icon: '💰', label: 'Install Cost',    value: `PKR ${fmt(results.costLo)}–${fmt(results.costHi)}`,     sub: `Panels + inverter + labor (battery separate) · ${netBilling ? `+PKR ${fmt(NB_FEE_LO)}–${fmt(NB_FEE_HI)} NB fee` : 'No NB fee'}` },
-                { icon: '📉', label: 'Monthly Savings', value: `~PKR ${fmt(results.totalSavings)}`,                     sub: `${results.monthlyGen} kWh generated` },
+                { icon: '📉', label: 'Monthly Savings', value: `~PKR ${fmt(results.totalSavings)}`,                     sub: `Guaranteed bill reduction · ${results.monthlyGen} kWh generated` },
                 { icon: '🧾', label: 'Post-Solar Bill', value: `~PKR ${fmt(results.postSolarBill)}`,                    sub: results.postSolarBill < 1000 ? `Bill down ~${results.billReductionPct}% · Fixed charges ~PKR 500–1,200 still apply` : `Down from PKR ${fmt(billNum)}` },
                 { icon: '📆', label: 'Payback Period',  value: `~${results.paybackYrs} yrs`,                           sub: 'Net billing model (2026) · add 1–2 yrs for real-world degradation' },
                 { icon: '💹', label: 'Annual Savings',  value: `PKR ${fmt(results.annualSavings)}`,                     sub: 'After payback: free energy' },
@@ -801,17 +804,23 @@ export default function SolarPlanner() {
                   <Row label={`📤 Exported (${100-selfConsume}%)`} detail={`${results.exportedKwh} kWh × PKR ${buybackRate}/unit`} value={`PKR ${fmt(results.exportRevenue)}`} color="#7dd3fc" />
                 )}
                 <div style={{ borderTop: '1px solid #1e3a5f', paddingTop: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ color: '#94a3b8', fontSize: '0.82rem', fontWeight: 600 }}>Total Monthly Economic Benefit</span>
-                  <span style={{ color: ACCENT, fontWeight: 700, fontSize: '1rem' }}>PKR {fmt(results.totalSavings)}</span>
+                  <span style={{ color: '#94a3b8', fontSize: '0.82rem', fontWeight: 600 }}>✅ Guaranteed Bill Reduction</span>
+                  <span style={{ color: ACCENT, fontWeight: 700, fontSize: '1rem' }}>PKR {fmt(results.billOffset)}</span>
                 </div>
-                {results.exportCarryFwd > 0 && (
-                  <div style={{ background: '#0f2a1a', borderRadius: '6px', padding: '0.5rem 0.75rem', border: '1px solid #166534', fontSize: '0.75rem', color: '#86efac', lineHeight: 1.5 }}>
-                    ✅ Your self-consumption already covers your full bill. The export credit of <strong>PKR {fmt(results.exportCarryFwd)}</strong> carries forward to reduce your next bill (or is paid out by your DISCO semi-annually under net billing rules).
+                {results.exportAboveBill > 0 && (
+                  <div style={{ borderTop: '1px solid #1e3a5f', paddingTop: '0.5rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
+                      <span style={{ color: '#fbbf24', fontSize: '0.82rem', fontWeight: 600 }}>⚠️ Export Credit Above Bill</span>
+                      <span style={{ color: '#fbbf24', fontWeight: 700, fontSize: '1rem' }}>PKR {fmt(results.exportAboveBill)}</span>
+                    </div>
+                    <div style={{ fontSize: '0.72rem', color: '#78716c', lineHeight: 1.5, background: '#1c1000', borderRadius: '5px', padding: '0.4rem 0.6rem' }}>
+                      This portion exceeds your bill — whether DISCO carries it forward, pays it out annually, or it expires depends on your DISCO's policy. <strong style={{ color: '#a8a29e' }}>Not included in payback calculation (conservative estimate).</strong>
+                    </div>
                   </div>
                 )}
               </div>
               <div style={{ marginTop: '0.75rem', fontSize: '0.75rem', color: '#475569', background: '#0f172a', borderRadius: '6px', padding: '0.5rem 0.75rem' }}>
-                💡 Under old net metering (pre-2025), your export would earn ~PKR 27/unit → estimated old savings: PKR {fmt(results.exportedKwh * 27 + results.selfSavings)}. Now only PKR {fmt(results.totalSavings)}. Self-consumption is your best strategy.
+                💡 Under old net metering (pre-2025), your export would earn ~PKR 27/unit → estimated old savings: PKR {fmt(results.exportedKwh * 27 + results.selfSavings)}. Now only PKR {fmt(results.billOffset)}. Self-consumption is your best strategy.
               </div>
             </div>
 

@@ -395,7 +395,8 @@ export default function SolarPlanner() {
     box(M, y, CW, 9, [241, 245, 249], [226, 232, 240])
     doc.setFontSize(7); doc.setFont('helvetica', 'normal'); tc(51, 65, 85)
     const pol = netBilling ? `Net Billing @ PKR ${buybackRate}/unit` : 'Self-consumption only'
-    doc.text(`City: ${CITIES[cityIdx].name}   |   Bill: PKR ${fmt(billNum)}/month   |   Policy: ${pol}   |   Self-consumption: ${selfConsume}%   |   Loadshedding: ${loadshed}h`, M + 3, y + 5.8)
+    const inputSummary = doc.splitTextToSize(`City: ${CITIES[cityIdx].name}   |   Bill: PKR ${fmt(billNum)}/month   |   Policy: ${pol}   |   Self-consumption: ${selfConsume}%   |   Loadshedding: ${loadshed}h`, CW - 6)
+    doc.text(inputSummary, M + 3, y + 5.8)
     y += 13
 
     // ── VERDICT ─────────────────────────────────────────────────────────
@@ -473,8 +474,9 @@ export default function SolarPlanner() {
     }
     if (netBilling) {
       doc.setFontSize(6.5); doc.setFont('helvetica', 'italic'); tc(100, 116, 139)
-      doc.text(`Net billing smart meter (one-time): ~PKR ${fmt(NB_FEE_LO)}-${fmt(NB_FEE_HI)} — included in payback calculation. Varies by DISCO.`, M, y)
-      y += 6
+      const nbFeeLines = doc.splitTextToSize(`Net billing smart meter (one-time): ~PKR ${fmt(NB_FEE_LO)}-${fmt(NB_FEE_HI)} — included in payback calculation. Varies by DISCO.`, CW)
+      doc.text(nbFeeLines, M, y)
+      y += nbFeeLines.length * 3.5 + 2
     }
 
     // ── BATTERY ─────────────────────────────────────────────────────────
@@ -482,7 +484,7 @@ export default function SolarPlanner() {
     const battText = r.needsBattery
       ? `Battery: RECOMMENDED (${loadshed}h loadshedding) — LiFePO4 5-6 kWh adds PKR ${fmt(BATT_LO)}-${fmt(BATT_HI)} extra. Converts low-value export (PKR ${buybackRate}/unit) into high-value self-use (PKR ${importTariff}/unit). LiFePO4 lifespan 8-12 years — budget ~PKR 200-350k for replacement at year 10.`
       : `Battery: Optional — LiFePO4 5-6 kWh: PKR ${fmt(BATT_LO)}-${fmt(BATT_HI)} extra. Can be retrofitted later. LiFePO4 lifespan 8-12 years — budget ~PKR 200-350k for replacement at year 10.`
-    const battLines = doc.splitTextToSize(battText, CW - 2)
+    const battLines = doc.splitTextToSize(battText, CW - 6)
     box(M, y - 2, CW, battLines.length * 3.8 + 5, [255, 251, 235], [253, 230, 138])
     doc.setFontSize(7); doc.setFont('helvetica', r.needsBattery ? 'bold' : 'normal')
     tc(120, 80, 15)

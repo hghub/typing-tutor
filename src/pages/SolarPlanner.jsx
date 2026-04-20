@@ -332,8 +332,8 @@ export default function SolarPlanner() {
                 <div style={{ ...card, marginTop: '0.5rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.875rem' }}>
                   <AdvField label="Import tariff (PKR/unit)" hint="Effective rate incl. GST + surcharges" value={importTariff} onChange={setImportTariff} numInput={numInput} />
                   <AdvField label="Export/buyback rate (PKR/unit)" hint="NEPRA net billing: PKR 11/unit (Dec 2025)" value={buybackRate} onChange={setBuybackRate} numInput={numInput} />
-                  <AdvField label="Install cost low (PKR/W)" hint="Economy: Tier-1 panels + local inverter" value={costLoPW} onChange={setCostLoPW} numInput={numInput} />
-                  <AdvField label="Install cost high (PKR/W)" hint="Premium: N-type + Growatt/Solis inverter" value={costHiPW} onChange={setCostHiPW} numInput={numInput} />
+                  <AdvField label="Economy build (PKR/W)" hint="Fully installed: Tier-1 panels + local inverter + labor" value={costLoPW} onChange={setCostLoPW} numInput={numInput} />
+                  <AdvField label="Premium build (PKR/W)" hint="Fully installed: N-type bifacial + Growatt/Solis + labor" value={costHiPW} onChange={setCostHiPW} numInput={numInput} />
                   <div style={{ gridColumn: '1/-1' }}>
                     <button onClick={() => { setImportTariff(DEFAULTS.importTariff); setBuybackRate(DEFAULTS.buybackRate); setCostLoPW(DEFAULTS.costLowPW); setCostHiPW(DEFAULTS.costHighPW) }}
                       style={{ ...outlineBtn, padding: '0.4rem 0.875rem', fontSize: '0.78rem' }}>
@@ -431,7 +431,7 @@ export default function SolarPlanner() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(185px, 1fr))', gap: '0.6rem', marginBottom: '0.75rem' }}>
               {[
                 { icon: '🔆', label: 'System Size',    value: `${results.sysKwLo}–${results.sysKwHi} kW`,             sub: 'On-grid, Tier-1 panels' },
-                { icon: '💰', label: 'Install Cost',    value: `PKR ${fmt(results.costLo)}–${fmt(results.costHi)}`,     sub: `+PKR ${fmt(NB_FEE_LO)}–${fmt(NB_FEE_HI)} net billing fee` },
+                { icon: '💰', label: 'Install Cost',    value: `PKR ${fmt(results.costLo)}–${fmt(results.costHi)}`,     sub: `Fully installed incl. labor · +PKR ${fmt(NB_FEE_LO)}–${fmt(NB_FEE_HI)} net billing fee` },
                 { icon: '📉', label: 'Monthly Savings', value: `~PKR ${fmt(results.totalSavings)}`,                     sub: `${results.monthlyGen} kWh generated` },
                 { icon: '🧾', label: 'Post-Solar Bill', value: `~PKR ${fmt(results.postSolarBill)}`,                    sub: results.postSolarBill < 1000 ? '🎉 Near-zero bill!' : `Down from PKR ${fmt(billNum)}` },
                 { icon: '📆', label: 'Payback Period',  value: `~${results.paybackYrs} yrs`,                           sub: 'Net billing model (2026)' },

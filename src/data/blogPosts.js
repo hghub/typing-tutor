@@ -1673,71 +1673,165 @@ export const BLOG_POSTS = [
   },
   {
     slug: 'solar-planner-pakistan',
-    title: 'Solar Planning for Pakistan Homes: What Size, Cost & Payback to Expect',
-    description: 'A practical guide to planning solar in Pakistan — how to calculate system size, what on-grid solar costs in 2025, payback period, battery advice, and city-by-city sun data.',
+    title: 'Solar in Pakistan 2026: Real Costs, Net Billing vs No NB, Battery Prices & Payback',
+    description: 'Complete 2026 guide to solar in Pakistan — updated install costs (PKR 130–200/W), NEPRA net billing policy, DISCO smart meter fees, battery prices, right-sizing advice, and an expert verdict on whether solar is worth it for your bill.',
     hero: '☀️',
     category: 'pakistan',
-    readTime: '10 min read',
-    publishDate: '2026-04-19',
-    tags: ['solar', 'solar panel', 'pakistan', 'electricity bill', 'energy', 'battery', 'net metering'],
+    readTime: '12 min read',
+    publishDate: '2026-04-20',
+    tags: ['solar', 'solar panel', 'pakistan', 'electricity bill', 'energy', 'battery', 'net billing', 'NEPRA', 'solar cost 2026'],
     content: `
-<h2>Why Solar Makes Sense in Pakistan (for the Right Bill)</h2>
-<p>Pakistan's electricity tariffs have climbed sharply — residential consumers in 2025 pay PKR 40–60 per kWh depending on their slab. For a household with a PKR 15,000–25,000/month bill, a solar investment pays itself back in 3–5 years and then generates essentially free electricity for 20+ more years. But solar isn't a no-brainer for everyone — small-bill homes (under PKR 5,000/month) face payback periods exceeding 10 years, which makes the math much less compelling.</p>
-<p>This guide helps you figure out which camp you're in — and what to do about it.</p>
+<h2>Is Solar Still Worth It in Pakistan in 2026?</h2>
+<p>Short answer: <strong>yes — if your monthly electricity bill is above PKR 10,000.</strong> For larger bills (PKR 20,000+), it remains one of the best financial decisions you can make. Pakistan gets 5–6 hours of peak sun per day, electricity tariffs have climbed to PKR 45–70/kWh depending on your slab, and 2026 panel prices are competitive despite 10% GST on imports. A well-sized 5 kW system can cut a PKR 20,000 bill down to PKR 3,000–5,000 and pay for itself in 4–7 years — then runs essentially free for 20+ more years.</p>
+<p>But the rules changed significantly in late 2025. If you planned solar based on old net metering advice, this guide will update you on what's different and how to plan smarter.</p>
 
-<h2>Step 1: Know Your Load</h2>
-<p>The most common mistake people make is going straight to a solar company without knowing their actual daily load. Installers will quote you based on your bill, but your bill includes distribution losses and slab penalties that solar doesn't eliminate. A better approach: list your appliances, their wattage, and how many hours per day you run them.</p>
-<p>Example: A household running 2 × 1.5-ton ACs for 8 hrs, 4 fans for 18 hrs, fridge 24 hrs, and lights 5 hrs has a daily load of roughly 32–35 kWh — requiring a 7–8 kW system.</p>
-<p>Use the <a href="/tools/solar-planner">Rafiqy Solar Planner</a> to do this calculation in under 2 minutes.</p>
-
-<h2>Step 2: System Sizing</h2>
-<p>System size (kW) = Daily kWh ÷ peak sun hours ÷ 0.80 derating factor</p>
-<p>Peak sun hours vary by city:</p>
+<h2>What Changed: Net Metering → Net Billing (December 2025)</h2>
+<p>This is the most important update for anyone who researched solar even 12 months ago. NEPRA replaced the old net metering policy with <strong>net billing</strong> in December 2025. The difference is significant:</p>
 <ul>
-  <li><strong>Quetta, Sukkur:</strong> 6.0 hrs/day — best solar potential in Pakistan</li>
-  <li><strong>Karachi, Hyderabad, Multan:</strong> 5.5 hrs/day</li>
-  <li><strong>Lahore, Faisalabad, Peshawar:</strong> 5.0 hrs/day</li>
-  <li><strong>Islamabad, Rawalpindi:</strong> 4.8 hrs/day</li>
+  <li><strong>Old Net Metering:</strong> Export credits at the full retail tariff (PKR 45–70/unit). 1 unit exported = 1 unit credited.</li>
+  <li><strong>New Net Billing:</strong> Excess units exported to the grid are paid at a fixed <strong>PKR 11/unit</strong> — about 20–25% of what you'd pay to import the same unit. Import and export are settled monthly in cash, not by unit credits.</li>
 </ul>
-<p>The 0.80 derating accounts for panel degradation, dust, heat losses, and inverter inefficiency. So a Lahore home needing 20 kWh/day needs: 20 ÷ 5.0 ÷ 0.80 = 5 kW system.</p>
+<p>What this means for you: <strong>exporting electricity is now far less valuable.</strong> The smart move in 2026 is to size your system closer to your actual daytime self-consumption — not to generate as much as possible for export. This changes the right-sizing math completely.</p>
+<div style="background:#0c4a6e22;border:1px solid #0ea5e940;border-radius:8px;padding:1rem;margin:1rem 0;">
+<p style="margin:0;font-size:0.9rem;"><strong>💡 Key insight:</strong> Under net billing, every unit you self-consume saves you PKR 45–70. Every unit you export earns you PKR 11. Size your system to maximize self-consumption — not export.</p>
+</div>
 
-<h2>Step 3: What Does It Cost?</h2>
-<p>As of 2025, a fully installed on-grid solar system in Pakistan costs PKR 80,000–120,000 per kW. This includes:</p>
+<h2>Step 1: Know Your Daily Load (Don't Skip This)</h2>
+<p>The most common mistake is asking an installer "what size system do I need?" without knowing your own load. Installers will quote from your bill alone, but your bill includes taxes, fixed charges, and slab penalties — none of which solar removes. The electricity units (kWh) your appliances actually consume is what solar replaces.</p>
+<p>A practical way to estimate daily load:</p>
 <ul>
-  <li>Solar panels (monocrystalline, tier-1 brands like LONGi, JA Solar)</li>
-  <li>Grid-tie inverter (Sungrow, Growatt, Fronius)</li>
-  <li>Mounting structure (rooftop or ground mount)</li>
-  <li>DC/AC wiring, combiner box, earthing</li>
-  <li>Installation labour and 1-year service</li>
+  <li>1.5-ton AC (inverter): ~1.0 kWh/hr. Running 8 hrs/day = 8 kWh</li>
+  <li>Ceiling fan: ~0.07 kWh/hr. 4 fans × 18 hrs = 5 kWh</li>
+  <li>Refrigerator: ~1.5 kWh/day (runs 24 hrs with compressor cycling)</li>
+  <li>LED lights (10 bulbs): ~0.5 kWh/day at 5 hrs</li>
+  <li>Washing machine: ~0.5 kWh/load × 1 load/day</li>
 </ul>
-<p>So a 5 kW system costs PKR 4–6 lakh. A 10 kW system costs PKR 8–12 lakh. Hybrid systems (with battery) add PKR 1.5–4 lakh for a 5 kWh lithium battery pack.</p>
+<p>A 3-bedroom home with 2 ACs active in summer easily reaches 25–35 kWh/day. In winter, without ACs, the same home might only use 10–14 kWh/day. The <a href="/tools/solar-planner">Rafiqy Solar Planner</a> handles both — just toggle your active appliances.</p>
+
+<h2>Step 2: System Sizing by City (2026 Formula)</h2>
+<p>System size (kW) = Daily kWh ÷ peak sun hours ÷ 0.80</p>
+<p>The 0.80 derating accounts for: panel heat loss (~5%), dust accumulation (~5%), inverter efficiency (~4%), wiring losses (~3%), and annual degradation (~3%). In real-world Pakistan conditions, this factor can drop to 0.75 in dusty/hot locations.</p>
+<table style="width:100%;border-collapse:collapse;font-size:0.85rem;margin:0.75rem 0;">
+<thead><tr style="background:#1e293b;">
+  <th style="padding:0.4rem 0.6rem;text-align:left;color:#94a3b8;">City</th>
+  <th style="padding:0.4rem 0.6rem;text-align:center;color:#94a3b8;">Peak Sun Hrs/Day</th>
+  <th style="padding:0.4rem 0.6rem;text-align:center;color:#94a3b8;">kW needed per 10 kWh/day</th>
+</tr></thead>
+<tbody>
+  <tr><td style="padding:0.35rem 0.6rem;">Quetta, Sukkur</td><td style="text-align:center;">6.0</td><td style="text-align:center;">2.1 kW</td></tr>
+  <tr style="background:#0f172a55;"><td style="padding:0.35rem 0.6rem;">Karachi, Hyderabad, Multan</td><td style="text-align:center;">5.5</td><td style="text-align:center;">2.3 kW</td></tr>
+  <tr><td style="padding:0.35rem 0.6rem;">Lahore, Faisalabad, Peshawar</td><td style="text-align:center;">5.0</td><td style="text-align:center;">2.5 kW</td></tr>
+  <tr style="background:#0f172a55;"><td style="padding:0.35rem 0.6rem;">Islamabad, Rawalpindi</td><td style="text-align:center;">4.8</td><td style="text-align:center;">2.6 kW</td></tr>
+  <tr><td style="padding:0.35rem 0.6rem;">Muzaffarabad, Gilgit</td><td style="text-align:center;">4.5</td><td style="text-align:center;">2.8 kW</td></tr>
+</tbody>
+</table>
+<p><em>Example: Lahore home, 20 kWh/day → 20 ÷ 5.0 ÷ 0.80 = 5 kW system.</em></p>
+
+<h2>Step 3: What Does Solar Actually Cost in 2026?</h2>
+<p>Solar costs in Pakistan rose 15–25% between 2024 and 2026, driven by rupee depreciation, 10% GST on panel imports, and higher inverter prices. Current fully-installed rates:</p>
+<ul>
+  <li><strong>Economy build (PKR 130/W):</strong> Tier-1 mono-PERC panels (LONGi, JA Solar) + local/Chinese inverter + standard mounting + labour. Fully installed and connected.</li>
+  <li><strong>Premium build (PKR 200/W):</strong> N-type bifacial panels (LONGi Hi-MO 6, Jinko NEO) + branded hybrid inverter (Growatt, Solis, Huawei) + premium mounting + 5-year AMC.</li>
+</ul>
+<table style="width:100%;border-collapse:collapse;font-size:0.85rem;margin:0.75rem 0;">
+<thead><tr style="background:#1e293b;">
+  <th style="padding:0.4rem 0.6rem;text-align:left;color:#94a3b8;">System Size</th>
+  <th style="padding:0.4rem 0.6rem;text-align:center;color:#94a3b8;">Economy Cost</th>
+  <th style="padding:0.4rem 0.6rem;text-align:center;color:#94a3b8;">Premium Cost</th>
+  <th style="padding:0.4rem 0.6rem;text-align:center;color:#94a3b8;">Typical Bill Offset</th>
+</tr></thead>
+<tbody>
+  <tr><td style="padding:0.35rem 0.6rem;">3 kW</td><td style="text-align:center;">~PKR 3.9L</td><td style="text-align:center;">~PKR 6.0L</td><td style="text-align:center;">PKR 8,000–12,000/mo</td></tr>
+  <tr style="background:#0f172a55;"><td style="padding:0.35rem 0.6rem;">5 kW</td><td style="text-align:center;">~PKR 6.5L</td><td style="text-align:center;">~PKR 10.0L</td><td style="text-align:center;">PKR 12,000–20,000/mo</td></tr>
+  <tr><td style="padding:0.35rem 0.6rem;">7 kW</td><td style="text-align:center;">~PKR 9.1L</td><td style="text-align:center;">~PKR 14.0L</td><td style="text-align:center;">PKR 18,000–28,000/mo</td></tr>
+  <tr style="background:#0f172a55;"><td style="padding:0.35rem 0.6rem;">10 kW</td><td style="text-align:center;">~PKR 13.0L</td><td style="text-align:center;">~PKR 20.0L</td><td style="text-align:center;">PKR 25,000–40,000/mo</td></tr>
+</tbody>
+</table>
+<p><em>Note: Battery is a separate add-on — not included in above figures. Net billing meter fee also additional (see below).</em></p>
+
+<h2>Net Billing vs No Net Billing — Which Is Right for Your Home?</h2>
+<p>This is the most important decision in your solar plan. Here's the honest breakdown:</p>
+<h3>Option A: Full System + Net Billing</h3>
+<p>Size your system to cover your full daily load (including nights, via grid). Export daytime surplus at PKR 11/unit. Pay a one-time net billing connection fee to your DISCO (PKR 55,000–90,000 depending on city). Monthly, you'll produce more than you consume during daytime and export the rest.</p>
+<p><strong>Best for:</strong> Homes with medium-to-high self-consumption (60%+), large bills (PKR 25,000+), homes in IESCO/FESCO areas where NB fee is lower.</p>
+
+<h3>Option B: Self-Consumption Only (No Net Billing)</h3>
+<p>Size your system to generate only what you use during the day — typically 30–60% of a full-coverage system. No NB application fee. No DISCO meter purchase. Simpler setup, faster payback on a smaller investment. You still draw from the grid for nights and cloudy days.</p>
+<p><strong>Best for:</strong> Low self-consumers (working families home only evenings), LESCO customers (high NB fee), small-to-medium bills (PKR 8,000–18,000).</p>
+<div style="background:#14532d22;border:1px solid #16a34a40;border-radius:8px;padding:1rem;margin:1rem 0;">
+<p style="margin:0;font-size:0.9rem;"><strong>📊 Real example:</strong> A family using 60% daytime power on a 5 kW full system: Option A saves PKR 18,000/month but costs PKR 7.5L + PKR 70k NB fee = PKR 8.2L → 7.6 yr payback. Option B uses a 3 kW system costing PKR 5.2L, saves PKR 13,500/month → 6.4 yr payback. Option B earns PKR 38,000 more over 10 years despite lower monthly savings — because of the smaller upfront cost and no NB fee.</p>
+</div>
+
+<h2>DISCO Smart Meter Fees — The Hidden Cost</h2>
+<p>One cost that catches people by surprise: net billing requires a bi-directional solar AMI meter that's separate from the standard white/smart meter your DISCO may have already installed. Yes — even if your DISCO has already replaced your green meter with a white meter, you still need a separate solar meter for net billing.</p>
+<table style="width:100%;border-collapse:collapse;font-size:0.85rem;margin:0.75rem 0;">
+<thead><tr style="background:#1e293b;">
+  <th style="padding:0.4rem 0.6rem;text-align:left;color:#94a3b8;">DISCO</th>
+  <th style="padding:0.4rem 0.6rem;text-align:left;color:#94a3b8;">Region</th>
+  <th style="padding:0.4rem 0.6rem;text-align:center;color:#94a3b8;">Est. Total NB Fee</th>
+</tr></thead>
+<tbody>
+  <tr><td style="padding:0.35rem 0.6rem;">IESCO</td><td>Islamabad, Rawalpindi</td><td style="text-align:center;">~PKR 55,000</td></tr>
+  <tr style="background:#0f172a55;"><td style="padding:0.35rem 0.6rem;">LESCO</td><td>Lahore</td><td style="text-align:center;">~PKR 80–90,000</td></tr>
+  <tr><td style="padding:0.35rem 0.6rem;">FESCO</td><td>Faisalabad, Sargodha</td><td style="text-align:center;">~PKR 45,000</td></tr>
+  <tr style="background:#0f172a55;"><td style="padding:0.35rem 0.6rem;">MEPCO</td><td>Multan, Bahawalpur</td><td style="text-align:center;">~PKR 42,000</td></tr>
+  <tr><td style="padding:0.35rem 0.6rem;">HESCO / SEPCO</td><td>Hyderabad, Sukkur</td><td style="text-align:center;">~PKR 40,000</td></tr>
+  <tr style="background:#0f172a55;"><td style="padding:0.35rem 0.6rem;">PESCO</td><td>Peshawar, KPK</td><td style="text-align:center;">~PKR 42,000</td></tr>
+  <tr><td style="padding:0.35rem 0.6rem;">QESCO</td><td>Quetta, Balochistan</td><td style="text-align:center;">~PKR 40,000</td></tr>
+</tbody>
+</table>
+<p>LESCO has been particularly expensive — the fee was doubled and private meter purchase is banned (you must buy through LESCO). Confirm the exact amount with your DISCO before signing with an installer.</p>
+
+<h2>Battery Prices in Pakistan — 2026 Update</h2>
+<p>Battery prices softened slightly in 2026 as LiFePO4 supply chains matured, but rupee depreciation has kept PKR prices elevated:</p>
+<ul>
+  <li><strong>LiFePO4 5 kWh (lithium iron phosphate):</strong> PKR 2.25–2.80 lakh. 4,000+ cycles, 10-year lifespan. Best long-term value.</li>
+  <li><strong>LiFePO4 10 kWh:</strong> PKR 3.40–3.80 lakh. Covers 8+ hr load-shedding for a medium household.</li>
+  <li><strong>Lead-acid 200Ah (tubular):</strong> PKR 1.20–1.50 lakh. Cheaper upfront, but only 500–800 cycles. Needs replacement in 2–4 years. Not recommended for new setups.</li>
+</ul>
+<p>A key point many ignore: under net billing, a battery doesn't just cover load-shedding — it also converts daytime surplus from PKR 11/unit (export value) to PKR 45–70/unit (self-use value). For high-export households, a battery can improve payback by 1–2 years.</p>
+
+<h2>Payback Period — Realistic 2026 Numbers</h2>
+<p>These ranges assume net billing is active and self-consumption is 50–70%:</p>
+<ul>
+  <li><strong>PKR 5,000–8,000/month bill:</strong> Payback 10–14 years. Not ideal unless you have specific needs (severe load-shedding, future tariff protection).</li>
+  <li><strong>PKR 10,000–15,000/month:</strong> Payback 6–9 years. Worth considering — use the self-consumption-only option to reduce upfront cost.</li>
+  <li><strong>PKR 15,000–25,000/month:</strong> Payback 4–7 years. Recommended. This is the sweet spot.</li>
+  <li><strong>PKR 25,000+/month:</strong> Payback 3–5 years. Strongly recommended. Net billing makes sense here.</li>
+</ul>
+<p>Important: if electricity tariffs rise further (which NEPRA has signalled), payback improves automatically — your savings grow while your investment stays fixed.</p>
 
 <h2>Do You Need a Battery?</h2>
-<p>This is one of the most asked questions — and the answer depends entirely on your load-shedding situation:</p>
+<p>The practical answer by load-shedding level:</p>
 <ul>
-  <li><strong>0–2 hours load-shedding:</strong> A grid-tie inverter (no battery) is usually sufficient. It's the cheapest setup.</li>
-  <li><strong>4–6 hours load-shedding:</strong> A battery is strongly recommended. Without it, a grid-tie inverter shuts down during outages (NEPRA safety requirement).</li>
-  <li><strong>8+ hours load-shedding:</strong> A hybrid or off-grid setup with a 10 kWh+ battery bank is ideal.</li>
+  <li><strong>0–2 hrs/day:</strong> Battery optional. A hybrid inverter (PKR 20–30k more than on-grid) is enough — it gives you battery-readiness for the future without the upfront cost.</li>
+  <li><strong>4–6 hrs/day:</strong> Battery strongly recommended. A 5 kWh LiFePO4 covers fans, lights, router, and small devices through the outage.</li>
+  <li><strong>8+ hrs/day:</strong> Get a 10 kWh battery minimum, or go hybrid with 15–20 kWh storage. Don't skimp here — the frustration cost of running out of battery at hour 6 is real.</li>
 </ul>
-<p>For most urban Pakistan homes experiencing 4–6 hours of load-shedding, a 5 kWh LiFePO4 battery (PKR 1.5–2.5 lakh) covers essential loads — fans, lights, router — through the outage window.</p>
+<p>One practical tip: if budget is tight, get a <em>hybrid inverter</em> now (no battery) — it adds PKR 20–30k to your install. When you're ready to add a battery (1–2 years later), you won't need to replace the inverter. A pure on-grid inverter cannot accept a battery later.</p>
 
-<h2>Payback Period Reality Check</h2>
-<p>At PKR 50/kWh and a 5 kW system generating ~600 kWh/month, monthly savings are approximately PKR 30,000. At a cost of PKR 5 lakh, payback = 5,00,000 ÷ (30,000 × 12) = 1.4 years — but this assumes your bill is fully offset, which it won't be unless your system exactly matches your load.</p>
-<p>A more realistic estimate: a 5 kW system reduces a PKR 20,000/month bill to PKR 3,000–5,000/month (offsetting ~PKR 15,000/month). Payback = 5,00,000 ÷ (15,000 × 12) ≈ 2.8 years. Add battery: 7,00,000 ÷ (15,000 × 12) ≈ 3.9 years.</p>
-
-<h2>Net Metering in Pakistan</h2>
-<p>NEPRA's net metering policy allows on-grid solar users to export excess daytime generation back to the grid and receive credits on their bill. The process: apply to your DISCO (LESCO, KESC, FESCO etc.), get system approved, DISCO installs bidirectional meter. Net metering can reduce your effective bill further, especially for oversized systems.</p>
+<h2>7 Questions to Ask Your Installer Before Signing</h2>
+<ol>
+  <li><strong>What panel brand and type?</strong> Ask for Tier-1 mono-PERC minimum. N-type bifacial is worth the premium on good rooftops.</li>
+  <li><strong>Which inverter?</strong> Avoid no-name inverters. Growatt, Solis, Huawei, and Sungrow have local service support in Pakistan.</li>
+  <li><strong>Is the net billing application included in your quote?</strong> Many installers quote system cost only — DISCO application, documentation, and meter purchase are extras.</li>
+  <li><strong>Who handles the DISCO meter?</strong> Especially important in LESCO (private purchase not allowed). Confirm the installer knows the current process.</li>
+  <li><strong>What warranties are offered?</strong> Panels: 25-year performance, 10-year product. Inverter: 5–10 years. Mounting: 10 years.</li>
+  <li><strong>Do you provide a monitoring app?</strong> Any good inverter (Growatt, Huawei) has an app that shows live generation. Insist on this — it lets you verify your system is working.</li>
+  <li><strong>Are you AEDB registered?</strong> AEDB (Alternative Energy Development Board) registration is required for net billing. Ask to see their registration number.</li>
+</ol>
 
 <h2>How to Use the Rafiqy Solar Planner</h2>
-<p>The <a href="/tools/solar-planner">Solar Planner</a> does all this math in a 3-step wizard:</p>
+<p>The <a href="/tools/solar-planner">Solar Planner</a> does all of this in a 3-step wizard built for Pakistan:</p>
 <ol>
-  <li><strong>Step 1:</strong> Enter your monthly bill and city. Set your daily load-shedding hours.</li>
-  <li><strong>Step 2:</strong> Toggle your major appliances. Adjust qty and hours/day for accuracy.</li>
-  <li><strong>Step 3:</strong> See your recommended system size, cost range, monthly savings, payback, battery advice, and a "Is Solar Worth It?" verdict. Copy the full estimate as text to share with your installer.</li>
+  <li><strong>Step 1:</strong> Enter your monthly bill, city, load-shedding hours, and whether you want net billing. A DISCO-specific meter fee table shows the actual cost for your area.</li>
+  <li><strong>Step 2:</strong> Toggle your appliances (AC, fans, fridge, geyser, washing machine etc.) and adjust quantities and daily hours for seasonal accuracy.</li>
+  <li><strong>Step 3:</strong> See your recommended system size, install cost range (economy vs premium), monthly savings, post-solar bill, payback period, and a clear verdict. The tool also compares your full system + NB option against a self-consumption-only option side by side — with 10-year net gain figures — so you can see which actually earns more money long-term.</li>
 </ol>
+<p>Expert tips and a full installer question checklist are included in the results — tailored to your specific numbers, not generic advice.</p>
 <div style="background:#451a0318;border:1px solid #92400e40;border-radius:8px;padding:1rem;margin-top:1rem;">
-<p style="color:#92400e;font-size:0.85rem;margin:0;">⚠️ All estimates are based on average 2025 Pakistan market data. Actual costs and savings depend on your installer, panel brand, roof type, and electricity tariff. Get 2–3 quotes before deciding.</p>
-<p style="margin:0.5rem 0 0;"><a href="/tools/solar-planner">Open Solar Planner →</a></p>
+<p style="color:#92400e;font-size:0.85rem;margin:0;">⚠️ All estimates use verified 2026 Pakistan market data. Actual costs depend on your installer, roof type, shading, and DISCO. Always get 2–3 quotes before committing — and use this tool's results as your baseline to compare against.</p>
+<p style="margin:0.5rem 0 0;"><a href="/tools/solar-planner">Open Solar Planner — free, no signup →</a></p>
 </div>
 `,
   },

@@ -105,49 +105,117 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
   const sysKwHi = sysKw + 0.5
 
   // ── Cost range (economy = smaller system, premium = larger system) ─────────
-  // Using sysKwLo × economy price and sysKwHi × premium price gives the
-  // realistic market quote range a homeowner would actually receive.
-  const costLo    = sysKwLo * 1000 * costLoPW
-  const costHi    = sysKwHi * 1000 * costHiPW
-  const avgInstall = sysKw  * 1000 * (costLoPW + costHiPW) / 2  // mid-size, mid-price for payback
+  const costLo     = sysKwLo * 1000 * costLoPW
+  const costHi     = sysKwHi * 1000 * costHiPW
+  const avgInstall = sysKw  * 1000 * (costLoPW + costHiPW) / 2  // for payback
 
   // ── Monthly generation ────────────────────────────────────────────────────
   const monthlyGen = sysKw * sunHours * 30 * DEFAULTS.derate   // kWh/month
 
   // ── 2026 Net Billing savings model ────────────────────────────────────────
-  // Self-consumption is capped at actual monthly usage — you cannot consume
-  // more solar than your total load, regardless of the slider setting.
-  // Excess beyond actual usage is automatically exported.
+  // Self-consumption capped at actual monthly usage — cannot use more than load
   const selfConsumedRaw = monthlyGen * (selfConsumePct / 100)
   const selfConsumedKwh = Math.min(selfConsumedRaw, actualMonthlyUsage)
-  const exportedKwh     = monthlyGen - selfConsumedKwh   // physically correct
+  const exportedKwh     = monthlyGen - selfConsumedKwh
 
   const selfSavings   = Math.min(selfConsumedKwh * safeTariff, bill)
   const exportRevenue = netBilling ? exportedKwh * buybackRate : 0
   const totalSavings  = Math.min(selfSavings + exportRevenue, bill)
   const annualSavings = totalSavings * 12
-
   const postSolarBill = Math.max(0, bill - selfSavings - exportRevenue)
 
-  // ── Payback (includes one-time net billing registration + smart meter fee) ──
-  // NB fee range: PKR 55k–90k (IESCO ≈ 55k total, LESCO ≈ 90k total — April 2026)
-  const nbFee      = netBilling ? (NB_FEE_LO + NB_FEE_HI) / 2 : 0
+  // ── Payback ───────────────────────────────────────────────────────────────
+  const nbFeeAvg   = (NB_FEE_LO + NB_FEE_HI) / 2
+  const nbFee      = netBilling ? nbFeeAvg : 0
   const avgCost    = avgInstall + nbFee
   const paybackYrs = annualSavings > 0 ? avgCost / annualSavings : 0
 
   // ── Battery ───────────────────────────────────────────────────────────────
   const needsBattery = loadshed >= 4 || bill >= 25000
 
-  // ── Verdict — based on actual payback period, not just bill size ───────────
-  // Solar panels last 25+ years; payback ≤ 5 yrs = excellent, ≤ 8 = good,
-  // ≤ 12 = marginal but profitable over system life, > 12 = questionable.
+  // ── Verdict — based on payback period ─────────────────────────────────────
   let verdict, verdictColor, verdictIcon
-  if      (bill < 5000)             { verdict = 'Not Ideal (Low Bill)';      verdictColor = '#f87171'; verdictIcon = '❌' }
-  else if (paybackYrs <= 0)         { verdict = 'Insufficient Data';         verdictColor = '#f87171'; verdictIcon = '❌' }
-  else if (paybackYrs <= 5)         { verdict = 'Strongly Recommended';      verdictColor = '#22c55e'; verdictIcon = '✅' }
-  else if (paybackYrs <= 8)         { verdict = 'Recommended';               verdictColor = '#86efac'; verdictIcon = '✅' }
-  else if (paybackYrs <= 12)        { verdict = 'Worth Considering';         verdictColor = '#fbbf24'; verdictIcon = '⚠️' }
-  else                              { verdict = 'Long Payback (>12 yrs)';    verdictColor = '#f87171'; verdictIcon = '❌' }
+  if      (bill < 5000)      { verdict = 'Not Ideal (Low Bill)';   verdictColor = '#f87171'; verdictIcon = '❌' }
+  else if (paybackYrs <= 0)  { verdict = 'Insufficient Data';      verdictColor = '#f87171'; verdictIcon = '❌' }
+  else if (paybackYrs <= 5)  { verdict = 'Strongly Recommended';   verdictColor = '#22c55e'; verdictIcon = '✅' }
+  else if (paybackYrs <= 8)  { verdict = 'Recommended';            verdictColor = '#86efac'; verdictIcon = '✅' }
+  else if (paybackYrs <= 12) { verdict = 'Worth Considering';      verdictColor = '#fbbf24'; verdictIcon = '⚠️' }
+  else                       { verdict = 'Long Payback (>12 yrs)'; verdictColor = '#f87171'; verdictIcon = '❌' }
+
+  // ── Expert: Why this verdict (factors) ───────────────────────────────────
+  const verdictFactors = []
+  // Factor 1: Payback
+  if (paybackYrs > 0 && paybackYrs <= 5)
+    verdictFactors.push({ icon:'✅', color:'#86efac', text: `${fmtDec(paybackYrs)}-year payback — system pays for itself well before panels degrade (25yr life)` })
+  else if (paybackYrs > 0 && paybackYrs <= 8)
+    verdictFactors.push({ icon:'✅', color:'#86efac', text: `${fmtDec(paybackYrs)}-year payback — solid return over the 25-year panel life` })
+  else if (paybackYrs > 0 && paybackYrs <= 12)
+    verdictFactors.push({ icon:'⚠️', color:'#fbbf24', text: `${fmtDec(paybackYrs)}-year payback — profitable long-term but slow to recover; rising tariffs help` })
+  else if (paybackYrs > 12)
+    verdictFactors.push({ icon:'❌', color:'#f87171', text: `${fmtDec(paybackYrs)}-year payback — panel degradation and tech changes may reduce net gain` })
+  // Factor 2: Self-consumption rate
+  if (selfConsumePct >= 65)
+    verdictFactors.push({ icon:'✅', color:'#86efac', text: `High self-consumption (${selfConsumePct}%) — most solar used at home at PKR ${importTariff}/unit, the highest-value use case` })
+  else if (selfConsumePct >= 45)
+    verdictFactors.push({ icon:'🔹', color:'#7dd3fc', text: `Moderate self-consumption (${selfConsumePct}%) — ${100-selfConsumePct}% exported at PKR ${buybackRate}/unit; shifting usage to daytime hours improves ROI` })
+  else
+    verdictFactors.push({ icon:'⚠️', color:'#fbbf24', text: `Low self-consumption (${selfConsumePct}%) — ${100-selfConsumePct}% exported earns only PKR ${buybackRate}/unit vs PKR ${importTariff} if self-used. A smaller system may be smarter` })
+  // Factor 3: Bill size
+  if (bill >= 25000)
+    verdictFactors.push({ icon:'✅', color:'#86efac', text: `High bill (PKR ${fmt(bill)}/month) — large savings pool makes solar very attractive despite net billing changes` })
+  else if (bill >= 10000)
+    verdictFactors.push({ icon:'🔹', color:'#7dd3fc', text: `Moderate bill (PKR ${fmt(bill)}/month) — decent savings pool; tariff hikes make it better each year` })
+  else
+    verdictFactors.push({ icon:'⚠️', color:'#fbbf24', text: `Lower bill (PKR ${fmt(bill)}/month) — modest absolute savings today; tariffs historically rising 18–22%/yr in Pakistan` })
+  // Factor 4: Net billing cost vs benefit
+  if (netBilling && exportRevenue > 0) {
+    const exportAnnual   = exportRevenue * 12
+    const nbBreakEvenYrs = exportAnnual > 0 ? Math.round(nbFeeAvg / exportAnnual * 10) / 10 : 99
+    if (nbBreakEvenYrs <= 3)
+      verdictFactors.push({ icon:'✅', color:'#86efac', text: `Net billing fee (~PKR ${fmt(nbFeeAvg)}) recovers from export credits in just ${nbBreakEvenYrs} yrs — worth applying` })
+    else if (nbBreakEvenYrs <= 6)
+      verdictFactors.push({ icon:'🔹', color:'#7dd3fc', text: `Net billing fee (~PKR ${fmt(nbFeeAvg)}) recovers in ~${nbBreakEvenYrs} yrs of export credits — borderline; see option comparison below` })
+    else
+      verdictFactors.push({ icon:'⚠️', color:'#fbbf24', text: `Net billing fee (~PKR ${fmt(nbFeeAvg)}) takes ${nbBreakEvenYrs}+ yrs to recover from export revenue — smaller system without NB may beat this` })
+  }
+
+  // ── Expert: Alternative scenario (self-consumption only, no NB fee) ───────
+  // Size system to generate ONLY what the user self-consumes — no wasted export,
+  // no net billing fee, simpler approval. Best for low self-consumption households.
+  const altSysKwRaw  = selfConsumedKwh / (sunHours * 30 * DEFAULTS.derate)
+  const altSysKw     = Math.max(1, Math.round(altSysKwRaw * 2) / 2)
+  const altMonthlyGen   = altSysKw * sunHours * 30 * DEFAULTS.derate
+  const altMonthlySave  = Math.min(altMonthlyGen * safeTariff, bill)
+  const altAnnualSave   = altMonthlySave * 12
+  const altCostLo       = Math.max(1, altSysKw - 0.5) * 1000 * costLoPW
+  const altCostHi       = (altSysKw + 0.5) * 1000 * costHiPW
+  const altAvgCost      = altSysKw * 1000 * (costLoPW + costHiPW) / 2
+  const altPaybackNum   = altAnnualSave > 0 ? altAvgCost / altAnnualSave : 0
+  const altPaybackFmt   = altPaybackNum > 0 ? fmtDec(altPaybackNum) : '—'
+  // 10-year net return (total savings minus upfront cost)
+  const tenYrFull  = Math.round(annualSavings * 10 - avgCost)
+  const tenYrAlt   = Math.round(altAnnualSave  * 10 - altAvgCost)
+  const altIsBetter    = tenYrAlt > tenYrFull
+  const showAltCompare = netBilling && (sysKw - altSysKw >= 1)
+
+  // ── Expert: Personalized tips based on inputs ─────────────────────────────
+  const expertTips = []
+  if (selfConsumePct < 45 && netBilling)
+    expertTips.push(`🕐 Shift AC, washing machine and iron to 10am–4pm (peak solar hours). Even moving from ${selfConsumePct}% to 60% self-consumption could cut payback by ${fmtDec(Math.max(0, paybackYrs - altPaybackNum))} years — no extra cost.`)
+  if (loadshed >= 6)
+    expertTips.push(`⚡ ${loadshed}-hr load-shedding: on-grid inverters go dead when the grid fails. Battery is NOT optional here — budget PKR ${fmt(BATT_LO)}–${fmt(BATT_HI)} for a 5–6 kWh LiFePO₄ unit in addition to the solar system.`)
+  else if (loadshed >= 4)
+    expertTips.push(`🔋 ${loadshed}-hr load-shedding: battery keeps fans, lights, and router running during outages. It also converts PKR ${buybackRate}/unit exported energy into PKR ${importTariff}/unit self-use — can improve payback by 1–2 years.`)
+  if (netBilling && exportedKwh > selfConsumedKwh) {
+    const convertibleKwh = Math.min(exportedKwh, 150)
+    expertTips.push(`💡 You export ${exportedKwh} kWh/month at PKR ${buybackRate}/unit. A 5 kWh battery could convert ~${convertibleKwh} kWh/month into self-use at PKR ${importTariff}/unit — saving an extra PKR ${fmt(convertibleKwh * (safeTariff - buybackRate))}/month.`)
+  }
+  if (sysKw >= 10)
+    expertTips.push(`📋 Systems ≥10 kW require DISCO approval and may need a transformer upgrade. Confirm feasibility with your DISCO's engineering department BEFORE signing any contract.`)
+  if (bill < 8000 && bill >= 5000)
+    expertTips.push(`📈 Your bill is modest today, but Pakistan electricity tariffs have risen 18–22%/yr since 2022. At that rate your bill doubles in 3–4 years — solar you install today locks in today's cost permanently.`)
+  if (sysKw >= 5 && loadshed <= 2)
+    expertTips.push(`☀️ Low load-shedding area: battery is optional for now. Ask for a hybrid inverter — it costs PKR 20–30k more but lets you add a battery later without replacing the inverter.`)
 
   return {
     dailyKwh: fmtDec(dailyKwh),
@@ -161,6 +229,11 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
     paybackYrs: paybackYrs > 0 ? fmtDec(paybackYrs) : '—',
     needsBattery,
     verdict, verdictColor, verdictIcon,
+    // Expert intelligence
+    verdictFactors,
+    altSysKw, altCostLo, altCostHi, altPaybackFmt, altMonthlySave, altAnnualSave,
+    tenYrFull, tenYrAlt, altIsBetter, showAltCompare,
+    expertTips,
   }
 }
 
@@ -485,6 +558,19 @@ export default function SolarPlanner() {
               </div>
             </div>
 
+            {/* Why this verdict */}
+            <div style={{ ...card, background: '#0f1c2e', border: '1px solid #1e3a5f' }}>
+              <div style={{ color: '#7dd3fc', fontWeight: 600, fontSize: '0.82rem', marginBottom: '0.6rem' }}>🧠 Why "{results.verdict}"?</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+                {results.verdictFactors.map((f, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                    <span style={{ fontSize: '0.82rem', flexShrink: 0, lineHeight: '1.5' }}>{f.icon}</span>
+                    <span style={{ color: f.color, fontSize: '0.78rem', lineHeight: 1.6 }}>{f.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* 6 metric cards */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(185px, 1fr))', gap: '0.6rem', marginBottom: '0.75rem' }}>
               {[
@@ -522,13 +608,48 @@ export default function SolarPlanner() {
               </div>
             </div>
 
-            {/* Right-sizing tip */}
-            {results.exportedKwh > results.selfConsumedKwh && (
-              <div style={{ background: '#451a0318', border: '1px solid #451a0340', borderRadius: '10px', padding: '0.875rem 1rem', marginBottom: '0.75rem' }}>
-                <div style={{ color: '#fbbf24', fontWeight: 600, fontSize: '0.875rem', marginBottom: '0.3rem' }}>⚡ Right-sizing Tip</div>
-                <p style={{ color: '#92400e', fontSize: '0.8rem', margin: 0, lineHeight: 1.6 }}>
-                  At {selfConsume}% self-consumption, {100-selfConsume}% exports at only PKR {buybackRate}/unit. Consider a smaller {Math.max(1, results.sysKw - 1)} kW system for better ROI, or add a battery to increase self-consumption.
-                </p>
+            {/* Right-sizing tip replaced by Options Comparison below */}
+
+            {/* Options Comparison — shown when net billing + smaller alt system is meaningful */}
+            {results.showAltCompare && (
+              <div style={{ ...card, background: '#0c1a2e', border: '1px solid #1e3a5f' }}>
+                <div style={{ color: '#7dd3fc', fontWeight: 600, fontSize: '0.875rem', marginBottom: '0.75rem' }}>📊 Compare Your Two Best Options</div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '0.75rem' }}>
+                  {/* Option A */}
+                  <div style={{ background: '#0f172a', borderRadius: '8px', padding: '0.75rem', border: '1px solid #1e3a5f' }}>
+                    <div style={{ color: '#7dd3fc', fontSize: '0.72rem', fontWeight: 700, marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Option A (current)</div>
+                    <div style={{ color: '#e2e8f0', fontSize: '0.78rem', fontWeight: 600, marginBottom: '0.4rem' }}>Full System + Net Billing</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                      <OptRow k="System" v={`${results.sysKwLo}–${results.sysKwHi} kW`} />
+                      <OptRow k="Install" v={`PKR ${fmt(results.costLo)}–${fmt(results.costHi)}`} />
+                      <OptRow k="NB fee" v={`PKR ${fmt(NB_FEE_LO)}–${fmt(NB_FEE_HI)}`} warn />
+                      <OptRow k="Monthly savings" v={`PKR ${fmt(results.totalSavings)}`} />
+                      <OptRow k="Payback" v={`${results.paybackYrs} yrs`} warn={parseFloat(results.paybackYrs) > 6} />
+                      <OptRow k="10-yr net gain" v={`PKR ${fmt(results.tenYrFull)}`} good={!results.altIsBetter} warn={results.altIsBetter} />
+                    </div>
+                  </div>
+                  {/* Option B */}
+                  <div style={{ background: '#0f172a', borderRadius: '8px', padding: '0.75rem', border: results.altIsBetter ? '1px solid #22c55e60' : '1px solid #1e3a5f' }}>
+                    <div style={{ color: results.altIsBetter ? '#86efac' : '#64748b', fontSize: '0.72rem', fontWeight: 700, marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                      Option B {results.altIsBetter ? '⭐ Better ROI' : ''}
+                    </div>
+                    <div style={{ color: '#e2e8f0', fontSize: '0.78rem', fontWeight: 600, marginBottom: '0.4rem' }}>Self-Consumption Only</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                      <OptRow k="System" v={`${results.altSysKw} kW (smaller)`} good />
+                      <OptRow k="Install" v={`PKR ${fmt(results.altCostLo)}–${fmt(results.altCostHi)}`} good />
+                      <OptRow k="NB fee" v="None needed" good />
+                      <OptRow k="Monthly savings" v={`PKR ${fmt(results.altMonthlySave)}`} />
+                      <OptRow k="Payback" v={`${results.altPaybackFmt} yrs`} good={parseFloat(results.altPaybackFmt) < parseFloat(results.paybackYrs)} />
+                      <OptRow k="10-yr net gain" v={`PKR ${fmt(results.tenYrAlt)}`} good={results.altIsBetter} />
+                    </div>
+                  </div>
+                </div>
+                <div style={{ background: results.altIsBetter ? '#14532d20' : '#1e3a5f20', borderRadius: '6px', padding: '0.625rem 0.75rem', fontSize: '0.78rem', lineHeight: 1.6, color: results.altIsBetter ? '#86efac' : '#7dd3fc' }}>
+                  {results.altIsBetter
+                    ? `💡 Option B earns PKR ${fmt(results.tenYrAlt - results.tenYrFull)} more over 10 years despite lower monthly savings — because lower upfront cost (no NB fee, smaller system) compounds faster. Best if you can't shift usage to daytime.`
+                    : `✅ Option A earns PKR ${fmt(results.tenYrFull - results.tenYrAlt)} more over 10 years — net billing makes sense for your usage pattern. The PKR ${fmt((NB_FEE_LO + NB_FEE_HI) / 2)} fee is justified by your export revenue and self-consumption level.`
+                  }
+                </div>
               </div>
             )}
 
@@ -567,6 +688,52 @@ export default function SolarPlanner() {
                 </div>
               </div>
             </div>
+
+            {/* Personalized expert tips */}
+            {results.expertTips.length > 0 && (
+              <div style={{ ...card, background: '#161f2e', border: '1px solid #2d3f55' }}>
+                <div style={{ color: '#e2e8f0', fontWeight: 600, fontSize: '0.82rem', marginBottom: '0.6rem' }}>💬 Expert Tips for Your Situation</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                  {results.expertTips.map((tip, i) => (
+                    <div key={i} style={{ color: '#94a3b8', fontSize: '0.78rem', lineHeight: 1.65, background: '#0f172a', borderRadius: '6px', padding: '0.5rem 0.75rem' }}>
+                      {tip}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Quote checklist — collapsible */}
+            <details style={{ marginBottom: '0.75rem' }}>
+              <summary style={{ cursor: 'pointer', background: '#1e293b', border: '1px solid #334155', borderRadius: '10px', padding: '0.75rem 1rem', color: '#94a3b8', fontSize: '0.82rem', fontWeight: 600, listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span>📋 What to ask your installer before signing</span>
+                <span style={{ fontSize: '0.72rem', color: '#475569' }}>tap to expand ▼</span>
+              </summary>
+              <div style={{ background: '#1e293b', border: '1px solid #334155', borderTop: 'none', borderRadius: '0 0 10px 10px', padding: '0.875rem 1rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  {[
+                    { q: 'Panel brand & model?', a: 'JA Solar, LONGi, Canadian Solar, or Jinko preferred. Ask for NEPRA-approved list. Avoid no-brand.' },
+                    { q: 'Panel type?', a: 'Mono-PERC is minimum standard. N-type bifacial gives 5–10% more output — worth paying for in Pakistan heat.' },
+                    { q: 'Inverter brand & warranty?', a: 'Growatt, Solis, Sofar = reliable with local service centres. Insist on 5yr minimum (10yr preferred) warranty in writing.' },
+                    { q: 'Is net billing application included?', a: 'Many quotes exclude DISCO paperwork, NEPRA license, and meter procurement. Clarify what\'s included before comparing prices.' },
+                    { q: 'Who handles DISCO smart meter?', a: 'Installer should coordinate with DISCO. LESCO meter costs PKR 70k and must be bought from LESCO — no private purchase allowed.' },
+                    { q: 'Panel warranty terms?', a: '10-year product warranty + 25-year linear power output warranty. Get it in writing. Verify the manufacturer warranty, not just the installer warranty.' },
+                    { q: 'Remote monitoring access?', a: 'Ask for SolarmanPV or Growatt ShinePhone app access. You should be able to see live generation from your phone.' },
+                    { q: 'Hybrid inverter or pure on-grid?', a: 'Hybrid costs PKR 20–30k more but supports future battery addition without replacing the inverter. Strongly recommended.' },
+                    { q: 'AEDB registered installer?', a: 'Alternative Energy Development Board registration is a baseline legitimacy check. Ask for their registration number.' },
+                    { q: 'Payment terms?', a: 'Never pay more than 20–30% upfront. Pay majority on equipment delivery, balance on system commissioning and DISCO approval.' },
+                  ].map((item, i) => (
+                    <div key={i} style={{ borderBottom: i < 9 ? '1px solid #1e293b' : 'none', paddingBottom: i < 9 ? '0.5rem' : 0 }}>
+                      <div style={{ color: '#e2e8f0', fontSize: '0.78rem', fontWeight: 600, marginBottom: '0.15rem' }}>❓ {item.q}</div>
+                      <div style={{ color: '#64748b', fontSize: '0.74rem', lineHeight: 1.55 }}>→ {item.a}</div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ color: '#334155', fontSize: '0.7rem', marginTop: '0.75rem' }}>
+                  Always get at least 3 written quotes. The cheapest quote often has hidden costs (excluded NB application, cheap panels, no warranty support).
+                </div>
+              </div>
+            </details>
 
             {/* Calc transparency */}
             <div style={{ ...card, background: '#0f172a', border: '1px solid #1e293b' }}>
@@ -628,6 +795,16 @@ function AdvField({ label, hint, value, onChange, numInput }) {
       <label style={{ color: '#94a3b8', fontSize: '0.75rem', display: 'block', marginBottom: '0.25rem' }}>{label}</label>
       <input type="number" value={value} onChange={e => onChange(Number(e.target.value))} min="0" style={numInput} />
       <div style={{ color: '#475569', fontSize: '0.68rem', marginTop: '0.2rem' }}>{hint}</div>
+    </div>
+  )
+}
+
+function OptRow({ k, v, good, warn }) {
+  const color = good ? '#86efac' : warn ? '#fbbf24' : '#94a3b8'
+  return (
+    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.4rem' }}>
+      <span style={{ color: '#475569', fontSize: '0.72rem' }}>{k}</span>
+      <span style={{ color, fontSize: '0.72rem', fontWeight: good || warn ? 700 : 400, textAlign: 'right' }}>{v}</span>
     </div>
   )
 }

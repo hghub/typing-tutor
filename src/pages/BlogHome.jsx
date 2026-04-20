@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { useTheme } from '../hooks/useTheme'
 import ToolsNav from '../components/ToolsNav'
+import ShareBar from '../components/ShareBar'
 import { BLOG_POSTS } from '../data/blogPosts'
 
 export default function BlogHome() {
@@ -205,6 +206,7 @@ export default function BlogHome() {
 
           {/* Footer */}
           <div style={{ textAlign: 'center', marginTop: '3rem', paddingTop: '2rem', borderTop: `1px solid ${colors.border}` }}>
+            <ShareBar url="https://rafiqy.app/blog" title="Rafiqy Blog — Practical guides for digital tools" />
             <Link
               to="/tools"
               style={{

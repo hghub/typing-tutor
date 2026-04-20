@@ -5,6 +5,7 @@ import { TOOLS, TOOL_CATEGORIES } from '../tools/registry'
 import ToolsNav from '../components/ToolsNav'
 import SmartSearch from '../components/SmartSearch'
 import FeedbackButton from '../components/FeedbackButton'
+import ShareBar from '../components/ShareBar'
 import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
 
@@ -622,6 +623,10 @@ export default function ToolsHome() {
       </div>
 
       <FeedbackButton />
+
+      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1.5rem 1rem' }}>
+        <ShareBar url="https://rafiqy.app/tools" title="Rafiqy — 63 Free Online Tools for Pakistan" />
+      </div>
 
       <footer style={{ textAlign: 'center', padding: '1rem', color: colors.textSecondary, fontSize: '0.75rem', borderTop: `1px solid ${colors.border}` }}>
         © {new Date().getFullYear()} Rafiqy · Privacy-first browser tools &nbsp;·&nbsp;

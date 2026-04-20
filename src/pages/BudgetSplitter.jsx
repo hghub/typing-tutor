@@ -134,6 +134,7 @@ function QuickSplit({ colors, isDark }) {
   const [payment,     setPayment]     = useState({ name: '', bank: '', account: '', mobile: '' })
   const [copied,      setCopied]      = useState(false)
   const [paidStatus,  setPaidStatus]  = useState(new Set())
+  const [activeHistoryId, setActiveHistoryId] = useState(null)
   const [splitHistory,setSplitHistory]= useState([])
   const [showHistory, setShowHistory] = useState(false)
 
@@ -240,11 +241,62 @@ function QuickSplit({ colors, isDark }) {
     return lines.join('\n')
   }
 
-  function saveToHistory() {
-    const entry = { id: Date.now(), date: new Date().toLocaleDateString('en-PK'), title: title || scen.label + ' Bill Split', total: fmtAmt(total, sym), count, scenario: scen.icon }
-    const updated = [entry, ...splitHistory.filter(h => h.id !== entry.id)].slice(0, 5)
+  function saveToHistory(paid = paidStatus) {
+    const id = activeHistoryId ?? Date.now()
+    const entry = {
+      id, date: new Date().toLocaleDateString('en-PK'),
+      // display fields
+      title: title || scen.label + ' Bill Split', total: fmtAmt(total, sym),
+      scenario: scen.icon, count,
+      // full snapshot for reload
+      currency, scenarioId: scenario, subtotal, rawTitle: title,
+      showTax, taxMode, customTax,
+      showTip, tipMode, customTip,
+      showUnequal, shares, showRound, roundStep,
+      // paid tracking
+      paidStatus: [...paid],
+      perPersonNames: perPerson.map(p => p.name),
+    }
+    setActiveHistoryId(id)
+    const updated = [entry, ...splitHistory.filter(h => h.id !== id)].slice(0, 5)
     setSplitHistory(updated)
     localStorage.setItem('rafiqy_bill_history', JSON.stringify(updated))
+  }
+
+  function togglePaid(i) {
+    setPaidStatus(prev => {
+      const s = new Set(prev)
+      s.has(i) ? s.delete(i) : s.add(i)
+      if (activeHistoryId) {
+        const updated = splitHistory.map(h =>
+          h.id === activeHistoryId ? { ...h, paidStatus: [...s] } : h
+        )
+        setSplitHistory(updated)
+        localStorage.setItem('rafiqy_bill_history', JSON.stringify(updated))
+      }
+      return s
+    })
+  }
+
+  function loadFromHistory(h) {
+    setCurrency(h.currency ?? 'PKR')
+    setScenario(h.scenarioId ?? 'restaurant')
+    setSubtotal(h.subtotal ?? '')
+    setCount(h.count ?? 2)
+    setTitle(h.rawTitle ?? '')
+    setShowTax(h.showTax ?? false)
+    setTaxMode(h.taxMode ?? '16')
+    setCustomTax(h.customTax ?? '')
+    setShowTip(h.showTip ?? false)
+    setTipMode(h.tipMode ?? '10')
+    setCustomTip(h.customTip ?? '')
+    setShowUnequal(h.showUnequal ?? false)
+    setShares(h.shares ?? [{ name: 'You', pct: '' }, { name: 'Friend', pct: '' }])
+    setShowRound(h.showRound ?? false)
+    setRoundStep(h.roundStep ?? '10')
+    setPaidStatus(new Set(h.paidStatus ?? []))
+    setActiveHistoryId(h.id)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   function remindPerson(p) {
@@ -509,7 +561,7 @@ function QuickSplit({ colors, isDark }) {
               return (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.55rem 0.85rem', background: isPaid ? '#10b98110' : colors.bg, borderRadius: '0.6rem', border: `1px solid ${isPaid ? '#10b98144' : colors.border}`, transition: 'all 0.2s' }}>
                   <button
-                    onClick={() => setPaidStatus(prev => { const s = new Set(prev); s.has(i) ? s.delete(i) : s.add(i); return s })}
+                    onClick={() => togglePaid(i)}
                     title={isPaid ? 'Mark unpaid' : 'Mark as paid'}
                     style={{ width: 22, height: 22, borderRadius: '50%', border: `2px solid ${isPaid ? '#10b981' : colors.border}`, background: isPaid ? '#10b981' : 'transparent', cursor: 'pointer', fontSize: '0.65rem', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', lineHeight: 1 }}>
                     {isPaid ? '✓' : ''}
@@ -548,21 +600,65 @@ function QuickSplit({ colors, isDark }) {
       {splitHistory.length > 0 && (
         <div>
           <button onClick={() => setShowHistory(v => !v)} style={{ background: 'transparent', border: `1px solid ${colors.border}`, borderRadius: '2rem', padding: '0.3rem 0.9rem', color: colors.textSecondary, fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
-            📂 Recent Splits ({splitHistory.length}) {showHistory ? '▲' : '▼'}
+            📂 Saved Bills ({splitHistory.length}) {showHistory ? '▲' : '▼'}
           </button>
           {showHistory && (
-            <div style={{ marginTop: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-              {splitHistory.map(h => (
-                <div key={h.id} style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', padding: '0.55rem 0.85rem', background: colors.card, border: `1px solid ${colors.border}`, borderRadius: '0.6rem' }}>
-                  <span style={{ fontSize: '1.1rem' }}>{h.scenario}</span>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <p style={{ margin: 0, fontWeight: 600, fontSize: '0.85rem', color: colors.text, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{h.title}</p>
-                    <p style={{ margin: 0, fontSize: '0.72rem', color: colors.textSecondary }}>{h.date} · {h.count} people · {h.total}</p>
+            <div style={{ marginTop: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+              {splitHistory.map(h => {
+                const isActive = h.id === activeHistoryId
+                const paidArr = h.paidStatus ?? []
+                const names = h.perPersonNames ?? Array.from({ length: h.count }, (_, i) => i === 0 ? 'You' : `Person ${i+1}`)
+                return (
+                  <div key={h.id} style={{ background: colors.card, border: `1.5px solid ${isActive ? ACCENT : colors.border}`, borderRadius: '0.75rem', overflow: 'hidden', transition: 'border-color 0.15s' }}>
+                    {/* Header row */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', padding: '0.6rem 0.85rem', borderBottom: `1px solid ${colors.border}` }}>
+                      <span style={{ fontSize: '1.1rem' }}>{h.scenario}</span>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <p style={{ margin: 0, fontWeight: 700, fontSize: '0.85rem', color: isActive ? ACCENT : colors.text, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{h.title}</p>
+                        <p style={{ margin: 0, fontSize: '0.7rem', color: colors.textSecondary }}>{h.date} · {h.count} people · {h.total}</p>
+                      </div>
+                      {isActive
+                        ? <span style={{ fontSize: '0.68rem', fontWeight: 700, color: ACCENT, background: `${ACCENT}18`, border: `1px solid ${ACCENT}44`, borderRadius: '2rem', padding: '0.15rem 0.5rem', flexShrink: 0 }}>Active</span>
+                        : <button onClick={() => loadFromHistory(h)} style={{ background: 'transparent', border: `1px solid ${ACCENT}`, borderRadius: '0.4rem', color: ACCENT, cursor: 'pointer', padding: '0.25rem 0.6rem', fontSize: '0.75rem', fontWeight: 700, flexShrink: 0 }}>Load ↩</button>
+                      }
+                    </div>
+                    {/* Per-person paid toggles */}
+                    <div style={{ padding: '0.5rem 0.85rem', display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+                      {names.map((name, i) => {
+                        const paid = paidArr.includes(i)
+                        return (
+                          <button key={i} onClick={() => {
+                            const updated = splitHistory.map(entry => {
+                              if (entry.id !== h.id) return entry
+                              const cur = new Set(entry.paidStatus ?? [])
+                              cur.has(i) ? cur.delete(i) : cur.add(i)
+                              const newPaid = [...cur]
+                              if (isActive) setPaidStatus(new Set(newPaid))
+                              return { ...entry, paidStatus: newPaid }
+                            })
+                            setSplitHistory(updated)
+                            localStorage.setItem('rafiqy_bill_history', JSON.stringify(updated))
+                          }} style={{
+                            display: 'inline-flex', alignItems: 'center', gap: '0.3rem',
+                            padding: '0.2rem 0.6rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer',
+                            background: paid ? '#10b98118' : 'transparent',
+                            border: `1px solid ${paid ? '#10b98155' : colors.border}`,
+                            color: paid ? '#10b981' : colors.textSecondary,
+                          }}>
+                            <span style={{ width: 12, height: 12, borderRadius: '50%', border: `2px solid ${paid ? '#10b981' : colors.border}`, background: paid ? '#10b981' : 'transparent', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.55rem', color: '#fff', lineHeight: 1, flexShrink: 0 }}>{paid ? '✓' : ''}</span>
+                            {name}
+                          </button>
+                        )
+                      })}
+                      <span style={{ fontSize: '0.7rem', color: colors.textSecondary, alignSelf: 'center', marginLeft: 'auto' }}>
+                        {paidArr.length}/{h.count} paid
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
-              <button onClick={() => { setSplitHistory([]); localStorage.removeItem('rafiqy_bill_history') }} style={{ background: 'transparent', border: `1px solid ${colors.border}`, borderRadius: '0.4rem', padding: '0.25rem 0.65rem', fontSize: '0.72rem', color: colors.textSecondary, cursor: 'pointer', alignSelf: 'flex-end' }}>
-                Clear history
+                )
+              })}
+              <button onClick={() => { setSplitHistory([]); setActiveHistoryId(null); localStorage.removeItem('rafiqy_bill_history') }} style={{ background: 'transparent', border: `1px solid ${colors.border}`, borderRadius: '0.4rem', padding: '0.25rem 0.65rem', fontSize: '0.72rem', color: colors.textSecondary, cursor: 'pointer', alignSelf: 'flex-end' }}>
+                Clear all
               </button>
             </div>
           )}

@@ -7,6 +7,7 @@ import TrustBadge from './TrustBadge'
 import FeedbackButton from './FeedbackButton'
 import ToolHelpDialog from './ToolHelpDialog'
 import ToolSEOFooter from './ToolSEOFooter'
+import ShareBar from './ShareBar'
 import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
 import { TOOLS } from '../tools/registry'
@@ -129,6 +130,16 @@ export default function ToolLayout({ toolId, children }) {
         <Suspense fallback={<LoadingSpinner colors={colors} />}>
           {children}
         </Suspense>
+
+        {/* Share bar — below tool content */}
+        {tool && seo && (
+          <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: `1px solid ${colors.border}` }}>
+            <ShareBar
+              url={`https://rafiqy.app${tool.path}`}
+              title={seo.metaTitle || `${tool.name} — Free Online Tool | Rafiqy`}
+            />
+          </div>
+        )}
       </main>
 
       <RelatedTools toolId={toolId} />

@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useTheme } from '../hooks/useTheme'
 import ToolsNav from '../components/ToolsNav'
+import ShareBar from '../components/ShareBar'
 import { BLOG_POSTS } from '../data/blogPosts'
 
 function slugify(text) {
@@ -240,6 +241,12 @@ export default function BlogPost() {
             <div className="blog-content" dangerouslySetInnerHTML={{ __html: processedContent }} style={{ color: colors.text, lineHeight: 1.8, fontSize: '1rem' }} />
 
             <hr style={{ border: 'none', borderTop: `1px solid ${colors.border}`, margin: '2.5rem 0' }} />
+
+            {/* Share bar */}
+            <ShareBar
+              url={`https://rafiqy.app/blog/${post.slug}`}
+              title={`${post.title} | Rafiqy`}
+            />
 
             <div style={{ marginBottom: '2rem' }}>
               <Link to="/blog" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#06b6d4', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}

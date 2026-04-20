@@ -45,6 +45,12 @@ const DEFAULTS = {
 
 const DATA_DATE    = 'April 2026'
 
+// ── Net billing registration costs (one-time, on top of system cost) ─────────
+// Application fee + smart/bi-directional meter (mandatory) + inspection
+// Source: inverterhybrid.com, solarhubofficial.com — April 2026
+const NB_FEE_LO = 50000   // PKR minimum
+const NB_FEE_HI = 70000   // PKR maximum
+
 // ── Battery options — April 2026 (global lithium prices -15-18% from 2025) ──
 const BATTERIES = [
   { brand: 'Knox',      cap: '6.1 kWh',  lo: 225000, hi: 280000, note: 'Budget pick — strong local warranty',          flag: '🏆 Best Value' },
@@ -97,8 +103,10 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
 
   const postSolarBill = Math.max(0, bill - selfSavings - exportRevenue)
 
-  // ── Payback ───────────────────────────────────────────────────────────────
-  const avgCost    = (costLo + costHi) / 2
+  // ── Payback (includes one-time net billing registration + smart meter fee) ──
+  // Net billing fee: PKR 50k–70k (application + smart meter + inspection)
+  const nbFee    = netBilling ? (NB_FEE_LO + NB_FEE_HI) / 2 : 0
+  const avgCost  = (costLo + costHi) / 2 + nbFee
   const paybackYrs = annualSavings > 0 ? avgCost / annualSavings : 0
 
   // ── Battery ───────────────────────────────────────────────────────────────
@@ -292,7 +300,7 @@ export default function SolarPlanner() {
                   <Toggle on={netBilling} />
                   <div>
                     <div style={{ color: '#e2e8f0', fontSize: '0.85rem', fontWeight: 600 }}>{netBilling ? 'Net Billing enabled' : 'No grid export (off-grid / battery only)'}</div>
-                    <div style={{ color: '#64748b', fontSize: '0.75rem' }}>{netBilling ? 'Exported units credited at PKR 11/unit (NEPRA Dec 2025)' : 'All solar used on-site; nothing exported'}</div>
+                    <div style={{ color: '#64748b', fontSize: '0.75rem' }}>{netBilling ? `Exported units credited at PKR 11/unit (NEPRA Dec 2025) · One-time fee: ~PKR ${fmt(NB_FEE_LO)}–${fmt(NB_FEE_HI)} (app + smart meter)` : 'All solar used on-site; nothing exported'}</div>
                   </div>
                 </div>
                 {netBilling && (
@@ -423,7 +431,7 @@ export default function SolarPlanner() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(185px, 1fr))', gap: '0.6rem', marginBottom: '0.75rem' }}>
               {[
                 { icon: '🔆', label: 'System Size',    value: `${results.sysKwLo}–${results.sysKwHi} kW`,             sub: 'On-grid, Tier-1 panels' },
-                { icon: '💰', label: 'Install Cost',    value: `PKR ${fmt(results.costLo)}–${fmt(results.costHi)}`,     sub: `PKR ${costLoPW}–${costHiPW}/W · ${DATA_DATE}` },
+                { icon: '💰', label: 'Install Cost',    value: `PKR ${fmt(results.costLo)}–${fmt(results.costHi)}`,     sub: `+PKR ${fmt(NB_FEE_LO)}–${fmt(NB_FEE_HI)} net billing fee` },
                 { icon: '📉', label: 'Monthly Savings', value: `~PKR ${fmt(results.totalSavings)}`,                     sub: `${results.monthlyGen} kWh generated` },
                 { icon: '🧾', label: 'Post-Solar Bill', value: `~PKR ${fmt(results.postSolarBill)}`,                    sub: results.postSolarBill < 1000 ? '🎉 Near-zero bill!' : `Down from PKR ${fmt(billNum)}` },
                 { icon: '📆', label: 'Payback Period',  value: `~${results.paybackYrs} yrs`,                           sub: 'Net billing model (2026)' },
@@ -510,7 +518,8 @@ export default function SolarPlanner() {
                 Generation: {results.sysKw} kW × {CITIES[cityIdx].sun} hrs × 30 × 0.80 = <strong style={{ color: '#e2e8f0' }}>{results.monthlyGen} kWh/month</strong><br />
                 Self-consumed: {results.selfConsumedKwh} kWh × PKR {importTariff} = PKR {fmt(results.selfSavings)}<br />
                 {netBilling ? `Exported: ${results.exportedKwh} kWh × PKR ${buybackRate} = PKR ${fmt(results.exportRevenue)}` : 'No export (net billing off)'}<br />
-                Install: {results.sysKw} kW × 1000 × PKR {costLoPW}–{costHiPW}/W = PKR {fmt(results.costLo)}–{fmt(results.costHi)}
+                Install: {results.sysKw} kW × 1000 × PKR {costLoPW}–{costHiPW}/W = PKR {fmt(results.costLo)}–{fmt(results.costHi)}<br />
+                {netBilling ? `Net billing fee (app + smart meter + inspection): ~PKR ${fmt(NB_FEE_LO)}–${fmt(NB_FEE_HI)}` : 'No net billing fee (off-grid / battery only)'}
               </div>
             </div>
 

@@ -8,12 +8,19 @@ import { BLOG_POSTS } from '../data/blogPosts'
 export default function BlogHome() {
   const { isDark, colors } = useTheme()
   const [activeCategory, setActiveCategory] = useState('all')
+  const [query, setQuery] = useState('')
 
   const categories = ['all', ...new Set(BLOG_POSTS.map(p => p.category))]
 
-  const filtered = activeCategory === 'all'
-    ? BLOG_POSTS
-    : BLOG_POSTS.filter(p => p.category === activeCategory)
+  const q = query.trim().toLowerCase()
+  const filtered = BLOG_POSTS.filter(p => {
+    const matchCat = activeCategory === 'all' || p.category === activeCategory
+    const matchQ = !q ||
+      p.title.toLowerCase().includes(q) ||
+      p.description?.toLowerCase().includes(q) ||
+      p.tags?.some(t => t.toLowerCase().includes(q))
+    return matchCat && matchQ
+  })
 
   return (
     <>
@@ -45,6 +52,35 @@ export default function BlogHome() {
         </div>
 
         <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '2rem 1.5rem' }}>
+          {/* Search bar */}
+          <div style={{ maxWidth: 520, margin: '0 auto 1.5rem', position: 'relative' }}>
+            <span style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', fontSize: '1rem', pointerEvents: 'none', opacity: 0.45 }}>🔍</span>
+            <input
+              type="search"
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              placeholder="Search posts — solar, typing, PDF…"
+              style={{
+                width: '100%', boxSizing: 'border-box',
+                padding: '0.7rem 2.5rem 0.7rem 2.4rem',
+                borderRadius: '0.75rem',
+                border: `1.5px solid ${query ? '#06b6d4' : colors.border}`,
+                background: colors.card, color: colors.text,
+                fontSize: '0.92rem', outline: 'none',
+                transition: 'border-color 0.2s',
+              }}
+              onFocus={e => e.target.style.borderColor = '#06b6d4'}
+              onBlur={e => e.target.style.borderColor = query ? '#06b6d4' : colors.border}
+            />
+            {query && (
+              <button onClick={() => setQuery('')} style={{
+                position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)',
+                background: 'none', border: 'none', cursor: 'pointer', fontSize: '1rem',
+                color: colors.textSecondary, padding: '0 0.2rem', lineHeight: 1,
+              }}>✕</button>
+            )}
+          </div>
+
           {/* Category filters */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '2rem', justifyContent: 'center' }}>
             {categories.map(cat => (
@@ -69,7 +105,16 @@ export default function BlogHome() {
             ))}
           </div>
 
+          {/* Results count */}
+          {(q || activeCategory !== 'all') && (
+            <p style={{ textAlign: 'center', fontSize: '0.82rem', color: colors.muted, marginBottom: '1.25rem', marginTop: '-0.5rem' }}>
+              {filtered.length === 0 ? 'No posts found' : `${filtered.length} post${filtered.length === 1 ? '' : 's'} found`}
+              {q && <> for <strong style={{ color: colors.textSecondary }}>"{query}"</strong></>}
+            </p>
+          )}
+
           {/* Posts grid */}
+          {filtered.length > 0 ? (
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
@@ -147,6 +192,16 @@ export default function BlogHome() {
               </Link>
             ))}
           </div>
+          ) : (
+            <div style={{ textAlign: 'center', padding: '3rem 1rem', color: colors.muted }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>🔍</div>
+              <p style={{ fontSize: '0.95rem', margin: '0 0 1rem' }}>No posts match <strong>"{query}"</strong></p>
+              <button onClick={() => { setQuery(''); setActiveCategory('all') }} style={{
+                padding: '0.5rem 1.25rem', borderRadius: '0.6rem', border: `1px solid ${colors.border}`,
+                background: 'none', color: colors.textSecondary, cursor: 'pointer', fontSize: '0.85rem',
+              }}>Clear search</button>
+            </div>
+          )}
 
           {/* Footer */}
           <div style={{ textAlign: 'center', marginTop: '3rem', paddingTop: '2rem', borderTop: `1px solid ${colors.border}` }}>

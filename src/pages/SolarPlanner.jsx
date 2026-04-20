@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import jsPDF from 'jspdf'
 import ToolLayout from '../components/ToolLayout'
 
 // ── Pakistan peak sun hours (daily kWh/m²) — verified sources ────────────────
@@ -320,7 +321,179 @@ export default function SolarPlanner() {
     })
   }
 
-  const card = { background: '#1e293b', borderRadius: '12px', padding: '1.5rem', border: '1px solid #334155', marginBottom: '0.75rem' }
+  function generatePDF() {
+    if (!results) return
+    const r = results
+    const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' })
+    const W = 210, M = 16, CW = W - M * 2
+    let y = 0
+
+    // Helpers
+    const fc  = (rr, g, b) => doc.setFillColor(rr, g, b)
+    const tc  = (rr, g, b) => doc.setTextColor(rr, g, b)
+    const dc  = (rr, g, b) => doc.setDrawColor(rr, g, b)
+    const box = (x, yy, w, h, fill, strokeC, lw = 0.3) => {
+      if (fill)   { doc.setFillColor(...fill);   }
+      if (strokeC){ doc.setDrawColor(...strokeC); doc.setLineWidth(lw) }
+      doc.rect(x, yy, w, h, fill && strokeC ? 'FD' : fill ? 'F' : 'D')
+    }
+    const strip = s => s.replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}\u{2300}-\u{23FF}]/gu, '').replace(/^[•\-\s]+/, '').trim()
+
+    // Verdict color RGB
+    const vc = results.verdictColor === '#22c55e' ? [22, 163, 74]
+             : results.verdictColor === '#4ade80' ? [74, 222, 128]
+             : results.verdictColor === '#fbbf24' ? [245, 158, 11]
+             : results.verdictColor === '#f87171' ? [220, 38, 38]
+             : [6, 182, 212]
+
+    // ── HEADER ──────────────────────────────────────────────────────────
+    box(0, 0, W, 28, [15, 23, 42])
+    doc.setFontSize(17); doc.setFont('helvetica', 'bold'); tc(255, 255, 255)
+    doc.text('Solar Assessment Report', M, 11)
+    doc.setFontSize(8); doc.setFont('helvetica', 'normal'); tc(6, 182, 212)
+    doc.text('rafiqy.app/tools/solar-planner', M, 17.5)
+    tc(148, 163, 184)
+    const genDate = new Date().toLocaleDateString('en-PK', { year: 'numeric', month: 'long', day: 'numeric' })
+    doc.text(`Generated: ${genDate}  |  Data: Pakistan solar market ${DATA_DATE}`, M, 23.5)
+    y = 34
+
+    // ── INPUTS SUMMARY ──────────────────────────────────────────────────
+    box(M, y, CW, 9, [241, 245, 249], [226, 232, 240])
+    doc.setFontSize(7); doc.setFont('helvetica', 'normal'); tc(51, 65, 85)
+    const pol = netBilling ? `Net Billing @ PKR ${buybackRate}/unit` : 'Self-consumption only'
+    doc.text(`City: ${CITIES[cityIdx].name}   |   Bill: PKR ${fmt(billNum)}/month   |   Policy: ${pol}   |   Self-consumption: ${selfConsume}%   |   Loadshedding: ${loadshed}h`, M + 3, y + 5.8)
+    y += 13
+
+    // ── VERDICT ─────────────────────────────────────────────────────────
+    box(M, y, CW, 17, [248, 250, 252], vc, 1.2)
+    doc.setFontSize(13); doc.setFont('helvetica', 'bold'); tc(...vc)
+    doc.text(results.verdict, M + 4, y + 8)
+    doc.setFontSize(7); doc.setFont('helvetica', 'normal'); tc(100, 116, 139)
+    doc.text(`Is solar worth it?  |  ${CITIES[cityIdx].name}  |  PKR ${fmt(billNum)}/month  |  ${netBilling ? 'Net Billing (NEPRA Dec 2025)' : 'No grid export'}`, M + 4, y + 13)
+    y += 21
+
+    // ── WHY THIS VERDICT ────────────────────────────────────────────────
+    doc.setFontSize(8); doc.setFont('helvetica', 'bold'); tc(30, 41, 59)
+    doc.text('Why this verdict?', M, y); y += 4
+    doc.setFontSize(7); doc.setFont('helvetica', 'normal')
+    results.verdictFactors.slice(0, 4).forEach(f => {
+      tc(71, 85, 105)
+      const lines = doc.splitTextToSize('• ' + strip(f.text), CW - 4)
+      doc.text(lines, M + 2, y)
+      y += lines.length * 3.6
+    })
+    y += 4
+
+    // ── KEY METRICS (2-col grid) ─────────────────────────────────────────
+    doc.setFontSize(8.5); doc.setFont('helvetica', 'bold'); tc(30, 41, 59)
+    doc.text('Key Results', M, y); y += 4
+    const colW = (CW - 3) / 2
+    const metrics = [
+      { label: 'System Size',     value: `${r.sysKwLo}-${r.sysKwHi} kW`,             sub: 'On-grid, Tier-1 panels' },
+      { label: 'Install Cost',    value: `PKR ${fmt(r.costLo)}-${fmt(r.costHi)}`,     sub: 'Economy-Premium (battery separate)' },
+      { label: 'Monthly Savings', value: `~PKR ${fmt(r.totalSavings)}`,               sub: `${r.monthlyGen} kWh/month generated` },
+      { label: 'Post-Solar Bill', value: `~PKR ${fmt(r.postSolarBill)}`,              sub: r.postSolarBill < 1000 ? 'Near-zero bill!' : `Down from PKR ${fmt(billNum)}` },
+      { label: 'Payback Period',  value: `~${r.paybackYrs} years`,                   sub: 'Net billing model (2026)' },
+      { label: 'Annual Savings',  value: `PKR ${fmt(r.annualSavings)}`,              sub: 'After payback: free energy' },
+    ]
+    metrics.forEach((m, i) => {
+      const col = i % 2
+      const x = M + col * (colW + 3)
+      box(x, y, colW, 16, [248, 250, 252], [226, 232, 240])
+      doc.setFontSize(6.5); doc.setFont('helvetica', 'normal'); tc(100, 116, 139)
+      doc.text(m.label, x + 3, y + 5)
+      doc.setFontSize(9); doc.setFont('helvetica', 'bold'); tc(15, 23, 42)
+      doc.text(m.value, x + 3, y + 10.5)
+      doc.setFontSize(6); doc.setFont('helvetica', 'normal'); tc(148, 163, 184)
+      doc.text(m.sub, x + 3, y + 14.5)
+      if (col === 1) y += 18
+    })
+    y += 22
+
+    // ── MONTHLY BREAKDOWN ───────────────────────────────────────────────
+    doc.setFontSize(8.5); doc.setFont('helvetica', 'bold'); tc(30, 41, 59)
+    doc.text('Monthly Savings Breakdown', M, y); y += 4
+    const rows = [
+      [`Self-consumed (${selfConsume}%)`, `${r.selfConsumedKwh} kWh x PKR ${importTariff}/unit`, `PKR ${fmt(r.selfSavings)}`],
+      ...(netBilling ? [[`Exported (${100-selfConsume}%)`, `${r.exportedKwh} kWh x PKR ${buybackRate}/unit`, `PKR ${fmt(r.exportRevenue)}`]] : []),
+      ['Total Monthly Savings', '', `PKR ${fmt(r.totalSavings)}`],
+    ]
+    rows.forEach((row, i) => {
+      const isT = i === rows.length - 1
+      box(M, y, CW, 7, isT ? [240, 253, 244] : [248, 250, 252], isT ? [134, 239, 172] : [226, 232, 240])
+      doc.setFontSize(isT ? 7.5 : 7); doc.setFont('helvetica', isT ? 'bold' : 'normal')
+      tc(...(isT ? [22, 163, 74] : [30, 41, 59]))
+      doc.text(row[0], M + 3, y + 4.8)
+      tc(100, 116, 139); doc.setFont('helvetica', 'normal')
+      doc.text(row[1], M + CW * 0.44, y + 4.8)
+      tc(...(isT ? [6, 182, 212] : [30, 41, 59])); doc.setFont('helvetica', 'bold')
+      doc.text(row[2], M + CW - 2, y + 4.8, { align: 'right' })
+      y += 7
+    })
+    y += 3
+    if (netBilling) {
+      doc.setFontSize(6.5); doc.setFont('helvetica', 'italic'); tc(100, 116, 139)
+      doc.text(`Net billing smart meter (one-time): ~PKR ${fmt(NB_FEE_LO)}-${fmt(NB_FEE_HI)} — included in payback calculation. Varies by DISCO.`, M, y)
+      y += 6
+    }
+
+    // ── BATTERY ─────────────────────────────────────────────────────────
+    y += 2
+    const battText = r.needsBattery
+      ? `Battery: RECOMMENDED (${loadshed}h loadshedding) — LiFePO4 5-6 kWh adds PKR ${fmt(BATT_LO)}-${fmt(BATT_HI)} extra. Also converts low-value export (PKR ${buybackRate}/unit) into high-value self-use (PKR ${importTariff}/unit).`
+      : `Battery: Optional — LiFePO4 5-6 kWh: PKR ${fmt(BATT_LO)}-${fmt(BATT_HI)} extra. Can be retrofitted later. Adds backup during loadshedding and boosts self-consumption.`
+    const battLines = doc.splitTextToSize(battText, CW - 2)
+    box(M, y - 2, CW, battLines.length * 3.8 + 5, [255, 251, 235], [253, 230, 138])
+    doc.setFontSize(7); doc.setFont('helvetica', r.needsBattery ? 'bold' : 'normal')
+    tc(120, 80, 15)
+    doc.text(battLines, M + 3, y + 2)
+    y += battLines.length * 3.8 + 7
+
+    // ── NEW PAGE if needed ───────────────────────────────────────────────
+    if (y > 240) { doc.addPage(); y = 16 }
+
+    // ── EXPERT TIPS ─────────────────────────────────────────────────────
+    if (r.expertTips.length > 0) {
+      doc.setFontSize(8.5); doc.setFont('helvetica', 'bold'); tc(30, 41, 59)
+      doc.text('Expert Tips for Your Situation', M, y); y += 4
+      doc.setFontSize(6.8); doc.setFont('helvetica', 'normal')
+      r.expertTips.slice(0, 4).forEach(tip => {
+        tc(71, 85, 105)
+        const lines = doc.splitTextToSize('• ' + strip(tip), CW - 4)
+        doc.text(lines, M + 2, y)
+        y += lines.length * 3.5 + 1
+      })
+      y += 3
+    }
+
+    // ── HOW WE CALCULATED ───────────────────────────────────────────────
+    if (y < 258) {
+      doc.setFontSize(7); doc.setFont('helvetica', 'normal'); tc(148, 163, 184)
+      const calc = `How calculated: Load ${r.dailyKwh} kWh/day / ${CITIES[cityIdx].sun} peak sun hrs / 0.80 derate = ${r.sysKw} kW. Generation: ${r.sysKw} kW x ${CITIES[cityIdx].sun} hrs x 30 days x 0.80 = ${r.monthlyGen} kWh/month.`
+      const cLines = doc.splitTextToSize(calc, CW)
+      doc.text(cLines, M, y); y += cLines.length * 3.5 + 3
+    }
+
+    // ── DISCLAIMER ──────────────────────────────────────────────────────
+    const dY = Math.max(y + 2, 267)
+    const disc = `Disclaimer: Planning estimates only — based on verified Pakistan market data (${DATA_DATE}). NEPRA net billing export rate (PKR ${buybackRate}/unit) set Dec 2025 — verify with your DISCO before proceeding. 10% GST on imported panels (Finance Act 2025) included. Get 2-3 installer quotes before investing. These are estimates, not a guarantee of savings.`
+    const dLines = doc.splitTextToSize(disc, CW - 4)
+    box(M, dY - 2, CW, dLines.length * 3.6 + 6, [255, 251, 235], [253, 230, 138])
+    doc.setFontSize(6.5); doc.setFont('helvetica', 'normal'); tc(120, 80, 15)
+    doc.text(dLines, M + 2, dY + 3)
+
+    // ── FOOTER ──────────────────────────────────────────────────────────
+    box(0, 286, W, 11, [15, 23, 42])
+    doc.setFontSize(7); doc.setFont('helvetica', 'normal'); tc(6, 182, 212)
+    doc.text('rafiqy.app/tools/solar-planner', M, 292.5)
+    tc(148, 163, 184)
+    doc.text('Free tools for Pakistan. Accurate. No ads. No signup.', W - M, 292.5, { align: 'right' })
+
+    const fname = `solar-estimate-${CITIES[cityIdx].name.toLowerCase().replace(/[\s/]+/g, '-')}-${new Date().toISOString().slice(0, 10)}.pdf`
+    doc.save(fname)
+  }
+
+ const card = { background: '#1e293b', borderRadius: '12px', padding: '1.5rem', border: '1px solid #334155', marginBottom: '0.75rem' }
   const btn  = { background: ACCENT, color: '#000', border: 'none', borderRadius: '8px', padding: '0.75rem 2rem', fontWeight: 700, fontSize: '1rem', cursor: 'pointer', fontFamily: FONT }
   const outlineBtn = { ...btn, background: 'transparent', color: '#94a3b8', border: '1px solid #334155' }
   const numInput = { width: '5rem', padding: '0.3rem 0.5rem', borderRadius: '6px', border: '1px solid #475569', background: '#0f172a', color: '#f1f5f9', fontFamily: FONT, fontSize: '0.9rem', textAlign: 'right' }
@@ -760,6 +933,9 @@ export default function SolarPlanner() {
               <button style={outlineBtn} onClick={() => { setStep(1); setResults(null) }}>← Start Over</button>
               <button style={{ ...btn, background: copied ? '#22c55e' : ACCENT }} onClick={copyText}>
                 {copied ? '✓ Copied!' : '📋 Copy Estimate'}
+              </button>
+              <button style={{ ...outlineBtn, color: '#7dd3fc', border: '1px solid #1e3a5f' }} onClick={generatePDF}>
+                📄 Download PDF
               </button>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import ToolLayout from '../components/ToolLayout'
+import ShareBar from '../components/ShareBar'
 import { useTheme } from '../hooks/useTheme'
 
 const ACCENT = '#06b6d4'
@@ -216,6 +217,9 @@ export default function About() {
             </div>
           ))}
         </div>
+
+        {/* Share */}
+        <ShareBar url="https://rafiqy.app/about" title="About Rafiqy — Free Privacy-First Tools for Pakistan" />
 
         {/* CTA */}
         <div style={{ textAlign: 'center' }}>

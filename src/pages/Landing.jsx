@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import { TOOLS } from '../tools/registry'
 import { BLOG_POSTS } from '../data/blogPosts'
 import ToolsNav from '../components/ToolsNav'
+import ShareBar from '../components/ShareBar'
 
 const FEATURED_IDS = [
   'typing-tutor', 'loan-emi', 'tax-calculator',
@@ -278,6 +279,11 @@ export default function Landing() {
           </Link>
         </div>
       </section>
+
+      {/* ── Share ── */}
+      <div style={{ textAlign: 'center', padding: '0 2rem 1.5rem' }}>
+        <ShareBar url="https://rafiqy.app" title="Rafiqy — Free Privacy-First Online Tools for Pakistan" />
+      </div>
 
       {/* ── Footer ── */}
       <footer style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-text-muted)', fontSize: '0.8rem' }}>

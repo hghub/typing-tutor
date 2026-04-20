@@ -78,23 +78,28 @@ export default function ShareBar({ url, title }) {
     }).catch(() => {})
   }
 
+  const darkBorder = 'rgba(100, 116, 139, 0.55)'
+  const pillBorderColor = isDark ? darkBorder : colors.border
+  const pillTextColor   = isDark ? '#cbd5e1' : colors.textSecondary
+  const pillBg          = isDark ? 'rgba(30, 41, 59, 0.85)' : colors.card
+
   const pillBase = {
     display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
     padding: '0.38rem 0.85rem', borderRadius: '999px',
-    border: `1px solid ${colors.border}`,
-    background: colors.card,
+    border: `1px solid ${pillBorderColor}`,
+    background: pillBg,
     cursor: 'pointer', fontSize: '0.78rem', fontWeight: 600,
     transition: 'all 0.18s ease',
-    color: colors.textSecondary,
+    color: pillTextColor,
     whiteSpace: 'nowrap',
   }
 
   return (
-    <div style={{ margin: '1.5rem 0' }}>
-      <p style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em', color: colors.muted, margin: '0 0 0.6rem' }}>
+    <div style={{ margin: '1.5rem 0', textAlign: 'center' }}>
+      <p style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em', color: isDark ? '#94a3b8' : colors.muted, margin: '0 0 0.65rem' }}>
         Share this
       </p>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center', justifyContent: 'center' }}>
 
         {/* Social platform buttons */}
         {PLATFORMS.map(p => (
@@ -106,12 +111,12 @@ export default function ShareBar({ url, title }) {
             onMouseEnter={e => {
               e.currentTarget.style.borderColor = p.color
               e.currentTarget.style.color = p.color
-              e.currentTarget.style.background = isDark ? `${p.color}15` : `${p.color}12`
+              e.currentTarget.style.background = isDark ? `${p.color}22` : `${p.color}12`
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.borderColor = colors.border
-              e.currentTarget.style.color = colors.textSecondary
-              e.currentTarget.style.background = colors.card
+              e.currentTarget.style.borderColor = pillBorderColor
+              e.currentTarget.style.color = pillTextColor
+              e.currentTarget.style.background = pillBg
             }}
           >
             <span style={{ color: 'inherit', display: 'flex', alignItems: 'center' }}>{p.icon}</span>
@@ -131,13 +136,13 @@ export default function ShareBar({ url, title }) {
             if (copied) return
             e.currentTarget.style.borderColor = '#06b6d4'
             e.currentTarget.style.color = '#06b6d4'
-            e.currentTarget.style.background = isDark ? 'rgba(6,182,212,0.1)' : 'rgba(6,182,212,0.08)'
+            e.currentTarget.style.background = isDark ? 'rgba(6,182,212,0.15)' : 'rgba(6,182,212,0.08)'
           }}
           onMouseLeave={e => {
             if (copied) return
-            e.currentTarget.style.borderColor = colors.border
-            e.currentTarget.style.color = colors.textSecondary
-            e.currentTarget.style.background = colors.card
+            e.currentTarget.style.borderColor = pillBorderColor
+            e.currentTarget.style.color = pillTextColor
+            e.currentTarget.style.background = pillBg
           }}
         >
           <span>{copied ? '✓' : '🔗'}</span>
@@ -157,13 +162,13 @@ export default function ShareBar({ url, title }) {
               if (nativeShared) return
               e.currentTarget.style.borderColor = '#a78bfa'
               e.currentTarget.style.color = '#a78bfa'
-              e.currentTarget.style.background = isDark ? 'rgba(167,139,250,0.1)' : 'rgba(167,139,250,0.08)'
+              e.currentTarget.style.background = isDark ? 'rgba(167,139,250,0.15)' : 'rgba(167,139,250,0.08)'
             }}
             onMouseLeave={e => {
               if (nativeShared) return
-              e.currentTarget.style.borderColor = colors.border
-              e.currentTarget.style.color = colors.textSecondary
-              e.currentTarget.style.background = colors.card
+              e.currentTarget.style.borderColor = pillBorderColor
+              e.currentTarget.style.color = pillTextColor
+              e.currentTarget.style.background = pillBg
             }}
           >
             <span>↑</span>

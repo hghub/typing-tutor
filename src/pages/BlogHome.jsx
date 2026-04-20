@@ -43,7 +43,7 @@ export default function BlogHome() {
         }}>
           <div style={{ maxWidth: '720px', margin: '0 auto' }}>
             <div style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>📝</div>
-            <h1 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 800, color: colors.text, margin: '0 0 0.75rem' }}>
+            <h1 style={{ fontSize: 'clamp(2rem, 4.5vw, 3rem)', fontWeight: 800, margin: '0 0 0.75rem', letterSpacing: '-0.02em', lineHeight: 1.2, background: 'linear-gradient(135deg, #06b6d4, #3b82f6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               Learn Smarter Ways to Use Digital Tools
             </h1>
             <p style={{ fontSize: '1.1rem', color: colors.textSecondary, lineHeight: 1.7, margin: 0 }}>

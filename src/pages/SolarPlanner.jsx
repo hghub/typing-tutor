@@ -502,6 +502,26 @@ export default function SolarPlanner() {
     <ToolLayout toolId="solar-planner">
       <div style={{ fontFamily: FONT, maxWidth: '720px', margin: '0 auto', padding: '1rem' }}>
 
+        {/* Page heading */}
+        <div style={{ marginBottom: '1.25rem' }}>
+          <h1 style={{
+            fontSize: 'clamp(1.6rem, 3.5vw, 2.1rem)',
+            fontWeight: 800,
+            margin: '0 0 0.35rem',
+            letterSpacing: '-0.02em',
+            lineHeight: 1.2,
+            background: 'linear-gradient(135deg, #f59e0b, #fb923c)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}>
+            ☀️ Solar Planner
+          </h1>
+          <p style={{ margin: 0, fontSize: '0.95rem', color: '#94a3b8', lineHeight: 1.5 }}>
+            Estimate solar system size &amp; savings for Pakistan homes — based on April 2026 market rates
+          </p>
+        </div>
+
         {/* Freshness badges */}
         <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.875rem', flexWrap: 'wrap' }}>
           <span style={{ background: '#14532d20', border: '1px solid #14532d60', color: '#86efac', fontSize: '0.72rem', fontWeight: 600, borderRadius: '20px', padding: '0.2rem 0.7rem' }}>✅ Data: {DATA_DATE}</span>

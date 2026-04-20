@@ -97,9 +97,9 @@ export default function Landing() {
         <div style={{ display: 'inline-block', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)', borderRadius: 999, padding: '0.3rem 1rem', fontSize: '0.8rem', color: 'var(--color-primary)', marginBottom: '1.5rem' }}>
           🔒 Files never leave your browser · 100% Private · No sign-up
         </div>
-        <h1 style={{ fontSize: 'clamp(2rem,5vw,3.5rem)', fontWeight: 800, margin: '0 0 1rem', lineHeight: 1.2 }}>
+        <h1 style={{ fontSize: 'clamp(2rem, 4.5vw, 3rem)', fontWeight: 800, margin: '0 0 1rem', lineHeight: 1.2, letterSpacing: '-0.02em', background: 'linear-gradient(135deg, #06b6d4, #3b82f6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
           Your everyday digital toolbox<br />
-          <span style={{ color: 'var(--color-primary)' }}>for faster work online</span>
+          for faster work online
         </h1>
         <p style={{ color: 'var(--color-text-muted)', fontSize: '1.15rem', maxWidth: 580, margin: '0 auto 0.5rem' }}>
           A simple, fast, and secure collection of tools for productivity, learning, finance, and daily digital tasks.

@@ -79,7 +79,7 @@ export default function Help() {
           <div style={{ display: 'inline-block', background: 'linear-gradient(135deg, #06b6d422, #3b82f622)', border: '1px solid #06b6d444', borderRadius: '2rem', padding: '0.3rem 1rem', fontSize: '0.78rem', fontWeight: 700, color: '#06b6d4', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '1rem' }}>
             Help & Guidance
           </div>
-          <h1 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)', fontWeight: 900, margin: '0 0 0.75rem', letterSpacing: '-0.02em', color: colors.text }}>
+          <h1 style={{ fontSize: 'clamp(2rem, 4.5vw, 3rem)', fontWeight: 800, margin: '0 0 0.75rem', letterSpacing: '-0.02em', lineHeight: 1.2, background: 'linear-gradient(135deg, #06b6d4, #3b82f6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             How Rafiqy works
           </h1>
           <p style={{ fontSize: '1rem', color: colors.textSecondary, margin: '0 0 1.5rem', lineHeight: 1.65, maxWidth: '580px' }}>

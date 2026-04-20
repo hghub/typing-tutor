@@ -336,7 +336,7 @@ export default function ToolsHome() {
             🔒 Privacy-first · Browser-native
           </div>
 
-          <h1 style={{ fontSize: 'clamp(2rem, 4.5vw, 3rem)', fontWeight: 900, background: 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', margin: '0 0 0.8rem', letterSpacing: '-0.03em', lineHeight: 1.15 }}>
+          <h1 style={{ fontSize: 'clamp(2rem, 4.5vw, 3rem)', fontWeight: 800, background: 'linear-gradient(135deg, #06b6d4, #3b82f6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', margin: '0 0 0.8rem', letterSpacing: '-0.02em', lineHeight: 1.15 }}>
             All Your Daily Tools in One Place
           </h1>
 

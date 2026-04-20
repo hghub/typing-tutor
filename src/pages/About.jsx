@@ -105,14 +105,15 @@ export default function About() {
             🔒 Privacy-first · Open for everyone
           </div>
           <h1 style={{
-            fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
+            fontSize: 'clamp(2rem, 4.5vw, 3rem)',
             fontWeight: 800,
-            background: 'linear-gradient(to right, #06b6d4, #3b82f6)',
+            background: 'linear-gradient(135deg, #06b6d4, #3b82f6)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
             margin: '0 0 1rem',
             letterSpacing: '-0.02em',
+            lineHeight: 1.2,
           }}>
             Privacy-first tools that run in your browser
           </h1>

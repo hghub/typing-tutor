@@ -46,10 +46,29 @@ const DEFAULTS = {
 const DATA_DATE    = 'April 2026'
 
 // ── Net billing registration costs (one-time, on top of system cost) ─────────
-// Application fee + smart/bi-directional meter (mandatory) + inspection
-// Source: inverterhybrid.com, solarhubofficial.com — April 2026
-const NB_FEE_LO = 50000   // PKR minimum
-const NB_FEE_HI = 70000   // PKR maximum
+// Includes: DISCO application fee + bi-directional AMI/AMR solar meter + inspection
+// NOTE: The standard white/AMI meters being rolled out for regular customers
+//       are NOT solar meters. Net billing requires a separate bi-directional
+//       AMI meter even if your home already has a smart meter.
+// IESCO (Rawalpindi/Islamabad): meter PKR 52,000 (propakistani, Nov 2025)
+// LESCO (Lahore): meter PKR 70,000 — doubled, private purchase banned (techjuice, greentechnewsme)
+// Other DISCOs: ~PKR 35,000–55,000
+// + Application/processing fee: PKR 5,000–15,000
+// + Inspection: PKR 5,000–10,000
+const NB_FEE_LO = 55000    // PKR — IESCO zone approx total
+const NB_FEE_HI = 90000    // PKR — LESCO zone approx total (meter 70k + fees)
+
+// DISCO meter costs by region (for display)
+const DISCO_METERS = [
+  { disco: 'LESCO',  region: 'Lahore / Punjab',             meter: 70000, note: 'AMI meter doubled — must buy from LESCO, no private purchase' },
+  { disco: 'IESCO',  region: 'Rawalpindi / Islamabad',      meter: 52000, note: 'AMR meter — public backlash, policy still rolling out' },
+  { disco: 'FESCO',  region: 'Faisalabad',                  meter: 45000, note: 'Estimate — confirm with FESCO before applying' },
+  { disco: 'MEPCO',  region: 'Multan / South Punjab',       meter: 45000, note: 'Estimate — confirm with MEPCO before applying' },
+  { disco: 'HESCO',  region: 'Hyderabad / Sindh',           meter: 40000, note: 'Estimate — confirm with HESCO before applying' },
+  { disco: 'SEPCO',  region: 'Sukkur / North Sindh',        meter: 40000, note: 'Estimate — confirm with SEPCO before applying' },
+  { disco: 'PESCO',  region: 'Peshawar / KPK',              meter: 40000, note: 'Estimate — confirm with PESCO before applying' },
+  { disco: 'QESCO',  region: 'Quetta / Balochistan',        meter: 40000, note: 'Estimate — confirm with QESCO before applying' },
+]
 
 // ── Battery options — April 2026 (global lithium prices -15-18% from 2025) ──
 const BATTERIES = [
@@ -314,8 +333,37 @@ export default function SolarPlanner() {
                       <span style={{ color: ACCENT, fontWeight: 700 }}>{selfConsume}% self-consumed</span>
                       <span>90% (home all day)</span>
                     </div>
-                    <div style={{ fontSize: '0.75rem', color: '#475569' }}>
+                    <div style={{ fontSize: '0.75rem', color: '#475569', marginBottom: '0.875rem' }}>
                       💡 AC users home in daytime → 70–80%. Office workers away 9–5 → 30–40%. Fridge+fans only → 40–50%.
+                    </div>
+
+                    {/* DISCO meter cost table */}
+                    <div style={{ background: '#0f172a', borderRadius: '8px', padding: '0.75rem', border: '1px solid #1e3a5f' }}>
+                      <div style={{ color: '#7dd3fc', fontSize: '0.78rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+                        📟 One-time Net Billing Fee by DISCO (verified April 2026)
+                      </div>
+                      <div style={{ fontSize: '0.72rem', color: '#64748b', marginBottom: '0.5rem', lineHeight: 1.5 }}>
+                        ⚠️ Even if your home already has a new white/AMI meter — net billing requires a <strong style={{ color: '#94a3b8' }}>separate bi-directional solar meter</strong>. You must pay for it.
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                        {DISCO_METERS.map(d => (
+                          <div key={d.disco} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem', flexWrap: 'wrap' }}>
+                            <div>
+                              <span style={{ color: '#e2e8f0', fontSize: '0.78rem', fontWeight: 700 }}>{d.disco}</span>
+                              <span style={{ color: '#64748b', fontSize: '0.7rem' }}> · {d.region}</span>
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                              <span style={{ color: d.note.includes('Estimate') ? '#fbbf24' : '#f87171', fontSize: '0.78rem', fontWeight: 700 }}>
+                                PKR {fmt(d.meter)} {d.note.includes('Estimate') ? '(est.)' : '✓'}
+                              </span>
+                              <div style={{ color: '#475569', fontSize: '0.65rem', maxWidth: '220px' }}>{d.note}</div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      <div style={{ color: '#334155', fontSize: '0.68rem', marginTop: '0.5rem' }}>
+                        Meter cost + application + inspection ≈ PKR {fmt(NB_FEE_LO)}–{fmt(NB_FEE_HI)} total. Included in payback calculation.
+                      </div>
                     </div>
                   </>
                 )}

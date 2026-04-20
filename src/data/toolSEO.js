@@ -1,5 +1,5 @@
 // src/data/toolSEO.js
-// Central SEO data for all 54 Rafiqy tools.
+// Central SEO data for all 63 Rafiqy tools.
 // Used by ToolLayout to auto-inject descriptions + FAQ sections.
 
 const TOOL_SEO = {

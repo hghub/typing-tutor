@@ -84,14 +84,39 @@ const BATT_HI = Math.max(...BATTERIES.map(b => b.hi))  // 380,000
 function fmt(n)    { return Math.round(n).toLocaleString('en-PK') }
 function fmtDec(n) { return n.toFixed(1) }
 
+// Slab-range estimate of blended effective tariff when user hasn't entered actual units.
+// Based on NEPRA FY2025-26 non-protected residential slab rates (effective July 2025):
+//   0-100: Rs 22.44 | 101-200: Rs 28.91 | 201-300: Rs 33.10 | 301-400: Rs 37.99
+//   401-500: Rs 40.22 | 501-600: Rs 41.62 | 601-700: Rs 42.76 | 700+: Rs 47.69
+// All-in blended = base × 1.17 (GST) × 1.015 (ED) + ~Rs 6/unit (FPA+FC+surcharges)
+// Brackets are cumulative bill break-points derived from those all-in slab calculations.
+function estimateTariff(bill) {
+  if (bill <= 0)       return DEFAULTS.importTariff
+  if (bill < 2000)     return 25   // ~lifeline/protected, <80 units
+  if (bill < 4000)     return 30   // ~protected, 80-130 units
+  if (bill < 8000)     return 36   // ~transitional, 130-220 units
+  if (bill < 13000)    return 42   // ~non-protected, 220-310 units
+  if (bill < 20000)    return 48   // ~non-protected, 310-420 units
+  if (bill < 27000)    return 52   // ~non-protected, 420-520 units
+  if (bill < 35000)    return 56   // ~non-protected, 520-680 units
+  return 61                         // ~non-protected, 680+ units
+}
+
 function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling,
-                       selfConsumePct, importTariff, buybackRate, costLoPW, costHiPW }) {
+                       selfConsumePct, importTariff, buybackRate, costLoPW, costHiPW,
+                       unitsConsumed }) {
   const sunHours    = cityObj.sun
   const safeTariff  = importTariff > 0 ? importTariff : DEFAULTS.importTariff  // guard ÷0
+  const unitsNum    = parseFloat(unitsConsumed) || 0
+
+  // Effective blended tariff: exact when units entered, smart slab estimate otherwise.
+  const effectiveTariff    = unitsNum > 0 ? bill / unitsNum : estimateTariff(bill)
+  const tariffIsExact      = unitsNum > 0
 
   // ── Load ──────────────────────────────────────────────────────────────────
   const anySelected       = Object.values(selected).some(Boolean)
-  const dailyFromBill     = bill / safeTariff / 30
+  // Units entered → exact daily kWh. Not entered → bill ÷ slab-estimated tariff.
+  const dailyFromBill     = unitsNum > 0 ? unitsNum / 30 : bill / effectiveTariff / 30
   let dailyFromAppliances = 0
   appliances.forEach(a => {
     if (selected[a.id]) dailyFromAppliances += (a.watts * a.hours * a.qty) / 1000
@@ -119,7 +144,7 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
   const selfConsumedKwh = Math.min(selfConsumedRaw, actualMonthlyUsage)
   const exportedKwh     = monthlyGen - selfConsumedKwh
 
-  const selfSavings   = Math.min(selfConsumedKwh * safeTariff, bill)
+  const selfSavings   = Math.min(selfConsumedKwh * effectiveTariff, bill)
   const exportRevenue = netBilling ? exportedKwh * buybackRate : 0
   // Conservative model: totalSavings capped at bill for payback calculation.
   // Export credits above the bill are policy-dependent (may carry forward, expire, or be paid out
@@ -233,6 +258,7 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
     exportedKwh: Math.round(exportedKwh),
     selfSavings, exportRevenue, billOffset, exportAboveBill, totalSavings, annualSavings,
     postSolarBill, billReductionPct,
+    effectiveTariff: Math.round(effectiveTariff), tariffIsExact,
     paybackYrs: paybackYrs > 0 ? fmtDec(paybackYrs) : '—',
     needsBattery,
     verdict, verdictColor, verdictIcon,
@@ -250,6 +276,7 @@ const FONT   = 'system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
 export default function SolarPlanner() {
   const [step, setStep]             = useState(1)
   const [bill, setBill]             = useState('')
+  const [unitsConsumed, setUnitsConsumed] = useState('')
   const [cityIdx, setCityIdx]       = useState(0)
   const [loadshed, setLoadshed]     = useState(4)
   const [netBilling, setNetBilling] = useState(true)
@@ -281,6 +308,7 @@ export default function SolarPlanner() {
       bill: billNum, cityObj: CITIES[cityIdx], loadshed, appliances, selected,
       netBilling, selfConsumePct: selfConsume,
       importTariff, buybackRate, costLoPW, costHiPW,
+      unitsConsumed,
     })
     setResults(r)
     setStep(3)
@@ -579,11 +607,38 @@ export default function SolarPlanner() {
                 placeholder="e.g. 15000" min="0"
                 style={{ width: '100%', padding: '0.7rem 1rem', fontSize: '1.05rem', borderRadius: '8px', border: '1px solid #475569', background: '#0f172a', color: '#f1f5f9', fontFamily: FONT, boxSizing: 'border-box', marginBottom: '0.5rem' }}
               />
+
+              <label style={{ color: '#94a3b8', fontSize: '0.82rem', display: 'block', marginBottom: '0.3rem' }}>
+                Units Consumed (from your bill) <span style={{ color: '#475569', fontWeight: 400 }}>— optional but more accurate</span>
+              </label>
+              <input
+                type="number" value={unitsConsumed} onChange={e => setUnitsConsumed(e.target.value)}
+                placeholder="e.g. 450  (find on your bill slip)"
+                min="0"
+                style={{ width: '100%', padding: '0.7rem 1rem', fontSize: '1.05rem', borderRadius: '8px', border: `1px solid ${unitsConsumed ? '#22c55e' : '#475569'}`, background: '#0f172a', color: '#f1f5f9', fontFamily: FONT, boxSizing: 'border-box', marginBottom: '0.5rem' }}
+              />
               {billNum > 0 && (
-                <div style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '1rem' }}>
-                  ~{Math.round(billNum / importTariff)} units/month · effective ~PKR {importTariff}/unit
+                <div style={{ fontSize: '0.75rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  {unitsConsumed && parseFloat(unitsConsumed) > 0 ? (
+                    <>
+                      <span style={{ color: '#22c55e', fontWeight: 700 }}>✅ Exact:</span>
+                      <span style={{ color: '#86efac' }}>
+                        {parseFloat(unitsConsumed)} units · PKR {Math.round(billNum / parseFloat(unitsConsumed))}/unit blended (your actual rate)
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span style={{ color: '#f59e0b', fontWeight: 700 }}>~Estimated:</span>
+                      <span style={{ color: '#94a3b8' }}>
+                        ~{Math.round(billNum / estimateTariff(billNum))} units · PKR {estimateTariff(billNum)}/unit (NEPRA slab estimate — enter units above for accuracy)
+                      </span>
+                    </>
+                  )}
                 </div>
               )}
+              <div style={{ fontSize: '0.72rem', color: '#475569', marginBottom: '1rem', lineHeight: 1.5 }}>
+                ☀️ For best sizing accuracy, use your <strong style={{ color: '#94a3b8' }}>highest summer bill</strong> (Jun–Aug). Solar is sized for your peak — it covers more in winter automatically.
+              </div>
 
               <label style={{ color: '#94a3b8', fontSize: '0.82rem', display: 'block', marginBottom: '0.3rem' }}>City</label>
               <select value={cityIdx} onChange={e => setCityIdx(Number(e.target.value))}

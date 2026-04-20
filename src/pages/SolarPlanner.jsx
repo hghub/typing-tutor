@@ -121,9 +121,13 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
 
   const selfSavings   = Math.min(selfConsumedKwh * safeTariff, bill)
   const exportRevenue = netBilling ? exportedKwh * buybackRate : 0
-  const totalSavings  = Math.min(selfSavings + exportRevenue, bill)
-  const annualSavings = totalSavings * 12
-  const postSolarBill = Math.max(0, bill - selfSavings - exportRevenue)
+  // Under net billing, DISCO pays for exports as a separate credit — NOT capped by the user's bill.
+  // If self-consumption already covers the full bill, extra export revenue carries forward to the next bill.
+  const totalSavings     = selfSavings + exportRevenue   // true economic benefit (uncapped)
+  const exportCarryFwd   = Math.max(0, totalSavings - bill)  // portion exceeding this month's bill
+  const annualSavings    = totalSavings * 12
+  const postSolarBill    = Math.max(0, bill - selfSavings - exportRevenue)
+  const billReductionPct = Math.min(100, Math.round((selfSavings + exportRevenue) / bill * 100))
 
   // ── Payback ───────────────────────────────────────────────────────────────
   const nbFeeAvg   = (NB_FEE_LO + NB_FEE_HI) / 2
@@ -204,7 +208,7 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
   if (selfConsumePct < 45 && netBilling)
     expertTips.push(`🕐 Shift AC, washing machine and iron to 10am–4pm (peak solar hours). Even moving from ${selfConsumePct}% to 60% self-consumption could cut payback by ${fmtDec(Math.max(0, paybackYrs - altPaybackNum))} years — no extra cost.`)
   if (loadshed >= 6)
-    expertTips.push(`⚡ ${loadshed}-hr load-shedding: on-grid inverters go dead when the grid fails. Battery is NOT optional here — budget PKR ${fmt(BATT_LO)}–${fmt(BATT_HI)} for a 5–6 kWh LiFePO₄ unit in addition to the solar system.`)
+    expertTips.push(`⚡ ${loadshed}-hr load-shedding: on-grid inverters go dead when the grid fails. Battery is NOT optional here — budget PKR ${fmt(BATT_LO)}–${fmt(BATT_HI)} for a 5–6 kWh LiFePO₄ unit in addition to the solar system. LiFePO₄ lifespan: 8–12 years; factor in replacement cost (~PKR 200–350k around year 10).`)
   else if (loadshed >= 4)
     expertTips.push(`🔋 ${loadshed}-hr load-shedding: battery keeps fans, lights, and router running during outages. It also converts PKR ${buybackRate}/unit exported energy into PKR ${importTariff}/unit self-use — can improve payback by 1–2 years.`)
   if (netBilling && exportedKwh > selfConsumedKwh) {
@@ -225,8 +229,8 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
     monthlyGen: Math.round(monthlyGen),
     selfConsumedKwh: Math.round(selfConsumedKwh),
     exportedKwh: Math.round(exportedKwh),
-    selfSavings, exportRevenue, totalSavings, annualSavings,
-    postSolarBill,
+    selfSavings, exportRevenue, totalSavings, exportCarryFwd, annualSavings,
+    postSolarBill, billReductionPct,
     paybackYrs: paybackYrs > 0 ? fmtDec(paybackYrs) : '—',
     needsBattery,
     verdict, verdictColor, verdictIcon,
@@ -392,8 +396,8 @@ export default function SolarPlanner() {
       { label: 'System Size',     value: `${r.sysKwLo}-${r.sysKwHi} kW`,             sub: 'On-grid, Tier-1 panels' },
       { label: 'Install Cost',    value: `PKR ${fmt(r.costLo)}-${fmt(r.costHi)}`,     sub: 'Economy-Premium (battery separate)' },
       { label: 'Monthly Savings', value: `~PKR ${fmt(r.totalSavings)}`,               sub: `${r.monthlyGen} kWh/month generated` },
-      { label: 'Post-Solar Bill', value: `~PKR ${fmt(r.postSolarBill)}`,              sub: r.postSolarBill < 1000 ? 'Near-zero bill!' : `Down from PKR ${fmt(billNum)}` },
-      { label: 'Payback Period',  value: `~${r.paybackYrs} years`,                   sub: 'Net billing model (2026)' },
+      { label: 'Post-Solar Bill', value: `~PKR ${fmt(r.postSolarBill)}`,              sub: r.postSolarBill < 1000 ? `Bill reduced ~${r.billReductionPct}% (fixed charges still apply)` : `Down from PKR ${fmt(billNum)}` },
+      { label: 'Payback Period',  value: `~${r.paybackYrs} years`,                   sub: 'Net billing model · realistic +1–2 yrs degradation' },
       { label: 'Annual Savings',  value: `PKR ${fmt(r.annualSavings)}`,              sub: 'After payback: free energy' },
     ]
     metrics.forEach((m, i) => {
@@ -415,8 +419,8 @@ export default function SolarPlanner() {
     doc.text('Monthly Savings Breakdown', M, y); y += 4
     const rows = [
       [`Self-consumed (${selfConsume}%)`, `${r.selfConsumedKwh} kWh x PKR ${importTariff}/unit`, `PKR ${fmt(r.selfSavings)}`],
-      ...(netBilling ? [[`Exported (${100-selfConsume}%)`, `${r.exportedKwh} kWh x PKR ${buybackRate}/unit`, `PKR ${fmt(r.exportRevenue)}`]] : []),
-      ['Total Monthly Savings', '', `PKR ${fmt(r.totalSavings)}`],
+      ...(netBilling ? [[`Exported (${100-selfConsume}%)`, `${r.exportedKwh} kWh x PKR ${buybackRate}/unit (policy-dep.)`, `PKR ${fmt(r.exportRevenue)}`]] : []),
+      ['Total Monthly Economic Benefit', '', `PKR ${fmt(r.totalSavings)}`],
     ]
     rows.forEach((row, i) => {
       const isT = i === rows.length - 1
@@ -431,6 +435,11 @@ export default function SolarPlanner() {
       y += 7
     })
     y += 3
+    if (netBilling && r.exportCarryFwd > 0) {
+      doc.setFontSize(6.5); doc.setFont('helvetica', 'italic'); tc(22, 163, 74)
+      doc.text(`✓ Self-consumption covers your full bill. Export credit PKR ${fmt(r.exportCarryFwd)} carries forward to reduce your next bill (or paid out semi-annually by DISCO).`, M, y)
+      y += 5
+    }
     if (netBilling) {
       doc.setFontSize(6.5); doc.setFont('helvetica', 'italic'); tc(100, 116, 139)
       doc.text(`Net billing smart meter (one-time): ~PKR ${fmt(NB_FEE_LO)}-${fmt(NB_FEE_HI)} — included in payback calculation. Varies by DISCO.`, M, y)
@@ -440,8 +449,8 @@ export default function SolarPlanner() {
     // ── BATTERY ─────────────────────────────────────────────────────────
     y += 2
     const battText = r.needsBattery
-      ? `Battery: RECOMMENDED (${loadshed}h loadshedding) — LiFePO4 5-6 kWh adds PKR ${fmt(BATT_LO)}-${fmt(BATT_HI)} extra. Also converts low-value export (PKR ${buybackRate}/unit) into high-value self-use (PKR ${importTariff}/unit).`
-      : `Battery: Optional — LiFePO4 5-6 kWh: PKR ${fmt(BATT_LO)}-${fmt(BATT_HI)} extra. Can be retrofitted later. Adds backup during loadshedding and boosts self-consumption.`
+      ? `Battery: RECOMMENDED (${loadshed}h loadshedding) — LiFePO4 5-6 kWh adds PKR ${fmt(BATT_LO)}-${fmt(BATT_HI)} extra. Converts low-value export (PKR ${buybackRate}/unit) into high-value self-use (PKR ${importTariff}/unit). LiFePO4 lifespan 8-12 years — budget ~PKR 200-350k for replacement at year 10.`
+      : `Battery: Optional — LiFePO4 5-6 kWh: PKR ${fmt(BATT_LO)}-${fmt(BATT_HI)} extra. Can be retrofitted later. LiFePO4 lifespan 8-12 years — budget ~PKR 200-350k for replacement at year 10.`
     const battLines = doc.splitTextToSize(battText, CW - 2)
     box(M, y - 2, CW, battLines.length * 3.8 + 5, [255, 251, 235], [253, 230, 138])
     doc.setFontSize(7); doc.setFont('helvetica', r.needsBattery ? 'bold' : 'normal')
@@ -476,7 +485,7 @@ export default function SolarPlanner() {
 
     // ── DISCLAIMER ──────────────────────────────────────────────────────
     const dY = Math.max(y + 2, 267)
-    const disc = `Disclaimer: Planning estimates only — based on verified Pakistan market data (${DATA_DATE}). NEPRA net billing export rate (PKR ${buybackRate}/unit) set Dec 2025 — verify with your DISCO before proceeding. 10% GST on imported panels (Finance Act 2025) included. Get 2-3 installer quotes before investing. These are estimates, not a guarantee of savings.`
+    const disc = `Disclaimer: Planning estimates only — based on verified Pakistan market data (${DATA_DATE}). NEPRA net billing export rate ~PKR 10-15/unit (policy-dependent, default ${buybackRate}/unit as of Dec 2025) — verify current rate with your DISCO before proceeding. 10% GST on imported panels (Finance Act 2025) included. Payback shown assumes stable conditions; realistic range adds 1-2 years for panel degradation and mid-life inverter replacement. Get 2-3 installer quotes before investing. These are estimates, not a guarantee of savings.`
     const dLines = doc.splitTextToSize(disc, CW - 4)
     box(M, dY - 2, CW, dLines.length * 3.6 + 6, [255, 251, 235], [253, 230, 138])
     doc.setFontSize(6.5); doc.setFont('helvetica', 'normal'); tc(120, 80, 15)
@@ -595,7 +604,7 @@ export default function SolarPlanner() {
                   <Toggle on={netBilling} />
                   <div>
                     <div style={{ color: '#e2e8f0', fontSize: '0.85rem', fontWeight: 600 }}>{netBilling ? 'Net Billing enabled' : 'No grid export (off-grid / battery only)'}</div>
-                    <div style={{ color: '#64748b', fontSize: '0.75rem' }}>{netBilling ? `Exported units credited at PKR 11/unit (NEPRA Dec 2025) · One-time fee: ~PKR ${fmt(NB_FEE_LO)}–${fmt(NB_FEE_HI)} (app + smart meter)` : 'All solar used on-site; nothing exported'}</div>
+                    <div style={{ color: '#64748b', fontSize: '0.75rem' }}>{netBilling ? `Export rate: ~PKR 10–15/unit (policy-dependent, currently ~PKR 11) · One-time fee: ~PKR ${fmt(NB_FEE_LO)}–${fmt(NB_FEE_HI)} (app + smart meter)` : 'All solar used on-site; nothing exported'}</div>
                   </div>
                 </div>
                 {netBilling && (
@@ -655,7 +664,7 @@ export default function SolarPlanner() {
               {showAdv && (
                 <div style={{ ...card, marginTop: '0.5rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.875rem' }}>
                   <AdvField label="Import tariff (PKR/unit)" hint="Effective rate incl. GST + surcharges" value={importTariff} onChange={setImportTariff} numInput={numInput} />
-                  <AdvField label="Export/buyback rate (PKR/unit)" hint="NEPRA net billing: PKR 11/unit (Dec 2025)" value={buybackRate} onChange={setBuybackRate} numInput={numInput} />
+                  <AdvField label="Export/buyback rate (PKR/unit)" hint="~PKR 10–15/unit (policy-dependent) · default PKR 11 (Dec 2025)" value={buybackRate} onChange={setBuybackRate} numInput={numInput} />
                   <AdvField label="Economy build (PKR/W)" hint="Fully installed: Tier-1 panels + local inverter + labor" value={costLoPW} onChange={setCostLoPW} numInput={numInput} />
                   <AdvField label="Premium build (PKR/W)" hint="Fully installed: N-type bifacial + Growatt/Solis + labor" value={costHiPW} onChange={setCostHiPW} numInput={numInput} />
                   <div style={{ gridColumn: '1/-1' }}>
@@ -770,8 +779,8 @@ export default function SolarPlanner() {
                 { icon: '🔆', label: 'System Size',    value: `${results.sysKwLo}–${results.sysKwHi} kW`,             sub: 'On-grid, Tier-1 panels' },
                 { icon: '💰', label: 'Install Cost',    value: `PKR ${fmt(results.costLo)}–${fmt(results.costHi)}`,     sub: `Panels + inverter + labor (battery separate) · ${netBilling ? `+PKR ${fmt(NB_FEE_LO)}–${fmt(NB_FEE_HI)} NB fee` : 'No NB fee'}` },
                 { icon: '📉', label: 'Monthly Savings', value: `~PKR ${fmt(results.totalSavings)}`,                     sub: `${results.monthlyGen} kWh generated` },
-                { icon: '🧾', label: 'Post-Solar Bill', value: `~PKR ${fmt(results.postSolarBill)}`,                    sub: results.postSolarBill < 1000 ? '🎉 Near-zero bill!' : `Down from PKR ${fmt(billNum)}` },
-                { icon: '📆', label: 'Payback Period',  value: `~${results.paybackYrs} yrs`,                           sub: 'Net billing model (2026)' },
+                { icon: '🧾', label: 'Post-Solar Bill', value: `~PKR ${fmt(results.postSolarBill)}`,                    sub: results.postSolarBill < 1000 ? `Bill down ~${results.billReductionPct}% · Fixed charges ~PKR 500–1,200 still apply` : `Down from PKR ${fmt(billNum)}` },
+                { icon: '📆', label: 'Payback Period',  value: `~${results.paybackYrs} yrs`,                           sub: 'Net billing model (2026) · add 1–2 yrs for real-world degradation' },
                 { icon: '💹', label: 'Annual Savings',  value: `PKR ${fmt(results.annualSavings)}`,                     sub: 'After payback: free energy' },
               ].map(m => (
                 <div key={m.label} style={{ ...card, marginBottom: 0 }}>
@@ -792,9 +801,14 @@ export default function SolarPlanner() {
                   <Row label={`📤 Exported (${100-selfConsume}%)`} detail={`${results.exportedKwh} kWh × PKR ${buybackRate}/unit`} value={`PKR ${fmt(results.exportRevenue)}`} color="#7dd3fc" />
                 )}
                 <div style={{ borderTop: '1px solid #1e3a5f', paddingTop: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ color: '#94a3b8', fontSize: '0.82rem', fontWeight: 600 }}>Total Monthly Savings</span>
+                  <span style={{ color: '#94a3b8', fontSize: '0.82rem', fontWeight: 600 }}>Total Monthly Economic Benefit</span>
                   <span style={{ color: ACCENT, fontWeight: 700, fontSize: '1rem' }}>PKR {fmt(results.totalSavings)}</span>
                 </div>
+                {results.exportCarryFwd > 0 && (
+                  <div style={{ background: '#0f2a1a', borderRadius: '6px', padding: '0.5rem 0.75rem', border: '1px solid #166534', fontSize: '0.75rem', color: '#86efac', lineHeight: 1.5 }}>
+                    ✅ Your self-consumption already covers your full bill. The export credit of <strong>PKR {fmt(results.exportCarryFwd)}</strong> carries forward to reduce your next bill (or is paid out by your DISCO semi-annually under net billing rules).
+                  </div>
+                )}
               </div>
               <div style={{ marginTop: '0.75rem', fontSize: '0.75rem', color: '#475569', background: '#0f172a', borderRadius: '6px', padding: '0.5rem 0.75rem' }}>
                 💡 Under old net metering (pre-2025), your export would earn ~PKR 27/unit → estimated old savings: PKR {fmt(results.exportedKwh * 27 + results.selfSavings)}. Now only PKR {fmt(results.totalSavings)}. Self-consumption is your best strategy.

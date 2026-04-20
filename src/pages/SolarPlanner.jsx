@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import ToolLayout from '../components/ToolLayout'
 
-// ── Pakistan peak sun hours (daily average, kWh/m²) ──────────────────────────
+// ── Pakistan peak sun hours (daily kWh/m²) — verified sources ────────────────
 const CITIES = [
   { name: 'Karachi',        sun: 5.5 },
   { name: 'Hyderabad',      sun: 5.5 },
@@ -17,7 +17,6 @@ const CITIES = [
   { name: 'Other / Rural',  sun: 5.0 },
 ]
 
-// ── Common Pakistan household appliances ─────────────────────────────────────
 const DEFAULT_APPLIANCES = [
   { id: 'ac',       icon: '❄️',  name: 'AC (1.5 ton)',      watts: 1500, hours: 8,   qty: 1 },
   { id: 'fan',      icon: '💨',  name: 'Ceiling Fan',        watts: 75,   hours: 18,  qty: 3 },
@@ -31,80 +30,105 @@ const DEFAULT_APPLIANCES = [
   { id: 'router',   icon: '📶',  name: 'Router / CCTV',      watts: 50,   hours: 24,  qty: 1 },
 ]
 
-// ── Constants (2025 Pakistan baseline) ───────────────────────────────────────
-const TARIFF_PKR    = 50        // avg residential PKR per kWh
-const COST_LOW_PW   = 80        // PKR per watt installed (on-grid, low estimate)
-const COST_HIGH_PW  = 120       // PKR per watt installed (on-grid, high estimate)
-const DERATE        = 0.80      // system derating (dust, inverter loss, temperature)
+// ── 2026 Pakistan solar defaults (all user-adjustable) ───────────────────────
+// Panel prices: PKR 32–47/W (Tier-1). Full installed (incl. inverter, structure,
+// wiring, labour, 10% GST on panels — Finance Act 2025): PKR 130–200/W
+// Source: sheikhxsolarcorp, checkprice.pk, solarsystemprice.pk — April 2026
+const DEFAULTS = {
+  importTariff:    50,   // PKR/unit effective (base + GST + surcharges avg)
+  buybackRate:     11,   // PKR/unit — NEPRA net billing, confirmed Dec 2025 (NEPRA Prosumer Regs)
+  costLowPW:       130,  // PKR/W full installed — economy (Tier-1 panels, local inverter)
+  costHighPW:      200,  // PKR/W full installed — premium (Growatt/Solis + Tier-1 N-type)
+  selfConsume:     60,   // % of solar generation used on-site vs exported
+  derate:          0.80, // derating: dust, heat, cable + inverter losses
+}
 
-function fmt(n) { return Math.round(n).toLocaleString('en-PK') }
+const DATA_DATE    = 'April 2026'
 
-function calcResults(bill, cityObj, loadshedding, appliances, selected) {
+// ── Battery options — April 2026 (global lithium prices -15-18% from 2025) ──
+const BATTERIES = [
+  { brand: 'Knox',      cap: '6.1 kWh',  lo: 225000, hi: 280000, note: 'Budget pick — strong local warranty',          flag: '🏆 Best Value' },
+  { brand: 'PylonTech', cap: '5.1 kWh',  lo: 255000, hi: 310000, note: 'Global #1 — most installer-supported',         flag: '🌐 Most Popular' },
+  { brand: 'Narada',    cap: '4.8 kWh',  lo: 240000, hi: 380000, note: 'Chinese OEM — wide price range by seller',      flag: '' },
+  { brand: 'Dyness',    cap: '5.1 kWh',  lo: 270000, hi: 330000, note: 'Premium safety, BMS built-in',                  flag: '' },
+]
+const BATT_LO = Math.min(...BATTERIES.map(b => b.lo))  // 225,000
+const BATT_HI = Math.max(...BATTERIES.map(b => b.hi))  // 380,000
+
+function fmt(n)    { return Math.round(n).toLocaleString('en-PK') }
+function fmtDec(n) { return n.toFixed(1) }
+
+function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling,
+                       selfConsumePct, importTariff, buybackRate, costLoPW, costHiPW }) {
   const sunHours = cityObj.sun
 
-  // Daily kWh from bill
-  const dailyFromBill = bill / TARIFF_PKR / 30
-
-  // Daily kWh from selected appliances
+  // ── Load ──────────────────────────────────────────────────────────────────
+  const anySelected       = Object.values(selected).some(Boolean)
+  const dailyFromBill     = bill / importTariff / 30
   let dailyFromAppliances = 0
   appliances.forEach(a => {
-    if (selected[a.id]) {
-      dailyFromAppliances += (a.watts * a.hours * a.qty) / 1000
-    }
+    if (selected[a.id]) dailyFromAppliances += (a.watts * a.hours * a.qty) / 1000
   })
-
-  const anySelected = Object.values(selected).some(Boolean)
   const dailyKwh = anySelected ? dailyFromAppliances : dailyFromBill
 
-  // System size in kW, rounded to nearest 0.5
-  const rawKw   = dailyKwh / sunHours / DERATE
-  const sysKw   = Math.round(rawKw * 2) / 2   // round to 0.5
+  // ── System sizing ─────────────────────────────────────────────────────────
+  const rawKw  = dailyKwh / sunHours / DEFAULTS.derate
+  const sysKw  = Math.max(1, Math.round(rawKw * 2) / 2)
   const sysKwLo = Math.max(1, sysKw - 0.5)
   const sysKwHi = sysKw + 0.5
 
-  // Cost
-  const costLo = sysKw * 1000 * COST_LOW_PW
-  const costHi = sysKw * 1000 * COST_HIGH_PW
+  // ── Cost ──────────────────────────────────────────────────────────────────
+  const costLo = sysKw * 1000 * costLoPW
+  const costHi = sysKw * 1000 * costHiPW
 
-  // Monthly generation & savings
-  const monthlyGen     = sysKw * sunHours * 30 * DERATE      // kWh generated/month
-  const monthlySavings = Math.min(monthlyGen * TARIFF_PKR, bill)
-  const annualSavings  = monthlySavings * 12
+  // ── Monthly generation ────────────────────────────────────────────────────
+  const monthlyGen = sysKw * sunHours * 30 * DEFAULTS.derate   // kWh/month
 
-  // Payback
+  // ── 2026 Net Billing savings model ────────────────────────────────────────
+  // Self-consumed solar avoids buying from grid at import tariff
+  // Exported solar earns buyback rate (PKR 11/unit in 2026 net billing)
+  const selfConsumedKwh = monthlyGen * (selfConsumePct / 100)
+  const exportedKwh     = monthlyGen * (1 - selfConsumePct / 100)
+
+  const selfSavings   = Math.min(selfConsumedKwh * importTariff, bill)
+  const exportRevenue = netBilling ? exportedKwh * buybackRate : 0
+  const totalSavings  = Math.min(selfSavings + exportRevenue, bill)
+  const annualSavings = totalSavings * 12
+
+  const postSolarBill = Math.max(0, bill - selfSavings - exportRevenue)
+
+  // ── Payback ───────────────────────────────────────────────────────────────
   const avgCost    = (costLo + costHi) / 2
-  const paybackYrs = avgCost / annualSavings
+  const paybackYrs = annualSavings > 0 ? avgCost / annualSavings : 0
 
-  // Battery recommendation
-  const needsBattery = loadshedding >= 4 || bill >= 25000
+  // ── Battery ───────────────────────────────────────────────────────────────
+  const needsBattery = loadshed >= 4 || bill >= 25000
 
-  // "Is Solar Worth It?" verdict
+  // ── Verdict ───────────────────────────────────────────────────────────────
   let verdict, verdictColor, verdictIcon
-  if      (bill >= 25000) { verdict = 'Strongly Recommended'; verdictColor = '#22c55e'; verdictIcon = '✅' }
-  else if (bill >= 10000) { verdict = 'Recommended';          verdictColor = '#86efac'; verdictIcon = '✅' }
-  else if (bill >= 5000)  { verdict = 'Depends on Usage';     verdictColor = '#fbbf24'; verdictIcon = '⚠️' }
+  // With net billing, payback longer — adjust thresholds
+  if      (bill >= 30000) { verdict = 'Strongly Recommended'; verdictColor = '#22c55e'; verdictIcon = '✅' }
+  else if (bill >= 12000) { verdict = 'Recommended';          verdictColor = '#86efac'; verdictIcon = '✅' }
+  else if (bill >= 6000)  { verdict = 'Depends on Usage';     verdictColor = '#fbbf24'; verdictIcon = '⚠️' }
   else                    { verdict = 'Not Ideal (Low Bill)';  verdictColor = '#f87171'; verdictIcon = '❌' }
 
   return {
-    dailyKwh: dailyKwh.toFixed(1),
-    sysKw,
-    sysKwLo,
-    sysKwHi,
-    costLo,
-    costHi,
-    monthlySavings,
-    paybackYrs: paybackYrs.toFixed(1),
+    dailyKwh: fmtDec(dailyKwh),
+    sysKw, sysKwLo, sysKwHi,
+    costLo, costHi,
+    monthlyGen: Math.round(monthlyGen),
+    selfConsumedKwh: Math.round(selfConsumedKwh),
+    exportedKwh: Math.round(exportedKwh),
+    selfSavings, exportRevenue, totalSavings, annualSavings,
+    postSolarBill,
+    paybackYrs: paybackYrs > 0 ? fmtDec(paybackYrs) : '—',
     needsBattery,
-    verdict,
-    verdictColor,
-    verdictIcon,
-    monthlyGen: monthlyGen.toFixed(0),
+    verdict, verdictColor, verdictIcon,
   }
 }
 
 const ACCENT = '#f59e0b'
 const FONT   = 'system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif'
-
 export default function SolarPlanner() {
   const [step, setStep]           = useState(1)
   const [bill, setBill]           = useState('')

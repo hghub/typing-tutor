@@ -142,10 +142,13 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
   const sysKwLo = Math.max(1, sysKw - 0.5)
   const sysKwHi = sysKw + 0.5
 
-  // ── Cost range (economy = smaller system, premium = larger system) ─────────
-  const costLo     = sysKwLo * 1000 * costLoPW
-  const costHi     = sysKwHi * 1000 * costHiPW
-  const avgInstall = sysKw  * 1000 * (costLoPW + costHiPW) / 2  // for payback
+  // ── Cost range — 3 tiers (same system size, different quality/brand) ─────
+  const costEconomy = Math.round(sysKw * 1000 * costLoPW)                       // local inverter, Tier-1 mono
+  const costMid     = Math.round(sysKw * 1000 * (costLoPW + costHiPW) / 2)      // Growatt/Solis, N-PERC
+  const costPremium = Math.round(sysKw * 1000 * costHiPW)                        // Huawei/SMA, N-type bifacial
+  const costLo      = sysKwLo * 1000 * costLoPW   // kept for payback range display
+  const costHi      = sysKwHi * 1000 * costHiPW
+  const avgInstall  = costMid                       // mid-tier for payback calc
 
   // ── Monthly generation ────────────────────────────────────────────────────
   const monthlyGen = sysKw * sunHours * 30 * DEFAULTS.derate   // kWh/month
@@ -264,7 +267,7 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
   return {
     dailyKwh: fmtDec(dailyKwh),
     sysKw, sysKwLo, sysKwHi,
-    costLo, costHi,
+    costLo, costHi, costEconomy, costMid, costPremium,
     monthlyGen: Math.round(monthlyGen),
     selfConsumedKwh: Math.round(selfConsumedKwh),
     exportedKwh: Math.round(exportedKwh),
@@ -437,7 +440,7 @@ export default function SolarPlanner() {
     const colW = (CW - 3) / 2
     const metrics = [
       { label: 'System Size',     value: `${r.sysKwLo}-${r.sysKwHi} kW`,             sub: 'On-grid, Tier-1 panels' },
-      { label: 'Install Cost',    value: `PKR ${fmt(r.costLo)}-${fmt(r.costHi)}`,     sub: 'Economy-Premium (battery separate)' },
+      { label: 'Install Cost',    value: `PKR ${fmt(r.costEconomy)}-${fmt(r.costPremium)}`,  sub: `Economy ${fmt(r.costEconomy)} / Mid ${fmt(r.costMid)} / Premium ${fmt(r.costPremium)} (battery separate)` },
       { label: 'Monthly Savings', value: `~PKR ${fmt(r.billOffset)}`,               sub: `Guaranteed bill reduction (conservative)` },
       { label: 'Post-Solar Bill', value: `~PKR ${fmt(r.postSolarBill)}`,              sub: r.postSolarBill < 1000 ? `Bill reduced ~${r.billReductionPct}% (fixed charges still apply)` : `Down from PKR ${fmt(billNum)}` },
       { label: 'Payback Period',  value: `~${r.paybackYrs} years`,                   sub: 'Includes 0.6%/yr panel degradation (IEC standard)' },
@@ -849,7 +852,12 @@ export default function SolarPlanner() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(185px, 1fr))', gap: '0.6rem', marginBottom: '0.75rem' }}>
               {[
                 { icon: '🔆', label: 'System Size',    value: `${results.sysKwLo}–${results.sysKwHi} kW`,             sub: 'On-grid, Tier-1 panels' },
-                { icon: '💰', label: 'Install Cost',    value: `PKR ${fmt(results.costLo)}–${fmt(results.costHi)}`,     sub: `Panels + inverter + labor (battery separate) · ${netBilling ? `+PKR ${fmt(NB_FEE_LO)}–${fmt(NB_FEE_HI)} NB fee` : 'No NB fee'}` },
+                { icon: '💰', label: 'Install Cost',
+                  value: `PKR ${fmt(results.costEconomy)}–${fmt(results.costPremium)}`,
+                  sub: <span>
+                    <span style={{ color: '#86efac' }}>Economy</span> {fmt(results.costEconomy)} · <span style={{ color: '#7dd3fc' }}>Mid</span> {fmt(results.costMid)} · <span style={{ color: '#f9a8d4' }}>Premium</span> {fmt(results.costPremium)}
+                    <br />Battery &amp; NB fee separate
+                  </span> },
                 { icon: '📉', label: 'Monthly Savings', value: `~PKR ${fmt(results.totalSavings)}`,                     sub: `Guaranteed bill reduction · ${results.monthlyGen} kWh generated` },
                 { icon: '🧾', label: 'Post-Solar Bill', value: `~PKR ${fmt(results.postSolarBill)}`,                    sub: results.postSolarBill < 1000 ? `Bill down ~${results.billReductionPct}% · Fixed charges ~PKR 500–1,200 still apply` : `Down from PKR ${fmt(billNum)}` },
                 { icon: '📆', label: 'Payback Period',  value: `~${results.paybackYrs} yrs`,                           sub: 'Includes 0.6%/yr panel degradation · add ~1 yr for inverter replacement' },

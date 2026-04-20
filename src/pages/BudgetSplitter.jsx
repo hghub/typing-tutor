@@ -1,766 +1,809 @@
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useMemo, useEffect, useCallback } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
 
 const ACCENT = '#8b5cf6'
 const CURRENCIES = [
-  { code: 'PKR', symbol: 'PKR', label: 'Pakistani Rupee' },
-  { code: 'USD', symbol: '$', label: 'US Dollar' },
-  { code: 'GBP', symbol: '£', label: 'British Pound' },
-  { code: 'EUR', symbol: '€', label: 'Euro' },
+  { code: 'PKR', symbol: 'PKR' },
+  { code: 'USD', symbol: '$' },
+  { code: 'GBP', symbol: '£' },
+  { code: 'EUR', symbol: '€' },
+  { code: 'AED', symbol: 'AED' },
+  { code: 'SAR', symbol: 'SAR' },
+]
+const TAX_PRESETS = ['0', '5', '13', '16']
+const PAYMENT_KEY = 'rafiqy_bill_splitter_payment'
+const SCENARIOS = [
+  { id: 'restaurant', icon: '🍽️', label: 'Restaurant' },
+  { id: 'household', icon: '🏠', label: 'Household' },
+  { id: 'travel',     icon: '✈️', label: 'Travel'     },
+  { id: 'other',      icon: '💡', label: 'Other'      },
 ]
 
 let personCounter = 3
 let expenseCounter = 0
+function uid() { return ++expenseCounter }
 
-function uid() {
-  return ++expenseCounter
+function fmtNum(n) {
+  return Math.abs(n).toLocaleString('en-PK', { minimumFractionDigits: 0, maximumFractionDigits: 2 })
+}
+function fmtAmt(n, sym) { return `${sym}\u202f${fmtNum(n)}` }
+
+function roundUp(n, step) {
+  if (step === 0) return n
+  return Math.ceil(n / step) * step
 }
 
-function fmt(n, symbol) {
-  const abs = Math.abs(n)
-  const formatted = abs.toLocaleString('en-PK', { minimumFractionDigits: 0, maximumFractionDigits: 2 })
-  return `${symbol}\u202f${formatted}`
-}
-
-/* ── Greedy minimum-transactions settlement algorithm ─────────────────── */
+/* ── Greedy settlement algorithm ── */
 function calcSettlements(people, expenses) {
   const paid = {}
-  people.forEach((p) => (paid[p.id] = 0))
-  expenses.forEach((e) => {
-    if (paid[e.paidById] !== undefined) paid[e.paidById] += e.amount
-  })
-
+  people.forEach(p => (paid[p.id] = 0))
+  expenses.forEach(e => { if (paid[e.paidById] !== undefined) paid[e.paidById] += e.amount })
   const total = expenses.reduce((s, e) => s + e.amount, 0)
   const share = people.length > 0 ? total / people.length : 0
-
   const net = {}
-  people.forEach((p) => (net[p.id] = (paid[p.id] || 0) - share))
-
-  const debtors = people
-    .filter((p) => net[p.id] < -0.005)
-    .map((p) => ({ id: p.id, name: p.name, amount: net[p.id] }))
-    .sort((a, b) => a.amount - b.amount)
-
-  const creditors = people
-    .filter((p) => net[p.id] > 0.005)
-    .map((p) => ({ id: p.id, name: p.name, amount: net[p.id] }))
-    .sort((a, b) => b.amount - a.amount)
-
+  people.forEach(p => (net[p.id] = (paid[p.id] || 0) - share))
+  const debtors = people.filter(p => net[p.id] < -0.005).map(p => ({ ...p, amount: net[p.id] })).sort((a, b) => a.amount - b.amount)
+  const creditors = people.filter(p => net[p.id] > 0.005).map(p => ({ ...p, amount: net[p.id] })).sort((a, b) => b.amount - a.amount)
   const transactions = []
-  let d = 0
-  let c = 0
-
+  let d = 0, c = 0
   while (d < debtors.length && c < creditors.length) {
-    const debt = -debtors[d].amount
-    const credit = creditors[c].amount
-    const amount = Math.min(debt, credit)
-
-    transactions.push({
-      from: debtors[d].name,
-      to: creditors[c].name,
-      amount,
-    })
-
+    const amount = Math.min(-debtors[d].amount, creditors[c].amount)
+    transactions.push({ from: debtors[d].name, to: creditors[c].name, amount })
     debtors[d].amount += amount
     creditors[c].amount -= amount
-
     if (Math.abs(debtors[d].amount) < 0.005) d++
     if (Math.abs(creditors[c].amount) < 0.005) c++
   }
-
   return { total, share, paid, net, transactions }
 }
 
-/* ── Sub-components ───────────────────────────────────────────────────── */
-
-function SectionCard({ title, children, colors }) {
+/* ── Shared sub-components ── */
+function SI({ colors, ...props }) {
   return (
-    <div style={{
-      background: colors.card,
-      border: `1px solid ${colors.border}`,
-      borderRadius: '1rem',
-      padding: '1.25rem',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '1rem',
-    }}>
-      <h2 style={{
-        margin: 0,
-        fontSize: '1rem',
-        fontWeight: 700,
-        color: ACCENT,
-        textTransform: 'uppercase',
-        letterSpacing: '0.06em',
-      }}>
-        {title}
-      </h2>
-      {children}
-    </div>
+    <input {...props} style={{
+      background: colors.bg, border: `1px solid ${colors.border}`,
+      borderRadius: '0.5rem', padding: '0.5rem 0.75rem',
+      color: colors.text, fontSize: '0.9rem', outline: 'none',
+      width: '100%', boxSizing: 'border-box', ...props.style,
+    }} />
   )
 }
-
-function InputRow({ label, children }) {
+function SS({ colors, children, ...props }) {
+  return (
+    <select {...props} style={{
+      background: colors.bg, border: `1px solid ${colors.border}`,
+      borderRadius: '0.5rem', padding: '0.5rem 0.75rem',
+      color: colors.text, fontSize: '0.9rem', outline: 'none', cursor: 'pointer', ...props.style,
+    }}>{children}</select>
+  )
+}
+function Lbl({ text, children }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-      {label && (
-        <label style={{ fontSize: '0.75rem', fontWeight: 600, opacity: 0.7 }}>
-          {label}
-        </label>
-      )}
+      {text && <label style={{ fontSize: '0.75rem', fontWeight: 600, opacity: 0.7 }}>{text}</label>}
       {children}
     </div>
   )
 }
-
-function StyledInput({ colors, ...props }) {
+function Card({ children, colors, style = {} }) {
   return (
-    <input
-      {...props}
-      style={{
-        background: colors.bg,
-        border: `1px solid ${colors.border}`,
-        borderRadius: '0.5rem',
-        padding: '0.5rem 0.75rem',
-        color: colors.text,
-        fontSize: '0.9rem',
-        outline: 'none',
-        width: '100%',
-        boxSizing: 'border-box',
-        ...props.style,
-      }}
-    />
+    <div style={{ background: colors.card, border: `1px solid ${colors.border}`, borderRadius: '1rem', padding: '1.25rem', ...style }}>
+      {children}
+    </div>
   )
 }
-
-function StyledSelect({ colors, children, ...props }) {
+function OptToggle({ label, open, onToggle, colors }) {
   return (
-    <select
-      {...props}
-      style={{
-        background: colors.bg,
-        border: `1px solid ${colors.border}`,
-        borderRadius: '0.5rem',
-        padding: '0.5rem 0.75rem',
-        color: colors.text,
-        fontSize: '0.9rem',
-        outline: 'none',
-        cursor: 'pointer',
-        ...props.style,
-      }}
-    >
-      {children}
-    </select>
-  )
-}
-
-function IconButton({ onClick, title, children, colors, danger }) {
-  return (
-    <button
-      onClick={onClick}
-      title={title}
-      style={{
-        background: danger ? '#ef444422' : `${ACCENT}22`,
-        border: `1px solid ${danger ? '#ef444444' : `${ACCENT}44`}`,
-        borderRadius: '0.4rem',
-        color: danger ? '#ef4444' : ACCENT,
-        cursor: 'pointer',
-        padding: '0.3rem 0.55rem',
-        fontSize: '0.85rem',
-        lineHeight: 1,
-        flexShrink: 0,
-      }}
-    >
-      {children}
+    <button onClick={onToggle} style={{
+      background: open ? `${ACCENT}18` : 'transparent',
+      border: `1px solid ${open ? ACCENT : colors.border}`,
+      borderRadius: '2rem', padding: '0.3rem 0.9rem',
+      color: open ? ACCENT : colors.textSecondary,
+      fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer',
+      display: 'inline-flex', alignItems: 'center', gap: '0.3rem',
+      transition: 'all 0.15s',
+    }}>
+      {open ? '✕' : '+'} {label}
     </button>
   )
 }
 
-function PrimaryButton({ onClick, children, disabled, colors }) {
+/* ══════════════════════════════════════════════════════
+   QUICK BILL SPLIT TAB
+══════════════════════════════════════════════════════ */
+function QuickSplit({ colors, isDark }) {
+  const [currency,    setCurrency]    = useState('PKR')
+  const [scenario,    setScenario]    = useState('restaurant')
+  const [subtotal,    setSubtotal]    = useState('')
+  const [count,       setCount]       = useState(2)
+  const [title,       setTitle]       = useState('')
+
+  // Optional layers
+  const [showTax,     setShowTax]     = useState(false)
+  const [taxMode,     setTaxMode]     = useState('16')
+  const [customTax,   setCustomTax]   = useState('')
+  const [showTip,     setShowTip]     = useState(false)
+  const [tipMode,     setTipMode]     = useState('10')
+  const [customTip,   setCustomTip]   = useState('')
+  const [showUnequal, setShowUnequal] = useState(false)
+  const [shares,      setShares]      = useState([{ name: 'You', pct: '' }, { name: 'Friend', pct: '' }])
+  const [showRound,   setShowRound]   = useState(false)
+  const [roundStep,   setRoundStep]   = useState('10')
+  const [showPayment, setShowPayment] = useState(false)
+  const [payment,     setPayment]     = useState({ name: '', bank: '', account: '', mobile: '' })
+  const [copied,      setCopied]      = useState(false)
+  const [paidStatus,  setPaidStatus]  = useState(new Set())
+  const [splitHistory,setSplitHistory]= useState([])
+  const [showHistory, setShowHistory] = useState(false)
+
+  const sym = CURRENCIES.find(c => c.code === currency)?.symbol ?? 'PKR'
+  const scen = SCENARIOS.find(s => s.id === scenario)
+
+  // Load saved payment info + split history
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(PAYMENT_KEY) || '{}')
+      if (saved.name || saved.bank) setPayment(saved)
+    } catch {}
+    try {
+      setSplitHistory(JSON.parse(localStorage.getItem('rafiqy_bill_history') || '[]'))
+    } catch {}
+  }, [])
+
+  function savePayment(updated) {
+    setPayment(updated)
+    localStorage.setItem(PAYMENT_KEY, JSON.stringify(updated))
+  }
+
+  // Sync shares array length to count
+  useEffect(() => {
+    setShares(prev => {
+      const arr = Array.from({ length: count }, (_, i) => ({
+        name: prev[i]?.name ?? (i === 0 ? 'You' : `Person ${i + 1}`),
+        pct: prev[i]?.pct ?? '',
+      }))
+      return arr
+    })
+  }, [count])
+
+  const taxPct = useMemo(() => {
+    if (!showTax) return 0
+    if (taxMode === 'custom') return parseFloat(customTax) || 0
+    return parseFloat(taxMode) || 0
+  }, [showTax, taxMode, customTax])
+
+  const tipPct = useMemo(() => {
+    if (!showTip) return 0
+    if (tipMode === 'custom') return parseFloat(customTip) || 0
+    return parseFloat(tipMode) || 0
+  }, [showTip, tipMode, customTip])
+
+  const sub = parseFloat(subtotal) || 0
+  const taxAmt = sub * taxPct / 100
+  const tipAmt = (sub + taxAmt) * tipPct / 100
+  const total = sub + taxAmt + tipAmt
+
+  const pctSum = shares.reduce((s, sh) => s + (parseFloat(sh.pct) || 0), 0)
+  const pctValid = showUnequal ? Math.abs(pctSum - 100) < 0.5 : true
+
+  const perPerson = useMemo(() => {
+    if (total <= 0 || count < 1) return []
+    if (!showUnequal) {
+      const raw = total / count
+      const step = parseInt(roundStep) || 0
+      const val = showRound ? roundUp(raw, step) : raw
+      return Array.from({ length: count }, (_, i) => ({ name: shares[i]?.name || `Person ${i+1}`, raw, val }))
+    }
+    return shares.map(sh => {
+      const raw = total * (parseFloat(sh.pct) || 0) / 100
+      const step = parseInt(roundStep) || 0
+      const val = showRound ? roundUp(raw, step) : raw
+      return { name: sh.name, raw, val }
+    })
+  }, [total, count, showUnequal, shares, showRound, roundStep])
+
+  function buildMessage() {
+    const lines = []
+    lines.push(`${scen.icon} ${title || scen.label + ' Bill Split'}`)
+    lines.push('─────────────────────')
+    if (showTax && taxPct > 0) {
+      lines.push(`Subtotal: ${fmtAmt(sub, sym)}`)
+      lines.push(`Tax/Service (${taxPct}%): +${fmtAmt(taxAmt, sym)}`)
+    }
+    if (showTip && tipPct > 0) {
+      lines.push(`Tip (${tipPct}%): +${fmtAmt(tipAmt, sym)}`)
+    }
+    lines.push(`Total Bill: ${fmtAmt(total, sym)}`)
+    lines.push(`Split: ${count} ${count === 1 ? 'person' : 'people'}`)
+    lines.push('')
+    if (!showUnequal) {
+      const pp = perPerson[0]
+      if (pp) {
+        lines.push(`Each pays: ${fmtAmt(pp.val, sym)}${showRound && pp.val !== pp.raw ? ` (rounded from ${fmtAmt(pp.raw, sym)})` : ''}`)
+      }
+    } else {
+      lines.push('Individual shares:')
+      perPerson.forEach(p => lines.push(`  ${p.name}: ${fmtAmt(p.val, sym)}`))
+    }
+    const hasPayment = payment.name || payment.bank || payment.account || payment.mobile
+    if (hasPayment) {
+      lines.push('')
+      lines.push('Please transfer to:')
+      if (payment.bank)    lines.push(`🏦 Bank: ${payment.bank}`)
+      if (payment.name)    lines.push(`👤 Name: ${payment.name}`)
+      if (payment.account) lines.push(`💳 Account: ${payment.account}`)
+      if (payment.mobile)  lines.push(`📱 Mobile: ${payment.mobile}`)
+    }
+    lines.push('')
+    lines.push('Generated via Rafiqy.app/tools/budget-splitter')
+    return lines.join('\n')
+  }
+
+  function saveToHistory() {
+    const entry = { id: Date.now(), date: new Date().toLocaleDateString('en-PK'), title: title || scen.label + ' Bill Split', total: fmtAmt(total, sym), count, scenario: scen.icon }
+    const updated = [entry, ...splitHistory.filter(h => h.id !== entry.id)].slice(0, 5)
+    setSplitHistory(updated)
+    localStorage.setItem('rafiqy_bill_history', JSON.stringify(updated))
+  }
+
+  function remindPerson(p) {
+    const lines = [`Hey ${p.name}! 👋`, `Your share for "${title || scen.label}" is: ${fmtAmt(p.val, sym)}`]
+    const hasPayment = payment.name || payment.bank || payment.account || payment.mobile
+    if (hasPayment) {
+      lines.push('', 'Please transfer to:')
+      if (payment.bank)    lines.push(`🏦 Bank: ${payment.bank}`)
+      if (payment.name)    lines.push(`👤 Name: ${payment.name}`)
+      if (payment.account) lines.push(`💳 Account: ${payment.account}`)
+      if (payment.mobile)  lines.push(`📱 Mobile: ${payment.mobile}`)
+    }
+    lines.push('', 'via Rafiqy.app')
+    window.open(`https://wa.me/?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener,noreferrer')
+  }
+
+  function copyRequest() {
+    navigator.clipboard.writeText(buildMessage()).then(() => {
+      setCopied(true)
+      saveToHistory()
+      setTimeout(() => setCopied(false), 2500)
+    })
+  }
+
+  function shareWhatsApp() {
+    saveToHistory()
+    window.open(`https://wa.me/?text=${encodeURIComponent(buildMessage())}`, '_blank', 'noopener,noreferrer')
+  }
+
+  const canCompute = sub > 0 && count >= 2
+
   return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      style={{
-        background: disabled ? colors.border : ACCENT,
-        border: 'none',
-        borderRadius: '0.5rem',
-        color: disabled ? colors.textSecondary : '#fff',
-        cursor: disabled ? 'not-allowed' : 'pointer',
-        padding: '0.55rem 1.1rem',
-        fontSize: '0.875rem',
-        fontWeight: 600,
-        letterSpacing: '0.02em',
-        transition: 'opacity 0.15s',
-      }}
-    >
-      {children}
-    </button>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+
+      {/* ── Core inputs ── */}
+      <Card colors={colors}>
+        {/* Scenario + currency row */}
+        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', flex: 1 }}>
+            {SCENARIOS.map(s => (
+              <button key={s.id} onClick={() => setScenario(s.id)} style={{
+                background: scenario === s.id ? `${ACCENT}18` : 'transparent',
+                border: `1px solid ${scenario === s.id ? ACCENT : colors.border}`,
+                borderRadius: '2rem', padding: '0.3rem 0.75rem',
+                color: scenario === s.id ? ACCENT : colors.textSecondary,
+                fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer',
+              }}>{s.icon} {s.label}</button>
+            ))}
+          </div>
+          <SS colors={colors} value={currency} onChange={e => setCurrency(e.target.value)} style={{ width: 'auto' }}>
+            {CURRENCIES.map(c => <option key={c.code} value={c.code}>{c.symbol} {c.code}</option>)}
+          </SS>
+        </div>
+
+        {/* Optional title */}
+        <div style={{ marginBottom: '1rem' }}>
+          <SI colors={colors} placeholder={`Label (optional) — e.g. "Dinner at Kolachi"`} value={title} onChange={e => setTitle(e.target.value)} />
+        </div>
+
+        {/* Amount + count */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '0.75rem', alignItems: 'end' }}>
+          <Lbl text={`Total Amount (${currency})`}>
+            <SI colors={colors} type="number" min="0" placeholder="e.g. 5000" value={subtotal}
+              onChange={e => setSubtotal(e.target.value)} style={{ fontSize: '1.1rem', fontWeight: 700 }} />
+          </Lbl>
+          <Lbl text="People">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+              <button onClick={() => setCount(c => Math.max(2, c - 1))} style={{ width: 34, height: 34, borderRadius: '50%', border: `1px solid ${colors.border}`, background: colors.bg, color: colors.text, fontSize: '1.1rem', cursor: 'pointer', lineHeight: 1 }}>−</button>
+              <span style={{ fontWeight: 800, fontSize: '1.2rem', minWidth: 24, textAlign: 'center', color: ACCENT }}>{count}</span>
+              <button onClick={() => setCount(c => Math.min(50, c + 1))} style={{ width: 34, height: 34, borderRadius: '50%', border: `1px solid ${colors.border}`, background: colors.bg, color: colors.text, fontSize: '1.1rem', cursor: 'pointer', lineHeight: 1 }}>+</button>
+            </div>
+          </Lbl>
+        </div>
+      </Card>
+
+      {/* ── Optional layer toggles ── */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+        <OptToggle label="GST / Tax / Service"   open={showTax}     onToggle={() => setShowTax(v => !v)}     colors={colors} />
+        <OptToggle label="Tip"                   open={showTip}     onToggle={() => setShowTip(v => !v)}     colors={colors} />
+        <OptToggle label="Unequal split"          open={showUnequal} onToggle={() => setShowUnequal(v => !v)} colors={colors} />
+        <OptToggle label="Round up"               open={showRound}   onToggle={() => setShowRound(v => !v)}   colors={colors} />
+        <OptToggle label="Payment details"        open={showPayment} onToggle={() => setShowPayment(v => !v)} colors={colors} />
+      </div>
+
+      {/* ── GST panel ── */}
+      {showTax && (
+        <Card colors={colors}>
+          <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: ACCENT, textTransform: 'uppercase', letterSpacing: '0.06em' }}>GST / Tax / Service Charge</p>
+          <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: taxMode === 'custom' ? '0.75rem' : 0 }}>
+            {TAX_PRESETS.map(p => (
+              <button key={p} onClick={() => setTaxMode(p)} style={{
+                padding: '0.35rem 0.85rem', borderRadius: '2rem', fontSize: '0.82rem', fontWeight: 600, cursor: 'pointer',
+                background: taxMode === p ? ACCENT : 'transparent',
+                border: `1px solid ${taxMode === p ? ACCENT : colors.border}`,
+                color: taxMode === p ? '#fff' : colors.text,
+              }}>{p === '0' ? 'None' : `${p}%`}</button>
+            ))}
+            <button onClick={() => setTaxMode('custom')} style={{
+              padding: '0.35rem 0.85rem', borderRadius: '2rem', fontSize: '0.82rem', fontWeight: 600, cursor: 'pointer',
+              background: taxMode === 'custom' ? ACCENT : 'transparent',
+              border: `1px solid ${taxMode === 'custom' ? ACCENT : colors.border}`,
+              color: taxMode === 'custom' ? '#fff' : colors.text,
+            }}>Custom %</button>
+          </div>
+          {taxMode === 'custom' && (
+            <SI colors={colors} type="number" min="0" max="100" placeholder="Enter %" value={customTax}
+              onChange={e => setCustomTax(e.target.value)} style={{ maxWidth: 120, marginTop: '0.75rem' }} />
+          )}
+          {sub > 0 && taxPct > 0 && (
+            <p style={{ margin: '0.75rem 0 0', fontSize: '0.82rem', color: colors.textSecondary }}>
+              Tax: <strong style={{ color: colors.text }}>{fmtAmt(taxAmt, sym)}</strong> · Total: <strong style={{ color: ACCENT, fontSize: '0.95rem' }}>{fmtAmt(total, sym)}</strong>
+            </p>
+          )}
+        </Card>
+      )}
+
+      {/* ── Tip panel ── */}
+      {showTip && (
+        <Card colors={colors}>
+          <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: ACCENT, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Tip</p>
+          <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+            {['5', '10', '15', '20'].map(p => (
+              <button key={p} onClick={() => setTipMode(p)} style={{
+                padding: '0.35rem 0.85rem', borderRadius: '2rem', fontSize: '0.82rem', fontWeight: 600, cursor: 'pointer',
+                background: tipMode === p ? ACCENT : 'transparent',
+                border: `1px solid ${tipMode === p ? ACCENT : colors.border}`,
+                color: tipMode === p ? '#fff' : colors.text,
+              }}>{p}%</button>
+            ))}
+            <button onClick={() => setTipMode('custom')} style={{
+              padding: '0.35rem 0.85rem', borderRadius: '2rem', fontSize: '0.82rem', fontWeight: 600, cursor: 'pointer',
+              background: tipMode === 'custom' ? ACCENT : 'transparent',
+              border: `1px solid ${tipMode === 'custom' ? ACCENT : colors.border}`,
+              color: tipMode === 'custom' ? '#fff' : colors.text,
+            }}>Custom %</button>
+          </div>
+          {tipMode === 'custom' && (
+            <SI colors={colors} type="number" min="0" max="100" placeholder="Enter tip %" value={customTip}
+              onChange={e => setCustomTip(e.target.value)} style={{ maxWidth: 120, marginTop: '0.75rem' }} />
+          )}
+          {sub > 0 && tipPct > 0 && (
+            <p style={{ margin: '0.75rem 0 0', fontSize: '0.82rem', color: colors.textSecondary }}>
+              Tip: <strong style={{ color: colors.text }}>{fmtAmt(tipAmt, sym)}</strong>
+            </p>
+          )}
+        </Card>
+      )}
+
+      {/* ── Unequal split panel ── */}
+      {showUnequal && (
+        <Card colors={colors}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+            <p style={{ margin: 0, fontSize: '0.78rem', fontWeight: 700, color: ACCENT, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Custom Split (%)</p>
+            <span style={{ fontSize: '0.75rem', color: pctValid ? '#10b981' : '#ef4444', fontWeight: 700 }}>
+              {pctSum.toFixed(0)}% {pctValid ? '✓' : '≠ 100%'}
+            </span>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            {shares.map((sh, i) => (
+              <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 80px', gap: '0.5rem', alignItems: 'center' }}>
+                <SI colors={colors} placeholder={`Person ${i + 1}`} value={sh.name}
+                  onChange={e => setShares(prev => prev.map((s, j) => j === i ? { ...s, name: e.target.value } : s))} />
+                <div style={{ position: 'relative' }}>
+                  <SI colors={colors} type="number" min="0" max="100" placeholder="%" value={sh.pct}
+                    onChange={e => setShares(prev => prev.map((s, j) => j === i ? { ...s, pct: e.target.value } : s))}
+                    style={{ paddingRight: '1.6rem', textAlign: 'right' }} />
+                  <span style={{ position: 'absolute', right: '0.55rem', top: '50%', transform: 'translateY(-50%)', fontSize: '0.8rem', color: colors.textSecondary, pointerEvents: 'none' }}>%</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <button onClick={() => {
+            const equal = (100 / count).toFixed(1)
+            setShares(prev => prev.map(s => ({ ...s, pct: equal })))
+          }} style={{ marginTop: '0.75rem', background: 'transparent', border: `1px solid ${colors.border}`, borderRadius: '0.4rem', padding: '0.3rem 0.75rem', fontSize: '0.75rem', color: colors.textSecondary, cursor: 'pointer' }}>
+            Auto-fill equal %
+          </button>
+        </Card>
+      )}
+
+      {/* ── Round up panel ── */}
+      {showRound && (
+        <Card colors={colors}>
+          <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: ACCENT, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Round Up Each Share To</p>
+          <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+            {['10', '50', '100', '500'].map(s => (
+              <button key={s} onClick={() => setRoundStep(s)} style={{
+                padding: '0.35rem 0.85rem', borderRadius: '2rem', fontSize: '0.82rem', fontWeight: 600, cursor: 'pointer',
+                background: roundStep === s ? ACCENT : 'transparent',
+                border: `1px solid ${roundStep === s ? ACCENT : colors.border}`,
+                color: roundStep === s ? '#fff' : colors.text,
+              }}>Nearest {s}</button>
+            ))}
+          </div>
+        </Card>
+      )}
+
+      {/* ── Payment details panel ── */}
+      {showPayment && (
+        <Card colors={colors}>
+          <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: ACCENT, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Payment Details <span style={{ fontSize: '0.7rem', fontWeight: 400, color: colors.textSecondary, textTransform: 'none' }}>— saved to your browser only</span></p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+            {[
+              { key: 'name',    label: 'Account Title',       placeholder: 'e.g. Haider Raza' },
+              { key: 'bank',    label: 'Bank / Wallet',        placeholder: 'e.g. Meezan Bank, SadaPay, EasyPaisa' },
+              { key: 'account', label: 'Account / IBAN',       placeholder: 'e.g. 0123 4567 8901 or PK36MEZN...' },
+              { key: 'mobile',  label: 'Mobile (JazzCash/EP)', placeholder: 'e.g. 03xx-xxxxxxx' },
+            ].map(f => (
+              <Lbl key={f.key} text={f.label}>
+                <SI colors={colors} placeholder={f.placeholder} value={payment[f.key]}
+                  onChange={e => savePayment({ ...payment, [f.key]: e.target.value })} />
+              </Lbl>
+            ))}
+          </div>
+        </Card>
+      )}
+
+      {/* ── Result ── */}
+      {canCompute && (
+        <Card colors={colors} style={{ border: `1.5px solid ${ACCENT}55`, background: isDark ? `${ACCENT}0a` : `${ACCENT}06` }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+            <p style={{ margin: 0, fontSize: '0.78rem', fontWeight: 700, color: ACCENT, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+              {scen.icon} Result
+            </p>
+            {paidStatus.size > 0 && (
+              <span style={{ fontSize: '0.72rem', fontWeight: 700, color: paidStatus.size === count ? '#10b981' : colors.textSecondary, background: paidStatus.size === count ? '#10b98115' : colors.bg, border: `1px solid ${paidStatus.size === count ? '#10b98144' : colors.border}`, borderRadius: '2rem', padding: '0.15rem 0.6rem' }}>
+                {paidStatus.size}/{count} paid{paidStatus.size === count ? ' 🎉' : ''}
+              </span>
+            )}
+          </div>
+
+          {/* Summary line */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: '0.75rem', marginBottom: '1rem' }}>
+            {showTax && taxPct > 0 && (
+              <div style={{ textAlign: 'center' }}>
+                <p style={{ margin: 0, fontSize: '0.7rem', color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Subtotal</p>
+                <p style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: colors.text }}>{fmtAmt(sub, sym)}</p>
+              </div>
+            )}
+            {showTax && taxPct > 0 && (
+              <div style={{ textAlign: 'center' }}>
+                <p style={{ margin: 0, fontSize: '0.7rem', color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Tax ({taxPct}%)</p>
+                <p style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: '#f59e0b' }}>+{fmtAmt(taxAmt, sym)}</p>
+              </div>
+            )}
+            {showTip && tipPct > 0 && (
+              <div style={{ textAlign: 'center' }}>
+                <p style={{ margin: 0, fontSize: '0.7rem', color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Tip ({tipPct}%)</p>
+                <p style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: '#06b6d4' }}>+{fmtAmt(tipAmt, sym)}</p>
+              </div>
+            )}
+            <div style={{ textAlign: 'center' }}>
+              <p style={{ margin: 0, fontSize: '0.7rem', color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total</p>
+              <p style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: colors.text }}>{fmtAmt(total, sym)}</p>
+            </div>
+          </div>
+
+          {/* Per-person breakdown */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', marginBottom: '1rem' }}>
+            {perPerson.map((p, i) => {
+              const isPaid = paidStatus.has(i)
+              return (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.55rem 0.85rem', background: isPaid ? '#10b98110' : colors.bg, borderRadius: '0.6rem', border: `1px solid ${isPaid ? '#10b98144' : colors.border}`, transition: 'all 0.2s' }}>
+                  <button
+                    onClick={() => setPaidStatus(prev => { const s = new Set(prev); s.has(i) ? s.delete(i) : s.add(i); return s })}
+                    title={isPaid ? 'Mark unpaid' : 'Mark as paid'}
+                    style={{ width: 22, height: 22, borderRadius: '50%', border: `2px solid ${isPaid ? '#10b981' : colors.border}`, background: isPaid ? '#10b981' : 'transparent', cursor: 'pointer', fontSize: '0.65rem', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', lineHeight: 1 }}>
+                    {isPaid ? '✓' : ''}
+                  </button>
+                  <span style={{ fontWeight: 600, color: isPaid ? colors.textSecondary : colors.text, fontSize: '0.9rem', flex: 1, textDecoration: isPaid ? 'line-through' : 'none' }}>{p.name}</span>
+                  <div style={{ textAlign: 'right' }}>
+                    <span style={{ fontWeight: 800, fontSize: '1.05rem', color: isPaid ? '#10b981' : ACCENT }}>{fmtAmt(p.val, sym)}</span>
+                    {showRound && p.val !== p.raw && (
+                      <span style={{ fontSize: '0.7rem', color: colors.textSecondary, display: 'block' }}>actual {fmtAmt(p.raw, sym)}</span>
+                    )}
+                  </div>
+                  <button onClick={() => remindPerson(p)} title="Send personal WhatsApp reminder" style={{ background: '#22c55e18', border: '1px solid #22c55e44', borderRadius: '0.4rem', color: '#22c55e', cursor: 'pointer', padding: '0.25rem 0.45rem', fontSize: '0.78rem', flexShrink: 0 }}>📱</button>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Action buttons */}
+          <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+            <button onClick={copyRequest} style={{
+              flex: 1, padding: '0.6rem 1rem', borderRadius: '0.5rem', fontWeight: 700, fontSize: '0.875rem', cursor: 'pointer',
+              background: copied ? '#10b981' : ACCENT, border: 'none', color: '#fff', minWidth: 120,
+            }}>{copied ? '✅ Copied!' : '📋 Copy Request'}</button>
+            <button onClick={shareWhatsApp} style={{
+              flex: 1, padding: '0.6rem 1rem', borderRadius: '0.5rem', fontWeight: 700, fontSize: '0.875rem', cursor: 'pointer',
+              background: '#22c55e', border: 'none', color: '#fff', minWidth: 120,
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem',
+            }}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Share on WhatsApp
+            </button>
+          </div>
+        </Card>
+      )}
+      {/* ── Recent splits history ── */}
+      {splitHistory.length > 0 && (
+        <div>
+          <button onClick={() => setShowHistory(v => !v)} style={{ background: 'transparent', border: `1px solid ${colors.border}`, borderRadius: '2rem', padding: '0.3rem 0.9rem', color: colors.textSecondary, fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+            📂 Recent Splits ({splitHistory.length}) {showHistory ? '▲' : '▼'}
+          </button>
+          {showHistory && (
+            <div style={{ marginTop: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              {splitHistory.map(h => (
+                <div key={h.id} style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', padding: '0.55rem 0.85rem', background: colors.card, border: `1px solid ${colors.border}`, borderRadius: '0.6rem' }}>
+                  <span style={{ fontSize: '1.1rem' }}>{h.scenario}</span>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <p style={{ margin: 0, fontWeight: 600, fontSize: '0.85rem', color: colors.text, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{h.title}</p>
+                    <p style={{ margin: 0, fontSize: '0.72rem', color: colors.textSecondary }}>{h.date} · {h.count} people · {h.total}</p>
+                  </div>
+                </div>
+              ))}
+              <button onClick={() => { setSplitHistory([]); localStorage.removeItem('rafiqy_bill_history') }} style={{ background: 'transparent', border: `1px solid ${colors.border}`, borderRadius: '0.4rem', padding: '0.25rem 0.65rem', fontSize: '0.72rem', color: colors.textSecondary, cursor: 'pointer', alignSelf: 'flex-end' }}>
+                Clear history
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
   )
 }
 
-/* ── Main page ────────────────────────────────────────────────────────── */
-
-export default function BudgetSplitter() {
-  const { isDark, colors } = useTheme()
-
-  const [people, setPeople] = useState([
-    { id: 1, name: 'You' },
-    { id: 2, name: 'Friend 1' },
-    { id: 3, name: 'Friend 2' },
-  ])
+/* ══════════════════════════════════════════════════════
+   GROUP EXPENSES TAB
+══════════════════════════════════════════════════════ */
+function GroupExpenses({ colors }) {
+  const [currency,      setCurrency]      = useState('PKR')
+  const [people,        setPeople]        = useState([{ id: 1, name: 'You' }, { id: 2, name: 'Friend 1' }, { id: 3, name: 'Friend 2' }])
   const [newPersonName, setNewPersonName] = useState('')
+  const [expenses,      setExpenses]      = useState([])
+  const [expDesc,       setExpDesc]       = useState('')
+  const [expAmount,     setExpAmount]     = useState('')
+  const [expPaidBy,     setExpPaidBy]     = useState(1)
+  const [copyMsg,       setCopyMsg]       = useState('')
 
-  const [expenses, setExpenses] = useState([])
-  const [expDesc, setExpDesc] = useState('')
-  const [expAmount, setExpAmount] = useState('')
-  const [expPaidBy, setExpPaidBy] = useState(1)
+  const sym = CURRENCIES.find(c => c.code === currency)?.symbol ?? 'PKR'
 
-  const [currency, setCurrency] = useState('PKR')
-  const [copyMsg, setCopyMsg] = useState('')
-  const [showAnalytics, setShowAnalytics] = useState(false)
-
-  const currencySymbol = CURRENCIES.find((c) => c.code === currency)?.symbol ?? 'PKR'
-
-  /* People actions */
   const addPerson = useCallback(() => {
     const name = newPersonName.trim()
     if (!name) return
     personCounter++
-    setPeople((prev) => [...prev, { id: personCounter, name }])
+    setPeople(prev => [...prev, { id: personCounter, name }])
     setNewPersonName('')
   }, [newPersonName])
 
   const removePerson = useCallback((id) => {
-    setPeople((prev) => {
-      if (prev.length <= 2) return prev
-      return prev.filter((p) => p.id !== id)
-    })
-    setExpenses((prev) => prev.filter((e) => e.paidById !== id))
-    setExpPaidBy((prev) => (prev === id ? people[0]?.id ?? 1 : prev))
-  }, [people])
+    setPeople(prev => prev.length <= 2 ? prev : prev.filter(p => p.id !== id))
+    setExpenses(prev => prev.filter(e => e.paidById !== id))
+  }, [])
 
-  /* Expense actions */
   const addExpense = useCallback(() => {
     const amount = parseFloat(expAmount)
     if (!expDesc.trim() || isNaN(amount) || amount <= 0) return
-    setExpenses((prev) => [
-      ...prev,
-      { id: uid(), description: expDesc.trim(), amount, paidById: expPaidBy },
-    ])
+    setExpenses(prev => [...prev, { id: uid(), description: expDesc.trim(), amount, paidById: expPaidBy }])
     setExpDesc('')
     setExpAmount('')
   }, [expDesc, expAmount, expPaidBy])
 
-  const removeExpense = useCallback((id) => {
-    setExpenses((prev) => prev.filter((e) => e.id !== id))
-  }, [])
+  const removeExpense = useCallback((id) => setExpenses(prev => prev.filter(e => e.id !== id)), [])
 
-  /* Settlement */
-  const settlement = useMemo(
-    () => calcSettlements(people, expenses),
-    [people, expenses]
-  )
+  const settlement = useMemo(() => calcSettlements(people, expenses), [people, expenses])
+  const personName = id => people.find(p => p.id === id)?.name ?? 'Unknown'
 
-  /* Export */
-  const exportText = useCallback(() => {
+  function exportText() {
     const lines = [
-      `🧳 Trip Expense Summary — ${new Date().toLocaleDateString('en-PK')}`,
-      `Currency: ${currency}`,
+      `🧳 Group Expense Summary — ${new Date().toLocaleDateString('en-PK')}`,
       ``,
-      `Total: ${fmt(settlement.total, currencySymbol)}`,
-      `Fair share per person: ${fmt(settlement.share, currencySymbol)}`,
+      `Total: ${fmtAmt(settlement.total, sym)} · Fair share: ${fmtAmt(settlement.share, sym)} each`,
       ``,
-      `--- Balances ---`,
-      ...people.map((p) => {
-        const paid = settlement.paid[p.id] ?? 0
+      `Balances:`,
+      ...people.map(p => {
         const net = settlement.net[p.id] ?? 0
-        const sign = net >= 0 ? '+' : ''
-        return `${p.name}: paid ${fmt(paid, currencySymbol)}, net ${sign}${fmt(Math.abs(net), currencySymbol)}${net < 0 ? ' (owes)' : ' (gets back)'}`
+        return `  ${p.name}: ${net >= -0.005 ? `gets back ${fmtAmt(net, sym)}` : `owes ${fmtAmt(-net, sym)}`}`
       }),
       ``,
-      `--- Settlements ---`,
+      `Settlements:`,
       ...(settlement.transactions.length === 0
-        ? ['Everyone is already settled!']
-        : settlement.transactions.map(
-            (t) => `${t.from} → ${t.to}: ${fmt(t.amount, currencySymbol)}`
-          )),
+        ? ['  ✅ All settled!']
+        : settlement.transactions.map(t => `  ${t.from} → ${t.to}: ${fmtAmt(t.amount, sym)}`)),
+      ``,
+      `Generated via Rafiqy.app/tools/budget-splitter`,
     ]
     navigator.clipboard.writeText(lines.join('\n')).then(() => {
       setCopyMsg('Copied!')
       setTimeout(() => setCopyMsg(''), 2000)
-    }).catch(() => {
-      setCopyMsg('Failed')
-      setTimeout(() => setCopyMsg(''), 2000)
     })
-  }, [settlement, people, currency, currencySymbol])
+  }
 
-  const personName = (id) => people.find((p) => p.id === id)?.name ?? 'Unknown'
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', alignItems: 'start' }}>
+      {/* LEFT */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+        <Card colors={colors}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+            <p style={{ margin: 0, fontSize: '0.78rem', fontWeight: 700, color: ACCENT, textTransform: 'uppercase', letterSpacing: '0.06em' }}>👥 People</p>
+            <SS colors={colors} value={currency} onChange={e => setCurrency(e.target.value)} style={{ width: 'auto' }}>
+              {CURRENCIES.map(c => <option key={c.code} value={c.code}>{c.symbol} {c.code}</option>)}
+            </SS>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', marginBottom: '0.75rem' }}>
+            {people.map(p => (
+              <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.4rem 0.6rem', background: `${ACCENT}11`, borderRadius: '0.5rem', border: `1px solid ${ACCENT}33` }}>
+                <span style={{ flex: 1, fontWeight: 600, fontSize: '0.875rem', color: colors.text }}>{p.name}</span>
+                {people.length > 2 && (
+                  <button onClick={() => removePerson(p.id)} style={{ background: '#ef444422', border: '1px solid #ef444444', borderRadius: '0.4rem', color: '#ef4444', cursor: 'pointer', padding: '0.2rem 0.45rem', fontSize: '0.75rem' }}>✕</button>
+                )}
+              </div>
+            ))}
+          </div>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <SI colors={colors} placeholder="Person's name…" value={newPersonName} onChange={e => setNewPersonName(e.target.value)} onKeyDown={e => e.key === 'Enter' && addPerson()} style={{ flex: 1 }} />
+            <button onClick={addPerson} disabled={!newPersonName.trim()} style={{ background: newPersonName.trim() ? ACCENT : colors.border, border: 'none', borderRadius: '0.5rem', color: '#fff', cursor: newPersonName.trim() ? 'pointer' : 'not-allowed', padding: '0.5rem 0.85rem', fontWeight: 600, fontSize: '0.875rem' }}>+ Add</button>
+          </div>
+        </Card>
+
+        <Card colors={colors}>
+          <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: ACCENT, textTransform: 'uppercase', letterSpacing: '0.06em' }}>💸 Add Expense</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+            <Lbl text="Description">
+              <SI colors={colors} placeholder="e.g. Hotel, Petrol, Dinner…" value={expDesc} onChange={e => setExpDesc(e.target.value)} onKeyDown={e => e.key === 'Enter' && addExpense()} />
+            </Lbl>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem' }}>
+              <Lbl text={`Amount (${currency})`}>
+                <SI colors={colors} type="number" min="0" placeholder="0" value={expAmount} onChange={e => setExpAmount(e.target.value)} onKeyDown={e => e.key === 'Enter' && addExpense()} />
+              </Lbl>
+              <Lbl text="Paid by">
+                <SS colors={colors} value={expPaidBy} onChange={e => setExpPaidBy(Number(e.target.value))} style={{ width: '100%' }}>
+                  {people.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+                </SS>
+              </Lbl>
+            </div>
+            <button onClick={addExpense} disabled={!expDesc.trim() || !expAmount || parseFloat(expAmount) <= 0} style={{ background: expDesc.trim() && expAmount && parseFloat(expAmount) > 0 ? ACCENT : colors.border, border: 'none', borderRadius: '0.5rem', color: '#fff', cursor: 'pointer', padding: '0.55rem', fontWeight: 600, fontSize: '0.875rem' }}>Add Expense</button>
+          </div>
+        </Card>
+
+        {expenses.length > 0 && (
+          <Card colors={colors}>
+            <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: ACCENT, textTransform: 'uppercase', letterSpacing: '0.06em' }}>🧾 Expenses ({expenses.length})</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', maxHeight: '16rem', overflowY: 'auto' }}>
+              {expenses.map(e => (
+                <div key={e.id} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 0.65rem', background: colors.bg, borderRadius: '0.5rem', border: `1px solid ${colors.border}` }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <p style={{ margin: 0, fontWeight: 600, fontSize: '0.85rem', color: colors.text, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{e.description}</p>
+                    <p style={{ margin: 0, fontSize: '0.72rem', color: colors.textSecondary }}>{fmtAmt(e.amount, sym)} · {personName(e.paidById)}</p>
+                  </div>
+                  <button onClick={() => removeExpense(e.id)} style={{ background: '#ef444422', border: '1px solid #ef444444', borderRadius: '0.4rem', color: '#ef4444', cursor: 'pointer', padding: '0.2rem 0.45rem', fontSize: '0.75rem', flexShrink: 0 }}>🗑</button>
+                </div>
+              ))}
+            </div>
+          </Card>
+        )}
+      </div>
+
+      {/* RIGHT — Settlement */}
+      <div>
+        <Card colors={colors}>
+          <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: ACCENT, textTransform: 'uppercase', letterSpacing: '0.06em' }}>📊 Settlement</p>
+          {expenses.length === 0 ? (
+            <p style={{ margin: 0, color: colors.textSecondary, fontSize: '0.875rem', textAlign: 'center', padding: '1.5rem 0' }}>Add at least one expense to see the settlement.</p>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem' }}>
+                {[{ label: 'Total', val: settlement.total, color: ACCENT }, { label: 'Per Person', val: settlement.share, color: '#10b981' }].map(m => (
+                  <div key={m.label} style={{ background: `${m.color}15`, border: `1px solid ${m.color}44`, borderRadius: '0.75rem', padding: '0.75rem', textAlign: 'center' }}>
+                    <p style={{ margin: '0 0 0.2rem', fontSize: '0.68rem', fontWeight: 700, color: m.color, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{m.label}</p>
+                    <p style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800, color: colors.text }}>{fmtAmt(m.val, sym)}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div>
+                <p style={{ margin: '0 0 0.4rem', fontSize: '0.72rem', fontWeight: 700, color: colors.textSecondary, textTransform: 'uppercase' }}>Balances</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                  {people.map(p => {
+                    const net = settlement.net[p.id] ?? 0
+                    const isPos = net >= -0.005
+                    const c = isPos ? '#10b981' : '#ef4444'
+                    return (
+                      <div key={p.id} style={{ display: 'flex', alignItems: 'center', padding: '0.45rem 0.65rem', background: colors.bg, borderRadius: '0.5rem', border: `1px solid ${colors.border}`, gap: '0.5rem' }}>
+                        <span style={{ fontWeight: 600, flex: 1, fontSize: '0.85rem', color: colors.text }}>{p.name}</span>
+                        <span style={{ fontSize: '0.72rem', color: colors.textSecondary }}>paid {fmtAmt(settlement.paid[p.id] ?? 0, sym)}</span>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: c, background: `${c}18`, border: `1px solid ${c}44`, borderRadius: '0.3rem', padding: '0.1rem 0.4rem' }}>
+                          {isPos ? '+' : '−'}{fmtAmt(Math.abs(net), sym)}
+                        </span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+
+              <div>
+                <p style={{ margin: '0 0 0.4rem', fontSize: '0.72rem', fontWeight: 700, color: colors.textSecondary, textTransform: 'uppercase' }}>Who pays whom</p>
+                {settlement.transactions.length === 0 ? (
+                  <div style={{ textAlign: 'center', padding: '0.65rem', background: '#10b98115', borderRadius: '0.5rem', border: '1px solid #10b98133', color: '#10b981', fontSize: '0.85rem', fontWeight: 600 }}>✅ All settled!</div>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                    {settlement.transactions.map((t, i) => (
+                      <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.55rem 0.75rem', background: `${ACCENT}0d`, borderRadius: '0.5rem', border: `1px solid ${ACCENT}33`, flexWrap: 'wrap' }}>
+                        <span style={{ fontWeight: 700, color: '#ef4444', fontSize: '0.85rem' }}>{t.from}</span>
+                        <span style={{ color: colors.textSecondary, fontSize: '0.78rem' }}>pays</span>
+                        <span style={{ fontWeight: 700, color: '#10b981', fontSize: '0.85rem' }}>{t.to}</span>
+                        <span style={{ marginLeft: 'auto', fontWeight: 800, color: ACCENT, fontSize: '0.9rem', background: `${ACCENT}18`, padding: '0.15rem 0.5rem', borderRadius: '0.35rem' }}>{fmtAmt(t.amount, sym)}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <button onClick={exportText} style={{ background: 'transparent', border: `1px solid ${ACCENT}`, borderRadius: '0.5rem', color: ACCENT, cursor: 'pointer', padding: '0.5rem 1rem', fontSize: '0.85rem', fontWeight: 600, alignSelf: 'flex-start' }}>
+                {copyMsg ? `✅ ${copyMsg}` : '📋 Copy Summary'}
+              </button>
+            </div>
+          )}
+        </Card>
+      </div>
+    </div>
+  )
+}
+
+/* ══════════════════════════════════════════════════════
+   MAIN COMPONENT
+══════════════════════════════════════════════════════ */
+export default function BudgetSplitter() {
+  const { isDark, colors } = useTheme()
+  const [tab, setTab] = useState('quick')
+
+  const tabStyle = (t) => ({
+    padding: '0.5rem 1.25rem', borderRadius: '2rem', fontWeight: 700, fontSize: '0.875rem', cursor: 'pointer', border: 'none',
+    background: tab === t ? ACCENT : 'transparent',
+    color: tab === t ? '#fff' : colors.textSecondary,
+    outline: tab !== t ? `1px solid ${colors.border}` : 'none',
+    transition: 'all 0.15s',
+  })
 
   return (
     <ToolLayout toolId="budget-splitter">
       {/* Header */}
-      <div style={{ marginBottom: '1.75rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '0.4rem' }}>
-          <span style={{ fontSize: '1.75rem' }}>🧳</span>
-          <h1 style={{ margin: 0, fontSize: '1.6rem', fontWeight: 800, color: colors.text }}>
-            Trip Expense Splitter
-          </h1>
-          {/* Currency selector */}
-          <StyledSelect
-            colors={colors}
-            value={currency}
-            onChange={(e) => setCurrency(e.target.value)}
-            style={{ marginLeft: 'auto' }}
-          >
-            {CURRENCIES.map((c) => (
-              <option key={c.code} value={c.code}>
-                {c.symbol} {c.code}
-              </option>
-            ))}
-          </StyledSelect>
-        </div>
+      <div style={{ marginBottom: '1.5rem' }}>
+        <h1 style={{ margin: '0 0 0.3rem', fontSize: 'clamp(1.5rem, 3.5vw, 2rem)', fontWeight: 800, letterSpacing: '-0.02em', background: `linear-gradient(135deg, ${ACCENT}, #06b6d4)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+          🤝 Bill Splitter
+        </h1>
         <p style={{ margin: 0, color: colors.textSecondary, fontSize: '0.9rem' }}>
-          Add friends, log expenses and instantly see who owes whom — no sign-up needed.
+          Split restaurant bills, household expenses, or travel costs — no sign-up needed.
         </p>
       </div>
 
-      {/* Two-column grid */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(0, 1fr))',
-        gap: '1.25rem',
-        alignItems: 'start',
-      }}>
-        {/* LEFT COLUMN */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', minWidth: 0 }}>
-
-          {/* People panel */}
-          <SectionCard title="👥 People" colors={colors}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              {people.map((p) => (
-                <div key={p.id} style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.4rem 0.6rem',
-                  background: `${ACCENT}11`,
-                  borderRadius: '0.5rem',
-                  border: `1px solid ${ACCENT}33`,
-                }}>
-                  <span style={{ fontSize: '0.9rem', fontWeight: 600, flex: 1, color: colors.text }}>
-                    {p.name}
-                  </span>
-                  {people.length > 2 && (
-                    <IconButton
-                      onClick={() => removePerson(p.id)}
-                      title="Remove person"
-                      colors={colors}
-                      danger
-                    >
-                      ✕
-                    </IconButton>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <StyledInput
-                colors={colors}
-                placeholder="Person's name…"
-                value={newPersonName}
-                onChange={(e) => setNewPersonName(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && addPerson()}
-                style={{ flex: 1 }}
-              />
-              <PrimaryButton onClick={addPerson} disabled={!newPersonName.trim()} colors={colors}>
-                + Add
-              </PrimaryButton>
-            </div>
-          </SectionCard>
-
-          {/* Add Expense panel */}
-          <SectionCard title="💸 Add Expense" colors={colors}>
-            <InputRow label="Description">
-              <StyledInput
-                colors={colors}
-                placeholder="e.g. Hotel, Petrol, Dinner…"
-                value={expDesc}
-                onChange={(e) => setExpDesc(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && addExpense()}
-              />
-            </InputRow>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-              <InputRow label={`Amount (${currency})`}>
-                <StyledInput
-                  colors={colors}
-                  type="number"
-                  min="0"
-                  placeholder="0"
-                  value={expAmount}
-                  onChange={(e) => setExpAmount(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && addExpense()}
-                />
-              </InputRow>
-              <InputRow label="Paid by">
-                <StyledSelect
-                  colors={colors}
-                  value={expPaidBy}
-                  onChange={(e) => setExpPaidBy(Number(e.target.value))}
-                  style={{ width: '100%' }}
-                >
-                  {people.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.name}
-                    </option>
-                  ))}
-                </StyledSelect>
-              </InputRow>
-            </div>
-
-            <PrimaryButton
-              onClick={addExpense}
-              disabled={!expDesc.trim() || !expAmount || parseFloat(expAmount) <= 0}
-              colors={colors}
-            >
-              Add Expense
-            </PrimaryButton>
-          </SectionCard>
-
-          {/* Expense list */}
-          {expenses.length > 0 && (
-            <SectionCard title={`🧾 Expenses (${expenses.length})`} colors={colors}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '18rem', overflowY: 'auto' }}>
-                {expenses.map((e) => (
-                  <div key={e.id} style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    padding: '0.55rem 0.75rem',
-                    background: colors.bg,
-                    borderRadius: '0.5rem',
-                    border: `1px solid ${colors.border}`,
-                  }}>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <p style={{ margin: 0, fontWeight: 600, fontSize: '0.875rem', color: colors.text, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        {e.description}
-                      </p>
-                      <p style={{ margin: 0, fontSize: '0.75rem', color: colors.textSecondary }}>
-                        {fmt(e.amount, currencySymbol)} · paid by {personName(e.paidById)}
-                      </p>
-                    </div>
-                    <IconButton onClick={() => removeExpense(e.id)} title="Delete expense" colors={colors} danger>
-                      🗑
-                    </IconButton>
-                  </div>
-                ))}
-              </div>
-            </SectionCard>
-          )}
-        </div>
-
-        {/* RIGHT COLUMN — Settlement */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', minWidth: 0 }}>
-          <SectionCard title="📊 Settlement" colors={colors}>
-            {expenses.length === 0 ? (
-              <p style={{ margin: 0, color: colors.textSecondary, fontSize: '0.875rem', textAlign: 'center', padding: '1rem 0' }}>
-                Add at least one expense to see the settlement.
-              </p>
-            ) : (
-              <>
-                {/* Summary stats */}
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '0.75rem',
-                }}>
-                  <div style={{
-                    background: `${ACCENT}15`,
-                    border: `1px solid ${ACCENT}44`,
-                    borderRadius: '0.75rem',
-                    padding: '0.85rem',
-                    textAlign: 'center',
-                  }}>
-                    <p style={{ margin: '0 0 0.2rem', fontSize: '0.7rem', fontWeight: 700, color: ACCENT, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                      Total Cost
-                    </p>
-                    <p style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800, color: colors.text }}>
-                      {fmt(settlement.total, currencySymbol)}
-                    </p>
-                  </div>
-                  <div style={{
-                    background: `#10b98115`,
-                    border: `1px solid #10b98144`,
-                    borderRadius: '0.75rem',
-                    padding: '0.85rem',
-                    textAlign: 'center',
-                  }}>
-                    <p style={{ margin: '0 0 0.2rem', fontSize: '0.7rem', fontWeight: 700, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                      Per Person
-                    </p>
-                    <p style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800, color: colors.text }}>
-                      {fmt(settlement.share, currencySymbol)}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Per-person balances */}
-                <div>
-                  <p style={{ margin: '0 0 0.5rem', fontSize: '0.8rem', fontWeight: 700, color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                    Balances
-                  </p>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                    {people.map((p) => {
-                      const paid = settlement.paid[p.id] ?? 0
-                      const net = settlement.net[p.id] ?? 0
-                      const isPositive = net >= -0.005
-                      const netColor = isPositive ? '#10b981' : '#ef4444'
-                      return (
-                        <div key={p.id} style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          padding: '0.5rem 0.7rem',
-                          background: colors.bg,
-                          borderRadius: '0.5rem',
-                          border: `1px solid ${colors.border}`,
-                          gap: '0.5rem',
-                        }}>
-                          <span style={{ fontWeight: 600, flex: 1, fontSize: '0.875rem', color: colors.text }}>
-                            {p.name}
-                          </span>
-                          <span style={{ fontSize: '0.8rem', color: colors.textSecondary }}>
-                            paid {fmt(paid, currencySymbol)}
-                          </span>
-                          <span style={{
-                            fontSize: '0.8rem',
-                            fontWeight: 700,
-                            color: netColor,
-                            background: `${netColor}18`,
-                            border: `1px solid ${netColor}44`,
-                            borderRadius: '0.35rem',
-                            padding: '0.15rem 0.45rem',
-                          }}>
-                            {isPositive ? '+' : '−'}{fmt(Math.abs(net), currencySymbol)}
-                          </span>
-                        </div>
-                      )
-                    })}
-                  </div>
-                </div>
-
-                {/* Transactions */}
-                <div>
-                  <p style={{ margin: '0 0 0.5rem', fontSize: '0.8rem', fontWeight: 700, color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                    Who pays whom
-                  </p>
-                  {settlement.transactions.length === 0 ? (
-                    <div style={{
-                      textAlign: 'center',
-                      padding: '0.75rem',
-                      background: `#10b98115`,
-                      borderRadius: '0.6rem',
-                      border: `1px solid #10b98133`,
-                      color: '#10b981',
-                      fontSize: '0.875rem',
-                      fontWeight: 600,
-                    }}>
-                      ✅ Everyone is settled!
-                    </div>
-                  ) : (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                      {settlement.transactions.map((t, i) => (
-                        <div key={i} style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '0.6rem',
-                          padding: '0.65rem 0.85rem',
-                          background: `${ACCENT}0d`,
-                          borderRadius: '0.6rem',
-                          border: `1px solid ${ACCENT}33`,
-                          flexWrap: 'wrap',
-                        }}>
-                          <span style={{ fontWeight: 700, color: '#ef4444', fontSize: '0.875rem' }}>
-                            {t.from}
-                          </span>
-                          <span style={{ color: colors.textSecondary, fontSize: '0.8rem' }}>pays</span>
-                          <span style={{ fontWeight: 700, color: '#10b981', fontSize: '0.875rem' }}>
-                            {t.to}
-                          </span>
-                          <span style={{
-                            marginLeft: 'auto',
-                            fontWeight: 800,
-                            color: ACCENT,
-                            fontSize: '0.925rem',
-                            background: `${ACCENT}18`,
-                            padding: '0.2rem 0.55rem',
-                            borderRadius: '0.4rem',
-                          }}>
-                            {fmt(t.amount, currencySymbol)}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                {/* Export */}
-                <button
-                  onClick={exportText}
-                  style={{
-                    background: 'transparent',
-                    border: `1px solid ${ACCENT}`,
-                    borderRadius: '0.5rem',
-                    color: ACCENT,
-                    cursor: 'pointer',
-                    padding: '0.55rem 1rem',
-                    fontSize: '0.875rem',
-                    fontWeight: 600,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.4rem',
-                    alignSelf: 'flex-start',
-                  }}
-                >
-                  {copyMsg ? `✅ ${copyMsg}` : '📋 Copy Summary'}
-                </button>
-              </>
-            )}
-          </SectionCard>
-        </div>
+      {/* Tabs */}
+      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem' }}>
+        <button style={tabStyle('quick')} onClick={() => setTab('quick')}>⚡ Quick Split</button>
+        <button style={tabStyle('group')} onClick={() => setTab('group')}>🧳 Group Expenses</button>
       </div>
 
-      {/* Analytics toggle */}
-      {expenses.length > 0 && (
-        <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
-          <button
-            onClick={() => setShowAnalytics(v => !v)}
-            style={{
-              padding: '0.6rem 1.5rem', fontSize: '0.85rem', fontWeight: 700,
-              background: showAnalytics ? `${ACCENT}22` : colors.card,
-              border: `1.5px solid ${ACCENT}55`,
-              borderRadius: '2rem', cursor: 'pointer', color: ACCENT,
-              transition: 'all 0.2s',
-            }}
-          >
-            📊 {showAnalytics ? 'Hide Analytics' : 'Show Analytics'}
-          </button>
-        </div>
-      )}
-
-      {/* Analytics panel */}
-      {showAnalytics && expenses.length > 0 && (
-        <div style={{
-          marginTop: '1.25rem', background: colors.card,
-          border: `1px solid ${colors.border}`, borderRadius: '1rem',
-          padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem',
-        }}>
-          <h2 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: ACCENT, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-            📊 Analytics
-          </h2>
-
-          {/* Per-person spending bar chart */}
-          <div>
-            <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Per-Person Spending</p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              {people
-                .map(p => ({ ...p, paid: settlement.paid[p.id] ?? 0 }))
-                .sort((a, b) => b.paid - a.paid)
-                .map(p => {
-                  const maxPaid = Math.max(...people.map(pp => settlement.paid[pp.id] ?? 0), 1)
-                  const pct = (p.paid / maxPaid) * 100
-                  return (
-                    <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <span style={{ width: '80px', textAlign: 'right', fontSize: '0.78rem', color: colors.textSecondary, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flexShrink: 0 }}>{p.name}</span>
-                      <div style={{ flex: 1, background: colors.border, borderRadius: '4px', height: '18px', overflow: 'hidden' }}>
-                        <div style={{ width: `${pct}%`, background: ACCENT, height: '100%', borderRadius: '4px', transition: 'width 0.4s ease' }} />
-                      </div>
-                      <span style={{ fontSize: '0.75rem', color: colors.text, fontWeight: 600, flexShrink: 0, minWidth: '70px', textAlign: 'right' }}>{fmt(p.paid, currencySymbol)}</span>
-                    </div>
-                  )
-                })}
-            </div>
-          </div>
-
-          {/* Net balance bar chart */}
-          <div>
-            <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Net Balance per Person</p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              {(() => {
-                const maxAbs = Math.max(...people.map(p => Math.abs(settlement.net[p.id] ?? 0)), 1)
-                return people
-                  .map(p => ({ ...p, net: settlement.net[p.id] ?? 0 }))
-                  .sort((a, b) => b.net - a.net)
-                  .map(p => {
-                    const pct = (Math.abs(p.net) / maxAbs) * 50
-                    const isPos = p.net >= -0.005
-                    const barColor = isPos ? '#10b981' : '#ef4444'
-                    return (
-                      <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{ width: '80px', textAlign: 'right', fontSize: '0.78rem', color: colors.textSecondary, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flexShrink: 0 }}>{p.name}</span>
-                        <div style={{ flex: 1, display: 'flex', alignItems: 'center', height: '18px', position: 'relative' }}>
-                          <div style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: '1px', background: colors.border }} />
-                          <div style={{
-                            position: 'absolute',
-                            left: isPos ? '50%' : `${50 - pct}%`,
-                            width: `${pct}%`,
-                            height: '100%',
-                            background: barColor,
-                            borderRadius: isPos ? '0 4px 4px 0' : '4px 0 0 4px',
-                            transition: 'all 0.4s ease',
-                            opacity: 0.8,
-                          }} />
-                        </div>
-                        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: barColor, flexShrink: 0, minWidth: '70px', textAlign: 'right' }}>
-                          {isPos ? '+' : '−'}{fmt(Math.abs(p.net), currencySymbol)}
-                        </span>
-                      </div>
-                    )
-                  })
-              })()}
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginTop: '0.5rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                <div style={{ width: '10px', height: '10px', borderRadius: '2px', background: '#10b981' }} />
-                <span style={{ fontSize: '0.72rem', color: colors.textSecondary }}>gets back</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                <div style={{ width: '10px', height: '10px', borderRadius: '2px', background: '#ef4444' }} />
-                <span style={{ fontSize: '0.72rem', color: colors.textSecondary }}>owes</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Settlement visualization */}
-          {settlement.transactions.length > 0 && (
-            <div>
-              <p style={{ margin: '0 0 0.75rem', fontSize: '0.78rem', fontWeight: 700, color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Settlement Summary</p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                {settlement.transactions.map((t, i) => {
-                  const maxTxn = Math.max(...settlement.transactions.map(tx => tx.amount), 1)
-                  const pct = (t.amount / maxTxn) * 100
-                  return (
-                    <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem' }}>
-                        <span>
-                          <strong style={{ color: '#ef4444' }}>{t.from}</strong>
-                          <span style={{ color: colors.textSecondary }}> → </span>
-                          <strong style={{ color: '#10b981' }}>{t.to}</strong>
-                        </span>
-                        <strong style={{ color: ACCENT }}>{fmt(t.amount, currencySymbol)}</strong>
-                      </div>
-                      <div style={{ background: colors.border, borderRadius: '4px', height: '8px', overflow: 'hidden' }}>
-                        <div style={{ width: `${pct}%`, background: ACCENT, height: '100%', borderRadius: '4px', transition: 'width 0.4s ease' }} />
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
+      {tab === 'quick' ? <QuickSplit colors={colors} isDark={isDark} /> : <GroupExpenses colors={colors} />}
     </ToolLayout>
   )
 }
+

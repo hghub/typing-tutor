@@ -145,10 +145,20 @@ export default function ToolLayout({ toolId, children }) {
 
       {/* Related Blog Posts */}
       {tool && (() => {
-        const related = BLOG_POSTS.filter(p =>
-          p.category?.toLowerCase() === tool.category ||
-          (tool.id === 'typing-tutor' && p.slug === 'typing-learning')
-        ).slice(0, 3)
+        const toolTags = tool.tags || []
+        const related = BLOG_POSTS
+          .filter(p =>
+            p.category?.toLowerCase() === tool.category ||
+            p.tags?.some(t => toolTags.includes(t)) ||
+            (tool.id === 'typing-tutor' && p.slug === 'typing-learning')
+          )
+          .sort((a, b) => {
+            // Tool's own blog post (slug starts with toolId) always comes first
+            const aOwn = a.slug.startsWith(tool.id) ? 2 : (a.tags?.some(t => toolTags.includes(t)) ? 1 : 0)
+            const bOwn = b.slug.startsWith(tool.id) ? 2 : (b.tags?.some(t => toolTags.includes(t)) ? 1 : 0)
+            return bOwn - aOwn
+          })
+          .slice(0, 3)
         if (!related.length) return null
         return (
           <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1rem 2.5rem' }}>

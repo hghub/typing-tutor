@@ -575,7 +575,7 @@ export default function SolarPlanner() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(185px, 1fr))', gap: '0.6rem', marginBottom: '0.75rem' }}>
               {[
                 { icon: '🔆', label: 'System Size',    value: `${results.sysKwLo}–${results.sysKwHi} kW`,             sub: 'On-grid, Tier-1 panels' },
-                { icon: '💰', label: 'Install Cost',    value: `PKR ${fmt(results.costLo)}–${fmt(results.costHi)}`,     sub: `Fully installed incl. labor · +PKR ${fmt(NB_FEE_LO)}–${fmt(NB_FEE_HI)} net billing fee` },
+                { icon: '💰', label: 'Install Cost',    value: `PKR ${fmt(results.costLo)}–${fmt(results.costHi)}`,     sub: `Panels + inverter + labor (battery separate) · ${netBilling ? `+PKR ${fmt(NB_FEE_LO)}–${fmt(NB_FEE_HI)} NB fee` : 'No NB fee'}` },
                 { icon: '📉', label: 'Monthly Savings', value: `~PKR ${fmt(results.totalSavings)}`,                     sub: `${results.monthlyGen} kWh generated` },
                 { icon: '🧾', label: 'Post-Solar Bill', value: `~PKR ${fmt(results.postSolarBill)}`,                    sub: results.postSolarBill < 1000 ? '🎉 Near-zero bill!' : `Down from PKR ${fmt(billNum)}` },
                 { icon: '📆', label: 'Payback Period',  value: `~${results.paybackYrs} yrs`,                           sub: 'Net billing model (2026)' },

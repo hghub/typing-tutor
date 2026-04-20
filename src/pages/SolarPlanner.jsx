@@ -129,38 +129,42 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
 
 const ACCENT = '#f59e0b'
 const FONT   = 'system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif'
+
 export default function SolarPlanner() {
-  const [step, setStep]           = useState(1)
-  const [bill, setBill]           = useState('')
-  const [cityIdx, setCityIdx]     = useState(0)
-  const [loadshed, setLoadshed]   = useState(4)
-  const [appliances, setAppliances] = useState(DEFAULT_APPLIANCES)
-  const [selected, setSelected]   = useState({})
-  const [results, setResults]     = useState(null)
-  const [copied, setCopied]       = useState(false)
+  const [step, setStep]             = useState(1)
+  const [bill, setBill]             = useState('')
+  const [cityIdx, setCityIdx]       = useState(0)
+  const [loadshed, setLoadshed]     = useState(4)
+  const [netBilling, setNetBilling] = useState(true)
+  const [selfConsume, setSelfConsume] = useState(60)
+  const [showAdv, setShowAdv]       = useState(false)
+  const [importTariff, setImportTariff] = useState(DEFAULTS.importTariff)
+  const [buybackRate, setBuybackRate]   = useState(DEFAULTS.buybackRate)
+  const [costLoPW, setCostLoPW]         = useState(DEFAULTS.costLowPW)
+  const [costHiPW, setCostHiPW]         = useState(DEFAULTS.costHighPW)
+  const [appliances, setAppliances]     = useState(DEFAULT_APPLIANCES)
+  const [selected, setSelected]         = useState({})
+  const [results, setResults]           = useState(null)
+  const [copied, setCopied]             = useState(false)
 
   const billNum = parseFloat(bill) || 0
 
-  function toggleAppliance(id) {
-    setSelected(s => ({ ...s, [id]: !s[id] }))
-  }
+  function toggleAppliance(id) { setSelected(s => ({ ...s, [id]: !s[id] })) }
   function changeQty(id, delta) {
-    setAppliances(prev => prev.map(a =>
-      a.id === id ? { ...a, qty: Math.max(1, a.qty + delta) } : a
-    ))
+    setAppliances(p => p.map(a => a.id === id ? { ...a, qty: Math.max(1, a.qty + delta) } : a))
   }
   function changeHours(id, val) {
-    setAppliances(prev => prev.map(a =>
+    setAppliances(p => p.map(a =>
       a.id === id ? { ...a, hours: Math.max(0.5, Math.min(24, parseFloat(val) || 0.5)) } : a
     ))
   }
 
-  function goToStep2() {
-    if (billNum <= 0) return
-    setStep(2)
-  }
   function goToStep3() {
-    const r = calcResults(billNum, CITIES[cityIdx], loadshed, appliances, selected)
+    const r = calcResults({
+      bill: billNum, cityObj: CITIES[cityIdx], loadshed, appliances, selected,
+      netBilling, selfConsumePct: selfConsume,
+      importTariff, buybackRate, costLoPW, costHiPW,
+    })
     setResults(r)
     setStep(3)
   }
@@ -168,76 +172,69 @@ export default function SolarPlanner() {
   function copyText() {
     if (!results) return
     const r = results
-    const city = CITIES[cityIdx].name
-    const text = `☀️ Solar Planning Estimate — Rafiqy Solar Planner
-Generated: ${new Date().toLocaleDateString('en-PK', { year: 'numeric', month: 'long', day: 'numeric' })}
-
-📍 City: ${city}
-💡 Monthly Bill: PKR ${fmt(billNum)}
-⚡ Est. Daily Usage: ${r.dailyKwh} kWh/day
-
-🔆 Recommended System: ${r.sysKwLo}–${r.sysKwHi} kW (on-grid)
-💰 Cost Estimate: PKR ${fmt(r.costLo)} – ${fmt(r.costHi)}
-📉 Monthly Savings: ~PKR ${fmt(r.monthlySavings)}
-📆 Payback Period: ~${r.paybackYrs} years
-🔋 Battery: ${r.needsBattery ? 'Recommended (loadshedding/night use)' : 'Optional'}
-
-${r.verdictIcon} Verdict: ${r.verdict}
-
-⚠️ Estimates based on avg Pakistan market rates 2025. Actual costs vary by installer, location & system design. Get 2–3 quotes before deciding.
-
-🌐 rafiqy.app/tools/solar-planner`
+    const policyLabel = netBilling ? `Net Billing (PKR ${buybackRate}/unit export)` : 'No net billing'
+    const text = [
+      `\u2600\uFE0F Solar Planning Estimate \u2014 Rafiqy Solar Planner`,
+      `Generated: ${new Date().toLocaleDateString('en-PK', { year: 'numeric', month: 'long', day: 'numeric' })}`,
+      `Data: Pakistan market rates ${DATA_DATE}`,
+      ``,
+      `\uD83D\uDCCD City: ${CITIES[cityIdx].name}`,
+      `\uD83D\uDCA1 Monthly Bill: PKR ${fmt(billNum)}`,
+      `\u26A1 Est. Daily Usage: ${r.dailyKwh} kWh/day`,
+      `\uD83C\uDF10 Policy: ${policyLabel} | Self-consumption: ${selfConsume}%`,
+      ``,
+      `\uD83D\uDD06 Recommended System: ${r.sysKwLo}\u2013${r.sysKwHi} kW (on-grid)`,
+      `\uD83D\uDCB0 Installation: PKR ${fmt(r.costLo)}\u2013${fmt(r.costHi)}`,
+      ``,
+      `Monthly breakdown:`,
+      `  \u26A1 Generation: ${r.monthlyGen} kWh`,
+      `  \uD83C\uDFE0 Self-consumed: ${r.selfConsumedKwh} kWh \u00D7 PKR ${importTariff} = PKR ${fmt(r.selfSavings)}`,
+      `  \uD83D\uDCE4 Exported: ${r.exportedKwh} kWh \u00D7 PKR ${buybackRate} = PKR ${fmt(r.exportRevenue)}`,
+      `  \uD83D\uDCC9 Total savings: ~PKR ${fmt(r.totalSavings)}/month`,
+      `  \uD83E\uDDFE Post-solar bill: ~PKR ${fmt(r.postSolarBill)}/month`,
+      ``,
+      `\uD83D\uDCC6 Payback: ~${r.paybackYrs} years`,
+      `\uD83D\uDD0B Battery (5\u20136 kWh LiFePO\u2084): PKR ${fmt(BATT_LO)}\u2013${fmt(BATT_HI)} extra \u2014 ${r.needsBattery ? 'Recommended' : 'Optional'}`,
+      ``,
+      `${r.verdictIcon} Verdict: ${r.verdict}`,
+      ``,
+      `\u26A0\uFE0F Planning estimates based on ${DATA_DATE} Pakistan market data.`,
+      `NEPRA net billing (Dec 2025): export = PKR ${buybackRate}/unit \u2014 verify with your DISCO.`,
+      `10% GST on imported panels (Finance Act 2025) included in cost estimate.`,
+      ``,
+      `\uD83C\uDF10 rafiqy.app/tools/solar-planner`
+    ].join('\n')
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true)
       setTimeout(() => setCopied(false), 2500)
     })
   }
 
-  const card = {
-    background: '#1e293b',
-    borderRadius: '12px',
-    padding: '1.5rem',
-    border: '1px solid #334155',
-    marginBottom: '1rem',
-  }
-  const btn = {
-    background: ACCENT,
-    color: '#000',
-    border: 'none',
-    borderRadius: '8px',
-    padding: '0.75rem 2rem',
-    fontWeight: 700,
-    fontSize: '1rem',
-    cursor: 'pointer',
-    fontFamily: FONT,
-  }
-  const outlineBtn = {
-    ...btn,
-    background: 'transparent',
-    color: '#94a3b8',
-    border: '1px solid #334155',
-    marginRight: '0.75rem',
-  }
+  const card = { background: '#1e293b', borderRadius: '12px', padding: '1.5rem', border: '1px solid #334155', marginBottom: '0.75rem' }
+  const btn  = { background: ACCENT, color: '#000', border: 'none', borderRadius: '8px', padding: '0.75rem 2rem', fontWeight: 700, fontSize: '1rem', cursor: 'pointer', fontFamily: FONT }
+  const outlineBtn = { ...btn, background: 'transparent', color: '#94a3b8', border: '1px solid #334155' }
+  const numInput = { width: '5rem', padding: '0.3rem 0.5rem', borderRadius: '6px', border: '1px solid #475569', background: '#0f172a', color: '#f1f5f9', fontFamily: FONT, fontSize: '0.9rem', textAlign: 'right' }
 
   return (
     <ToolLayout toolId="solar-planner">
-      <div style={{ fontFamily: FONT, maxWidth: '700px', margin: '0 auto', padding: '1rem' }}>
+      <div style={{ fontFamily: FONT, maxWidth: '720px', margin: '0 auto', padding: '1rem' }}>
+
+        {/* Freshness badges */}
+        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.875rem', flexWrap: 'wrap' }}>
+          <span style={{ background: '#14532d20', border: '1px solid #14532d60', color: '#86efac', fontSize: '0.72rem', fontWeight: 600, borderRadius: '20px', padding: '0.2rem 0.7rem' }}>✅ Data: {DATA_DATE}</span>
+          <span style={{ background: '#7f1d1d20', border: '1px solid #7f1d1d60', color: '#fca5a5', fontSize: '0.72rem', fontWeight: 600, borderRadius: '20px', padding: '0.2rem 0.7rem' }}>⚠️ Net Billing policy (Dec 2025)</span>
+          <span style={{ background: '#1e3a5f20', border: '1px solid #1e3a5f60', color: '#7dd3fc', fontSize: '0.72rem', fontWeight: 600, borderRadius: '20px', padding: '0.2rem 0.7rem' }}>🇵🇰 Pakistan on-grid rates</span>
+        </div>
 
         {/* Step indicator */}
-        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.75rem', alignItems: 'center' }}>
-          {[1, 2, 3].map(s => (
+        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+          {[1,2,3].map(s => (
             <div key={s} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <div style={{
-                width: 32, height: 32, borderRadius: '50%',
-                background: step >= s ? ACCENT : '#334155',
-                color: step >= s ? '#000' : '#64748b',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontWeight: 700, fontSize: '0.875rem',
-              }}>{s}</div>
+              <div style={{ width: 30, height: 30, borderRadius: '50%', background: step >= s ? ACCENT : '#334155', color: step >= s ? '#000' : '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.85rem' }}>{s}</div>
               <span style={{ color: step >= s ? '#e2e8f0' : '#64748b', fontSize: '0.85rem', fontWeight: 500 }}>
-                {s === 1 ? 'Bill & Location' : s === 2 ? 'Appliances' : 'Results'}
+                {s === 1 ? 'Bill & Settings' : s === 2 ? 'Appliances' : 'Results'}
               </span>
-              {s < 3 && <span style={{ color: '#475569', margin: '0 0.25rem' }}>›</span>}
+              {s < 3 && <span style={{ color: '#475569', margin: '0 0.2rem' }}>›</span>}
             </div>
           ))}
         </div>
@@ -245,67 +242,102 @@ ${r.verdictIcon} Verdict: ${r.verdict}
         {/* ── STEP 1 ── */}
         {step === 1 && (
           <div>
-            <h2 style={{ color: '#f1f5f9', marginTop: 0, marginBottom: '1.25rem', fontSize: '1.25rem' }}>
-              ☀️ Tell us about your electricity usage
-            </h2>
-            <div style={card}>
-              <label style={{ color: '#94a3b8', fontSize: '0.85rem', display: 'block', marginBottom: '0.4rem' }}>
-                Monthly Electricity Bill (PKR)
-              </label>
-              <input
-                type="number"
-                value={bill}
-                onChange={e => setBill(e.target.value)}
-                placeholder="e.g. 15000"
-                min="0"
-                style={{
-                  width: '100%', padding: '0.75rem 1rem', fontSize: '1.1rem',
-                  borderRadius: '8px', border: '1px solid #475569',
-                  background: '#0f172a', color: '#f1f5f9', fontFamily: FONT,
-                  boxSizing: 'border-box', marginBottom: '1.25rem',
-                }}
-              />
+            <h2 style={{ color: '#f1f5f9', marginTop: 0, marginBottom: '1rem', fontSize: '1.2rem' }}>☀️ Bill, Location & Policy</h2>
 
-              <label style={{ color: '#94a3b8', fontSize: '0.85rem', display: 'block', marginBottom: '0.4rem' }}>
-                Your City
-              </label>
-              <select
-                value={cityIdx}
-                onChange={e => setCityIdx(Number(e.target.value))}
-                style={{
-                  width: '100%', padding: '0.75rem 1rem', fontSize: '1rem',
-                  borderRadius: '8px', border: '1px solid #475569',
-                  background: '#0f172a', color: '#f1f5f9', fontFamily: FONT,
-                  boxSizing: 'border-box', marginBottom: '1.25rem', cursor: 'pointer',
-                }}
-              >
-                {CITIES.map((c, i) => (
-                  <option key={c.name} value={i}>{c.name} ({c.sun} sun hrs/day)</option>
-                ))}
-              </select>
-
-              <label style={{ color: '#94a3b8', fontSize: '0.85rem', display: 'block', marginBottom: '0.4rem' }}>
-                Daily Load-shedding (hours)
-              </label>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                {[0, 2, 4, 6, 8, 10].map(h => (
-                  <button
-                    key={h}
-                    onClick={() => setLoadshed(h)}
-                    style={{
-                      padding: '0.5rem 1rem', borderRadius: '8px', cursor: 'pointer',
-                      border: loadshed === h ? `2px solid ${ACCENT}` : '1px solid #334155',
-                      background: loadshed === h ? '#451a03' : '#1e293b',
-                      color: loadshed === h ? ACCENT : '#94a3b8',
-                      fontWeight: 600, fontSize: '0.9rem',
-                    }}
-                  >{h === 0 ? '0 hrs' : `${h} hrs`}</button>
-                ))}
+            <div style={{ background: '#7f1d1d18', border: '1px solid #7f1d1d60', borderRadius: '10px', padding: '0.875rem 1rem', marginBottom: '0.625rem', display: 'flex', gap: '0.75rem' }}>
+              <span style={{ fontSize: '1.25rem', flexShrink: 0 }}>📢</span>
+              <div style={{ fontSize: '0.8rem', color: '#fca5a5', lineHeight: 1.6 }}>
+                <strong>NEPRA Policy (Dec 2025):</strong> Net metering replaced by <strong>net billing</strong>. Exported solar earns only <strong>PKR 11/unit</strong> (was PKR 25–27). Confirmed: NEPRA Prosumer Regulations.
+              </div>
+            </div>
+            <div style={{ background: '#1e3a5f18', border: '1px solid #1e3a5f60', borderRadius: '10px', padding: '0.75rem 1rem', marginBottom: '1rem', display: 'flex', gap: '0.75rem' }}>
+              <span style={{ fontSize: '1.1rem', flexShrink: 0 }}>🧾</span>
+              <div style={{ fontSize: '0.78rem', color: '#7dd3fc', lineHeight: 1.6 }}>
+                <strong>Budget FY2025-26:</strong> New <strong>10% GST on imported solar panels</strong> (was 0%, Finance Act 2025). May rise to 18%. Already included in our PKR 130–200/W estimate.
               </div>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
-              <button style={{ ...btn, opacity: billNum > 0 ? 1 : 0.4 }} onClick={goToStep2} disabled={billNum <= 0}>
+            <div style={card}>
+              <label style={{ color: '#94a3b8', fontSize: '0.82rem', display: 'block', marginBottom: '0.3rem' }}>Monthly Electricity Bill (PKR)</label>
+              <input
+                type="number" value={bill} onChange={e => setBill(e.target.value)}
+                placeholder="e.g. 15000" min="0"
+                style={{ width: '100%', padding: '0.7rem 1rem', fontSize: '1.05rem', borderRadius: '8px', border: '1px solid #475569', background: '#0f172a', color: '#f1f5f9', fontFamily: FONT, boxSizing: 'border-box', marginBottom: '0.5rem' }}
+              />
+              {billNum > 0 && (
+                <div style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '1rem' }}>
+                  ~{Math.round(billNum / importTariff)} units/month · effective ~PKR {importTariff}/unit
+                </div>
+              )}
+
+              <label style={{ color: '#94a3b8', fontSize: '0.82rem', display: 'block', marginBottom: '0.3rem' }}>City</label>
+              <select value={cityIdx} onChange={e => setCityIdx(Number(e.target.value))}
+                style={{ width: '100%', padding: '0.7rem 1rem', fontSize: '0.95rem', borderRadius: '8px', border: '1px solid #475569', background: '#0f172a', color: '#f1f5f9', fontFamily: FONT, boxSizing: 'border-box', marginBottom: '1rem', cursor: 'pointer' }}>
+                {CITIES.map((c, i) => <option key={c.name} value={i}>{c.name} — {c.sun} peak sun hrs/day</option>)}
+              </select>
+
+              <label style={{ color: '#94a3b8', fontSize: '0.82rem', display: 'block', marginBottom: '0.5rem' }}>Daily Load-shedding</label>
+              <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
+                {[0,2,4,6,8,10].map(h => (
+                  <button key={h} onClick={() => setLoadshed(h)} style={{ padding: '0.45rem 0.875rem', borderRadius: '8px', cursor: 'pointer', border: loadshed === h ? `2px solid ${ACCENT}` : '1px solid #334155', background: loadshed === h ? '#451a03' : '#1e293b', color: loadshed === h ? ACCENT : '#94a3b8', fontWeight: 600, fontSize: '0.85rem' }}>
+                    {h === 0 ? 'None' : `${h} hrs`}
+                  </button>
+                ))}
+              </div>
+
+              {/* Net Billing */}
+              <div style={{ borderTop: '1px solid #334155', paddingTop: '1rem' }}>
+                <div style={{ color: '#94a3b8', fontSize: '0.82rem', fontWeight: 600, marginBottom: '0.625rem' }}>🌐 Net Billing (NEPRA 2026)</div>
+                <div onClick={() => setNetBilling(v => !v)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', marginBottom: '0.75rem' }}>
+                  <Toggle on={netBilling} />
+                  <div>
+                    <div style={{ color: '#e2e8f0', fontSize: '0.85rem', fontWeight: 600 }}>{netBilling ? 'Net Billing enabled' : 'No grid export (off-grid / battery only)'}</div>
+                    <div style={{ color: '#64748b', fontSize: '0.75rem' }}>{netBilling ? 'Exported units credited at PKR 11/unit (NEPRA Dec 2025)' : 'All solar used on-site; nothing exported'}</div>
+                  </div>
+                </div>
+                {netBilling && (
+                  <>
+                    <label style={{ color: '#94a3b8', fontSize: '0.82rem', display: 'block', marginBottom: '0.3rem' }}>Self-consumption — % of your solar used at home vs exported</label>
+                    <input type="range" min="20" max="90" step="5" value={selfConsume}
+                      onChange={e => setSelfConsume(Number(e.target.value))}
+                      style={{ width: '100%', accentColor: ACCENT, marginBottom: '0.25rem' }} />
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem' }}>
+                      <span>20% (mostly away)</span>
+                      <span style={{ color: ACCENT, fontWeight: 700 }}>{selfConsume}% self-consumed</span>
+                      <span>90% (home all day)</span>
+                    </div>
+                    <div style={{ fontSize: '0.75rem', color: '#475569' }}>
+                      💡 AC users home in daytime → 70–80%. Office workers away 9–5 → 30–40%. Fridge+fans only → 40–50%.
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Advanced rates */}
+            <div style={{ marginBottom: '1rem' }}>
+              <button onClick={() => setShowAdv(v => !v)} style={{ ...outlineBtn, padding: '0.5rem 1rem', fontSize: '0.82rem', width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span>⚙️ Advanced: Adjust Rates & Costs</span>
+                <span style={{ fontSize: '0.7rem' }}>{showAdv ? '▲ Hide' : '▼ Show'}</span>
+              </button>
+              {showAdv && (
+                <div style={{ ...card, marginTop: '0.5rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.875rem' }}>
+                  <AdvField label="Import tariff (PKR/unit)" hint="Effective rate incl. GST + surcharges" value={importTariff} onChange={setImportTariff} numInput={numInput} />
+                  <AdvField label="Export/buyback rate (PKR/unit)" hint="NEPRA net billing: PKR 11/unit (Dec 2025)" value={buybackRate} onChange={setBuybackRate} numInput={numInput} />
+                  <AdvField label="Install cost low (PKR/W)" hint="Economy: Tier-1 panels + local inverter" value={costLoPW} onChange={setCostLoPW} numInput={numInput} />
+                  <AdvField label="Install cost high (PKR/W)" hint="Premium: N-type + Growatt/Solis inverter" value={costHiPW} onChange={setCostHiPW} numInput={numInput} />
+                  <div style={{ gridColumn: '1/-1' }}>
+                    <button onClick={() => { setImportTariff(DEFAULTS.importTariff); setBuybackRate(DEFAULTS.buybackRate); setCostLoPW(DEFAULTS.costLowPW); setCostHiPW(DEFAULTS.costHighPW) }}
+                      style={{ ...outlineBtn, padding: '0.4rem 0.875rem', fontSize: '0.78rem' }}>
+                      ↩ Reset to {DATA_DATE} defaults (PKR {DEFAULTS.costLowPW}–{DEFAULTS.costHighPW}/W)
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <button style={{ ...btn, opacity: billNum > 0 ? 1 : 0.4 }} onClick={() => billNum > 0 && setStep(2)} disabled={billNum <= 0}>
                 Next: Add Appliances →
               </button>
             </div>
@@ -315,71 +347,43 @@ ${r.verdictIcon} Verdict: ${r.verdict}
         {/* ── STEP 2 ── */}
         {step === 2 && (
           <div>
-            <h2 style={{ color: '#f1f5f9', marginTop: 0, marginBottom: '0.5rem', fontSize: '1.25rem' }}>
-              🔌 Select your main appliances
-            </h2>
-            <p style={{ color: '#64748b', fontSize: '0.85rem', marginBottom: '1.25rem', marginTop: 0 }}>
-              Toggle appliances you use. This improves accuracy over the bill-only estimate. Skip to use bill only.
+            <h2 style={{ color: '#f1f5f9', marginTop: 0, marginBottom: '0.4rem', fontSize: '1.2rem' }}>🔌 Select Your Appliances</h2>
+            <p style={{ color: '#64748b', fontSize: '0.82rem', marginBottom: '1rem', marginTop: 0 }}>
+              Toggle what you use daily — improves accuracy. Skip to use bill-only estimate.
             </p>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '0.625rem', marginBottom: '1.25rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '0.5rem', marginBottom: '1rem' }}>
               {appliances.map(a => {
                 const on = !!selected[a.id]
                 return (
-                  <div
-                    key={a.id}
-                    style={{
-                      background: on ? '#172554' : '#1e293b',
-                      border: `1px solid ${on ? '#3b82f6' : '#334155'}`,
-                      borderRadius: '10px', padding: '0.75rem 1rem',
-                      cursor: 'pointer', transition: 'all 0.15s',
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-                         onClick={() => toggleAppliance(a.id)}>
+                  <div key={a.id} style={{ background: on ? '#172554' : '#1e293b', border: `1px solid ${on ? '#3b82f6' : '#334155'}`, borderRadius: '10px', padding: '0.75rem 1rem', cursor: 'pointer' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} onClick={() => toggleAppliance(a.id)}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{ fontSize: '1.4rem' }}>{a.icon}</span>
+                        <span style={{ fontSize: '1.35rem' }}>{a.icon}</span>
                         <div>
-                          <div style={{ color: on ? '#e2e8f0' : '#94a3b8', fontWeight: 600, fontSize: '0.9rem' }}>{a.name}</div>
-                          <div style={{ color: '#64748b', fontSize: '0.75rem' }}>{a.watts}W</div>
+                          <div style={{ color: on ? '#e2e8f0' : '#94a3b8', fontWeight: 600, fontSize: '0.875rem' }}>{a.name}</div>
+                          <div style={{ color: '#64748b', fontSize: '0.72rem' }}>{a.watts}W</div>
                         </div>
                       </div>
-                      <div style={{
-                        width: 22, height: 22, borderRadius: '50%',
-                        background: on ? '#3b82f6' : '#334155',
-                        border: `2px solid ${on ? '#3b82f6' : '#475569'}`,
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        color: '#fff', fontSize: '0.75rem', flexShrink: 0,
-                      }}>{on ? '✓' : ''}</div>
+                      <div style={{ width: 20, height: 20, borderRadius: '50%', background: on ? '#3b82f6' : '#334155', border: `2px solid ${on ? '#3b82f6' : '#475569'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '0.7rem', flexShrink: 0 }}>{on ? '✓' : ''}</div>
                     </div>
-
                     {on && (
-                      <div style={{ marginTop: '0.625rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                      <div style={{ marginTop: '0.5rem', display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'flex-end' }}>
                         <div>
-                          <div style={{ color: '#64748b', fontSize: '0.7rem', marginBottom: '0.2rem' }}>Qty</div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                            <button onClick={() => changeQty(a.id, -1)} style={{ ...smallBtn }}>−</button>
-                            <span style={{ color: '#e2e8f0', minWidth: 20, textAlign: 'center', fontSize: '0.9rem', fontWeight: 600 }}>{a.qty}</span>
-                            <button onClick={() => changeQty(a.id, +1)} style={{ ...smallBtn }}>+</button>
+                          <div style={{ color: '#64748b', fontSize: '0.68rem', marginBottom: '0.2rem' }}>Qty</div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                            <button onClick={e => { e.stopPropagation(); changeQty(a.id, -1) }} style={smallBtn}>−</button>
+                            <span style={{ color: '#e2e8f0', minWidth: 18, textAlign: 'center', fontSize: '0.875rem', fontWeight: 600 }}>{a.qty}</span>
+                            <button onClick={e => { e.stopPropagation(); changeQty(a.id, +1) }} style={smallBtn}>+</button>
                           </div>
                         </div>
                         <div>
-                          <div style={{ color: '#64748b', fontSize: '0.7rem', marginBottom: '0.2rem' }}>Hours/day</div>
-                          <input
-                            type="number"
-                            value={a.hours}
-                            min="0.5" max="24" step="0.5"
+                          <div style={{ color: '#64748b', fontSize: '0.68rem', marginBottom: '0.2rem' }}>Hrs/day</div>
+                          <input type="number" value={a.hours} min="0.5" max="24" step="0.5"
                             onChange={e => changeHours(a.id, e.target.value)}
                             onClick={e => e.stopPropagation()}
-                            style={{
-                              width: '4rem', padding: '0.25rem 0.4rem',
-                              borderRadius: '6px', border: '1px solid #475569',
-                              background: '#0f172a', color: '#f1f5f9',
-                              fontFamily: FONT, fontSize: '0.85rem',
-                            }}
-                          />
+                            style={{ width: '3.5rem', padding: '0.2rem 0.35rem', borderRadius: '6px', border: '1px solid #475569', background: '#0f172a', color: '#f1f5f9', fontFamily: FONT, fontSize: '0.82rem' }} />
                         </div>
-                        <div style={{ alignSelf: 'flex-end', color: '#64748b', fontSize: '0.75rem' }}>
+                        <div style={{ color: '#64748b', fontSize: '0.72rem' }}>
                           {((a.watts * a.hours * a.qty) / 1000).toFixed(1)} kWh/day
                         </div>
                       </div>
@@ -388,8 +392,7 @@ ${r.verdictIcon} Verdict: ${r.verdict}
                 )
               })}
             </div>
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.5rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <button style={outlineBtn} onClick={() => setStep(1)}>← Back</button>
               <button style={btn} onClick={goToStep3}>Calculate Results →</button>
             </div>
@@ -399,93 +402,129 @@ ${r.verdictIcon} Verdict: ${r.verdict}
         {/* ── STEP 3: RESULTS ── */}
         {step === 3 && results && (
           <div>
-            <h2 style={{ color: '#f1f5f9', marginTop: 0, marginBottom: '1.25rem', fontSize: '1.25rem' }}>
-              📊 Your Solar Estimate
-            </h2>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <h2 style={{ color: '#f1f5f9', margin: 0, fontSize: '1.2rem' }}>📊 Your Solar Estimate</h2>
+              <span style={{ color: '#475569', fontSize: '0.72rem' }}>{DATA_DATE} market rates</span>
+            </div>
 
-            {/* Verdict badge */}
-            <div style={{
-              ...card,
-              border: `1px solid ${results.verdictColor}40`,
-              background: `${results.verdictColor}10`,
-              display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem',
-            }}>
-              <span style={{ fontSize: '2.5rem' }}>{results.verdictIcon}</span>
+            {/* Verdict */}
+            <div style={{ ...card, border: `1px solid ${results.verdictColor}40`, background: `${results.verdictColor}10`, display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <span style={{ fontSize: '2.25rem', flexShrink: 0 }}>{results.verdictIcon}</span>
               <div>
-                <div style={{ color: '#94a3b8', fontSize: '0.8rem', marginBottom: '0.2rem' }}>Is Solar Worth It?</div>
-                <div style={{ color: results.verdictColor, fontWeight: 700, fontSize: '1.25rem' }}>{results.verdict}</div>
-                <div style={{ color: '#64748b', fontSize: '0.8rem', marginTop: '0.25rem' }}>
-                  Based on PKR {fmt(billNum)}/month bill — {CITIES[cityIdx].name}
+                <div style={{ color: '#94a3b8', fontSize: '0.75rem', marginBottom: '0.15rem' }}>Is Solar Worth It? (2026 net billing)</div>
+                <div style={{ color: results.verdictColor, fontWeight: 700, fontSize: '1.2rem' }}>{results.verdict}</div>
+                <div style={{ color: '#64748b', fontSize: '0.77rem', marginTop: '0.2rem' }}>
+                  PKR {fmt(billNum)}/month · {CITIES[cityIdx].name} · {selfConsume}% self-consumption · {netBilling ? `export @PKR ${buybackRate}/unit` : 'no export'}
                 </div>
               </div>
             </div>
 
-            {/* Key metrics grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '0.75rem', marginBottom: '1rem' }}>
+            {/* 6 metric cards */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(185px, 1fr))', gap: '0.6rem', marginBottom: '0.75rem' }}>
               {[
-                { icon: '🔆', label: 'System Size',     value: `${results.sysKwLo}–${results.sysKwHi} kW`,     sub: 'Recommended on-grid' },
-                { icon: '💰', label: 'Installation Cost', value: `PKR ${fmt(results.costLo)}–${fmt(results.costHi)}`, sub: '2025 market estimate' },
-                { icon: '📉', label: 'Monthly Savings',  value: `~PKR ${fmt(results.monthlySavings)}`,           sub: `~${results.monthlyGen} kWh generated` },
-                { icon: '📆', label: 'Payback Period',   value: `~${results.paybackYrs} years`,                  sub: 'At current tariff' },
+                { icon: '🔆', label: 'System Size',    value: `${results.sysKwLo}–${results.sysKwHi} kW`,             sub: 'On-grid, Tier-1 panels' },
+                { icon: '💰', label: 'Install Cost',    value: `PKR ${fmt(results.costLo)}–${fmt(results.costHi)}`,     sub: `PKR ${costLoPW}–${costHiPW}/W · ${DATA_DATE}` },
+                { icon: '📉', label: 'Monthly Savings', value: `~PKR ${fmt(results.totalSavings)}`,                     sub: `${results.monthlyGen} kWh generated` },
+                { icon: '🧾', label: 'Post-Solar Bill', value: `~PKR ${fmt(results.postSolarBill)}`,                    sub: results.postSolarBill < 1000 ? '🎉 Near-zero bill!' : `Down from PKR ${fmt(billNum)}` },
+                { icon: '📆', label: 'Payback Period',  value: `~${results.paybackYrs} yrs`,                           sub: 'Net billing model (2026)' },
+                { icon: '💹', label: 'Annual Savings',  value: `PKR ${fmt(results.annualSavings)}`,                     sub: 'After payback: free energy' },
               ].map(m => (
                 <div key={m.label} style={{ ...card, marginBottom: 0 }}>
-                  <div style={{ fontSize: '1.5rem', marginBottom: '0.4rem' }}>{m.icon}</div>
-                  <div style={{ color: '#64748b', fontSize: '0.75rem', marginBottom: '0.2rem' }}>{m.label}</div>
-                  <div style={{ color: '#f1f5f9', fontWeight: 700, fontSize: '1.05rem', marginBottom: '0.2rem' }}>{m.value}</div>
-                  <div style={{ color: '#475569', fontSize: '0.75rem' }}>{m.sub}</div>
+                  <div style={{ fontSize: '1.35rem', marginBottom: '0.35rem' }}>{m.icon}</div>
+                  <div style={{ color: '#64748b', fontSize: '0.72rem', marginBottom: '0.15rem' }}>{m.label}</div>
+                  <div style={{ color: '#f1f5f9', fontWeight: 700, fontSize: '0.95rem', marginBottom: '0.15rem' }}>{m.value}</div>
+                  <div style={{ color: '#475569', fontSize: '0.7rem', lineHeight: 1.4 }}>{m.sub}</div>
                 </div>
               ))}
             </div>
 
-            {/* Battery recommendation */}
-            <div style={{
-              ...card,
-              border: `1px solid ${results.needsBattery ? '#fbbf2440' : '#33415580'}`,
-              background: results.needsBattery ? '#451a0310' : '#1e293b',
-              display: 'flex', gap: '0.875rem', alignItems: 'flex-start',
-            }}>
-              <span style={{ fontSize: '1.75rem', marginTop: '0.1rem' }}>🔋</span>
-              <div>
-                <div style={{ color: '#e2e8f0', fontWeight: 600, marginBottom: '0.3rem' }}>
-                  Battery Storage — {results.needsBattery ? 'Recommended' : 'Optional'}
+            {/* Savings breakdown */}
+            <div style={{ ...card, background: '#0c1a2e', border: '1px solid #1e3a5f' }}>
+              <div style={{ color: '#7dd3fc', fontWeight: 600, fontSize: '0.875rem', marginBottom: '0.75rem' }}>📋 Monthly Savings Breakdown (2026 Net Billing)</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <Row label={`🏠 Self-consumed (${selfConsume}%)`} detail={`${results.selfConsumedKwh} kWh × PKR ${importTariff}/unit`} value={`PKR ${fmt(results.selfSavings)}`} color="#86efac" />
+                {netBilling && (
+                  <Row label={`📤 Exported (${100-selfConsume}%)`} detail={`${results.exportedKwh} kWh × PKR ${buybackRate}/unit`} value={`PKR ${fmt(results.exportRevenue)}`} color="#7dd3fc" />
+                )}
+                <div style={{ borderTop: '1px solid #1e3a5f', paddingTop: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ color: '#94a3b8', fontSize: '0.82rem', fontWeight: 600 }}>Total Monthly Savings</span>
+                  <span style={{ color: ACCENT, fontWeight: 700, fontSize: '1rem' }}>PKR {fmt(results.totalSavings)}</span>
                 </div>
-                {results.needsBattery
-                  ? <p style={{ color: '#94a3b8', fontSize: '0.85rem', margin: 0 }}>
-                      With {loadshed}+ hrs of load-shedding or high bill, a 5–10 kWh lithium battery (PKR 1.5–4 lakh extra)
-                      will give you backup power and maximise savings. Discuss with your installer.
-                    </p>
-                  : <p style={{ color: '#64748b', fontSize: '0.85rem', margin: 0 }}>
-                      Your usage pattern is grid-friendly. A battery adds cost but can be added later if load-shedding increases.
-                    </p>
-                }
+              </div>
+              <div style={{ marginTop: '0.75rem', fontSize: '0.75rem', color: '#475569', background: '#0f172a', borderRadius: '6px', padding: '0.5rem 0.75rem' }}>
+                💡 Under old net metering (pre-2025), your export would earn ~PKR 27/unit → estimated old savings: PKR {fmt(results.exportedKwh * 27 + results.selfSavings)}. Now only PKR {fmt(results.totalSavings)}. Self-consumption is your best strategy.
               </div>
             </div>
 
-            {/* Daily usage note */}
-            <div style={{ ...card, background: '#0f172a', border: '1px solid #1e293b', marginTop: '0.75rem' }}>
-              <div style={{ color: '#64748b', fontSize: '0.8rem' }}>
-                📐 <strong style={{ color: '#94a3b8' }}>How we calculated:</strong> Your estimated {results.dailyKwh} kWh/day need,
-                divided by {CITIES[cityIdx].sun} peak sun hours ({CITIES[cityIdx].name}) × 0.80 efficiency = {results.sysKw} kW system.
-                Installation at PKR {COST_LOW_PW}–{COST_HIGH_PW}/W (2025 Pakistan avg).
+            {/* Right-sizing tip */}
+            {results.exportedKwh > results.selfConsumedKwh && (
+              <div style={{ background: '#451a0318', border: '1px solid #451a0340', borderRadius: '10px', padding: '0.875rem 1rem', marginBottom: '0.75rem' }}>
+                <div style={{ color: '#fbbf24', fontWeight: 600, fontSize: '0.875rem', marginBottom: '0.3rem' }}>⚡ Right-sizing Tip</div>
+                <p style={{ color: '#92400e', fontSize: '0.8rem', margin: 0, lineHeight: 1.6 }}>
+                  At {selfConsume}% self-consumption, {100-selfConsume}% exports at only PKR {buybackRate}/unit. Consider a smaller {Math.max(1, results.sysKw - 1)} kW system for better ROI, or add a battery to increase self-consumption.
+                </p>
+              </div>
+            )}
+
+            {/* Battery card */}
+            <div style={{ ...card, border: `1px solid ${results.needsBattery ? '#fbbf2440' : '#33415560'}`, background: results.needsBattery ? '#451a0318' : '#1e293b' }}>
+              <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                <span style={{ fontSize: '1.6rem', flexShrink: 0 }}>🔋</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.4rem', alignItems: 'center' }}>
+                    <div style={{ color: '#e2e8f0', fontWeight: 600, fontSize: '0.9rem' }}>Battery Storage — {results.needsBattery ? '⚠️ Recommended' : 'Optional'}</div>
+                    <span style={{ color: '#fbbf24', fontSize: '0.78rem', fontWeight: 700, background: '#451a0330', borderRadius: '6px', padding: '0.1rem 0.4rem' }}>PKR {fmt(BATT_LO)}–{fmt(BATT_HI)} (5–6 kWh)</span>
+                  </div>
+                  <p style={{ color: '#94a3b8', fontSize: '0.8rem', margin: '0.35rem 0 0.6rem', lineHeight: 1.6 }}>
+                    {results.needsBattery
+                      ? `${loadshed} hrs load-shedding: on-grid inverter = no power during outages. Battery keeps fans, lights & router running. Also converts export (PKR ${buybackRate}/unit) into self-use (PKR ${importTariff}/unit) — faster payback.`
+                      : `Minimal load-shedding. Battery optional — increases self-consumption and adds backup. Can be retrofitted later.`}
+                  </p>
+                  <div style={{ borderTop: '1px solid #334155', paddingTop: '0.5rem' }}>
+                    <div style={{ color: '#64748b', fontSize: '0.72rem', marginBottom: '0.4rem', fontWeight: 600 }}>April 2026 market prices (LiFePO₄, verified — down 15–18% from 2025):</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                      {BATTERIES.map(b => (
+                        <div key={b.brand} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                            <span style={{ color: '#e2e8f0', fontSize: '0.82rem', fontWeight: 600 }}>{b.brand}</span>
+                            <span style={{ color: '#64748b', fontSize: '0.72rem' }}>{b.cap}</span>
+                            {b.flag && <span style={{ background: '#14532d30', color: '#86efac', fontSize: '0.65rem', borderRadius: '4px', padding: '0.1rem 0.3rem' }}>{b.flag}</span>}
+                          </div>
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                            <span style={{ color: '#fbbf24', fontSize: '0.78rem', fontWeight: 700 }}>PKR {fmt(b.lo)}–{fmt(b.hi)}</span>
+                            <span style={{ color: '#475569', fontSize: '0.65rem' }}>{b.note}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Calc transparency */}
+            <div style={{ ...card, background: '#0f172a', border: '1px solid #1e293b' }}>
+              <div style={{ color: '#64748b', fontSize: '0.78rem', lineHeight: 1.8 }}>
+                📐 <strong style={{ color: '#94a3b8' }}>How we calculated:</strong><br />
+                Load: {results.dailyKwh} kWh/day ÷ {CITIES[cityIdx].sun} sun hrs ÷ 0.80 = <strong style={{ color: '#e2e8f0' }}>{results.sysKw} kW</strong><br />
+                Generation: {results.sysKw} kW × {CITIES[cityIdx].sun} hrs × 30 × 0.80 = <strong style={{ color: '#e2e8f0' }}>{results.monthlyGen} kWh/month</strong><br />
+                Self-consumed: {results.selfConsumedKwh} kWh × PKR {importTariff} = PKR {fmt(results.selfSavings)}<br />
+                {netBilling ? `Exported: ${results.exportedKwh} kWh × PKR ${buybackRate} = PKR ${fmt(results.exportRevenue)}` : 'No export (net billing off)'}<br />
+                Install: {results.sysKw} kW × 1000 × PKR {costLoPW}–{costHiPW}/W = PKR {fmt(results.costLo)}–{fmt(results.costHi)}
               </div>
             </div>
 
             {/* Disclaimer */}
-            <div style={{ background: '#451a0318', border: '1px solid #451a0340', borderRadius: '8px', padding: '0.875rem 1rem', marginTop: '0.75rem' }}>
-              <p style={{ color: '#92400e', fontSize: '0.8rem', margin: 0, lineHeight: 1.6 }}>
-                ⚠️ <strong>Disclaimer:</strong> These are rough planning estimates based on average Pakistan market data (2025).
-                Actual system sizes, costs, and savings depend on your installer, roof type, shading, panel brand, and electricity tariff.
-                Always get 2–3 quotes before deciding.
+            <div style={{ background: '#451a0318', border: '1px solid #451a0340', borderRadius: '8px', padding: '0.75rem 1rem' }}>
+              <p style={{ color: '#92400e', fontSize: '0.75rem', margin: 0, lineHeight: 1.6 }}>
+                ⚠️ Planning estimates based on verified Pakistan market data ({DATA_DATE}). NEPRA net billing export rate (PKR {buybackRate}/unit) set Dec 2025 — verify with your DISCO. 10% GST on imported panels (Finance Act 2025). Get 2–3 installer quotes before investing.
               </p>
             </div>
 
             {/* Actions */}
-            <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1.25rem', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1rem', flexWrap: 'wrap' }}>
               <button style={outlineBtn} onClick={() => { setStep(1); setResults(null) }}>← Start Over</button>
-              <button
-                style={{ ...btn, background: copied ? '#22c55e' : ACCENT }}
-                onClick={copyText}
-              >
+              <button style={{ ...btn, background: copied ? '#22c55e' : ACCENT }} onClick={copyText}>
                 {copied ? '✓ Copied!' : '📋 Copy Estimate'}
               </button>
             </div>
@@ -496,11 +535,34 @@ ${r.verdictIcon} Verdict: ${r.verdict}
   )
 }
 
-// small +/- button style
-const smallBtn = {
-  width: 24, height: 24, borderRadius: '4px',
-  background: '#334155', border: 'none', color: '#e2e8f0',
-  cursor: 'pointer', fontSize: '0.9rem', display: 'flex',
-  alignItems: 'center', justifyContent: 'center', fontWeight: 700,
-  padding: 0,
+function Toggle({ on }) {
+  return (
+    <div style={{ width: 36, height: 20, borderRadius: '10px', background: on ? '#22c55e' : '#334155', position: 'relative', transition: 'background 0.2s', flexShrink: 0 }}>
+      <div style={{ width: 16, height: 16, borderRadius: '50%', background: '#fff', position: 'absolute', top: 2, left: on ? 18 : 2, transition: 'left 0.2s' }} />
+    </div>
+  )
 }
+
+function Row({ label, detail, value, color }) {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem' }}>
+      <div>
+        <div style={{ color: '#94a3b8', fontSize: '0.82rem' }}>{label}</div>
+        <div style={{ color: '#475569', fontSize: '0.72rem' }}>{detail}</div>
+      </div>
+      <span style={{ color, fontWeight: 700, fontSize: '0.875rem', flexShrink: 0 }}>{value}</span>
+    </div>
+  )
+}
+
+function AdvField({ label, hint, value, onChange, numInput }) {
+  return (
+    <div>
+      <label style={{ color: '#94a3b8', fontSize: '0.75rem', display: 'block', marginBottom: '0.25rem' }}>{label}</label>
+      <input type="number" value={value} onChange={e => onChange(Number(e.target.value))} min="0" style={numInput} />
+      <div style={{ color: '#475569', fontSize: '0.68rem', marginTop: '0.2rem' }}>{hint}</div>
+    </div>
+  )
+}
+
+const smallBtn = { width: 22, height: 22, borderRadius: '4px', background: '#334155', border: 'none', color: '#e2e8f0', cursor: 'pointer', fontSize: '0.9rem', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, padding: 0 }

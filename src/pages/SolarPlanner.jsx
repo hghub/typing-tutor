@@ -84,6 +84,24 @@ const BATT_HI = Math.max(...BATTERIES.map(b => b.hi))  // 380,000
 function fmt(n)    { return Math.round(n).toLocaleString('en-PK') }
 function fmtDec(n) { return n.toFixed(1) }
 
+// Payback with 0.6%/year panel degradation (IEC 61215 standard).
+// Year 1 saves annualSavings, each subsequent year output drops 0.6%.
+// Returns fractional years to break-even (capped at 30).
+function calcPayback(cost, annualSavingsYr1) {
+  if (annualSavingsYr1 <= 0) return 0
+  let cumulative = 0
+  let yearSavings = annualSavingsYr1
+  for (let yr = 1; yr <= 30; yr++) {
+    cumulative += yearSavings
+    if (cumulative >= cost) {
+      const overshoot = cumulative - cost
+      return yr - overshoot / yearSavings   // fractional year interpolation
+    }
+    yearSavings *= 0.994  // 0.6% annual degradation
+  }
+  return 30
+}
+
 // Slab-range estimate of blended effective tariff when user hasn't entered actual units.
 // Based on NEPRA FY2025-26 non-protected residential slab rates (effective July 2025):
 //   0-100: Rs 22.44 | 101-200: Rs 28.91 | 201-300: Rs 33.10 | 301-400: Rs 37.99
@@ -160,10 +178,10 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
   const nbFeeAvg   = (NB_FEE_LO + NB_FEE_HI) / 2
   const nbFee      = netBilling ? nbFeeAvg : 0
   const avgCost    = avgInstall + nbFee
-  const paybackYrs = annualSavings > 0 ? avgCost / annualSavings : 0
+  const paybackYrs = calcPayback(avgCost, annualSavings)
 
   // ── Battery ───────────────────────────────────────────────────────────────
-  const needsBattery = loadshed >= 4 || bill >= 25000
+  const needsBattery = loadshed >= 3 || bill >= 25000
 
   // ── Verdict — based on payback period ─────────────────────────────────────
   let verdict, verdictColor, verdictIcon
@@ -222,7 +240,7 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
   const altCostLo       = Math.max(1, altSysKw - 0.5) * 1000 * costLoPW
   const altCostHi       = (altSysKw + 0.5) * 1000 * costHiPW
   const altAvgCost      = altSysKw * 1000 * (costLoPW + costHiPW) / 2
-  const altPaybackNum   = altAnnualSave > 0 ? altAvgCost / altAnnualSave : 0
+  const altPaybackNum   = calcPayback(altAvgCost, altAnnualSave)
   const altPaybackFmt   = altPaybackNum > 0 ? fmtDec(altPaybackNum) : '—'
   // 10-year net return (total savings minus upfront cost)
   const tenYrFull  = Math.round(annualSavings * 10 - avgCost)
@@ -428,7 +446,7 @@ export default function SolarPlanner() {
       { label: 'Install Cost',    value: `PKR ${fmt(r.costLo)}-${fmt(r.costHi)}`,     sub: 'Economy-Premium (battery separate)' },
       { label: 'Monthly Savings', value: `~PKR ${fmt(r.billOffset)}`,               sub: `Guaranteed bill reduction (conservative)` },
       { label: 'Post-Solar Bill', value: `~PKR ${fmt(r.postSolarBill)}`,              sub: r.postSolarBill < 1000 ? `Bill reduced ~${r.billReductionPct}% (fixed charges still apply)` : `Down from PKR ${fmt(billNum)}` },
-      { label: 'Payback Period',  value: `~${r.paybackYrs} years`,                   sub: 'Net billing model · realistic +1–2 yrs degradation' },
+      { label: 'Payback Period',  value: `~${r.paybackYrs} years`,                   sub: 'Includes 0.6%/yr panel degradation (IEC standard)' },
       { label: 'Annual Savings',  value: `PKR ${fmt(r.annualSavings)}`,              sub: 'After payback: free energy' },
     ]
     metrics.forEach((m, i) => {
@@ -518,7 +536,7 @@ export default function SolarPlanner() {
 
     // ── DISCLAIMER ──────────────────────────────────────────────────────
     const dY = Math.max(y + 2, 267)
-    const disc = `Disclaimer: Planning estimates only — based on verified Pakistan market data (${DATA_DATE}). NEPRA net billing export rate ~PKR 10-15/unit (policy-dependent, default ${buybackRate}/unit as of Dec 2025) — verify current rate with your DISCO before proceeding. 10% GST on imported panels (Finance Act 2025) included. Payback shown assumes stable conditions; realistic range adds 1-2 years for panel degradation and mid-life inverter replacement. Get 2-3 installer quotes before investing. These are estimates, not a guarantee of savings.`
+    const disc = `Disclaimer: Planning estimates only — based on verified Pakistan market data (${DATA_DATE}). NEPRA net billing export rate ~PKR 10-15/unit (policy-dependent, default ${buybackRate}/unit as of Dec 2025) — verify current rate with your DISCO before proceeding. 10% GST on imported panels (Finance Act 2025) included. Payback already includes 0.6%/yr panel degradation (IEC 61215); add ~1 year for mid-life inverter replacement. Get 2-3 installer quotes before investing. These are estimates, not a guarantee of savings.`
     const dLines = doc.splitTextToSize(disc, CW - 4)
     box(M, dY - 2, CW, dLines.length * 3.6 + 6, [255, 251, 235], [253, 230, 138])
     doc.setFontSize(6.5); doc.setFont('helvetica', 'normal'); tc(120, 80, 15)
@@ -840,7 +858,7 @@ export default function SolarPlanner() {
                 { icon: '💰', label: 'Install Cost',    value: `PKR ${fmt(results.costLo)}–${fmt(results.costHi)}`,     sub: `Panels + inverter + labor (battery separate) · ${netBilling ? `+PKR ${fmt(NB_FEE_LO)}–${fmt(NB_FEE_HI)} NB fee` : 'No NB fee'}` },
                 { icon: '📉', label: 'Monthly Savings', value: `~PKR ${fmt(results.totalSavings)}`,                     sub: `Guaranteed bill reduction · ${results.monthlyGen} kWh generated` },
                 { icon: '🧾', label: 'Post-Solar Bill', value: `~PKR ${fmt(results.postSolarBill)}`,                    sub: results.postSolarBill < 1000 ? `Bill down ~${results.billReductionPct}% · Fixed charges ~PKR 500–1,200 still apply` : `Down from PKR ${fmt(billNum)}` },
-                { icon: '📆', label: 'Payback Period',  value: `~${results.paybackYrs} yrs`,                           sub: 'Net billing model (2026) · add 1–2 yrs for real-world degradation' },
+                { icon: '📆', label: 'Payback Period',  value: `~${results.paybackYrs} yrs`,                           sub: 'Includes 0.6%/yr panel degradation · add ~1 yr for inverter replacement' },
                 { icon: '💹', label: 'Annual Savings',  value: `PKR ${fmt(results.annualSavings)}`,                     sub: 'After payback: free energy' },
               ].map(m => (
                 <div key={m.label} style={{ ...card, marginBottom: 0 }}>

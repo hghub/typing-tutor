@@ -1,7 +1,7 @@
 {
-  "name": "Typely",
-  "short_name": "Typely",
-  "description": "Your smart typing system. Personalized drills, weak-key detection, Urdu & English practice.",
+  "name": "Rafiqy",
+  "short_name": "Rafiqy",
+  "description": "Privacy-first browser tools for typing, PDFs, Pakistan planning, writing and daily digital work.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0f172a",
@@ -14,7 +14,7 @@
       "src": "/og-image.png",
       "sizes": "1200x630",
       "type": "image/png",
-      "label": "Typely home screen"
+      "label": "Rafiqy home screen"
     }
   ],
   "icons": [

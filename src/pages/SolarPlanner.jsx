@@ -572,10 +572,10 @@ export default function SolarPlanner() {
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
           }}>
-            ☀️ Solar Planner
+            ☀️ Pakistan Solar Calculator
           </h1>
           <p style={{ margin: 0, fontSize: '0.95rem', color: '#94a3b8', lineHeight: 1.5 }}>
-            Estimate solar system size &amp; savings for Pakistan homes — based on April 2026 market rates
+            Estimate solar system size, cost, savings and payback for Pakistan homes — based on April 2026 market rates
           </p>
         </div>
 

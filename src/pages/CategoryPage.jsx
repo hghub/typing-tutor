@@ -49,11 +49,11 @@ const CATEGORY_DATA = {
     categories: ['writing'],
   },
   'image-tools': {
-    title: 'Free Image Tools Online',
-    metaTitle: 'Free Image Tools Online — Compress, Convert & Edit | Rafiqy',
-    metaDesc: 'Compress, convert, rotate and watermark images online. Browser-based — your images never leave your device. Free, no sign-up.',
-    intro: 'Rafiqy\'s image tools run entirely in your browser using WebAssembly and the Canvas API — your images are never uploaded to any server. Compress JPG and PNG files to reduce size, convert between image formats (JPG/PNG/WebP), rotate and flip images, add text watermarks, and resize images to exact dimensions. All operations happen locally on your device, making it the most private image tool available.',
-    categories: ['media'],
+    title: 'Free Image, OCR & Visual Document Tools',
+    metaTitle: 'Free Image, OCR & Visual Document Tools | Rafiqy',
+    metaDesc: 'Edit images, extract text, convert visual files and prepare documents privately in your browser. Free, no sign-up, no uploads.',
+    intro: 'Rafiqy\'s visual document tools help you prepare images and scanned files without sending them anywhere. Clean up images, extract text from screenshots, convert document formats, and prepare files for sharing or archiving directly in your browser.',
+    toolIds: ['image-suite', 'text-extractor', 'doc-converter', 'pdf-convert', 'doc-redaction'],
   },
   'security-tools': {
     title: 'Free Security & Privacy Tools Online',
@@ -69,7 +69,10 @@ export default function CategoryPage({ category }) {
   const data = CATEGORY_DATA[category]
   if (!data) return null
 
-  const tools = TOOLS.filter(t => data.categories.includes(t.category))
+  const categoryIds = data.categories || []
+  const tools = data.toolIds?.length
+    ? TOOLS.filter(t => data.toolIds.includes(t.id))
+    : TOOLS.filter(t => categoryIds.includes(t.category))
 
   return (
     <div style={{ background: colors.bg, minHeight: '100vh', color: colors.text, fontFamily: 'sans-serif' }}>
@@ -80,6 +83,10 @@ export default function CategoryPage({ category }) {
         <meta property="og:title" content={data.metaTitle} />
         <meta property="og:description" content={data.metaDesc} />
         <meta property="og:url" content={`https://rafiqy.app/category/${category}`} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={data.metaTitle} />
+        <meta name="twitter:description" content={data.metaDesc} />
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
@@ -137,7 +144,7 @@ export default function CategoryPage({ category }) {
 
         {/* Related Blog Posts */}
         {(() => {
-          const related = BLOG_POSTS.filter(p => data.categories.includes(p.category?.toLowerCase())).slice(0, 3)
+          const related = BLOG_POSTS.filter(p => categoryIds.includes(p.category?.toLowerCase())).slice(0, 3)
           if (!related.length) return null
           return (
             <div style={{ marginTop: '3rem' }}>

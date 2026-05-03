@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import ToolsNav from '../components/ToolsNav'
 import { useTheme } from '../hooks/useTheme'
 
@@ -70,6 +71,18 @@ export default function Help() {
 
   return (
     <div style={{ background: colors.bg, minHeight: '100vh', color: colors.text, fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+      <Helmet>
+        <title>Help & FAQ | Rafiqy</title>
+        <meta name="description" content="Get help with Rafiqy tools, browser storage, cloud sync, Urdu support, Pakistan-specific tools and common questions about how the site works." />
+        <link rel="canonical" href="https://rafiqy.app/help" />
+        <meta property="og:title" content="Help & FAQ | Rafiqy" />
+        <meta property="og:description" content="Get help with Rafiqy tools, browser storage, cloud sync, Urdu support and Pakistan-specific features." />
+        <meta property="og:url" content="https://rafiqy.app/help" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Help & FAQ | Rafiqy" />
+        <meta name="twitter:description" content="Get help with Rafiqy tools, browser storage, cloud sync, Urdu support and Pakistan-specific features." />
+      </Helmet>
       <ToolsNav />
 
       <main style={{ maxWidth: '820px', margin: '0 auto', padding: '3rem 1.25rem 4rem' }}>
@@ -187,6 +200,8 @@ export default function Help() {
         <Link to="/tools" style={{ color: 'inherit', textDecoration: 'underline' }}>All Tools</Link>
         {' '}&nbsp;·&nbsp;{' '}
         <Link to="/about" style={{ color: 'inherit', textDecoration: 'underline' }}>About</Link>
+        {' '}&nbsp;·&nbsp;{' '}
+        <Link to="/privacy" style={{ color: 'inherit', textDecoration: 'underline' }}>Privacy</Link>
       </footer>
     </div>
   )

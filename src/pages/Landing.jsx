@@ -6,18 +6,18 @@ import ToolsNav from '../components/ToolsNav'
 import ShareBar from '../components/ShareBar'
 
 const FEATURED_IDS = [
-  'typing-tutor', 'loan-emi', 'tax-calculator',
+  'typing-tutor', 'solar-planner', 'tax-calculator',
   'compress-pdf', 'word-counter', 'expense-analyzer',
-  'data-leak-detector', 'drug-checker',
+  'data-leak-detector', 'urdu-keyboard',
 ]
 
 const QUICK_ACTIONS = [
   { label: '⌨ Typing Tutor', path: '/tools/typing-tutor', desc: 'Typing tutor' },
-  { label: '⏱ Pomodoro', path: '/tools/pomodoro', desc: 'Focus timer' },
-  { label: '🌍 World Time', path: '/tools/world-time', desc: 'Time zones' },
+  { label: '🌍 Urdu Keyboard', path: '/tools/urdu-keyboard', desc: 'Type Urdu online' },
+  { label: '☀️ Solar Planner', path: '/tools/solar-planner', desc: 'Solar estimate' },
   { label: '📄 Compress PDF', path: '/tools/compress-pdf', desc: 'Shrink files' },
-  { label: '💰 EMI Calc', path: '/tools/loan-emi', desc: 'Loan calculator' },
-  { label: '🧮 Tax Calc', path: '/tools/tax-calculator', desc: 'FBR 2025-26' },
+  { label: '🧮 Tax Calculator', path: '/tools/tax-calculator', desc: 'FBR 2025-26' },
+  { label: '📊 Word Counter', path: '/tools/word-counter', desc: 'Count words' },
 ]
 
 const WHAT_YOU_CAN_DO = [
@@ -72,20 +72,22 @@ export default function Landing() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-bg)', color: 'var(--color-text)', fontFamily: 'sans-serif' }}>
       <Helmet>
-        <title>Rafiqy – A Simple Digital Companion for Everyday Tasks</title>
-        <meta name="description" content="Fast, free, and secure online tools for everyday tasks — typing, PDFs, finance, timers, productivity and more. All in one simple digital toolbox. No sign-up." />
+        <title>Rafiqy | Free Browser Tools for Typing, Pakistan Tax, Solar, PDF & More</title>
+        <meta name="description" content="Free browser-based tools for Urdu typing, Pakistan income tax, solar planning, PDFs, writing, productivity and everyday digital work. No sign-up. Privacy-first." />
         <link rel="canonical" href="https://rafiqy.app/" />
-        <meta property="og:title" content="Rafiqy – A Simple Digital Companion for Everyday Tasks" />
-        <meta property="og:description" content="Fast, free, and secure online tools for everyday tasks — typing, PDFs, finance, timers, productivity and more. All in one simple digital toolbox. No sign-up." />
+        <meta property="og:title" content="Rafiqy | Free Browser Tools for Typing, Pakistan Tax, Solar, PDF & More" />
+        <meta property="og:description" content="Free browser-based tools for Urdu typing, Pakistan income tax, solar planning, PDFs, writing, productivity and everyday digital work." />
         <meta property="og:url" content="https://rafiqy.app/" />
         <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Rafiqy | Free Browser Tools for Typing, Pakistan Tax, Solar, PDF & More" />
+        <meta name="twitter:description" content="Free browser-based tools for Urdu typing, Pakistan income tax, solar planning, PDFs, writing, productivity and everyday digital work." />
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'WebSite',
           'name': 'Rafiqy',
           'url': 'https://rafiqy.app',
-          'description': 'A simple digital companion for everyday tasks — 63 free browser-based tools for productivity, finance, PDF, typing, and more.',
-          'potentialAction': { '@type': 'SearchAction', 'target': 'https://rafiqy.app/tools?q={search_term_string}', 'query-input': 'required name=search_term_string' }
+          'description': 'Free browser-based tools for typing, Urdu input, Pakistan tax planning, solar estimates, PDFs, writing, productivity and everyday digital work.'
         })}</script>
       </Helmet>
 
@@ -108,11 +110,19 @@ export default function Landing() {
           A simple digital companion for everyday tasks.
         </p>
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link to="/tools" style={{ background: 'var(--color-primary)', color: '#0f172a', padding: '0.8rem 2.25rem', borderRadius: 8, textDecoration: 'none', fontWeight: 700, fontSize: '1rem' }}>
-            Open Tools →
-          </Link>
-          <Link to="/tools/typing-tutor" style={{ background: 'transparent', border: '1px solid var(--color-border)', color: 'var(--color-text)', padding: '0.8rem 2rem', borderRadius: 8, textDecoration: 'none', fontWeight: 600, fontSize: '1rem' }}>
-            ⌨ Try Typing Tutor
+          <Link to="/tools" style={{
+            background: 'linear-gradient(135deg, #06b6d4, #3b82f6)',
+            color: '#ffffff',
+            padding: '0.95rem 2.5rem',
+            borderRadius: 12,
+            textDecoration: 'none',
+            fontWeight: 800,
+            fontSize: '1rem',
+            boxShadow: '0 14px 32px rgba(6,182,212,0.28)',
+            border: '1px solid rgba(125,211,252,0.35)',
+            letterSpacing: '0.01em',
+          }}>
+            Explore All Tools →
           </Link>
         </div>
       </section>
@@ -120,13 +130,13 @@ export default function Landing() {
       {/* SEO Intro */}
       <section style={{ maxWidth: 800, margin: '0 auto', padding: '0 2rem 2rem', textAlign: 'center' }}>
         <p style={{ color: 'var(--color-text-muted)', fontSize: '0.92rem', lineHeight: 1.8 }}>
-          Rafiqy is a modern digital toolbox designed to help you complete everyday tasks faster. Whether you're a student, professional, developer or freelancer — there's a tool for your daily digital needs. Every tool runs entirely in your browser, so your files and data never leave your device.
+          Rafiqy is a browser-based toolbox for everyday digital work. Whether you need an <Link to="/tools/urdu-keyboard" style={{ color: 'var(--color-primary)' }}>Urdu keyboard online</Link>, a <Link to="/tools/tax-calculator" style={{ color: 'var(--color-primary)' }}>Pakistan income tax calculator</Link>, a <Link to="/tools/solar-planner" style={{ color: 'var(--color-primary)' }}>solar planning estimate</Link>, or a private <Link to="/tools/compress-pdf" style={{ color: 'var(--color-primary)' }}>PDF tool</Link>, the work happens directly in your browser.
         </p>
         <p style={{ color: 'var(--color-text-muted)', fontSize: '0.92rem', lineHeight: 1.8, marginTop: '0.75rem' }}>
           From{' '}
           <Link to="/tools/typing-tutor" style={{ color: 'var(--color-primary)' }}>improving your typing speed</Link>,{' '}
           <Link to="/tools/compress-pdf" style={{ color: 'var(--color-primary)' }}>compressing a PDF</Link>,{' '}
-          <Link to="/tools/loan-emi" style={{ color: 'var(--color-primary)' }}>calculating your loan EMI</Link>, or{' '}
+          <Link to="/tools/solar-planner" style={{ color: 'var(--color-primary)' }}>estimating a home solar system</Link>, or{' '}
           <Link to="/tools/word-counter" style={{ color: 'var(--color-primary)', marginLeft: 4 }}>counting words</Link>{' '}
           — Rafiqy has a tool for it. All free, all instant, all private.
         </p>

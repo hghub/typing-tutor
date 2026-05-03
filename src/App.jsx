@@ -34,6 +34,7 @@ import InstallBanner from './components/InstallBanner'
 import EmojiPopup from './components/EmojiPopup'
 import ToolSEOFooter from './components/ToolSEOFooter'
 import { BLOG_POSTS } from './data/blogPosts'
+import TOOL_SEO from './data/toolSEO'
 
 // Lazy-loaded — only downloaded when user actually opens them
 const TypingAnalysis     = lazy(() => import('./components/TypingAnalysis'))
@@ -51,6 +52,7 @@ const GroupChallengeModal = lazy(() => import('./components/GroupChallengeModal'
 const BattleModal        = lazy(() => import('./components/BattleModal'))
 
 function App() {
+  const typingSeo = TOOL_SEO['typing-tutor']
   const [difficulty, setDifficulty] = useState('easy')
   const [language, setLanguage] = useState(() => localStorage.getItem('typingTutorLanguage') || 'english')
   const [showStats, setShowStats] = useState(false)
@@ -413,16 +415,39 @@ function App() {
   return (
     <Suspense fallback={null}>
     <Helmet>
-      <title>Free Online Typing Tutor — Improve Typing Speed | Rafiqy</title>
-      <meta name="description" content="Free typing speed test and tutor online. Improve your WPM with targeted drills, accuracy tracking, Urdu support and XP rewards. No sign-up needed." />
+      <title>Free Typing Tutor Online | English, Urdu, Arabic, Persian | Rafiqy</title>
+      <meta name="description" content="Practice typing online in English, Urdu, Arabic and Persian with WPM tracking, accuracy feedback, drills, weak-key analysis and custom passages. No sign-up." />
       <link rel="canonical" href="https://rafiqy.app/tools/typing-tutor" />
-      <meta property="og:title" content="Free Online Typing Tutor — Improve Typing Speed | Rafiqy" />
-      <meta property="og:description" content="Free typing speed test and tutor online. Improve your WPM with targeted drills, accuracy tracking, Urdu support and XP rewards." />
+      <meta property="og:title" content="Free Typing Tutor Online | English, Urdu, Arabic, Persian | Rafiqy" />
+      <meta property="og:description" content="Practice typing online in English, Urdu, Arabic and Persian with WPM tracking, accuracy feedback, drills, weak-key analysis and custom passages." />
       <meta property="og:url" content="https://rafiqy.app/tools/typing-tutor" />
       <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:title" content="Free Online Typing Tutor — Improve Typing Speed | Rafiqy" />
-      <meta name="twitter:description" content="Free typing speed test and tutor online. Improve your WPM with targeted drills, accuracy tracking and Urdu support." />
+      <meta name="twitter:title" content="Free Typing Tutor Online | English, Urdu, Arabic, Persian | Rafiqy" />
+      <meta name="twitter:description" content="Practice typing online in English, Urdu, Arabic and Persian with WPM tracking, accuracy feedback, drills, weak-key analysis and custom passages." />
+      <script type="application/ld+json">{JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebApplication',
+        'name': 'Typing Tutor',
+        'url': 'https://rafiqy.app/tools/typing-tutor',
+        'description': 'Free multilingual typing tutor with English, Urdu, Arabic and Persian practice, WPM tracking, accuracy feedback and custom passages.',
+        'applicationCategory': 'EducationalApplication',
+        'operatingSystem': 'Web Browser',
+        'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+        'provider': { '@type': 'Organization', 'name': 'Rafiqy', 'url': 'https://rafiqy.app' }
+      })}</script>
+      <script type="application/ld+json">{JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        'mainEntity': typingSeo.faqs.slice(0, 6).map((faq) => ({
+          '@type': 'Question',
+          'name': faq.q,
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': faq.a
+          }
+        }))
+      })}</script>
     </Helmet>
     <div style={{ minHeight: '100vh', background: colors.bg, transition: 'background 0.3s ease' }}>
       <AnimatedBackground />
@@ -432,6 +457,15 @@ function App() {
       <div style={{ padding: isMobile ? '1.25rem 0.75rem' : '1.75rem 2rem', direction: currentLangDir }}>
       <div style={{ position: 'relative', maxWidth: '56rem', margin: '0 auto' }}>
         <XPBar xp={xp} level={level} streak={streak} colors={colors} isDark={isDark} />
+
+        <div style={{ textAlign: 'center', margin: '0 auto 1.4rem', maxWidth: '40rem' }}>
+          <h1 style={{ fontSize: 'clamp(1.9rem, 4.2vw, 2.8rem)', lineHeight: 1.15, margin: '0 0 0.55rem', fontWeight: 800, letterSpacing: '-0.02em', color: colors.text }}>
+            Typing Tutor
+          </h1>
+          <p style={{ margin: 0, color: colors.textSecondary, fontSize: '0.95rem', lineHeight: 1.6 }}>
+            Practice typing online in English, Urdu, Arabic and Persian with live WPM, accuracy feedback, drills, custom passages and phonetic input support.
+          </p>
+        </div>
 
         {/* Language + Difficulty in one unified row */}
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>

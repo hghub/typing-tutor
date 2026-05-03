@@ -130,6 +130,7 @@ export default function BlogPost() {
         <meta property="og:description" content={post.description} />
         <meta property="og:url" content={`https://rafiqy.app/blog/${post.slug}`} />
         <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="Rafiqy" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.description} />
@@ -139,8 +140,17 @@ export default function BlogPost() {
           "headline": post.title,
           "description": post.description,
           "datePublished": post.publishDate,
+          "mainEntityOfPage": `https://rafiqy.app/blog/${post.slug}`,
           "author": { "@type": "Organization", "name": "Rafiqy", "url": "https://rafiqy.app" },
-          "publisher": { "@type": "Organization", "name": "Rafiqy", "url": "https://rafiqy.app" },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Rafiqy",
+            "url": "https://rafiqy.app",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://rafiqy.app/icons/favicon-32.png"
+            }
+          },
           "url": `https://rafiqy.app/blog/${post.slug}`
         })}</script>
       </Helmet>

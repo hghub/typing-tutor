@@ -125,10 +125,10 @@ export default function TaxCalculator() {
           WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
           backgroundClip: 'text', margin: '0 0 0.4rem', letterSpacing: '-0.02em',
         }}>
-          🧮 Pakistan Tax Calculator
-        </h1>
+          🧮 Pakistan Income Tax Calculator
+          </h1>
         <p style={{ color: colors.textSecondary, fontSize: '0.9rem', margin: 0 }}>
-          Finance Act 2025 · FY 2025-26 · Salaried individuals · ⚠️ Estimates only — not affiliated with FBR
+          Finance Act 2025 · FY 2025-26 · Salaried individuals · Salary tax estimate only · Not affiliated with FBR
         </p>
       </div>
 

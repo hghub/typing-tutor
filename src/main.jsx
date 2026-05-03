@@ -83,6 +83,7 @@ const QRGenerator    = lazy(() => import('./pages/QRGenerator.jsx'))
 const SolarPlanner   = lazy(() => import('./pages/SolarPlanner.jsx'))
 const About              = lazy(() => import('./pages/About.jsx'))
 const Help               = lazy(() => import('./pages/Help.jsx'))
+const Privacy            = lazy(() => import('./pages/Privacy.jsx'))
 const BlogHome           = lazy(() => import('./pages/BlogHome.jsx'))
 const BlogPost           = lazy(() => import('./pages/BlogPost.jsx'))
 const CategoryPage       = lazy(() => import('./pages/CategoryPage.jsx'))
@@ -186,6 +187,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/blogs/tools/:slug" element={<BlogPostRedirect />} />
           <Route path="/about" element={<About />} />
           <Route path="/help" element={<Help />} />
+          <Route path="/privacy" element={<Privacy />} />
 
           {/* Category pages */}
           <Route path="/category/productivity-tools" element={<CategoryPage category="productivity-tools" />} />

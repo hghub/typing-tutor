@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import ToolLayout from '../components/ToolLayout'
 import ShareBar from '../components/ShareBar'
 import { useTheme } from '../hooks/useTheme'
@@ -76,6 +77,18 @@ export default function About() {
 
   return (
     <ToolLayout toolId={null}>
+      <Helmet>
+        <title>About Rafiqy | Privacy-First Browser Tools</title>
+        <meta name="description" content="Learn why Rafiqy was built, who it serves, and how its privacy-first browser tools support typing, Pakistan workflows, writing, PDFs and daily digital work." />
+        <link rel="canonical" href="https://rafiqy.app/about" />
+        <meta property="og:title" content="About Rafiqy | Privacy-First Browser Tools" />
+        <meta property="og:description" content="Learn why Rafiqy was built, who it serves, and how its privacy-first browser tools support typing, Pakistan workflows, writing, PDFs and daily digital work." />
+        <meta property="og:url" content="https://rafiqy.app/about" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="About Rafiqy | Privacy-First Browser Tools" />
+        <meta name="twitter:description" content="Learn why Rafiqy was built and how its privacy-first browser tools support daily digital work." />
+      </Helmet>
       <div style={{
         maxWidth: 800,
         margin: '0 auto',

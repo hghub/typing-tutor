@@ -4,15 +4,14 @@
 
 const TOOL_SEO = {
   'typing-tutor': {
-    metaTitle: 'Free Typing Tutor Online — WPM Test, Battles & Urdu | Rafiqy',
-    metaDesc: 'Free typing tutor with WPM test, 1v1 battles, XP system, Kids Mode, Urdu/Arabic phonetic input, per-key analysis & career readiness. No sign-up. 4 language packs + custom text.',
-    heading: 'Free Online Typing Tutor — Speed Test, 1v1 Battles, Kids Mode & 4 Languages',
+    metaTitle: 'Free Typing Tutor Online | English, Urdu, Arabic, Persian | Rafiqy',
+    metaDesc: 'Practice typing online in English, Urdu, Arabic and Persian with WPM tracking, accuracy feedback, drills, weak-key analysis and custom passages. No sign-up.',
+    heading: 'Free Typing Tutor Online — Practice Speed, Accuracy and Multilingual Typing',
     paras: [
-      'Typely is a free online typing tutor and speed test that helps you measure and dramatically improve your typing speed in words per minute (WPM). Whether you\'re a complete beginner learning to touch-type or an experienced typist aiming past 100 WPM, Typely offers a full training environment that adapts to your level. Practice with 4 built-in language packs — English, Urdu, Arabic, and Persian — or paste any custom text to practice typing in any language.',
-      'What sets Typely apart is its complete feature set for every type of learner. Kids Mode provides a safe, encouraging interface with simpler words designed for children. Career Readiness mode uses professional vocabulary and office-style passages to prepare job-seekers and office workers for real workplace typing demands. Per-key Typing Analysis highlights your slowest and most error-prone keys so you can drill exactly where you need improvement. A Virtual Keyboard on screen shows correct finger placement in real time, and optional Sound Effects provide satisfying audio feedback on every keystroke.',
-      'Compete and stay motivated with Typely\'s social features. Challenge a friend by sharing a unique Challenge Link — they type the same passage under the same conditions and you compare WPM side by side. 1v1 Battle mode lets two players race in real time in the same room. Group Rooms support team practice sessions with up to dozens of participants. Tournament mode sets up bracket-style typing competitions, perfect for classrooms and office events. A global Leaderboard tracks top WPM scores so you always know where you stand.',
-      'The XP and Levels system rewards consistent practice — earn experience points after every session, level up your profile, and maintain Streaks by practising daily. Set personal Goals (target WPM, daily session count, accuracy threshold) and track them on your dashboard. Full Stats History shows your WPM, accuracy, and session count over any time range so you can visualise your improvement curve. You can also type your own Custom Passage — paste any text you want to practise, from a work email to a poem.',
-      'Typely supports Phonetic Input for Urdu, Arabic, and Persian — type Roman characters and they automatically transliterate to the correct script, making it effortless to practise Urdu and Arabic without changing your keyboard layout. Difficulty levels range from Beginner through Easy, Medium, Hard, to Islamic — each with progressively challenging vocabulary and passage length. Timer Mode adds a countdown constraint for pressure-based training, simulating real test conditions. Everything runs 100% in your browser, with no account required. Your history and XP are saved in localStorage and stay completely private on your device.',
+      'Rafiqy\'s typing tutor helps you measure and improve typing speed in words per minute (WPM) while keeping practice simple, private and browser-based. Whether you are learning touch typing from scratch or pushing toward higher-speed professional performance, it gives you a structured practice environment that adapts to your level. Practice with built-in English, Urdu, Arabic and Persian packs, or paste your own custom text.',
+      'The typing tutor includes targeted drills, per-key analysis, optional keyboard guidance and flexible practice modes for beginners, students and working professionals. Kids Mode uses simpler passages and gentler feedback. Career-oriented packs use office-style text so your practice stays relevant to real work instead of random words only.',
+      'For Urdu, Arabic and Persian, phonetic input lets you type Roman characters and have them converted automatically, which makes multilingual typing practice much easier on a standard keyboard. Your progress, recent performance and settings stay on your device in local storage unless you explicitly use multiplayer or cloud-linked features.',
+      'Challenge links, battles, group rooms and progression systems help make practice more consistent over time. Use the tutor for daily drills, job-test preparation, classroom practice, or to build comfort typing Urdu online without changing your whole device keyboard setup.',
     ],
     faqs: [
       { q: 'What is a good typing speed in WPM?', a: 'The average person types at 40 WPM. 60 WPM is considered proficient. 80+ WPM is excellent and suitable for most professional roles. Touch typists average 60–80 WPM, while competitive typists exceed 120 WPM. With consistent daily practice on Typely, most users gain 10–20 WPM within 2–3 weeks.' },
@@ -125,13 +124,13 @@ const TOOL_SEO = {
   },
 
   'urdu-keyboard': {
-    metaTitle: 'Free Urdu Keyboard Online — Type Urdu Phonetically',
-    metaDesc: 'Type Urdu using English phonetics on any device. No special keyboard needed. Copy and paste anywhere. Free and private.',
-    heading: 'Free Online Urdu Keyboard — Type Urdu Without Installing Software',
+    metaTitle: 'Urdu Keyboard Online | Type Urdu Online Free | Rafiqy',
+    metaDesc: 'Type Urdu online using English phonetics on any device. No Urdu keyboard install needed. Copy and paste anywhere for free.',
+    heading: 'Urdu Keyboard Online — Type Urdu Without Installing Software',
     paras: [
-      'Rafiqy\'s Urdu Keyboard lets you type in Urdu on any device without installing any software or keyboard layout. Works on Windows, Mac, Android, and iOS — just open the browser and start typing in Urdu script.',
-      'The keyboard supports both Phonetic Urdu (type "aap" to get آپ) and the standard Urdu keyboard layout. It includes a full on-screen keyboard for reference. Copy your Urdu text to paste into WhatsApp, email, Word, or any other app.',
-      'This tool is particularly useful for Pakistanis using a device without Urdu keyboard support, students writing in Urdu, or anyone who needs to type occasional Urdu text without switching system keyboard settings.',
+      'Rafiqy\'s Urdu Keyboard Online lets you type Urdu on any device without installing a keyboard layout, IME or extra software. It works in modern browsers on desktop and mobile, which makes it useful when you need to write in Urdu quickly from a borrowed machine, office laptop or phone.',
+      'Type Roman Urdu phonetically and the tool converts it into Urdu script, so phrases like "pakistan" or "shukriya" become proper Urdu instantly. You can then copy the output and paste it into WhatsApp, social posts, emails, forms or documents.',
+      'This is useful for people searching for an online Urdu keyboard, Urdu typewriter, or a quick way to write Urdu online without changing system settings. Because the work happens in your browser, your text stays private on your own device.',
     ],
     faqs: [
       { q: 'How do I type Urdu without a physical Urdu keyboard?', a: 'Use the phonetic mode: type Roman Urdu (e.g. "pakistan" → "پاکستان") and the tool converts it automatically. Alternatively, click the on-screen Urdu keyboard keys.' },
@@ -143,13 +142,13 @@ const TOOL_SEO = {
   },
 
   'tax-calculator': {
-    metaTitle: 'Pakistan Income Tax Calculator 2025-26 | Rafiqy',
-    metaDesc: 'Calculate Pakistan income tax for FY 2025-26 using latest FBR slabs. Covers VPS, Zakat and senior rebate. Free, private, no sign-up.',
-    heading: 'Pakistan Income Tax Calculator — FBR Slab Rates 2025-26',
+    metaTitle: 'Pakistan Income Tax Calculator 2025-26 | Salary Tax & FBR Slabs | Rafiqy',
+    metaDesc: 'Estimate Pakistan salary income tax for FY 2025-26 using current FBR slabs. Includes VPS, charity credits and senior rebate. Free and private.',
+    heading: 'Pakistan Income Tax Calculator — Salary Tax Estimate for FY 2025-26',
     paras: [
-      'Calculate your Pakistan income tax accurately for Tax Year 2026 (Financial Year 2025-26) using the latest FBR slab rates from the Finance Act 2025. This tool covers salaried individuals, business individuals, and includes all major deductions and rebates.',
-      'The calculator uses official FBR tax slabs: 0% for income up to Rs 600,000; 1% on Rs 600,001–1,200,000; 11% on Rs 1,200,001–2,200,000; 23% on Rs 2,200,001–3,200,000; 30% on Rs 3,200,001–4,100,000; and 35% above Rs 4,100,000.',
-      'Beyond basic slabs, the tool supports a surcharge of 10% on tax exceeding Rs 1,500,000, VPS deductions, Zakat/charitable donations, and the senior citizen (60+) rebate. Your data stays on your device — nothing is sent to FBR or any server.',
+      'Estimate your Pakistan income tax for Tax Year 2026 (Financial Year 2025-26) using current salaried slab rates from the Finance Act 2025. This calculator is designed for practical planning: monthly salary in, annual tax and take-home estimate out.',
+      'It covers the main items most salaried users search for: FBR slab-based salary tax, annual bonus impact, VPS pension credit, eligible charity credit, senior rebate rules and year-over-year comparison. It is intended for planning and budgeting, not as an official FBR filing interface.',
+      'Your inputs stay on your device while the calculator works. Use the result to sense-check payroll deductions, compare tax years, or estimate whether extra pension investment or donations materially change your tax outcome.',
     ],
     faqs: [
       { q: 'Which tax year does this calculator cover?', a: 'Tax Year 2026 — income earned from July 1, 2025 to June 30, 2026 (FY 2025-26). Slab rates are from the Finance Act 2025.' },
@@ -1127,14 +1126,14 @@ const TOOL_SEO = {
     ],
   },
   'solar-planner': {
-    metaTitle: 'Solar Planner Pakistan 2026 — System Size, Cost & Payback Calculator | Rafiqy',
-    metaDesc: 'Free solar planning tool for Pakistan. Enter your electricity bill, add appliances, and get a recommended system size, 2026 install costs, payback period, net billing vs self-consumption comparison, battery advice, and a solar verdict.',
-    heading: 'Solar Planner for Pakistan — Estimate System Size, Cost & Payback (2026)',
+    metaTitle: 'Pakistan Solar Calculator 2026 — System Size, Cost & Payback | Rafiqy',
+    metaDesc: 'Estimate solar system size, cost, savings and payback in Pakistan using your bill, city, appliance load and current net billing assumptions.',
+    heading: 'Pakistan Solar Calculator — Estimate System Size, Cost and Payback',
     paras: [
-      'Rafiqy Solar Planner is a free 3-step solar planning wizard built for Pakistani homeowners. In under two minutes, estimate the right system size for your home, get the total installation cost in PKR using 2026 market rates, and see your exact payback period. No technical knowledge required — enter your monthly electricity bill, select your city, toggle your appliances, and the tool does the rest.',
-      'The planner uses verified 2026 Pakistan market data: city-specific peak sun hours for 11 cities (Quetta 6.0 hrs, Karachi 5.5 hrs, Lahore 5.0 hrs, Islamabad 4.8 hrs), and current installed system costs of PKR 130–200 per watt (economy to premium build). It fully models the NEPRA net billing policy introduced in December 2025 — including the PKR 11/unit export buyback rate and DISCO-specific meter fees (IESCO PKR 52k, LESCO PKR 70k+).',
-      'The appliance calculator in Step 2 lets you configure 10+ household loads with custom quantities and daily hours. Step 3 gives you two options side by side: full system with net billing vs a smaller self-consumption-only system — with 10-year net return for both, so you can see which actually earns more money long-term.',
-      'Battery storage advice is personalized to your load-shedding hours. Expert tips are generated from your actual inputs. A 10-item installer checklist tells you exactly what to ask before signing a quote. Copy your full estimate as text to share with family or your solar installer.',
+      'Rafiqy\'s Pakistan Solar Calculator helps Pakistani homeowners estimate solar system size, install cost, monthly savings and payback using their current electricity bill, location and appliance load. It is designed for people searching for a solar calculator, solar size calculator or solar savings estimate for Pakistan.',
+      'The planner uses city-specific sun-hour assumptions and current Pakistan market ranges to show a realistic system recommendation instead of a generic one-size-fits-all number. It also reflects the current net billing environment so exported units are treated differently from self-consumed electricity.',
+      'Use it to compare a full net-billing setup against a smaller self-consumption-focused system, understand whether battery storage is worth considering, and get a better starting point before talking to installers.',
+      'The result is a planning estimate, not a contractor quote, but it gives you a strong benchmark for system sizing, cost conversations and payback expectations.',
     ],
     faqs: [
       { q: 'How accurate is this solar calculator for Pakistan?', a: 'The Solar Planner gives range-based estimates using 2026 Pakistan market rates of PKR 130–200/W installed. It models the current NEPRA net billing policy (Dec 2025) with PKR 11/unit export rate. Always get 2–3 installer quotes before committing — use this tool as your baseline to compare against.' },

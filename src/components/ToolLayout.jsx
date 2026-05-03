@@ -213,6 +213,8 @@ export default function ToolLayout({ toolId, children }) {
         <a href="/blog" style={{ color: 'inherit', textDecoration: 'underline' }}>Blog</a>
         &nbsp;·&nbsp;
         <a href="/about" style={{ color: 'inherit', textDecoration: 'underline' }}>About</a>
+        &nbsp;·&nbsp;
+        <a href="/privacy" style={{ color: 'inherit', textDecoration: 'underline' }}>Privacy</a>
       </footer>
     </div>
   )

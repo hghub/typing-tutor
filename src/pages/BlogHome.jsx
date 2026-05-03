@@ -29,6 +29,20 @@ export default function BlogHome() {
         <title>Guides & Tips – Productivity, Tools & Digital Workflows | Rafiqy</title>
         <meta name="description" content="Practical guides, tutorials, and productivity tips to help you work faster using digital tools. From typing and PDFs to finance and developer tools." />
         <link rel="canonical" href="https://rafiqy.app/blog" />
+        <meta property="og:title" content="Guides & Tips – Productivity, Tools & Digital Workflows | Rafiqy" />
+        <meta property="og:description" content="Practical guides, tutorials, and productivity tips to help you work faster using digital tools. From typing and PDFs to finance and developer tools." />
+        <meta property="og:url" content="https://rafiqy.app/blog" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Guides & Tips – Productivity, Tools & Digital Workflows | Rafiqy" />
+        <meta name="twitter:description" content="Practical guides, tutorials, and productivity tips to help you work faster using digital tools." />
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'CollectionPage',
+          'name': 'Rafiqy Blog',
+          'url': 'https://rafiqy.app/blog',
+          'description': 'Practical guides, tutorials, and productivity tips to help you work faster using digital tools.'
+        })}</script>
       </Helmet>
 
       <ToolsNav />

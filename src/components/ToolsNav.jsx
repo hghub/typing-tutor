@@ -244,6 +244,16 @@ export default function ToolsNav({ rightExtras }) {
             onMouseLeave={e => { if (pathname !== '/help') e.currentTarget.style.color = colors.textSecondary }}
           >Help</Link>
 
+          <Link to="/privacy" style={{
+            fontSize: '0.82rem', fontWeight: pathname === '/privacy' ? 700 : 500,
+            color: pathname === '/privacy' ? '#06b6d4' : colors.textSecondary,
+            textDecoration: 'none', padding: '0.4rem 0.65rem', borderRadius: '0.4rem',
+            transition: 'color 0.15s', whiteSpace: 'nowrap',
+          }}
+            onMouseEnter={e => { if (pathname !== '/privacy') e.currentTarget.style.color = colors.text }}
+            onMouseLeave={e => { if (pathname !== '/privacy') e.currentTarget.style.color = colors.textSecondary }}
+          >Privacy</Link>
+
           <Link to="/about" style={{
             fontSize: '0.82rem', fontWeight: pathname === '/about' ? 700 : 500,
             color: pathname === '/about' ? '#06b6d4' : colors.textSecondary,

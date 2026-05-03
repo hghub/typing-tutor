@@ -14,6 +14,14 @@ const LAST_VISIT_KEY = 'typely_last_visit'
 const RECENT_KEY = 'typely_recent_tools'
 const FAVOURITES_KEY = 'typely_favourites'
 const TOP_N = 6
+const CATEGORY_LANDING_LINKS = [
+  { path: '/category/pakistan-tools', label: 'Pakistan Tools', desc: 'Tax, salary, gold and local utilities' },
+  { path: '/category/writing-tools', label: 'Writing Tools', desc: 'Urdu, documents, cleanup and word count' },
+  { path: '/category/pdf-tools', label: 'PDF Tools', desc: 'Compress, merge, split, convert and OCR' },
+  { path: '/category/security-tools', label: 'Privacy Tools', desc: 'Leak detection, encryption and redaction' },
+  { path: '/category/finance-tools', label: 'Finance Tools', desc: 'Tax, EMI, expense analysis and calculators' },
+  { path: '/category/developer-tools', label: 'Developer Tools', desc: 'Regex, JSON, mock data and logs' },
+]
 
 function getRecent() {
   try { return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]') } catch { return [] }
@@ -320,9 +328,23 @@ export default function ToolsHome() {
       <ToolsNav />
 
       <Helmet>
-        <title>Free Online Tools – Productivity, Finance, PDF & More | Rafiqy</title>
-        <meta name="description" content="63 free browser-based tools for everyday digital tasks — typing, PDFs, finance calculators, productivity timers, developer utilities and more. No sign-up, 100% private." />
+        <title>Free Online Tools for Pakistan, Typing, PDF & Privacy | Rafiqy</title>
+        <meta name="description" content="Browse 63 free browser-based tools for Urdu typing, Pakistan tax, solar planning, PDFs, writing, productivity, developer work and privacy-first tasks." />
         <link rel="canonical" href="https://rafiqy.app/tools" />
+        <meta property="og:title" content="Free Online Tools for Pakistan, Typing, PDF & Privacy | Rafiqy" />
+        <meta property="og:description" content="Browse 63 free browser-based tools for Urdu typing, Pakistan tax, solar planning, PDFs, writing, productivity, developer work and privacy-first tasks." />
+        <meta property="og:url" content="https://rafiqy.app/tools" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Free Online Tools for Pakistan, Typing, PDF & Privacy | Rafiqy" />
+        <meta name="twitter:description" content="Browse 63 free browser-based tools for Urdu typing, Pakistan tax, solar planning, PDFs, writing, productivity, developer work and privacy-first tasks." />
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'CollectionPage',
+          'name': 'Rafiqy Tools',
+          'url': 'https://rafiqy.app/tools',
+          'description': 'A collection of free browser-based tools for typing, Pakistan tax, solar planning, PDFs, writing, productivity, developer work and privacy-first tasks.'
+        })}</script>
       </Helmet>
 
       <main style={{ maxWidth: '1140px', margin: '0 auto', padding: '3rem 1.25rem 2rem' }}>
@@ -410,10 +432,35 @@ export default function ToolsHome() {
 
           {/* Filter toggles */}
           <div style={{ display: 'flex', gap: '0.6rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <TogglePill active={prefs.showPkTools} onClick={() => togglePref('showPkTools')} activeColor='#10b981' isDark={isDark}>��🇰 Pakistan Tools</TogglePill>
+            <TogglePill active={prefs.showPkTools} onClick={() => togglePref('showPkTools')} activeColor='#10b981' isDark={isDark}>🇵🇰 Pakistan Tools</TogglePill>
             <TogglePill active={prefs.urduLabels} onClick={() => togglePref('urduLabels')} activeColor='#f59e0b' isDark={isDark}>اردو</TogglePill>
           </div>
         </div>
+
+        <section style={{ marginBottom: '2.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+            <h2 style={{ margin: 0, fontSize: '1rem', fontWeight: 800, color: colors.text, letterSpacing: '-0.01em' }}>Browse by Need</h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '0.85rem' }}>
+            {CATEGORY_LANDING_LINKS.map(link => (
+              <Link key={link.path} to={link.path} style={{ textDecoration: 'none' }}>
+                <div style={{
+                  background: isDark ? 'rgba(255,255,255,0.04)' : '#fff',
+                  border: `1px solid ${colors.border}`,
+                  borderRadius: '0.9rem',
+                  padding: '1rem 1.1rem',
+                  height: '100%',
+                  transition: 'border-color 0.15s ease',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = '#06b6d4' }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = colors.border }}>
+                  <div style={{ color: colors.text, fontWeight: 700, fontSize: '0.9rem', marginBottom: '0.25rem' }}>{link.label}</div>
+                  <div style={{ color: colors.textSecondary, fontSize: '0.8rem', lineHeight: 1.5 }}>{link.desc}</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         {/* ── Marquee Ticker ── */}
         <div style={{ margin: '0 -1.25rem 3rem' }}>

@@ -130,10 +130,10 @@ export default function UrduKeyboard() {
           margin: '0 0 0.4rem',
           letterSpacing: '-0.02em',
         }}>
-          🌍 Urdu Phonetic Keyboard
-        </h1>
+            🌍 Urdu Keyboard Online
+          </h1>
         <p style={{ color: colors.textSecondary, fontSize: '0.9rem', margin: 0 }}>
-          Type Urdu using English phonetics — or speak directly using your microphone.
+          Type Urdu online using English phonetics — or speak directly using your microphone.
           <span style={{ color: '#f59e0b', fontWeight: 600 }}> Type "kh" → خ, "sh" → ش, "ch" → چ</span>
         </p>
       </div>

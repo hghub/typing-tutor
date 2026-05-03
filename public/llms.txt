@@ -1,0 +1,17 @@
+# Rafiqy
+
+Rafiqy is a privacy-first browser tools site focused on typing, Urdu input, Pakistan tax planning, solar planning, PDFs, writing and everyday digital work.
+
+Key pages:
+- https://rafiqy.app/
+- https://rafiqy.app/tools
+- https://rafiqy.app/tools/typing-tutor
+- https://rafiqy.app/tools/urdu-keyboard
+- https://rafiqy.app/tools/tax-calculator
+- https://rafiqy.app/tools/solar-planner
+- https://rafiqy.app/blog
+
+Guidance:
+- Most tools run locally in the browser.
+- Public content is intended for summary, citation and discovery.
+- Tax and solar pages are planning tools, not official government or installer quotes.

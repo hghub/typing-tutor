@@ -4,10 +4,10 @@
  */
 export const SITE = {
   name: 'Rafiqy',
-  tagline: 'Your Smart Typing System',
-  url: 'https://typely.app',          // replace with real domain when purchased
-  email: 'hello@typely.app',
-  twitter: '@typelyapp',
+  tagline: 'Privacy-first browser tools for everyday work',
+  url: 'https://rafiqy.app',
+  email: '',
+  twitter: '@rafiqyapp',
   description:
-    'Get a personalized typing plan, fix your weak keys, and practice real-world tasks like chats, emails, and Urdu typing.',
+    'Free browser-based tools for typing, Urdu input, Pakistan tax planning, solar estimates, PDFs, writing, and daily digital work.',
 }

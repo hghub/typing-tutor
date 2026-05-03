@@ -2,6 +2,7 @@ import { StrictMode, lazy, Suspense, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
+import GoogleAnalytics from './components/GoogleAnalytics'
 
 function BlogPostRedirect() {
   const { slug } = useParams()
@@ -108,6 +109,7 @@ createRoot(document.getElementById('root')).render(
     <HelmetProvider>
     <BrowserRouter>
       <ScrollToTop />
+      <GoogleAnalytics />
       <Suspense fallback={fallback}>
                         <Routes>
           {/* Landing page */}

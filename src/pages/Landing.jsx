@@ -238,7 +238,7 @@ export default function Landing() {
           <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
             {[
               ['🔒', 'Zero Uploads', 'All processing happens in your browser — documents, data, everything.'],
-              ['📵', 'No Tracking', 'No analytics or fingerprinting on tool pages. Your data stays yours.'],
+              ['📵', 'Privacy-first', 'No content uploads or fingerprinting on tool pages. Your files and text stay yours.'],
               ['⚡', 'Instant Results', 'No server round-trips — results appear in milliseconds.'],
               ['🌐', 'Works Offline', 'Once loaded, most tools work without an internet connection.'],
             ].map(([icon, title, desc]) => (

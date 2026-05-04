@@ -164,10 +164,15 @@ export default function ToolLayout({ toolId, children }) {
             (tool.id === 'typing-tutor' && p.slug === 'typing-learning')
           )
           .sort((a, b) => {
-            // Tool's own blog post (slug starts with toolId) always comes first
-            const aOwn = a.slug.startsWith(tool.id) ? 2 : (a.tags?.some(t => toolTags.includes(t)) ? 1 : 0)
-            const bOwn = b.slug.startsWith(tool.id) ? 2 : (b.tags?.some(t => toolTags.includes(t)) ? 1 : 0)
-            return bOwn - aOwn
+            const overlapScore = (post) => {
+              const overlap = (post.tags || []).filter(t => toolTags.includes(t)).length
+              const own = post.slug.startsWith(tool.id) ? 3 : 0
+              const sameCategory = post.category?.toLowerCase() === tool.category ? 0.5 : 0
+              return own + overlap + sameCategory
+            }
+            const scoreDiff = overlapScore(b) - overlapScore(a)
+            if (scoreDiff !== 0) return scoreDiff
+            return new Date(b.publishDate || 0) - new Date(a.publishDate || 0)
           })
           .slice(0, 3)
         if (!related.length) return null

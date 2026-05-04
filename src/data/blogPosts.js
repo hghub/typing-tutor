@@ -1835,4 +1835,326 @@ export const BLOG_POSTS = [
 </div>
 `,
   },
+  {
+    slug: 'rent-vs-buy-calculator-pakistan-guide',
+    title: 'Rent vs Buy in Pakistan: How to Decide Without Fooling Yourself',
+    description: 'A practical guide to deciding whether to rent or buy in Pakistan using stay horizon, markup, transfer costs, maintenance, appreciation, and the opportunity cost of your down payment.',
+    hero: '🏠',
+    category: 'pakistan',
+    readTime: '8 min read',
+    publishDate: '2026-05-04',
+    tags: ['rent vs buy calculator Pakistan', 'rent vs buy', 'home loan Pakistan', 'property decision'],
+    content: `
+<h2>Why This Decision Goes Wrong So Often</h2>
+<p>Most people compare <strong>monthly rent</strong> to <strong>monthly EMI</strong> and stop there. That is not enough. In Pakistan, buying a property also means locking a large down payment, paying transfer and registry costs, absorbing maintenance, taking markup risk, and accepting the possibility that you may need to sell earlier than planned.</p>
+<p>Renting is not "wasted money" by default. Buying is not "automatic wealth creation" by default. The right answer depends on your <strong>stay horizon</strong>, your financing cost, and what your savings could earn if left invested instead of tied up in a property.</p>
+
+<h2>The Five Variables That Matter Most</h2>
+<ul>
+  <li><strong>Stay horizon:</strong> The shorter your expected stay, the harder it is to justify buying because transfer and financing friction have less time to be absorbed.</li>
+  <li><strong>Markup rate:</strong> High financing cost can turn a reasonable purchase into a weak decision, especially if appreciation assumptions are optimistic.</li>
+  <li><strong>Down payment size:</strong> This is not just a purchase input. It is capital that could have been invested elsewhere.</li>
+  <li><strong>Rent growth versus home-price growth:</strong> If rents rise slower than property prices, buying strengthens. If the spread narrows, renting can remain competitive.</li>
+  <li><strong>Transaction friction:</strong> Registry, taxes, dealer costs, legal checks, and selling friction can materially change the result.</li>
+</ul>
+
+<h2>When Buying Usually Becomes Stronger</h2>
+<p>Buying tends to look better when:</p>
+<ul>
+  <li>you expect to stay for <strong>7+ years</strong></li>
+  <li>your down payment is ready without exhausting emergency reserves</li>
+  <li>you are buying in a location with strong resale demand</li>
+  <li>your mortgage markup is manageable relative to expected appreciation and rent inflation</li>
+  <li>the property is for actual use, not pure speculation</li>
+</ul>
+
+<h2>When Renting Can Be Smarter</h2>
+<p>Renting often wins when:</p>
+<ul>
+  <li>you may relocate within a few years</li>
+  <li>your current city or job situation is unstable</li>
+  <li>you would have to use nearly all your savings for the down payment</li>
+  <li>the property requires heavy renovation or hidden maintenance</li>
+  <li>your financing cost is high and appreciation assumptions are uncertain</li>
+</ul>
+
+<h2>The Opportunity-Cost Question</h2>
+<p>If you put PKR 80 lakh into a down payment and transaction costs, that money is no longer available for:</p>
+<ul>
+  <li>business expansion</li>
+  <li>income-producing investments</li>
+  <li>liquidity during emergencies</li>
+  <li>family relocation or education goals</li>
+</ul>
+<p>This does not mean buying is wrong. It means the decision is never just "rent payment versus EMI". It is <strong>property ownership versus the alternative use of capital</strong>.</p>
+
+<h2>How to Use a Rent vs Buy Calculator Properly</h2>
+<p>A serious comparison should include:</p>
+<ul>
+  <li>property price</li>
+  <li>monthly rent</li>
+  <li>down payment percentage</li>
+  <li>markup rate and tenure</li>
+  <li>annual rent growth</li>
+  <li>annual property appreciation</li>
+  <li>maintenance and holding costs</li>
+  <li>transfer / selling friction</li>
+  <li>return you could earn if the down payment stayed invested</li>
+</ul>
+<p>The <a href="/tools/rent-vs-buy-calculator-pakistan">Rafiqy Rent vs Buy Pakistan Analyzer</a> is designed around exactly those variables so the output is a decision, not a simplistic EMI comparison.</p>
+
+<h2>Three Honest Questions Before You Buy</h2>
+<ol>
+  <li><strong>If I had to sell within 3 years, would this still be a good decision?</strong></li>
+  <li><strong>Would this down payment leave my family financially exposed?</strong></li>
+  <li><strong>Am I buying because the numbers are strong, or because buying simply feels more respectable?</strong></li>
+</ol>
+
+<div class="cta-box"><p>Want to compare renting and buying with real Pakistan-style assumptions instead of guesswork?</p><a href="/tools/rent-vs-buy-calculator-pakistan">Open the Rent vs Buy Pakistan Analyzer →</a></div>
+`,
+  },
+  {
+    slug: 'when-renting-is-better-than-buying-in-pakistan',
+    title: 'When Renting Is Better Than Buying in Pakistan',
+    description: 'Buying is not always the stronger move. Here are the practical cases where renting remains the better decision in Pakistan.',
+    hero: '🔑',
+    category: 'pakistan',
+    readTime: '6 min read',
+    publishDate: '2026-05-04',
+    tags: ['rent vs buy', 'renting in Pakistan', 'property decision Pakistan'],
+    content: `
+<h2>Buying Is Not Automatically the Adult Answer</h2>
+<p>In many families, buying property is treated as the default sign of financial maturity. But financially, that logic can fail. Renting is often the better choice when flexibility, liquidity, or uncertainty matter more than ownership status.</p>
+
+<h2>Case 1: Your Job or City Is Not Stable Yet</h2>
+<p>If there is a real chance you will change employers, move cities, or go abroad in the next 2–4 years, renting is usually safer. Buying too early can trap you in a location that no longer matches your work or family needs.</p>
+
+<h2>Case 2: Your Down Payment Would Empty Your Savings</h2>
+<p>If buying would force you to use nearly all liquid cash, the purchase may be too aggressive. A property can be an asset and still create a dangerous cash position if emergencies, layoffs, health costs, or business slowdowns hit soon after.</p>
+
+<h2>Case 3: Markup Is High and Appreciation Is Uncertain</h2>
+<p>At high financing costs, the monthly payment may look manageable while the total ownership cost becomes much heavier than expected. If future appreciation does not compensate for that, renting can outperform over the decision horizon.</p>
+
+<h2>Case 4: You Need Optionality More Than Ownership</h2>
+<p>Renting gives you the option to:</p>
+<ul>
+  <li>upgrade quickly when income grows</li>
+  <li>move closer to a new office</li>
+  <li>change school zones</li>
+  <li>reduce housing cost if income becomes volatile</li>
+</ul>
+
+<h2>Case 5: The Property Itself Is a Weak Asset</h2>
+<p>Some properties look attractive because they are "available now", not because they are high-quality decisions. If the location, resale depth, construction quality, legal clarity, or maintenance burden is weak, renting may still be smarter while you wait for a better purchase candidate.</p>
+
+<h2>How to Decide Rationally</h2>
+<p>The right comparison is not emotional. It is scenario-based. Model your stay horizon, markup, appreciation, rent growth, and liquidity impact. Then compare outcomes honestly using the <a href="/tools/rent-vs-buy-calculator-pakistan">Rent vs Buy Pakistan Analyzer</a>.</p>
+
+<div class="cta-box"><p>Test whether your case is one of the situations where renting actually wins.</p><a href="/tools/rent-vs-buy-calculator-pakistan">Run the scenario →</a></div>
+`,
+  },
+  {
+    slug: 'is-ev-worth-it-in-pakistan',
+    title: 'Is an EV Worth It in Pakistan? The Real Decision Framework',
+    description: 'An EV in Pakistan is not just about fuel savings. Charging setup, load shedding, purchase premium, resale, and daily mileage all change the answer.',
+    hero: '🔋',
+    category: 'pakistan',
+    readTime: '8 min read',
+    publishDate: '2026-05-04',
+    tags: ['EV Pakistan', 'is EV worth it in Pakistan', 'petrol vs hybrid vs EV', 'electric vehicle Pakistan'],
+    content: `
+<h2>The Wrong Way to Judge an EV</h2>
+<p>Many people compare <strong>petrol cost per month</strong> against <strong>electricity cost per month</strong> and conclude that EV wins instantly. That is too simplistic. An EV decision in Pakistan depends on five things at once:</p>
+<ul>
+  <li>daily mileage</li>
+  <li>home-charging reliability</li>
+  <li>load shedding reality</li>
+  <li>upfront price premium</li>
+  <li>what hybrid alternatives already solve well</li>
+</ul>
+
+<h2>When EV Becomes Stronger</h2>
+<p>An EV case usually improves when:</p>
+<ul>
+  <li>your daily mileage is high enough for fuel savings to compound</li>
+  <li>you can charge reliably at home</li>
+  <li>your route is mostly predictable</li>
+  <li>you do not depend on uncertain public charging access</li>
+  <li>you are comparing against a relatively expensive petrol car lifecycle</li>
+</ul>
+
+<h2>When Hybrid Often Beats EV</h2>
+<p>Hybrid becomes the safer answer when:</p>
+<ul>
+  <li>city driving is heavy</li>
+  <li>fuel savings matter but charging risk is still uncomfortable</li>
+  <li>you want better resale confidence today</li>
+  <li>you do not want to redesign your home charging setup</li>
+</ul>
+
+<h2>Why Load Shedding Still Matters</h2>
+<p>An EV can be cheap to run and still annoying to own if charging routines are unstable. If outages are frequent and backup planning is weak, the convenience and confidence advantage can shift back toward hybrid.</p>
+
+<h2>The Mileage Threshold Problem</h2>
+<p>If you drive only short distances, the EV price premium may take too long to recover. That is why mileage is critical. A vehicle used for 15 km/day and a vehicle used for 60 km/day should not produce the same recommendation.</p>
+
+<h2>The Better Comparison</h2>
+<p>Instead of asking "Which one is modern?", ask:</p>
+<ul>
+  <li>Which option has the best five-year total ownership cost?</li>
+  <li>How reliable is the charging routine?</li>
+  <li>How painful would resale uncertainty be for me?</li>
+  <li>How much convenience am I willing to trade for lower running cost?</li>
+</ul>
+<p>The <a href="/tools/petrol-vs-hybrid-vs-ev">Rafiqy Petrol vs Hybrid vs EV Pakistan tool</a> is designed around exactly those tradeoffs.</p>
+
+<div class="cta-box"><p>Compare EV, hybrid, and petrol using Pakistan-specific assumptions instead of generic global advice.</p><a href="/tools/petrol-vs-hybrid-vs-ev">Open the comparison tool →</a></div>
+`,
+  },
+  {
+    slug: 'hybrid-vs-petrol-car-cost-pakistan',
+    title: 'Hybrid vs Petrol Car Cost in Pakistan: When Does Hybrid Actually Win?',
+    description: 'Hybrid is not always expensive over ownership life. Here is how to compare it honestly against petrol in Pakistan.',
+    hero: '🚗',
+    category: 'pakistan',
+    readTime: '6 min read',
+    publishDate: '2026-05-04',
+    tags: ['hybrid vs petrol', 'car cost Pakistan', 'petrol vs hybrid', 'vehicle decision Pakistan'],
+    content: `
+<h2>Why Hybrid Is Often Misjudged</h2>
+<p>People often reject hybrid because the purchase price is higher. That is understandable, but incomplete. Ownership decisions should compare <strong>total cost over time</strong>, not just the showroom number.</p>
+
+<h2>What Hybrid Can Solve Well</h2>
+<ul>
+  <li>better fuel economy in heavy city driving</li>
+  <li>less dependency on charging infrastructure than EV</li>
+  <li>a practical middle ground between old petrol logic and full EV commitment</li>
+</ul>
+
+<h2>What Can Still Weaken the Hybrid Case</h2>
+<ul>
+  <li>a very high upfront premium relative to the petrol option</li>
+  <li>low annual mileage</li>
+  <li>mostly highway driving where city-efficiency gains matter less</li>
+  <li>unexpected resale or maintenance weakness for the specific model</li>
+</ul>
+
+<h2>The Practical Test</h2>
+<p>Hybrid usually wins when:</p>
+<ul>
+  <li>you drive enough to make fuel savings meaningful</li>
+  <li>most trips are urban</li>
+  <li>you want lower running cost without EV charging risk</li>
+</ul>
+<p>It weakens when you drive less, travel mostly on open roads, or the premium takes too long to recover.</p>
+
+<h2>Use a Total-Cost View</h2>
+<p>A strong comparison should include:</p>
+<ul>
+  <li>purchase price</li>
+  <li>fuel price</li>
+  <li>annual distance</li>
+  <li>city-driving share</li>
+  <li>maintenance assumptions</li>
+  <li>resale factor</li>
+</ul>
+<p>The <a href="/tools/petrol-vs-hybrid-vs-ev">Rafiqy Petrol vs Hybrid vs EV tool</a> handles that comparison over five years so hybrid is judged on ownership reality, not sticker shock alone.</p>
+
+<div class="cta-box"><p>See whether hybrid really beats petrol for your usage pattern.</p><a href="/tools/petrol-vs-hybrid-vs-ev">Compare your scenario →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-evaluate-a-job-offer-in-pakistan',
+    title: 'How to Evaluate a Job Offer in Pakistan Beyond the Salary Number',
+    description: 'A better salary offer can still be a weaker decision after tax, commute, city costs, and benefit quality. Here is how to compare it properly.',
+    hero: '💼',
+    category: 'pakistan',
+    readTime: '7 min read',
+    publishDate: '2026-05-04',
+    tags: ['salary offer calculator Pakistan', 'job offer evaluation Pakistan', 'take home salary Pakistan'],
+    content: `
+<h2>Do Not Judge the Offer by Monthly Salary Alone</h2>
+<p>A role that pays more on paper can still leave you worse off after tax, commute, relocation, and city cost differences. That is why smart professionals compare <strong>effective compensation</strong>, not just the headline gross salary.</p>
+
+<h2>The Main Things to Compare</h2>
+<ul>
+  <li><strong>After-tax cash:</strong> Gross salary is not spendable salary.</li>
+  <li><strong>Commute burden:</strong> A longer commute costs money, time, and energy.</li>
+  <li><strong>Benefits:</strong> Medical, fuel, provident fund, and learning budget have real value.</li>
+  <li><strong>Remote flexibility:</strong> Two or three remote days can materially improve quality of life and cost.</li>
+  <li><strong>City baseline:</strong> Karachi, Lahore, Islamabad, and smaller cities do not impose the same monthly cost pressure.</li>
+</ul>
+
+<h2>Three Mistakes People Commonly Make</h2>
+<ol>
+  <li><strong>Ignoring tax:</strong> A higher salary can move more income into higher tax bands and shrink the real gain.</li>
+  <li><strong>Undervaluing benefits:</strong> Employer-paid cover and PF support can be worth more than a small salary jump.</li>
+  <li><strong>Ignoring lifestyle friction:</strong> A job that looks better financially can still be worse if commute and pressure wipe out the advantage.</li>
+</ol>
+
+<h2>When You Should Negotiate Instead of Accepting or Rejecting</h2>
+<p>If the role is strategically better but the economics are weak, negotiation is often the best move. The most practical asks are:</p>
+<ul>
+  <li>higher fixed salary instead of vague performance promises</li>
+  <li>extra remote days</li>
+  <li>clear fuel or transport support</li>
+  <li>joining bonus or relocation support</li>
+  <li>stronger medical cover</li>
+</ul>
+
+<h2>How to Compare Offers More Rationally</h2>
+<p>The <a href="/tools/salary-offer-calculator-pakistan">Salary Offer Evaluator Pakistan</a> helps you compare after-tax income, benefits, commute, remote flexibility, provident fund support, and city cost pressure in one place. Use it before deciding or renegotiating.</p>
+
+<div class="cta-box"><p>Turn the offer into an actual decision instead of a guess.</p><a href="/tools/salary-offer-calculator-pakistan">Evaluate the offer →</a></div>
+`,
+  },
+  {
+    slug: 'how-much-tax-should-freelancers-reserve-in-pakistan',
+    title: 'How Much Tax Should Freelancers Reserve in Pakistan?',
+    description: 'Freelancers should not treat all inflows as spendable income. Here is a practical way to reserve for tax, operations, and emergency runway in Pakistan.',
+    hero: '🧾',
+    category: 'pakistan',
+    readTime: '7 min read',
+    publishDate: '2026-05-04',
+    tags: ['freelance tax planner Pakistan', 'freelance tax reserve', 'Pakistan freelancers', 'cashflow planning'],
+    content: `
+<h2>The Core Freelancer Mistake</h2>
+<p>Freelancers often look at one strong month and assume that number is their salary. It is not. Business revenue must first cover:</p>
+<ul>
+  <li>business costs</li>
+  <li>tax reserve</li>
+  <li>operating reserve</li>
+  <li>emergency runway</li>
+  <li>only then: owner pay</li>
+</ul>
+
+<h2>Why This Matters More in Pakistan</h2>
+<p>Independent workers in Pakistan often face delayed payments, FX swings, platform instability, and family cost pressure at the same time. Without reserve discipline, one weak quarter can force panic withdrawals or bad debt decisions.</p>
+
+<h2>A Practical Reserve Structure</h2>
+<p>A sensible first structure is:</p>
+<ul>
+  <li><strong>Tax reserve:</strong> keep a separate monthly tax bucket</li>
+  <li><strong>Operating reserve:</strong> keep a percentage of monthly inflows for slow months and client delays</li>
+  <li><strong>Emergency reserve:</strong> build a personal runway target measured in months of home expenses</li>
+</ul>
+
+<h2>What Changes the Reserve Percentage?</h2>
+<ul>
+  <li>income volatility</li>
+  <li>number of active clients</li>
+  <li>how much of your income is in foreign currency</li>
+  <li>whether you have dependents</li>
+  <li>how stable your fixed monthly expenses are</li>
+</ul>
+
+<h2>Owner Pay Should Be the Output, Not the Starting Point</h2>
+<p>The wrong sequence is: receive payment → spend personally → worry about tax later. The better sequence is: receive payment → reserve → pay business costs → decide owner pay from what remains.</p>
+
+<h2>Use a Planner Instead of Guessing</h2>
+<p>The <a href="/tools/freelance-tax-planner-pakistan">Freelance Tax and Reserve Planner</a> estimates a monthly tax reserve, operating reserve, emergency top-up, and a safer owner-pay figure based on your actual inflows and costs.</p>
+
+<div class="cta-box"><p>See how much of your monthly freelance income is actually safe to spend.</p><a href="/tools/freelance-tax-planner-pakistan">Open the planner →</a></div>
+`,
+  },
 ]

@@ -89,6 +89,44 @@ export default function Landing() {
           'url': 'https://rafiqy.app',
           'description': 'Free browser-based tools for typing, Urdu input, Pakistan tax planning, solar estimates, PDFs, writing, productivity and everyday digital work.'
         })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          'mainEntity': [
+            {
+              '@type': 'Question',
+              'name': 'Are these tools really free?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, all tools on Rafiqy are free to use. There is no sign-up requirement for the core browser tools.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Does my data stay private?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes. Most tools run directly in your browser, so your files and inputs are processed locally unless a page clearly says it uses live external data.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Do the tools work offline?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Many tools keep working once loaded because they run in the browser, but tools that depend on live rates or online lookups still need an internet connection.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Which tools are most useful for Pakistan users?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Popular Pakistan-focused tools include the income tax calculator, solar planner, Urdu keyboard, and the newer decision systems like rent vs buy and salary offer evaluation.'
+              }
+            }
+          ]
+        })}</script>
       </Helmet>
 
       {/* ── Nav ── */}

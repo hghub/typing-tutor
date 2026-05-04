@@ -6,18 +6,18 @@ import ToolsNav from '../components/ToolsNav'
 import ShareBar from '../components/ShareBar'
 
 const FEATURED_IDS = [
-  'typing-tutor', 'solar-planner', 'tax-calculator',
-  'compress-pdf', 'word-counter', 'expense-analyzer',
-  'data-leak-detector', 'urdu-keyboard',
+  'solar-planner', 'rent-vs-buy-pakistan', 'car-powertrain-decision',
+  'salary-offer-evaluator', 'freelance-tax-planner', 'tax-calculator',
+  'typing-tutor', 'urdu-keyboard',
 ]
 
 const QUICK_ACTIONS = [
-  { label: '⌨ Typing Tutor', path: '/tools/typing-tutor', desc: 'Typing tutor' },
+  { label: '☀️ Solar Calculator', path: '/tools/solar-planner', desc: 'Solar decision' },
+  { label: '🏠 Rent vs Buy', path: '/tools/rent-vs-buy-calculator-pakistan', desc: 'Property decision' },
+  { label: '🚗 EV vs Hybrid', path: '/tools/petrol-vs-hybrid-vs-ev', desc: 'Car decision' },
+  { label: '💼 Salary Offer', path: '/tools/salary-offer-calculator-pakistan', desc: 'Job decision' },
+  { label: '🧾 Freelance Tax', path: '/tools/freelance-tax-planner-pakistan', desc: 'Reserve planner' },
   { label: '🌍 Urdu Keyboard', path: '/tools/urdu-keyboard', desc: 'Type Urdu online' },
-  { label: '☀️ Solar Planner', path: '/tools/solar-planner', desc: 'Solar estimate' },
-  { label: '📄 Compress PDF', path: '/tools/compress-pdf', desc: 'Shrink files' },
-  { label: '🧮 Tax Calculator', path: '/tools/tax-calculator', desc: 'FBR 2025-26' },
-  { label: '📊 Word Counter', path: '/tools/word-counter', desc: 'Count words' },
 ]
 
 const WHAT_YOU_CAN_DO = [
@@ -29,11 +29,11 @@ const WHAT_YOU_CAN_DO = [
     labels: ['Word Counter', 'Text Formatter', 'Doc Composer'],
   },
   {
-    icon: '💰',
-    title: 'Finance & Tax',
-    desc: 'Pakistan tax calculator, EMI planner, expense tracker, salary slip generator and more.',
-    tools: ['/tools/tax-calculator', '/tools/loan-emi', '/tools/expense-analyzer'],
-    labels: ['Tax Calculator', 'Loan EMI', 'Expense Analyzer'],
+    icon: '🧠',
+    title: 'Decision Systems',
+    desc: 'Solar, rent vs buy, petrol vs hybrid vs EV, salary offers and freelance reserve planning.',
+    tools: ['/tools/solar-planner', '/tools/rent-vs-buy-calculator-pakistan', '/tools/petrol-vs-hybrid-vs-ev'],
+    labels: ['Solar Calculator', 'Rent vs Buy', 'EV vs Hybrid'],
   },
   {
     icon: '📄',

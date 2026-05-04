@@ -9,7 +9,7 @@ import ShareBar from '../components/ShareBar'
 import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
 
-const FEATURED_IDS = ['typing-tutor', 'word-counter', 'pomodoro', 'tax-calculator', 'urdu-keyboard']
+const FEATURED_IDS = ['solar-planner', 'rent-vs-buy-pakistan', 'car-powertrain-decision', 'salary-offer-evaluator', 'freelance-tax-planner', 'tax-calculator']
 const LAST_VISIT_KEY = 'typely_last_visit'
 const RECENT_KEY = 'typely_recent_tools'
 const FAVOURITES_KEY = 'typely_favourites'
@@ -66,7 +66,7 @@ const CATEGORY_TOOL_ORDER = {
   productivity:['pomodoro','world-time','daily-planner','habit-tracker','voice-diary','kameti','measurement-tracker','resume-builder','whatsapp-tools'],
   writing:     ['word-counter','text-cleaner','doc-composer','image-suite'],
   language:    ['urdu-keyboard','color-palette'],
-  pakistan:    ['tax-calculator','pk-id-tax-hub','tax-optimizer','kameti','driving-fines','gold-price','salary-slip'],
+  pakistan:    ['solar-planner','rent-vs-buy-pakistan','car-powertrain-decision','salary-offer-evaluator','freelance-tax-planner','tax-calculator','pk-id-tax-hub','tax-optimizer','kameti','driving-fines','gold-price','salary-slip'],
   travel:      ['packing-list','budget-splitter'],
   security:    ['text-encryptor','data-leak-detector','doc-redaction'],
   pdf:         ['compress-pdf','merge-pdf','split-pdf','pdf-convert','doc-converter','text-extractor','pdf-search'],

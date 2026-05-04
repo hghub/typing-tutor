@@ -82,6 +82,10 @@ const UnitConverter  = lazy(() => import('./pages/UnitConverter.jsx'))
 const PasswordGenerator = lazy(() => import('./pages/PasswordGenerator.jsx'))
 const QRGenerator    = lazy(() => import('./pages/QRGenerator.jsx'))
 const SolarPlanner   = lazy(() => import('./pages/SolarPlanner.jsx'))
+const RentVsBuyPakistan = lazy(() => import('./pages/RentVsBuyPakistan.jsx'))
+const CarPowertrainDecision = lazy(() => import('./pages/CarPowertrainDecision.jsx'))
+const SalaryOfferEvaluator = lazy(() => import('./pages/SalaryOfferEvaluator.jsx'))
+const FreelanceTaxPlanner = lazy(() => import('./pages/FreelanceTaxPlanner.jsx'))
 const About              = lazy(() => import('./pages/About.jsx'))
 const Help               = lazy(() => import('./pages/Help.jsx'))
 const Privacy            = lazy(() => import('./pages/Privacy.jsx'))
@@ -184,6 +188,10 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/password-generator" element={<PasswordGenerator />} />
           <Route path="/tools/qr-generator" element={<QRGenerator />} />
           <Route path="/tools/solar-planner" element={<SolarPlanner />} />
+          <Route path="/tools/rent-vs-buy-calculator-pakistan" element={<RentVsBuyPakistan />} />
+          <Route path="/tools/petrol-vs-hybrid-vs-ev" element={<CarPowertrainDecision />} />
+          <Route path="/tools/salary-offer-calculator-pakistan" element={<SalaryOfferEvaluator />} />
+          <Route path="/tools/freelance-tax-planner-pakistan" element={<FreelanceTaxPlanner />} />
           <Route path="/blog" element={<BlogHome />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/blogs/tools/:slug" element={<BlogPostRedirect />} />

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import jsPDF from 'jspdf'
 import ToolLayout from '../components/ToolLayout'
+import FreshnessBanner from '../components/decision/FreshnessBanner'
 
 // ── Pakistan peak sun hours (daily kWh/m²) — verified sources ────────────────
 const CITIES = [
@@ -558,6 +559,14 @@ export default function SolarPlanner() {
   return (
     <ToolLayout toolId="solar-planner">
       <div style={{ fontFamily: FONT, maxWidth: '720px', margin: '0 auto', padding: '1rem' }}>
+        <FreshnessBanner
+          colors={{ text: '#e2e8f0', textSecondary: '#94a3b8' }}
+          accent={ACCENT}
+          lastUpdated={DATA_DATE}
+          cadence="Monthly for tariffs, net-billing assumptions and equipment price ranges"
+          refreshed="Panel, inverter, battery, meter-fee and tariff planning ranges"
+          estimated="Installer labor, roof complexity, and final DISCO process costs vary by case"
+        />
 
         {/* Page heading */}
         <div style={{ marginBottom: '1.25rem' }}>

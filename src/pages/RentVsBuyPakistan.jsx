@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import DisclaimerBlock from '../components/DisclaimerBlock'
 import { useTheme } from '../hooks/useTheme'
+import FreshnessBanner from '../components/decision/FreshnessBanner'
 import {
   DecisionHero,
   SectionCard,
@@ -192,6 +193,14 @@ export default function RentVsBuyPakistan() {
         eyebrow="Decision system"
         description="Compare renting and buying with Pakistan-style assumptions: down payment, markup, transfer costs, rent growth, property appreciation, maintenance, and the opportunity cost of your capital."
         colors={colors}
+      />
+      <FreshnessBanner
+        colors={colors}
+        accent={ACCENT}
+        lastUpdated="May 2026"
+        cadence="Monthly for markup assumptions, quarterly for city baselines"
+        refreshed="City presets, markup defaults, maintenance and transfer-friction assumptions"
+        estimated="Property appreciation and rent-growth assumptions still vary by micro-market and area"
       />
 
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.05fr) minmax(320px, 0.95fr)', gap: '1rem' }}>

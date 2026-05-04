@@ -3,6 +3,7 @@ import ToolLayout from '../components/ToolLayout'
 import DisclaimerBlock from '../components/DisclaimerBlock'
 import { useTheme } from '../hooks/useTheme'
 import { calcFullTax, SLABS_2526 } from '../data/taxData'
+import FreshnessBanner from '../components/decision/FreshnessBanner'
 import {
   DecisionHero,
   SectionCard,
@@ -146,6 +147,14 @@ export default function SalaryOfferEvaluator() {
         eyebrow="Decision system"
         description="Turn a salary offer into an actual decision. Compare after-tax income, commute, benefits, provident fund support, remote flexibility, and city living-cost pressure."
         colors={colors}
+      />
+      <FreshnessBanner
+        colors={colors}
+        accent={ACCENT}
+        lastUpdated="May 2026"
+        cadence="Monthly for tax-year-sensitive logic, quarterly for city-cost baselines"
+        refreshed="Current salaried tax logic, baseline city-cost assumptions, and benefit modeling defaults"
+        estimated="Your actual payroll structure, allowances, and employer wording may change the final result"
       />
 
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.05fr) minmax(320px, 0.95fr)', gap: '1rem' }}>

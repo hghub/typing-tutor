@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import DisclaimerBlock from '../components/DisclaimerBlock'
 import { useTheme } from '../hooks/useTheme'
+import FreshnessBanner from '../components/decision/FreshnessBanner'
 import {
   DecisionHero,
   SectionCard,
@@ -160,6 +161,14 @@ export default function CarPowertrainDecision() {
         eyebrow="Decision system"
         description="Compare total cost of ownership, convenience, charging reality, and risk over five years. This is designed for Pakistan conditions, not generic global assumptions."
         colors={colors}
+      />
+      <FreshnessBanner
+        colors={colors}
+        accent={ACCENT}
+        lastUpdated="May 2026"
+        cadence="Monthly for fuel, electricity and maintenance assumptions"
+        refreshed="Fuel price baseline, electricity tariff baseline, efficiency and maintenance defaults"
+        estimated="Actual model-specific prices, resale, and charger installation costs may vary significantly"
       />
 
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.05fr) minmax(320px, 0.95fr)', gap: '1rem' }}>

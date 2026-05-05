@@ -160,20 +160,22 @@ const TOOL_SEO = {
   },
 
   'loan-emi': {
-    metaTitle: 'Loan EMI Calculator — EMI, Interest & Affordability | Rafiqy',
-    metaDesc: 'Calculate EMI, total interest, full amortization and affordability for car, home and personal loans. Test rate, tenure and financed amount before you borrow.',
-    heading: 'Loan EMI Calculator — Monthly EMI, Interest Cost and Affordability',
+    metaTitle: 'Loan EMI Calculator — How Much to Borrow & For How Long | Rafiqy',
+    metaDesc: 'Calculate EMI, total interest, safer borrowing range, early-payoff savings and affordability for car, home and personal loans. Test rate, tenure and loan size before you borrow.',
+    heading: 'Loan EMI Calculator — How Much to Borrow, For How Long, and At What Cost',
     paras: [
-      'Use this Loan EMI Calculator when you want more than just the EMI formula. It helps you estimate monthly EMI, total interest, full loan cost and whether a car loan, home loan or personal loan is likely to sit safely inside your monthly budget.',
-      'Rafiqy uses the standard reducing-balance method used by Pakistani banks and most modern lenders. Enter the financed amount, annual rate and tenure to see your monthly installment, then pressure-test the decision with rate, tenure and financed-amount scenarios before you sign anything.',
-      'The tool also shows a month-by-month amortization schedule and an EMI-vs-income view so you can judge affordability, not just payment size. That makes it more useful for people deciding whether to borrow now, reduce the loan amount, or negotiate better terms first.',
+      'Use this Loan EMI Calculator when you want more than a formula result. It helps you estimate monthly EMI, total interest, safer borrowing range and whether a car loan, home loan or personal loan is likely to sit safely inside your income and monthly obligations.',
+      'Rafiqy uses the standard reducing-balance method used by Pakistani banks and most modern lenders. Enter the financed amount, annual rate and tenure to see your monthly installment, then pressure-test the decision with rate, tenure, financed-amount and early-payoff scenarios before you sign anything.',
+      'The tool also shows a month-by-month amortization schedule, EMI-vs-income view and possible early-prepayment savings. That makes it more useful for people deciding whether to borrow now, reduce the loan amount, shorten the tenure, or save more before borrowing.',
     ],
     faqs: [
       { q: 'What is EMI?', a: 'EMI (Equated Monthly Instalment) is the fixed monthly payment to repay a loan. It includes both principal repayment and interest, split into equal monthly amounts over the loan tenure.' },
       { q: 'Which EMI formula does this use?', a: 'The standard reducing-balance method: EMI = P × r × (1+r)^n / ((1+r)^n - 1), where P is principal, r is monthly interest rate, and n is number of months.' },
       { q: 'Can I calculate car loan, home loan and personal loan EMI here?', a: 'Yes. The same EMI logic works for car loans, home loans and personal loans. The presets simply help you start with a realistic use case and then adjust the details to match your lender offer.' },
+      { q: 'Can this help me decide how much I should borrow?', a: 'Yes. If you add income and expenses, the tool estimates a safer monthly EMI zone and a rough max borrowing amount under your assumptions. Use it as a planning guardrail, not as a substitute for judgment.' },
       { q: 'Is a longer tenure better?', a: 'A longer tenure lowers the monthly EMI, but it usually increases total interest sharply. Use the what-if cards to check whether a shorter tenure, smaller financed amount or better rate improves the loan more than simply stretching it out.' },
       { q: 'How much of my income should go toward EMI?', a: 'There is no universal single rule, but many users treat 25% to 35% of stable monthly income as a rough caution zone depending on the loan type and their other obligations. The tool\'s affordability view helps you see whether your EMI is starting to crowd out savings, rent, or emergency cushion.' },
+      { q: 'Should I pay off the loan early if I get extra money later?', a: 'Often yes, if the lender allows prepayment at a sensible cost. The tool lets you test a future lump-sum prepayment so you can compare likely interest saved against any prepayment penalty.' },
       { q: 'Is my data private?', a: 'Yes. All calculations happen in your browser. No loan or personal data is ever sent to any server.' },
     ],
   },

@@ -4,6 +4,12 @@ import { useTheme } from '../hooks/useTheme'
 import DisclaimerBlock from '../components/DisclaimerBlock'
 
 const FONT = 'system-ui,-apple-system,sans-serif'
+const LOAN_PRESETS = [
+  { id: 'car', label: 'Car loan', principal: 2500000, rate: 18, years: 5, months: 0 },
+  { id: 'home', label: 'Home loan', principal: 12000000, rate: 16, years: 15, months: 0 },
+  { id: 'personal', label: 'Personal loan', principal: 800000, rate: 24, years: 3, months: 0 },
+]
+
 const fmt = (n, currency) => {
   if (n === null || isNaN(n)) return '—'
   return currency === 'USD'
@@ -71,13 +77,25 @@ function Input({ label, value, onChange, type = 'number', min, max, step, suffix
 
 export default function LoanEMI() {
   const { isDark, colors } = useTheme()
+  const [preset, setPreset] = useState('car')
   const [principal, setPrincipal] = useState(1000000)
   const [rate, setRate] = useState(18)
   const [tenureYears, setTenureYears] = useState(3)
   const [tenureMonths, setTenureMonths] = useState(0)
+  const [monthlyIncome, setMonthlyIncome] = useState('')
   const [currency, setCurrency] = useState('PKR')
   const [showTable, setShowTable] = useState(false)
   const [tableRows, setTableRows] = useState(12)
+
+  function applyPreset(nextId) {
+    const selected = LOAN_PRESETS.find((item) => item.id === nextId)
+    if (!selected) return
+    setPreset(nextId)
+    setPrincipal(selected.principal)
+    setRate(selected.rate)
+    setTenureYears(selected.years)
+    setTenureMonths(selected.months)
+  }
 
   const months = useMemo(() => (Number(tenureYears) * 12) + Number(tenureMonths), [tenureYears, tenureMonths])
   const emi = useMemo(() => calcEMI(Number(principal), Number(rate), months), [principal, rate, months])
@@ -85,6 +103,50 @@ export default function LoanEMI() {
   const totalInterest = useMemo(() => totalPayment ? totalPayment - Number(principal) : null, [totalPayment, principal])
   const interestPct = useMemo(() => totalInterest && principal ? ((totalInterest / Number(principal)) * 100).toFixed(1) : null, [totalInterest, principal])
   const table = useMemo(() => showTable ? buildAmortization(Number(principal), Number(rate), months) : [], [showTable, principal, rate, months])
+  const annualEMI = useMemo(() => emi ? emi * 12 : null, [emi])
+  const emiToIncomePct = useMemo(() => {
+    const income = Number(monthlyIncome) || 0
+    if (!emi || !income) return null
+    return (emi / income) * 100
+  }, [emi, monthlyIncome])
+  const affordabilityText = useMemo(() => {
+    if (emiToIncomePct === null) return 'Add monthly income if you want an affordability signal.'
+    if (emiToIncomePct <= 20) return 'Comfortable range for many households if other debts are low.'
+    if (emiToIncomePct <= 35) return 'Manageable, but the loan will meaningfully shape your monthly flexibility.'
+    if (emiToIncomePct <= 45) return 'Tight. One weak month or extra expense can create pressure.'
+    return 'High-risk EMI burden. Rework rate, tenure, or financed amount before committing.'
+  }, [emiToIncomePct])
+  const whatIf = useMemo(() => {
+    const basePrincipal = Number(principal)
+    const baseRate = Number(rate)
+    if (!basePrincipal || !baseRate || !months) return []
+    const reducedRate = Math.max(0.1, baseRate - 2)
+    const lowerRateEmi = calcEMI(basePrincipal, reducedRate, months)
+    const lowerPrincipal = basePrincipal * 0.8
+    const lowerPrincipalEmi = calcEMI(lowerPrincipal, baseRate, months)
+    const shorterMonths = Math.max(12, months - 12)
+    const shorterTenureEmi = calcEMI(basePrincipal, baseRate, shorterMonths)
+    return [
+      {
+        label: `If rate drops to ${reducedRate}%`,
+        emi: lowerRateEmi,
+        note: `Saves about ${fmt(Math.round((emi || 0) - (lowerRateEmi || 0)), currency)} per month.`,
+        color: '#22c55e',
+      },
+      {
+        label: 'If financed amount drops 20%',
+        emi: lowerPrincipalEmi,
+        note: `Equivalent to a bigger down payment or smaller loan size.`,
+        color: '#06b6d4',
+      },
+      {
+        label: `If you shorten tenure by 12 months`,
+        emi: shorterTenureEmi,
+        note: `Higher monthly EMI, but lower total interest drag.`,
+        color: '#f97316',
+      },
+    ]
+  }, [principal, rate, months, emi, currency])
 
   const accentColor = '#3b82f6'
 
@@ -104,6 +166,16 @@ export default function LoanEMI() {
           </p>
         </div>
 
+        <div style={{ background: isDark ? 'rgba(59,130,246,0.08)' : 'rgba(59,130,246,0.06)', border: `1px solid ${isDark ? 'rgba(59,130,246,0.22)' : 'rgba(59,130,246,0.18)'}`, borderRadius: '1rem', padding: '1rem 1.15rem', marginBottom: '1.25rem' }}>
+          <div style={{ color: colors.text, fontWeight: 800, fontSize: '0.92rem', marginBottom: '0.4rem' }}>
+            What this tool is really for
+          </div>
+          <div style={{ color: colors.muted, fontSize: '0.82rem', lineHeight: 1.65 }}>
+            Use this before taking a home loan, car loan, or personal loan. It helps you answer three things clearly:
+            <strong style={{ color: colors.text }}> what will I pay every month, how much total interest will I lose, and how would the decision improve if rate, tenure, or financed amount changed?</strong>
+          </div>
+        </div>
+
         {/* Currency Toggle */}
         <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem' }}>
           {['PKR', 'USD'].map(c => (
@@ -119,6 +191,34 @@ export default function LoanEMI() {
 
         {/* Inputs */}
         <div style={{ background: colors.surface, border: `1px solid ${colors.border}`, borderRadius: '1rem', padding: '1.5rem', marginBottom: '1.5rem' }}>
+          <div style={{ marginBottom: '1rem' }}>
+            <div style={{ fontSize: '0.78rem', fontWeight: 700, color: colors.muted, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
+              Start from a common loan type
+            </div>
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+              {LOAN_PRESETS.map(item => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => applyPreset(item.id)}
+                  style={{
+                    padding: '0.45rem 0.8rem',
+                    borderRadius: '999px',
+                    cursor: 'pointer',
+                    border: `1px solid ${preset === item.id ? accentColor : colors.border}`,
+                    background: preset === item.id ? accentColor : (isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)'),
+                    color: preset === item.id ? '#fff' : colors.text,
+                    fontFamily: FONT,
+                    fontSize: '0.8rem',
+                    fontWeight: 700,
+                  }}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
             <Input label="Loan Amount" value={principal} onChange={setPrincipal}
               min={1} step={10000} prefix={currency === 'PKR' ? 'Rs' : '$'}
@@ -131,6 +231,11 @@ export default function LoanEMI() {
               min={0} max={30} step={1} suffix="yrs" isDark={isDark} colors={colors} />
             <Input label="Tenure (Extra Months)" value={tenureMonths} onChange={setTenureMonths}
               min={0} max={11} step={1} suffix="mo" isDark={isDark} colors={colors} />
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+            <Input label="Monthly Income (optional)" value={monthlyIncome} onChange={setMonthlyIncome}
+              min={0} step={10000} prefix={currency === 'PKR' ? 'Rs' : '$'}
+              isDark={isDark} colors={colors} />
           </div>
           {months > 0 && (
             <div style={{ marginTop: '0.75rem', fontSize: '0.8rem', color: colors.muted }}>
@@ -150,6 +255,8 @@ export default function LoanEMI() {
                 sub={`Principal + Interest`} color="#8b5cf6" isDark={isDark} colors={colors} />
               <StatCard label="Total Interest" value={fmt(Math.round(totalInterest), currency)}
                 sub={`${interestPct}% of principal`} color="#f97316" isDark={isDark} colors={colors} />
+              <StatCard label="EMI vs Income" value={emiToIncomePct !== null ? `${emiToIncomePct.toFixed(1)}%` : 'Add income'}
+                sub={affordabilityText} color="#10b981" isDark={isDark} colors={colors} />
             </div>
 
             {/* Visual breakdown bar */}
@@ -170,6 +277,42 @@ export default function LoanEMI() {
                 <span>{((Number(principal) / totalPayment) * 100).toFixed(0)}% principal</span>
                 <span>{interestPct}% interest burden</span>
               </div>
+            </div>
+
+            <div style={{ background: colors.surface, border: `1px solid ${colors.border}`, borderRadius: '1rem', padding: '1.25rem', marginBottom: '1.5rem' }}>
+              <div style={{ fontSize: '0.8rem', fontWeight: 700, color: colors.muted, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.7rem' }}>
+                What changes this loan the most?
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.8rem' }}>
+                {whatIf.map((item) => (
+                  <div key={item.label} style={{ flex: 1, minWidth: '180px', border: `1px solid ${colors.border}`, borderRadius: '0.85rem', padding: '0.95rem', background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)' }}>
+                    <div style={{ color: colors.muted, fontSize: '0.76rem', marginBottom: '0.25rem' }}>{item.label}</div>
+                    <div style={{ color: item.color, fontWeight: 800, fontSize: '1rem', marginBottom: '0.25rem' }}>
+                      {fmt(Math.round(item.emi), currency)}/mo
+                    </div>
+                    <div style={{ color: colors.muted, fontSize: '0.74rem', lineHeight: 1.55 }}>
+                      {item.note}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ background: colors.surface, border: `1px solid ${colors.border}`, borderRadius: '1rem', padding: '1.1rem 1.2rem', marginBottom: '1.5rem' }}>
+              <div style={{ color: colors.text, fontWeight: 800, fontSize: '0.92rem', marginBottom: '0.35rem' }}>
+                How to use this result
+              </div>
+              <ul style={{ margin: 0, paddingLeft: '1.1rem', color: colors.muted, lineHeight: 1.7, fontSize: '0.82rem' }}>
+                <li>Use monthly EMI to judge cashflow pressure.</li>
+                <li>Use total interest to judge whether a “comfortable EMI” is actually expensive overall.</li>
+                <li>Use the what-if cards to see whether a better rate, smaller financed amount, or shorter tenure improves the decision enough to wait or renegotiate.</li>
+                <li>For property decisions, use this together with Rent vs Buy rather than comparing rent against EMI alone.</li>
+              </ul>
+              {annualEMI && (
+                <div style={{ marginTop: '0.7rem', fontSize: '0.78rem', color: colors.muted }}>
+                  Annual repayment burden: <strong style={{ color: colors.text }}>{fmt(Math.round(annualEMI), currency)}</strong>
+                </div>
+              )}
             </div>
 
             {/* Amortization toggle */}

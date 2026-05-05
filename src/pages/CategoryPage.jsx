@@ -157,10 +157,16 @@ export default function CategoryPage({ category }) {
                 border: `1px solid ${colors.border}`,
                 borderRadius: 12,
                 padding: '1.25rem',
-                transition: 'border-color .15s',
+                transition: 'border-color .15s, transform .15s',
               }}
-              onMouseEnter={e => e.currentTarget.style.borderColor = tool.color || '#f59e0b'}
-              onMouseLeave={e => e.currentTarget.style.borderColor = colors.border}>
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = colors.textSecondary
+                e.currentTarget.style.transform = 'translateY(-1px)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = colors.border
+                e.currentTarget.style.transform = 'translateY(0)'
+              }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
                   <span style={{ fontSize: '1.5rem' }}>{tool.icon}</span>
                   <span style={{ fontWeight: 700, fontSize: '0.95rem' }}>{tool.name}</span>

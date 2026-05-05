@@ -2,6 +2,7 @@ import { useState, useRef, useCallback } from 'react'
 import { useTheme } from '../hooks/useTheme'
 import ToolsNav from '../components/ToolsNav'
 import RelatedTools from '../components/RelatedTools'
+import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 
 export default function TextExtractor() {
   const { isDark, colors } = useTheme()
@@ -133,6 +134,7 @@ export default function TextExtractor() {
           borderRadius:'999px', fontSize:'0.75rem', color:'#10b981', width:'fit-content', marginBottom:'1.25rem' }}>
           <span>📵</span><span>Processed locally — your file never leaves this device</span>
         </div>
+        <PakistanFriendlyGuide toolId="text-extractor" />
 
         {tab === 'scanned' && (
           <div style={{ padding:'0.75rem 1rem', background:'rgba(251,191,36,0.1)', border:'1px solid rgba(251,191,36,0.3)', borderRadius:'8px', fontSize:'0.8rem', color: isDark?'#fcd34d':'#92400e', marginBottom:'1.25rem' }}>

@@ -1,5 +1,6 @@
 import { useState, useCallback, useMemo, useEffect, useRef } from 'react'
 import ToolLayout from '../components/ToolLayout'
+import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 import { useTheme } from '../hooks/useTheme'
 
 const ACCENT = '#6366f1'
@@ -265,6 +266,7 @@ export default function DocRedaction() {
           🛡️ 100% local — your document never leaves your browser.
         </p>
       </div>
+      <PakistanFriendlyGuide toolId="doc-redaction" />
 
       {/* ── Entity type toggles ── */}
       <div style={{ marginBottom: '1.25rem' }}>

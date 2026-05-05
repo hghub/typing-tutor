@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async'
 import { useTheme } from '../hooks/useTheme'
 import ToolsNav from '../components/ToolsNav'
 import ShareBar from '../components/ShareBar'
+import FeedbackButton from '../components/FeedbackButton'
 import { BLOG_POSTS } from '../data/blogPosts'
 
 const BLOG_CATEGORY_ORDER = ['pakistan', 'language', 'typing', 'finance', 'writing', 'pdf', 'security', 'productivity', 'developer', 'business', 'travel', 'education', 'legal', 'health']
@@ -24,6 +25,16 @@ const FEATURED_POST_SLUGS = [
   'how-to-invest-5-to-15-crore-in-pakistan',
   'compress-pdf-online',
   'password-generator-security',
+]
+const TOPIC_CHIPS = [
+  'solar calculator pakistan',
+  'loan affordability',
+  'investment planner',
+  'rent vs buy',
+  'urdu typing',
+  'salary slip',
+  'ev vs hybrid',
+  'freelance tax',
 ]
 
 export default function BlogHome() {
@@ -99,6 +110,23 @@ export default function BlogHome() {
             <p style={{ fontSize: '1.1rem', color: colors.textSecondary, lineHeight: 1.7, margin: 0 }}>
               Practical guides, simpler explainers, and decision support content to help people in Pakistan and beyond use digital tools with more confidence.
             </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', justifyContent: 'center', marginTop: '1rem' }}>
+              {TOPIC_CHIPS.map(topic => (
+                <span key={topic} style={{
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase',
+                  color: '#06b6d4',
+                  background: isDark ? 'rgba(6,182,212,0.12)' : 'rgba(6,182,212,0.08)',
+                  border: '1px solid rgba(6,182,212,0.18)',
+                  borderRadius: '999px',
+                  padding: '0.28rem 0.65rem',
+                }}>
+                  {topic}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -226,7 +254,7 @@ export default function BlogHome() {
 
                   {/* Tags */}
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
-                    {post.tags.slice(0, 3).map(tag => (
+                    {post.tags.slice(0, 4).map(tag => (
                       <span key={tag} style={{
                         fontSize: '0.7rem', color: colors.muted,
                         background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)',
@@ -274,6 +302,7 @@ export default function BlogHome() {
           </div>
         </div>
       </main>
+      <FeedbackButton />
     </>
   )
 }

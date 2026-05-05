@@ -8,6 +8,7 @@ import FeedbackButton from '../components/FeedbackButton'
 import ShareBar from '../components/ShareBar'
 import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
+import { getToolScenarioLine } from '../lib/toolUsage'
 
 const FEATURED_IDS = ['solar-planner', 'rent-vs-buy-pakistan', 'car-powertrain-decision', 'salary-offer-evaluator', 'freelance-tax-planner', 'tax-calculator']
 const LAST_VISIT_KEY = 'typely_last_visit'
@@ -119,7 +120,7 @@ function MarqueeTicker({ tools, isDark, colors }) {
     { label: '📏 Track anything · Measurement Tracker', color: '#8b5cf6', path: '/tools/measurement-tracker' },
     { label: '🔒 Encrypt your messages privately', color: '#06b6d4', path: '/tools/text-encryptor' },
     { label: '🚗 Track driving fines & violations', color: '#f97316', path: '/tools/driving-fines' },
-    { label: '📊 63 free tools · No signup needed', color: '#3b82f6', path: '/tools' },
+    { label: '📊 67 free tools · No signup needed', color: '#3b82f6', path: '/tools' },
   ]
   const doubled = [...items, ...items]
 
@@ -174,6 +175,7 @@ function ToolCard({ tool, colors, isDark, featured = false, urduLabels = false, 
   const [favHovered, setFavHovered] = useState(false)
   const displayName    = (urduLabels && tool.nameUrdu)    ? tool.nameUrdu    : tool.name
   const displayTagline = (urduLabels && tool.taglineUrdu) ? tool.taglineUrdu : tool.tagline
+  const scenarioLine = getToolScenarioLine(tool)
 
   return (
     <Link to={tool.path} style={{ textDecoration: 'none', display: 'block', height: '100%' }}
@@ -255,6 +257,9 @@ function ToolCard({ tool, colors, isDark, featured = false, urduLabels = false, 
               {tool.description}
             </p>
           )}
+          <p style={{ fontSize: '0.75rem', color: colors.textSecondary, margin: featured ? '0.75rem 0 0' : '0.25rem 0 0', lineHeight: 1.55, opacity: 0.88 }}>
+            {scenarioLine}
+          </p>
           <div style={{
             marginTop: 'auto', paddingTop: featured ? '1rem' : '0.75rem',
             display: 'flex', alignItems: 'center', gap: '0.35rem',
@@ -329,15 +334,15 @@ export default function ToolsHome() {
 
       <Helmet>
         <title>Free Online Tools for Pakistan, Typing, PDF & Privacy | Rafiqy</title>
-        <meta name="description" content="Browse 63 free browser-based tools for Urdu typing, Pakistan tax, solar planning, PDFs, writing, productivity, developer work and privacy-first tasks." />
+        <meta name="description" content="Browse 67 free browser-based tools for Urdu typing, Pakistan tax, solar planning, PDFs, writing, productivity, developer work and privacy-first tasks." />
         <link rel="canonical" href="https://rafiqy.app/tools" />
         <meta property="og:title" content="Free Online Tools for Pakistan, Typing, PDF & Privacy | Rafiqy" />
-        <meta property="og:description" content="Browse 63 free browser-based tools for Urdu typing, Pakistan tax, solar planning, PDFs, writing, productivity, developer work and privacy-first tasks." />
+        <meta property="og:description" content="Browse 67 free browser-based tools for Urdu typing, Pakistan tax, solar planning, PDFs, writing, productivity, developer work and privacy-first tasks." />
         <meta property="og:url" content="https://rafiqy.app/tools" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Free Online Tools for Pakistan, Typing, PDF & Privacy | Rafiqy" />
-        <meta name="twitter:description" content="Browse 63 free browser-based tools for Urdu typing, Pakistan tax, solar planning, PDFs, writing, productivity, developer work and privacy-first tasks." />
+        <meta name="twitter:description" content="Browse 67 free browser-based tools for Urdu typing, Pakistan tax, solar planning, PDFs, writing, productivity, developer work and privacy-first tasks." />
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
@@ -672,7 +677,7 @@ export default function ToolsHome() {
       <FeedbackButton />
 
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1.5rem 1rem' }}>
-        <ShareBar url="https://rafiqy.app/tools" title="Rafiqy — 63 Free Online Tools for Pakistan" />
+        <ShareBar url="https://rafiqy.app/tools" title="Rafiqy — 67 Free Online Tools for Pakistan" />
       </div>
 
       <footer style={{ textAlign: 'center', padding: '1rem', color: colors.textSecondary, fontSize: '0.75rem', borderTop: `1px solid ${colors.border}` }}>

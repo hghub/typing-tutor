@@ -177,6 +177,8 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
   const nbFee      = netBilling ? nbFeeAvg : 0
   const avgCost    = avgInstall + nbFee
   const paybackYrs = calcPayback(avgCost, annualSavings)
+  const exportAnnual = exportRevenue * 12
+  const nbBreakEvenYrs = exportAnnual > 0 ? Math.round(nbFeeAvg / exportAnnual * 10) / 10 : null
 
   // ── Battery ───────────────────────────────────────────────────────────────
   const needsBattery = loadshed >= 3 || bill >= 25000
@@ -217,11 +219,10 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
     verdictFactors.push({ icon:'⚠️', color:'#fbbf24', text: `Lower bill (PKR ${fmt(bill)}/month) — modest absolute savings today; tariffs historically rising 18–22%/yr in Pakistan` })
   // Factor 4: Net billing cost vs benefit
   if (netBilling && exportRevenue > 0) {
-    const exportAnnual   = exportRevenue * 12
-    const nbBreakEvenYrs = exportAnnual > 0 ? Math.round(nbFeeAvg / exportAnnual * 10) / 10 : 99
-    if (nbBreakEvenYrs <= 3)
+    const nbYears = nbBreakEvenYrs ?? 99
+    if (nbYears <= 3)
       verdictFactors.push({ icon:'✅', color:'#86efac', text: `Net billing fee (~PKR ${fmt(nbFeeAvg)}) recovers from export credits in just ${nbBreakEvenYrs} yrs — worth applying` })
-    else if (nbBreakEvenYrs <= 6)
+    else if (nbYears <= 6)
       verdictFactors.push({ icon:'🔹', color:'#7dd3fc', text: `Net billing fee (~PKR ${fmt(nbFeeAvg)}) recovers in ~${nbBreakEvenYrs} yrs of export credits — borderline; see option comparison below` })
     else
       verdictFactors.push({ icon:'⚠️', color:'#fbbf24', text: `Net billing fee (~PKR ${fmt(nbFeeAvg)}) takes ${nbBreakEvenYrs}+ yrs to recover from export revenue — smaller system without NB may beat this` })
@@ -245,6 +246,85 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
   const tenYrAlt   = Math.round(altAnnualSave  * 10 - altAvgCost)
   const altIsBetter    = tenYrAlt > tenYrFull
   const showAltCompare = netBilling && (sysKw - altSysKw >= 1)
+
+  const improvedSelfConsume = Math.min(85, selfConsumePct + 10)
+  const improvedSelfConsumedRaw = monthlyGen * (improvedSelfConsume / 100)
+  const improvedSelfConsumedKwh = Math.min(improvedSelfConsumedRaw, actualMonthlyUsage)
+  const improvedExportedKwh = monthlyGen - improvedSelfConsumedKwh
+  const improvedSelfSavings = Math.min(improvedSelfConsumedKwh * effectiveTariff, bill)
+  const improvedExportRevenue = netBilling ? improvedExportedKwh * buybackRate : 0
+  const improvedBillOffset = Math.min(improvedSelfSavings + improvedExportRevenue, bill)
+  const improvedAnnualSavings = improvedBillOffset * 12
+  const improvedPayback = calcPayback(avgCost, improvedAnnualSavings)
+
+  const cheaperInstallCost = avgInstall * 0.9 + nbFee
+  const cheaperPayback = calcPayback(cheaperInstallCost, annualSavings)
+
+  const higherTariffAnnualSavings = annualSavings * 1.12
+  const higherTariffPayback = calcPayback(avgCost, higherTariffAnnualSavings)
+
+  let decisionTitle = 'Proceed carefully'
+  let decisionBody = 'The numbers are workable, but the final choice depends on how much upfront spend, outage risk, and policy friction you are comfortable carrying.'
+  let decisionTrack = 'Compare installer quotes against this baseline before committing.'
+  const actionSteps = []
+
+  if (bill < 5000 || paybackYrs > 12) {
+    decisionTitle = 'Wait or keep this as a later upgrade'
+    decisionBody = 'Your current savings pool is too small relative to installation cost, so solar is unlikely to be your strongest money move right now.'
+    decisionTrack = 'Use this as a monitoring case: if tariffs rise further or your bill grows, rerun the scenario before buying.'
+    actionSteps.push('Do not oversize a system just to chase exports at current net billing rates.')
+    actionSteps.push('Revisit the decision if your bill crosses PKR 10,000 or load-shedding worsens.')
+    actionSteps.push('If backup is your main pain point, compare a smaller hybrid setup against a pure battery solution.')
+  } else if (loadshed >= 6 && needsBattery) {
+    decisionTitle = 'Only proceed if you budget battery from day one'
+    decisionBody = 'At your outage level, an on-grid-only install would leave you disappointed during blackouts. The decision is really solar plus storage, not solar alone.'
+    decisionTrack = 'Price the battery and inverter combination together before evaluating payback.'
+    actionSteps.push('Ask installers for hybrid-inverter quotes, not pure on-grid quotes.')
+    actionSteps.push('Check whether a 5–6 kWh or 10 kWh battery matches your outage pattern.')
+    actionSteps.push('Treat outage resilience as part of the value, not just bill reduction.')
+  } else if (altIsBetter) {
+    decisionTitle = 'Start with a smaller self-consumption-focused system'
+    decisionBody = 'Your better financial path is to right-size around daytime usage instead of paying extra for a larger export-heavy system and net billing fee.'
+    decisionTrack = 'This is usually strongest for lower daytime usage, moderate bills, or higher DISCO meter fees.'
+    actionSteps.push(`Option B currently beats the full system by about PKR ${fmt(tenYrAlt - tenYrFull)} over 10 years.`)
+    actionSteps.push('Shift more daytime load first, then add more capacity later if actual usage supports it.')
+    actionSteps.push('Ask installers for both full-system and smaller-system quotes before deciding.')
+  } else if (netBilling && (!nbBreakEvenYrs || nbBreakEvenYrs <= 6)) {
+    decisionTitle = 'Proceed with a full system and net billing'
+    decisionBody = 'Your bill size, usage mix, and payback profile support a complete solar install instead of waiting for perfect conditions.'
+    decisionTrack = 'The main risk to manage now is quote quality, not whether solar makes sense at all.'
+    actionSteps.push('Use the economy, mid, and premium ranges here to reject inflated installer quotes quickly.')
+    actionSteps.push('Still compare a smaller hybrid-ready system if you want lower upfront spend.')
+    actionSteps.push('Confirm the net billing application scope and DISCO meter process in writing.')
+  } else {
+    decisionTitle = 'Proceed, but keep the setup lean'
+    decisionBody = 'Solar can work for you, but the decision improves if you protect upfront cash and avoid unnecessary oversizing.'
+    decisionTrack = 'Hybrid readiness and tighter self-consumption usually matter more than chasing the biggest possible system.'
+    actionSteps.push('Ask for a hybrid inverter even if you delay the battery.')
+    actionSteps.push('Target stronger daytime self-use before paying for extra export-heavy capacity.')
+    actionSteps.push('Use the sensitivity cards below to see which change helps your ROI most.')
+  }
+
+  const sensitivity = [
+    {
+      label: `Shift self-consumption to ${improvedSelfConsume}%`,
+      impact: `${fmtDec(improvedPayback)} yrs payback`,
+      detail: `If you move more daytime usage under solar hours, payback changes by ${fmtDec(Math.abs(paybackYrs - improvedPayback))} years.`,
+      tone: improvedPayback < paybackYrs ? '#86efac' : '#7dd3fc',
+    },
+    {
+      label: 'Negotiate a 10% better installer price',
+      impact: `${fmtDec(cheaperPayback)} yrs payback`,
+      detail: `A cleaner quote matters almost as much as production assumptions in your case.`,
+      tone: cheaperPayback < paybackYrs ? '#86efac' : '#7dd3fc',
+    },
+    {
+      label: 'If tariffs rise another 12%',
+      impact: `${fmtDec(higherTariffPayback)} yrs payback`,
+      detail: 'Higher grid prices improve solar economics automatically because your savings per unit increase.',
+      tone: higherTariffPayback < paybackYrs ? '#86efac' : '#7dd3fc',
+    },
+  ]
 
   // ── Expert: Personalized tips based on inputs ─────────────────────────────
   const expertTips = []
@@ -283,6 +363,7 @@ function calcResults({ bill, cityObj, loadshed, appliances, selected, netBilling
     altSysKw, altCostLo, altCostHi, altPaybackFmt, altMonthlySave, altAnnualSave,
     tenYrFull, tenYrAlt, altIsBetter, showAltCompare,
     expertTips,
+    decisionTitle, decisionBody, decisionTrack, actionSteps, sensitivity,
   }
 }
 
@@ -844,6 +925,29 @@ export default function SolarPlanner() {
               </div>
             </div>
 
+            <div style={{ ...card, background: '#0f1c2e', border: '1px solid #264869' }}>
+              <div style={{ color: '#7dd3fc', fontWeight: 700, fontSize: '0.82rem', marginBottom: '0.45rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+                Decision Path
+              </div>
+              <div style={{ color: '#f1f5f9', fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.35rem' }}>
+                {results.decisionTitle}
+              </div>
+              <p style={{ color: '#94a3b8', fontSize: '0.8rem', lineHeight: 1.65, margin: '0 0 0.75rem' }}>
+                {results.decisionBody}
+              </p>
+              <div style={{ background: '#0f172a', border: '1px solid #1e3a5f', borderRadius: '8px', padding: '0.7rem 0.85rem', color: '#7dd3fc', fontSize: '0.77rem', lineHeight: 1.6, marginBottom: '0.75rem' }}>
+                {results.decisionTrack}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+                {results.actionSteps.map((step, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '0.55rem', alignItems: 'flex-start' }}>
+                    <span style={{ color: '#86efac', fontSize: '0.78rem', lineHeight: 1.5 }}>●</span>
+                    <span style={{ color: '#cbd5e1', fontSize: '0.78rem', lineHeight: 1.6 }}>{step}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Why this verdict */}
             <div style={{ ...card, background: '#0f1c2e', border: '1px solid #1e3a5f' }}>
               <div style={{ color: '#7dd3fc', fontWeight: 600, fontSize: '0.82rem', marginBottom: '0.6rem' }}>🧠 Why "{results.verdict}"?</div>
@@ -852,6 +956,21 @@ export default function SolarPlanner() {
                   <div key={i} style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
                     <span style={{ fontSize: '0.82rem', flexShrink: 0, lineHeight: '1.5' }}>{f.icon}</span>
                     <span style={{ color: f.color, fontSize: '0.78rem', lineHeight: 1.6 }}>{f.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ ...card, background: '#111827', border: '1px solid #22304b' }}>
+              <div style={{ color: '#7dd3fc', fontWeight: 600, fontSize: '0.82rem', marginBottom: '0.75rem' }}>
+                🎚 What changes the answer most?
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.65rem' }}>
+                {results.sensitivity.map((item) => (
+                  <div key={item.label} style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '8px', padding: '0.8rem 0.85rem' }}>
+                    <div style={{ color: '#94a3b8', fontSize: '0.72rem', marginBottom: '0.2rem' }}>{item.label}</div>
+                    <div style={{ color: item.tone, fontSize: '0.92rem', fontWeight: 700, marginBottom: '0.3rem' }}>{item.impact}</div>
+                    <div style={{ color: '#64748b', fontSize: '0.72rem', lineHeight: 1.55 }}>{item.detail}</div>
                   </div>
                 ))}
               </div>

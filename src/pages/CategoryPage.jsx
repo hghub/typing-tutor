@@ -4,6 +4,7 @@ import { useTheme } from '../hooks/useTheme'
 import { TOOLS } from '../tools/registry'
 import ToolsNav from '../components/ToolsNav'
 import { BLOG_POSTS } from '../data/blogPosts'
+import { getToolScenarioLine } from '../lib/toolUsage'
 
 const CATEGORY_DATA = {
   'productivity-tools': {
@@ -115,6 +116,9 @@ export default function CategoryPage({ category }) {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
           {tools.map(tool => (
             <Link key={tool.id} to={tool.path} style={{ textDecoration: 'none' }}>
+              {(() => {
+                const scenarioLine = getToolScenarioLine(tool)
+                return (
               <div style={{
                 background: colors.surface,
                 border: `1px solid ${colors.border}`,
@@ -131,14 +135,19 @@ export default function CategoryPage({ category }) {
                 <p style={{ color: colors.textSecondary, fontSize: '0.83rem', lineHeight: 1.5, margin: 0 }}>
                   {tool.tagline}
                 </p>
+                <p style={{ color: colors.textSecondary, fontSize: '0.74rem', lineHeight: 1.55, margin: '0.55rem 0 0', opacity: 0.85 }}>
+                  {scenarioLine}
+                </p>
               </div>
+                )
+              })()}
             </Link>
           ))}
         </div>
 
         <div style={{ marginTop: '3rem', textAlign: 'center' }}>
           <Link to="/tools" style={{ color: '#06b6d4', fontWeight: 600, textDecoration: 'none' }}>
-            ← Browse all 63 tools
+            ← Browse all 67 tools
           </Link>
         </div>
 

@@ -1914,6 +1914,116 @@ export const BLOG_POSTS = [
 `,
   },
   {
+    slug: 'smaller-solar-system-vs-net-billing-pakistan',
+    title: 'Should You Start With a Smaller Solar System in Pakistan?',
+    description: 'A practical guide to deciding between a full net-billing solar setup and a smaller self-consumption-focused system in Pakistan.',
+    hero: '☀️',
+    category: 'pakistan',
+    readTime: '7 min read',
+    publishDate: '2026-05-05',
+    tags: ['solar', 'solar planner', 'net billing', 'self consumption', 'solar calculator pakistan'],
+    content: `
+<h2>The New Solar Question in Pakistan</h2>
+<p>Under older solar advice, bigger was often treated as better. Install as much capacity as your roof could take, export the surplus, and let net metering do the rest. That logic is weaker now.</p>
+<p>With lower export value under the current net billing environment, the smarter question is often: <strong>should you install a smaller system that mostly serves your own daytime load?</strong></p>
+
+<h2>When a Smaller System Can Be Better</h2>
+<p>A smaller self-consumption-focused setup often wins when:</p>
+<ul>
+  <li>your daytime home usage is limited</li>
+  <li>most family members are out during solar hours</li>
+  <li>your DISCO meter and application fee is expensive</li>
+  <li>your monthly bill is moderate, not very high</li>
+  <li>you want a lower upfront investment and faster payback</li>
+</ul>
+
+<h2>Why Net Billing Changes the Math</h2>
+<p>If exported units earn far less than the units you avoid buying from the grid, then oversized systems lose some of their appeal. The best solar unit is often the one you consume yourself, not the one you export.</p>
+<p>That means a household with lower daytime use may be financially better off with a smaller system and stronger self-use than with a larger system that creates more exported energy but also requires more upfront cash and a separate meter process.</p>
+
+<h2>The Upfront-Cost Difference Matters</h2>
+<p>The full-system decision is not only about monthly savings. It is also about:</p>
+<ul>
+  <li>extra panel cost</li>
+  <li>inverter sizing</li>
+  <li>net billing application cost</li>
+  <li>meter fee</li>
+  <li>capital tied up on day one</li>
+</ul>
+<p>If a smaller system reduces your upfront spend materially, the lower initial investment can sometimes outweigh the difference in monthly savings.</p>
+
+<h2>Who Should Usually Still Go Bigger?</h2>
+<p>A fuller system still makes sense when:</p>
+<ul>
+  <li>your bill is high enough that the savings pool is large</li>
+  <li>you already use a good share of electricity during the day</li>
+  <li>you can justify the net billing fee quickly</li>
+  <li>you expect tariffs to keep rising sharply</li>
+  <li>your home has strong, consistent solar usage across the year</li>
+</ul>
+
+<h2>The Best Way to Decide</h2>
+<p>Do not guess. Compare both paths side by side. That is why the <a href="/tools/solar-planner">Rafiqy Pakistan Solar Calculator</a> includes both a full-system path and a smaller self-consumption-focused option.</p>
+<p>If Option B gives you a better 10-year outcome with lower risk, there is no prize for installing more than you should.</p>
+
+<div class="cta-box"><p>Compare a full system against a smaller self-consumption setup using your own bill and city.</p><a href="/tools/solar-planner">Open the Pakistan Solar Calculator →</a></div>
+`,
+  },
+  {
+    slug: 'should-you-add-a-battery-to-solar-in-pakistan',
+    title: 'Should You Add a Battery to Solar in Pakistan Now or Later?',
+    description: 'A practical guide to deciding whether battery storage should be part of your solar system now, later, or not at all.',
+    hero: '🔋',
+    category: 'pakistan',
+    readTime: '7 min read',
+    publishDate: '2026-05-05',
+    tags: ['solar battery pakistan', 'solar', 'battery backup', 'load shedding', 'hybrid inverter'],
+    content: `
+<h2>Battery Is Not Always a Yes-or-No Question</h2>
+<p>For many Pakistan households, the real choice is not simply <em>battery or no battery</em>. It is:</p>
+<ul>
+  <li>add battery now</li>
+  <li>prepare for battery later with a hybrid inverter</li>
+  <li>skip battery because the economics do not justify it yet</li>
+</ul>
+
+<h2>When Battery Usually Makes Sense Immediately</h2>
+<p>Battery tends to deserve immediate budget when:</p>
+<ul>
+  <li>load shedding is frequent and disruptive</li>
+  <li>you need backup for work, router, lights, fans, or security equipment</li>
+  <li>you export a meaningful amount of solar that could be used at home instead</li>
+  <li>you value resilience, not just bill reduction</li>
+</ul>
+
+<h2>When Battery Can Wait</h2>
+<p>If your area has stable supply and your main goal is just reducing the bill, a battery may be optional at first. In that case, a hybrid inverter can be the smarter move. It costs more than pure on-grid, but it preserves your ability to add storage later without replacing the inverter.</p>
+
+<h2>The Two Values of a Battery</h2>
+<p>Battery creates value in two ways:</p>
+<ol>
+  <li><strong>Backup value:</strong> keeping essential loads on during outages</li>
+  <li><strong>Energy-value upgrade:</strong> converting surplus daytime solar into evening self-use instead of low-value export</li>
+</ol>
+<p>For some families, backup alone justifies it. For others, it only makes sense when both values are present together.</p>
+
+<h2>Common Mistake: Buying the Wrong Inverter</h2>
+<p>Many users try to save money initially with a pure on-grid inverter, then later discover they want storage. If the inverter is not battery-capable, the upgrade path becomes expensive and frustrating. That is why hybrid-readiness matters even when the battery itself is delayed.</p>
+
+<h2>A Better Rule of Thumb</h2>
+<ul>
+  <li><strong>0–2 hours outage:</strong> battery often optional</li>
+  <li><strong>4–6 hours outage:</strong> strong case for at least modest storage</li>
+  <li><strong>8+ hours outage:</strong> battery should be part of the original planning conversation</li>
+</ul>
+
+<h2>Use the Tool Before You Buy</h2>
+<p>The <a href="/tools/solar-planner">Rafiqy Pakistan Solar Calculator</a> already uses your load-shedding level, bill size, and export pattern to tell you whether battery is optional or recommended. Use that result as your baseline before discussing battery sizing with installers.</p>
+
+<div class="cta-box"><p>See whether your current solar case justifies battery now, later, or not yet.</p><a href="/tools/solar-planner">Run the solar scenario →</a></div>
+`,
+  },
+  {
     slug: 'when-renting-is-better-than-buying-in-pakistan',
     title: 'When Renting Is Better Than Buying in Pakistan',
     description: 'Buying is not always the stronger move. Here are the practical cases where renting remains the better decision in Pakistan.',

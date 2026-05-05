@@ -218,7 +218,7 @@ export const TOOLS = [
     nameUrdu: 'تنخواہ سلپ جنریٹر',
     tagline: 'Printable salary slip with FBR tax & EOBI',
     taglineUrdu: 'ایف بی آر ٹیکس اور ای او بی آئی کے ساتھ تنخواہ سلپ',
-    description: 'Generate a professional printable salary slip with automatic FBR income tax estimation (Finance Act 2024-25) and EOBI deductions. No data ever leaves your device.',
+    description: 'Generate a professional printable salary slip with current salaried tax estimation and EOBI deductions. No data ever leaves your device.',
     icon: '🧾',
     path: '/tools/salary-slip',
     color: '#10b981',
@@ -226,7 +226,7 @@ export const TOOLS = [
     region: 'pk',
     tags: ['salary', 'payslip', 'salary slip', 'eobi', 'income tax', 'pakistan', 'hr', 'payroll'],
     related: ['tax-calculator', 'loan-emi', 'expense-analyzer'],
-    features: ['EOBI auto-calc (employee 1%, employer 5%)', 'FBR 2024-25 income tax slab estimation', 'Printable A4 slip — print or save as PDF', 'Company info, designation, custom allowances'],
+    features: ['EOBI auto-calc (employee 1%, employer 5%)', 'Current FY 2025-26 salary tax estimation', 'Printable A4 slip — print or save as PDF', 'Company info, designation, custom allowances'],
   },
   {
     id: 'world-time',

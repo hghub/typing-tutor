@@ -179,11 +179,11 @@ const TOOL_SEO = {
 
   'salary-slip': {
     metaTitle: 'Free Salary Slip Generator Online | Rafiqy',
-    metaDesc: 'Generate professional salary slips with FBR tax and EOBI deductions. Print or save as PDF. 100% private, browser-based. No sign-up.',
+    metaDesc: 'Generate professional salary slips with current salary tax estimation and EOBI deductions. Print or save as PDF. 100% private and browser-based.',
     heading: 'Free Salary Slip Generator Pakistan — Professional Payslip Maker',
     paras: [
       'Create professional salary slips in minutes with Rafiqy\'s Salary Slip Generator. Enter employee details, basic salary, and deductions — the tool generates a formatted, printable salary slip following Pakistani payroll conventions.',
-      'The generator automatically calculates provident fund (PF), EOBI, income tax deductions, and net take-home pay. Export as PDF or print directly. No account, no subscription, no data uploaded — everything runs in your browser.',
+      'The generator automatically calculates provident fund (PF), EOBI, current salary tax estimates, and net take-home pay. Export as PDF or print directly. No account, no subscription, no data uploaded — everything runs in your browser.',
       'Ideal for small business owners, HR departments, freelancers, and contractors who need to issue payslips without expensive payroll software. Supports PKR formatting and Pakistani company details.',
     ],
     faqs: [

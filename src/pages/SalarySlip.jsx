@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
 import DisclaimerBlock from '../components/DisclaimerBlock'
+import { calcFullTax } from '../data/taxData'
 
 const FONT = 'system-ui,-apple-system,sans-serif'
 const PRINT_FONT = 'Arial,Helvetica,sans-serif'
@@ -10,22 +11,6 @@ const PRINT_FONT = 'Arial,Helvetica,sans-serif'
 const EOBI_EMPLOYEE_RATE = 0.01   // 1%
 const EOBI_EMPLOYER_RATE = 0.05   // 5%
 const EOBI_MAX_WAGES     = 30000  // max wage for EOBI calc
-
-// Pakistan income tax slabs 2024-25 (salaried)
-const SLABS = [
-  { max: 600000,   rate: 0,     base: 0 },
-  { max: 1200000,  rate: 0.05,  base: 0,      min: 600000 },
-  { max: 2400000,  rate: 0.15,  base: 30000,  min: 1200000 },
-  { max: 3600000,  rate: 0.25,  base: 210000, min: 2400000 },
-  { max: 6000000,  rate: 0.30,  base: 510000, min: 3600000 },
-  { max: Infinity, rate: 0.35,  base: 1230000,min: 6000000 },
-]
-
-function annualTax(annualIncome) {
-  const slab = SLABS.find(s => annualIncome <= s.max)
-  if (!slab || slab.rate === 0) return 0
-  return slab.base + (annualIncome - slab.min) * slab.rate
-}
 
 function calcEOBI(basicSalary) {
   const base = Math.min(basicSalary, EOBI_MAX_WAGES)
@@ -91,7 +76,7 @@ export default function SalarySlip() {
 
   const grossSalary = [basic, hra, medical, conveyance, otherAllowance].reduce((a, b) => a + Number(b), 0)
   const annualGross = grossSalary * 12
-  const monthlyTax = Math.round(annualTax(annualGross) / 12)
+  const monthlyTax = Math.round(calcFullTax({ annualIncome: annualGross }).tax / 12)
   const eobi = calcEOBI(Number(basic))
   const totalDeductions = monthlyTax + eobi.employee + Number(customDeduction)
   const netSalary = grossSalary - totalDeductions
@@ -290,12 +275,12 @@ export default function SalarySlip() {
             </div>
 
             <div style={{ marginTop: '0.875rem', fontSize: '0.7rem', color: '#888', textAlign: 'center' }}>
-              This is a computer-generated salary slip. Income tax is estimated under Finance Act 2024-25. EOBI calculated at 1% employee contribution (max wage: PKR 30,000).
+              This is a computer-generated salary slip. Income tax is estimated using current salaried tax logic for FY 2025-26. EOBI is calculated at 1% employee contribution (max wage: PKR 30,000).
             </div>
           </div>
         </div>
 
-        <DisclaimerBlock type="professional" overrideBodyEn="Income tax is estimated using Finance Act 2024-25 slab rates. Actual tax may vary based on exemptions, investments, and employer policies. Consult your accounts department or a tax professional for exact figures." />
+        <DisclaimerBlock type="professional" overrideBodyEn="Income tax is estimated using current salaried tax logic for FY 2025-26. Actual payroll deductions can vary based on exemptions, benefits, investments, and employer policy. Consult your accounts department or a tax professional for exact figures." />
       </div>
     </ToolLayout>
   )

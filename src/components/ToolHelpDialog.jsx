@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
 import { TOOLS } from '../tools/registry'
+import { getToolUseCases } from '../lib/toolUsage'
 
 export default function ToolHelpDialog({ toolId, onClose }) {
   const { isDark, colors } = useTheme()
@@ -12,6 +13,7 @@ export default function ToolHelpDialog({ toolId, onClose }) {
   const name = (prefs.urduLabels && tool.nameUrdu) ? tool.nameUrdu : tool.name
   const description = (prefs.urduLabels && tool.descriptionUrdu) ? tool.descriptionUrdu : tool.description
   const features = tool.features || []
+  const useCases = getToolUseCases(tool)
   const privacyNote = prefs.urduLabels
     ? 'تمام پروسیسنگ آپ کے براؤزر میں ہوتی ہے۔ کوئی ڈیٹا یا فائل سرور پر نہیں جاتا۔'
     : 'All processing happens in your browser. No files or data are uploaded to any server.'
@@ -81,6 +83,21 @@ export default function ToolHelpDialog({ toolId, onClose }) {
           color: colors.textSecondary, lineHeight: 1.65,
           direction: prefs.urduLabels ? 'rtl' : 'ltr',
         }}>{description}</p>
+
+        <div style={{ marginBottom: '1.25rem' }}>
+          <p style={{ margin: '0 0 0.65rem', fontSize: '0.7rem', fontWeight: 700,
+            letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.textSecondary }}>
+            {prefs.urduLabels ? 'کن حالات میں یہ ٹول مفید ہے' : 'Best For'}
+          </p>
+          <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            {useCases.map((item, i) => (
+              <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', fontSize: '0.84rem', color: colors.text, lineHeight: 1.55 }}>
+                <span style={{ color: tool.color, fontSize: '0.72rem', marginTop: '0.3rem', flexShrink: 0 }}>●</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         {/* Features list */}
         {features.length > 0 && (

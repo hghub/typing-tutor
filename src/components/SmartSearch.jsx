@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { TOOLS } from '../tools/registry'
 import { SEARCH_VOCABULARY } from '../tools/searchVocabulary'
+import { getToolUseCases } from '../lib/toolUsage'
 
 const PLACEHOLDER_HINTS = [
   'Search tools, features (English or Roman Urdu)…',
@@ -30,6 +31,7 @@ function scoreMatch(tool, query) {
   check(tool.name, 10)
   check(tool.tagline, 5)
   check(tool.description, 2)
+  getToolUseCases(tool).forEach(s => check(s, 2))
   tool.tags?.forEach(t => check(t, 4))
   vocab.keywords?.forEach(k => check(k, 4))
   vocab.roman_urdu?.forEach(r => check(r, 6))

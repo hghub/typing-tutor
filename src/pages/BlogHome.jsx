@@ -233,7 +233,7 @@ export default function BlogHome() {
               onMouseEnter={e => e.currentTarget.style.opacity = '0.9'}
               onMouseLeave={e => e.currentTarget.style.opacity = '1'}
             >
-              ⚡ Explore all 63 tools →
+              ⚡ Explore all 67 tools →
             </Link>
           </div>
         </div>

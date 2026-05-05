@@ -141,7 +141,7 @@ export default function Help() {
               body="Cloud Sync is disabled by default to protect your privacy. Your data stays local unless you opt in. Enable it in ⚙️ → Cloud Sync toggle." />
             <Card icon="☁️" title="When Cloud Sync is ON" color="#06b6d4" isDark={isDark} colors={colors}
               body="Data from tools like Loan Manager, Habit Tracker, Voice Diary, Kameti and Daily Planner syncs to a secure anonymous cloud session — identified only by a random ID, no email needed." />
-            <Card icon="⬇️" title="Export All — move to another device" color="#8b5cf6" isDark={isDark} colors={colors}
+            <Card icon="⬇️" title="Export All — move to another device" color="#0ea5e9" isDark={isDark} colors={colors}
               body='Click ⚙️ → "Export All" to download a single JSON backup of all your tool data. Then open Rafiqy on any other browser/device, click ⚙️ → "Import" and pick that file.' />
             <Card icon="🔑" title="Recovery / Session Code" color="#f97316" isDark={isDark} colors={colors}
               body="Some tools show a Recovery Code (a random UUID). This code links your local browser to your cloud session. It only works for cloud sync — it does NOT transfer your localStorage data to another device." />

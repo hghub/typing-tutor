@@ -11,7 +11,7 @@ const WHO_FOR = [
     icon: '🎓',
     title: 'Students',
     desc: 'Type faster, write cleaner essays, build timelines, and form study groups — all without installing anything.',
-    color: '#8b5cf6',
+    color: '#0ea5e9',
   },
   {
     icon: '💻',
@@ -47,7 +47,7 @@ const WHO_FOR = [
     icon: '🔒',
     title: 'Privacy-conscious Users',
     desc: 'Redact PII from documents before sharing, detect leaked API keys and secrets in logs, and encrypt sensitive text — all locally.',
-    color: '#6366f1',
+    color: '#06b6d4',
   },
   {
     icon: '✈️',

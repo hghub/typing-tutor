@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import { useTheme } from '../hooks/useTheme'
 import { TOOLS } from '../tools/registry'
 import ToolsNav from '../components/ToolsNav'
+import FeedbackButton from '../components/FeedbackButton'
 import { BLOG_POSTS } from '../data/blogPosts'
 import { getToolScenarioLine } from '../lib/toolUsage'
 import { getAccessibilityNote } from '../lib/pakistanAccessibility'
@@ -228,6 +229,7 @@ export default function CategoryPage({ category }) {
           )
         })()}
       </main>
+      <FeedbackButton />
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import ToolsNav from '../components/ToolsNav'
+import FeedbackButton from '../components/FeedbackButton'
 import { useTheme } from '../hooks/useTheme'
 
 export default function Privacy() {
@@ -73,6 +74,7 @@ export default function Privacy() {
           </section>
         </div>
       </main>
+      <FeedbackButton />
     </div>
   )
 }

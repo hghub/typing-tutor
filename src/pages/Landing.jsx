@@ -4,6 +4,7 @@ import { TOOLS } from '../tools/registry'
 import { BLOG_POSTS } from '../data/blogPosts'
 import ToolsNav from '../components/ToolsNav'
 import ShareBar from '../components/ShareBar'
+import FeedbackButton from '../components/FeedbackButton'
 import { IMPORTANT_PAKISTAN_TOOL_IDS, USEFUL_HIDDEN_TOOL_IDS, getAccessibilityNote } from '../lib/pakistanAccessibility'
 
 const FEATURED_IDS = [
@@ -412,6 +413,7 @@ export default function Landing() {
         <Link to="/about" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', marginRight: '1rem' }}>About</Link>
         <span>© {new Date().getFullYear()} Rafiqy — A simple digital companion for everyday tasks</span>
       </footer>
+      <FeedbackButton />
     </div>
   )
 }

@@ -118,7 +118,7 @@ function MarqueeTicker({ tools, isDark, colors }) {
     { label: '⭐ Featured · 💸 Expense Analyzer', color: '#f59e0b', path: '/tools/expense-analyzer' },
     { label: '🔒 Privacy-first · Zero uploads', color: '#06b6d4', path: '/tools' },
     { label: '⭐ Featured · 🔍 Data Leak Detector', color: '#ef4444', path: '/tools/data-leak-detector' },
-    { label: '📏 Track anything · Measurement Tracker', color: '#8b5cf6', path: '/tools/measurement-tracker' },
+    { label: '📏 Track anything · Measurement Tracker', color: '#0ea5e9', path: '/tools/measurement-tracker' },
     { label: '🔒 Encrypt your messages privately', color: '#06b6d4', path: '/tools/text-encryptor' },
     { label: '🚗 Track driving fines & violations', color: '#f97316', path: '/tools/driving-fines' },
     { label: '📊 68 free tools · No signup needed', color: '#3b82f6', path: '/tools' },
@@ -432,7 +432,7 @@ export default function ToolsHome() {
           {/* Who it's for */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center', marginBottom: '1.25rem' }}>
             {[
-              { label: '🎓 Students', color: '#8b5cf6' },
+              { label: '🎓 Students', color: '#0ea5e9' },
               { label: '💻 Developers', color: '#06b6d4' },
               { label: '🏫 Teachers', color: '#ec4899' },
               { label: '💼 Freelancers', color: '#f97316' },

@@ -160,19 +160,20 @@ const TOOL_SEO = {
   },
 
   'loan-emi': {
-    metaTitle: 'Free Loan EMI Calculator — Monthly Payments | Rafiqy',
-    metaDesc: 'Calculate your monthly EMI for any loan. Enter principal, rate and tenure to get instant results. Free, fast and private.',
-    heading: 'Free Loan EMI Calculator — Monthly Instalment Planner',
+    metaTitle: 'Loan EMI Calculator — EMI, Interest & Affordability | Rafiqy',
+    metaDesc: 'Calculate EMI, total interest, full amortization and affordability for car, home and personal loans. Test rate, tenure and financed amount before you borrow.',
+    heading: 'Loan EMI Calculator — Monthly EMI, Interest Cost and Affordability',
     paras: [
-      'Planning to buy a house, car, or take a personal loan? Use Rafiqy\'s Loan EMI Calculator to instantly calculate your monthly instalment (EMI), total payment, and total interest payable — all in your browser, with zero data uploaded.',
-      'Our calculator uses the standard reducing-balance (diminishing balance) method — the same formula used by Pakistani banks including HBL, UBL, MCB, and others. Enter principal amount, annual interest rate, and tenure to see full results.',
-      'The tool shows your monthly EMI, a complete amortisation schedule (month-by-month breakdown of principal vs interest), and the total cost of the loan. Compare different interest rates and tenures to find the most affordable option.',
+      'Use this Loan EMI Calculator when you want more than just the EMI formula. It helps you estimate monthly EMI, total interest, full loan cost and whether a car loan, home loan or personal loan is likely to sit safely inside your monthly budget.',
+      'Rafiqy uses the standard reducing-balance method used by Pakistani banks and most modern lenders. Enter the financed amount, annual rate and tenure to see your monthly installment, then pressure-test the decision with rate, tenure and financed-amount scenarios before you sign anything.',
+      'The tool also shows a month-by-month amortization schedule and an EMI-vs-income view so you can judge affordability, not just payment size. That makes it more useful for people deciding whether to borrow now, reduce the loan amount, or negotiate better terms first.',
     ],
     faqs: [
       { q: 'What is EMI?', a: 'EMI (Equated Monthly Instalment) is the fixed monthly payment to repay a loan. It includes both principal repayment and interest, split into equal monthly amounts over the loan tenure.' },
       { q: 'Which EMI formula does this use?', a: 'The standard reducing-balance method: EMI = P × r × (1+r)^n / ((1+r)^n - 1), where P is principal, r is monthly interest rate, and n is number of months.' },
-      { q: 'Can I calculate Pakistani bank loan EMI?', a: 'Yes. Enter the loan amount in PKR, the bank\'s annual interest rate, and tenure. Works for any Pakistani bank or currency.' },
-      { q: 'Is a longer tenure better?', a: 'A longer tenure reduces monthly EMI but significantly increases total interest. Compare options in the calculator to find the right balance.' },
+      { q: 'Can I calculate car loan, home loan and personal loan EMI here?', a: 'Yes. The same EMI logic works for car loans, home loans and personal loans. The presets simply help you start with a realistic use case and then adjust the details to match your lender offer.' },
+      { q: 'Is a longer tenure better?', a: 'A longer tenure lowers the monthly EMI, but it usually increases total interest sharply. Use the what-if cards to check whether a shorter tenure, smaller financed amount or better rate improves the loan more than simply stretching it out.' },
+      { q: 'How much of my income should go toward EMI?', a: 'There is no universal single rule, but many users treat 25% to 35% of stable monthly income as a rough caution zone depending on the loan type and their other obligations. The tool\'s affordability view helps you see whether your EMI is starting to crowd out savings, rent, or emergency cushion.' },
       { q: 'Is my data private?', a: 'Yes. All calculations happen in your browser. No loan or personal data is ever sent to any server.' },
     ],
   },

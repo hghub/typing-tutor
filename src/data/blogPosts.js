@@ -365,7 +365,7 @@ export const BLOG_POSTS = [
 
 <h2>Key Features at a Glance</h2>
 <ul>
-  <li><strong>Loan EMI Calculator</strong> — compute monthly EMI, total interest, and full amortization table; compare two loan options side-by-side</li>
+  <li><strong>Loan EMI Calculator</strong> — compute monthly EMI, total interest, full amortization, and test whether a better rate, shorter tenure, or smaller financed amount makes the loan safer</li>
   <li><strong>Loan Manager</strong> — track multiple active loans, record each payment, view remaining balance and interest accrued, export statement</li>
   <li><strong>Expense Pattern Analyzer</strong> — paste a bank statement CSV, get auto-categorized spending (food, transport, bills), monthly trend chart, and anomaly detection</li>
   <li><strong>Driving Fine Tracker</strong> — log traffic fines, track payment status and due dates, see running total outstanding</li>
@@ -373,7 +373,7 @@ export const BLOG_POSTS = [
 </ul>
 
 <h2>1. Loan EMI Calculator</h2>
-<p>Before signing any loan agreement, you need to know exactly what you are committing to. Rafiqy's <strong>Loan EMI Calculator</strong> takes your <strong>principal amount</strong>, <strong>annual interest rate</strong>, and <strong>loan tenure</strong> and instantly computes your <strong>monthly EMI</strong>, <strong>total interest paid</strong> over the life of the loan, and a complete <strong>amortization table</strong> showing how each payment is split between principal and interest.</p>
+<p>Before signing any loan agreement, you need to know exactly what you are committing to. Rafiqy's <strong>Loan EMI Calculator</strong> takes your <strong>principal amount</strong>, <strong>annual interest rate</strong>, and <strong>loan tenure</strong> and instantly computes your <strong>monthly EMI</strong>, <strong>total interest paid</strong> over the life of the loan, and a complete <strong>amortization table</strong> showing how each payment is split between principal and interest. It also helps you judge affordability instead of looking at EMI in isolation.</p>
 <p>The standout feature is <strong>side-by-side loan comparison</strong>: enter two loan offers simultaneously and see which one costs less in total — even if one has a lower EMI but a longer tenure. This alone can save you hundreds of thousands of rupees on a home or car loan by making the true cost of each option immediately visible.</p>
 
 <h2>2. Loan Manager</h2>
@@ -881,17 +881,27 @@ export const BLOG_POSTS = [
   },
   {
     slug: 'how-to-calculate-emi',
-    title: 'How to Calculate Your Loan EMI: Formula, Examples & Free Calculator',
-    description: 'Learn how to calculate EMI for any loan using the standard formula. Includes a worked car loan example, amortization explained, and a free EMI calculator.',
+    title: 'How to Calculate Loan EMI and Judge If the Loan Is Affordable',
+    description: 'Learn how EMI works, how interest and tenure change the real cost of a loan, and how to judge affordability before signing a car, home or personal loan.',
     hero: '💰',
     category: 'finance',
-    readTime: '7 min read',
-    publishDate: '2025-09-04',
-    tags: ['EMI calculator', 'loan', 'finance', 'Pakistan finance', 'amortization'],
+    readTime: '8 min read',
+    publishDate: '2026-05-05',
+    tags: ['EMI calculator', 'loan', 'finance', 'Pakistan finance', 'amortization', 'loan affordability'],
     content: `
 <h2>What Is an EMI?</h2>
 <p>An <strong>EMI (Equated Monthly Installment)</strong> is the fixed monthly payment you make to repay a loan over a defined period. Whether you are taking a car loan, home loan, or personal loan, the bank or lender calculates a single monthly amount that covers both the interest and a portion of the principal — structured so that after the final installment, your loan is fully repaid.</p>
-<p>Understanding <strong>how to calculate EMI</strong> before you sign a loan agreement is critical. It tells you exactly what your monthly cash flow commitment will be, how much total interest you will pay over the loan term, and whether the loan fits your budget.</p>
+<p>Understanding <strong>how to calculate EMI</strong> before you sign a loan agreement is critical. It tells you your monthly cash-flow commitment, how much total interest you will pay over the loan term, and whether the loan actually fits your budget or only looks manageable at first glance.</p>
+
+<h2>What This Decision Is Really About</h2>
+<p>Most people search for an EMI calculator because they want an answer to a bigger question: <strong>can I safely take this loan?</strong> The EMI number is only one part of that decision. A better decision looks at four things together:</p>
+<ul>
+  <li><strong>Monthly EMI</strong>: can you realistically absorb it every month?</li>
+  <li><strong>Total interest</strong>: how much extra are you paying just to borrow?</li>
+  <li><strong>Loan tenure</strong>: are you lowering the EMI by stretching the loan too far?</li>
+  <li><strong>Affordability against income</strong>: will this EMI crowd out savings, rent, school fees, or emergency cushion?</li>
+</ul>
+<p>That is why a good EMI tool should not only output a formula result. It should help you test whether a lower rate, shorter tenure, or smaller financed amount produces a much healthier loan.</p>
 
 <h2>The EMI Formula</h2>
 <p>The standard EMI formula is:</p>
@@ -923,6 +933,10 @@ export const BLOG_POSTS = [
 <p><strong>Total interest paid</strong>: Rs 13,34,640 − Rs 10,00,000 = <strong>Rs 3,34,640</strong></p>
 <p>That Rs 3.3 lakh is the cost of borrowing — money paid purely for the use of the lender's funds over 5 years.</p>
 
+<h2>Why EMI Alone Can Mislead You</h2>
+<p>A lower EMI can feel safer, but it is often achieved by increasing the tenure. That can hide the real cost of the loan. For example, a borrower may prefer a 7-year term instead of a 5-year term because the EMI looks easier, but the total interest paid can jump sharply. This is why a lender offer should be judged on both <strong>monthly burden</strong> and <strong>lifetime cost</strong>.</p>
+<p>Another common mistake is ignoring the financed amount itself. If reducing the financed amount by 10% or 20% makes the EMI far more comfortable, that may be a stronger move than chasing a tiny rate difference between lenders.</p>
+
 <h2>What Affects Your EMI?</h2>
 <p>Three variables determine your EMI, and changing any one of them significantly impacts the amount:</p>
 <ul>
@@ -930,6 +944,15 @@ export const BLOG_POSTS = [
   <li><strong>Interest rate</strong>: Even a 1% difference in rate has a meaningful impact. On Rs 10 lakh over 5 years, the difference between 11% and 13% interest is approximately Rs 900 per month.</li>
   <li><strong>Tenure</strong>: Longer loan term = lower EMI but significantly higher total interest. Extending a 5-year loan to 7 years reduces monthly payments but increases total interest paid by 30–40%.</li>
 </ul>
+
+<h2>How to Judge Affordability Before You Borrow</h2>
+<p>After calculating EMI, the next step is to compare it against your monthly income and fixed commitments. A rough caution framework many people use is:</p>
+<ul>
+  <li><strong>Below 25% of stable monthly income</strong>: usually easier to absorb if you already have emergency savings</li>
+  <li><strong>25% to 35%</strong>: needs more caution, especially if rent, school fees, or other debt already exist</li>
+  <li><strong>Above 35%</strong>: often a sign that the loan may be too aggressive unless your income is unusually stable and other obligations are low</li>
+</ul>
+<p>These are not legal rules, but practical stress checks. A home loan may justify a different threshold than a personal loan, but the principle is the same: the EMI should not leave you financially brittle.</p>
 
 <h2>Comparing Lenders: What to Look For</h2>
 <p>When comparing loan offers from different banks or lenders, do not just compare the interest rate. Look at:</p>
@@ -939,7 +962,7 @@ export const BLOG_POSTS = [
   <li><strong>Insurance bundling</strong>: Some loans include mandatory insurance that increases the effective cost</li>
   <li><strong>Variable vs fixed rate</strong>: Variable rates may start lower but can increase significantly over the loan term</li>
 </ul>
-<p>Use the <a href="/tools/loan-emi">Rafiqy EMI Calculator</a> to compare different loan scenarios side by side — adjusting principal, rate, and tenure to see the impact on both monthly EMI and total interest paid.</p>
+<p>Use the <a href="/tools/loan-emi">Rafiqy Loan EMI Calculator</a> to test the same loan under different assumptions — smaller financed amount, lower rate, or shorter tenure — so you can see which change improves affordability the most.</p>
 
 <h2>Understanding the Amortization Table</h2>
 <p>An amortization table shows the breakdown of each monthly payment into principal and interest components. In the early months of a loan, most of your EMI goes toward interest — very little reduces the principal. As the loan matures, the interest component shrinks and the principal component grows.</p>
@@ -948,7 +971,7 @@ export const BLOG_POSTS = [
   <li>If you make a prepayment (extra payment toward principal) in the early years, you save significantly more interest than the same prepayment made in year 4 or 5.</li>
   <li>If you refinance or close a loan early, your outstanding balance will be higher than you might intuitively expect, because the first few years of payments are mostly interest.</li>
 </ol>
-<p>The <a href="/tools/loan-manager">Rafiqy Loan Manager</a> generates a full amortization schedule for any loan, showing the principal and interest split for every month of the loan term.</p>
+<p>The <a href="/tools/loan-emi">Rafiqy Loan EMI Calculator</a> generates the full amortization schedule for the loan you enter, showing the principal and interest split for each month of the term.</p>
 
 <h2>Quick EMI Reference Table</h2>
 <p>For a Rs 10 lakh loan at 12% annual interest:</p>
@@ -960,7 +983,16 @@ export const BLOG_POSTS = [
 </ul>
 <p>The pattern is clear: doubling the loan tenure from 5 to 10 years saves Rs 7,897/month in EMI payments but costs an additional Rs 3.87 lakh in total interest.</p>
 
-<div class="cta-box"><p>Need to calculate your exact EMI in seconds without doing the math manually?</p><a href="/tools/loan-emi">Calculate Your EMI Free →</a></div>
+<h2>How to Use the Tool Well</h2>
+<p>A strong borrowing decision usually takes three quick tests:</p>
+<ol>
+  <li>Enter the lender's quoted numbers exactly and note the EMI, total interest, and income burden.</li>
+  <li>Reduce the financed amount and see if the loan becomes meaningfully healthier.</li>
+  <li>Test a shorter tenure and a modestly lower rate to see which lever helps the most.</li>
+</ol>
+<p>If one small assumption change makes the loan much safer, that tells you what to negotiate or save for before signing.</p>
+
+<div class="cta-box"><p>Need to check EMI, full interest cost, and whether the loan is actually affordable before you sign?</p><a href="/tools/loan-emi">Use the Loan EMI Calculator →</a></div>
 `,
   },
   {

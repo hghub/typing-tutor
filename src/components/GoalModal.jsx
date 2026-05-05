@@ -39,7 +39,7 @@ export default function GoalModal({ onSelect, isDark, colors }) {
     <div style={overlay}>
       <div style={modal}>
         {/* Gradient header bar */}
-        <div style={{ height: '3px', background: 'linear-gradient(to right, #06b6d4, #3b82f6, #8b5cf6)' }} />
+        <div style={{ height: '3px', background: 'linear-gradient(to right, #06b6d4, #3b82f6, #0ea5e9)' }} />
 
         <div style={{ padding: '2rem' }}>
           <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
@@ -121,3 +121,4 @@ export default function GoalModal({ onSelect, isDark, colors }) {
     </div>
   )
 }
+

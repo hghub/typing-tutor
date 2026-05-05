@@ -14,7 +14,7 @@ const FINGER_MAP = {
 const FINGER_COLORS = {
   lp: '#ef4444', lr: '#f97316', lm: '#eab308',
   li: '#22c55e', ri: '#06b6d4', rm: '#3b82f6',
-  rr: '#8b5cf6', rp: '#ec4899',
+  rr: '#0ea5e9', rp: '#ec4899',
 }
 
 const FINGER_LABELS = {
@@ -101,7 +101,7 @@ export default function VirtualKeyboard({ nextChar, isDark, colors, language, is
     : isPersian ? '🇮🇷 Persian Standard Layout'
     : null
 
-  const layoutColor = isArabic ? '#34d399' : isPersian ? '#f97316' : '#a78bfa'
+  const layoutColor = isArabic ? '#34d399' : isPersian ? '#f97316' : '#38bdf8'
   const layoutBg = isArabic ? 'rgba(52,211,153,0.15)' : isPersian ? 'rgba(249,115,22,0.15)' : 'rgba(167,139,250,0.15)'
 
   const getKeyStyle = (key) => {
@@ -179,7 +179,7 @@ export default function VirtualKeyboard({ nextChar, isDark, colors, language, is
           border: '1px dashed rgba(167,139,250,0.35)',
           borderRadius: '0.5rem', margin: '0 0.5rem 0.4rem',
         }}>
-          <span style={{ fontSize: '0.62rem', color: '#a78bfa', lineHeight: 1.5 }}>
+          <span style={{ fontSize: '0.62rem', color: '#38bdf8', lineHeight: 1.5 }}>
             ⚠️ Requires <strong>Urdu Phonetic</strong> keyboard on Windows.{' '}
             <span style={{ opacity: 0.8 }}>
               Settings → Time &amp; Language → Language &amp; Region → Urdu (Pakistan) → Language options → Add keyboard → <strong>Urdu Phonetic</strong>
@@ -280,4 +280,5 @@ export default function VirtualKeyboard({ nextChar, isDark, colors, language, is
     </div>
   )
 }
+
 

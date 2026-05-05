@@ -248,7 +248,7 @@ export default function SmartSearch({ isDark, colors }) {
                 onClick={() => { closeResults(); window.dispatchEvent(new CustomEvent('open-feedback')) }}
                 style={{
                   padding: '0.55rem 1.25rem', borderRadius: '0.6rem', border: 'none',
-                  background: 'linear-gradient(135deg, #06b6d4, #8b5cf6)',
+                  background: 'linear-gradient(135deg, #06b6d4, #0ea5e9)',
                   color: '#fff', fontWeight: 700, fontSize: '0.88rem', cursor: 'pointer',
                 }}
               >Share your idea →</button>
@@ -259,3 +259,4 @@ export default function SmartSearch({ isDark, colors }) {
     </div>
   )
 }
+

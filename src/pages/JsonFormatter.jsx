@@ -253,7 +253,7 @@ export default function JsonFormatter() {
         <h1 style={{
           fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
           fontWeight: 800,
-          background: `linear-gradient(to right, ${ACCENT}, #8b5cf6)`,
+          background: `linear-gradient(to right, ${ACCENT}, #0ea5e9)`,
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
@@ -428,3 +428,4 @@ export default function JsonFormatter() {
     </ToolLayout>
   )
 }
+

@@ -520,7 +520,7 @@ export default function LoanEMI() {
               <StatCard label="Monthly EMI" value={fmt(Math.round(emi), currency)}
                 color={accentColor} isDark={isDark} colors={colors} />
               <StatCard label="Total Payment" value={fmt(Math.round(totalPayment), currency)}
-                sub={`Principal + Interest`} color="#8b5cf6" isDark={isDark} colors={colors} />
+                sub={`Principal + Interest`} color="#0ea5e9" isDark={isDark} colors={colors} />
               <StatCard label="Total Interest" value={fmt(Math.round(totalInterest), currency)}
                 sub={`${interestPct}% of principal`} color="#f97316" isDark={isDark} colors={colors} />
               <StatCard label="EMI vs Income" value={emiToIncomePct !== null ? `${emiToIncomePct.toFixed(1)}%` : 'Add income'}
@@ -602,7 +602,7 @@ export default function LoanEMI() {
                 </div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.875rem' }}>
                   <StatCard label="Interest saved" value={fmt(Math.round(earlyPayoff.interestSaved), currency)} color="#22c55e" isDark={isDark} colors={colors} />
-                  <StatCard label="Months saved" value={`${earlyPayoff.monthsSaved} mo`} sub={`New payoff: ${earlyPayoff.monthsUsed} months`} color="#8b5cf6" isDark={isDark} colors={colors} />
+                  <StatCard label="Months saved" value={`${earlyPayoff.monthsSaved} mo`} sub={`New payoff: ${earlyPayoff.monthsUsed} months`} color="#0ea5e9" isDark={isDark} colors={colors} />
                 </div>
                 <div style={{ marginTop: '0.8rem' }}>
                   <Tip colors={colors} isDark={isDark}>
@@ -723,3 +723,4 @@ export default function LoanEMI() {
     </ToolLayout>
   )
 }
+

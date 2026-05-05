@@ -60,9 +60,9 @@ export default function ImageSuite() {
           {TABS.map((t, i) => (
             <button key={t} onClick={() => setTab(i)} style={{
               padding: '0.5rem 1rem', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: '0.85rem',
-              background: tab === i ? '#8b5cf6' : colors.card,
+              background: tab === i ? '#0ea5e9' : colors.card,
               color: tab === i ? '#fff' : colors.text,
-              outline: tab === i ? '2px solid #8b5cf6' : `1px solid ${colors.border}`,
+              outline: tab === i ? '2px solid #0ea5e9' : `1px solid ${colors.border}`,
             }}>{t}</button>
           ))}
         </div>
@@ -87,7 +87,7 @@ function UploadArea({ onFile, label = 'Click or drag an image here' }) {
       onDragLeave={() => setDragging(false)}
       onDrop={e => { e.preventDefault(); setDragging(false); const f = e.dataTransfer.files[0]; if (f?.type.startsWith('image/')) onFile(f) }}
       style={{
-        border: `2px dashed ${dragging ? '#8b5cf6' : colors.border}`,
+        border: `2px dashed ${dragging ? '#0ea5e9' : colors.border}`,
         borderRadius: '10px',
         padding: '2rem',
         textAlign: 'center',
@@ -199,7 +199,7 @@ function CompressTab({ colors, cardStyle }) {
               </div>
             </div>
             <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-              <button onClick={process} disabled={processing} style={{ padding: '0.5rem 1.25rem', borderRadius: '8px', background: '#8b5cf6', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 600 }}>{processing ? 'Processing…' : 'Compress'}</button>
+              <button onClick={process} disabled={processing} style={{ padding: '0.5rem 1.25rem', borderRadius: '8px', background: '#0ea5e9', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 600 }}>{processing ? 'Processing…' : 'Compress'}</button>
               {outputBlob && <button onClick={download} style={{ padding: '0.5rem 1.25rem', borderRadius: '8px', background: '#22c55e', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 600 }}>⬇ Download</button>}
             </div>
             <SizeComparison origSize={origFile?.size} outSize={outputBlob?.size} colors={colors} />
@@ -252,11 +252,11 @@ function ConvertTab({ colors, cardStyle }) {
             <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap' }}>
               <label style={{ fontSize: '0.85rem', color: colors.textSecondary }}>Convert to:</label>
               {[['image/jpeg', 'JPG'], ['image/png', 'PNG'], ['image/webp', 'WebP']].map(([v, l]) => (
-                <button key={v} onClick={() => setTargetFmt(v)} style={{ padding: '0.4rem 0.9rem', borderRadius: '6px', border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: '0.85rem', background: targetFmt === v ? '#8b5cf6' : colors.card, color: targetFmt === v ? '#fff' : colors.text, outline: targetFmt === v ? '2px solid #8b5cf6' : `1px solid ${colors.border}` }}>{l}</button>
+                <button key={v} onClick={() => setTargetFmt(v)} style={{ padding: '0.4rem 0.9rem', borderRadius: '6px', border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: '0.85rem', background: targetFmt === v ? '#0ea5e9' : colors.card, color: targetFmt === v ? '#fff' : colors.text, outline: targetFmt === v ? '2px solid #0ea5e9' : `1px solid ${colors.border}` }}>{l}</button>
               ))}
             </div>
             <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-              <button onClick={convert} style={{ padding: '0.5rem 1.25rem', borderRadius: '8px', background: '#8b5cf6', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 600 }}>Convert</button>
+              <button onClick={convert} style={{ padding: '0.5rem 1.25rem', borderRadius: '8px', background: '#0ea5e9', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 600 }}>Convert</button>
               {outputBlob && <button onClick={download} style={{ padding: '0.5rem 1.25rem', borderRadius: '8px', background: '#22c55e', color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 600 }}>⬇ Download</button>}
             </div>
             <SizeComparison origSize={origFile?.size} outSize={outputBlob?.size} colors={colors} />
@@ -313,9 +313,9 @@ function RotateTab({ colors, cardStyle }) {
 
   const btnStyle = (active) => ({
     padding: '0.4rem 0.75rem', borderRadius: '6px', border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: '0.85rem',
-    background: active ? '#8b5cf6' : colors.card,
+    background: active ? '#0ea5e9' : colors.card,
     color: active ? '#fff' : colors.text,
-    outline: active ? '2px solid #8b5cf6' : `1px solid ${colors.border}`,
+    outline: active ? '2px solid #0ea5e9' : `1px solid ${colors.border}`,
   })
 
   return (
@@ -427,7 +427,7 @@ function WatermarkTab({ colors, cardStyle }) {
             <label style={{ fontSize: '0.8rem', color: colors.textSecondary, display: 'block', marginBottom: '0.5rem' }}>Position</label>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '4px', width: '150px', marginBottom: '1rem' }}>
               {POSITIONS.map(p => (
-                <button key={p} onClick={() => setPosition(p)} title={p} style={{ height: '40px', borderRadius: '4px', border: 'none', cursor: 'pointer', background: position === p ? '#8b5cf6' : colors.card, outline: position === p ? '2px solid #8b5cf6' : `1px solid ${colors.border}` }} />
+                <button key={p} onClick={() => setPosition(p)} title={p} style={{ height: '40px', borderRadius: '4px', border: 'none', cursor: 'pointer', background: position === p ? '#0ea5e9' : colors.card, outline: position === p ? '2px solid #0ea5e9' : `1px solid ${colors.border}` }} />
               ))}
             </div>
             {outputUrl && <img src={outputUrl} alt="preview" style={{ maxWidth: '100%', maxHeight: '250px', borderRadius: '8px', marginBottom: '1rem', objectFit: 'contain', border: `1px solid ${colors.border}` }} />}
@@ -438,3 +438,4 @@ function WatermarkTab({ colors, cardStyle }) {
     </div>
   )
 }
+

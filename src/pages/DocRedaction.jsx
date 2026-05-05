@@ -3,7 +3,7 @@ import ToolLayout from '../components/ToolLayout'
 import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 import { useTheme } from '../hooks/useTheme'
 
-const ACCENT = '#6366f1'
+const ACCENT = '#06b6d4'
 
 const ENTITY_TYPES = [
   { id: 'cnic',       label: 'CNIC',           color: '#ef4444', regex: /\b\d{5}-\d{7}-\d\b/g },
@@ -11,7 +11,7 @@ const ENTITY_TYPES = [
   { id: 'phone',      label: 'Phone Number',    color: '#eab308', regex: /\b(?:\+92|0092|0)3[0-9]{9}\b/g },
   { id: 'email',      label: 'Email Address',   color: '#22c55e', regex: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g },
   { id: 'ntn',        label: 'NTN (Tax No.)',   color: '#06b6d4', regex: /\b\d{7}-\d\b/g },
-  { id: 'passport',   label: 'Passport No.',    color: '#8b5cf6', regex: /\b[A-Z]{2}\d{7}\b/g },
+  { id: 'passport',   label: 'Passport No.',    color: '#0ea5e9', regex: /\b[A-Z]{2}\d{7}\b/g },
   { id: 'creditcard', label: 'Credit Card No.', color: '#ec4899', regex: /\b(?:\d{4}[- ]){3}\d{4}\b/g },
   { id: 'amount',     label: 'PKR Amounts',     color: '#14b8a6', regex: /\bPKR\s?[\d,]+(?:\.\d{2})?\b/gi },
 ]
@@ -670,3 +670,4 @@ export default function DocRedaction() {
     </ToolLayout>
   )
 }
+

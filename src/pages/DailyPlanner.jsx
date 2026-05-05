@@ -453,7 +453,7 @@ export default function DailyPlanner() {
             <div>
               <h1 style={{
                 fontSize: 'clamp(1.5rem,3.5vw,2rem)', fontWeight: 800, margin: '0 0 0.3rem',
-                background: `linear-gradient(to right, ${ACCENT}, #6366f1)`,
+                background: `linear-gradient(to right, ${ACCENT}, #06b6d4)`,
                 WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
               }}>
                 📋 Daily Planner
@@ -772,3 +772,4 @@ export default function DailyPlanner() {
 
   )
 }
+

@@ -71,7 +71,7 @@ export default function TextEncryptor() {
         <h1 style={{
           fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
           fontWeight: 800,
-          background: `linear-gradient(to right, #ef4444, #8b5cf6)`,
+          background: `linear-gradient(to right, #ef4444, #0ea5e9)`,
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
@@ -177,7 +177,7 @@ export default function TextEncryptor() {
         onClick={handleRun}
         disabled={busy}
         style={{
-          background: busy ? colors.border : `linear-gradient(to right, ${modeColor}, #8b5cf6)`,
+          background: busy ? colors.border : `linear-gradient(to right, ${modeColor}, #0ea5e9)`,
           border: 'none',
           color: 'white',
           borderRadius: '0.75rem',
@@ -272,3 +272,4 @@ export default function TextEncryptor() {
     </ToolLayout>
   )
 }
+

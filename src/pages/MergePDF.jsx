@@ -128,7 +128,7 @@ export default function MergePDF() {
         {/* Header */}
         <div style={{ marginBottom: '1.5rem' }}>
           <h1 style={{ fontSize: 'clamp(1.5rem,3.5vw,2rem)', fontWeight: 800, margin: '0 0 0.4rem',
-            background: 'linear-gradient(to right, #8b5cf6, #a78bfa)', WebkitBackgroundClip: 'text',
+            background: 'linear-gradient(to right, #0ea5e9, #38bdf8)', WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent', backgroundClip: 'text', letterSpacing: '-0.02em' }}>
             📎 Merge PDF
           </h1>
@@ -156,8 +156,8 @@ export default function MergePDF() {
               onDrop={onDrop}
               style={{
                 ...card, padding: '2rem 1.5rem', textAlign: 'center', cursor: 'pointer',
-                border: `2px dashed ${dragging ? '#8b5cf6' : colors.border}`,
-                background: dragging ? (isDark ? 'rgba(139,92,246,0.08)' : 'rgba(139,92,246,0.04)') : (isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.01)'),
+                border: `2px dashed ${dragging ? '#0ea5e9' : colors.border}`,
+                background: dragging ? (isDark ? 'rgba(14,165,233,0.08)' : 'rgba(14,165,233,0.04)') : (isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.01)'),
                 transition: 'all 0.2s ease', marginBottom: '1rem',
               }}
             >
@@ -187,9 +187,9 @@ export default function MergePDF() {
                         display: 'flex', alignItems: 'center', gap: '0.75rem',
                         padding: '0.75rem 1rem', borderRadius: '0.75rem',
                         background: dragOverId === entry.id
-                          ? (isDark ? 'rgba(139,92,246,0.15)' : 'rgba(139,92,246,0.08)')
+                          ? (isDark ? 'rgba(14,165,233,0.15)' : 'rgba(14,165,233,0.08)')
                           : (isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)'),
-                        border: `1px solid ${dragOverId === entry.id ? '#8b5cf6' : colors.border}`,
+                        border: `1px solid ${dragOverId === entry.id ? '#0ea5e9' : colors.border}`,
                         cursor: 'grab', transition: 'all 0.15s ease',
                       }}
                     >
@@ -253,20 +253,20 @@ export default function MergePDF() {
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
                     <span style={{ fontSize: '0.85rem', color: colors.muted }}>Merging…</span>
-                    <span style={{ fontSize: '0.85rem', color: '#8b5cf6', fontWeight: 600 }}>{progress}%</span>
+                    <span style={{ fontSize: '0.85rem', color: '#0ea5e9', fontWeight: 600 }}>{progress}%</span>
                   </div>
                   <div style={{ background: colors.border, borderRadius: '99px', height: '6px', overflow: 'hidden' }}>
                     <div style={{ width: `${progress}%`, height: '100%',
-                      background: 'linear-gradient(to right, #8b5cf6, #a78bfa)',
+                      background: 'linear-gradient(to right, #0ea5e9, #38bdf8)',
                       borderRadius: '99px', transition: 'width 0.3s ease' }} />
                   </div>
                 </div>
               ) : (
                 <button onClick={merge} style={{
-                  background: 'linear-gradient(to right, #8b5cf6, #a78bfa)', color: '#fff',
+                  background: 'linear-gradient(to right, #0ea5e9, #38bdf8)', color: '#fff',
                   border: 'none', padding: '0.875rem 2rem', borderRadius: '0.75rem',
                   fontWeight: 700, fontSize: '1rem', cursor: 'pointer', fontFamily: FONT,
-                  boxShadow: '0 4px 14px rgba(139,92,246,0.35)',
+                  boxShadow: '0 4px 14px rgba(14,165,233,0.35)',
                 }}>
                   📎 Merge PDFs
                 </button>
@@ -286,7 +286,7 @@ export default function MergePDF() {
               </div>
               <div>
                 <div style={{ fontSize: '0.72rem', color: colors.muted, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 700 }}>Total Pages</div>
-                <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#8b5cf6' }}>{result.totalPages}</div>
+                <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0ea5e9' }}>{result.totalPages}</div>
               </div>
               <div>
                 <div style={{ fontSize: '0.72rem', color: colors.muted, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 700 }}>File Size</div>
@@ -295,7 +295,7 @@ export default function MergePDF() {
             </div>
             <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
               <button onClick={download} style={{
-                background: 'linear-gradient(to right, #8b5cf6, #a78bfa)', color: '#fff',
+                background: 'linear-gradient(to right, #0ea5e9, #38bdf8)', color: '#fff',
                 border: 'none', padding: '0.75rem 1.5rem', borderRadius: '0.75rem',
                 fontWeight: 700, fontSize: '0.95rem', cursor: 'pointer', fontFamily: FONT,
               }}>
@@ -315,3 +315,4 @@ export default function MergePDF() {
     </ToolLayout>
   )
 }
+

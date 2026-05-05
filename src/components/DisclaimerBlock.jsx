@@ -24,7 +24,7 @@ const CONTENT = {
       strong: 'صرف دستی یا CSV درآمد۔',
       body: 'کوئی بینک، ادائیگی یا تھرڈ پارٹی API منسلک نہیں ہے۔ ڈیٹا دستی طور پر درج کیا جاتا ہے یا CSV کے ذریعے درآمد کیا جاتا ہے۔',
     },
-    accentColor: '#6366f1',
+    accentColor: '#06b6d4',
   },
   professional: {
     icon: '⚠️',
@@ -115,3 +115,4 @@ export default function DisclaimerBlock({ type = 'storage', overrideBodyEn }) {
     </div>
   )
 }
+

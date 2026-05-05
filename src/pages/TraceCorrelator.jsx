@@ -4,10 +4,10 @@ import { useTheme } from '../hooks/useTheme'
 
 /* ── Constants ────────────────────────────────────────────────────────── */
 
-const ACCENT = '#8b5cf6'
+const ACCENT = '#0ea5e9'
 
 const SERVICE_PALETTE = [
-  '#8b5cf6', '#06b6d4', '#f59e0b', '#10b981',
+  '#0ea5e9', '#06b6d4', '#f59e0b', '#10b981',
   '#ef4444', '#3b82f6', '#ec4899', '#f97316',
   '#14b8a6', '#a855f7',
 ]
@@ -622,7 +622,7 @@ export default function TraceCorrelator() {
             margin: 0,
             fontSize: 'clamp(1.4rem, 3vw, 2rem)',
             fontWeight: 800,
-            background: 'linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%)',
+            background: 'linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
@@ -630,7 +630,7 @@ export default function TraceCorrelator() {
             🔗 Distributed Trace Correlator
           </h1>
           <span style={{
-            background: 'linear-gradient(135deg,#7c3aed,#8b5cf6)',
+            background: 'linear-gradient(135deg,#0284c7,#0ea5e9)',
             color: '#fff',
             fontSize: '0.65rem',
             fontWeight: 800,
@@ -648,7 +648,7 @@ export default function TraceCorrelator() {
       {hasData && stats && (
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
           <StatPill icon="📁" value={services.length} label="services" color="#06b6d4" isDark={isDark} />
-          <StatPill icon="📋" value={stats.totalLogs.toLocaleString()} label="log lines" color="#8b5cf6" isDark={isDark} />
+          <StatPill icon="📋" value={stats.totalLogs.toLocaleString()} label="log lines" color="#0ea5e9" isDark={isDark} />
           <StatPill icon="🔗" value={stats.uniqueTraces.toLocaleString()} label="traces" color="#10b981" isDark={isDark} />
           <StatPill icon="🚨" value={stats.errorCount.toLocaleString()} label="errors" color="#ef4444" isDark={isDark} />
           <button onClick={reset} style={{ ...btnSecondary, marginLeft: 'auto', fontSize: '0.78rem' }}>
@@ -715,7 +715,7 @@ export default function TraceCorrelator() {
               cursor: 'pointer',
               transition: 'border-color 0.2s, background 0.2s',
               background: dragOver
-                ? (isDark ? '#8b5cf622' : '#8b5cf608')
+                ? (isDark ? '#0ea5e922' : '#0ea5e908')
                 : colors.card,
             }}
             onClick={() => document.getElementById('tc-file-input').click()}
@@ -936,7 +936,7 @@ export default function TraceCorrelator() {
                         onClick={() => setSelectedTrace(tid)}
                         style={{
                           fontFamily: 'monospace', fontSize: '0.72rem',
-                          background: isDark ? '#8b5cf622' : '#8b5cf610',
+                          background: isDark ? '#0ea5e922' : '#0ea5e910',
                           color: ACCENT, padding: '0.15rem 0.4rem',
                           borderRadius: '0.3rem', marginLeft: '0.3rem',
                           cursor: 'pointer', display: 'inline-block',
@@ -1054,3 +1054,4 @@ export default function TraceCorrelator() {
     </ToolLayout>
   )
 }
+

@@ -5,7 +5,7 @@ import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
 import { supabase } from '../utils/supabase'
 
-const ACCENT = '#8b5cf6'
+const ACCENT = '#0ea5e9'
 const STORAGE_KEY = 'typely_measurements'
 const SESSION_KEY = 'typely_session_id'
 
@@ -112,7 +112,7 @@ function TrackerFormModal({ onSave, onClose, initial, colors }) {
     onSave({ name: name.trim(), icon, metrics: metrics.map(m => ({ name: m.name.trim(), unit: m.unit.trim() })) })
   }
 
-  const inputStyle = { width: '100%', padding: '0.5rem 0.75rem', borderRadius: '0.5rem', border: '1px solid rgba(139,92,246,0.25)', background: 'rgba(139,92,246,0.05)', color: colors.text, fontSize: '0.88rem', outline: 'none', boxSizing: 'border-box' }
+  const inputStyle = { width: '100%', padding: '0.5rem 0.75rem', borderRadius: '0.5rem', border: '1px solid rgba(14,165,233,0.25)', background: 'rgba(14,165,233,0.05)', color: colors.text, fontSize: '0.88rem', outline: 'none', boxSizing: 'border-box' }
   const labelStyle = { display: 'block', fontSize: '0.75rem', fontWeight: 600, color: colors.textSecondary, marginBottom: '0.3rem', textTransform: 'uppercase', letterSpacing: '0.05em' }
 
   return (
@@ -128,7 +128,7 @@ function TrackerFormModal({ onSave, onClose, initial, colors }) {
             <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
               {PRESETS.map(p => (
                 <button key={p.name} onClick={() => applyPreset(p)}
-                  style={{ fontSize: '0.78rem', padding: '0.3rem 0.7rem', borderRadius: '2rem', border: `1px solid ${preset === p.name ? ACCENT : 'rgba(139,92,246,0.2)'}`, background: preset === p.name ? `${ACCENT}20` : 'transparent', color: colors.text, cursor: 'pointer' }}>
+                  style={{ fontSize: '0.78rem', padding: '0.3rem 0.7rem', borderRadius: '2rem', border: `1px solid ${preset === p.name ? ACCENT : 'rgba(14,165,233,0.2)'}`, background: preset === p.name ? `${ACCENT}20` : 'transparent', color: colors.text, cursor: 'pointer' }}>
                   {p.icon} {p.name}
                 </button>
               ))}
@@ -142,7 +142,7 @@ function TrackerFormModal({ onSave, onClose, initial, colors }) {
           <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap' }}>
             {EMOJI_OPTIONS.map(e => (
               <button key={e} onClick={() => setIcon(e)}
-                style={{ width: 32, height: 32, borderRadius: '0.4rem', border: `1px solid ${icon === e ? ACCENT : 'rgba(139,92,246,0.15)'}`, background: icon === e ? `${ACCENT}20` : 'transparent', cursor: 'pointer', fontSize: '1rem' }}>
+                style={{ width: 32, height: 32, borderRadius: '0.4rem', border: `1px solid ${icon === e ? ACCENT : 'rgba(14,165,233,0.15)'}`, background: icon === e ? `${ACCENT}20` : 'transparent', cursor: 'pointer', fontSize: '1rem' }}>
                 {e}
               </button>
             ))}
@@ -209,7 +209,7 @@ function EntryFormModal({ tracker, onSave, onClose, colors }) {
     onSave({ logged_at: date, values, note: note.trim() })
   }
 
-  const inputStyle = { width: '100%', padding: '0.5rem 0.75rem', borderRadius: '0.5rem', border: '1px solid rgba(139,92,246,0.25)', background: 'rgba(139,92,246,0.05)', color: colors.text, fontSize: '0.88rem', outline: 'none', boxSizing: 'border-box' }
+  const inputStyle = { width: '100%', padding: '0.5rem 0.75rem', borderRadius: '0.5rem', border: '1px solid rgba(14,165,233,0.25)', background: 'rgba(14,165,233,0.05)', color: colors.text, fontSize: '0.88rem', outline: 'none', boxSizing: 'border-box' }
   const labelStyle = { display: 'block', fontSize: '0.75rem', fontWeight: 600, color: colors.textSecondary, marginBottom: '0.3rem', textTransform: 'uppercase', letterSpacing: '0.05em' }
 
   return (
@@ -596,3 +596,4 @@ export default function MeasurementTracker() {
     </ToolLayout>
   )
 }
+

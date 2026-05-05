@@ -76,7 +76,7 @@ export default function ActionButtons({ finished, onReset, onFeedback, onViewSta
       )}
       <ActionButton
         style={isKidsMode
-          ? { background: 'linear-gradient(to right, #f97316, #ec4899, #8b5cf6)', color: 'white' }
+          ? { background: 'linear-gradient(to right, #f97316, #ec4899, #0ea5e9)', color: 'white' }
           : secStyle}
         onClick={onToggleKidsMode}
         isMobile={isMobile}
@@ -154,4 +154,5 @@ export default function ActionButtons({ finished, onReset, onFeedback, onViewSta
     </div>
   )
 }
+
 

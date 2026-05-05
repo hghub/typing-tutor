@@ -124,7 +124,7 @@ export default function TaxOptimizer() {
   }
 
   const shieldSegments = opt ? [
-    { value: opt.vps,       color: '#6366f1', label: 'VPS' },
+    { value: opt.vps,       color: '#06b6d4', label: 'VPS' },
     { value: opt.insurance, color: '#10b981', label: 'Insurance' },
     { value: opt.charity,   color: '#f59e0b', label: 'Charity' },
     { value: opt.unshielded,color: 'rgba(148,163,184,0.3)', label: 'Unshielded' },
@@ -224,7 +224,7 @@ export default function TaxOptimizer() {
               📋 Legal Limits Reference
             </p>
             {[
-              { icon: '🏦', label: 'VPS (Section 63)', cap: annualIncome > 0 ? `PKR ${fmt(annualIncome * VPS_MAX_RATE)}` : '20% of income', pct: '20% of income', color: '#6366f1' },
+              { icon: '🏦', label: 'VPS (Section 63)', cap: annualIncome > 0 ? `PKR ${fmt(annualIncome * VPS_MAX_RATE)}` : '20% of income', pct: '20% of income', color: '#06b6d4' },
               { icon: '🛡️', label: 'Life Insurance (Section 62)', cap: annualIncome > 0 ? `PKR ${fmt(Math.min(annualIncome * LIFE_INS_MAX_RATE, LIFE_INS_CAP_ABS))}` : 'up to PKR 20L', pct: '20% of income, max PKR 20L', color: '#10b981' },
               { icon: '🤲', label: 'Charity NPO (Section 61)', cap: annualIncome > 0 ? `PKR ${fmt(annualIncome * CHARITY_MAX_RATE)}` : '30% of income', pct: '30% of income', color: '#f59e0b' },
             ].map((s, i) => (
@@ -293,7 +293,7 @@ export default function TaxOptimizer() {
                   <DonutChart segments={shieldSegments} size={130} />
                   <div style={{ flex: 1, minWidth: '180px' }}>
                     {[
-                      { label: 'VPS / Pension', value: opt.vps, color: '#6366f1', icon: '🏦', section: 'Sec 63' },
+                      { label: 'VPS / Pension', value: opt.vps, color: '#06b6d4', icon: '🏦', section: 'Sec 63' },
                       { label: 'Life Insurance', value: opt.insurance, color: '#10b981', icon: '🛡️', section: 'Sec 62' },
                       { label: 'Charity (NPO)', value: opt.charity, color: '#f59e0b', icon: '🤲', section: 'Sec 61' },
                       ...(opt.unshielded > 0 ? [{ label: 'Over cap (no credit)', value: opt.unshielded, color: '#64748b', icon: '⚠️', section: '' }] : []),
@@ -319,7 +319,7 @@ export default function TaxOptimizer() {
                 {Object.values(opt.scenarios).map((sc, i) => (
                   <ScenarioBar key={i} label={sc.label} saving={sc.saving}
                     max={maxScenario}
-                    color={sc.label === 'Optimal Mix' ? '#10b981' : '#6366f1'}
+                    color={sc.label === 'Optimal Mix' ? '#10b981' : '#06b6d4'}
                     isDark={isDark} colors={colors} />
                 ))}
                 <div style={{
@@ -354,7 +354,7 @@ export default function TaxOptimizer() {
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '0.75rem' }}>
           {[
-            { step: '1', title: 'Calculates base tax', detail: 'Applies Finance Act 2025 slabs + surcharge to your income.', color: '#6366f1' },
+            { step: '1', title: 'Calculates base tax', detail: 'Applies Finance Act 2025 slabs + surcharge to your income.', color: '#06b6d4' },
             { step: '2', title: 'Derives avg tax rate', detail: 'avgRate = tax ÷ income. This is the legal rate applied to tax credits.', color: '#10b981' },
             { step: '3', title: 'Fills shields by cap', detail: 'Allocates budget: VPS (20%) → Insurance (20%, max 2M) → Charity (30%).', color: '#f59e0b' },
             { step: '4', title: 'Computes credit', detail: 'credit = eligible amount × avgRate. Deterministic — same answer every time.', color: '#06b6d4' },
@@ -381,3 +381,4 @@ export default function TaxOptimizer() {
     </ToolLayout>
   )
 }
+

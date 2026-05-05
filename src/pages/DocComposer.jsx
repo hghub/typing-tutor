@@ -308,7 +308,7 @@ export default function DocComposer() {
         <h1 style={{
           fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
           fontWeight: 800,
-          background: 'linear-gradient(to right, #3b82f6, #8b5cf6)',
+          background: 'linear-gradient(to right, #3b82f6, #0ea5e9)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
@@ -418,7 +418,7 @@ export default function DocComposer() {
               onClick={handleExport}
               disabled={exporting}
               style={{
-                background: exporting ? colors.border : `linear-gradient(to right, ${template?.color || '#3b82f6'}, #8b5cf6)`,
+                background: exporting ? colors.border : `linear-gradient(to right, ${template?.color || '#3b82f6'}, #0ea5e9)`,
                 border: 'none', color: 'white',
                 borderRadius: '0.6rem', padding: '0.6rem 1.25rem',
                 cursor: exporting ? 'not-allowed' : 'pointer',
@@ -474,7 +474,7 @@ export default function DocComposer() {
                     cursor: 'pointer', fontSize: '0.88rem', fontWeight: 600,
                     display: 'flex', alignItems: 'center', gap: '0.4rem', transition: 'all 0.15s',
                   }}
-                  onMouseEnter={e => e.currentTarget.style.borderColor = '#8b5cf6'}
+                  onMouseEnter={e => e.currentTarget.style.borderColor = '#0ea5e9'}
                   onMouseLeave={e => e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)'}
                 >
                   📝 Save as .doc
@@ -512,7 +512,7 @@ export default function DocComposer() {
               to="/tools/word-counter"
               style={{
                 display: 'flex', alignItems: 'center', gap: '0.3rem',
-                border: `1px solid ${colors.border}`, color: '#8b5cf6',
+                border: `1px solid ${colors.border}`, color: '#0ea5e9',
                 padding: '0.6rem 1rem', borderRadius: '0.6rem',
                 textDecoration: 'none', fontSize: '0.82rem', fontWeight: 500,
               }}
@@ -544,3 +544,4 @@ export default function DocComposer() {
     </ToolLayout>
   )
 }
+

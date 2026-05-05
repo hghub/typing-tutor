@@ -47,23 +47,23 @@ export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isN
 
   if (isKidsMode) {
     const stars = accuracy >= 95 ? 5 : accuracy >= 80 ? 4 : accuracy >= 60 ? 3 : accuracy >= 40 ? 2 : 1
-    const starColors = ['#f59e0b', '#f97316', '#ef4444', '#ec4899', '#8b5cf6']
+    const starColors = ['#f59e0b', '#f97316', '#ef4444', '#ec4899', '#0ea5e9']
     return (
       <div style={{
-        background: 'linear-gradient(135deg, rgba(16,185,129,0.15), rgba(139,92,246,0.15), rgba(236,72,153,0.15))',
+        background: 'linear-gradient(135deg, rgba(16,185,129,0.15), rgba(14,165,233,0.15), rgba(236,72,153,0.15))',
         backdropFilter: 'blur(12px)',
         borderRadius: '1.5rem',
         border: '3px solid rgba(236,72,153,0.5)',
         padding: '2.5rem',
         textAlign: 'center',
-        boxShadow: '0 25px 50px -12px rgba(139,92,246,0.25)',
+        boxShadow: '0 25px 50px -12px rgba(14,165,233,0.25)',
         direction: currentLangDir,
       }}>
         <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>🎉</div>
         <p style={{
           fontSize: '2rem',
           fontWeight: 900,
-          background: 'linear-gradient(to right, #f97316, #ec4899, #8b5cf6)',
+          background: 'linear-gradient(to right, #f97316, #ec4899, #0ea5e9)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
@@ -90,7 +90,7 @@ export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isN
         {xpEarned > 0 && (
           <p style={{
             display: 'inline-block',
-            background: 'linear-gradient(to right, #8b5cf6, #06b6d4)',
+            background: 'linear-gradient(to right, #0ea5e9, #06b6d4)',
             color: 'white',
             fontWeight: 700,
             fontSize: '0.95rem',
@@ -379,4 +379,5 @@ export default function CompletionCard({ wpm, cpm, accuracy, currentLangDir, isN
     </div>
   )
 }
+
 

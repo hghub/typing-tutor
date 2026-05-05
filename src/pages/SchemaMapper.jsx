@@ -6,7 +6,7 @@ import { useTheme } from '../hooks/useTheme'
 
 const ACCENT = '#06b6d4'
 const MAPPING_PALETTE = [
-  '#06b6d4', '#8b5cf6', '#f59e0b', '#10b981',
+  '#06b6d4', '#0ea5e9', '#f59e0b', '#10b981',
   '#ef4444', '#3b82f6', '#ec4899', '#f97316',
   '#14b8a6', '#a855f7',
 ]
@@ -704,7 +704,7 @@ export default function SchemaMapper() {
             margin: 0,
             fontSize: 'clamp(1.4rem, 3vw, 1.9rem)',
             fontWeight: 900,
-            background: `linear-gradient(135deg, ${ACCENT}, #8b5cf6)`,
+            background: `linear-gradient(135deg, ${ACCENT}, #0ea5e9)`,
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
           }}>
@@ -822,11 +822,11 @@ export default function SchemaMapper() {
               )}
             </div>
             <div style={{ display: 'flex', gap: '0.4rem' }}>
-              <label style={{ ...btn('#8b5cf6'), cursor: 'pointer' }}>
+              <label style={{ ...btn('#0ea5e9'), cursor: 'pointer' }}>
                 📁
                 <input type="file" accept=".json,.txt" style={{ display: 'none' }} onChange={e => e.target.files[0] && handleFileUpload('dst', e.target.files[0])} />
               </label>
-              <button style={btn('#8b5cf6')} onClick={() => parseDst(dstText)}>Parse</button>
+              <button style={btn('#0ea5e9')} onClick={() => parseDst(dstText)}>Parse</button>
             </div>
           </div>
           <textarea
@@ -1110,3 +1110,4 @@ export default function SchemaMapper() {
     </ToolLayout>
   )
 }
+

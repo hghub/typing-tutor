@@ -31,7 +31,7 @@ import {
   round,
 } from '../lib/decision'
 
-const ACCENT = '#6366f1'
+const ACCENT = '#06b6d4'
 
 const CITY_COSTS = {
   karachi: { label: 'Karachi', baselineMonthlySpend: 135000, commuteFactor: 1.1 },
@@ -131,7 +131,7 @@ function evaluateOffer(inputs) {
       label: 'If you get 2 more remote days',
       impact: `${moreRemoteScore}/100 offer score`,
       detail: 'Flexibility can materially improve the quality of the switch even when cash changes only a little.',
-      tone: '#8b5cf6',
+      tone: '#0ea5e9',
     },
   ]
 
@@ -305,7 +305,7 @@ export default function SalaryOfferEvaluator() {
             <MetricCard label="Annual gross" value={fmtCurrency(result.annualGross)} sub={`Estimated salary tax: ${fmtCurrency(result.tax)}`} accent={ACCENT} colors={colors} />
             <MetricCard label="Take-home after commute" value={fmtCurrency(result.netAnnualCash)} sub="Cash available before employer-paid benefits." accent="#22c55e" colors={colors} />
             <MetricCard label="Benefits + PF value" value={fmtCurrency(result.annualBenefitValue + result.annualPensionValue + relocationSupport)} sub="Medical, fuel, other benefits, provident fund, and relocation." accent="#06b6d4" colors={colors} />
-            <MetricCard label="Discretionary buffer" value={fmtCurrency(result.discretionaryAnnual)} sub={`Versus ${CITY_COSTS[city].label} baseline living costs.`} accent="#8b5cf6" colors={colors} />
+            <MetricCard label="Discretionary buffer" value={fmtCurrency(result.discretionaryAnnual)} sub={`Versus ${CITY_COSTS[city].label} baseline living costs.`} accent="#0ea5e9" colors={colors} />
           </MetricGrid>
 
           <SectionCard title="Decision path" subtitle={result.decisionTrack} accent={ACCENT} colors={colors}>
@@ -349,3 +349,4 @@ export default function SalaryOfferEvaluator() {
     </ToolLayout>
   )
 }
+

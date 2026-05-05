@@ -70,7 +70,7 @@ export default function WordCounter() {
         <h1 style={{
           fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
           fontWeight: 800,
-          background: 'linear-gradient(to right, #8b5cf6, #06b6d4)',
+          background: 'linear-gradient(to right, #0ea5e9, #06b6d4)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
@@ -81,7 +81,7 @@ export default function WordCounter() {
         </h1>
         <p style={{ color: colors.textSecondary, fontSize: '0.9rem', margin: 0 }}>
           Paste any text — get instant word count, readability score, reading time and keyword density.
-          <span style={{ color: '#8b5cf6', fontWeight: 600 }}> Everything happens in your browser.</span>
+          <span style={{ color: '#0ea5e9', fontWeight: 600 }}> Everything happens in your browser.</span>
         </p>
       </div>
 
@@ -95,7 +95,7 @@ export default function WordCounter() {
           style={{
             width: '100%',
             background: colors.card,
-            border: `1.5px solid ${text ? '#8b5cf6' : colors.border}`,
+            border: `1.5px solid ${text ? '#0ea5e9' : colors.border}`,
             borderRadius: '0.75rem',
             padding: '1rem',
             color: colors.text,
@@ -107,8 +107,8 @@ export default function WordCounter() {
             fontFamily: 'inherit',
             boxSizing: 'border-box',
           }}
-          onFocus={(e) => { e.currentTarget.style.borderColor = '#8b5cf6' }}
-          onBlur={(e) => { e.currentTarget.style.borderColor = text ? '#8b5cf6' : colors.border }}
+          onFocus={(e) => { e.currentTarget.style.borderColor = '#0ea5e9' }}
+          onBlur={(e) => { e.currentTarget.style.borderColor = text ? '#0ea5e9' : colors.border }}
         />
         {/* Char counter */}
         <div style={{
@@ -169,7 +169,7 @@ export default function WordCounter() {
         gap: '0.75rem',
         marginBottom: '1.5rem',
       }}>
-        <StatCard label="Words"       value={stats.words.toLocaleString()}   color="#8b5cf6" colors={colors} />
+        <StatCard label="Words"       value={stats.words.toLocaleString()}   color="#0ea5e9" colors={colors} />
         <StatCard label="Characters"  value={stats.chars.toLocaleString()}   colors={colors} sub="incl. spaces" />
         <StatCard label="No Spaces"   value={stats.charsNoSpaces.toLocaleString()} colors={colors} />
         <StatCard label="Sentences"   value={stats.sentences.toLocaleString()} colors={colors} />
@@ -214,9 +214,9 @@ export default function WordCounter() {
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
             {stats.topKeywords.map(({ word, count }) => (
               <span key={word} style={{
-                background: isDark ? 'rgba(139,92,246,0.15)' : 'rgba(139,92,246,0.08)',
-                border: '1px solid rgba(139,92,246,0.3)',
-                color: '#8b5cf6',
+                background: isDark ? 'rgba(14,165,233,0.15)' : 'rgba(14,165,233,0.08)',
+                border: '1px solid rgba(14,165,233,0.3)',
+                color: '#0ea5e9',
                 borderRadius: '2rem',
                 padding: '0.25rem 0.7rem',
                 fontSize: '0.8rem',
@@ -251,4 +251,5 @@ export default function WordCounter() {
       </ToolLayout>
   )
 }
+
 

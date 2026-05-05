@@ -84,7 +84,7 @@ const CATEGORY_RULES = [
   { category: 'Food & Dining',    color: '#f97316', icon: '🍽️',  keywords: ['kfc','mcdonalds','pizza','burger','food','restaurant','cafe','dhaba','biryani','sweets','bakery','dine','eat'] },
   { category: 'Groceries',        color: '#22c55e', icon: '🛒',  keywords: ['daraz','store','mart','supermarket','grocery','carrefour','imtiaz','metro','spinzer','hyperstar','naheed'] },
   { category: 'Transport',        color: '#3b82f6', icon: '🚗',  keywords: ['uber','careem','fuel','petrol','cng','parking','toll','suzuki','honda','transport','bykea','indriver'] },
-  { category: 'Utilities',        color: '#8b5cf6', icon: '💡',  keywords: ['electric','wapda','sui','gas','water','bill','iesco','lesco','kesc','ptcl','internet','wifi','telecom'] },
+  { category: 'Utilities',        color: '#0ea5e9', icon: '💡',  keywords: ['electric','wapda','sui','gas','water','bill','iesco','lesco','kesc','ptcl','internet','wifi','telecom'] },
   { category: 'Health',           color: '#ef4444', icon: '🏥',  keywords: ['pharmacy','medical','hospital','clinic','doctor','medicine','lab','chemist','aga khan','shaukat'] },
   { category: 'Shopping',         color: '#ec4899', icon: '🛍️', keywords: ['clothes','fashion','shoes','khaadi','gul ahmed','j.','sapphire','nishat','outfitters','alkaram'] },
   { category: 'Entertainment',    color: '#a855f7', icon: '🎬',  keywords: ['netflix','spotify','youtube','cinema','nueplex','atrium','ticket','game','subscription'] },
@@ -1306,3 +1306,4 @@ export default function ExpenseAnalyzer() {
     </ToolLayout>
   )
 }
+

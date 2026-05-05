@@ -107,7 +107,7 @@ function planFreelanceReserves(inputs) {
       label: `If you build the runway in ${fasterBuildMonths} months`,
       impact: fmtCurrency(fasterEmergencyContribution),
       detail: 'Faster reserve building increases near-term pressure but reduces long-term fragility sooner.',
-      tone: '#8b5cf6',
+      tone: '#0ea5e9',
     },
   ]
 
@@ -239,7 +239,7 @@ export default function FreelanceTaxPlanner() {
           <MetricGrid>
             <MetricCard label="Monthly tax reserve" value={fmtCurrency(result.taxReserveMonthly)} sub={`Approx annual tax: ${fmtCurrency(result.annualTax)}`} accent="#ef4444" colors={colors} />
             <MetricCard label="Operating reserve" value={fmtCurrency(result.opsReserveMonthly)} sub={`${reservePct}% of average monthly revenue`} accent="#06b6d4" colors={colors} />
-            <MetricCard label="Emergency top-up" value={fmtCurrency(result.emergencyContribution)} sub={`To reach ${emergencyMonths} months of runway over ${buildMonths} months.`} accent="#8b5cf6" colors={colors} />
+            <MetricCard label="Emergency top-up" value={fmtCurrency(result.emergencyContribution)} sub={`To reach ${emergencyMonths} months of runway over ${buildMonths} months.`} accent="#0ea5e9" colors={colors} />
             <MetricCard label="Suggested owner pay" value={fmtCurrency(result.suggestedOwnerPay)} sub={`Current runway: ${round(result.runwayMonths, 1)} months`} accent={ACCENT} colors={colors} />
           </MetricGrid>
 
@@ -284,3 +284,4 @@ export default function FreelanceTaxPlanner() {
     </ToolLayout>
   )
 }
+

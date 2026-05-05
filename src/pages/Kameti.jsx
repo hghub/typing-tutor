@@ -5,7 +5,7 @@ import { usePreferences } from '../hooks/usePreferences'
 import { supabase } from '../utils/supabase'
 
 const STORAGE_KEY = 'kameti_v1'
-const ACCENT = '#8b5cf6'
+const ACCENT = '#0ea5e9'
 const FONT = 'system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif'
 
 const SESSION_KEY = 'typely_session_id'
@@ -345,7 +345,7 @@ export default function Kameti() {
               <div>
                 <h1 style={{
                   fontSize: 'clamp(1.5rem,3.5vw,2rem)', fontWeight: 800, margin: '0 0 0.35rem',
-                  background: `linear-gradient(135deg, ${ACCENT}, #a78bfa)`,
+                  background: `linear-gradient(135deg, ${ACCENT}, #38bdf8)`,
                   WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
                 }}>🤝 Kameti Tracker</h1>
                 <p style={{ color: colors.muted, margin: 0, fontSize: '0.875rem' }}>
@@ -428,7 +428,7 @@ export default function Kameti() {
               {canStart && previewEnd && (
                 <div style={{
                   padding: '0.65rem 0.875rem',
-                  background: isDark ? 'rgba(139,92,246,0.1)' : 'rgba(139,92,246,0.07)',
+                  background: isDark ? 'rgba(14,165,233,0.1)' : 'rgba(14,165,233,0.07)',
                   borderRadius: '0.5rem', fontSize: '0.82rem', color: ACCENT, fontWeight: 600,
                 }}>
                   💰 Pot = {fmtPKR(state.contribution * state.members.length)} &nbsp;·&nbsp;
@@ -488,7 +488,7 @@ export default function Kameti() {
                           display: 'flex', alignItems: 'center', gap: '0.6rem',
                           padding: '0.55rem 0.75rem',
                           background: dragIdx === idx
-                            ? (isDark ? 'rgba(139,92,246,0.15)' : 'rgba(139,92,246,0.09)')
+                            ? (isDark ? 'rgba(14,165,233,0.15)' : 'rgba(14,165,233,0.09)')
                             : (isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)'),
                           border: `1px solid ${dragIdx === idx ? ACCENT : colors.border}`,
                           borderRadius: '0.5rem',
@@ -610,7 +610,7 @@ export default function Kameti() {
           <div>
             <h1 style={{
               fontSize: 'clamp(1.3rem,3vw,1.9rem)', fontWeight: 800, margin: '0 0 0.2rem',
-              background: `linear-gradient(135deg, ${ACCENT}, #a78bfa)`,
+              background: `linear-gradient(135deg, ${ACCENT}, #38bdf8)`,
               WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
             }}>
               🤝 {state.name || 'Kameti'}
@@ -634,7 +634,7 @@ export default function Kameti() {
             {readOnly && (
               <span style={{
                 padding: '0.3rem 0.75rem', borderRadius: '999px', fontSize: '0.75rem', fontWeight: 700,
-                background: isDark ? 'rgba(139,92,246,0.15)' : 'rgba(139,92,246,0.1)', color: ACCENT,
+                background: isDark ? 'rgba(14,165,233,0.15)' : 'rgba(14,165,233,0.1)', color: ACCENT,
               }}>👁 Read-only</span>
             )}
             {!readOnly && (
@@ -659,7 +659,7 @@ export default function Kameti() {
             <div style={{
               height: '100%', borderRadius: '999px',
               width: totalRounds > 0 ? `${(completedRounds / totalRounds) * 100}%` : '0%',
-              background: `linear-gradient(to right, ${ACCENT}, #a78bfa)`,
+              background: `linear-gradient(to right, ${ACCENT}, #38bdf8)`,
               transition: 'width 0.4s ease',
             }} />
           </div>
@@ -732,9 +732,9 @@ export default function Kameti() {
               const isExpanded = expandedRound === ri
 
               const rowBg = status === 'current'
-                ? (isDark ? 'rgba(139,92,246,0.09)' : 'rgba(139,92,246,0.05)')
+                ? (isDark ? 'rgba(14,165,233,0.09)' : 'rgba(14,165,233,0.05)')
                 : isMe
-                ? (isDark ? 'rgba(139,92,246,0.04)' : 'rgba(139,92,246,0.025)')
+                ? (isDark ? 'rgba(14,165,233,0.04)' : 'rgba(14,165,233,0.025)')
                 : 'transparent'
 
               return (
@@ -797,7 +797,7 @@ export default function Kameti() {
                         <span style={{
                           fontSize: '0.6rem', fontWeight: 800, padding: '0.1rem 0.4rem',
                           borderRadius: '999px', flexShrink: 0,
-                          background: isDark ? 'rgba(139,92,246,0.2)' : 'rgba(139,92,246,0.12)',
+                          background: isDark ? 'rgba(14,165,233,0.2)' : 'rgba(14,165,233,0.12)',
                           color: ACCENT,
                         }}>YOU</span>
                       )}
@@ -855,7 +855,7 @@ export default function Kameti() {
                                 background: paid
                                   ? (isDark ? 'rgba(16,185,129,0.14)' : 'rgba(16,185,129,0.09)')
                                   : isCollector
-                                  ? (isDark ? 'rgba(139,92,246,0.09)' : 'rgba(139,92,246,0.05)')
+                                  ? (isDark ? 'rgba(14,165,233,0.09)' : 'rgba(14,165,233,0.05)')
                                   : (isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)'),
                                 cursor: readOnly ? 'default' : 'pointer',
                                 fontFamily: FONT, fontSize: '0.78rem', fontWeight: 600,
@@ -931,9 +931,9 @@ export default function Kameti() {
                     display: 'flex', alignItems: 'center', gap: '0.6rem',
                     padding: '0.45rem 0.75rem', borderRadius: '0.5rem',
                     background: isMe
-                      ? (isDark ? 'rgba(139,92,246,0.1)' : 'rgba(139,92,246,0.06)')
+                      ? (isDark ? 'rgba(14,165,233,0.1)' : 'rgba(14,165,233,0.06)')
                       : status === 'current'
-                      ? (isDark ? 'rgba(139,92,246,0.05)' : 'rgba(139,92,246,0.03)')
+                      ? (isDark ? 'rgba(14,165,233,0.05)' : 'rgba(14,165,233,0.03)')
                       : 'transparent',
                     border: `1px solid ${isMe ? ACCENT + '40' : 'transparent'}`,
                     transition: 'background 0.15s',
@@ -975,7 +975,7 @@ export default function Kameti() {
                     fontSize: '0.63rem', fontWeight: 700, padding: '0.1rem 0.45rem',
                     borderRadius: '999px', flexShrink: 0,
                     background:
-                      status === 'current' ? (isDark ? 'rgba(139,92,246,0.2)' : 'rgba(139,92,246,0.12)') :
+                      status === 'current' ? (isDark ? 'rgba(14,165,233,0.2)' : 'rgba(14,165,233,0.12)') :
                       status === 'past'    ? (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)') :
                       (isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)'),
                     color: status === 'current' ? ACCENT : colors.muted,
@@ -997,4 +997,5 @@ export default function Kameti() {
     </ToolLayout>
   )
 }
+
 

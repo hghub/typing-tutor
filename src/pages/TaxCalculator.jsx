@@ -237,7 +237,7 @@ export default function TaxCalculator() {
               {/* Main stats */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
                 <StatCard label="Annual Tax" value={`PKR ${fmt(result2526.tax)}`} sub={`Monthly: PKR ${fmt(result2526.tax / 12)}`} color="#f97316" isDark={isDark} colors={colors} />
-                <StatCard label="Effective Rate" value={fmtPct(result2526.effectiveRate)} sub={`Marginal: see slabs`} color="#8b5cf6" isDark={isDark} colors={colors} />
+                <StatCard label="Effective Rate" value={fmtPct(result2526.effectiveRate)} sub={`Marginal: see slabs`} color="#0ea5e9" isDark={isDark} colors={colors} />
                 <StatCard label="Take-Home (Annual)" value={`PKR ${fmt(annualIncome - result2526.tax)}`} sub={`Monthly: PKR ${fmt((annualIncome - result2526.tax) / 12)}`} color="#10b981" isDark={isDark} colors={colors} />
                 <StatCard label="⛽ Petrol Equiv." value={`${fmt(petrolLitres)} L`} sub={`@ PKR ${PETROL_PRICE_PER_LITRE}/L`} color="#06b6d4" isDark={isDark} colors={colors} />
               </div>
@@ -372,3 +372,4 @@ export default function TaxCalculator() {
     </ToolLayout>
   )
 }
+

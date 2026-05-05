@@ -140,7 +140,7 @@ export default function AgeCalculator() {
             {/* Stats grid */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '1rem' }}>
               <StatCard label="Days Alive" value={result.totalDays.toLocaleString()} isDark={isDark} colors={colors} color="#06b6d4" />
-              <StatCard label="Weeks Lived" value={result.totalWeeks.toLocaleString()} isDark={isDark} colors={colors} color="#8b5cf6" />
+              <StatCard label="Weeks Lived" value={result.totalWeeks.toLocaleString()} isDark={isDark} colors={colors} color="#0ea5e9" />
               <StatCard label="Hours Clocked" value={result.totalHours.toLocaleString()} isDark={isDark} colors={colors} color="#10b981" />
               <StatCard label="Days Sleeping" value={result.daysSlept.toLocaleString()} sub="~8 hrs/day average" isDark={isDark} colors={colors} color="#f97316" />
             </div>
@@ -148,7 +148,7 @@ export default function AgeCalculator() {
             {/* Next birthday */}
             <div style={{
               background: isDark ? 'rgba(99,102,241,0.1)' : 'rgba(99,102,241,0.07)',
-              border: `1px solid #6366f140`,
+              border: `1px solid #06b6d440`,
               borderRadius: '0.75rem',
               padding: '1rem 1.25rem',
               marginBottom: '1rem',
@@ -159,7 +159,7 @@ export default function AgeCalculator() {
               <span style={{ fontSize: '1.8rem' }}>🎉</span>
               <div>
                 <div style={{ fontWeight: 700, color: colors.text, fontSize: '0.95rem' }}>
-                  Next birthday in <span style={{ color: '#6366f1' }}>{result.daysUntilBd} days</span>
+                  Next birthday in <span style={{ color: '#06b6d4' }}>{result.daysUntilBd} days</span>
                 </div>
                 <div style={{ fontSize: '0.8rem', color: colors.textSecondary, marginTop: '0.15rem' }}>
                   Falls on a <strong>{result.bdDayName}</strong> — you'll turn {result.nextAge}
@@ -178,11 +178,11 @@ export default function AgeCalculator() {
               <div style={{ fontSize: '0.8rem', fontWeight: 600, color: colors.textSecondary, marginBottom: '0.5rem' }}>Time Breakdown</div>
               <div style={{ display: 'flex', gap: '0', borderRadius: '0.4rem', overflow: 'hidden', height: '1.2rem', marginBottom: '0.5rem' }}>
                 <div style={{ flex: result.daysAwake, background: ACCENT, transition: 'flex 0.5s' }} title={`Awake: ${result.daysAwake} days`} />
-                <div style={{ flex: result.daysSlept, background: '#6366f1', transition: 'flex 0.5s' }} title={`Sleeping: ${result.daysSlept} days`} />
+                <div style={{ flex: result.daysSlept, background: '#06b6d4', transition: 'flex 0.5s' }} title={`Sleeping: ${result.daysSlept} days`} />
               </div>
               <div style={{ display: 'flex', gap: '1rem', fontSize: '0.78rem', color: colors.textSecondary }}>
                 <span><span style={{ color: ACCENT }}>■</span> Awake: {result.daysAwake.toLocaleString()} days</span>
-                <span><span style={{ color: '#6366f1' }}>■</span> Sleeping: {result.daysSlept.toLocaleString()} days</span>
+                <span><span style={{ color: '#06b6d4' }}>■</span> Sleeping: {result.daysSlept.toLocaleString()} days</span>
               </div>
             </div>
 
@@ -216,3 +216,4 @@ export default function AgeCalculator() {
     </ToolLayout>
   )
 }
+

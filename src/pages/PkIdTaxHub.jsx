@@ -85,7 +85,7 @@ const PROVINCE_COLORS = {
   'FATA / Merged Districts': '#dc2626',
   Punjab: '#16a34a',
   Sindh: '#0284c7',
-  Balochistan: '#7c3aed',
+  Balochistan: '#0284c7',
   'Islamabad Capital Territory': '#0ea5e9',
   'Gilgit-Baltistan': '#c2410c',
   'Azad Jammu & Kashmir (AJK)': '#0d9488',
@@ -927,7 +927,7 @@ export default function PkIdTaxHub() {
         {[
           { range: '0000001 – 1999999', type: 'Individual (Salaried / Self-employed)', color: '#22c55e' },
           { range: '2000000 – 3999999', type: 'Association of Persons (AOP / Firm)', color: '#f59e0b' },
-          { range: '4000000 – 6999999', type: 'Company / Corporate Entity', color: '#a78bfa' },
+          { range: '4000000 – 6999999', type: 'Company / Corporate Entity', color: '#38bdf8' },
         ].map(item => (
           <div key={item.range} style={{
             background: `${item.color}12`,
@@ -1027,7 +1027,7 @@ export default function PkIdTaxHub() {
             {
               title: 'Sales Tax (STRN)',
               points: ['Indirect tax on supplies', 'Governed by STA 1990', 'Collected from buyer', 'Filed monthly (18th)', 'Standard rate 18%'],
-              color: '#a78bfa',
+              color: '#38bdf8',
             },
           ].map(col => (
             <div key={col.title} style={{
@@ -1254,7 +1254,7 @@ export default function PkIdTaxHub() {
         {TAX_DEADLINES.map((item, i) => {
           const isAdvance = item.event.startsWith('Advance Tax')
           const isMonthly = item.event.includes('Monthly')
-          const dotColor = isAdvance ? '#f59e0b' : isMonthly ? '#a78bfa' : ACCENT
+          const dotColor = isAdvance ? '#f59e0b' : isMonthly ? '#38bdf8' : ACCENT
           return (
             <div key={i} style={{
               display: 'flex',
@@ -1292,7 +1292,7 @@ export default function PkIdTaxHub() {
         {[
           { color: ACCENT, label: 'Annual / Registration deadlines' },
           { color: '#f59e0b', label: 'Advance Tax (quarterly)' },
-          { color: '#a78bfa', label: 'Monthly obligations' },
+          { color: '#38bdf8', label: 'Monthly obligations' },
         ].map(l => (
           <span key={l.label} style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', color: colors.textSecondary }}>
             <span style={{ width: '10px', height: '10px', borderRadius: '2px', background: l.color, flexShrink: 0 }} />
@@ -1400,3 +1400,4 @@ export default function PkIdTaxHub() {
     </ToolLayout>
   )
 }
+

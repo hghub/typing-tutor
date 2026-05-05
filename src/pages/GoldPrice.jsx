@@ -733,7 +733,7 @@ export default function GoldPrice() {
                 </div>
                 <div style={{ flex: 2, minWidth: '220px' }}>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.875rem' }}>
-                    <StatBox label="Making Charges" value={fmt(makingChargeAmt)} accent="#a78bfa" colors={colors} />
+                    <StatBox label="Making Charges" value={fmt(makingChargeAmt)} accent="#38bdf8" colors={colors} />
                     <StatBox label="Total Jewellery" value={fmt(totalJewellery)}  accent={ACCENT}   colors={colors} />
                   </div>
                 </div>
@@ -742,7 +742,7 @@ export default function GoldPrice() {
                 <div style={{ marginTop: '0.75rem', fontSize: '0.78rem', color: colors.muted }}>
                   Gold value <strong style={{ color: ACCENT }}>{fmt(goldValue)}</strong>
                   &nbsp;+&nbsp;
-                  making ({makingPct}%) <strong style={{ color: '#a78bfa' }}>{fmt(makingChargeAmt)}</strong>
+                  making ({makingPct}%) <strong style={{ color: '#38bdf8' }}>{fmt(makingChargeAmt)}</strong>
                   &nbsp;=&nbsp;
                   <strong style={{ color: colors.text }}>{fmt(totalJewellery)}</strong>
                 </div>
@@ -1100,3 +1100,4 @@ export default function GoldPrice() {
     </ToolLayout>
   )
 }
+

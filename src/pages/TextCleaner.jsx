@@ -44,7 +44,7 @@ const ACTION_GROUPS = [
   },
   {
     label: 'Lines',
-    color: '#8b5cf6',
+    color: '#0ea5e9',
     actions: [
       { id: 'sortLines',    label: 'Sort A → Z',       fn: sortLines },
       { id: 'reverseLines', label: 'Reverse Lines',    fn: reverseLines },
@@ -284,7 +284,7 @@ export default function TextCleaner() {
             to="/tools/word-counter"
             style={{
               display: 'flex', alignItems: 'center', gap: '0.35rem',
-              border: `1px solid ${colors.border}`, color: '#8b5cf6',
+              border: `1px solid ${colors.border}`, color: '#0ea5e9',
               padding: '0.4rem 0.9rem', borderRadius: '0.5rem',
               textDecoration: 'none', fontSize: '0.82rem', fontWeight: 500,
             }}
@@ -296,3 +296,4 @@ export default function TextCleaner() {
     </ToolLayout>
   )
 }
+

@@ -89,7 +89,7 @@ function Textarea({ value, onChange, placeholder, colors, isDark, label }) {
           outline: 'none',
           transition: 'border-color 0.15s',
         }}
-        onFocus={(e) => (e.target.style.borderColor = '#6366f1')}
+        onFocus={(e) => (e.target.style.borderColor = '#06b6d4')}
         onBlur={(e) => (e.target.style.borderColor = colors.border)}
       />
     </div>
@@ -237,7 +237,7 @@ export default function TextDiff() {
         <div style={{ marginBottom: '1.25rem' }}>
           <h1 style={{
             fontSize: 'clamp(1.3rem,3vw,1.8rem)', fontWeight: 800, margin: '0 0 0.3rem',
-            background: 'linear-gradient(135deg,#6366f1,#8b5cf6)',
+            background: 'linear-gradient(135deg,#06b6d4,#0ea5e9)',
             WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
           }}>
             ⚡ Text Diff — Compare Two Texts
@@ -262,7 +262,7 @@ export default function TextDiff() {
                 type="checkbox"
                 checked={val}
                 onChange={(e) => set(e.target.checked)}
-                style={{ accentColor: '#6366f1', width: 14, height: 14 }}
+                style={{ accentColor: '#06b6d4', width: 14, height: 14 }}
               />
               {label}
             </label>
@@ -278,7 +278,7 @@ export default function TextDiff() {
           >Clear</button>
           {!isEmpty && (
             <button onClick={copyDiff} style={{
-              background: '#6366f1', border: 'none', borderRadius: '0.45rem',
+              background: '#06b6d4', border: 'none', borderRadius: '0.45rem',
               padding: '0.3rem 0.85rem', fontSize: '0.78rem', color: '#fff', cursor: 'pointer',
             }}>Copy diff</button>
           )}
@@ -361,3 +361,4 @@ export default function TextDiff() {
     </ToolLayout>
   )
 }
+

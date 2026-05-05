@@ -1,6 +1,6 @@
 import { getCharColor } from '../utils/typing'
 
-const RAINBOW_COLORS = ['#ef4444','#f97316','#eab308','#22c55e','#06b6d4','#3b82f6','#8b5cf6','#ec4899']
+const RAINBOW_COLORS = ['#ef4444','#f97316','#eab308','#22c55e','#06b6d4','#3b82f6','#0ea5e9','#ec4899']
 
 export default function PassageDisplay({ passage, typed, isDark, currentLangDir, colors, isKidsMode }) {
   return (
@@ -45,3 +45,4 @@ export default function PassageDisplay({ passage, typed, isDark, currentLangDir,
     </div>
   )
 }
+

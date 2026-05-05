@@ -166,7 +166,7 @@ function carDecision(inputs) {
       label: 'If EV charging becomes fully dependable',
       impact: `EV 5y TCO ${fmtCurrency(evWithBetterCharging)}`,
       detail: 'Better charging removes one of the biggest hidden penalties in the EV case.',
-      tone: '#8b5cf6',
+      tone: '#0ea5e9',
     },
     {
       label: `If driving jumps to ${higherDailyKm} km/day`,
@@ -370,7 +370,7 @@ export default function CarPowertrainDecision() {
 
         <div style={{ display: 'grid', gap: '1rem' }}>
           <RecommendationBanner
-            accent={result.recommendation === 'hybrid' ? '#22c55e' : result.recommendation === 'ev' ? '#8b5cf6' : '#f97316'}
+            accent={result.recommendation === 'hybrid' ? '#22c55e' : result.recommendation === 'ev' ? '#0ea5e9' : '#f97316'}
             title={displayName}
             body={result.reasons[0]}
             confidence={result.confidence}
@@ -379,7 +379,7 @@ export default function CarPowertrainDecision() {
           <ActionCallout
             title="What you should do next"
             body={result.decisionTrack}
-            accent={result.recommendation === 'hybrid' ? '#22c55e' : result.recommendation === 'ev' ? '#8b5cf6' : '#f97316'}
+            accent={result.recommendation === 'hybrid' ? '#22c55e' : result.recommendation === 'ev' ? '#0ea5e9' : '#f97316'}
             colors={colors}
             actions={result.actionSteps.slice(0, 3)}
           />
@@ -387,7 +387,7 @@ export default function CarPowertrainDecision() {
             <MetricCard label="Annual distance" value={`${fmtNumber(result.annualKm, 0)} km`} sub="Driving volume strongly changes the winning option." accent={ACCENT} colors={colors} />
             <MetricCard label="Petrol 5y TCO" value={fmtCurrency(result.tco.petrol)} sub={`Monthly run cost: ${fmtCurrency(result.monthlyCosts.petrol)}`} accent="#f97316" colors={colors} />
             <MetricCard label="Hybrid 5y TCO" value={fmtCurrency(result.tco.hybrid)} sub={`Monthly run cost: ${fmtCurrency(result.monthlyCosts.hybrid)}`} accent="#22c55e" colors={colors} />
-            <MetricCard label="EV 5y TCO" value={fmtCurrency(result.tco.ev)} sub={`Monthly run cost: ${fmtCurrency(result.monthlyCosts.ev)}`} accent="#8b5cf6" colors={colors} />
+            <MetricCard label="EV 5y TCO" value={fmtCurrency(result.tco.ev)} sub={`Monthly run cost: ${fmtCurrency(result.monthlyCosts.ev)}`} accent="#0ea5e9" colors={colors} />
           </MetricGrid>
 
           <SectionCard title="Decision path" subtitle={result.decisionTrack} accent={ACCENT} colors={colors}>
@@ -418,7 +418,7 @@ export default function CarPowertrainDecision() {
               items={[
                 { label: 'Petrol', value: result.tco.petrol, display: fmtCurrency(result.tco.petrol), color: '#f97316', note: `Monthly running cost: ${fmtCurrency(result.monthlyCosts.petrol)}` },
                 { label: 'Hybrid', value: result.tco.hybrid, display: fmtCurrency(result.tco.hybrid), color: '#22c55e', note: `Monthly running cost: ${fmtCurrency(result.monthlyCosts.hybrid)}` },
-                { label: 'EV', value: result.tco.ev, display: fmtCurrency(result.tco.ev), color: '#8b5cf6', note: `Monthly running cost: ${fmtCurrency(result.monthlyCosts.ev)}` },
+                { label: 'EV', value: result.tco.ev, display: fmtCurrency(result.tco.ev), color: '#0ea5e9', note: `Monthly running cost: ${fmtCurrency(result.monthlyCosts.ev)}` },
               ]}
             />
           </SectionCard>
@@ -491,3 +491,4 @@ export default function CarPowertrainDecision() {
     </ToolLayout>
   )
 }
+

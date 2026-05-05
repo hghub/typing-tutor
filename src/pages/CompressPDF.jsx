@@ -16,7 +16,7 @@ function formatBytes(bytes) {
 const PRESETS = [
   { id: 'whatsapp', icon: '📱', label: 'WhatsApp', desc: 'Target < 15 MB · Best for mobile sharing', color: '#10b981' },
   { id: 'email',    icon: '📧', label: 'Email',    desc: 'Target < 10 MB · Good for Gmail/Outlook',  color: '#3b82f6' },
-  { id: 'print',    icon: '🖨️', label: 'Print',    desc: 'High quality · Minimal compression',       color: '#8b5cf6' },
+  { id: 'print',    icon: '🖨️', label: 'Print',    desc: 'High quality · Minimal compression',       color: '#0ea5e9' },
   { id: 'archive',  icon: '🗃️', label: 'Archive',  desc: 'Maximum compression · Smallest possible',  color: '#f97316' },
 ]
 
@@ -294,3 +294,4 @@ export default function CompressPDF() {
     </ToolLayout>
   )
 }
+

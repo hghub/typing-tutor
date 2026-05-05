@@ -3,7 +3,7 @@ import ToolLayout from '../components/ToolLayout'
 import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 import { useTheme } from '../hooks/useTheme'
 
-const ACCENT = '#8b5cf6'
+const ACCENT = '#0ea5e9'
 const CURRENCIES = [
   { code: 'PKR', symbol: 'PKR' },
   { code: 'USD', symbol: '$' },
@@ -904,4 +904,5 @@ export default function BudgetSplitter() {
     </ToolLayout>
   )
 }
+
 

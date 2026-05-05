@@ -148,7 +148,7 @@ function CounterTab({ colors }) {
         ))}
       </div>
       {rtl && (
-        <div style={{ marginTop: '0.75rem', padding: '0.6rem 1rem', borderRadius: '8px', background: '#7c3aed22', border: '1px solid #7c3aed', fontSize: '0.85rem', color: '#a78bfa' }}>
+        <div style={{ marginTop: '0.75rem', padding: '0.6rem 1rem', borderRadius: '8px', background: '#0284c722', border: '1px solid #0284c7', fontSize: '0.85rem', color: '#38bdf8' }}>
           🌙 Urdu/Arabic RTL text detected — WhatsApp uses UTF-16 encoding for these characters, which may affect message length limits.
         </div>
       )}
@@ -313,3 +313,4 @@ function LinkTab({ colors }) {
     </div>
   )
 }
+

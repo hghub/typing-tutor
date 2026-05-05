@@ -61,7 +61,7 @@ export default function RelatedTools({ toolId }) {
             fontWeight: 800,
             letterSpacing: '0.12em',
             textTransform: 'uppercase',
-            background: 'linear-gradient(90deg, #6366f1, #10b981, #6366f1)',
+            background: 'linear-gradient(90deg, #06b6d4, #10b981, #06b6d4)',
             backgroundSize: '200% auto',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
@@ -76,7 +76,7 @@ export default function RelatedTools({ toolId }) {
             fontWeight: 700,
             padding: '0.2rem 0.55rem',
             borderRadius: '999px',
-            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            background: 'linear-gradient(135deg, #06b6d4, #0ea5e9)',
             color: '#fff',
             letterSpacing: '0.05em',
           }}>
@@ -128,3 +128,4 @@ export default function RelatedTools({ toolId }) {
     </>
   )
 }
+

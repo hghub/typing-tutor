@@ -4,7 +4,7 @@ import { useTheme } from '../hooks/useTheme'
 import QRCode from 'qrcode'
 
 const FONT = 'system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif'
-const ACCENT = '#6366f1'
+const ACCENT = '#06b6d4'
 
 const TYPES = [
   { id: 'url',   label: '🔗 URL',     placeholder: 'https://example.com' },
@@ -202,3 +202,4 @@ export default function QRGenerator() {
     </ToolLayout>
   )
 }
+

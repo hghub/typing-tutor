@@ -160,8 +160,8 @@ export default function ShareBar({ url, title }) {
             }}
             onMouseEnter={e => {
               if (nativeShared) return
-              e.currentTarget.style.borderColor = '#a78bfa'
-              e.currentTarget.style.color = '#a78bfa'
+              e.currentTarget.style.borderColor = '#38bdf8'
+              e.currentTarget.style.color = '#38bdf8'
               e.currentTarget.style.background = isDark ? 'rgba(167,139,250,0.15)' : 'rgba(167,139,250,0.08)'
             }}
             onMouseLeave={e => {
@@ -184,3 +184,4 @@ export default function ShareBar({ url, title }) {
     </div>
   )
 }
+

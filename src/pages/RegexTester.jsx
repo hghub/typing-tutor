@@ -26,7 +26,7 @@ const COMMON_PATTERNS = [
 /* Distinct highlight colors for successive matches */
 const MATCH_COLORS = [
   'rgba(249,115,22,0.30)',
-  'rgba(139,92,246,0.30)',
+  'rgba(14,165,233,0.30)',
   'rgba(16,185,129,0.30)',
   'rgba(59,130,246,0.30)',
   'rgba(236,72,153,0.30)',
@@ -619,3 +619,4 @@ export default function RegexTester() {
     </ToolLayout>
   )
 }
+

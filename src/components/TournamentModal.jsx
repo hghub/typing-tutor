@@ -13,8 +13,8 @@ const CATEGORY_COLORS = {
   easy:      { bg: '#22c55e', label: 'Easy' },
   medium:    { bg: '#f59e0b', label: 'Medium' },
   hard:      { bg: '#ef4444', label: 'Hard' },
-  timer:     { bg: '#6366f1', label: '60s Timer' },
-  islamic:   { bg: '#a78bfa', label: 'Islamic' },
+  timer:     { bg: '#06b6d4', label: '60s Timer' },
+  islamic:   { bg: '#38bdf8', label: 'Islamic' },
   coding:    { bg: '#06b6d4', label: 'Coding' },
   poetry:    { bg: '#ec4899', label: 'Poetry' },
   emails:    { bg: '#10b981', label: 'Emails' },
@@ -275,3 +275,4 @@ export default function TournamentModal({ show, onClose, userId, displayName, la
     </div>
   )
 }
+

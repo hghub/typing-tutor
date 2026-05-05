@@ -784,7 +784,7 @@ export default function InvestmentAllocationPlanner() {
             <MetricCard label="Deployable now" value={fmtCurrency(result.deployNow)} sub="Amount that can realistically work after respecting safety needs." accent="#22c55e" colors={colors} />
             <MetricCard label="Safety bucket" value={fmtCurrency(result.buckets.liquidity)} sub={`${result.allocation.liquidity}% in liquidity-style allocation`} accent="#06b6d4" colors={colors} />
             <MetricCard label="Growth bucket" value={fmtCurrency(result.growthBucketAmount)} sub={`${round(result.allocation.balanced + result.allocation.equity, 1)}% across balanced + equity`} accent={ACCENT} colors={colors} />
-            <MetricCard label="Hedge bucket" value={fmtCurrency(result.hedgeBucketAmount)} sub={`${round(result.allocation.gold + result.allocation.usd, 1)}% across gold + FX hedge`} accent="#8b5cf6" colors={colors} />
+            <MetricCard label="Hedge bucket" value={fmtCurrency(result.hedgeBucketAmount)} sub={`${round(result.allocation.gold + result.allocation.usd, 1)}% across gold + FX hedge`} accent="#0ea5e9" colors={colors} />
             <MetricCard label="Annual additions" value={fmtCurrency(result.monthlyContributionAnnual)} sub="Useful when you will keep feeding the plan over time." accent="#f59e0b" colors={colors} />
             <MetricCard label="Reserve strength" value={`${fmtNumber(emergencyMonthsCovered, 0)} months`} sub={result.emergencyGapAmount > 0 ? `Still short by ${fmtCurrency(result.emergencyGapAmount)}` : 'Emergency baseline is already in stronger shape.'} accent={result.emergencyGapAmount > 0 ? '#ef4444' : '#22c55e'} colors={colors} />
           </MetricGrid>
@@ -1045,3 +1045,4 @@ export default function InvestmentAllocationPlanner() {
     </ToolLayout>
   )
 }
+

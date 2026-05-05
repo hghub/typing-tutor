@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
 
-const ACCENT = '#8b5cf6'
+const ACCENT = '#0ea5e9'
 
 /* ── HTML → Markdown conversion ─────────────────────────────────────────── */
 
@@ -431,9 +431,9 @@ export default function MarkdownScraper() {
                 fontSize: '0.82rem',
                 color: colors.textSecondary,
                 padding: '0.5rem 0.75rem',
-                background: isDark ? 'rgba(139,92,246,0.08)' : 'rgba(139,92,246,0.06)',
+                background: isDark ? 'rgba(14,165,233,0.08)' : 'rgba(14,165,233,0.06)',
                 borderRadius: '0.5rem',
-                border: `1px solid rgba(139,92,246,0.2)`,
+                border: `1px solid rgba(14,165,233,0.2)`,
               }}
             >
               <span>🪙 <strong style={{ color: ACCENT }}>~{tokenEstimate.toLocaleString()}</strong> tokens</span>
@@ -505,3 +505,4 @@ export default function MarkdownScraper() {
     </ToolLayout>
   )
 }
+

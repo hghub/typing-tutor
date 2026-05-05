@@ -217,7 +217,7 @@ export default function StatsModal({ show, onClose, userId, isDark, colors }) {
             <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
               <SummaryCard label="Sessions" value={stats.totalSessions} gradient="linear-gradient(to right, #a855f7, #ec4899)" colors={colors} />
               <SummaryCard label="Best WPM" value={stats.bestWpm} gradient="linear-gradient(to right, #06b6d4, #3b82f6)" colors={colors} />
-              <SummaryCard label="Avg WPM" value={stats.avgWpm} gradient="linear-gradient(to right, #3b82f6, #6366f1)" colors={colors} />
+              <SummaryCard label="Avg WPM" value={stats.avgWpm} gradient="linear-gradient(to right, #3b82f6, #06b6d4)" colors={colors} />
               <SummaryCard label="Avg Accuracy" value={`${stats.avgAccuracy}%`} gradient="linear-gradient(to right, #22c55e, #06b6d4)" colors={colors} />
             </div>
 
@@ -237,3 +237,4 @@ export default function StatsModal({ show, onClose, userId, isDark, colors }) {
     </div>
   )
 }
+

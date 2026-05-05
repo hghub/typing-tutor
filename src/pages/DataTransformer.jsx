@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
 
-const ACCENT = '#6366f1'
+const ACCENT = '#06b6d4'
 
 const FORMATS = ['JSON', 'CSV', 'TSV']
 
@@ -489,3 +489,4 @@ export default function DataTransformer() {
     </ToolLayout>
   )
 }
+

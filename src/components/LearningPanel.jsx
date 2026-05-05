@@ -40,11 +40,11 @@ const PACK_CONFIG = {
   freelance: {
     emoji: '🚀',
     label: 'Freelance Communication',
-    accent: '#8b5cf6',
-    accentLight: 'rgba(139,92,246,0.10)',
-    accentBorder: 'rgba(139,92,246,0.30)',
-    headerBg: 'linear-gradient(135deg, rgba(139,92,246,0.12), rgba(99,102,241,0.10))',
-    badge: { bg: 'rgba(139,92,246,0.15)', color: '#8b5cf6' },
+    accent: '#0ea5e9',
+    accentLight: 'rgba(14,165,233,0.10)',
+    accentBorder: 'rgba(14,165,233,0.30)',
+    headerBg: 'linear-gradient(135deg, rgba(14,165,233,0.12), rgba(99,102,241,0.10))',
+    badge: { bg: 'rgba(14,165,233,0.15)', color: '#0ea5e9' },
   },
   study: {
     emoji: '📚',
@@ -398,3 +398,4 @@ export default function LearningPanel({ language, difficulty, passageIndex, isDa
     </div>
   )
 }
+

@@ -3,6 +3,7 @@ import ToolLayout from '../components/ToolLayout'
 import DisclaimerBlock from '../components/DisclaimerBlock'
 import { useTheme } from '../hooks/useTheme'
 import FreshnessBanner from '../components/decision/FreshnessBanner'
+import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 import {
   DecisionHero,
   SectionCard,
@@ -627,6 +628,7 @@ export default function InvestmentAllocationPlanner() {
         refreshed="Pakistan mutual-fund category framing, risk-bucket logic, and Shariah-compliant mapping structure"
         estimated="This planner gives allocation guidance by bucket and category, not exact product advice or guaranteed returns"
       />
+      <PakistanFriendlyGuide toolId="investment-allocation-planner" />
 
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.05fr) minmax(320px, 0.95fr)', gap: '1rem' }}>
         <SectionCard title="Portfolio inputs" subtitle="This planner works best when the inputs reflect your real life, not your ideal mood." accent={ACCENT} colors={colors}>

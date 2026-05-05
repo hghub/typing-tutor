@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
 import DisclaimerBlock from '../components/DisclaimerBlock'
+import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 import {
   SLABS_2526, SLABS_2425,
   calcFullTax, calcVPSShield, calcCharityShield, slabProximity,
@@ -131,6 +132,8 @@ export default function TaxCalculator() {
           Finance Act 2025 · FY 2025-26 · Salaried individuals · Salary tax estimate only · Not affiliated with FBR
         </p>
       </div>
+
+      <PakistanFriendlyGuide toolId="tax-calculator" />
 
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1.4fr)', gap: '1.5rem' }}>
 

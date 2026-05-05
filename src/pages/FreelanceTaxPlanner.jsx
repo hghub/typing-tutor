@@ -4,6 +4,7 @@ import DisclaimerBlock from '../components/DisclaimerBlock'
 import { useTheme } from '../hooks/useTheme'
 import { calcFullTax, SLABS_2526 } from '../data/taxData'
 import FreshnessBanner from '../components/decision/FreshnessBanner'
+import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 import {
   DecisionHero,
   SectionCard,
@@ -191,6 +192,7 @@ export default function FreelanceTaxPlanner() {
         refreshed="Current tax baseline and reserve-planning defaults"
         estimated="Actual freelancer filing treatment may differ based on business structure and documented expenses"
       />
+      <PakistanFriendlyGuide toolId="freelance-tax-planner" />
 
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.05fr) minmax(320px, 0.95fr)', gap: '1rem' }}>
         <SectionCard title="Freelance planning inputs" subtitle="These numbers should reflect your normal month, not your best month." accent={ACCENT} colors={colors}>

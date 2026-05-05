@@ -3,6 +3,7 @@ import ToolLayout from '../components/ToolLayout'
 import DisclaimerBlock from '../components/DisclaimerBlock'
 import { useTheme } from '../hooks/useTheme'
 import FreshnessBanner from '../components/decision/FreshnessBanner'
+import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 import {
   DecisionHero,
   SectionCard,
@@ -350,6 +351,7 @@ export default function RentVsBuyPakistan() {
         refreshed="City presets, markup defaults, maintenance and transfer-friction assumptions"
         estimated="Property appreciation and rent-growth assumptions still vary by micro-market and area"
       />
+      <PakistanFriendlyGuide toolId="rent-vs-buy-pakistan" />
 
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.05fr) minmax(320px, 0.95fr)', gap: '1rem' }}>
         <SectionCard title="Scenario inputs" subtitle="Start with a city preset, then adjust assumptions to match your actual situation." accent={ACCENT} colors={colors}>

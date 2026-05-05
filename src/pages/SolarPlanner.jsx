@@ -2,6 +2,7 @@ import { useState } from 'react'
 import jsPDF from 'jspdf'
 import ToolLayout from '../components/ToolLayout'
 import FreshnessBanner from '../components/decision/FreshnessBanner'
+import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 
 // ── Pakistan peak sun hours (daily kWh/m²) — verified sources ────────────────
 const CITIES = [
@@ -680,6 +681,7 @@ export default function SolarPlanner() {
           refreshed="Panel, inverter, battery, meter-fee and tariff planning ranges"
           estimated="Installer labor, roof complexity, and final DISCO process costs vary by case"
         />
+        <PakistanFriendlyGuide toolId="solar-planner" />
 
         {/* Page heading */}
         <div style={{ marginBottom: '1.25rem' }}>

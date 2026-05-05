@@ -97,6 +97,75 @@ function carDecision(inputs) {
     ev: annualToMonthly(fuelCosts.ev + EV_BASELINES.maintenancePerYear.ev),
   }
 
+  const higherPetrol = inputs.petrolPricePerLitre * 1.15
+  const higherPetrolTco = {
+    petrol: round(inputs.carPricePetrol + ((((annualKm / EV_BASELINES.fuelEfficiency.petrol) * higherPetrol) + EV_BASELINES.maintenancePerYear.petrol) * EV_BASELINES.analysisYears) - inputs.carPricePetrol * EV_BASELINES.resaleFactor.petrol),
+    hybrid: round(inputs.carPriceHybrid + ((((annualKm / EV_BASELINES.fuelEfficiency.hybrid) * higherPetrol) + EV_BASELINES.maintenancePerYear.hybrid) * EV_BASELINES.analysisYears) - inputs.carPriceHybrid * EV_BASELINES.resaleFactor.hybrid),
+  }
+
+  const evWithBetterCharging = (() => {
+    const betterBase = baseTco.ev
+    const betterAdjusted = inputs.loadSheddingHours > 3 ? betterBase * 1.1 : betterBase
+    return round(betterAdjusted)
+  })()
+
+  const higherDailyKm = Math.round((Number(inputs.dailyKm) || 0) * 1.5)
+  const higherAnnualKm = higherDailyKm * 365
+  const higherUsageTco = {
+    petrol: round(inputs.carPricePetrol + ((((higherAnnualKm / EV_BASELINES.fuelEfficiency.petrol) * inputs.petrolPricePerLitre) + EV_BASELINES.maintenancePerYear.petrol) * EV_BASELINES.analysisYears) - inputs.carPricePetrol * EV_BASELINES.resaleFactor.petrol),
+    hybrid: round(inputs.carPriceHybrid + ((((higherAnnualKm / EV_BASELINES.fuelEfficiency.hybrid) * inputs.petrolPricePerLitre) + EV_BASELINES.maintenancePerYear.hybrid) * EV_BASELINES.analysisYears) - inputs.carPriceHybrid * EV_BASELINES.resaleFactor.hybrid),
+    ev: round((inputs.chargingAvailability === 'limited' ? baseTco.ev * 1.15 : baseTco.ev) + ((((higherAnnualKm - annualKm) / EV_BASELINES.evKmPerKwh) * inputs.electricityPricePerKwh) * EV_BASELINES.analysisYears)),
+  }
+
+  let decisionTitle = 'Compare the tradeoffs closely'
+  let decisionBody = 'The lowest-cost option is not always the easiest ownership experience, so convenience and charging reality still matter.'
+  let decisionTrack = 'Use this as a planning filter before narrowing down exact models.'
+  const actionSteps = []
+
+  if (recommendation === 'hybrid') {
+    decisionTitle = 'Hybrid is the safer all-round decision today'
+    decisionBody = 'Your scenario benefits from lower running cost than petrol without taking on the charging fragility of a full EV.'
+    decisionTrack = 'This is usually the most robust answer when city driving is high but infrastructure confidence is not.'
+    actionSteps.push('Compare a few hybrid models rather than forcing a petrol-or-EV binary.')
+    actionSteps.push('Do not overpay a large premium if your daily kilometres are still modest.')
+    actionSteps.push('If home charging improves later, rerun the case before your next upgrade cycle.')
+  } else if (recommendation === 'ev') {
+    decisionTitle = 'EV can work if your charging setup is truly dependable'
+    decisionBody = 'Your numbers support EV ownership, but that win relies on consistent charging and a realistic view of convenience.'
+    decisionTrack = 'This is a strong case only if you can actually live the charging routine you are assuming.'
+    actionSteps.push('Price home-charging installation and backup reality, not just the vehicle sticker.')
+    actionSteps.push('Stress-test the case against weaker resale assumptions before committing.')
+    actionSteps.push('If load shedding worsens materially, hybrid may become the safer compromise.')
+  } else {
+    decisionTitle = 'Petrol still makes the most practical sense for now'
+    decisionBody = 'Your current mileage, charging limitations, or vehicle-price premium do not justify moving away from petrol yet.'
+    decisionTrack = 'This does not mean EV or hybrid are bad overall. It means they are not winning under your present use pattern.'
+    actionSteps.push('Avoid paying a large upfront premium if your daily use is still light.')
+    actionSteps.push('Watch fuel-price movement and rerun the scenario when your usage changes.')
+    actionSteps.push('If you move to heavier city driving later, hybrid often becomes the first upgrade to test.')
+  }
+
+  const sensitivity = [
+    {
+      label: 'If petrol rises another 15%',
+      impact: `Petrol ${fmtCurrency(higherPetrolTco.petrol)} · Hybrid ${fmtCurrency(higherPetrolTco.hybrid)}`,
+      detail: 'Fuel-price pressure usually strengthens hybrid and EV relative to petrol.',
+      tone: '#f59e0b',
+    },
+    {
+      label: 'If EV charging becomes fully dependable',
+      impact: `EV 5y TCO ${fmtCurrency(evWithBetterCharging)}`,
+      detail: 'Better charging removes one of the biggest hidden penalties in the EV case.',
+      tone: '#8b5cf6',
+    },
+    {
+      label: `If driving jumps to ${higherDailyKm} km/day`,
+      impact: `Petrol ${fmtCurrency(higherUsageTco.petrol)} · Hybrid ${fmtCurrency(higherUsageTco.hybrid)} · EV ${fmtCurrency(higherUsageTco.ev)}`,
+      detail: 'Higher usage compounds running-cost differences much faster than most buyers expect.',
+      tone: '#22c55e',
+    },
+  ]
+
   const reasons = []
   if (recommendation === 'hybrid') {
     reasons.push('Hybrid is the safest balance when city driving is high but charging reliability or load shedding weakens the EV case.')
@@ -121,6 +190,11 @@ function carDecision(inputs) {
     costScores,
     convenience,
     risk,
+    decisionTitle,
+    decisionBody,
+    decisionTrack,
+    actionSteps,
+    sensitivity,
   }
 }
 
@@ -174,35 +248,35 @@ export default function CarPowertrainDecision() {
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.05fr) minmax(320px, 0.95fr)', gap: '1rem' }}>
         <SectionCard title="Ownership scenario" subtitle="Use your expected usage, local energy costs, and vehicle prices." accent={ACCENT} colors={colors}>
           <FieldsGrid>
-            <Field label="Daily driving distance">
+            <Field label="Daily driving distance" hint="Use your normal weekly average. This is one of the biggest drivers of the result.">
               <SliderInput colors={colors} accent={ACCENT} value={dailyKm} onChange={(e) => setDailyKm(Number(e.target.value))} min={5} max={120} suffix=" km" />
             </Field>
-            <Field label="City driving ratio">
+            <Field label="City driving ratio" hint="Higher city use usually strengthens hybrid and EV relative to petrol.">
               <SliderInput colors={colors} accent={ACCENT} value={cityDrivingRatio} onChange={(e) => setCityDrivingRatio(Number(e.target.value))} min={10} max={95} suffix="%" />
             </Field>
-            <Field label="Petrol price per litre (PKR)">
+            <Field label="Petrol price per litre (PKR)" hint="Use current local pump pricing, then pressure-test with a higher fuel scenario.">
               <NumberInput colors={colors} value={petrolPricePerLitre} onChange={(e) => setPetrolPricePerLitre(Number(e.target.value) || 0)} />
             </Field>
-            <Field label="Electricity price per kWh (PKR)">
+            <Field label="Electricity price per kWh (PKR)" hint="Use your effective at-home charging rate, not a best-case off-peak fantasy unless you really have it.">
               <NumberInput colors={colors} value={electricityPricePerKwh} onChange={(e) => setElectricityPricePerKwh(Number(e.target.value) || 0)} />
             </Field>
-            <Field label="Petrol car price (PKR)">
+            <Field label="Petrol car price (PKR)" hint="Use the actual model price you would pay, including normal delivery premium if relevant.">
               <NumberInput colors={colors} value={carPricePetrol} onChange={(e) => setCarPricePetrol(Number(e.target.value) || 0)} />
             </Field>
-            <Field label="Hybrid car price (PKR)">
+            <Field label="Hybrid car price (PKR)" hint="Compare like-for-like segment vehicles as closely as possible.">
               <NumberInput colors={colors} value={carPriceHybrid} onChange={(e) => setCarPriceHybrid(Number(e.target.value) || 0)} />
             </Field>
-            <Field label="EV price (PKR)">
+            <Field label="EV price (PKR)" hint="If home charger install is extra, include it mentally or increase the EV price here.">
               <NumberInput colors={colors} value={carPriceEv} onChange={(e) => setCarPriceEv(Number(e.target.value) || 0)} />
             </Field>
-            <Field label="Charging availability">
+            <Field label="Charging availability" hint="Be honest. ‘Limited’ is better than pretending public charging is dependable for you.">
               <SelectInput colors={colors} value={chargingAvailability} onChange={(e) => setChargingAvailability(e.target.value)}>
                 <option value="home_only">Home only</option>
                 <option value="public_available">Home + public charging</option>
                 <option value="limited">Limited / unreliable</option>
               </SelectInput>
             </Field>
-            <Field label="Load shedding">
+            <Field label="Load shedding" hint="This mainly affects EV practicality and charging confidence, not just electricity cost.">
               <SliderInput colors={colors} accent={ACCENT} value={loadSheddingHours} onChange={(e) => setLoadSheddingHours(Number(e.target.value))} min={0} max={8} suffix=" hours/day" />
             </Field>
           </FieldsGrid>
@@ -223,8 +297,22 @@ export default function CarPowertrainDecision() {
             <MetricCard label="EV 5y TCO" value={fmtCurrency(result.tco.ev)} sub={`Monthly run cost: ${fmtCurrency(result.monthlyCosts.ev)}`} accent="#8b5cf6" colors={colors} />
           </MetricGrid>
 
+          <SectionCard title="Decision path" subtitle={result.decisionTrack} accent={ACCENT} colors={colors}>
+            <div style={{ color: colors.text, fontSize: '1.02rem', fontWeight: 700 }}>{result.decisionTitle}</div>
+            <p style={{ margin: 0, color: colors.textSecondary, lineHeight: 1.65 }}>{result.decisionBody}</p>
+            <BulletList items={result.actionSteps} colors={colors} />
+          </SectionCard>
+
           <SectionCard title="Decision trace" accent={ACCENT} colors={colors}>
             <BulletList items={result.reasons} colors={colors} />
+          </SectionCard>
+
+          <SectionCard title="What changes the answer?" subtitle="Use these scenario shifts to see whether the recommendation is durable." accent={ACCENT} colors={colors}>
+            <MetricGrid min={220}>
+              {result.sensitivity.map((item) => (
+                <MetricCard key={item.label} label={item.label} value={item.impact} sub={item.detail} accent={item.tone} colors={colors} />
+              ))}
+            </MetricGrid>
           </SectionCard>
 
           <SectionCard title="Score comparison" subtitle="Cost is weighted most heavily. Convenience and risk keep the recommendation realistic." accent={ACCENT} colors={colors}>

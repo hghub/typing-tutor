@@ -40,6 +40,15 @@ function planFreelanceReserves(inputs) {
     inputs.averageMonthlyRevenue - inputs.monthlyBusinessCosts - taxReserveMonthly - opsReserveMonthly - emergencyContribution,
   )
   const runwayMonths = inputs.currentEmergencyFund / Math.max(1, inputs.monthlyHomeCosts)
+  const stressRevenue = inputs.averageMonthlyRevenue * 0.8
+  const stressOwnerPay = Math.max(
+    0,
+    stressRevenue - inputs.monthlyBusinessCosts - taxReserveMonthly - opsReserveMonthly - emergencyContribution,
+  )
+  const strongerReservePct = Math.min(25, inputs.reservePct + 5)
+  const strongerOpsReserve = inputs.averageMonthlyRevenue * (strongerReservePct / 100)
+  const fasterBuildMonths = Math.max(3, inputs.buildMonths - 3)
+  const fasterEmergencyContribution = Math.max(0, emergencyTarget - inputs.currentEmergencyFund) / Math.max(1, fasterBuildMonths)
 
   const healthScore = weightedScore(
     {
@@ -49,6 +58,55 @@ function planFreelanceReserves(inputs) {
     },
     { reserve: 0.35, tax: 0.35, runway: 0.3 },
   )
+
+  let decisionTitle = 'Protect your tax and runway before lifestyle inflation'
+  let decisionBody = 'Freelance income only becomes truly usable after you separate taxes, operating reserve, and household runway from the top line.'
+  let decisionTrack = 'This planner is strongest when it changes behavior, not just when it produces a neat reserve number.'
+  const actionSteps = []
+
+  if (healthScore >= 75) {
+    decisionTitle = 'Your reserve structure looks healthy'
+    decisionBody = 'You have a workable balance between tax reserve, business reserve, and personal runway. That creates room to grow more safely.'
+    decisionTrack = 'The next discipline is staying consistent when a few strong months make overspending feel harmless.'
+    actionSteps.push('Keep the reserve rule active even in unusually good months.')
+    actionSteps.push('Raise owner pay only after reserve targets stay healthy for several months in a row.')
+    actionSteps.push('Review tax assumptions again if your revenue mix or filing structure changes.')
+  } else if (healthScore >= 58) {
+    decisionTitle = 'The business is workable, but reserves are still thin'
+    decisionBody = 'You are not in danger yet, but your current setup is more exposed to delayed clients, tax shock, or one weak quarter than it should be.'
+    decisionTrack = 'The most important move now is not growth spending. It is reserve discipline.'
+    actionSteps.push('Protect tax reserve before increasing personal withdrawals.')
+    actionSteps.push('Bring runway closer to the target before adding large new fixed costs.')
+    actionSteps.push('Use a separate account or wallet for tax and reserve buckets so the money does not blur together.')
+  } else {
+    decisionTitle = 'Cash protection should come before expansion'
+    decisionBody = 'Right now the business is too exposed to revenue volatility or year-end tax shock. Acting as if all inflow is spendable will keep pressure high.'
+    decisionTrack = 'Your next step is to stabilize owner pay and reserves, not to optimize for growth optics.'
+    actionSteps.push('Cut owner withdrawals until tax and emergency buffers stop being fragile.')
+    actionSteps.push('Delay discretionary business spending if it weakens runway further.')
+    actionSteps.push('If income is volatile, use the 80% stress case as the more honest planning baseline.')
+  }
+
+  const sensitivity = [
+    {
+      label: 'If revenue drops 20% for a rough month',
+      impact: fmtCurrency(stressOwnerPay),
+      detail: 'This is the owner pay left if a normal month weakens materially but reserve discipline stays intact.',
+      tone: stressOwnerPay > 0 ? '#f59e0b' : '#ef4444',
+    },
+    {
+      label: `If operating reserve rises to ${strongerReservePct}%`,
+      impact: fmtCurrency(strongerOpsReserve),
+      detail: 'A stronger operating reserve improves resilience but reduces immediate owner pay.',
+      tone: '#06b6d4',
+    },
+    {
+      label: `If you build the runway in ${fasterBuildMonths} months`,
+      impact: fmtCurrency(fasterEmergencyContribution),
+      detail: 'Faster reserve building increases near-term pressure but reduces long-term fragility sooner.',
+      tone: '#8b5cf6',
+    },
+  ]
 
   const reasons = [
     `Estimated annual taxable revenue is ${fmtCurrency(annualRevenue)} with an approximate annual salary-style tax equivalent of ${fmtCurrency(annualTax)}.`,
@@ -72,6 +130,11 @@ function planFreelanceReserves(inputs) {
     runwayMonths,
     healthScore,
     reasons,
+    decisionTitle,
+    decisionBody,
+    decisionTrack,
+    actionSteps,
+    sensitivity,
   }
 }
 
@@ -130,25 +193,25 @@ export default function FreelanceTaxPlanner() {
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.05fr) minmax(320px, 0.95fr)', gap: '1rem' }}>
         <SectionCard title="Freelance planning inputs" subtitle="These numbers should reflect your normal month, not your best month." accent={ACCENT} colors={colors}>
           <FieldsGrid>
-            <Field label="Average monthly revenue (PKR)">
+            <Field label="Average monthly revenue (PKR)" hint="Use a normal sustainable month, not your best month or your most recent lucky month.">
               <NumberInput colors={colors} value={averageMonthlyRevenue} onChange={(e) => setAverageMonthlyRevenue(Number(e.target.value) || 0)} />
             </Field>
-            <Field label="Monthly business costs (PKR)">
+            <Field label="Monthly business costs (PKR)" hint="Include tools, subscriptions, contractors, ads, coworking, and any recurring business spend.">
               <NumberInput colors={colors} value={monthlyBusinessCosts} onChange={(e) => setMonthlyBusinessCosts(Number(e.target.value) || 0)} />
             </Field>
-            <Field label="Monthly home / family costs (PKR)">
+            <Field label="Monthly home / family costs (PKR)" hint="This should reflect the amount your household actually needs to stay stable.">
               <NumberInput colors={colors} value={monthlyHomeCosts} onChange={(e) => setMonthlyHomeCosts(Number(e.target.value) || 0)} />
             </Field>
-            <Field label="Operating reserve target">
+            <Field label="Operating reserve target" hint="Higher volatility usually means you should lean toward the upper end.">
               <SliderInput colors={colors} accent={ACCENT} value={reservePct} onChange={(e) => setReservePct(Number(e.target.value))} min={5} max={30} suffix="%" />
             </Field>
-            <Field label="Emergency runway target">
+            <Field label="Emergency runway target" hint="Six months is a strong baseline; unstable client mixes may justify more.">
               <SliderInput colors={colors} accent={ACCENT} value={emergencyMonths} onChange={(e) => setEmergencyMonths(Number(e.target.value))} min={3} max={12} suffix=" months" />
             </Field>
-            <Field label="Current emergency fund (PKR)">
+            <Field label="Current emergency fund (PKR)" hint="Count only real liquid reserve, not money already mentally spent elsewhere.">
               <NumberInput colors={colors} value={currentEmergencyFund} onChange={(e) => setCurrentEmergencyFund(Number(e.target.value) || 0)} />
             </Field>
-            <Field label="Months to build reserves">
+            <Field label="Months to build reserves" hint="Shorter build windows increase pressure now but reduce fragility sooner.">
               <SliderInput colors={colors} accent={ACCENT} value={buildMonths} onChange={(e) => setBuildMonths(Number(e.target.value))} min={3} max={24} suffix=" months" />
             </Field>
           </FieldsGrid>
@@ -169,8 +232,22 @@ export default function FreelanceTaxPlanner() {
             <MetricCard label="Suggested owner pay" value={fmtCurrency(result.suggestedOwnerPay)} sub={`Current runway: ${round(result.runwayMonths, 1)} months`} accent={ACCENT} colors={colors} />
           </MetricGrid>
 
+          <SectionCard title="Decision path" subtitle={result.decisionTrack} accent={ACCENT} colors={colors}>
+            <div style={{ color: colors.text, fontSize: '1.02rem', fontWeight: 700 }}>{result.decisionTitle}</div>
+            <p style={{ margin: 0, color: colors.textSecondary, lineHeight: 1.65 }}>{result.decisionBody}</p>
+            <BulletList items={result.actionSteps} colors={colors} />
+          </SectionCard>
+
           <SectionCard title="Reserve logic" accent={ACCENT} colors={colors}>
             <BulletList items={result.reasons} colors={colors} />
+          </SectionCard>
+
+          <SectionCard title="Pressure-test the plan" subtitle="These checks show how sensitive your cash discipline is to a rougher month or stricter reserve policy." accent={ACCENT} colors={colors}>
+            <MetricGrid min={220}>
+              {result.sensitivity.map((item) => (
+                <MetricCard key={item.label} label={item.label} value={item.impact} sub={item.detail} accent={item.tone} colors={colors} />
+              ))}
+            </MetricGrid>
           </SectionCard>
 
           <SectionCard title="Financial health score" subtitle="A balanced planner protects tax, operations, and personal runway together." accent={ACCENT} colors={colors}>

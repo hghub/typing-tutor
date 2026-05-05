@@ -2064,6 +2064,154 @@ export const BLOG_POSTS = [
 `,
   },
   {
+    slug: 'should-i-buy-a-house-or-keep-renting-in-pakistan',
+    title: 'Should I Buy a House or Keep Renting in Pakistan?',
+    description: 'A practical first-pass decision guide for people comparing a primary residence purchase against continuing to rent in Pakistan.',
+    hero: '🏠',
+    category: 'pakistan',
+    readTime: '7 min read',
+    publishDate: '2026-05-05',
+    tags: ['buy or rent Pakistan', 'rent vs buy Pakistan', 'house decision Pakistan', 'property decision'],
+    content: `
+<h2>The Real Question Is Not “Is Ownership Good?”</h2>
+<p>Ownership can be good. Renting can also be good. The real question is whether <strong>buying now</strong> is stronger than <strong>renting for now</strong> under your actual finances, timeline, and flexibility needs.</p>
+
+<h2>When Buying Usually Has a Better Case</h2>
+<ul>
+  <li>you expect to stay in the home for many years</li>
+  <li>your down payment does not destroy liquidity</li>
+  <li>financing cost is tolerable</li>
+  <li>the property itself is a reasonable long-term asset</li>
+  <li>you are not relying on overly optimistic appreciation assumptions</li>
+</ul>
+
+<h2>When Renting Often Remains Better</h2>
+<ul>
+  <li>your city or job path may change soon</li>
+  <li>markup is heavy and appreciation is uncertain</li>
+  <li>the down payment would empty your safety cushion</li>
+  <li>the specific property available now is weak</li>
+  <li>you still need optionality more than ownership status</li>
+</ul>
+
+<h2>Why the Monthly EMI Alone Misleads</h2>
+<p>Many people compare rent against EMI only. That misses transfer costs, maintenance, taxes, ownership friction, opportunity cost of capital, and how long you actually need to stay before buying makes sense.</p>
+
+<h2>The Better Decision Frame</h2>
+<p>Ask this instead: <strong>“Under my actual stay horizon and cash position, does buying now improve my long-term position enough to justify the loss of flexibility?”</strong></p>
+
+<h2>Use a Scenario Tool, Not a Slogan</h2>
+<p>The <a href="/tools/rent-vs-buy-calculator-pakistan">Rafiqy Rent vs Buy Pakistan Analyzer</a> is built for this exact problem. It compares rent and buy using stay horizon, markup, rent growth, appreciation, and capital lock-up in one place.</p>
+
+<div class="cta-box"><p>Turn the buy-or-rent question into a scenario instead of a family slogan.</p><a href="/tools/rent-vs-buy-calculator-pakistan">Open the analyzer →</a></div>
+`,
+  },
+  {
+    slug: 'home-loan-vs-rent-in-pakistan',
+    title: 'Home Loan vs Rent in Pakistan: Why EMI Is Not the Whole Decision',
+    description: 'A practical guide to comparing home-loan ownership against renting in Pakistan without falling into the EMI-only trap.',
+    hero: '🏦',
+    category: 'pakistan',
+    readTime: '7 min read',
+    publishDate: '2026-05-05',
+    tags: ['home loan vs rent Pakistan', 'rent vs buy', 'home loan Pakistan', 'property financing'],
+    content: `
+<h2>The EMI Trap</h2>
+<p>A common mistake is to compare monthly rent directly against monthly EMI and decide from there. That makes ownership look simpler and more affordable than it often is.</p>
+
+<h2>What EMI Comparison Misses</h2>
+<ul>
+  <li>down payment lock-up</li>
+  <li>transfer and registry costs</li>
+  <li>maintenance and ownership friction</li>
+  <li>property tax or recurring holding cost</li>
+  <li>sale friction if you move earlier than expected</li>
+  <li>what the same capital could have done elsewhere</li>
+</ul>
+
+<h2>Why Markup Changes the Story</h2>
+<p>A manageable EMI can still hide a very expensive ownership path if markup stays high. That is why financing cost deserves more attention than “Can I pay this per month?”</p>
+
+<h2>Why Rent Is Not “Money Wasted” by Default</h2>
+<p>Renting can preserve mobility and keep a large amount of capital free for other uses. That capital has value. If you ignore it, you are not comparing the two paths honestly.</p>
+
+<h2>The Right Comparison</h2>
+<p>Compare the <strong>full ownership path</strong> against the <strong>full renting path</strong>, including invested reserve, not just a monthly payment line.</p>
+
+<h2>Use the Analyzer</h2>
+<p>The <a href="/tools/rent-vs-buy-calculator-pakistan">Rafiqy Rent vs Buy Pakistan Analyzer</a> is built around exactly that comparison, so the answer reflects cash lock-up, horizon, growth assumptions, and financing pressure rather than EMI alone.</p>
+
+<div class="cta-box"><p>Compare the full ownership path against the full renting path, not just EMI against rent.</p><a href="/tools/rent-vs-buy-calculator-pakistan">Run the analyzer →</a></div>
+`,
+  },
+  {
+    slug: 'how-long-should-you-stay-before-buying-a-house-in-pakistan',
+    title: 'How Long Should You Stay Before Buying a House in Pakistan?',
+    description: 'Stay horizon is one of the biggest rent-vs-buy swing factors. Here is how to think about it before committing to ownership.',
+    hero: '⏳',
+    category: 'pakistan',
+    readTime: '6 min read',
+    publishDate: '2026-05-05',
+    tags: ['stay horizon rent vs buy', 'buy house Pakistan', 'rent vs buy Pakistan', 'property timing'],
+    content: `
+<h2>Stay Horizon Changes Everything</h2>
+<p>One of the fastest ways to make a bad property decision is to assume you will stay longer than you really will. Buying usually needs time to absorb transfer friction, ownership cost, and financing drag.</p>
+
+<h2>Why Short Horizons Weaken Buying</h2>
+<p>If you may move again in only a few years, selling costs and financing pressure can eat too much of the ownership case. That makes renting much more competitive than many people expect.</p>
+
+<h2>Why Longer Horizons Improve Buying</h2>
+<p>The longer you stay, the more time ownership has to recover transfer friction and let appreciation, if it happens, work in your favor. That does not guarantee buying wins, but it often strengthens the case.</p>
+
+<h2>The Main Mistake</h2>
+<p>People often use the horizon they wish were true rather than the one their actual life situation supports. Job mobility, family decisions, school changes, and relocation possibility should all be treated honestly.</p>
+
+<h2>A Better Question</h2>
+<p>Instead of asking “Do I want to own?”, ask: <strong>“Will I stay long enough for this specific ownership path to make financial sense?”</strong></p>
+
+<h2>Model the Decision, Don’t Guess It</h2>
+<p>The <a href="/tools/rent-vs-buy-calculator-pakistan">Rafiqy Rent vs Buy Pakistan Analyzer</a> lets you test different stay horizons directly. That is one of the fastest ways to see whether buying still works if life changes earlier than expected.</p>
+
+<div class="cta-box"><p>Test whether your expected stay horizon is actually long enough for ownership to work.</p><a href="/tools/rent-vs-buy-calculator-pakistan">Check the horizon →</a></div>
+`,
+  },
+  {
+    slug: 'what-down-payment-makes-buying-safer-in-pakistan',
+    title: 'What Down Payment Makes Buying Safer in Pakistan?',
+    description: 'A bigger down payment is not always better if it destroys liquidity. Here is how to think about a safer ownership setup in Pakistan.',
+    hero: '💼',
+    category: 'pakistan',
+    readTime: '7 min read',
+    publishDate: '2026-05-05',
+    tags: ['down payment Pakistan', 'buying house Pakistan', 'rent vs buy', 'property decision'],
+    content: `
+<h2>The Wrong Rule: “Put Everything You Can Into the House”</h2>
+<p>Many people assume a larger down payment is automatically safer. It can reduce financing pressure, but it can also damage your liquidity so much that the household becomes fragile immediately after purchase.</p>
+
+<h2>What a Better Down Payment Should Do</h2>
+<ul>
+  <li>reduce financing burden materially</li>
+  <li>still leave emergency liquidity intact</li>
+  <li>avoid turning the home purchase into a cash crisis</li>
+  <li>fit the reality of your other goals and obligations</li>
+</ul>
+
+<h2>When the Down Payment Is Too Aggressive</h2>
+<p>If the purchase would wipe out your savings, force you to borrow elsewhere for normal shocks, or leave no room for legal, maintenance, or moving friction, the setup may be too aggressive even if the bank approves it.</p>
+
+<h2>Why This Matters More Than People Admit</h2>
+<p>A property can be a fine asset and still be the wrong move if the ownership setup leaves no flexibility. Financial comfort after purchase matters as much as qualification before purchase.</p>
+
+<h2>A Better Question</h2>
+<p>Ask this: <strong>“How much can I put down while still staying safe if the next 6–12 months go wrong?”</strong></p>
+
+<h2>Use a Tool That Includes Liquidity Tradeoffs</h2>
+<p>The <a href="/tools/rent-vs-buy-calculator-pakistan">Rafiqy Rent vs Buy Pakistan Analyzer</a> compares the ownership path against the value of keeping that capital free on the renting side. That makes the down-payment decision much more honest.</p>
+
+<div class="cta-box"><p>See whether your planned down payment is making the ownership case stronger or just making you less liquid.</p><a href="/tools/rent-vs-buy-calculator-pakistan">Test the down-payment case →</a></div>
+`,
+  },
+  {
     slug: 'is-ev-worth-it-in-pakistan',
     title: 'Is an EV Worth It in Pakistan? The Real Decision Framework',
     description: 'An EV in Pakistan is not just about fuel savings. Charging setup, load shedding, purchase premium, resale, and daily mileage all change the answer.',

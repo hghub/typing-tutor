@@ -516,6 +516,42 @@ export default function RentVsBuyPakistan() {
               colors={colors}
             />
           </CollapsibleSection>
+
+          <SectionCard
+            title="Plan your next step"
+            subtitle="Use these scenario guides if you want to test the decision from a more specific angle before talking to a bank, broker, or family."
+            accent={ACCENT}
+            colors={colors}
+          >
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.7rem' }}>
+              {[
+                { href: '/blog/rent-vs-buy-calculator-pakistan-guide', label: 'Rent vs Buy Pakistan Guide', note: 'The full decision framework behind the tool' },
+                { href: '/blog/should-i-buy-a-house-or-keep-renting-in-pakistan', label: 'Should I Buy a House or Keep Renting?', note: 'A clean first-pass decision for primary residence' },
+                { href: '/blog/home-loan-vs-rent-in-pakistan', label: 'Home Loan vs Rent in Pakistan', note: 'Why EMI-only thinking is too shallow' },
+                { href: '/blog/how-long-should-you-stay-before-buying-a-house-in-pakistan', label: 'How Long Should You Stay Before Buying?', note: 'Use stay horizon to avoid the wrong purchase timing' },
+                { href: '/blog/what-down-payment-makes-buying-safer-in-pakistan', label: 'What Down Payment Makes Buying Safer?', note: 'Liquidity discipline before ownership' },
+              ].map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  style={{
+                    textDecoration: 'none',
+                    border: `1px solid ${colors.border}`,
+                    background: colors.card,
+                    borderRadius: '0.9rem',
+                    padding: '0.85rem 0.9rem',
+                  }}
+                >
+                  <div style={{ color: colors.text, fontWeight: 800, fontSize: '0.84rem', lineHeight: 1.45, marginBottom: '0.25rem' }}>
+                    {item.label}
+                  </div>
+                  <div style={{ color: colors.textSecondary, fontSize: '0.76rem', lineHeight: 1.55 }}>
+                    {item.note}
+                  </div>
+                </a>
+              ))}
+            </div>
+          </SectionCard>
         </div>
       </div>
 

@@ -133,7 +133,7 @@ export default function TaxCalculator() {
         </p>
       </div>
 
-      <PakistanFriendlyGuide toolId="tax-calculator" />
+      <PakistanFriendlyGuide toolId="tax-calculator" variant="light" />
 
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1.4fr)', gap: '1.5rem' }}>
 

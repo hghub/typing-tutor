@@ -681,7 +681,7 @@ export default function SolarPlanner() {
           refreshed="Panel, inverter, battery, meter-fee and tariff planning ranges"
           estimated="Installer labor, roof complexity, and final DISCO process costs vary by case"
         />
-        <PakistanFriendlyGuide toolId="solar-planner" />
+        <PakistanFriendlyGuide toolId="solar-planner" variant="light" />
 
         {/* Page heading */}
         <div style={{ marginBottom: '1.25rem' }}>

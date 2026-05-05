@@ -121,7 +121,7 @@ export default function SalarySlip() {
             Generate a printable salary slip with EOBI &amp; income tax auto-calculated
           </p>
         </div>
-        <PakistanFriendlyGuide toolId="salary-slip" />
+        <PakistanFriendlyGuide toolId="salary-slip" variant="light" />
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}>
 

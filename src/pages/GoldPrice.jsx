@@ -397,7 +397,7 @@ export default function GoldPrice() {
             Pakistan-focused · Tola / Masha / Ratti · Zakat · Making charges
           </p>
         </div>
-        <PakistanFriendlyGuide toolId="gold-price" />
+        <PakistanFriendlyGuide toolId="gold-price" variant="light" />
 
         {/* ── Rate Entry ────────────────────────────────────────────────────── */}
         <SectionCard colors={colors}>

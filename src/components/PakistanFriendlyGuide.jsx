@@ -1,10 +1,11 @@
 import { getAccessibilityNote } from '../lib/pakistanAccessibility'
 import { useTheme } from '../hooks/useTheme'
 
-export default function PakistanFriendlyGuide({ toolId }) {
+export default function PakistanFriendlyGuide({ toolId, variant = 'full' }) {
   const { isDark, colors } = useTheme()
   const note = getAccessibilityNote(toolId)
   if (!note) return null
+  const isLight = variant === 'light'
 
   return (
     <div style={{
@@ -12,24 +13,26 @@ export default function PakistanFriendlyGuide({ toolId }) {
       background: isDark ? 'rgba(16,185,129,0.08)' : 'rgba(16,185,129,0.08)',
       border: '1px solid rgba(16,185,129,0.22)',
       borderRadius: '1rem',
-      padding: '1rem 1.05rem',
+      padding: isLight ? '0.8rem 0.95rem' : '1rem 1.05rem',
       display: 'grid',
-      gap: '0.65rem',
+      gap: isLight ? '0.45rem' : '0.65rem',
     }}>
       <div>
         <div style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#10b981', marginBottom: '0.3rem' }}>
           Simple explanation
         </div>
         <div style={{ fontSize: '0.88rem', color: colors.text, lineHeight: 1.65 }}>
-          {note.commonNeed}
+          {isLight ? note.simple : note.commonNeed}
         </div>
       </div>
 
-      <div style={{ fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
-        {note.simple}
-      </div>
+      {!isLight && (
+        <div style={{ fontSize: '0.8rem', color: colors.textSecondary, lineHeight: 1.6 }}>
+          {note.simple}
+        </div>
+      )}
 
-      {note.romanUrdu?.length > 0 && (
+      {!isLight && note.romanUrdu?.length > 0 && (
         <div>
           <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: colors.textSecondary, marginBottom: '0.45rem' }}>
             Common Roman Urdu searches

@@ -138,7 +138,7 @@ export default function UrduKeyboard() {
           <span style={{ color: '#f59e0b', fontWeight: 600 }}> Type "kh" → خ, "sh" → ش, "ch" → چ</span>
         </p>
       </div>
-      <PakistanFriendlyGuide toolId="urdu-keyboard" />
+      <PakistanFriendlyGuide toolId="urdu-keyboard" variant="light" />
 
       {/* Voice Typing Panel */}
       {hasVoiceSupport && (

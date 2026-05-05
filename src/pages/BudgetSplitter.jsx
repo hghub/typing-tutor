@@ -892,7 +892,7 @@ export default function BudgetSplitter() {
           Split restaurant bills, household expenses, or travel costs — no sign-up needed.
         </p>
       </div>
-      <PakistanFriendlyGuide toolId="budget-splitter" />
+      <PakistanFriendlyGuide toolId="budget-splitter" variant="light" />
 
       {/* Tabs */}
       <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem' }}>

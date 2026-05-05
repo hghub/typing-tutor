@@ -16,6 +16,8 @@ const FEATURED_POST_SLUGS = [
   'is-ev-worth-it-in-pakistan',
   'how-to-evaluate-a-job-offer-in-pakistan',
   'how-much-tax-should-freelancers-reserve-in-pakistan',
+  'investment-allocation-planner-pakistan-guide',
+  'how-to-invest-20-lakh-in-pakistan',
   'compress-pdf-online',
   'password-generator-security',
 ]
@@ -57,15 +59,15 @@ export default function BlogHome() {
     <>
       <Helmet>
         <title>Guides & Tips – Productivity, Tools & Digital Workflows | Rafiqy</title>
-        <meta name="description" content="Practical guides, tutorials, and productivity tips to help you work faster using digital tools. From typing and PDFs to finance and developer tools." />
+        <meta name="description" content="Practical guides, tutorials, and decision support content for solar, investing, tax, typing, PDFs, productivity, and digital workflows." />
         <link rel="canonical" href="https://rafiqy.app/blog" />
         <meta property="og:title" content="Guides & Tips – Productivity, Tools & Digital Workflows | Rafiqy" />
-        <meta property="og:description" content="Practical guides, tutorials, and productivity tips to help you work faster using digital tools. From typing and PDFs to finance and developer tools." />
+        <meta property="og:description" content="Practical guides, tutorials, and decision support content for solar, investing, tax, typing, PDFs, productivity, and digital workflows." />
         <meta property="og:url" content="https://rafiqy.app/blog" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Guides & Tips – Productivity, Tools & Digital Workflows | Rafiqy" />
-        <meta name="twitter:description" content="Practical guides, tutorials, and productivity tips to help you work faster using digital tools." />
+        <meta name="twitter:description" content="Practical guides, tutorials, and decision support content for solar, investing, tax, typing, PDFs, productivity, and digital workflows." />
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
@@ -263,7 +265,7 @@ export default function BlogHome() {
               onMouseEnter={e => e.currentTarget.style.opacity = '0.9'}
               onMouseLeave={e => e.currentTarget.style.opacity = '1'}
             >
-              ⚡ Explore all 67 tools →
+              ⚡ Explore all 68 tools →
             </Link>
           </div>
         </div>

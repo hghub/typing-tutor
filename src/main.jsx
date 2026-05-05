@@ -86,6 +86,7 @@ const RentVsBuyPakistan = lazy(() => import('./pages/RentVsBuyPakistan.jsx'))
 const CarPowertrainDecision = lazy(() => import('./pages/CarPowertrainDecision.jsx'))
 const SalaryOfferEvaluator = lazy(() => import('./pages/SalaryOfferEvaluator.jsx'))
 const FreelanceTaxPlanner = lazy(() => import('./pages/FreelanceTaxPlanner.jsx'))
+const InvestmentAllocationPlanner = lazy(() => import('./pages/InvestmentAllocationPlanner.jsx'))
 const About              = lazy(() => import('./pages/About.jsx'))
 const Help               = lazy(() => import('./pages/Help.jsx'))
 const Privacy            = lazy(() => import('./pages/Privacy.jsx'))
@@ -192,6 +193,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/petrol-vs-hybrid-vs-ev" element={<CarPowertrainDecision />} />
           <Route path="/tools/salary-offer-calculator-pakistan" element={<SalaryOfferEvaluator />} />
           <Route path="/tools/freelance-tax-planner-pakistan" element={<FreelanceTaxPlanner />} />
+          <Route path="/tools/investment-allocation-planner-pakistan" element={<InvestmentAllocationPlanner />} />
           <Route path="/blog" element={<BlogHome />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/blogs/tools/:slug" element={<BlogPostRedirect />} />

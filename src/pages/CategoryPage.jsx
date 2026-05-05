@@ -178,7 +178,7 @@ export default function CategoryPage({ category }) {
 
         <div style={{ marginTop: '3rem', textAlign: 'center' }}>
           <Link to="/tools" style={{ color: '#06b6d4', fontWeight: 600, textDecoration: 'none' }}>
-            ← Browse all 67 tools
+            ← Browse all 68 tools
           </Link>
         </div>
 

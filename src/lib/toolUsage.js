@@ -25,6 +25,11 @@ export function getToolUseCases(tool) {
       'checking whether your current runway is strong enough for slow months',
       'setting safer owner pay when freelance income is uneven',
     ],
+    'investment-allocation-planner': [
+      'splitting 20 lakh or 1 crore into the right investment buckets',
+      'deciding how much should stay liquid versus go into growth',
+      'building a multi-bucket allocation instead of forcing one single investment',
+    ],
     'tax-calculator': [
       'estimating salary tax before payroll deductions hit',
       'checking take-home impact before changing jobs or compensation',
@@ -154,4 +159,3 @@ export function getToolScenarioLine(tool) {
   const [first, second] = getToolUseCases(tool)
   return `Best for ${first}; also useful for ${second}.`
 }
-

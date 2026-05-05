@@ -2659,4 +2659,219 @@ export const BLOG_POSTS = [
 <div class="cta-box"><p>See whether your home needs a simple on-grid setup or a hybrid-ready solar path.</p><a href="/tools/solar-planner">Open the Pakistan Solar Calculator →</a></div>
 `,
   },
+  {
+    slug: 'investment-allocation-planner-pakistan-guide',
+    title: 'How to Build an Investment Allocation Plan in Pakistan',
+    description: 'A practical framework for splitting investable money across liquidity, income, growth, gold, and currency hedge buckets instead of guessing one “best” investment.',
+    hero: '📈',
+    category: 'pakistan',
+    readTime: '8 min read',
+    publishDate: '2026-05-05',
+    tags: ['investment allocation pakistan', 'how to invest in pakistan', 'mutual funds pakistan', 'asset allocation'],
+    content: `
+<h2>The Wrong Starting Question</h2>
+<p>Most people begin with the wrong question: <strong>“Which one investment should I choose?”</strong></p>
+<p>The stronger question is this: <strong>“What different jobs does this money need to do?”</strong></p>
+<p>Once you think that way, a better structure appears. Some money should stay liquid. Some should protect stability. Some can work for long-term growth. Some may deserve inflation or currency hedges.</p>
+
+<h2>The Six-Bucket Way to Think</h2>
+<p>A practical Pakistan allocation plan often uses some mix of these buckets:</p>
+<ul>
+  <li><strong>Liquidity:</strong> emergency access and near-term goals</li>
+  <li><strong>Income / stability:</strong> lower-volatility compounding and cash support</li>
+  <li><strong>Balanced growth:</strong> moderate growth without an all-equity jump</li>
+  <li><strong>Equity growth:</strong> higher-volatility long-horizon compounding</li>
+  <li><strong>Gold hedge:</strong> inflation and stress hedge</li>
+  <li><strong>FX hedge:</strong> only when foreign-currency need or currency-risk concern is real</li>
+</ul>
+
+<h2>Why One Product Is Usually the Wrong Answer</h2>
+<p>A single product almost never solves all six jobs well at once. If you force one instrument to do everything, one of two things usually happens:</p>
+<ol>
+  <li>you keep too much money too safe and under-use your long horizon</li>
+  <li>you push too much money into volatile growth and later pull it out at the wrong time</li>
+</ol>
+
+<h2>The Questions That Should Drive the Split</h2>
+<ul>
+  <li>How many months of emergency reserve already exist?</li>
+  <li>Is there a big purchase or house goal coming in the next 1–3 years?</li>
+  <li>Will this money need to support monthly withdrawals?</li>
+  <li>Can you actually tolerate equity volatility, or do you just like the idea of higher returns?</li>
+  <li>Do you want only Shariah-compliant implementation?</li>
+  <li>Do you have a real USD-linked future need, or are you just reacting emotionally to currency fear?</li>
+</ul>
+
+<h2>Pakistan-Specific Implementation Reality</h2>
+<p>For many users, the practical implementation layer may involve some mix of:</p>
+<ul>
+  <li>money market categories</li>
+  <li>income / sovereign / Sukuk-oriented categories</li>
+  <li>balanced or asset-allocation categories</li>
+  <li>equity or Shariah-equity categories</li>
+  <li>gold exposure outside the core mutual-fund buckets</li>
+</ul>
+<p>The point is not to chase the highest recent return. The point is to map each rupee to the right role first.</p>
+
+<h2>Use a Planner Before You Pick Products</h2>
+<p>The <a href="/tools/investment-allocation-planner-pakistan">Investment Allocation Planner Pakistan</a> is built for exactly this. It tells you how much should stay liquid, how much belongs in stability, how much can go into longer-horizon growth, and how much hedge exposure is actually justified.</p>
+
+<div class="cta-box"><p>Build the split first, then shortlist products with a clearer head.</p><a href="/tools/investment-allocation-planner-pakistan">Open the Investment Allocation Planner →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-invest-20-lakh-in-pakistan',
+    title: 'How to Invest 20 Lakh in Pakistan Without Making It One Big Bet',
+    description: 'A practical way to think about investing 20 lakh in Pakistan using buckets for safety, income, growth, and hedging instead of forcing one product to do everything.',
+    hero: '💸',
+    category: 'pakistan',
+    readTime: '7 min read',
+    publishDate: '2026-05-05',
+    tags: ['how to invest 20 lakh', 'investment pakistan', 'asset allocation pakistan', 'mutual funds pakistan'],
+    content: `
+<h2>Why 20 Lakh Feels Tricky</h2>
+<p>20 lakh is large enough to matter and small enough to feel like one mistake could hurt. That is why people often jump between extremes:</p>
+<ul>
+  <li>keep everything too safe</li>
+  <li>or force everything into one “high return” idea</li>
+</ul>
+<p>Both instincts can be weak.</p>
+
+<h2>The Better Question</h2>
+<p>Do not ask only, “Where should I invest 20 lakh?” Ask this instead:</p>
+<p><strong>“How much of this 20 lakh must stay safe, how much should support stability, and how much can truly be patient growth capital?”</strong></p>
+
+<h2>What Usually Changes the Right Split</h2>
+<ul>
+  <li>whether your emergency fund is already strong</li>
+  <li>whether you may need this money for a home or business soon</li>
+  <li>whether you want monthly income from it</li>
+  <li>how much volatility you can realistically tolerate</li>
+  <li>whether you want Shariah-only implementation</li>
+</ul>
+
+<h2>Why 20 Lakh Should Rarely Go Into One Thing</h2>
+<p>For most users, 20 lakh should not become one single product or one single story. It should usually be split into roles:</p>
+<ul>
+  <li>safety / liquidity</li>
+  <li>income / stability</li>
+  <li>balanced or equity growth</li>
+  <li>small hedge exposure where justified</li>
+</ul>
+
+<h2>When a More Defensive Split Makes Sense</h2>
+<p>A more defensive allocation is stronger when:</p>
+<ul>
+  <li>your emergency fund is still incomplete</li>
+  <li>you might need the money within 3 years</li>
+  <li>monthly family cashflow is tight</li>
+  <li>you cannot emotionally tolerate market declines</li>
+</ul>
+
+<h2>When You Can Lean More Toward Growth</h2>
+<p>You can usually lean more into balanced and equity-style growth when:</p>
+<ul>
+  <li>the money is truly long-term</li>
+  <li>monthly withdrawals are not needed</li>
+  <li>your reserve structure is already healthy</li>
+  <li>your horizon is long enough to survive volatility</li>
+</ul>
+
+<h2>Use a Bucket Planner, Not a Guess</h2>
+<p>The <a href="/tools/investment-allocation-planner-pakistan">Investment Allocation Planner Pakistan</a> turns 20 lakh into a role-based split instead of leaving you to guess between deposits, mutual funds, gold, and everything else emotionally.</p>
+
+<div class="cta-box"><p>See how a 20-lakh portfolio should be divided across safety, stability, growth, and hedge buckets.</p><a href="/tools/investment-allocation-planner-pakistan">Plan the 20-lakh allocation →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-invest-1-crore-in-pakistan',
+    title: 'How to Invest 1 Crore in Pakistan With a Serious Allocation Mindset',
+    description: 'A practical framework for investing 1 crore in Pakistan across liquidity, income, growth, and hedge buckets instead of overconcentrating in one idea.',
+    hero: '🏦',
+    category: 'pakistan',
+    readTime: '8 min read',
+    publishDate: '2026-05-05',
+    tags: ['how to invest 1 crore', 'investment 1 crore pakistan', 'asset allocation pakistan', 'wealth planning pakistan'],
+    content: `
+<h2>1 Crore Is Not “One Investment” Money</h2>
+<p>If you have 1 crore to deploy, the first mistake is to treat it like a single bet. At this size, poor allocation discipline can create avoidable concentration risk, liquidity mistakes, and emotional overconfidence.</p>
+
+<h2>The Core Principle</h2>
+<p>1 crore should usually be treated as a <strong>system of buckets</strong>, not a yes/no choice between deposits, property, gold, or one favorite fund.</p>
+
+<h2>What 1 Crore Makes Easier</h2>
+<p>A larger corpus gives you more room to do the smart boring things properly:</p>
+<ul>
+  <li>maintain a true liquidity reserve</li>
+  <li>separate stability from growth</li>
+  <li>add moderate hedge exposure without distorting the whole plan</li>
+  <li>match different parts of the capital to different time horizons</li>
+</ul>
+
+<h2>What 1 Crore Does Not Automatically Solve</h2>
+<p>It does not automatically solve:</p>
+<ul>
+  <li>lack of emergency discipline</li>
+  <li>unclear goals</li>
+  <li>short time horizon</li>
+  <li>high withdrawal pressure</li>
+  <li>weak emotional tolerance for market volatility</li>
+</ul>
+
+<h2>The Big Question at This Level</h2>
+<p>Not “Which investment gives the highest return?”</p>
+<p>Instead:</p>
+<p><strong>“What percentage should stay liquid, what should defend capital, what can compound for years, and what hedge exposure is actually justified?”</strong></p>
+
+<h2>Why the Split Matters More Than the Story</h2>
+<p>People often overfocus on the product story — deposits, mutual funds, gold, equity, USD, property reserve — and underfocus on the portfolio role. That is backwards. The role should decide the product bucket, not the other way around.</p>
+
+<h2>Use the Planner Before Product Shopping</h2>
+<p>The <a href="/tools/investment-allocation-planner-pakistan">Investment Allocation Planner Pakistan</a> helps convert 1 crore into a serious multi-bucket structure. That is the right first step before comparing exact instruments, managers, or return expectations.</p>
+
+<div class="cta-box"><p>Build a proper 1-crore allocation before you start comparing actual products.</p><a href="/tools/investment-allocation-planner-pakistan">Open the planner →</a></div>
+`,
+  },
+  {
+    slug: 'emergency-fund-before-investing-in-pakistan',
+    title: 'Why Your Emergency Fund Should Usually Come Before Serious Investing',
+    description: 'A practical explanation of why emergency reserves often deserve priority before more aggressive investing in Pakistan.',
+    hero: '🛟',
+    category: 'pakistan',
+    readTime: '6 min read',
+    publishDate: '2026-05-05',
+    tags: ['emergency fund pakistan', 'before investing', 'investment planning pakistan', 'cash reserve'],
+    content: `
+<h2>The Hidden Investing Mistake</h2>
+<p>Many people think investing starts with choosing the highest-return option. In reality, investing often starts by protecting yourself from being forced to sell the wrong asset at the wrong time.</p>
+
+<h2>Why Emergency Reserves Matter First</h2>
+<p>If your reserve is weak, every medical shock, job disruption, business delay, or family emergency can turn your portfolio into a panic ATM. That destroys the whole purpose of patient investing.</p>
+
+<h2>What the Emergency Fund Actually Protects</h2>
+<ul>
+  <li>it protects you from selling risk assets early</li>
+  <li>it protects your household from cashflow panic</li>
+  <li>it protects the rest of the portfolio from being given the wrong job</li>
+</ul>
+
+<h2>Why This Matters More in Pakistan</h2>
+<p>For many Pakistan households, income volatility, inflation stress, family obligations, and business uncertainty can all hit at once. That makes reserve planning more important, not less.</p>
+
+<h2>How Much Is “Enough”?</h2>
+<p>There is no universal number, but six months of essential spending is a strong practical baseline for many households. Some may need less. Some with unstable income may need more.</p>
+
+<h2>The Right Sequence</h2>
+<ol>
+  <li>secure emergency liquidity</li>
+  <li>separate near-term goals</li>
+  <li>then allocate true long-horizon capital</li>
+</ol>
+
+<h2>Use the Planner Honestly</h2>
+<p>The <a href="/tools/investment-allocation-planner-pakistan">Investment Allocation Planner Pakistan</a> forces this question before it builds the rest of the portfolio. That is a feature, not a limitation.</p>
+
+<div class="cta-box"><p>Check how much of your money should stay in safety before you push harder into growth.</p><a href="/tools/investment-allocation-planner-pakistan">Open the planner →</a></div>
+`,
+  },
 ]

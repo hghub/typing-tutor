@@ -6,7 +6,7 @@ import ToolsNav from '../components/ToolsNav'
 import ShareBar from '../components/ShareBar'
 
 const FEATURED_IDS = [
-  'solar-planner', 'urdu-keyboard', 'tax-calculator', 'typing-tutor',
+  'solar-planner', 'urdu-keyboard', 'tax-calculator', 'investment-allocation-planner',
   'rent-vs-buy-pakistan', 'car-powertrain-decision', 'salary-offer-evaluator', 'freelance-tax-planner',
 ]
 
@@ -14,6 +14,7 @@ const FEATURED_POST_SLUGS = [
   'solar-planner-pakistan',
   '5kw-solar-system-price-in-pakistan',
   'pakistan-income-tax-calculator',
+  'how-to-invest-20-lakh-in-pakistan',
   'urdu-typing-online',
   'rent-vs-buy-calculator-pakistan-guide',
   'is-ev-worth-it-in-pakistan',
@@ -22,6 +23,7 @@ const FEATURED_POST_SLUGS = [
 const QUICK_ACTIONS = [
   { label: '☀️ Solar Calculator', path: '/tools/solar-planner', desc: 'Solar decision' },
   { label: '🧮 Tax Calculator', path: '/tools/tax-calculator', desc: 'Pakistan tax' },
+  { label: '📈 Invest Planner', path: '/tools/investment-allocation-planner-pakistan', desc: 'Asset allocation' },
   { label: '🌍 Urdu Keyboard', path: '/tools/urdu-keyboard', desc: 'Type Urdu online' },
   { label: '⌨️ Typing Tutor', path: '/tools/typing-tutor', desc: 'Improve speed' },
   { label: '🏠 Rent vs Buy', path: '/tools/rent-vs-buy-calculator-pakistan', desc: 'Property decision' },
@@ -246,9 +248,9 @@ export default function Landing() {
             ))}
           </div>
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-            <Link to="/tools" style={{ color: 'var(--color-primary)', fontWeight: 600, textDecoration: 'none' }}>
-              Browse all 67 tools →
-            </Link>
+          <Link to="/tools" style={{ color: 'var(--color-primary)', fontWeight: 600, textDecoration: 'none' }}>
+            Browse all 68 tools →
+          </Link>
           </div>
         </div>
       </section>
@@ -279,7 +281,7 @@ export default function Landing() {
         </div>
         <div style={{ textAlign: 'center', marginTop: '2rem' }}>
           <Link to="/tools" style={{ color: 'var(--color-primary)', textDecoration: 'none', fontWeight: 600 }}>
-            View all 67 tools →
+            View all 68 tools →
           </Link>
         </div>
       </section>

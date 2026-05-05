@@ -10,7 +10,7 @@ import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
 import { getToolScenarioLine } from '../lib/toolUsage'
 
-const FEATURED_IDS = ['solar-planner', 'urdu-keyboard', 'typing-tutor', 'tax-calculator', 'compress-pdf', 'data-leak-detector', 'rent-vs-buy-pakistan', 'car-powertrain-decision']
+const FEATURED_IDS = ['solar-planner', 'investment-allocation-planner', 'urdu-keyboard', 'typing-tutor', 'tax-calculator', 'rent-vs-buy-pakistan', 'car-powertrain-decision', 'data-leak-detector']
 const LAST_VISIT_KEY = 'typely_last_visit'
 const RECENT_KEY = 'typely_recent_tools'
 const FAVOURITES_KEY = 'typely_favourites'
@@ -67,7 +67,7 @@ const CATEGORY_TOOL_ORDER = {
   productivity:['pomodoro','world-time','daily-planner','habit-tracker','voice-diary','kameti','measurement-tracker','resume-builder','whatsapp-tools'],
   writing:     ['word-counter','text-cleaner','doc-composer','image-suite'],
   language:    ['urdu-keyboard','color-palette'],
-  pakistan:    ['solar-planner','tax-calculator','rent-vs-buy-pakistan','car-powertrain-decision','salary-offer-evaluator','freelance-tax-planner','gold-price','pk-id-tax-hub','salary-slip','tax-optimizer','kameti','driving-fines'],
+  pakistan:    ['solar-planner','investment-allocation-planner','tax-calculator','rent-vs-buy-pakistan','car-powertrain-decision','salary-offer-evaluator','freelance-tax-planner','gold-price','pk-id-tax-hub','salary-slip','tax-optimizer','kameti','driving-fines'],
   travel:      ['packing-list','budget-splitter'],
   security:    ['text-encryptor','data-leak-detector','doc-redaction'],
   pdf:         ['compress-pdf','merge-pdf','split-pdf','pdf-convert','doc-converter','text-extractor','pdf-search'],
@@ -120,7 +120,7 @@ function MarqueeTicker({ tools, isDark, colors }) {
     { label: '📏 Track anything · Measurement Tracker', color: '#8b5cf6', path: '/tools/measurement-tracker' },
     { label: '🔒 Encrypt your messages privately', color: '#06b6d4', path: '/tools/text-encryptor' },
     { label: '🚗 Track driving fines & violations', color: '#f97316', path: '/tools/driving-fines' },
-    { label: '📊 67 free tools · No signup needed', color: '#3b82f6', path: '/tools' },
+    { label: '📊 68 free tools · No signup needed', color: '#3b82f6', path: '/tools' },
   ]
   const doubled = [...items, ...items]
 
@@ -334,15 +334,15 @@ export default function ToolsHome() {
 
       <Helmet>
         <title>Free Online Tools for Pakistan, Typing, PDF & Privacy | Rafiqy</title>
-        <meta name="description" content="Browse 67 free browser-based tools for Urdu typing, Pakistan tax, solar planning, PDFs, writing, productivity, developer work and privacy-first tasks." />
+        <meta name="description" content="Browse 68 free browser-based tools for Urdu typing, Pakistan tax, solar planning, investment allocation, PDFs, writing, productivity, developer work and privacy-first tasks." />
         <link rel="canonical" href="https://rafiqy.app/tools" />
         <meta property="og:title" content="Free Online Tools for Pakistan, Typing, PDF & Privacy | Rafiqy" />
-        <meta property="og:description" content="Browse 67 free browser-based tools for Urdu typing, Pakistan tax, solar planning, PDFs, writing, productivity, developer work and privacy-first tasks." />
+        <meta property="og:description" content="Browse 68 free browser-based tools for Urdu typing, Pakistan tax, solar planning, investment allocation, PDFs, writing, productivity, developer work and privacy-first tasks." />
         <meta property="og:url" content="https://rafiqy.app/tools" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Free Online Tools for Pakistan, Typing, PDF & Privacy | Rafiqy" />
-        <meta name="twitter:description" content="Browse 67 free browser-based tools for Urdu typing, Pakistan tax, solar planning, PDFs, writing, productivity, developer work and privacy-first tasks." />
+        <meta name="twitter:description" content="Browse 68 free browser-based tools for Urdu typing, Pakistan tax, solar planning, investment allocation, PDFs, writing, productivity, developer work and privacy-first tasks." />
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
@@ -677,7 +677,7 @@ export default function ToolsHome() {
       <FeedbackButton />
 
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1.5rem 1rem' }}>
-        <ShareBar url="https://rafiqy.app/tools" title="Rafiqy — 67 Free Online Tools for Pakistan" />
+        <ShareBar url="https://rafiqy.app/tools" title="Rafiqy — 68 Free Online Tools for Pakistan" />
       </div>
 
       <footer style={{ textAlign: 'center', padding: '1rem', color: colors.textSecondary, fontSize: '0.75rem', borderTop: `1px solid ${colors.border}` }}>

@@ -174,7 +174,7 @@ export default function ToolLayout({ toolId, children }) {
             if (scoreDiff !== 0) return scoreDiff
             return new Date(b.publishDate || 0) - new Date(a.publishDate || 0)
           })
-          .slice(0, 3)
+          .slice(0, 4)
         if (!related.length) return null
         return (
           <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1rem 2.5rem' }}>

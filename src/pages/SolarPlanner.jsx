@@ -1176,6 +1176,43 @@ export default function SolarPlanner() {
               </p>
             </div>
 
+            <div style={{ ...card, background: '#111827', border: '1px solid #1f2937' }}>
+              <div style={{ color: '#e2e8f0', fontWeight: 700, fontSize: '0.9rem', marginBottom: '0.35rem' }}>
+                📚 Plan Your Next Step
+              </div>
+              <p style={{ color: '#94a3b8', fontSize: '0.78rem', lineHeight: 1.65, margin: '0 0 0.85rem' }}>
+                Use these scenario guides if you want to go deeper before taking installer quotes or changing your system size.
+              </p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.65rem' }}>
+                {[
+                  { href: '/blog/5kw-solar-system-price-in-pakistan', label: '5kW Solar System Price in Pakistan', note: 'What a common household setup should really cost' },
+                  { href: '/blog/10kw-solar-system-price-in-pakistan', label: '10kW Solar System Price in Pakistan', note: 'When a larger system is justified and when it is not' },
+                  { href: '/blog/how-much-solar-do-i-need-for-a-20000-bill-in-pakistan', label: 'Solar for a PKR 20,000 Bill', note: 'Right-sizing for moderate household bills' },
+                  { href: '/blog/how-much-solar-do-i-need-for-a-30000-bill-in-pakistan', label: 'Solar for a PKR 30,000 Bill', note: 'When 5kW is enough and when you need more' },
+                  { href: '/blog/hybrid-vs-on-grid-solar-in-pakistan', label: 'Hybrid vs On-Grid Solar', note: 'Choose the inverter path that fits your backup plan' },
+                ].map(item => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    style={{
+                      textDecoration: 'none',
+                      background: '#0f172a',
+                      border: '1px solid #1e293b',
+                      borderRadius: '10px',
+                      padding: '0.8rem 0.9rem',
+                    }}
+                  >
+                    <div style={{ color: '#7dd3fc', fontSize: '0.8rem', fontWeight: 700, lineHeight: 1.45, marginBottom: '0.25rem' }}>
+                      {item.label}
+                    </div>
+                    <div style={{ color: '#64748b', fontSize: '0.72rem', lineHeight: 1.55 }}>
+                      {item.note}
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+
             {/* Actions */}
             <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1rem', flexWrap: 'wrap' }}>
               <button style={outlineBtn} onClick={() => { setStep(1); setResults(null) }}>← Start Over</button>

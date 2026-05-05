@@ -2362,4 +2362,301 @@ export const BLOG_POSTS = [
 <div class="cta-box"><p>Check whether your current runway is actually enough for freelance risk.</p><a href="/tools/freelance-tax-planner-pakistan">Open the planner →</a></div>
 `,
   },
+  {
+    slug: '5kw-solar-system-price-in-pakistan',
+    title: '5kW Solar System Price in Pakistan: What You Actually Need to Budget',
+    description: 'A practical 2026 guide to 5kW solar system pricing in Pakistan, including equipment quality, net billing costs, battery choices, and when 5kW is enough.',
+    hero: '☀️',
+    category: 'pakistan',
+    readTime: '8 min read',
+    publishDate: '2026-05-05',
+    tags: ['5kw solar system price in pakistan', 'solar', 'solar calculator pakistan', 'net billing', 'battery backup'],
+    content: `
+<h2>Why 5kW Is the Most Asked Solar Size</h2>
+<p>For many Pakistan households, 5kW is the first size that feels serious enough to matter and still small enough to seem affordable. That is why people search for <strong>5kW solar system price in Pakistan</strong> more than almost any other system size.</p>
+<p>But a 5kW decision should never be only about the sticker price. You also need to account for net billing fees, inverter quality, roof reality, battery needs, and whether 5kW actually matches your daytime load.</p>
+
+<h2>Typical 5kW Price Range in 2026</h2>
+<p>In practical market terms, a 5kW system often sits around these levels in Pakistan:</p>
+<ul>
+  <li><strong>Economy install:</strong> roughly PKR 6.5 to 7.5 lakh</li>
+  <li><strong>Mid-tier install:</strong> roughly PKR 7.5 to 8.8 lakh</li>
+  <li><strong>Premium install:</strong> roughly PKR 9 to 10 lakh or more</li>
+</ul>
+<p>These ranges usually depend on panel quality, inverter brand, structure quality, wiring, warranty seriousness, and whether the installer is quoting the full scope honestly.</p>
+
+<h2>What Often Gets Left Out of the Quoted Price</h2>
+<p>Users often compare two quotes and assume the lower one is automatically better. In reality, the cheaper quote may exclude:</p>
+<ul>
+  <li>net billing application handling</li>
+  <li>DISCO meter procurement and fees</li>
+  <li>earthing and surge protection quality</li>
+  <li>hybrid inverter upgrade cost</li>
+  <li>remote monitoring setup</li>
+  <li>real after-sales support</li>
+</ul>
+<p>That is why a “cheap” 5kW quote can become expensive very quickly after hidden extras appear.</p>
+
+<h2>When 5kW Is Usually a Good Fit</h2>
+<p>A 5kW system often makes sense when:</p>
+<ul>
+  <li>your monthly bill is around PKR 18,000 to 30,000</li>
+  <li>your daytime usage is meaningful</li>
+  <li>you run 1 to 2 ACs seasonally rather than all day</li>
+  <li>your roof has clean sun exposure</li>
+  <li>you want a strong balance between savings and upfront cost</li>
+</ul>
+
+<h2>When 5kW May Be Too Small or Too Large</h2>
+<p>It may be too small if you have a high summer load, multiple ACs, large family occupancy, or bills regularly above PKR 35,000 to 40,000.</p>
+<p>It may be too large if your daytime usage is low and most family members are out during solar hours. In that case, exported units become a bigger share of the outcome, which is weaker under today’s net billing economics.</p>
+
+<h2>Should You Add Battery to 5kW?</h2>
+<p>Battery is not automatically required. It becomes stronger when:</p>
+<ul>
+  <li>load shedding is disruptive</li>
+  <li>you need backup for work or home essentials</li>
+  <li>you want to convert daytime surplus into evening self-use</li>
+</ul>
+<p>If the main goal is only bill reduction and your area has stable supply, a battery can often wait while you still prepare with a hybrid inverter.</p>
+
+<h2>The Better Way to Decide</h2>
+<p>Do not choose 5kW because it is common. Choose it because it fits your bill, city sun hours, export pattern, and backup needs. The <a href="/tools/solar-planner">Rafiqy Pakistan Solar Calculator</a> is built for that exact question.</p>
+
+<div class="cta-box"><p>Check whether 5kW is actually the right size for your bill and usage pattern.</p><a href="/tools/solar-planner">Open the Pakistan Solar Calculator →</a></div>
+`,
+  },
+  {
+    slug: '10kw-solar-system-price-in-pakistan',
+    title: '10kW Solar System Price in Pakistan: When a Bigger System Really Pays Off',
+    description: 'A practical guide to 10kW solar system pricing in Pakistan, including who should consider it, what hidden costs matter, and when 10kW becomes too much.',
+    hero: '🔆',
+    category: 'pakistan',
+    readTime: '8 min read',
+    publishDate: '2026-05-05',
+    tags: ['10kw solar system price in pakistan', 'solar', 'solar system cost pakistan', 'net billing', 'hybrid inverter'],
+    content: `
+<h2>Why 10kW Is a Different Decision</h2>
+<p>A 10kW solar system is not just a bigger version of 5kW. It is often a different financial decision entirely because the export pattern, roof requirement, installer quality risk, and net billing economics all become more important.</p>
+<p>That means the question is not only “what is the 10kW price?” It is also <strong>whether 10kW is actually justified for your home.</strong></p>
+
+<h2>Typical 10kW Price Range in Pakistan</h2>
+<p>In 2026-style market terms, 10kW systems commonly land around:</p>
+<ul>
+  <li><strong>Economy install:</strong> roughly PKR 13 to 14.5 lakh</li>
+  <li><strong>Mid-tier install:</strong> roughly PKR 14.5 to 17 lakh</li>
+  <li><strong>Premium install:</strong> roughly PKR 17.5 to 20 lakh or more</li>
+</ul>
+<p>The exact number depends on the inverter class, panel grade, structure quality, roof layout, and whether storage is included.</p>
+
+<h2>Who Should Usually Consider 10kW</h2>
+<p>10kW becomes more plausible when:</p>
+<ul>
+  <li>your monthly bill is consistently high, often PKR 35,000+</li>
+  <li>you have multiple AC-heavy rooms or large daytime use</li>
+  <li>the household actually consumes a strong share of daytime generation</li>
+  <li>roof space is not a constraint</li>
+  <li>you are serious about reducing a large annual electricity burden</li>
+</ul>
+
+<h2>Why 10kW Can Become a Weak Decision</h2>
+<p>A large system becomes weaker when the extra generation mostly goes out to the grid at low export value. That is the central issue under the current Pakistan net billing environment.</p>
+<p>If self-consumption is low, the larger system may look impressive but produce a weaker payback than a smaller, better-targeted setup.</p>
+
+<h2>The Hidden Upgrade Path Problem</h2>
+<p>At 10kW, these details matter much more:</p>
+<ul>
+  <li>three-phase or single-phase implications where relevant</li>
+  <li>structure strength and roof layout</li>
+  <li>hybrid vs on-grid inverter choice</li>
+  <li>future battery readiness</li>
+  <li>real installation quality, not just equipment brand names</li>
+</ul>
+
+<h2>Should You Split the Project?</h2>
+<p>For some households, the better answer is not “install 10kW now”. It may be:</p>
+<ul>
+  <li>start smaller</li>
+  <li>optimize daytime use first</li>
+  <li>choose hybrid-readiness</li>
+  <li>expand only if the actual usage pattern supports it</li>
+</ul>
+<p>That reduces overbuilding risk.</p>
+
+<h2>The Better Decision Question</h2>
+<p>Ask this: <strong>Will a 10kW system create strong self-use and a solid payback, or am I only paying for more export?</strong></p>
+<p>The <a href="/tools/solar-planner">Rafiqy Pakistan Solar Calculator</a> helps answer that with your own bill, city, and self-consumption assumptions instead of one-size-fits-all sales advice.</p>
+
+<div class="cta-box"><p>Check whether 10kW is justified for your bill, or whether a smaller system is financially stronger.</p><a href="/tools/solar-planner">Run the solar scenario →</a></div>
+`,
+  },
+  {
+    slug: 'how-much-solar-do-i-need-for-a-20000-bill-in-pakistan',
+    title: 'How Much Solar Do I Need for a 20,000 Bill in Pakistan?',
+    description: 'A practical guide to sizing solar for a PKR 20,000 monthly electricity bill in Pakistan, including what changes the answer beyond the bill itself.',
+    hero: '💡',
+    category: 'pakistan',
+    readTime: '7 min read',
+    publishDate: '2026-05-05',
+    tags: ['solar for 20000 bill', 'solar calculator pakistan', 'solar bill calculator', 'solar', 'pakistan'],
+    content: `
+<h2>The Short Answer</h2>
+<p>For many households, a PKR 20,000 monthly bill often points toward a system in the rough range of <strong>4kW to 5kW</strong>. But that is only a starting point, not a guaranteed answer.</p>
+<p>The real size depends on your actual units consumed, city sun hours, daytime usage, AC load, and how much of the generation you will self-consume instead of export.</p>
+
+<h2>Why the Bill Alone Is Not Enough</h2>
+<p>Your electricity bill includes more than energy usage. It can include taxes, fixed charges, fuel adjustments, and other items solar does not erase directly. That is why two homes with the same bill can still need different system sizes.</p>
+
+<h2>What Usually Pushes the Size Up</h2>
+<ul>
+  <li>heavy summer AC use</li>
+  <li>low-sun city profile compared with hotter southern cities</li>
+  <li>more family members home during the day</li>
+  <li>electric pumps, ironing, or other heavier daytime loads</li>
+  <li>wanting stronger reduction of the remaining bill</li>
+</ul>
+
+<h2>What Can Keep the Size Lower</h2>
+<ul>
+  <li>moderate daytime demand</li>
+  <li>good appliance efficiency</li>
+  <li>high-sun city conditions</li>
+  <li>willingness to shift more usage into solar hours</li>
+</ul>
+
+<h2>What a 20,000-Bill User Should Watch Out For</h2>
+<p>This bill range is where many people get pushed toward a larger system than they really need. The better move is often to compare:</p>
+<ul>
+  <li>a full net-billing system</li>
+  <li>a slightly smaller self-consumption-focused setup</li>
+</ul>
+<p>Under the current policy environment, that comparison matters more than it used to.</p>
+
+<h2>Should You Add Battery at This Bill Level?</h2>
+<p>Battery is usually not driven by the bill alone. It is driven more by:</p>
+<ul>
+  <li>load shedding severity</li>
+  <li>need for backup</li>
+  <li>how much daytime surplus you want to use later at night</li>
+</ul>
+
+<h2>The Smart Way to Size It</h2>
+<p>If your monthly bill is around PKR 20,000, do not buy based on installer instinct alone. Use the <a href="/tools/solar-planner">Rafiqy Pakistan Solar Calculator</a> to test your city, load profile, and export pattern first.</p>
+
+<div class="cta-box"><p>Estimate the right solar size for a PKR 20,000 bill using your actual city and usage pattern.</p><a href="/tools/solar-planner">Open the Pakistan Solar Calculator →</a></div>
+`,
+  },
+  {
+    slug: 'how-much-solar-do-i-need-for-a-30000-bill-in-pakistan',
+    title: 'How Much Solar Do I Need for a 30,000 Bill in Pakistan?',
+    description: 'A practical sizing guide for Pakistan households with a PKR 30,000 monthly electricity bill, including when 5kW is enough and when you may need more.',
+    hero: '📈',
+    category: 'pakistan',
+    readTime: '7 min read',
+    publishDate: '2026-05-05',
+    tags: ['solar for 30000 bill', 'solar calculator pakistan', 'solar size calculator pakistan', 'solar', 'pakistan'],
+    content: `
+<h2>The Practical Starting Range</h2>
+<p>If your monthly electricity bill is around PKR 30,000, many homes land in the rough range of <strong>5kW to 7kW</strong>. But the right answer depends on how the bill is created, not just the headline number.</p>
+
+<h2>When 5kW May Still Be Enough</h2>
+<p>5kW can still be enough when:</p>
+<ul>
+  <li>your daytime usage is disciplined</li>
+  <li>summer peaks are seasonal rather than constant</li>
+  <li>your home is in a stronger-sun city</li>
+  <li>you are willing to keep some post-solar bill instead of chasing zero</li>
+</ul>
+
+<h2>When You May Need 6kW or More</h2>
+<p>The case for 6kW or more strengthens when:</p>
+<ul>
+  <li>multiple ACs run heavily in summer</li>
+  <li>family occupancy is high during solar hours</li>
+  <li>you want stronger offset of a persistently high unit load</li>
+  <li>your winter bill also remains relatively elevated</li>
+</ul>
+
+<h2>The Risk at This Bill Level</h2>
+<p>This is the zone where users can make two opposite mistakes:</p>
+<ol>
+  <li><strong>undersizing</strong> and then feeling disappointed by the remaining bill</li>
+  <li><strong>oversizing</strong> and paying too much for export-heavy generation</li>
+</ol>
+<p>That is why scenario comparison matters more than generic “bill to kW” rules.</p>
+
+<h2>Think in Terms of Usage Pattern, Not Ego Size</h2>
+<p>Some people want the bigger number because it feels safer. But the better outcome is the system that creates the strongest combination of:</p>
+<ul>
+  <li>self-consumption</li>
+  <li>practical savings</li>
+  <li>reasonable payback</li>
+  <li>upfront cost discipline</li>
+</ul>
+
+<h2>What About Battery?</h2>
+<p>At this bill level, battery becomes more relevant if your home faces regular outages or if your larger system would otherwise export a noticeable amount of solar at low value. But it still should be judged separately, not added blindly.</p>
+
+<h2>Use Your Real Scenario</h2>
+<p>The <a href="/tools/solar-planner">Rafiqy Pakistan Solar Calculator</a> is the right next step if your bill is around PKR 30,000. It compares full-system and smaller-system paths so you can see what actually pays off better.</p>
+
+<div class="cta-box"><p>Check whether your PKR 30,000 bill points to 5kW, 6kW, or a different solar decision entirely.</p><a href="/tools/solar-planner">Run the solar scenario →</a></div>
+`,
+  },
+  {
+    slug: 'hybrid-vs-on-grid-solar-in-pakistan',
+    title: 'Hybrid vs On-Grid Solar in Pakistan: Which One Should You Actually Choose?',
+    description: 'A practical guide to deciding between hybrid and on-grid solar in Pakistan based on load shedding, battery timing, export value, and upgrade flexibility.',
+    hero: '🔌',
+    category: 'pakistan',
+    readTime: '8 min read',
+    publishDate: '2026-05-05',
+    tags: ['hybrid vs on grid solar', 'solar', 'battery backup', 'net billing', 'solar planner'],
+    content: `
+<h2>Why This Choice Matters More Now</h2>
+<p>For Pakistan households, the inverter decision is not a technical footnote. It changes your upgrade path, blackout experience, and future battery flexibility. That is why <strong>hybrid vs on-grid</strong> deserves its own decision instead of being buried inside a quote.</p>
+
+<h2>What On-Grid Does Well</h2>
+<p>Pure on-grid systems are usually simpler and cheaper upfront. They work well when:</p>
+<ul>
+  <li>your main goal is bill reduction</li>
+  <li>grid reliability is acceptable</li>
+  <li>you do not need backup during outages</li>
+  <li>you want the lowest initial project cost</li>
+</ul>
+
+<h2>What Hybrid Solves Better</h2>
+<p>Hybrid becomes stronger when you care about:</p>
+<ul>
+  <li>future battery addition without replacing the inverter</li>
+  <li>backup planning during load shedding</li>
+  <li>using more of your own daytime surplus later</li>
+  <li>keeping your upgrade path open instead of locked</li>
+</ul>
+
+<h2>The Most Common Mistake</h2>
+<p>Many households choose on-grid only to save money initially, then later discover they need backup or want storage. If the inverter is not battery-ready, that later upgrade becomes more expensive than making the right inverter choice upfront.</p>
+
+<h2>When On-Grid Is Usually Fine</h2>
+<p>On-grid remains a sensible choice when outages are mild, the project is tightly budget-limited, and your objective is straightforward bill savings rather than energy resilience.</p>
+
+<h2>When Hybrid Is Usually Worth Paying For</h2>
+<p>Hybrid often earns its place when:</p>
+<ul>
+  <li>load shedding is frequent or disruptive</li>
+  <li>you work from home</li>
+  <li>you expect to add battery later</li>
+  <li>you want stronger control over how solar energy is used</li>
+</ul>
+
+<h2>The Better Way to Ask the Question</h2>
+<p>Do not ask only “Which inverter is cheaper?” Ask this instead:</p>
+<p><strong>“Will today’s cheaper choice force a much more expensive upgrade later?”</strong></p>
+
+<h2>Use a Real Scenario Before Signing</h2>
+<p>The <a href="/tools/solar-planner">Rafiqy Pakistan Solar Calculator</a> already factors in load shedding, export value, and battery relevance. Use that first, then ask installers to quote hybrid and on-grid paths separately.</p>
+
+<div class="cta-box"><p>See whether your home needs a simple on-grid setup or a hybrid-ready solar path.</p><a href="/tools/solar-planner">Open the Pakistan Solar Calculator →</a></div>
+`,
+  },
 ]

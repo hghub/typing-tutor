@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback } from 'react'
 import ToolLayout from '../components/ToolLayout'
+import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 import { useTheme } from '../hooks/useTheme'
 
 const ACCENT = '#ef4444'
@@ -430,6 +431,7 @@ export default function DataLeakDetector() {
             Scan logs, configs, and API responses for secrets, credentials, and PII before sharing with anyone.
           </p>
         </div>
+        <PakistanFriendlyGuide toolId="data-leak-detector" />
 
         {/* ── Input area ── */}
         <div style={{

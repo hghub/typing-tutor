@@ -1177,18 +1177,18 @@ const TOOL_SEO = {
     ],
   },
   'investment-allocation-planner': {
-    metaTitle: 'Investment Allocation Planner Pakistan | How to Invest 20 Lakh or 1 Crore | Rafiqy',
-    metaDesc: 'Plan how to invest 20 lakh or 1 crore in Pakistan using liquidity, income, balanced, equity, gold and FX hedge buckets. Shariah-aware and risk-aware.',
+    metaTitle: 'Investment Allocation Planner Pakistan | 20 Lakh to 15 Crore+ | Rafiqy',
+    metaDesc: 'Plan how to invest 20 lakh, 1 crore, 5 crore or more in Pakistan using liquidity, income, balanced, equity, gold and FX hedge buckets. Shariah-aware and risk-aware.',
     heading: 'Investment Allocation Planner Pakistan — Build the Right Split Before You Pick Products',
     paras: [
-      'Rafiqy’s Investment Allocation Planner Pakistan is designed for one of the most common real-life questions: if you have 20 lakh, 50 lakh, or 1 crore, how should you split it sensibly instead of guessing or copying somebody else’s portfolio? The planner turns that lump sum into a multi-bucket allocation covering liquidity, stability, long-term growth, inflation hedges, and optional foreign-currency protection.',
+      'Rafiqy’s Investment Allocation Planner Pakistan is designed for one of the most common real-life questions: if you have 20 lakh, 50 lakh, 1 crore, 5 crore, or more, how should you split it sensibly instead of guessing or copying somebody else’s portfolio? The planner turns that lump sum into a multi-bucket allocation covering liquidity, stability, long-term growth, inflation hedges, and optional foreign-currency protection.',
       'This is intentionally not a fake “buy this exact fund” recommender. Good investing decisions start with the role of the money: how much must stay liquid, how much can tolerate volatility, how much may need to support future withdrawals, and whether Shariah-compliant implementation matters. The planner handles those tradeoffs before you shortlist actual products.',
       'It is especially useful for Pakistan users who are comparing bank deposits, money-market funds, income funds, balanced funds, equity exposure, gold holdings, and currency hedges without a clean framework. Use it to separate emergency reserves from true investment capital, stress-test the impact of a shorter horizon, and see why one single investment is usually the wrong answer.',
     ],
     faqs: [
       { q: 'Does this investment planner recommend exact products or stocks?', a: 'No. It gives allocation guidance by bucket and category, not exact product picks. That is the safer and more honest first step for most users. Use the output to shortlist regulated categories and then compare actual products, fees, and mandates separately.' },
       { q: 'What buckets does the planner use?', a: 'It uses six main roles: liquidity, income/stability, balanced growth, long-term equity-style growth, gold hedge, and FX hedge. The exact mix changes based on your horizon, emergency reserve, withdrawal needs, risk tolerance, and Shariah preference.' },
-      { q: 'Can I use this for 20 lakh and also for 1 crore?', a: 'Yes. The logic is amount-agnostic. A larger amount may simply make diversification easier, but the core question is still the same: what role should each part of the money play?' },
+      { q: 'Can I use this for 20 lakh, 1 crore, or even 10 to 15 crore?', a: 'Yes. The logic is amount-agnostic. A larger amount may make diversification and bucket separation easier, but the core question stays the same: what role should each part of the money play?' },
       { q: 'Why does the planner ask about emergency reserves before investing?', a: 'Because money that should be covering emergencies is not truly free to take market risk. If the emergency fund is weak, the planner deliberately protects more liquidity before pushing harder into growth buckets.' },
       { q: 'How does Shariah preference change the output?', a: 'It changes the category mapping and implementation guidance. The planner keeps the same portfolio roles but points you toward Shariah-compliant money-market, income, balanced, and equity-style categories where relevant.' },
       { q: 'Is this financial advice?', a: 'No. It is a planning tool for portfolio structure, not personalized regulated advice. Verify product risk, fee structure, tax treatment, and suitability with a licensed adviser before investing.' },

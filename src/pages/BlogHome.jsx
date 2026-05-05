@@ -18,6 +18,7 @@ const FEATURED_POST_SLUGS = [
   'how-much-tax-should-freelancers-reserve-in-pakistan',
   'investment-allocation-planner-pakistan-guide',
   'how-to-invest-20-lakh-in-pakistan',
+  'how-to-invest-5-to-15-crore-in-pakistan',
   'compress-pdf-online',
   'password-generator-security',
 ]

@@ -15,6 +15,7 @@ const FEATURED_POST_SLUGS = [
   '5kw-solar-system-price-in-pakistan',
   'pakistan-income-tax-calculator',
   'how-to-invest-20-lakh-in-pakistan',
+  'how-to-invest-5-to-15-crore-in-pakistan',
   'urdu-typing-online',
   'rent-vs-buy-calculator-pakistan-guide',
   'is-ev-worth-it-in-pakistan',

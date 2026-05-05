@@ -2833,6 +2833,51 @@ export const BLOG_POSTS = [
 `,
   },
   {
+    slug: 'how-to-invest-5-to-15-crore-in-pakistan',
+    title: 'How to Invest 5 to 15 Crore in Pakistan Without Turning It Into One Giant Bet',
+    description: 'A practical framework for larger Pakistan portfolios where liquidity structure, concentration risk, medium-term goals, and hedge discipline matter as much as return.',
+    hero: '🏛️',
+    category: 'pakistan',
+    readTime: '9 min read',
+    publishDate: '2026-05-05',
+    tags: ['how to invest 5 crore', 'how to invest 10 crore', 'how to invest 15 crore', 'wealth allocation pakistan'],
+    content: `
+<h2>Larger Money Needs Better Structure, Not Bigger Stories</h2>
+<p>Once a portfolio moves into the 5 to 15 crore range, the mistake is rarely “not finding enough investment options.” The real mistake is poor structure: too much concentration, weak liquidity planning, unclear goal separation, and emotional overconfidence because the amount feels serious.</p>
+
+<h2>The Core Shift at This Level</h2>
+<p>The question is no longer just <strong>where to invest</strong>. It becomes:</p>
+<p><strong>How much of this corpus must stay liquid, how much should stabilize the household, how much can compound patiently, and how much hedge exposure is genuinely justified?</strong></p>
+
+<h2>What Usually Becomes More Important Above 5 Crore</h2>
+<ul>
+  <li>concentration risk control</li>
+  <li>segregating near-term goals from true long-horizon capital</li>
+  <li>family cashflow resilience</li>
+  <li>business-liquidity overlap if the user is an owner/operator</li>
+  <li>cleaner hedge discipline instead of emotional gold or USD piling</li>
+</ul>
+
+<h2>Why “One Best Investment” Gets Even More Dangerous</h2>
+<p>At this level, a single-story portfolio can create expensive mistakes. If too much sits in one risk bucket, the cost of forced selling, poor diversification, or timing errors becomes much larger in absolute rupee terms.</p>
+
+<h2>A Better Way to Think About It</h2>
+<p>Use a bucket system:</p>
+<ul>
+  <li><strong>Safety / liquidity</strong> for reserve strength and known needs</li>
+  <li><strong>Income / stability</strong> for smoother compounding and withdrawals if needed</li>
+  <li><strong>Balanced growth</strong> for medium-volatility participation</li>
+  <li><strong>Long-term growth</strong> for capital that can sit through real market swings</li>
+  <li><strong>Gold / FX hedge</strong> only to the degree the family or business context actually justifies</li>
+</ul>
+
+<h2>Use a Planner Before You Start Product Shopping</h2>
+<p>The <a href="/tools/investment-allocation-planner-pakistan">Investment Allocation Planner Pakistan</a> is not just for 20 lakh or 1 crore. It also works well for larger portfolios because the key decision is still about role, discipline, and time horizon, not just size.</p>
+
+<div class="cta-box"><p>Build the split first, then compare real categories and products with a much cleaner framework.</p><a href="/tools/investment-allocation-planner-pakistan">Open the planner →</a></div>
+`,
+  },
+  {
     slug: 'emergency-fund-before-investing-in-pakistan',
     title: 'Why Your Emergency Fund Should Usually Come Before Serious Investing',
     description: 'A practical explanation of why emergency reserves often deserve priority before more aggressive investing in Pakistan.',

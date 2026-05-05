@@ -68,6 +68,15 @@ const GOLD_PREF = {
   high: { label: 'Strong', target: 12 },
 }
 
+const AMOUNT_PRESETS = [
+  { label: '20 lakh', value: 2000000 },
+  { label: '50 lakh', value: 5000000 },
+  { label: '1 crore', value: 10000000 },
+  { label: '5 crore', value: 50000000 },
+  { label: '10 crore', value: 100000000 },
+  { label: '15 crore', value: 150000000 },
+]
+
 const BUCKET_COPY = {
   liquidity: {
     title: 'Safety & liquidity',
@@ -390,7 +399,7 @@ export default function InvestmentAllocationPlanner() {
         accent={ACCENT}
         title="Investment Allocation Planner Pakistan"
         eyebrow="Decision system"
-        description="Turn a lump sum like 20 lakh or 1 crore into a structured allocation plan. Decide how much should stay liquid, how much should go into stability, how much can go into long-term growth, and how much deserves gold or FX hedge treatment."
+        description="Turn a lump sum like 20 lakh, 1 crore, 5 crore, or even 15 crore into a structured allocation plan. Decide how much should stay liquid, how much should go into stability, how much can go into long-term growth, and how much deserves gold or FX hedge treatment."
         colors={colors}
       />
       <FreshnessBanner
@@ -404,8 +413,29 @@ export default function InvestmentAllocationPlanner() {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.05fr) minmax(320px, 0.95fr)', gap: '1rem' }}>
         <SectionCard title="Portfolio inputs" subtitle="This planner works best when the inputs reflect your real life, not your ideal mood." accent={ACCENT} colors={colors}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', marginBottom: '1rem' }}>
+            {AMOUNT_PRESETS.map((preset) => (
+              <button
+                key={preset.label}
+                type="button"
+                onClick={() => setAmount(preset.value)}
+                style={{
+                  padding: '0.4rem 0.75rem',
+                  borderRadius: '999px',
+                  border: `1px solid ${amount === preset.value ? ACCENT : colors.border}`,
+                  background: amount === preset.value ? `${ACCENT}18` : colors.card,
+                  color: amount === preset.value ? ACCENT : colors.textSecondary,
+                  fontSize: '0.78rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                }}
+              >
+                {preset.label}
+              </button>
+            ))}
+          </div>
           <FieldsGrid>
-            <Field label="Investable amount (PKR)" hint="Use the actual lump sum available now, such as 20 lakh or 1 crore.">
+            <Field label="Investable amount (PKR)" hint="Use the actual lump sum available now, whether it is 20 lakh, 1 crore, 5 crore, or more.">
               <NumberInput colors={colors} value={amount} onChange={(e) => setAmount(Number(e.target.value) || 0)} />
             </Field>
             <Field label="Monthly contribution (PKR)" hint="Optional, but useful if you will keep adding money after the lump sum.">
@@ -547,6 +577,24 @@ export default function InvestmentAllocationPlanner() {
               'For Pakistan mutual-fund implementation, use SECP-regulated structures and MUFAP category / risk-profile screens rather than chasing generic social-media return claims.',
               'If you have a near-term house purchase, tuition, or business need, ring-fence that capital before trying to maximize return.',
               'If your emergency fund is still weak, your first “investment” may simply be fixing the reserve structure.',
+            ]}
+            colors={colors}
+          />
+        </SectionCard>
+
+        <SectionCard
+          title="Where this planner is especially useful"
+          subtitle="The same decision engine works for smaller and larger portfolios because the job of the money matters more than the headline amount."
+          accent={ACCENT}
+          colors={colors}
+        >
+          <BulletList
+            items={[
+              'A first serious lump sum like 20 lakh or 50 lakh where the biggest risk is putting everything into one story.',
+              'A 1–5 crore family corpus where emergency structure, growth, and medium-term goals need to coexist.',
+              'A 5–15 crore portfolio where concentration risk, liquidity planning, and bucket discipline become even more important.',
+              'Business owners parking surplus cash that may later be needed for operations, property, or expansion.',
+              'Households that want Shariah-compliant implementation guidance without pretending one product solves every need.',
             ]}
             colors={colors}
           />

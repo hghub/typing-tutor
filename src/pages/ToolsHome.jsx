@@ -471,7 +471,7 @@ export default function ToolsHome() {
                   height: '100%',
                   transition: 'border-color 0.15s ease',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = '#06b6d4' }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = '#f59e0b' }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = colors.border }}>
                   <div style={{ color: colors.text, fontWeight: 700, fontSize: '0.9rem', marginBottom: '0.25rem' }}>{link.label}</div>
                   <div style={{ color: colors.textSecondary, fontSize: '0.8rem', lineHeight: 1.5 }}>{link.desc}</div>

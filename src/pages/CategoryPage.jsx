@@ -159,7 +159,7 @@ export default function CategoryPage({ category }) {
                 padding: '1.25rem',
                 transition: 'border-color .15s',
               }}
-              onMouseEnter={e => e.currentTarget.style.borderColor = tool.color || '#06b6d4'}
+              onMouseEnter={e => e.currentTarget.style.borderColor = tool.color || '#f59e0b'}
               onMouseLeave={e => e.currentTarget.style.borderColor = colors.border}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
                   <span style={{ fontSize: '1.5rem' }}>{tool.icon}</span>
@@ -179,7 +179,7 @@ export default function CategoryPage({ category }) {
         </div>
 
         <div style={{ marginTop: '3rem', textAlign: 'center' }}>
-          <Link to="/tools" style={{ color: '#06b6d4', fontWeight: 600, textDecoration: 'none' }}>
+          <Link to="/tools" style={{ color: '#f59e0b', fontWeight: 600, textDecoration: 'none' }}>
             ← Browse all 68 tools
           </Link>
         </div>
@@ -216,7 +216,7 @@ export default function CategoryPage({ category }) {
                       padding: '1rem 1.1rem',
                       transition: 'border-color .15s',
                     }}
-                    onMouseEnter={e => e.currentTarget.style.borderColor = '#06b6d4'}
+                    onMouseEnter={e => e.currentTarget.style.borderColor = '#f59e0b'}
                     onMouseLeave={e => e.currentTarget.style.borderColor = colors.border}>
                       <div style={{ fontSize: '1.4rem', marginBottom: '0.4rem' }}>{post.hero}</div>
                       <div style={{ fontWeight: 700, fontSize: '0.88rem', color: colors.text, marginBottom: '0.3rem', lineHeight: 1.4 }}>{post.title}</div>

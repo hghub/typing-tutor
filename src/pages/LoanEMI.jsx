@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import ToolLayout from '../components/ToolLayout'
+import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 import { useTheme } from '../hooks/useTheme'
 import DisclaimerBlock from '../components/DisclaimerBlock'
 import { ActionCallout, CollapsibleSection } from '../components/decision/DecisionBlocks'
@@ -380,6 +381,7 @@ export default function LoanEMI() {
             <strong style={{ color: colors.text }}> what will I pay every month, how much total interest will I lose, and how would the decision improve if rate, tenure, or financed amount changed?</strong>
           </div>
         </div>
+        <PakistanFriendlyGuide toolId="loan-emi" />
         <Tip colors={colors} isDark={isDark}>
           “Amortization” just means the month-by-month breakup of each installment into bank interest and actual loan repayment. You do not need the formula to use the tool well.
         </Tip>

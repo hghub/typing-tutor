@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import ToolLayout from '../components/ToolLayout'
+import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 import { useTheme } from '../hooks/useTheme'
 import DisclaimerBlock from '../components/DisclaimerBlock'
 import { calcFullTax } from '../data/taxData'
@@ -120,6 +121,7 @@ export default function SalarySlip() {
             Generate a printable salary slip with EOBI &amp; income tax auto-calculated
           </p>
         </div>
+        <PakistanFriendlyGuide toolId="salary-slip" />
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}>
 

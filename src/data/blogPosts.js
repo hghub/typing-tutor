@@ -3460,4 +3460,150 @@ export const BLOG_POSTS = [
 <div class="cta-box"><p>Build a cleaner reserve structure before another strong month tricks you into overspending.</p><a href="/tools/freelance-tax-planner-pakistan">Open the planner →</a></div>
 `,
   },
+  {
+    slug: 'salary-slip-simple-guide-pakistan',
+    title: 'Salary Slip in Pakistan: A Simple Guide for Employees',
+    description: 'A simple explanation of basic salary, allowances, tax, EOBI, and net salary for people who want to understand their pay slip without HR jargon.',
+    hero: '🧾',
+    category: 'pakistan',
+    readTime: '6 min read',
+    publishDate: '2026-05-05',
+    tags: ['salary slip simple guide', 'salary slip Pakistan', 'net salary Pakistan', 'EOBI explained'],
+    content: `
+<h2>What Most People Really Want to Know</h2>
+<p>When people ask about a salary slip, they usually mean something simple: <strong>mera haath mein kitna aayega?</strong> In other words, how much money is actually left after deductions.</p>
+
+<h2>The Five Things to Look At First</h2>
+<ul>
+  <li><strong>Basic salary:</strong> the core part of your salary on which many deductions are based</li>
+  <li><strong>Allowances:</strong> house rent, medical, conveyance, or other support added on top</li>
+  <li><strong>Tax:</strong> the income-tax amount deducted for the month</li>
+  <li><strong>EOBI / social security:</strong> mandatory payroll deductions where applicable</li>
+  <li><strong>Net salary:</strong> the amount you actually receive</li>
+</ul>
+
+<h2>Why People Get Confused</h2>
+<p>Many employees look only at the gross salary and assume that is the real income. But the usable number is the <strong>net salary</strong>. That is why a clear salary slip matters for loans, visas, tax checks, and simply understanding whether the deduction amounts make sense.</p>
+
+<h2>What to Check If the Slip Looks Wrong</h2>
+<ul>
+  <li>Is the basic salary unrealistically low or high compared to the total package?</li>
+  <li>Are tax deductions in line with the current year’s slab?</li>
+  <li>Are EOBI and other deductions shown clearly instead of being hidden in one line?</li>
+  <li>Are allowances separated properly?</li>
+</ul>
+
+<h2>Use a Generator If You Need a Clean Version</h2>
+<p>If your office gives informal salary messages or you need a structured document for records, visa, or loan use, the <a href="/tools/salary-slip">Salary Slip Generator</a> creates a printable version with the major deductions and fields laid out clearly.</p>
+
+<div class="cta-box"><p>Understand your net salary better or generate a clean pay slip in minutes.</p><a href="/tools/salary-slip">Open Salary Slip Generator →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-check-gold-value-in-pakistan',
+    title: 'How to Check the Value of Your Gold in Pakistan',
+    description: 'A simple guide to checking gold value in tola or grams, understanding purity, and avoiding confusion between market rate and jeweller quote.',
+    hero: '🪙',
+    category: 'pakistan',
+    readTime: '6 min read',
+    publishDate: '2026-05-05',
+    tags: ['gold value Pakistan', 'tola price', 'gold rate today Pakistan', '22k 24k gold'],
+    content: `
+<h2>What People Usually Mean</h2>
+<p>Most people are not asking for an international commodity explanation. They want to know something practical: <strong>agar mere paas itna sona hai to aaj iski value kitni banti hai?</strong></p>
+
+<h2>Three Things You Need</h2>
+<ul>
+  <li><strong>Weight:</strong> in tola, grams, or another local unit</li>
+  <li><strong>Purity:</strong> usually 24K, 22K, or 18K</li>
+  <li><strong>Today’s market rate:</strong> ideally the current Pakistan rate, not an old memory</li>
+</ul>
+
+<h2>Why Two People Get Two Different Numbers</h2>
+<p>One number is the raw metal value. Another may include jeweller margin, making charges, or a lower buyback quote. That is why a person checking family gold at home often gets confused when the market quote looks different from the “rate per tola” they heard earlier.</p>
+
+<h2>What Purity Changes</h2>
+<p>24K is close to pure gold, while 22K and 18K contain a lower share of actual gold. If you use a 24K rate for 22K jewelry without adjustment, the estimated value will look too high.</p>
+
+<h2>A Better Way to Check</h2>
+<p>Use a tool that lets you enter the weight, select the purity, and compare live or manual rates in the units Pakistanis actually use. The <a href="/tools/gold-price">Gold &amp; Silver Price Calculator</a> does exactly that and also helps if you prefer to work in tola instead of grams.</p>
+
+<div class="cta-box"><p>Check today’s estimated value of your gold in tola or grams.</p><a href="/tools/gold-price">Open Gold Price Calculator →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-split-family-trip-or-friend-expenses',
+    title: 'How to Split Family, Trip, or Friend Expenses Without Arguments',
+    description: 'A simple guide to splitting shared costs for trips, outings, household purchases, and group payments without messy manual calculations.',
+    hero: '🤝',
+    category: 'productivity',
+    readTime: '5 min read',
+    publishDate: '2026-05-05',
+    tags: ['split expenses Pakistan', 'bill splitter', 'trip expense split', 'friends expense calculator'],
+    content: `
+<h2>Where Shared Money Usually Becomes Messy</h2>
+<p>Trips with friends, family grocery runs, office food orders, shared fuel, or house bills often end with someone doing rough maths in a WhatsApp chat. That usually creates confusion, missed items, or awkward overpayment.</p>
+
+<h2>The Main Problem</h2>
+<p>People often mix two different situations:</p>
+<ul>
+  <li><strong>Equal split:</strong> everyone should pay the same</li>
+  <li><strong>Unequal split:</strong> one person paid more items or some people should pay different shares</li>
+</ul>
+
+<h2>When a Simple Tool Helps</h2>
+<p>A good split tool saves time when:</p>
+<ul>
+  <li>one person paid the restaurant bill</li>
+  <li>multiple friends paid for different parts of a trip</li>
+  <li>siblings are sharing a family purchase</li>
+  <li>roommates are clearing household costs</li>
+</ul>
+
+<h2>What Makes the Result Easier to Accept</h2>
+<p>People trust the split more when they can see the line items and not just a random total. Clear numbers reduce awkwardness and remove the feeling that someone guessed the result.</p>
+
+<h2>Use the Splitter Instead of a Chat Thread</h2>
+<p>The <a href="/tools/budget-splitter">Bill Splitter</a> handles both quick equal splits and more detailed group-expense breakdowns, so you can settle shared money faster and with fewer mistakes.</p>
+
+<div class="cta-box"><p>Stop doing shared-expense maths manually.</p><a href="/tools/budget-splitter">Open Bill Splitter →</a></div>
+`,
+  },
+  {
+    slug: 'type-urdu-online-without-inpage',
+    title: 'How to Type Urdu Online Without Installing InPage',
+    description: 'A simple guide for typing Urdu in the browser using phonetic English input, copy-paste workflow, and basic voice typing.',
+    hero: '⌨️',
+    category: 'writing',
+    readTime: '5 min read',
+    publishDate: '2026-05-05',
+    tags: ['type Urdu online', 'Urdu keyboard online', 'write Urdu without InPage', 'Roman Urdu to Urdu'],
+    content: `
+<h2>What Many Users Actually Need</h2>
+<p>A lot of people do not need full desktop publishing software. They simply want to write Urdu for WhatsApp, a school notice, a caption, a document, or a social post and then copy it where needed.</p>
+
+<h2>You Do Not Need InPage for Every Small Task</h2>
+<p>If the goal is only to <strong>type Urdu online</strong>, a browser keyboard is often enough. That is especially true when you already think in Roman Urdu and just need the text converted quickly.</p>
+
+<h2>The Easy Method</h2>
+<ul>
+  <li>type familiar English sounds like <strong>kh</strong>, <strong>sh</strong>, and <strong>ch</strong></li>
+  <li>see the Urdu output immediately</li>
+  <li>copy the text and paste it into your message, post, or document</li>
+</ul>
+
+<h2>When It Is Most Useful</h2>
+<ul>
+  <li>writing Urdu captions or statuses</li>
+  <li>school or office notes</li>
+  <li>short announcements and invitations</li>
+  <li>social media comments and posts</li>
+</ul>
+
+<h2>Use the Browser Keyboard</h2>
+<p>The <a href="/tools/urdu-keyboard">Urdu Keyboard Online</a> lets you type with phonetic English input and also supports voice typing in supported browsers, which makes small Urdu tasks much easier for users who are not comfortable with a physical Urdu keyboard layout.</p>
+
+<div class="cta-box"><p>Type Urdu in the browser and copy it anywhere.</p><a href="/tools/urdu-keyboard">Open Urdu Keyboard →</a></div>
+`,
+  },
 ]

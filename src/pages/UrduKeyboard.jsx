@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import ToolLayout from '../components/ToolLayout'
+import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 import { useTheme } from '../hooks/useTheme'
 import { latinToUrdu, getAllMappings } from '../data/urduPhoneticMap'
 import { Link } from 'react-router-dom'
@@ -137,6 +138,7 @@ export default function UrduKeyboard() {
           <span style={{ color: '#f59e0b', fontWeight: 600 }}> Type "kh" → خ, "sh" → ش, "ch" → چ</span>
         </p>
       </div>
+      <PakistanFriendlyGuide toolId="urdu-keyboard" />
 
       {/* Voice Typing Panel */}
       {hasVoiceSupport && (

@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect, useCallback } from 'react'
 import ToolLayout from '../components/ToolLayout'
+import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 import { useTheme } from '../hooks/useTheme'
 
 const ACCENT = '#8b5cf6'
@@ -891,6 +892,7 @@ export default function BudgetSplitter() {
           Split restaurant bills, household expenses, or travel costs — no sign-up needed.
         </p>
       </div>
+      <PakistanFriendlyGuide toolId="budget-splitter" />
 
       {/* Tabs */}
       <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem' }}>

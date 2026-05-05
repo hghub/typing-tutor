@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import ToolLayout from '../components/ToolLayout'
+import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 import { useTheme } from '../hooks/useTheme'
 import DisclaimerBlock from '../components/DisclaimerBlock'
 
@@ -396,6 +397,7 @@ export default function GoldPrice() {
             Pakistan-focused · Tola / Masha / Ratti · Zakat · Making charges
           </p>
         </div>
+        <PakistanFriendlyGuide toolId="gold-price" />
 
         {/* ── Rate Entry ────────────────────────────────────────────────────── */}
         <SectionCard colors={colors}>

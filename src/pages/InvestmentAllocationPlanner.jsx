@@ -163,6 +163,24 @@ const STRATEGY_PRESETS = [
       goldPreference: 'low',
     },
   },
+  {
+    id: 'family-office',
+    label: 'Larger family corpus',
+    note: 'Multi-goal, lower concentration, more structure',
+    values: {
+      goal: 'balanced',
+      horizonYears: 12,
+      riskTolerance: 3,
+      emergencyMonthsCovered: 9,
+      monthlyWithdrawalNeed: 250000,
+      nextMajorGoalYears: 4,
+      debtPressure: 'low',
+      incomeStability: 'stable',
+      fxPreference: 'high',
+      goldPreference: 'medium',
+      goalMode: 'multi',
+    },
+  },
 ]
 
 const BUCKET_COPY = {
@@ -267,6 +285,10 @@ function buildAllocation(inputs) {
 
   if (inputs.nextMajorGoalYears <= 3) {
     shiftWeight(base, ['equity', 'balanced'], ['liquidity', 'income'], 10)
+  }
+
+  if (inputs.goalMode === 'multi') {
+    shiftWeight(base, ['equity'], ['liquidity', 'income', 'balanced'], 8)
   }
 
   if (inputs.debtPressure === 'high') {
@@ -437,9 +459,11 @@ export default function InvestmentAllocationPlanner() {
   const [nextMajorGoalYears, setNextMajorGoalYears] = useState(5)
   const [debtPressure, setDebtPressure] = useState('moderate')
   const [incomeStability, setIncomeStability] = useState('normal')
+  const [goalMode, setGoalMode] = useState('single')
   const [shariahPreference, setShariahPreference] = useState('yes')
   const [fxPreference, setFxPreference] = useState('medium')
   const [goldPreference, setGoldPreference] = useState('medium')
+  const [copyState, setCopyState] = useState('idle')
 
   const applyPreset = (presetId) => {
     const preset = STRATEGY_PRESETS.find((item) => item.id === presetId)
@@ -453,6 +477,7 @@ export default function InvestmentAllocationPlanner() {
     setNextMajorGoalYears(preset.values.nextMajorGoalYears)
     setDebtPressure(preset.values.debtPressure)
     setIncomeStability(preset.values.incomeStability)
+    setGoalMode(preset.values.goalMode || 'single')
     setFxPreference(preset.values.fxPreference)
     setGoldPreference(preset.values.goldPreference)
   }
@@ -473,6 +498,7 @@ export default function InvestmentAllocationPlanner() {
     nextMajorGoalYears,
     debtPressure,
     incomeStability,
+    goalMode,
     shariahPreference,
     fxPreference,
     goldPreference,
@@ -488,6 +514,7 @@ export default function InvestmentAllocationPlanner() {
     nextMajorGoalYears,
     debtPressure,
     incomeStability,
+    goalMode,
     shariahPreference,
     fxPreference,
     goldPreference,
@@ -501,6 +528,46 @@ export default function InvestmentAllocationPlanner() {
       : horizonYears >= 10 && riskTolerance >= 4
         ? 'Use a growth-capable diversified allocation'
         : 'Use a balanced multi-bucket allocation'
+
+  const summaryText = [
+    'Rafiqy Investment Allocation Planner Summary',
+    `Investable amount: ${fmtCurrency(amount)}`,
+    `Monthly contribution: ${fmtCurrency(monthlyContribution)}`,
+    `Goal style: ${GOAL_PROFILES[goal].label}`,
+    `Goal structure: ${goalMode === 'multi' ? 'Multiple goals / family portfolio' : 'Single primary goal'}`,
+    `Recommendation: ${recommendation}`,
+    `Safety bucket: ${result.allocation.liquidity}% (${fmtCurrency(result.buckets.liquidity)})`,
+    `Income bucket: ${result.allocation.income}% (${fmtCurrency(result.buckets.income)})`,
+    `Balanced growth: ${result.allocation.balanced}% (${fmtCurrency(result.buckets.balanced)})`,
+    `Equity growth: ${result.allocation.equity}% (${fmtCurrency(result.buckets.equity)})`,
+    `Gold hedge: ${result.allocation.gold}% (${fmtCurrency(result.buckets.gold)})`,
+    `FX hedge: ${result.allocation.usd}% (${fmtCurrency(result.buckets.usd)})`,
+    `Decision path: ${result.decisionTitle}`,
+    `Notes: ${result.actionSteps.join(' | ')}`,
+  ].join('\n')
+
+  const copySummary = async () => {
+    try {
+      await navigator.clipboard.writeText(summaryText)
+      setCopyState('copied')
+      setTimeout(() => setCopyState('idle'), 1800)
+    } catch {
+      setCopyState('error')
+      setTimeout(() => setCopyState('idle'), 1800)
+    }
+  }
+
+  const downloadSummary = () => {
+    const blob = new Blob([summaryText], { type: 'text/plain;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'rafiqy-investment-plan-summary.txt'
+    document.body.appendChild(link)
+    link.click()
+    link.remove()
+    URL.revokeObjectURL(url)
+  }
 
   return (
     <ToolLayout toolId="investment-allocation-planner">
@@ -607,6 +674,12 @@ export default function InvestmentAllocationPlanner() {
                 {Object.entries(STABILITY).map(([value, item]) => <option key={value} value={value}>{item.label}</option>)}
               </SelectInput>
             </Field>
+            <Field label="Goal structure" hint="A portfolio serving multiple family or business goals usually needs more internal safety than a single clean objective.">
+              <SelectInput colors={colors} value={goalMode} onChange={(e) => { markCustom(); setGoalMode(e.target.value) }}>
+                <option value="single">Single primary goal</option>
+                <option value="multi">Multiple goals / family portfolio</option>
+              </SelectInput>
+            </Field>
             <Field label="Shariah preference" hint="This changes the category mapping, not just the wording.">
               <SelectInput colors={colors} value={shariahPreference} onChange={(e) => { markCustom(); setShariahPreference(e.target.value) }}>
                 <option value="yes">Shariah-compliant only</option>
@@ -648,6 +721,38 @@ export default function InvestmentAllocationPlanner() {
             <div style={{ color: colors.text, fontSize: '1.02rem', fontWeight: 700 }}>{result.decisionTitle}</div>
             <p style={{ margin: 0, color: colors.textSecondary, lineHeight: 1.65 }}>{result.decisionBody}</p>
             <BulletList items={result.actionSteps} colors={colors} />
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', marginTop: '0.5rem' }}>
+              <button
+                type="button"
+                onClick={copySummary}
+                style={{
+                  padding: '0.55rem 0.9rem',
+                  borderRadius: '0.75rem',
+                  border: `1px solid ${copyState === 'error' ? '#ef4444' : ACCENT}`,
+                  background: copyState === 'copied' ? '#dcfce7' : `${ACCENT}12`,
+                  color: copyState === 'error' ? '#ef4444' : ACCENT,
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                }}
+              >
+                {copyState === 'copied' ? 'Summary copied' : copyState === 'error' ? 'Copy failed' : 'Copy plan summary'}
+              </button>
+              <button
+                type="button"
+                onClick={downloadSummary}
+                style={{
+                  padding: '0.55rem 0.9rem',
+                  borderRadius: '0.75rem',
+                  border: `1px solid ${colors.border}`,
+                  background: colors.card,
+                  color: colors.text,
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                }}
+              >
+                Download summary
+              </button>
+            </div>
           </SectionCard>
 
           <SectionCard title="Why this split?" accent={ACCENT} colors={colors}>
@@ -770,6 +875,25 @@ export default function InvestmentAllocationPlanner() {
               'A 5–15 crore portfolio where concentration risk, liquidity planning, and bucket discipline become even more important.',
               'Business owners parking surplus cash that may later be needed for operations, property, or expansion.',
               'Households that want Shariah-compliant implementation guidance without pretending one product solves every need.',
+            ]}
+            colors={colors}
+          />
+        </SectionCard>
+
+        <SectionCard
+          title="Shortlisting checklist"
+          subtitle="Once the allocation is clear, this is how to compare actual categories or products without getting distracted by headlines."
+          accent={ACCENT}
+          colors={colors}
+        >
+          <BulletList
+            items={[
+              'Check whether the product mandate truly matches the job of the bucket you are filling.',
+              'Compare fee drag and expense ratio before comparing recent return numbers.',
+              'Check liquidity terms and exit friction if the bucket is meant to protect flexibility.',
+              'Watch concentration risk: one manager, one issuer, or one story should not dominate the whole corpus.',
+              'For larger corpuses, separate family spending reserve, strategic growth capital, and optional hedge buckets explicitly instead of blending them emotionally.',
+              'Revisit tax treatment, documentation, and Shariah screening before final implementation.',
             ]}
             colors={colors}
           />

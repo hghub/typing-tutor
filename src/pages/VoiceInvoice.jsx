@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import ToolLayout from '../components/ToolLayout'
 import DisclaimerBlock from '../components/DisclaimerBlock'
+import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 import { useTheme } from '../hooks/useTheme'
 
 const ACCENT = '#f97316'
@@ -363,6 +364,7 @@ export default function VoiceInvoice() {
             Speak your work items — get a formatted invoice instantly.
           </p>
         </div>
+        <PakistanFriendlyGuide toolId="voice-invoice" />
 
         {/* ── Invoice Header ── */}
         <SectionCard title="Invoice Details" colors={colors}>

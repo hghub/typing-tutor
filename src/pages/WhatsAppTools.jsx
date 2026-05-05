@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import ToolLayout from '../components/ToolLayout'
+import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 import { useTheme } from '../hooks/useTheme'
 
 const TABS = ['Message Formatter', 'Message Counter', 'Template Builder', 'Link Generator']
@@ -38,6 +39,7 @@ export default function WhatsAppTools() {
       <div style={{ color: colors.text }}>
         <h1 style={{ fontSize: '1.6rem', fontWeight: 700, marginBottom: '0.25rem' }}>💬 WhatsApp Tools</h1>
         <p style={{ color: colors.textSecondary, marginBottom: '1.5rem', fontSize: '0.9rem' }}>Format, count, template &amp; generate wa.me links for WhatsApp.</p>
+        <PakistanFriendlyGuide toolId="whatsapp-tools" />
 
         <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
           {TABS.map((t, i) => (

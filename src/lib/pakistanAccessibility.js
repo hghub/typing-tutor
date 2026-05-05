@@ -97,6 +97,11 @@ export const ACCESSIBILITY_NOTES = {
     romanUrdu: ['awaaz se invoice banana', 'invoice jaldi banana', 'bol kar bill banana'],
     commonNeed: 'Useful for service businesses that do not realize a light browser invoice tool can replace messy notes.',
   },
+  'whatsapp-tools': {
+    simple: 'Useful when you need WhatsApp message ko saaf format karna, template banana, ya direct link share karna without manual trial and error.',
+    romanUrdu: ['whatsapp message format', 'wa link banana', 'message template banana', 'urdu whatsapp text'],
+    commonNeed: 'Very useful for shops, freelancers, schools, and small businesses that use WhatsApp as their main communication channel.',
+  },
   'doc-redaction': {
     simple: 'Useful when you need CNIC, phone number, ya private details ko document se black out karke safe copy share karni ho.',
     romanUrdu: ['cnic chupana', 'document se private info hatana', 'redact document'],

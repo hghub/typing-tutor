@@ -72,6 +72,19 @@ const DISCO_METERS = [
   { disco: 'QESCO',  region: 'Quetta / Balochistan',        meter: 40000, note: 'Estimate — confirm with QESCO before applying' },
 ]
 
+const BILL_PRESETS = [
+  { label: '20k bill', bill: 20000, units: 380 },
+  { label: '30k bill', bill: 30000, units: 540 },
+  { label: '50k bill', bill: 50000, units: 820 },
+]
+
+const HOUSEHOLD_PRESETS = [
+  { id: 'office-hours-family', label: 'Office-hours family', note: 'Away in daytime, lower self-consumption', selfConsume: 40, loadshed: 2, netBilling: true },
+  { id: 'home-mostly', label: 'Home most of day', note: 'Higher self-consumption possible', selfConsume: 75, loadshed: 2, netBilling: true },
+  { id: 'outage-heavy', label: 'Outage-heavy area', note: 'Battery matters more', selfConsume: 65, loadshed: 6, netBilling: true },
+  { id: 'small-self-use', label: 'Smaller self-use path', note: 'Prefer using power yourself over exporting', selfConsume: 85, loadshed: 1, netBilling: false },
+]
+
 // ── Battery options — April 2026 (global lithium prices -15-18% from 2025) ──
 const BATTERIES = [
   { brand: 'Knox',      cap: '6.1 kWh',  lo: 225000, hi: 280000, note: 'Budget pick — strong local warranty',          flag: '🏆 Best Value' },
@@ -387,6 +400,7 @@ export default function SolarPlanner() {
   const [selected, setSelected]         = useState({})
   const [results, setResults]           = useState(null)
   const [copied, setCopied]             = useState(false)
+  const [householdPreset, setHouseholdPreset] = useState('custom')
 
   const billNum = parseFloat(bill) || 0
 
@@ -450,6 +464,24 @@ export default function SolarPlanner() {
       setCopied(true)
       setTimeout(() => setCopied(false), 2500)
     })
+  }
+
+  function applyBillPreset(preset) {
+    setBill(String(preset.bill))
+    setUnitsConsumed(String(preset.units))
+  }
+
+  function applyHouseholdPreset(presetId) {
+    const preset = HOUSEHOLD_PRESETS.find((item) => item.id === presetId)
+    if (!preset) return
+    setHouseholdPreset(presetId)
+    setSelfConsume(preset.selfConsume)
+    setLoadshed(preset.loadshed)
+    setNetBilling(preset.netBilling)
+  }
+
+  function markHouseholdCustom() {
+    setHouseholdPreset('custom')
   }
 
   function generatePDF() {
@@ -708,6 +740,47 @@ export default function SolarPlanner() {
             </div>
 
             <div style={card}>
+              <div style={{ marginBottom: '0.9rem' }}>
+                <div style={{ color: '#94a3b8', fontSize: '0.8rem', fontWeight: 700, marginBottom: '0.45rem' }}>Quick bill presets</div>
+                <div style={{ display: 'flex', gap: '0.45rem', flexWrap: 'wrap' }}>
+                  {BILL_PRESETS.map((preset) => (
+                    <button
+                      key={preset.label}
+                      type="button"
+                      onClick={() => applyBillPreset(preset)}
+                      style={{ padding: '0.4rem 0.75rem', borderRadius: '999px', border: '1px solid #334155', background: '#0f172a', color: '#cbd5e1', fontSize: '0.76rem', fontWeight: 700, cursor: 'pointer' }}
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div style={{ marginBottom: '0.9rem' }}>
+                <div style={{ color: '#94a3b8', fontSize: '0.8rem', fontWeight: 700, marginBottom: '0.45rem' }}>Household pattern presets</div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '0.5rem' }}>
+                  {HOUSEHOLD_PRESETS.map((preset) => (
+                    <button
+                      key={preset.id}
+                      type="button"
+                      onClick={() => applyHouseholdPreset(preset.id)}
+                      style={{
+                        textAlign: 'left',
+                        padding: '0.7rem 0.8rem',
+                        borderRadius: '10px',
+                        border: `1px solid ${householdPreset === preset.id ? ACCENT : '#334155'}`,
+                        background: householdPreset === preset.id ? '#172554' : '#0f172a',
+                        color: '#e2e8f0',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <div style={{ fontWeight: 700, fontSize: '0.8rem', marginBottom: '0.15rem' }}>{preset.label}</div>
+                      <div style={{ color: '#64748b', fontSize: '0.7rem', lineHeight: 1.45 }}>{preset.note}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <label style={{ color: '#94a3b8', fontSize: '0.82rem', display: 'block', marginBottom: '0.3rem' }}>Monthly Electricity Bill (PKR)</label>
               <input
                 type="number" value={bill} onChange={e => setBill(e.target.value)}
@@ -756,7 +829,7 @@ export default function SolarPlanner() {
               <label style={{ color: '#94a3b8', fontSize: '0.82rem', display: 'block', marginBottom: '0.5rem' }}>Daily Load-shedding</label>
               <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
                 {[0,2,4,6,8,10].map(h => (
-                  <button key={h} onClick={() => setLoadshed(h)} style={{ padding: '0.45rem 0.875rem', borderRadius: '8px', cursor: 'pointer', border: loadshed === h ? `2px solid ${ACCENT}` : '1px solid #334155', background: loadshed === h ? '#451a03' : '#1e293b', color: loadshed === h ? ACCENT : '#94a3b8', fontWeight: 600, fontSize: '0.85rem' }}>
+                  <button key={h} onClick={() => { markHouseholdCustom(); setLoadshed(h) }} style={{ padding: '0.45rem 0.875rem', borderRadius: '8px', cursor: 'pointer', border: loadshed === h ? `2px solid ${ACCENT}` : '1px solid #334155', background: loadshed === h ? '#451a03' : '#1e293b', color: loadshed === h ? ACCENT : '#94a3b8', fontWeight: 600, fontSize: '0.85rem' }}>
                     {h === 0 ? 'None' : `${h} hrs`}
                   </button>
                 ))}
@@ -765,7 +838,7 @@ export default function SolarPlanner() {
               {/* Net Billing */}
               <div style={{ borderTop: '1px solid #334155', paddingTop: '1rem' }}>
                 <div style={{ color: '#94a3b8', fontSize: '0.82rem', fontWeight: 600, marginBottom: '0.625rem' }}>🌐 Net Billing (NEPRA 2026)</div>
-                <div onClick={() => setNetBilling(v => !v)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', marginBottom: '0.75rem' }}>
+                <div onClick={() => { markHouseholdCustom(); setNetBilling(v => !v) }} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', marginBottom: '0.75rem' }}>
                   <Toggle on={netBilling} />
                   <div>
                     <div style={{ color: '#e2e8f0', fontSize: '0.85rem', fontWeight: 600 }}>{netBilling ? 'Net Billing enabled' : 'No grid export (off-grid / battery only)'}</div>
@@ -776,7 +849,7 @@ export default function SolarPlanner() {
                   <>
                     <label style={{ color: '#94a3b8', fontSize: '0.82rem', display: 'block', marginBottom: '0.3rem' }}>Self-consumption — % of your solar used at home vs exported</label>
                     <input type="range" min="20" max="90" step="5" value={selfConsume}
-                      onChange={e => setSelfConsume(Number(e.target.value))}
+                      onChange={e => { markHouseholdCustom(); setSelfConsume(Number(e.target.value)) }}
                       style={{ width: '100%', accentColor: ACCENT, marginBottom: '0.25rem' }} />
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem' }}>
                       <span>20% (mostly away)</span>

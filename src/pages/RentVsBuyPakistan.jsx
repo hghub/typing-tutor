@@ -42,6 +42,12 @@ const CITY_PRESETS = {
   other: { label: 'Other city', annualHomeGrowth: 9, annualRentGrowth: 8, propertyTaxPct: 0.15, transferCostPct: 6, maintenancePct: 0.9, markupRate: 17 },
 }
 
+const SCENARIO_PRESETS = [
+  { id: 'young-professional', label: 'Young professional', note: 'Short stay, flexibility matters', city: 'karachi', propertyPrice: 25000000, monthlyRent: 90000, yearsToStay: 4, downPaymentPct: 20, mortgageYears: 15, investmentReturnPct: 14 },
+  { id: 'family-settle', label: 'Family settle-down', note: 'Longer stay, ownership case stronger', city: 'lahore', propertyPrice: 42000000, monthlyRent: 140000, yearsToStay: 9, downPaymentPct: 30, mortgageYears: 15, investmentReturnPct: 13 },
+  { id: 'wait-and-save', label: 'Wait and save', note: 'Markup pressure is too high right now', city: 'islamabad', propertyPrice: 50000000, monthlyRent: 170000, yearsToStay: 5, downPaymentPct: 20, mortgageYears: 15, investmentReturnPct: 15 },
+]
+
 function rentVsBuyDecision(inputs) {
   const cityPreset = CITY_PRESETS[inputs.city]
   const propertyPrice = Number(inputs.propertyPrice) || 0
@@ -221,6 +227,8 @@ function rentVsBuyDecision(inputs) {
 
 export default function RentVsBuyPakistan() {
   const { colors } = useTheme()
+  const [scenarioPreset, setScenarioPreset] = useState('custom')
+  const [copyState, setCopyState] = useState('idle')
   const [city, setCity] = useState('karachi')
   const [propertyPrice, setPropertyPrice] = useState(35000000)
   const [monthlyRent, setMonthlyRent] = useState(120000)
@@ -246,6 +254,23 @@ export default function RentVsBuyPakistan() {
     setTransferCostPct(preset.transferCostPct)
   }
 
+  function applyScenario(presetId) {
+    const preset = SCENARIO_PRESETS.find((item) => item.id === presetId)
+    if (!preset) return
+    setScenarioPreset(presetId)
+    applyCity(preset.city)
+    setPropertyPrice(preset.propertyPrice)
+    setMonthlyRent(preset.monthlyRent)
+    setYearsToStay(preset.yearsToStay)
+    setDownPaymentPct(preset.downPaymentPct)
+    setMortgageYears(preset.mortgageYears)
+    setInvestmentReturnPct(preset.investmentReturnPct)
+  }
+
+  function markCustom() {
+    setScenarioPreset('custom')
+  }
+
   const result = useMemo(() => rentVsBuyDecision({
     city,
     propertyPrice,
@@ -265,6 +290,45 @@ export default function RentVsBuyPakistan() {
     mortgageYears, annualRentGrowth, annualHomeGrowth, annualMaintenancePct,
     propertyTaxPct, transferCostPct, investmentReturnPct,
   ])
+
+  const summaryText = [
+    'Rafiqy Rent vs Buy Pakistan Summary',
+    `City: ${result.cityLabel}`,
+    `Property price: ${fmtCurrency(propertyPrice)}`,
+    `Monthly rent: ${fmtCurrency(monthlyRent)}`,
+    `Stay horizon: ${yearsToStay} years`,
+    `Recommendation: ${result.recommendation}`,
+    `Buy net cost: ${fmtCurrency(result.buyNetCost)}`,
+    `Rent net cost: ${fmtCurrency(result.rentNetCost)}`,
+    `Monthly EMI: ${fmtCurrency(result.emi)}`,
+    `Down payment: ${fmtCurrency(result.downPayment)}`,
+    result.breakEvenYears ? `Break-even horizon: ${result.breakEvenYears} years` : null,
+    `Decision path: ${result.decisionTitle}`,
+    `Action steps: ${result.actionSteps.join(' | ')}`,
+  ].filter(Boolean).join('\n')
+
+  async function copySummary() {
+    try {
+      await navigator.clipboard.writeText(summaryText)
+      setCopyState('copied')
+      setTimeout(() => setCopyState('idle'), 1800)
+    } catch {
+      setCopyState('error')
+      setTimeout(() => setCopyState('idle'), 1800)
+    }
+  }
+
+  function downloadSummary() {
+    const blob = new Blob([summaryText], { type: 'text/plain;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'rafiqy-rent-vs-buy-summary.txt'
+    document.body.appendChild(link)
+    link.click()
+    link.remove()
+    URL.revokeObjectURL(url)
+  }
 
   return (
     <ToolLayout toolId="rent-vs-buy-pakistan">
@@ -286,54 +350,78 @@ export default function RentVsBuyPakistan() {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.05fr) minmax(320px, 0.95fr)', gap: '1rem' }}>
         <SectionCard title="Scenario inputs" subtitle="Start with a city preset, then adjust assumptions to match your actual situation." accent={ACCENT} colors={colors}>
+          <div style={{ marginBottom: '1rem' }}>
+            <div style={{ color: colors.text, fontWeight: 700, marginBottom: '0.55rem', fontSize: '0.88rem' }}>Start from a real-life housing scenario</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.55rem' }}>
+              {SCENARIO_PRESETS.map((preset) => (
+                <button
+                  key={preset.id}
+                  type="button"
+                  onClick={() => applyScenario(preset.id)}
+                  style={{
+                    textAlign: 'left',
+                    padding: '0.75rem 0.85rem',
+                    borderRadius: '0.9rem',
+                    border: `1px solid ${scenarioPreset === preset.id ? ACCENT : colors.border}`,
+                    background: scenarioPreset === preset.id ? `${ACCENT}14` : colors.card,
+                    color: colors.text,
+                    cursor: 'pointer',
+                  }}
+                >
+                  <div style={{ fontWeight: 800, fontSize: '0.84rem', marginBottom: '0.2rem' }}>{preset.label}</div>
+                  <div style={{ fontSize: '0.75rem', color: colors.textSecondary, lineHeight: 1.45 }}>{preset.note}</div>
+                </button>
+              ))}
+            </div>
+          </div>
           <FieldsGrid>
             <Field label="City preset" hint="Loads default growth, markup, and friction assumptions. Override them if your area behaves differently.">
-              <SelectInput colors={colors} value={city} onChange={(e) => applyCity(e.target.value)}>
+              <SelectInput colors={colors} value={city} onChange={(e) => { markCustom(); applyCity(e.target.value) }}>
                 {Object.entries(CITY_PRESETS).map(([value, preset]) => <option key={value} value={value}>{preset.label}</option>)}
               </SelectInput>
             </Field>
             <Field label="Property price (PKR)" hint="Use the actual all-in purchase price you would negotiate, not an aspirational listing.">
-              <NumberInput colors={colors} value={propertyPrice} onChange={(e) => setPropertyPrice(Number(e.target.value) || 0)} />
+              <NumberInput colors={colors} value={propertyPrice} onChange={(e) => { markCustom(); setPropertyPrice(Number(e.target.value) || 0) }} />
             </Field>
             <Field label="Monthly rent (PKR)" hint="Use the rent for a genuinely comparable home, not a smaller or older alternative.">
-              <NumberInput colors={colors} value={monthlyRent} onChange={(e) => setMonthlyRent(Number(e.target.value) || 0)} />
+              <NumberInput colors={colors} value={monthlyRent} onChange={(e) => { markCustom(); setMonthlyRent(Number(e.target.value) || 0) }} />
             </Field>
             <Field label="Stay horizon" hint="This is the biggest swing factor. If you may move early, do not overstate it.">
-              <SliderInput colors={colors} accent={ACCENT} value={yearsToStay} onChange={(e) => setYearsToStay(Number(e.target.value))} min={2} max={15} suffix=" years" />
+              <SliderInput colors={colors} accent={ACCENT} value={yearsToStay} onChange={(e) => { markCustom(); setYearsToStay(Number(e.target.value)) }} min={2} max={15} suffix=" years" />
             </Field>
             <Field label="Down payment" hint="Keep emergency liquidity separate. A strong buy case can still be dangerous if cash is fully locked up.">
-              <SliderInput colors={colors} accent={ACCENT} value={downPaymentPct} onChange={(e) => setDownPaymentPct(Number(e.target.value))} min={10} max={50} suffix="%" />
+              <SliderInput colors={colors} accent={ACCENT} value={downPaymentPct} onChange={(e) => { markCustom(); setDownPaymentPct(Number(e.target.value)) }} min={10} max={50} suffix="%" />
             </Field>
             <Field label="Mortgage markup" hint="Use an actual bank range when possible. A 1–2% change can materially alter the answer.">
-              <SliderInput colors={colors} accent={ACCENT} value={annualMarkupRate} onChange={(e) => setAnnualMarkupRate(Number(e.target.value))} min={10} max={24} step={0.25} suffix="%" />
+              <SliderInput colors={colors} accent={ACCENT} value={annualMarkupRate} onChange={(e) => { markCustom(); setAnnualMarkupRate(Number(e.target.value)) }} min={10} max={24} step={0.25} suffix="%" />
             </Field>
             <Field label="Mortgage tenure" hint="Longer tenure lowers EMI but usually increases total financing cost.">
-              <SliderInput colors={colors} accent={ACCENT} value={mortgageYears} onChange={(e) => setMortgageYears(Number(e.target.value))} min={5} max={25} suffix=" years" />
+              <SliderInput colors={colors} accent={ACCENT} value={mortgageYears} onChange={(e) => { markCustom(); setMortgageYears(Number(e.target.value)) }} min={5} max={25} suffix=" years" />
             </Field>
             <Field label="Alternative investment return" hint="This represents what your down payment and transaction cash could earn elsewhere. Stay realistic.">
-              <SliderInput colors={colors} accent={ACCENT} value={investmentReturnPct} onChange={(e) => setInvestmentReturnPct(Number(e.target.value))} min={6} max={22} step={0.5} suffix="%" />
+              <SliderInput colors={colors} accent={ACCENT} value={investmentReturnPct} onChange={(e) => { markCustom(); setInvestmentReturnPct(Number(e.target.value)) }} min={6} max={22} step={0.5} suffix="%" />
             </Field>
           </FieldsGrid>
 
           <SectionCard title="Market assumptions" accent={ACCENT} colors={colors}>
             <FieldsGrid>
-              <Field label="Annual rent growth" hint="Use a market average, not one unusually aggressive landlord increase.">
-                <SliderInput colors={colors} accent={ACCENT} value={annualRentGrowth} onChange={(e) => setAnnualRentGrowth(Number(e.target.value))} min={3} max={18} step={0.5} suffix="%" />
-              </Field>
-              <Field label="Annual home price growth" hint="This is the easiest assumption to overestimate. Test a lower case too.">
-                <SliderInput colors={colors} accent={ACCENT} value={annualHomeGrowth} onChange={(e) => setAnnualHomeGrowth(Number(e.target.value))} min={3} max={18} step={0.5} suffix="%" />
-              </Field>
-              <Field label="Maintenance cost" hint="Apartments and older houses usually need more than people budget initially.">
-                <SliderInput colors={colors} accent={ACCENT} value={annualMaintenancePct} onChange={(e) => setAnnualMaintenancePct(Number(e.target.value))} min={0.3} max={2.5} step={0.1} suffix="%" />
-              </Field>
-              <Field label="Property tax / holding cost" hint="Include recurring ownership friction, not only formal tax.">
-                <SliderInput colors={colors} accent={ACCENT} value={propertyTaxPct} onChange={(e) => setPropertyTaxPct(Number(e.target.value))} min={0} max={1} step={0.05} suffix="%" />
-              </Field>
-              <Field label="Transfer + selling friction" hint="Registry, agent cuts, legal work, and resale friction should all live here.">
-                <SliderInput colors={colors} accent={ACCENT} value={transferCostPct} onChange={(e) => setTransferCostPct(Number(e.target.value))} min={3} max={10} step={0.25} suffix="%" />
-              </Field>
-            </FieldsGrid>
-          </SectionCard>
+                <Field label="Annual rent growth" hint="Use a market average, not one unusually aggressive landlord increase.">
+                  <SliderInput colors={colors} accent={ACCENT} value={annualRentGrowth} onChange={(e) => { markCustom(); setAnnualRentGrowth(Number(e.target.value)) }} min={3} max={18} step={0.5} suffix="%" />
+                </Field>
+                <Field label="Annual home price growth" hint="This is the easiest assumption to overestimate. Test a lower case too.">
+                  <SliderInput colors={colors} accent={ACCENT} value={annualHomeGrowth} onChange={(e) => { markCustom(); setAnnualHomeGrowth(Number(e.target.value)) }} min={3} max={18} step={0.5} suffix="%" />
+                </Field>
+                <Field label="Maintenance cost" hint="Apartments and older houses usually need more than people budget initially.">
+                  <SliderInput colors={colors} accent={ACCENT} value={annualMaintenancePct} onChange={(e) => { markCustom(); setAnnualMaintenancePct(Number(e.target.value)) }} min={0.3} max={2.5} step={0.1} suffix="%" />
+                </Field>
+                <Field label="Property tax / holding cost" hint="Include recurring ownership friction, not only formal tax.">
+                  <SliderInput colors={colors} accent={ACCENT} value={propertyTaxPct} onChange={(e) => { markCustom(); setPropertyTaxPct(Number(e.target.value)) }} min={0} max={1} step={0.05} suffix="%" />
+                </Field>
+                <Field label="Transfer + selling friction" hint="Registry, agent cuts, legal work, and resale friction should all live here.">
+                  <SliderInput colors={colors} accent={ACCENT} value={transferCostPct} onChange={(e) => { markCustom(); setTransferCostPct(Number(e.target.value)) }} min={3} max={10} step={0.25} suffix="%" />
+                </Field>
+              </FieldsGrid>
+            </SectionCard>
         </SectionCard>
 
         <div style={{ display: 'grid', gap: '1rem' }}>
@@ -349,12 +437,22 @@ export default function RentVsBuyPakistan() {
             <MetricCard label="Rent net cost" value={fmtCurrency(result.rentNetCost)} sub={`Invested reserve: ${fmtCurrency(result.rentInvestedValue)}`} accent="#06b6d4" colors={colors} />
             <MetricCard label="Monthly EMI" value={fmtCurrency(result.emi)} sub={`Down payment: ${fmtCurrency(result.downPayment)}`} accent={ACCENT} colors={colors} />
             <MetricCard label="Break-even horizon" value={result.breakEvenYears ? `${result.breakEvenYears} yrs` : 'Watch assumptions'} sub="Longer stays usually improve the buy case." accent="#8b5cf6" colors={colors} />
+            <MetricCard label="Owner upfront cash" value={fmtCurrency(result.downPayment)} sub="This is the cash that gets locked immediately before recurring costs." accent="#f59e0b" colors={colors} />
+            <MetricCard label="Rent-side invested reserve" value={fmtCurrency(result.rentInvestedValue)} sub="Shows what the down payment and monthly gap can become if you stay disciplined." accent="#14b8a6" colors={colors} />
           </MetricGrid>
 
           <SectionCard title="Decision path" subtitle={result.decisionTrack} accent={ACCENT} colors={colors}>
             <div style={{ color: colors.text, fontSize: '1.02rem', fontWeight: 700 }}>{result.decisionTitle}</div>
             <p style={{ margin: 0, color: colors.textSecondary, lineHeight: 1.65 }}>{result.decisionBody}</p>
             <BulletList items={result.actionSteps} colors={colors} />
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', marginTop: '0.5rem' }}>
+              <button type="button" onClick={copySummary} style={{ padding: '0.55rem 0.9rem', borderRadius: '0.75rem', border: `1px solid ${copyState === 'error' ? '#ef4444' : ACCENT}`, background: copyState === 'copied' ? '#dcfce7' : `${ACCENT}12`, color: copyState === 'error' ? '#ef4444' : ACCENT, fontWeight: 700, cursor: 'pointer' }}>
+                {copyState === 'copied' ? 'Summary copied' : copyState === 'error' ? 'Copy failed' : 'Copy plan summary'}
+              </button>
+              <button type="button" onClick={downloadSummary} style={{ padding: '0.55rem 0.9rem', borderRadius: '0.75rem', border: `1px solid ${colors.border}`, background: colors.card, color: colors.text, fontWeight: 700, cursor: 'pointer' }}>
+                Download summary
+              </button>
+            </div>
           </SectionCard>
 
           <SectionCard title="Why the recommendation changed" accent={ACCENT} colors={colors}>
@@ -371,6 +469,19 @@ export default function RentVsBuyPakistan() {
 
           <SectionCard title="Decision scores" subtitle="Cost dominates the score. Flexibility and resilience adjust the final ranking." accent={ACCENT} colors={colors}>
             <ScoreBars scores={{ 'Buy score': result.finalScores.buy, 'Rent score': result.finalScores.rent }} colors={colors} />
+          </SectionCard>
+
+          <SectionCard title="What to verify next" subtitle="The answer is only as good as the assumptions you put underneath it." accent={ACCENT} colors={colors}>
+            <BulletList
+              items={[
+                'Check two or three actual bank markup offers instead of trusting a generic financing assumption.',
+                'Use comparable rent for a genuinely similar home, not a smaller or lower-quality alternative.',
+                'Pressure-test appreciation. If the buy case only works with optimistic growth, it is weaker than it looks.',
+                'Separate emotional comfort from this specific property decision. A bad property at the wrong financing cost is still a bad deal.',
+                'If you rent, treat the monthly gap and down-payment reserve as investable capital, not spending money.',
+              ]}
+              colors={colors}
+            />
           </SectionCard>
         </div>
       </div>

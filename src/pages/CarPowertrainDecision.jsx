@@ -39,6 +39,13 @@ const EV_BASELINES = {
   resaleFactor: { petrol: 0.55, hybrid: 0.6, ev: 0.5 },
 }
 
+const SCENARIO_PRESETS = [
+  { id: 'city-commuter', label: 'City commuter', note: 'High city use, moderate daily km', values: { dailyKm: 45, cityDrivingRatio: 80, chargingAvailability: 'home_only', loadSheddingHours: 2 } },
+  { id: 'high-mileage', label: 'High-mileage driver', note: 'Running cost matters most', values: { dailyKm: 90, cityDrivingRatio: 60, chargingAvailability: 'public_available', loadSheddingHours: 1 } },
+  { id: 'second-car', label: 'Family second car', note: 'Lower usage, convenience matters', values: { dailyKm: 20, cityDrivingRatio: 85, chargingAvailability: 'home_only', loadSheddingHours: 2 } },
+  { id: 'charging-constrained', label: 'Charging constrained', note: 'EV risk stays higher', values: { dailyKm: 40, cityDrivingRatio: 70, chargingAvailability: 'limited', loadSheddingHours: 4 } },
+]
+
 function carDecision(inputs) {
   const annualKm = (Number(inputs.dailyKm) || 0) * 365
   const fuelCosts = {
@@ -200,6 +207,8 @@ function carDecision(inputs) {
 
 export default function CarPowertrainDecision() {
   const { colors } = useTheme()
+  const [scenarioPreset, setScenarioPreset] = useState('custom')
+  const [copyState, setCopyState] = useState('idle')
   const [dailyKm, setDailyKm] = useState(40)
   const [cityDrivingRatio, setCityDrivingRatio] = useState(70)
   const [petrolPricePerLitre, setPetrolPricePerLitre] = useState(300)
@@ -209,6 +218,20 @@ export default function CarPowertrainDecision() {
   const [carPriceEv, setCarPriceEv] = useState(9000000)
   const [chargingAvailability, setChargingAvailability] = useState('home_only')
   const [loadSheddingHours, setLoadSheddingHours] = useState(2)
+
+  function applyScenario(presetId) {
+    const preset = SCENARIO_PRESETS.find((item) => item.id === presetId)
+    if (!preset) return
+    setScenarioPreset(presetId)
+    setDailyKm(preset.values.dailyKm)
+    setCityDrivingRatio(preset.values.cityDrivingRatio)
+    setChargingAvailability(preset.values.chargingAvailability)
+    setLoadSheddingHours(preset.values.loadSheddingHours)
+  }
+
+  function markCustom() {
+    setScenarioPreset('custom')
+  }
 
   const result = useMemo(() => carDecision({
     dailyKm,
@@ -226,6 +249,42 @@ export default function CarPowertrainDecision() {
   ])
 
   const displayName = result.recommendation === 'hybrid' ? 'Hybrid preferred' : result.recommendation === 'ev' ? 'EV preferred' : 'Petrol preferred'
+  const summaryText = [
+    'Rafiqy Petrol vs Hybrid vs EV Pakistan Summary',
+    `Daily driving: ${dailyKm} km`,
+    `City driving: ${cityDrivingRatio}%`,
+    `Charging availability: ${chargingAvailability}`,
+    `Load shedding: ${loadSheddingHours} hours/day`,
+    `Recommendation: ${displayName}`,
+    `Petrol 5y TCO: ${fmtCurrency(result.tco.petrol)}`,
+    `Hybrid 5y TCO: ${fmtCurrency(result.tco.hybrid)}`,
+    `EV 5y TCO: ${fmtCurrency(result.tco.ev)}`,
+    `Decision path: ${result.decisionTitle}`,
+    `Action steps: ${result.actionSteps.join(' | ')}`,
+  ].join('\n')
+
+  async function copySummary() {
+    try {
+      await navigator.clipboard.writeText(summaryText)
+      setCopyState('copied')
+      setTimeout(() => setCopyState('idle'), 1800)
+    } catch {
+      setCopyState('error')
+      setTimeout(() => setCopyState('idle'), 1800)
+    }
+  }
+
+  function downloadSummary() {
+    const blob = new Blob([summaryText], { type: 'text/plain;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'rafiqy-vehicle-decision-summary.txt'
+    document.body.appendChild(link)
+    link.click()
+    link.remove()
+    URL.revokeObjectURL(url)
+  }
 
   return (
     <ToolLayout toolId="car-powertrain-decision">
@@ -247,37 +306,61 @@ export default function CarPowertrainDecision() {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.05fr) minmax(320px, 0.95fr)', gap: '1rem' }}>
         <SectionCard title="Ownership scenario" subtitle="Use your expected usage, local energy costs, and vehicle prices." accent={ACCENT} colors={colors}>
+          <div style={{ marginBottom: '1rem' }}>
+            <div style={{ color: colors.text, fontWeight: 700, marginBottom: '0.55rem', fontSize: '0.88rem' }}>Start from a real-life driving pattern</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.55rem' }}>
+              {SCENARIO_PRESETS.map((preset) => (
+                <button
+                  key={preset.id}
+                  type="button"
+                  onClick={() => applyScenario(preset.id)}
+                  style={{
+                    textAlign: 'left',
+                    padding: '0.75rem 0.85rem',
+                    borderRadius: '0.9rem',
+                    border: `1px solid ${scenarioPreset === preset.id ? ACCENT : colors.border}`,
+                    background: scenarioPreset === preset.id ? `${ACCENT}14` : colors.card,
+                    color: colors.text,
+                    cursor: 'pointer',
+                  }}
+                >
+                  <div style={{ fontWeight: 800, fontSize: '0.84rem', marginBottom: '0.2rem' }}>{preset.label}</div>
+                  <div style={{ fontSize: '0.75rem', color: colors.textSecondary, lineHeight: 1.45 }}>{preset.note}</div>
+                </button>
+              ))}
+            </div>
+          </div>
           <FieldsGrid>
             <Field label="Daily driving distance" hint="Use your normal weekly average. This is one of the biggest drivers of the result.">
-              <SliderInput colors={colors} accent={ACCENT} value={dailyKm} onChange={(e) => setDailyKm(Number(e.target.value))} min={5} max={120} suffix=" km" />
+              <SliderInput colors={colors} accent={ACCENT} value={dailyKm} onChange={(e) => { markCustom(); setDailyKm(Number(e.target.value)) }} min={5} max={120} suffix=" km" />
             </Field>
             <Field label="City driving ratio" hint="Higher city use usually strengthens hybrid and EV relative to petrol.">
-              <SliderInput colors={colors} accent={ACCENT} value={cityDrivingRatio} onChange={(e) => setCityDrivingRatio(Number(e.target.value))} min={10} max={95} suffix="%" />
+              <SliderInput colors={colors} accent={ACCENT} value={cityDrivingRatio} onChange={(e) => { markCustom(); setCityDrivingRatio(Number(e.target.value)) }} min={10} max={95} suffix="%" />
             </Field>
             <Field label="Petrol price per litre (PKR)" hint="Use current local pump pricing, then pressure-test with a higher fuel scenario.">
-              <NumberInput colors={colors} value={petrolPricePerLitre} onChange={(e) => setPetrolPricePerLitre(Number(e.target.value) || 0)} />
+              <NumberInput colors={colors} value={petrolPricePerLitre} onChange={(e) => { markCustom(); setPetrolPricePerLitre(Number(e.target.value) || 0) }} />
             </Field>
             <Field label="Electricity price per kWh (PKR)" hint="Use your effective at-home charging rate, not a best-case off-peak fantasy unless you really have it.">
-              <NumberInput colors={colors} value={electricityPricePerKwh} onChange={(e) => setElectricityPricePerKwh(Number(e.target.value) || 0)} />
+              <NumberInput colors={colors} value={electricityPricePerKwh} onChange={(e) => { markCustom(); setElectricityPricePerKwh(Number(e.target.value) || 0) }} />
             </Field>
             <Field label="Petrol car price (PKR)" hint="Use the actual model price you would pay, including normal delivery premium if relevant.">
-              <NumberInput colors={colors} value={carPricePetrol} onChange={(e) => setCarPricePetrol(Number(e.target.value) || 0)} />
+              <NumberInput colors={colors} value={carPricePetrol} onChange={(e) => { markCustom(); setCarPricePetrol(Number(e.target.value) || 0) }} />
             </Field>
             <Field label="Hybrid car price (PKR)" hint="Compare like-for-like segment vehicles as closely as possible.">
-              <NumberInput colors={colors} value={carPriceHybrid} onChange={(e) => setCarPriceHybrid(Number(e.target.value) || 0)} />
+              <NumberInput colors={colors} value={carPriceHybrid} onChange={(e) => { markCustom(); setCarPriceHybrid(Number(e.target.value) || 0) }} />
             </Field>
             <Field label="EV price (PKR)" hint="If home charger install is extra, include it mentally or increase the EV price here.">
-              <NumberInput colors={colors} value={carPriceEv} onChange={(e) => setCarPriceEv(Number(e.target.value) || 0)} />
+              <NumberInput colors={colors} value={carPriceEv} onChange={(e) => { markCustom(); setCarPriceEv(Number(e.target.value) || 0) }} />
             </Field>
             <Field label="Charging availability" hint="Be honest. ‘Limited’ is better than pretending public charging is dependable for you.">
-              <SelectInput colors={colors} value={chargingAvailability} onChange={(e) => setChargingAvailability(e.target.value)}>
+              <SelectInput colors={colors} value={chargingAvailability} onChange={(e) => { markCustom(); setChargingAvailability(e.target.value) }}>
                 <option value="home_only">Home only</option>
                 <option value="public_available">Home + public charging</option>
                 <option value="limited">Limited / unreliable</option>
               </SelectInput>
             </Field>
             <Field label="Load shedding" hint="This mainly affects EV practicality and charging confidence, not just electricity cost.">
-              <SliderInput colors={colors} accent={ACCENT} value={loadSheddingHours} onChange={(e) => setLoadSheddingHours(Number(e.target.value))} min={0} max={8} suffix=" hours/day" />
+              <SliderInput colors={colors} accent={ACCENT} value={loadSheddingHours} onChange={(e) => { markCustom(); setLoadSheddingHours(Number(e.target.value)) }} min={0} max={8} suffix=" hours/day" />
             </Field>
           </FieldsGrid>
         </SectionCard>
@@ -301,6 +384,14 @@ export default function CarPowertrainDecision() {
             <div style={{ color: colors.text, fontSize: '1.02rem', fontWeight: 700 }}>{result.decisionTitle}</div>
             <p style={{ margin: 0, color: colors.textSecondary, lineHeight: 1.65 }}>{result.decisionBody}</p>
             <BulletList items={result.actionSteps} colors={colors} />
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', marginTop: '0.5rem' }}>
+              <button type="button" onClick={copySummary} style={{ padding: '0.55rem 0.9rem', borderRadius: '0.75rem', border: `1px solid ${copyState === 'error' ? '#ef4444' : ACCENT}`, background: copyState === 'copied' ? '#dcfce7' : `${ACCENT}12`, color: copyState === 'error' ? '#ef4444' : ACCENT, fontWeight: 700, cursor: 'pointer' }}>
+                {copyState === 'copied' ? 'Summary copied' : copyState === 'error' ? 'Copy failed' : 'Copy plan summary'}
+              </button>
+              <button type="button" onClick={downloadSummary} style={{ padding: '0.55rem 0.9rem', borderRadius: '0.75rem', border: `1px solid ${colors.border}`, background: colors.card, color: colors.text, fontWeight: 700, cursor: 'pointer' }}>
+                Download summary
+              </button>
+            </div>
           </SectionCard>
 
           <SectionCard title="Decision trace" accent={ACCENT} colors={colors}>
@@ -322,6 +413,31 @@ export default function CarPowertrainDecision() {
                 'Hybrid score': result.totalScores.hybrid,
                 'EV score': result.totalScores.ev,
               }}
+              colors={colors}
+            />
+          </SectionCard>
+
+          <SectionCard title="Which path fits which user?" subtitle="The cheapest answer and the least frustrating answer are not always the same." accent={ACCENT} colors={colors}>
+            <BulletList
+              items={[
+                'Petrol often fits lower-mileage users, weak charging setups, and buyers who do not want to pay a large upfront premium yet.',
+                'Hybrid usually fits high city-driving users who want a meaningful running-cost improvement without depending on charging infrastructure.',
+                'EV fits best when daily usage is meaningful, home charging is dependable, and you can honestly live the charging routine for years.',
+                'If the result is close, convenience, resale confidence, and charging resilience deserve more weight than hype.',
+              ]}
+              colors={colors}
+            />
+          </SectionCard>
+
+          <SectionCard title="What to verify next" subtitle="Do this before turning the recommendation into a vehicle purchase." accent={ACCENT} colors={colors}>
+            <BulletList
+              items={[
+                'Use real on-road prices, not idealized brochure pricing.',
+                'If you are testing EV, cost the charger install and backup reality honestly.',
+                'Check whether your daily usage is stable or whether this decision is being based on a temporary commute pattern.',
+                'For hybrid and EV, compare resale behavior and service support in the specific model class you are considering.',
+                'Rerun the scenario when fuel or electricity pricing shifts materially, because those changes can move the result faster than people expect.',
+              ]}
               colors={colors}
             />
           </SectionCard>

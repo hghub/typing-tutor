@@ -16,6 +16,7 @@ import {
   RecommendationBanner,
   BulletList,
   ScoreBars,
+  ComparisonBars,
 } from '../components/decision/DecisionBlocks'
 import {
   fmtCurrency,
@@ -396,6 +397,17 @@ export default function CarPowertrainDecision() {
 
           <SectionCard title="Decision trace" accent={ACCENT} colors={colors}>
             <BulletList items={result.reasons} colors={colors} />
+          </SectionCard>
+
+          <SectionCard title="See the ownership gap clearly" subtitle="Shorter bars are better here because the chart compares projected 5-year total cost of ownership." accent={ACCENT} colors={colors}>
+            <ComparisonBars
+              colors={colors}
+              items={[
+                { label: 'Petrol', value: result.tco.petrol, display: fmtCurrency(result.tco.petrol), color: '#f97316', note: `Monthly running cost: ${fmtCurrency(result.monthlyCosts.petrol)}` },
+                { label: 'Hybrid', value: result.tco.hybrid, display: fmtCurrency(result.tco.hybrid), color: '#22c55e', note: `Monthly running cost: ${fmtCurrency(result.monthlyCosts.hybrid)}` },
+                { label: 'EV', value: result.tco.ev, display: fmtCurrency(result.tco.ev), color: '#8b5cf6', note: `Monthly running cost: ${fmtCurrency(result.monthlyCosts.ev)}` },
+              ]}
+            />
           </SectionCard>
 
           <SectionCard title="What changes the answer?" subtitle="Use these scenario shifts to see whether the recommendation is durable." accent={ACCENT} colors={colors}>

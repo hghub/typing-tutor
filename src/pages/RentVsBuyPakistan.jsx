@@ -16,6 +16,7 @@ import {
   RecommendationBanner,
   BulletList,
   ScoreBars,
+  ComparisonBars,
 } from '../components/decision/DecisionBlocks'
 import {
   fmtCurrency,
@@ -457,6 +458,16 @@ export default function RentVsBuyPakistan() {
 
           <SectionCard title="Why the recommendation changed" accent={ACCENT} colors={colors}>
             <BulletList items={result.reasons} colors={colors} />
+          </SectionCard>
+
+          <SectionCard title="See the cost gap clearly" subtitle="Shorter bars are financially better here because this chart compares projected net cost under your assumptions." accent={ACCENT} colors={colors}>
+            <ComparisonBars
+              colors={colors}
+              items={[
+                { label: 'Buy path', value: Math.max(0, result.buyNetCost), display: fmtCurrency(result.buyNetCost), color: '#22c55e', note: `Owner net worth at exit: ${fmtCurrency(result.ownerNetWorth)}` },
+                { label: 'Rent path', value: Math.max(0, result.rentNetCost), display: fmtCurrency(result.rentNetCost), color: '#06b6d4', note: `Invested reserve at exit: ${fmtCurrency(result.rentInvestedValue)}` },
+              ]}
+            />
           </SectionCard>
 
           <SectionCard title="What flips the answer?" subtitle="These sensitivity checks show how fragile or durable the decision is." accent={ACCENT} colors={colors}>

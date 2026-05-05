@@ -1076,6 +1076,20 @@ export default function SolarPlanner() {
             {/* Savings breakdown */}
             <div style={{ ...card, background: '#0c1a2e', border: '1px solid #1e3a5f' }}>
               <div style={{ color: '#7dd3fc', fontWeight: 600, fontSize: '0.875rem', marginBottom: '0.75rem' }}>📋 Monthly Savings Breakdown (2026 Net Billing)</div>
+              <div style={{ marginBottom: '0.85rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '1rem', marginBottom: '0.35rem' }}>
+                  <span style={{ color: '#e2e8f0', fontSize: '0.8rem', fontWeight: 700 }}>Energy use split</span>
+                  <span style={{ color: '#64748b', fontSize: '0.72rem' }}>{results.selfConsumedKwh} kWh self-used · {results.exportedKwh} kWh exported</span>
+                </div>
+                <div style={{ height: '12px', borderRadius: '999px', overflow: 'hidden', background: '#1e293b', display: 'flex' }}>
+                  <div style={{ width: `${Math.max(6, (results.selfConsumedKwh / Math.max(1, results.monthlyGen)) * 100)}%`, background: '#22c55e' }} />
+                  <div style={{ width: `${Math.max(0, (results.exportedKwh / Math.max(1, results.monthlyGen)) * 100)}%`, background: '#38bdf8' }} />
+                </div>
+                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '0.35rem', fontSize: '0.72rem' }}>
+                  <span style={{ color: '#86efac' }}>■ Self-consumed solar carries the highest value</span>
+                  <span style={{ color: '#7dd3fc' }}>■ Exported solar is lower-value under current net billing</span>
+                </div>
+              </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 <Row label={`🏠 Self-consumed (${selfConsume}%)`} detail={`${results.selfConsumedKwh} kWh × PKR ${importTariff}/unit`} value={`PKR ${fmt(results.selfSavings)}`} color="#86efac" />
                 {netBilling && (

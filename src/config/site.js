@@ -4,10 +4,10 @@
  */
 export const SITE = {
   name: 'Rafiqy',
-  tagline: 'Privacy-first browser tools for everyday work',
+  tagline: 'Your everyday digital toolbox',
   url: 'https://rafiqy.app',
   email: '',
   twitter: '@rafiqyapp',
   description:
-    'Free browser-based tools for typing, Urdu input, Pakistan tax planning, solar estimates, PDFs, writing, and daily digital work.',
+    'Privacy-first browser tools and decision systems for typing, Urdu input, Pakistan tax planning, solar estimates, investing, PDFs, writing, and daily digital work.',
 }

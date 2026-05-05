@@ -95,22 +95,22 @@ export default function Landing() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-bg)', color: 'var(--color-text)', fontFamily: 'sans-serif' }}>
       <Helmet>
-        <title>Rafiqy | Free Browser Tools for Typing, Pakistan Tax, Solar, PDF & More</title>
-        <meta name="description" content="Free browser-based tools for Urdu typing, Pakistan income tax, solar planning, PDFs, writing, productivity and everyday digital work. No sign-up. Privacy-first." />
+        <title>Rafiqy | Your Everyday Digital Toolbox</title>
+        <meta name="description" content="Privacy-first browser tools and decision systems for Urdu typing, Pakistan tax, solar, investing, PDFs, writing, and everyday digital work." />
         <link rel="canonical" href="https://rafiqy.app/" />
-        <meta property="og:title" content="Rafiqy | Free Browser Tools for Typing, Pakistan Tax, Solar, PDF & More" />
-        <meta property="og:description" content="Free browser-based tools for Urdu typing, Pakistan income tax, solar planning, PDFs, writing, productivity and everyday digital work." />
+        <meta property="og:title" content="Rafiqy | Your Everyday Digital Toolbox" />
+        <meta property="og:description" content="Privacy-first browser tools and decision systems for Urdu typing, Pakistan tax, solar, investing, PDFs, writing, and everyday digital work." />
         <meta property="og:url" content="https://rafiqy.app/" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Rafiqy | Free Browser Tools for Typing, Pakistan Tax, Solar, PDF & More" />
-        <meta name="twitter:description" content="Free browser-based tools for Urdu typing, Pakistan income tax, solar planning, PDFs, writing, productivity and everyday digital work." />
+        <meta name="twitter:title" content="Rafiqy | Your Everyday Digital Toolbox" />
+        <meta name="twitter:description" content="Privacy-first browser tools and decision systems for Urdu typing, Pakistan tax, solar, investing, PDFs, writing, and everyday digital work." />
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'WebSite',
           'name': 'Rafiqy',
           'url': 'https://rafiqy.app',
-          'description': 'Free browser-based tools for typing, Urdu input, Pakistan tax planning, solar estimates, PDFs, writing, productivity and everyday digital work.'
+          'description': 'Privacy-first browser tools and decision systems for typing, Urdu input, Pakistan tax planning, solar estimates, investing, PDFs, writing, and everyday digital work.'
         })}</script>
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',

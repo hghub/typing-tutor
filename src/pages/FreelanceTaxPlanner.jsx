@@ -14,8 +14,10 @@ import {
   MetricGrid,
   MetricCard,
   RecommendationBanner,
+  ActionCallout,
   BulletList,
   ScoreBars,
+  CollapsibleSection,
 } from '../components/decision/DecisionBlocks'
 import {
   fmtCurrency,
@@ -225,6 +227,13 @@ export default function FreelanceTaxPlanner() {
             confidence={Math.max(0.55, Math.min(0.92, result.healthScore / 100))}
             colors={colors}
           />
+          <ActionCallout
+            title="What you should do next"
+            body={result.decisionTrack}
+            accent={result.healthScore >= 75 ? '#22c55e' : result.healthScore >= 58 ? '#f59e0b' : '#ef4444'}
+            colors={colors}
+            actions={result.actionSteps.slice(0, 3)}
+          />
           <MetricGrid>
             <MetricCard label="Monthly tax reserve" value={fmtCurrency(result.taxReserveMonthly)} sub={`Approx annual tax: ${fmtCurrency(result.annualTax)}`} accent="#ef4444" colors={colors} />
             <MetricCard label="Operating reserve" value={fmtCurrency(result.opsReserveMonthly)} sub={`${reservePct}% of average monthly revenue`} accent="#06b6d4" colors={colors} />
@@ -238,9 +247,13 @@ export default function FreelanceTaxPlanner() {
             <BulletList items={result.actionSteps} colors={colors} />
           </SectionCard>
 
-          <SectionCard title="Reserve logic" accent={ACCENT} colors={colors}>
+          <CollapsibleSection
+            title="Reserve logic"
+            summary="Open this if you want to see why the reserve structure ended up where it did."
+            colors={colors}
+          >
             <BulletList items={result.reasons} colors={colors} />
-          </SectionCard>
+          </CollapsibleSection>
 
           <SectionCard title="Pressure-test the plan" subtitle="These checks show how sensitive your cash discipline is to a rougher month or stricter reserve policy." accent={ACCENT} colors={colors}>
             <MetricGrid min={220}>
@@ -250,9 +263,13 @@ export default function FreelanceTaxPlanner() {
             </MetricGrid>
           </SectionCard>
 
-          <SectionCard title="Financial health score" subtitle="A balanced planner protects tax, operations, and personal runway together." accent={ACCENT} colors={colors}>
+          <CollapsibleSection
+            title="Financial health score"
+            summary="Open this if you want the reserve-health signal without relying only on the headline recommendation."
+            colors={colors}
+          >
             <ScoreBars scores={{ 'Reserve health': result.healthScore }} colors={colors} />
-          </SectionCard>
+          </CollapsibleSection>
         </div>
       </div>
 

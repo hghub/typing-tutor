@@ -2984,4 +2984,159 @@ export const BLOG_POSTS = [
 <div class="cta-box"><p>Check whether your corpus should be treated as one goal or several competing goals.</p><a href="/tools/investment-allocation-planner-pakistan">Open the planner →</a></div>
 `,
   },
+  {
+    slug: 'how-to-negotiate-a-job-offer-in-pakistan',
+    title: 'How to Negotiate a Job Offer in Pakistan Without Guessing What to Ask For',
+    description: 'A practical guide to negotiating salary, flexibility, and benefits in Pakistan when the offer is close but not strong enough yet.',
+    hero: '🤝',
+    category: 'pakistan',
+    readTime: '7 min read',
+    publishDate: '2026-05-05',
+    tags: ['negotiate job offer Pakistan', 'salary negotiation Pakistan', 'job offer evaluator'],
+    content: `
+<h2>Negotiate the Weak Point, Not Everything at Once</h2>
+<p>Many people know an offer feels close but still negotiate vaguely. That makes the conversation weaker than it needs to be. A better approach is to identify <strong>which variable actually changes the decision</strong>.</p>
+
+<h2>The Usual Negotiation Levers</h2>
+<ul>
+  <li>fixed monthly salary</li>
+  <li>joining bonus or relocation support</li>
+  <li>remote days or commute flexibility</li>
+  <li>medical cover</li>
+  <li>fuel or transport support</li>
+  <li>learning budget or professional development</li>
+</ul>
+
+<h2>When to Ask for Salary vs Flexibility</h2>
+<p>If tax and city-cost pressure are the main issue, a stronger fixed salary or recurring allowance matters most. If the offer is being weakened by commute burden and energy loss, remote flexibility may improve the decision faster than a small salary adjustment.</p>
+
+<h2>What Makes Negotiation More Credible</h2>
+<p>Do not negotiate with only emotion. Show that you evaluated the package on after-tax value, benefits, commute, and practical quality of life. That makes the request sound reasoned instead of impulsive.</p>
+
+<h2>A Good Framing</h2>
+<p>You are not asking for “more because why not”. You are trying to close the specific gap that currently makes the role hard to justify.</p>
+
+<h2>Use the Evaluator First</h2>
+<p>The <a href="/tools/salary-offer-calculator-pakistan">Salary Offer Evaluator Pakistan</a> helps you see whether base salary, commute support, or remote flexibility is the variable that improves the decision most. That gives you a much better negotiation brief.</p>
+
+<div class="cta-box"><p>See which part of the offer actually needs to change before you negotiate.</p><a href="/tools/salary-offer-calculator-pakistan">Open the evaluator →</a></div>
+`,
+  },
+  {
+    slug: 'should-you-take-a-job-in-another-city-in-pakistan',
+    title: 'Should You Take a Job in Another City in Pakistan?',
+    description: 'A practical decision guide for roles that look better on paper but involve moving to a different city with different living costs and commute realities.',
+    hero: '🏙️',
+    category: 'pakistan',
+    readTime: '7 min read',
+    publishDate: '2026-05-05',
+    tags: ['job in another city Pakistan', 'salary offer evaluator', 'city cost comparison Pakistan'],
+    content: `
+<h2>The Offer Is Not Only the Salary</h2>
+<p>A move from one city to another changes much more than your gross pay. It changes living-cost pressure, commute pattern, family rhythm, and how much of the package is actually left for saving or investing.</p>
+
+<h2>What Usually Changes in a Cross-City Move</h2>
+<ul>
+  <li>rent and household cost baseline</li>
+  <li>transport or commute burden</li>
+  <li>distance from family support</li>
+  <li>quality-of-life friction</li>
+  <li>how much the relocation amount really helps</li>
+</ul>
+
+<h2>The Main Mistake</h2>
+<p>People often compare the new role against the current city lifestyle without adjusting the cost baseline properly. That can make a higher offer feel stronger than it really is.</p>
+
+<h2>What to Ask Before Saying Yes</h2>
+<ul>
+  <li>How much will the move change monthly cost pressure?</li>
+  <li>Will commute and work pattern improve or worsen?</li>
+  <li>Is the relocation support enough to matter, or only symbolic?</li>
+  <li>Does the long-term growth of the role justify the disruption?</li>
+</ul>
+
+<h2>Use a City-Aware Comparison</h2>
+<p>The <a href="/tools/salary-offer-calculator-pakistan">Salary Offer Evaluator Pakistan</a> compares the offer against city baselines, commute burden, benefits, and flexibility. That makes it much easier to judge whether the move is actually progress.</p>
+
+<div class="cta-box"><p>Check whether the cross-city move is genuinely worth it after the hidden adjustments.</p><a href="/tools/salary-offer-calculator-pakistan">Compare the offer →</a></div>
+`,
+  },
+  {
+    slug: 'how-much-should-freelancers-pay-themselves-in-pakistan',
+    title: 'How Much Should Freelancers Pay Themselves in Pakistan?',
+    description: 'A practical way to decide owner pay after tax reserve, operating reserve, and emergency runway are separated properly.',
+    hero: '💸',
+    category: 'pakistan',
+    readTime: '7 min read',
+    publishDate: '2026-05-05',
+    tags: ['freelancer owner pay Pakistan', 'freelance reserve planner', 'freelancer income discipline'],
+    content: `
+<h2>Owner Pay Is the Output, Not the Starting Point</h2>
+<p>Freelancers often treat business inflow as personal salary too early. That creates a false sense of income and leaves the business exposed when tax, client delays, or weak months arrive.</p>
+
+<h2>The Better Sequence</h2>
+<ol>
+  <li>separate tax reserve</li>
+  <li>separate operating reserve</li>
+  <li>keep building emergency runway</li>
+  <li>then decide what owner pay is actually safe</li>
+</ol>
+
+<h2>Why This Matters</h2>
+<p>If owner pay is set too aggressively, every delayed invoice turns into stress. That usually leads to bad pricing, emergency withdrawals, or using tax money for living costs.</p>
+
+<h2>What a Safer Owner-Pay Rule Does</h2>
+<p>A safer owner-pay rule protects the business first and gives you a number you can use without pretending every good month is permanent.</p>
+
+<h2>When Owner Pay Can Rise</h2>
+<ul>
+  <li>tax reserve is consistently funded</li>
+  <li>operating reserve is healthy</li>
+  <li>emergency runway is close to target</li>
+  <li>revenue stability improves over several months, not just one</li>
+</ul>
+
+<h2>Use a Planner Instead of Guessing</h2>
+<p>The <a href="/tools/freelance-tax-planner-pakistan">Freelance Tax and Reserve Planner</a> estimates a suggested owner-pay number only after reserve needs are separated. That makes it much more useful than treating monthly revenue as salary.</p>
+
+<div class="cta-box"><p>See what your business can safely pay you after proper reserve discipline.</p><a href="/tools/freelance-tax-planner-pakistan">Open the planner →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-separate-tax-and-business-reserves-as-a-freelancer',
+    title: 'How to Separate Tax and Business Reserves as a Freelancer',
+    description: 'A practical reserve-structure guide for freelancers who want to stop mixing tax money, operating cushion, and personal spending.',
+    hero: '🧩',
+    category: 'pakistan',
+    readTime: '6 min read',
+    publishDate: '2026-05-05',
+    tags: ['freelancer tax reserve', 'business reserve freelancer', 'freelance cashflow Pakistan'],
+    content: `
+<h2>One Pool of Money Creates Confusion</h2>
+<p>When freelancer cash all sits in one mental bucket, it becomes too easy to spend tax money, ignore operating volatility, and overestimate what is truly available for personal use.</p>
+
+<h2>The Three Buckets to Separate</h2>
+<ul>
+  <li><strong>Tax reserve:</strong> money that is not yours to spend</li>
+  <li><strong>Operating reserve:</strong> business protection for weak or delayed months</li>
+  <li><strong>Owner pay / household money:</strong> what is actually usable for life expenses</li>
+</ul>
+
+<h2>Why This Structure Works Better</h2>
+<p>Separate buckets reduce stress and improve decisions. You stop reacting to the total inflow number and start managing the actual jobs the money needs to do.</p>
+
+<h2>What Usually Goes Wrong</h2>
+<ul>
+  <li>tax is handled only at year-end</li>
+  <li>reserve rules disappear after two strong months</li>
+  <li>personal withdrawals rise faster than revenue quality improves</li>
+  <li>business volatility is treated like a surprise every time</li>
+</ul>
+
+<h2>Use a Reserve Planner First</h2>
+<p>The <a href="/tools/freelance-tax-planner-pakistan">Freelance Tax and Reserve Planner</a> helps turn this into a monthly plan: how much goes to tax, how much stays in operating reserve, how much should build emergency runway, and how much is safer owner pay.</p>
+
+<div class="cta-box"><p>Build a cleaner reserve structure before another strong month tricks you into overspending.</p><a href="/tools/freelance-tax-planner-pakistan">Open the planner →</a></div>
+`,
+  },
 ]

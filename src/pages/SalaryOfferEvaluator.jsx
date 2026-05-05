@@ -15,8 +15,10 @@ import {
   MetricGrid,
   MetricCard,
   RecommendationBanner,
+  ActionCallout,
   BulletList,
   ScoreBars,
+  CollapsibleSection,
 } from '../components/decision/DecisionBlocks'
 import {
   fmtCurrency,
@@ -290,6 +292,13 @@ export default function SalaryOfferEvaluator() {
             confidence={result.confidence}
             colors={colors}
           />
+          <ActionCallout
+            title="What you should do next"
+            body={result.decisionTrack}
+            accent={result.recommendation === 'Take the offer' ? '#22c55e' : '#f59e0b'}
+            colors={colors}
+            actions={result.actionSteps.slice(0, 3)}
+          />
           <MetricGrid>
             <MetricCard label="Annual gross" value={fmtCurrency(result.annualGross)} sub={`Estimated salary tax: ${fmtCurrency(result.tax)}`} accent={ACCENT} colors={colors} />
             <MetricCard label="Take-home after commute" value={fmtCurrency(result.netAnnualCash)} sub="Cash available before employer-paid benefits." accent="#22c55e" colors={colors} />
@@ -303,9 +312,13 @@ export default function SalaryOfferEvaluator() {
             <BulletList items={result.actionSteps} colors={colors} />
           </SectionCard>
 
-          <SectionCard title="Decision trace" accent={ACCENT} colors={colors}>
+          <CollapsibleSection
+            title="Decision trace"
+            summary="Open this if you want to see the main assumptions behind the result."
+            colors={colors}
+          >
             <BulletList items={result.reasons} colors={colors} />
-          </SectionCard>
+          </CollapsibleSection>
 
           <SectionCard title="What would improve the offer most?" subtitle="These checks show which lever has the biggest impact before you accept or reject." accent={ACCENT} colors={colors}>
             <MetricGrid min={220}>
@@ -315,9 +328,13 @@ export default function SalaryOfferEvaluator() {
             </MetricGrid>
           </SectionCard>
 
-          <SectionCard title="Offer vs current-role score" subtitle="The offer score combines affordability, flexibility, and growth support." accent={ACCENT} colors={colors}>
+          <CollapsibleSection
+            title="Offer vs current-role score"
+            summary="Open this if you want the weighted comparison behind the recommendation."
+            colors={colors}
+          >
             <ScoreBars scores={{ 'Offer score': result.totalScores.offer, 'Current role score': result.totalScores.current }} colors={colors} />
-          </SectionCard>
+          </CollapsibleSection>
         </div>
       </div>
 

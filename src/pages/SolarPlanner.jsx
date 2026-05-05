@@ -998,6 +998,33 @@ export default function SolarPlanner() {
               </div>
             </div>
 
+            <div style={{ ...card, background: '#0d2238', border: '1px solid #24527a' }}>
+              <div style={{ color: '#7dd3fc', fontWeight: 700, fontSize: '0.8rem', marginBottom: '0.4rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+                What you should do next
+              </div>
+              <div style={{ color: '#cbd5e1', fontSize: '0.82rem', lineHeight: 1.65, marginBottom: '0.75rem' }}>
+                {results.decisionTrack}
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                {results.actionSteps.slice(0, 3).map((step, i) => (
+                  <span
+                    key={i}
+                    style={{
+                      borderRadius: '999px',
+                      padding: '0.35rem 0.65rem',
+                      border: '1px solid #24527a',
+                      background: '#0f172a',
+                      color: '#e2e8f0',
+                      fontSize: '0.76rem',
+                      fontWeight: 700,
+                    }}
+                  >
+                    {step}
+                  </span>
+                ))}
+              </div>
+            </div>
+
             <div style={{ ...card, background: '#0f1c2e', border: '1px solid #264869' }}>
               <div style={{ color: '#7dd3fc', fontWeight: 700, fontSize: '0.82rem', marginBottom: '0.45rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
                 Decision Path
@@ -1022,17 +1049,22 @@ export default function SolarPlanner() {
             </div>
 
             {/* Why this verdict */}
-            <div style={{ ...card, background: '#0f1c2e', border: '1px solid #1e3a5f' }}>
-              <div style={{ color: '#7dd3fc', fontWeight: 600, fontSize: '0.82rem', marginBottom: '0.6rem' }}>🧠 Why "{results.verdict}"?</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
-                {results.verdictFactors.map((f, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
-                    <span style={{ fontSize: '0.82rem', flexShrink: 0, lineHeight: '1.5' }}>{f.icon}</span>
-                    <span style={{ color: f.color, fontSize: '0.78rem', lineHeight: 1.6 }}>{f.text}</span>
-                  </div>
-                ))}
+            <details style={{ marginBottom: '0.75rem' }}>
+              <summary style={{ cursor: 'pointer', background: '#0f1c2e', border: '1px solid #1e3a5f', borderRadius: '10px', padding: '0.8rem 1rem', color: '#7dd3fc', fontSize: '0.82rem', fontWeight: 700, listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span>🧠 Why "{results.verdict}"?</span>
+                <span style={{ fontSize: '0.72rem', color: '#475569' }}>tap to expand ▼</span>
+              </summary>
+              <div style={{ background: '#0f1c2e', border: '1px solid #1e3a5f', borderTop: 'none', borderRadius: '0 0 10px 10px', padding: '0.9rem 1rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+                  {results.verdictFactors.map((f, i) => (
+                    <div key={i} style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                      <span style={{ fontSize: '0.82rem', flexShrink: 0, lineHeight: '1.5' }}>{f.icon}</span>
+                      <span style={{ color: f.color, fontSize: '0.78rem', lineHeight: 1.6 }}>{f.text}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            </details>
 
             <div style={{ ...card, background: '#111827', border: '1px solid #22304b' }}>
               <div style={{ color: '#7dd3fc', fontWeight: 600, fontSize: '0.82rem', marginBottom: '0.75rem' }}>
@@ -1162,40 +1194,46 @@ export default function SolarPlanner() {
             )}
 
             {/* Battery card */}
-            <div style={{ ...card, border: `1px solid ${results.needsBattery ? '#fbbf2440' : '#33415560'}`, background: results.needsBattery ? '#451a0318' : '#1e293b' }}>
-              <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
-                <span style={{ fontSize: '1.6rem', flexShrink: 0 }}>🔋</span>
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.4rem', alignItems: 'center' }}>
-                    <div style={{ color: '#e2e8f0', fontWeight: 600, fontSize: '0.9rem' }}>Battery Storage — {results.needsBattery ? '⚠️ Recommended' : 'Optional'}</div>
-                    <span style={{ color: '#fbbf24', fontSize: '0.78rem', fontWeight: 700, background: '#451a0330', borderRadius: '6px', padding: '0.1rem 0.4rem' }}>PKR {fmt(BATT_LO)}–{fmt(BATT_HI)} (5–6 kWh)</span>
-                  </div>
-                  <p style={{ color: '#94a3b8', fontSize: '0.8rem', margin: '0.35rem 0 0.6rem', lineHeight: 1.6 }}>
-                    {results.needsBattery
-                      ? `${loadshed} hrs load-shedding: on-grid inverter = no power during outages. Battery keeps fans, lights & router running. Also converts export (PKR ${buybackRate}/unit) into self-use (PKR ${importTariff}/unit) — faster payback.`
-                      : `Minimal load-shedding. Battery optional — increases self-consumption and adds backup. Can be retrofitted later.`}
-                  </p>
-                  <div style={{ borderTop: '1px solid #334155', paddingTop: '0.5rem' }}>
-                    <div style={{ color: '#64748b', fontSize: '0.72rem', marginBottom: '0.4rem', fontWeight: 600 }}>April 2026 market prices (LiFePO₄, verified — down 15–18% from 2025):</div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                      {BATTERIES.map(b => (
-                        <div key={b.brand} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                            <span style={{ color: '#e2e8f0', fontSize: '0.82rem', fontWeight: 600 }}>{b.brand}</span>
-                            <span style={{ color: '#64748b', fontSize: '0.72rem' }}>{b.cap}</span>
-                            {b.flag && <span style={{ background: '#14532d30', color: '#86efac', fontSize: '0.65rem', borderRadius: '4px', padding: '0.1rem 0.3rem' }}>{b.flag}</span>}
+            <details style={{ marginBottom: '0.75rem' }}>
+              <summary style={{ cursor: 'pointer', background: results.needsBattery ? '#451a0318' : '#1e293b', border: `1px solid ${results.needsBattery ? '#fbbf2440' : '#33415560'}`, borderRadius: '10px', padding: '0.8rem 1rem', color: '#e2e8f0', fontSize: '0.84rem', fontWeight: 700, listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span>🔋 Battery Storage — {results.needsBattery ? 'Recommended' : 'Optional'}</span>
+                <span style={{ color: '#fbbf24', fontSize: '0.72rem' }}>tap to expand ▼</span>
+              </summary>
+              <div style={{ background: results.needsBattery ? '#451a0318' : '#1e293b', border: `1px solid ${results.needsBattery ? '#fbbf2440' : '#33415560'}`, borderTop: 'none', borderRadius: '0 0 10px 10px', padding: '0.9rem 1rem' }}>
+                <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                  <span style={{ fontSize: '1.6rem', flexShrink: 0 }}>🔋</span>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.4rem', alignItems: 'center' }}>
+                      <div style={{ color: '#e2e8f0', fontWeight: 600, fontSize: '0.9rem' }}>Battery Storage — {results.needsBattery ? '⚠️ Recommended' : 'Optional'}</div>
+                      <span style={{ color: '#fbbf24', fontSize: '0.78rem', fontWeight: 700, background: '#451a0330', borderRadius: '6px', padding: '0.1rem 0.4rem' }}>PKR {fmt(BATT_LO)}–{fmt(BATT_HI)} (5–6 kWh)</span>
+                    </div>
+                    <p style={{ color: '#94a3b8', fontSize: '0.8rem', margin: '0.35rem 0 0.6rem', lineHeight: 1.6 }}>
+                      {results.needsBattery
+                        ? `${loadshed} hrs load-shedding: on-grid inverter = no power during outages. Battery keeps fans, lights & router running. Also converts export (PKR ${buybackRate}/unit) into self-use (PKR ${importTariff}/unit) — faster payback.`
+                        : `Minimal load-shedding. Battery optional — increases self-consumption and adds backup. Can be retrofitted later.`}
+                    </p>
+                    <div style={{ borderTop: '1px solid #334155', paddingTop: '0.5rem' }}>
+                      <div style={{ color: '#64748b', fontSize: '0.72rem', marginBottom: '0.4rem', fontWeight: 600 }}>April 2026 market prices (LiFePO₄, verified — down 15–18% from 2025):</div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                        {BATTERIES.map(b => (
+                          <div key={b.brand} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                              <span style={{ color: '#e2e8f0', fontSize: '0.82rem', fontWeight: 600 }}>{b.brand}</span>
+                              <span style={{ color: '#64748b', fontSize: '0.72rem' }}>{b.cap}</span>
+                              {b.flag && <span style={{ background: '#14532d30', color: '#86efac', fontSize: '0.65rem', borderRadius: '4px', padding: '0.1rem 0.3rem' }}>{b.flag}</span>}
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                              <span style={{ color: '#fbbf24', fontSize: '0.78rem', fontWeight: 700 }}>PKR {fmt(b.lo)}–{fmt(b.hi)}</span>
+                              <span style={{ color: '#475569', fontSize: '0.65rem' }}>{b.note}</span>
+                            </div>
                           </div>
-                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                            <span style={{ color: '#fbbf24', fontSize: '0.78rem', fontWeight: 700 }}>PKR {fmt(b.lo)}–{fmt(b.hi)}</span>
-                            <span style={{ color: '#475569', fontSize: '0.65rem' }}>{b.note}</span>
-                          </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </details>
 
             {/* Personalized expert tips */}
             {results.expertTips.length > 0 && (
@@ -1244,17 +1282,22 @@ export default function SolarPlanner() {
             </details>
 
             {/* Calc transparency */}
-            <div style={{ ...card, background: '#0f172a', border: '1px solid #1e293b' }}>
-              <div style={{ color: '#64748b', fontSize: '0.78rem', lineHeight: 1.8 }}>
-                📐 <strong style={{ color: '#94a3b8' }}>How we calculated:</strong><br />
-                Load: {results.dailyKwh} kWh/day ÷ {CITIES[cityIdx].sun} sun hrs ÷ 0.80 derate = <strong style={{ color: '#e2e8f0' }}>{results.sysKw} kW recommended</strong><br />
-                Generation: {results.sysKw} kW × {CITIES[cityIdx].sun} hrs × 30 days × 0.80 = <strong style={{ color: '#e2e8f0' }}>{results.monthlyGen} kWh/month</strong><br />
-                Self-consumed (capped at actual usage): {results.selfConsumedKwh} kWh × PKR {importTariff} = PKR {fmt(results.selfSavings)}<br />
-                {netBilling ? `Exported (generation − self-consumed): ${results.exportedKwh} kWh × PKR ${buybackRate} = PKR ${fmt(results.exportRevenue)}` : 'No export (net billing off)'}<br />
-                Cost range: {results.sysKwLo}kW×PKR {costLoPW}/W to {results.sysKwHi}kW×PKR {costHiPW}/W = PKR {fmt(results.costLo)}–{fmt(results.costHi)}<br />
-                Payback uses mid-size ({results.sysKw}kW) at avg PKR {Math.round((costLoPW+costHiPW)/2)}/W{netBilling ? ` + PKR ${fmt(NB_FEE_LO)}–${fmt(NB_FEE_HI)} net billing fee (IESCO–LESCO)` : ''}
+            <details style={{ marginBottom: '0.75rem' }}>
+              <summary style={{ cursor: 'pointer', background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '0.8rem 1rem', color: '#94a3b8', fontSize: '0.82rem', fontWeight: 700, listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span>📐 How we calculated this estimate</span>
+                <span style={{ fontSize: '0.72rem', color: '#475569' }}>tap to expand ▼</span>
+              </summary>
+              <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderTop: 'none', borderRadius: '0 0 10px 10px', padding: '0.875rem 1rem' }}>
+                <div style={{ color: '#64748b', fontSize: '0.78rem', lineHeight: 1.8 }}>
+                  Load: {results.dailyKwh} kWh/day ÷ {CITIES[cityIdx].sun} sun hrs ÷ 0.80 derate = <strong style={{ color: '#e2e8f0' }}>{results.sysKw} kW recommended</strong><br />
+                  Generation: {results.sysKw} kW × {CITIES[cityIdx].sun} hrs × 30 days × 0.80 = <strong style={{ color: '#e2e8f0' }}>{results.monthlyGen} kWh/month</strong><br />
+                  Self-consumed (capped at actual usage): {results.selfConsumedKwh} kWh × PKR {importTariff} = PKR {fmt(results.selfSavings)}<br />
+                  {netBilling ? `Exported (generation − self-consumed): ${results.exportedKwh} kWh × PKR ${buybackRate} = PKR ${fmt(results.exportRevenue)}` : 'No export (net billing off)'}<br />
+                  Cost range: {results.sysKwLo}kW×PKR {costLoPW}/W to {results.sysKwHi}kW×PKR {costHiPW}/W = PKR {fmt(results.costLo)}–{fmt(results.costHi)}<br />
+                  Payback uses mid-size ({results.sysKw}kW) at avg PKR {Math.round((costLoPW+costHiPW)/2)}/W{netBilling ? ` + PKR ${fmt(NB_FEE_LO)}–${fmt(NB_FEE_HI)} net billing fee (IESCO–LESCO)` : ''}
+                </div>
               </div>
-            </div>
+            </details>
 
             {/* Disclaimer */}
             <div style={{ background: '#451a0318', border: '1px solid #451a0340', borderRadius: '8px', padding: '0.75rem 1rem' }}>

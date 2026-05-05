@@ -77,6 +77,94 @@ const AMOUNT_PRESETS = [
   { label: '15 crore', value: 150000000 },
 ]
 
+const STRATEGY_PRESETS = [
+  {
+    id: 'retirement',
+    label: 'Retirement corpus',
+    note: 'Long horizon, growth with discipline',
+    values: {
+      goal: 'growth',
+      horizonYears: 15,
+      riskTolerance: 4,
+      emergencyMonthsCovered: 6,
+      monthlyWithdrawalNeed: 0,
+      nextMajorGoalYears: 8,
+      debtPressure: 'low',
+      incomeStability: 'stable',
+      fxPreference: 'medium',
+      goldPreference: 'medium',
+    },
+  },
+  {
+    id: 'income',
+    label: 'Monthly income needed',
+    note: 'Defensive mix for cash support',
+    values: {
+      goal: 'income',
+      horizonYears: 8,
+      riskTolerance: 2,
+      emergencyMonthsCovered: 6,
+      monthlyWithdrawalNeed: 150000,
+      nextMajorGoalYears: 4,
+      debtPressure: 'moderate',
+      incomeStability: 'normal',
+      fxPreference: 'low',
+      goldPreference: 'medium',
+    },
+  },
+  {
+    id: 'business-owner',
+    label: 'Business owner surplus',
+    note: 'Liquidity discipline before growth',
+    values: {
+      goal: 'balanced',
+      horizonYears: 7,
+      riskTolerance: 3,
+      emergencyMonthsCovered: 4,
+      monthlyWithdrawalNeed: 0,
+      nextMajorGoalYears: 3,
+      debtPressure: 'moderate',
+      incomeStability: 'unstable',
+      fxPreference: 'medium',
+      goldPreference: 'low',
+    },
+  },
+  {
+    id: 'house-later',
+    label: 'House purchase later',
+    note: 'Protect medium-term capital',
+    values: {
+      goal: 'preserve',
+      horizonYears: 4,
+      riskTolerance: 2,
+      emergencyMonthsCovered: 6,
+      monthlyWithdrawalNeed: 0,
+      nextMajorGoalYears: 2,
+      debtPressure: 'low',
+      incomeStability: 'stable',
+      fxPreference: 'low',
+      goldPreference: 'low',
+    },
+  },
+  {
+    id: 'education',
+    label: 'Children education fund',
+    note: 'Balanced with a defined end-date',
+    values: {
+      goal: 'balanced',
+      horizonYears: 9,
+      riskTolerance: 3,
+      emergencyMonthsCovered: 6,
+      monthlyWithdrawalNeed: 0,
+      nextMajorGoalYears: 6,
+      debtPressure: 'low',
+      incomeStability: 'stable',
+      fxPreference: 'medium',
+      goldPreference: 'low',
+    },
+  },
+]
+
 const BUCKET_COPY = {
   liquidity: {
     title: 'Safety & liquidity',
@@ -337,6 +425,7 @@ function BucketCard({ bucketKey, pct, amount, shariahPreference, colors }) {
 
 export default function InvestmentAllocationPlanner() {
   const { colors } = useTheme()
+  const [strategyPreset, setStrategyPreset] = useState('custom')
   const [amount, setAmount] = useState(2000000)
   const [monthlyContribution, setMonthlyContribution] = useState(50000)
   const [monthlyEssentialSpend, setMonthlyEssentialSpend] = useState(180000)
@@ -351,6 +440,26 @@ export default function InvestmentAllocationPlanner() {
   const [shariahPreference, setShariahPreference] = useState('yes')
   const [fxPreference, setFxPreference] = useState('medium')
   const [goldPreference, setGoldPreference] = useState('medium')
+
+  const applyPreset = (presetId) => {
+    const preset = STRATEGY_PRESETS.find((item) => item.id === presetId)
+    if (!preset) return
+    setStrategyPreset(presetId)
+    setGoal(preset.values.goal)
+    setHorizonYears(preset.values.horizonYears)
+    setRiskTolerance(preset.values.riskTolerance)
+    setEmergencyMonthsCovered(preset.values.emergencyMonthsCovered)
+    setMonthlyWithdrawalNeed(preset.values.monthlyWithdrawalNeed)
+    setNextMajorGoalYears(preset.values.nextMajorGoalYears)
+    setDebtPressure(preset.values.debtPressure)
+    setIncomeStability(preset.values.incomeStability)
+    setFxPreference(preset.values.fxPreference)
+    setGoldPreference(preset.values.goldPreference)
+  }
+
+  const markCustom = () => {
+    setStrategyPreset('custom')
+  }
 
   const result = useMemo(() => buildAllocation({
     amount,
@@ -434,59 +543,83 @@ export default function InvestmentAllocationPlanner() {
               </button>
             ))}
           </div>
+          <div style={{ marginBottom: '1rem' }}>
+            <div style={{ color: colors.text, fontWeight: 700, marginBottom: '0.55rem', fontSize: '0.88rem' }}>Start from a real-life strategy</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.55rem' }}>
+              {STRATEGY_PRESETS.map((preset) => (
+                <button
+                  key={preset.id}
+                  type="button"
+                  onClick={() => applyPreset(preset.id)}
+                  style={{
+                    textAlign: 'left',
+                    padding: '0.75rem 0.85rem',
+                    borderRadius: '0.9rem',
+                    border: `1px solid ${strategyPreset === preset.id ? ACCENT : colors.border}`,
+                    background: strategyPreset === preset.id ? `${ACCENT}14` : colors.card,
+                    color: colors.text,
+                    cursor: 'pointer',
+                  }}
+                >
+                  <div style={{ fontWeight: 800, fontSize: '0.84rem', marginBottom: '0.2rem' }}>{preset.label}</div>
+                  <div style={{ fontSize: '0.75rem', color: colors.textSecondary, lineHeight: 1.45 }}>{preset.note}</div>
+                </button>
+              ))}
+            </div>
+          </div>
           <FieldsGrid>
             <Field label="Investable amount (PKR)" hint="Use the actual lump sum available now, whether it is 20 lakh, 1 crore, 5 crore, or more.">
-              <NumberInput colors={colors} value={amount} onChange={(e) => setAmount(Number(e.target.value) || 0)} />
+              <NumberInput colors={colors} value={amount} onChange={(e) => { markCustom(); setAmount(Number(e.target.value) || 0) }} />
             </Field>
             <Field label="Monthly contribution (PKR)" hint="Optional, but useful if you will keep adding money after the lump sum.">
-              <NumberInput colors={colors} value={monthlyContribution} onChange={(e) => setMonthlyContribution(Number(e.target.value) || 0)} />
+              <NumberInput colors={colors} value={monthlyContribution} onChange={(e) => { markCustom(); setMonthlyContribution(Number(e.target.value) || 0) }} />
             </Field>
             <Field label="Monthly essential spend (PKR)" hint="Needed to judge whether your emergency reserve is already strong enough.">
-              <NumberInput colors={colors} value={monthlyEssentialSpend} onChange={(e) => setMonthlyEssentialSpend(Number(e.target.value) || 0)} />
+              <NumberInput colors={colors} value={monthlyEssentialSpend} onChange={(e) => { markCustom(); setMonthlyEssentialSpend(Number(e.target.value) || 0) }} />
             </Field>
             <Field label="Primary goal style" hint="Start with the role of the money: safety, income, balance, or growth.">
-              <SelectInput colors={colors} value={goal} onChange={(e) => setGoal(e.target.value)}>
+              <SelectInput colors={colors} value={goal} onChange={(e) => { markCustom(); setGoal(e.target.value) }}>
                 {Object.entries(GOAL_PROFILES).map(([value, item]) => <option key={value} value={value}>{item.label}</option>)}
               </SelectInput>
             </Field>
             <Field label="Time horizon" hint="Longer horizons justify more patient growth risk. Shorter horizons usually should not.">
-              <SliderInput colors={colors} accent={ACCENT} value={horizonYears} onChange={(e) => setHorizonYears(Number(e.target.value))} min={1} max={20} suffix=" years" />
+              <SliderInput colors={colors} accent={ACCENT} value={horizonYears} onChange={(e) => { markCustom(); setHorizonYears(Number(e.target.value)) }} min={1} max={20} suffix=" years" />
             </Field>
             <Field label="Risk tolerance" hint="1 means you hate volatility. 5 means you can tolerate deep market swings for longer-term upside.">
-              <SliderInput colors={colors} accent={ACCENT} value={riskTolerance} onChange={(e) => setRiskTolerance(Number(e.target.value))} min={1} max={5} />
+              <SliderInput colors={colors} accent={ACCENT} value={riskTolerance} onChange={(e) => { markCustom(); setRiskTolerance(Number(e.target.value)) }} min={1} max={5} />
             </Field>
             <Field label="Emergency reserve already covered" hint="If you do not already have a healthy emergency fund, the portfolio must respect that first.">
-              <SliderInput colors={colors} accent={ACCENT} value={emergencyMonthsCovered} onChange={(e) => setEmergencyMonthsCovered(Number(e.target.value))} min={0} max={12} suffix=" months" />
+              <SliderInput colors={colors} accent={ACCENT} value={emergencyMonthsCovered} onChange={(e) => { markCustom(); setEmergencyMonthsCovered(Number(e.target.value)) }} min={0} max={12} suffix=" months" />
             </Field>
             <Field label="Expected monthly withdrawals from this corpus" hint="If you need monthly cash from the money, the plan should lean more defensive.">
-              <NumberInput colors={colors} value={monthlyWithdrawalNeed} onChange={(e) => setMonthlyWithdrawalNeed(Number(e.target.value) || 0)} />
+              <NumberInput colors={colors} value={monthlyWithdrawalNeed} onChange={(e) => { markCustom(); setMonthlyWithdrawalNeed(Number(e.target.value) || 0) }} />
             </Field>
             <Field label="Next major goal / purchase" hint="Nearer goals usually justify less equity-style exposure.">
-              <SliderInput colors={colors} accent={ACCENT} value={nextMajorGoalYears} onChange={(e) => setNextMajorGoalYears(Number(e.target.value))} min={1} max={10} suffix=" years" />
+              <SliderInput colors={colors} accent={ACCENT} value={nextMajorGoalYears} onChange={(e) => { markCustom(); setNextMajorGoalYears(Number(e.target.value)) }} min={1} max={10} suffix=" years" />
             </Field>
             <Field label="Debt pressure" hint="High-cost debt and financial pressure usually justify more caution, not more aggression.">
-              <SelectInput colors={colors} value={debtPressure} onChange={(e) => setDebtPressure(e.target.value)}>
+              <SelectInput colors={colors} value={debtPressure} onChange={(e) => { markCustom(); setDebtPressure(e.target.value) }}>
                 {Object.entries(DEBT_PRESSURE).map(([value, item]) => <option key={value} value={value}>{item.label}</option>)}
               </SelectInput>
             </Field>
             <Field label="Income stability" hint="Unstable income means the portfolio should help absorb life pressure, not amplify it.">
-              <SelectInput colors={colors} value={incomeStability} onChange={(e) => setIncomeStability(e.target.value)}>
+              <SelectInput colors={colors} value={incomeStability} onChange={(e) => { markCustom(); setIncomeStability(e.target.value) }}>
                 {Object.entries(STABILITY).map(([value, item]) => <option key={value} value={value}>{item.label}</option>)}
               </SelectInput>
             </Field>
             <Field label="Shariah preference" hint="This changes the category mapping, not just the wording.">
-              <SelectInput colors={colors} value={shariahPreference} onChange={(e) => setShariahPreference(e.target.value)}>
+              <SelectInput colors={colors} value={shariahPreference} onChange={(e) => { markCustom(); setShariahPreference(e.target.value) }}>
                 <option value="yes">Shariah-compliant only</option>
                 <option value="no">Conventional allowed</option>
               </SelectInput>
             </Field>
             <Field label="USD hedge preference" hint="Useful mainly when you expect future foreign-currency needs or currency-stress concern.">
-              <SelectInput colors={colors} value={fxPreference} onChange={(e) => setFxPreference(e.target.value)}>
+              <SelectInput colors={colors} value={fxPreference} onChange={(e) => { markCustom(); setFxPreference(e.target.value) }}>
                 {Object.entries(FX_PREF).map(([value, item]) => <option key={value} value={value}>{item.label}</option>)}
               </SelectInput>
             </Field>
             <Field label="Gold hedge preference" hint="Gold is a hedge bucket, not automatically the core of the whole portfolio.">
-              <SelectInput colors={colors} value={goldPreference} onChange={(e) => setGoldPreference(e.target.value)}>
+              <SelectInput colors={colors} value={goldPreference} onChange={(e) => { markCustom(); setGoldPreference(e.target.value) }}>
                 {Object.entries(GOLD_PREF).map(([value, item]) => <option key={value} value={value}>{item.label}</option>)}
               </SelectInput>
             </Field>
@@ -507,6 +640,8 @@ export default function InvestmentAllocationPlanner() {
             <MetricCard label="Safety bucket" value={fmtCurrency(result.buckets.liquidity)} sub={`${result.allocation.liquidity}% in liquidity-style allocation`} accent="#06b6d4" colors={colors} />
             <MetricCard label="Growth bucket" value={fmtCurrency(result.growthBucketAmount)} sub={`${round(result.allocation.balanced + result.allocation.equity, 1)}% across balanced + equity`} accent={ACCENT} colors={colors} />
             <MetricCard label="Hedge bucket" value={fmtCurrency(result.hedgeBucketAmount)} sub={`${round(result.allocation.gold + result.allocation.usd, 1)}% across gold + FX hedge`} accent="#8b5cf6" colors={colors} />
+            <MetricCard label="Annual additions" value={fmtCurrency(result.monthlyContributionAnnual)} sub="Useful when you will keep feeding the plan over time." accent="#f59e0b" colors={colors} />
+            <MetricCard label="Reserve strength" value={`${fmtNumber(emergencyMonthsCovered, 0)} months`} sub={result.emergencyGapAmount > 0 ? `Still short by ${fmtCurrency(result.emergencyGapAmount)}` : 'Emergency baseline is already in stronger shape.'} accent={result.emergencyGapAmount > 0 ? '#ef4444' : '#22c55e'} colors={colors} />
           </MetricGrid>
 
           <SectionCard title="Decision path" subtitle={result.decisionTrack} accent={ACCENT} colors={colors}>
@@ -580,6 +715,46 @@ export default function InvestmentAllocationPlanner() {
             ]}
             colors={colors}
           />
+        </SectionCard>
+
+        <SectionCard
+          title="Pakistan category mapping"
+          subtitle="This is the practical bridge between the allocation and the kinds of regulated buckets you would shortlist next."
+          accent={ACCENT}
+          colors={colors}
+        >
+          <MetricGrid min={240}>
+            {Object.entries(result.allocation)
+              .filter(([, pct]) => pct > 0)
+              .map(([key, pct]) => (
+                <div
+                  key={key}
+                  style={{
+                    background: colors.card,
+                    border: `1px solid ${colors.border}`,
+                    borderRadius: '0.95rem',
+                    padding: '0.95rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.45rem',
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.75rem', flexWrap: 'wrap' }}>
+                    <div style={{ color: colors.text, fontWeight: 800 }}>{BUCKET_COPY[key].title}</div>
+                    <div style={{ color: ACCENT, fontWeight: 800 }}>{pct}%</div>
+                  </div>
+                  <div style={{ color: colors.textSecondary, fontSize: '0.8rem', lineHeight: 1.55 }}>{BUCKET_COPY[key].role}</div>
+                  <div style={{ color: colors.textSecondary, fontSize: '0.78rem', lineHeight: 1.55 }}>
+                    <strong style={{ color: colors.text }}>Shortlist style:</strong>{' '}
+                    {shariahPreference === 'yes' ? BUCKET_COPY[key].examples.shariah : BUCKET_COPY[key].examples.conventional}
+                  </div>
+                  <div style={{ color: colors.textSecondary, fontSize: '0.76rem', lineHeight: 1.55 }}>
+                    <strong style={{ color: colors.text }}>What to compare:</strong>{' '}
+                    category mandate, risk profile, fee drag, liquidity rules, concentration policy, and whether it actually fits this bucket’s job.
+                  </div>
+                </div>
+              ))}
+          </MetricGrid>
         </SectionCard>
 
         <SectionCard

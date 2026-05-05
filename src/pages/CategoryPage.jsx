@@ -148,7 +148,7 @@ export default function CategoryPage({ category }) {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
           {sortedTools.map(tool => (
-            <Link key={tool.id} to={tool.path} style={{ textDecoration: 'none' }}>
+            <Link key={tool.id} to={tool.path} style={{ textDecoration: 'none', color: 'inherit' }}>
               {(() => {
                 const scenarioLine = getToolScenarioLine(tool)
                 return (

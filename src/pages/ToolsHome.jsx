@@ -15,7 +15,6 @@ const FEATURED_IDS = ['solar-planner', 'tax-calculator', 'investment-allocation-
 const LAST_VISIT_KEY = 'typely_last_visit'
 const RECENT_KEY = 'typely_recent_tools'
 const FAVOURITES_KEY = 'typely_favourites'
-const TOP_N = 6
 const CATEGORY_LANDING_LINKS = [
   { path: '/category/pakistan-tools', label: 'Pakistan Tools', desc: 'Tax, solar, investing, loans, salary and local-use tools' },
   { path: '/category/writing-tools', label: 'Writing Tools', desc: 'Urdu, documents, cleanup and word count' },
@@ -280,7 +279,6 @@ export default function ToolsHome() {
   const { isDark, colors } = useTheme()
   const { prefs, togglePref } = usePreferences()
   const [lastVisit] = useState(() => getLastVisit())
-  const [expanded, setExpanded] = useState({})
   const [favourites, setFavourites] = useState(() => getFavourites())
   const [recentIds, setRecentIds] = useState(() => getRecent())
 
@@ -289,8 +287,6 @@ export default function ToolsHome() {
     addRecent(id)
     setRecentIds(getRecent())
   }
-
-  const toggleExpanded = (catId) => setExpanded(prev => ({ ...prev, [catId]: !prev[catId] }))
 
   // Update last visit on load (after a short delay so "new" badges show on first load too)
   useEffect(() => {
@@ -667,9 +663,6 @@ export default function ToolsHome() {
               return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi)
             })
             const newCount = sortedTools.filter(t => isNewTool(t, lastVisit)).length
-            const isExpanded = !!expanded[cat.id]
-            const visibleCatTools = isExpanded ? sortedTools : sortedTools.slice(0, TOP_N)
-            const hasMore = sortedTools.length > TOP_N
             return (
               <section key={cat.id} id={cat.id}>
                 <div style={{
@@ -686,27 +679,12 @@ export default function ToolsHome() {
                   )}
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1rem' }}>
-                  {visibleCatTools.map((tool) => (
+                  {sortedTools.map((tool) => (
                     <ToolCard key={tool.id} tool={tool} colors={colors} isDark={isDark}
                       urduLabels={prefs.urduLabels} isNew={isNewTool(tool, lastVisit)}
                       isFav={favourites.includes(tool.id)} onFavToggle={handleFavToggle} onVisit={handleVisit} />
                   ))}
                 </div>
-                {hasMore && (
-                  <div style={{ marginTop: '1rem', textAlign: 'center' }}>
-                    <button onClick={() => toggleExpanded(cat.id)} style={{
-                      background: 'transparent', border: `1px solid ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)'}`,
-                      borderRadius: '2rem', padding: '0.4rem 1.25rem',
-                      fontSize: '0.82rem', fontWeight: 600, cursor: 'pointer',
-                      color: '#06b6d4', transition: 'border-color .15s',
-                    }}
-                      onMouseEnter={e => e.currentTarget.style.borderColor = '#06b6d4'}
-                      onMouseLeave={e => e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)'}
-                    >
-                      {isExpanded ? `Show less ↑` : `View all ${sortedTools.length} tools ↓`}
-                    </button>
-                  </div>
-                )}
               </section>
             )
           })}

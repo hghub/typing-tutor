@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { TOOLS } from '../tools/registry'
 import { SEARCH_VOCABULARY } from '../tools/searchVocabulary'
 import { getToolUseCases } from '../lib/toolUsage'
+import { getRomanUrduTerms } from '../lib/pakistanAccessibility'
 
 const PLACEHOLDER_HINTS = [
   'Search tools, features (English or Roman Urdu)…',
@@ -36,6 +37,7 @@ function scoreMatch(tool, query) {
   vocab.keywords?.forEach(k => check(k, 4))
   vocab.roman_urdu?.forEach(r => check(r, 6))
   vocab.synonyms?.forEach(s => check(s, 3))
+  getRomanUrduTerms(tool.id).forEach(term => check(term, 6))
 
   return score
 }

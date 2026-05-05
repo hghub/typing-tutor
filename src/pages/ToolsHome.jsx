@@ -9,14 +9,15 @@ import ShareBar from '../components/ShareBar'
 import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
 import { getToolScenarioLine } from '../lib/toolUsage'
+import { IMPORTANT_PAKISTAN_TOOL_IDS, USEFUL_HIDDEN_TOOL_IDS, getAccessibilityNote } from '../lib/pakistanAccessibility'
 
-const FEATURED_IDS = ['solar-planner', 'investment-allocation-planner', 'urdu-keyboard', 'typing-tutor', 'tax-calculator', 'rent-vs-buy-pakistan', 'car-powertrain-decision', 'data-leak-detector']
+const FEATURED_IDS = ['solar-planner', 'tax-calculator', 'investment-allocation-planner', 'loan-emi', 'urdu-keyboard', 'rent-vs-buy-pakistan', 'salary-offer-evaluator', 'car-powertrain-decision']
 const LAST_VISIT_KEY = 'typely_last_visit'
 const RECENT_KEY = 'typely_recent_tools'
 const FAVOURITES_KEY = 'typely_favourites'
 const TOP_N = 6
 const CATEGORY_LANDING_LINKS = [
-  { path: '/category/pakistan-tools', label: 'Pakistan Tools', desc: 'Decision systems, tax, salary and local utilities' },
+  { path: '/category/pakistan-tools', label: 'Pakistan Tools', desc: 'Tax, solar, investing, loans, salary and local-use tools' },
   { path: '/category/writing-tools', label: 'Writing Tools', desc: 'Urdu, documents, cleanup and word count' },
   { path: '/category/pdf-tools', label: 'PDF Tools', desc: 'Compress, merge, split, convert and OCR' },
   { path: '/category/security-tools', label: 'Privacy Tools', desc: 'Leak detection, encryption and redaction' },
@@ -67,11 +68,11 @@ const CATEGORY_TOOL_ORDER = {
   productivity:['pomodoro','world-time','daily-planner','habit-tracker','voice-diary','kameti','measurement-tracker','resume-builder','whatsapp-tools'],
   writing:     ['word-counter','text-cleaner','doc-composer','image-suite'],
   language:    ['urdu-keyboard','color-palette'],
-  pakistan:    ['solar-planner','investment-allocation-planner','tax-calculator','rent-vs-buy-pakistan','car-powertrain-decision','salary-offer-evaluator','freelance-tax-planner','gold-price','pk-id-tax-hub','salary-slip','tax-optimizer','kameti','driving-fines'],
+  pakistan:    ['solar-planner','tax-calculator','investment-allocation-planner','loan-emi','rent-vs-buy-pakistan','car-powertrain-decision','salary-offer-evaluator','freelance-tax-planner','gold-price','salary-slip','pk-id-tax-hub','tax-optimizer','kameti','driving-fines'],
   travel:      ['packing-list','budget-splitter'],
   security:    ['text-encryptor','data-leak-detector','doc-redaction'],
   pdf:         ['compress-pdf','merge-pdf','split-pdf','pdf-convert','doc-converter','text-extractor','pdf-search'],
-  finance:     ['expense-analyzer','loan-manager','loan-emi','currency-converter','position-size-calc','freelancer-risk','voice-invoice'],
+  finance:     ['loan-emi','expense-analyzer','loan-manager','budget-splitter','currency-converter','position-size-calc','freelancer-risk','voice-invoice'],
   health:      ['drug-checker','symptom-tracker','measurement-tracker'],
   developer:   ['json-formatter','data-transformer','markdown-scraper','log-analyzer','mock-data','schema-mapper','regex-tester','config-converter','trace-correlator'],
   education:   ['student-groups'],
@@ -305,6 +306,13 @@ export default function ToolsHome() {
   const featuredTools = FEATURED_IDS
     .map(id => visibleTools.find(t => t.id === id))
     .filter(Boolean)
+  const pakistanPriorityTools = IMPORTANT_PAKISTAN_TOOL_IDS
+    .map(id => visibleTools.find(t => t.id === id))
+    .filter(Boolean)
+    .slice(0, 6)
+  const hiddenUsefulTools = USEFUL_HIDDEN_TOOL_IDS
+    .map(id => visibleTools.find(t => t.id === id))
+    .filter(Boolean)
 
   const recentTools = recentIds
     .map(id => visibleTools.find(t => t.id === id))
@@ -370,6 +378,12 @@ export default function ToolsHome() {
           <p style={{ color: colors.textSecondary, fontSize: '1.05rem', maxWidth: '580px', margin: '0 auto 2rem', lineHeight: 1.6 }}>
             Rafiqy tools help you get everyday tasks done faster — from typing and productivity to finance, writing, and file management.
           </p>
+          <div style={{ maxWidth: '760px', margin: '0 auto 1.2rem', padding: '0.8rem 1rem', borderRadius: '0.9rem', background: isDark ? 'rgba(16,185,129,0.08)' : 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.22)' }}>
+            <div style={{ fontSize: '0.78rem', color: colors.textSecondary, lineHeight: 1.65 }}>
+              Built for both confident English users and people who search in simpler English or Roman Urdu.
+              Try phrases like <strong style={{ color: colors.text }}>tax kitna banega</strong>, <strong style={{ color: colors.text }}>loan kitna lena chahiye</strong>, or <strong style={{ color: colors.text }}>urdu mein type karna</strong>.
+            </div>
+          </div>
 
           {/* ── Smart Search — primary CTA ── */}
           <div style={{ marginBottom: '2rem' }}>
@@ -461,6 +475,30 @@ export default function ToolsHome() {
                 onMouseLeave={e => { e.currentTarget.style.borderColor = colors.border }}>
                   <div style={{ color: colors.text, fontWeight: 700, fontSize: '0.9rem', marginBottom: '0.25rem' }}>{link.label}</div>
                   <div style={{ color: colors.textSecondary, fontSize: '0.8rem', lineHeight: 1.5 }}>{link.desc}</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section style={{ marginBottom: '3rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+            <h2 style={{ margin: 0, fontSize: '1rem', fontWeight: 800, color: colors.text, letterSpacing: '-0.01em' }}>🇵🇰 Start Here if You’re in Pakistan</h2>
+          </div>
+          <p style={{ margin: '0 0 1rem', color: colors.textSecondary, fontSize: '0.88rem', lineHeight: 1.65, maxWidth: '760px' }}>
+            These are the tools most likely to solve practical Pakistani day-to-day decisions: tax, solar, loans, salary, investing, Urdu typing, and job or car choices.
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '0.85rem' }}>
+            {pakistanPriorityTools.map((tool) => (
+              <Link key={tool.id} to={tool.path} style={{ textDecoration: 'none' }} onClick={() => handleVisit(tool.id)}>
+                <div style={{ background: colors.card, border: `1px solid ${colors.border}`, borderRadius: '0.9rem', padding: '1rem', height: '100%' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.45rem' }}>
+                    <span style={{ fontSize: '1.35rem' }}>{tool.icon}</span>
+                    <div style={{ color: colors.text, fontWeight: 700, fontSize: '0.9rem' }}>{tool.name}</div>
+                  </div>
+                  <div style={{ color: colors.textSecondary, fontSize: '0.78rem', lineHeight: 1.55 }}>
+                    {getAccessibilityNote(tool.id)?.simple || getToolScenarioLine(tool)}
+                  </div>
                 </div>
               </Link>
             ))}
@@ -561,6 +599,30 @@ export default function ToolsHome() {
           </div>
         </section>
 
+        <section style={{ marginBottom: '3rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+            <h2 style={{ margin: 0, fontSize: '1rem', fontWeight: 800, color: colors.text, letterSpacing: '-0.01em' }}>💡 Useful Tools Many People Don’t Search For Yet</h2>
+          </div>
+          <p style={{ margin: '0 0 1rem', color: colors.textSecondary, fontSize: '0.88rem', lineHeight: 1.65, maxWidth: '780px' }}>
+            These tools solve real problems for offices, students, freelancers, and families in Pakistan, but many users do not realize such browser tools exist until they see an example.
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '0.9rem' }}>
+            {hiddenUsefulTools.map((tool) => (
+              <Link key={tool.id} to={tool.path} style={{ textDecoration: 'none' }} onClick={() => handleVisit(tool.id)}>
+                <div style={{ background: isDark ? 'rgba(255,255,255,0.04)' : '#fff', border: `1px solid ${colors.border}`, borderRadius: '0.9rem', padding: '1rem', height: '100%' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.45rem' }}>
+                    <span style={{ fontSize: '1.35rem' }}>{tool.icon}</span>
+                    <div style={{ color: colors.text, fontWeight: 700, fontSize: '0.9rem' }}>{tool.name}</div>
+                  </div>
+                  <div style={{ color: colors.textSecondary, fontSize: '0.78rem', lineHeight: 1.55 }}>
+                    {getAccessibilityNote(tool.id)?.simple || tool.description}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {/* ── Category Jump Nav ── */}
         <div style={{ marginBottom: '2rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center' }}>
           <span style={{ fontSize: '0.75rem', fontWeight: 700, color: colors.textSecondary, letterSpacing: '0.05em', textTransform: 'uppercase', marginRight: '0.25rem' }}>Jump to:</span>
@@ -580,7 +642,7 @@ export default function ToolsHome() {
                   onMouseEnter={e => { e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)' }}
                   onMouseLeave={e => { e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)' }}
                 >
-                  {cat.icon} {cat.label} <span style={{ fontSize: '0.68rem', color: colors.textSecondary }}>({count})</span>
+                  {cat.label} <span style={{ fontSize: '0.68rem', color: colors.textSecondary }}>({count})</span>
                 </span>
               </a>
             )

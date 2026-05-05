@@ -3,6 +3,7 @@ import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
 import { TOOLS } from '../tools/registry'
 import { getToolUseCases } from '../lib/toolUsage'
+import { getAccessibilityNote } from '../lib/pakistanAccessibility'
 
 export default function ToolHelpDialog({ toolId, onClose }) {
   const { isDark, colors } = useTheme()
@@ -14,6 +15,7 @@ export default function ToolHelpDialog({ toolId, onClose }) {
   const description = (prefs.urduLabels && tool.descriptionUrdu) ? tool.descriptionUrdu : tool.description
   const features = tool.features || []
   const useCases = getToolUseCases(tool)
+  const accessibility = getAccessibilityNote(tool.id)
   const privacyNote = prefs.urduLabels
     ? 'تمام پروسیسنگ آپ کے براؤزر میں ہوتی ہے۔ کوئی ڈیٹا یا فائل سرور پر نہیں جاتا۔'
     : 'All processing happens in your browser. No files or data are uploaded to any server.'
@@ -84,6 +86,23 @@ export default function ToolHelpDialog({ toolId, onClose }) {
           direction: prefs.urduLabels ? 'rtl' : 'ltr',
         }}>{description}</p>
 
+        {accessibility?.commonNeed && (
+          <div style={{
+            marginBottom: '1.25rem',
+            padding: '0.75rem 0.9rem',
+            borderRadius: '0.8rem',
+            border: `1px solid ${tool.color}33`,
+            background: `${tool.color}10`,
+          }}>
+            <div style={{ margin: '0 0 0.3rem', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: tool.color }}>
+              {prefs.urduLabels ? 'سادہ وضاحت' : 'Simple Explanation'}
+            </div>
+            <div style={{ margin: 0, fontSize: '0.82rem', color: colors.text, lineHeight: 1.6 }}>
+              {accessibility.commonNeed}
+            </div>
+          </div>
+        )}
+
         <div style={{ marginBottom: '1.25rem' }}>
           <p style={{ margin: '0 0 0.65rem', fontSize: '0.7rem', fontWeight: 700,
             letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.textSecondary }}>
@@ -119,6 +138,29 @@ export default function ToolHelpDialog({ toolId, onClose }) {
                 </li>
               ))}
             </ul>
+          </div>
+        )}
+
+        {accessibility?.romanUrdu?.length > 0 && (
+          <div style={{ marginBottom: '1.25rem' }}>
+            <p style={{ margin: '0 0 0.65rem', fontSize: '0.7rem', fontWeight: 700,
+              letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.textSecondary }}>
+              {prefs.urduLabels ? 'لوگ اکثر یوں تلاش کرتے ہیں' : 'Common Roman Urdu Searches'}
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
+              {accessibility.romanUrdu.slice(0, 4).map((term) => (
+                <span key={term} style={{
+                  fontSize: '0.75rem',
+                  background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)',
+                  color: colors.text,
+                  border: `1px solid ${colors.border}`,
+                  borderRadius: '999px',
+                  padding: '0.25rem 0.6rem',
+                }}>
+                  {term}
+                </span>
+              ))}
+            </div>
           </div>
         )}
 

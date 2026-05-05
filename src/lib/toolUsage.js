@@ -1,3 +1,5 @@
+import { getAccessibilityNote } from './pakistanAccessibility'
+
 export function getToolUseCases(tool) {
   const map = {
     'solar-planner': [
@@ -156,6 +158,8 @@ export function getToolUseCases(tool) {
 }
 
 export function getToolScenarioLine(tool) {
+  const note = getAccessibilityNote(tool.id)
+  if (note?.simple) return note.simple
   const [first, second] = getToolUseCases(tool)
   return `Best for ${first}; also useful for ${second}.`
 }

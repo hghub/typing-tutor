@@ -5,10 +5,11 @@ import { TOOLS } from '../tools/registry'
 import ToolsNav from '../components/ToolsNav'
 import { BLOG_POSTS } from '../data/blogPosts'
 import { getToolScenarioLine } from '../lib/toolUsage'
+import { getAccessibilityNote } from '../lib/pakistanAccessibility'
 
 const CATEGORY_TOOL_PRIORITY = {
-  'pakistan-tools': ['solar-planner','tax-calculator','rent-vs-buy-pakistan','car-powertrain-decision','salary-offer-evaluator','freelance-tax-planner','gold-price','pk-id-tax-hub','salary-slip','tax-optimizer','kameti','driving-fines'],
-  'finance-tools': ['tax-calculator','expense-analyzer','loan-manager','loan-emi','gold-price','currency-converter','salary-slip','position-size-calc','budget-splitter','tax-optimizer'],
+  'pakistan-tools': ['solar-planner','tax-calculator','investment-allocation-planner','loan-emi','rent-vs-buy-pakistan','car-powertrain-decision','salary-offer-evaluator','freelance-tax-planner','gold-price','pk-id-tax-hub','salary-slip','tax-optimizer','kameti','driving-fines'],
+  'finance-tools': ['loan-emi','tax-calculator','investment-allocation-planner','expense-analyzer','loan-manager','gold-price','currency-converter','salary-slip','position-size-calc','budget-splitter','tax-optimizer'],
   'writing-tools': ['urdu-keyboard','word-counter','text-cleaner','doc-composer','image-suite'],
   'pdf-tools': ['compress-pdf','merge-pdf','split-pdf','pdf-convert','doc-converter','text-extractor','pdf-search'],
   'security-tools': ['data-leak-detector','text-encryptor','doc-redaction','password-generator'],
@@ -18,8 +19,8 @@ const CATEGORY_TOOL_PRIORITY = {
 }
 
 const CATEGORY_BLOG_PRIORITY = {
-  'pakistan-tools': ['solar-planner-pakistan','5kw-solar-system-price-in-pakistan','pakistan-income-tax-calculator','rent-vs-buy-calculator-pakistan-guide','is-ev-worth-it-in-pakistan'],
-  'finance-tools': ['pakistan-income-tax-calculator','salary-slip-pakistan','how-to-calculate-emi','gold-price-pakistan-today'],
+  'pakistan-tools': ['solar-planner-pakistan','pakistan-income-tax-calculator','investment-allocation-planner-pakistan-guide','how-much-loan-can-i-afford','rent-vs-buy-calculator-pakistan-guide','is-ev-worth-it-in-pakistan'],
+  'finance-tools': ['how-much-loan-can-i-afford','should-you-pay-off-a-loan-early','how-to-calculate-emi','pakistan-income-tax-calculator','investment-allocation-planner-pakistan-guide','gold-price-pakistan-today'],
   'writing-tools': ['urdu-typing-online','word-count-for-seo','writing-tools'],
   'pdf-tools': ['compress-pdf-online','pdf-tools-guide'],
   'security-tools': ['password-generator-security','security-privacy-tools'],
@@ -37,8 +38,8 @@ const CATEGORY_DATA = {
   'finance-tools': {
     title: 'Free Finance Tools Online',
     metaTitle: 'Free Finance & Tax Calculators Online | Rafiqy',
-    metaDesc: 'Calculate loan EMI, Pakistan income tax, expense tracking, salary slips and more. Free finance tools built for Pakistan. No sign-up.',
-    intro: 'Rafiqy\'s finance tools are designed for Pakistani users who need fast, accurate calculations. Calculate your monthly loan EMI, plan Kameti rotations, generate salary slips, track expenses, or optimize your FBR tax liability — all without sharing your financial data with any server. Tools are updated for FBR 2025-26 tax slabs.',
+    metaDesc: 'Calculate loan EMI, Pakistan income tax, investment allocation, expense tracking, salary slips and more. Free finance tools built for Pakistan. No sign-up.',
+    intro: 'Rafiqy\'s finance tools are designed for Pakistani users who need fast, practical answers. Calculate monthly loan EMI, check tax, split investment money, generate salary slips, track expenses, or compare borrowing decisions — all without sharing your financial data with any server. The important finance tools are written to be understandable even if you search in simpler English or Roman Urdu.',
     categories: ['finance', 'pakistan'],
   },
   'pdf-tools': {
@@ -58,8 +59,8 @@ const CATEGORY_DATA = {
   'pakistan-tools': {
     title: 'Free Pakistan Online Tools',
     metaTitle: 'Free Pakistan Tools Online — CNIC, Tax, Gold | Rafiqy',
-    metaDesc: 'Pakistan-specific tools: CNIC decoder, FBR tax calculator, gold price tracker, Kameti planner, driving fines and more. Free, private.',
-    intro: 'Rafiqy was built with Pakistani users in mind. Our Pakistan-specific tools help you decode CNIC numbers, calculate FBR income tax, check live gold prices in PKR, plan Kameti committee rotations, track driving fines, and generate professional salary slips compliant with Pakistani payroll standards. All tools are free, work in Urdu, and process data locally.',
+    metaDesc: 'Pakistan-specific tools: tax calculator, solar planner, investment allocation, loan EMI, salary tools, CNIC decoder, gold price tracker and more. Free and private.',
+    intro: 'Rafiqy was built with Pakistani users in mind. Our Pakistan-specific tools help you calculate tax, judge solar, plan investments, compare renting vs buying, evaluate job offers, check gold price, estimate safer loans, decode CNIC numbers, and manage salary or local planning tasks. The goal is not just calculation, but making the answer easier to understand for everyday users in Pakistan.',
     categories: ['pakistan'],
   },
   'writing-tools': {
@@ -167,7 +168,7 @@ export default function CategoryPage({ category }) {
                   {tool.tagline}
                 </p>
                 <p style={{ color: colors.textSecondary, fontSize: '0.74rem', lineHeight: 1.55, margin: '0.55rem 0 0', opacity: 0.85 }}>
-                  {scenarioLine}
+                  {getAccessibilityNote(tool.id)?.simple || scenarioLine}
                 </p>
               </div>
                 )

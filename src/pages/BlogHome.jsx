@@ -11,12 +11,15 @@ const FEATURED_POST_SLUGS = [
   'solar-planner-pakistan',
   '5kw-solar-system-price-in-pakistan',
   'pakistan-income-tax-calculator',
+  'how-much-loan-can-i-afford',
+  'should-you-pay-off-a-loan-early',
   'urdu-typing-online',
   'rent-vs-buy-calculator-pakistan-guide',
   'is-ev-worth-it-in-pakistan',
   'how-to-evaluate-a-job-offer-in-pakistan',
   'how-much-tax-should-freelancers-reserve-in-pakistan',
   'investment-allocation-planner-pakistan-guide',
+  'useful-online-tools-pakistanis-dont-know-exist',
   'how-to-invest-20-lakh-in-pakistan',
   'how-to-invest-5-to-15-crore-in-pakistan',
   'compress-pdf-online',
@@ -59,22 +62,22 @@ export default function BlogHome() {
   return (
     <>
       <Helmet>
-        <title>Guides & Tips – Productivity, Tools & Digital Workflows | Rafiqy</title>
-        <meta name="description" content="Practical guides, tutorials, and decision support content for solar, investing, tax, typing, PDFs, productivity, and digital workflows." />
+        <title>Guides & Tips – Pakistan Tools, Solar, Tax, Investing & More | Rafiqy</title>
+        <meta name="description" content="Practical guides, simpler explainers, and decision support content for Pakistan tools, solar, tax, loans, investing, typing, PDFs, productivity, and digital workflows." />
         <link rel="canonical" href="https://rafiqy.app/blog" />
-        <meta property="og:title" content="Guides & Tips – Productivity, Tools & Digital Workflows | Rafiqy" />
-        <meta property="og:description" content="Practical guides, tutorials, and decision support content for solar, investing, tax, typing, PDFs, productivity, and digital workflows." />
+        <meta property="og:title" content="Guides & Tips – Pakistan Tools, Solar, Tax, Investing & More | Rafiqy" />
+        <meta property="og:description" content="Practical guides, simpler explainers, and decision support content for Pakistan tools, solar, tax, loans, investing, typing, PDFs, productivity, and digital workflows." />
         <meta property="og:url" content="https://rafiqy.app/blog" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Guides & Tips – Productivity, Tools & Digital Workflows | Rafiqy" />
-        <meta name="twitter:description" content="Practical guides, tutorials, and decision support content for solar, investing, tax, typing, PDFs, productivity, and digital workflows." />
+        <meta name="twitter:title" content="Guides & Tips – Pakistan Tools, Solar, Tax, Investing & More | Rafiqy" />
+        <meta name="twitter:description" content="Practical guides, simpler explainers, and decision support content for Pakistan tools, solar, tax, loans, investing, typing, PDFs, productivity, and digital workflows." />
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
           'name': 'Rafiqy Blog',
           'url': 'https://rafiqy.app/blog',
-          'description': 'Practical guides, tutorials, and productivity tips to help you work faster using digital tools.'
+          'description': 'Practical guides, simpler explainers, and decision support content to help people in Pakistan and beyond use digital tools with more confidence.'
         })}</script>
       </Helmet>
 
@@ -94,7 +97,7 @@ export default function BlogHome() {
               Learn Smarter Ways to Use Digital Tools
             </h1>
             <p style={{ fontSize: '1.1rem', color: colors.textSecondary, lineHeight: 1.7, margin: 0 }}>
-              Practical guides, tutorials, and productivity tips to help you work faster using digital tools.
+              Practical guides, simpler explainers, and decision support content to help people in Pakistan and beyond use digital tools with more confidence.
             </p>
           </div>
         </div>

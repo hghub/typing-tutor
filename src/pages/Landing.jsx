@@ -4,16 +4,19 @@ import { TOOLS } from '../tools/registry'
 import { BLOG_POSTS } from '../data/blogPosts'
 import ToolsNav from '../components/ToolsNav'
 import ShareBar from '../components/ShareBar'
+import { IMPORTANT_PAKISTAN_TOOL_IDS, USEFUL_HIDDEN_TOOL_IDS, getAccessibilityNote } from '../lib/pakistanAccessibility'
 
 const FEATURED_IDS = [
-  'solar-planner', 'urdu-keyboard', 'tax-calculator', 'investment-allocation-planner',
-  'rent-vs-buy-pakistan', 'car-powertrain-decision', 'salary-offer-evaluator', 'freelance-tax-planner',
+  'solar-planner', 'tax-calculator', 'investment-allocation-planner', 'loan-emi',
+  'urdu-keyboard', 'rent-vs-buy-pakistan', 'salary-offer-evaluator', 'freelance-tax-planner',
 ]
 
 const FEATURED_POST_SLUGS = [
   'solar-planner-pakistan',
-  '5kw-solar-system-price-in-pakistan',
   'pakistan-income-tax-calculator',
+  'how-much-loan-can-i-afford',
+  'investment-allocation-planner-pakistan-guide',
+  '5kw-solar-system-price-in-pakistan',
   'how-to-invest-20-lakh-in-pakistan',
   'how-to-invest-5-to-15-crore-in-pakistan',
   'urdu-typing-online',
@@ -25,6 +28,7 @@ const QUICK_ACTIONS = [
   { label: '☀️ Solar Calculator', path: '/tools/solar-planner', desc: 'Solar decision' },
   { label: '🧮 Tax Calculator', path: '/tools/tax-calculator', desc: 'Pakistan tax' },
   { label: '📈 Invest Planner', path: '/tools/investment-allocation-planner-pakistan', desc: 'Asset allocation' },
+  { label: '🏦 Loan EMI', path: '/tools/loan-emi', desc: 'Borrowing decision' },
   { label: '🌍 Urdu Keyboard', path: '/tools/urdu-keyboard', desc: 'Type Urdu online' },
   { label: '⌨️ Typing Tutor', path: '/tools/typing-tutor', desc: 'Improve speed' },
   { label: '🏠 Rent vs Buy', path: '/tools/rent-vs-buy-calculator-pakistan', desc: 'Property decision' },
@@ -72,9 +76,9 @@ const WHAT_YOU_CAN_DO = [
   {
     icon: '🇵🇰',
     title: 'Pakistan Tools',
-    desc: 'CNIC decoder, FBR tax hub, Kameti planner, gold price tracker and driving fine calculator.',
-    tools: ['/tools/pk-id-tax-hub', '/tools/kameti', '/tools/gold-price'],
-    labels: ['PK ID & Tax Hub', 'Kameti', 'Gold Price'],
+    desc: 'Tax, solar, investing, salary, loan and local-use tools designed around practical Pakistan needs.',
+    tools: ['/tools/tax-calculator', '/tools/loan-emi', '/tools/gold-price'],
+    labels: ['Tax Calculator', 'Loan EMI', 'Gold Price'],
   },
   {
     icon: '🛠',
@@ -87,6 +91,8 @@ const WHAT_YOU_CAN_DO = [
 
 export default function Landing() {
   const featured = FEATURED_IDS.map(id => TOOLS.find(t => t.id === id)).filter(Boolean)
+  const pakistanHighlights = IMPORTANT_PAKISTAN_TOOL_IDS.map(id => TOOLS.find(t => t.id === id)).filter(Boolean).slice(0, 4)
+  const hiddenUseful = USEFUL_HIDDEN_TOOL_IDS.map(id => TOOLS.find(t => t.id === id)).filter(Boolean).slice(0, 4)
   const featuredPosts = FEATURED_POST_SLUGS
     .map(slug => BLOG_POSTS.find(post => post.slug === slug))
     .filter(Boolean)
@@ -201,6 +207,10 @@ export default function Landing() {
           <Link to="/tools/word-counter" style={{ color: 'var(--color-primary)', marginLeft: 4 }}>counting words</Link>{' '}
           — Rafiqy has a tool for it. All free, all instant, all private.
         </p>
+        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.88rem', lineHeight: 1.75, marginTop: '0.75rem' }}>
+          If you think in simple English or Roman Urdu, you can still find the right tool easily. Search ideas include
+          {' '}<strong>tax kitna banega</strong>, <strong>loan kitna lena chahiye</strong>, <strong>solar lagwana faida hai</strong>, and <strong>urdu mein type karna</strong>.
+        </p>
       </section>
 
       {/* ── Quick Actions ── */}
@@ -224,6 +234,23 @@ export default function Landing() {
       {/* ── What You Can Do ── */}
       <section style={{ padding: '3rem 2rem', background: 'var(--color-surface)', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <div style={{ marginBottom: '2rem', background: 'var(--color-bg)', border: '1px solid var(--color-border)', borderRadius: 18, padding: '1.2rem 1.25rem' }}>
+            <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-primary)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.55rem' }}>
+              Pakistan-first starting points
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem' }}>
+              {pakistanHighlights.map((tool) => (
+                <Link key={tool.id} to={tool.path} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <div style={{ border: '1px solid var(--color-border)', borderRadius: 14, padding: '0.9rem 1rem', background: 'var(--color-surface)' }}>
+                    <div style={{ fontWeight: 700, marginBottom: '0.35rem' }}>{tool.icon} {tool.name}</div>
+                    <div style={{ color: 'var(--color-text-muted)', fontSize: '0.8rem', lineHeight: 1.55 }}>
+                      {getAccessibilityNote(tool.id)?.simple || tool.description}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
           <h2 style={{ fontSize: '1.6rem', fontWeight: 700, marginBottom: '0.5rem', textAlign: 'center' }}>
             What you can do with Rafiqy
           </h2>
@@ -253,6 +280,27 @@ export default function Landing() {
             Browse all 68 tools →
           </Link>
           </div>
+        </div>
+      </section>
+
+      <section style={{ padding: '0 2rem 3rem', maxWidth: 1100, margin: '0 auto' }}>
+        <h2 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '0.5rem', textAlign: 'center' }}>
+          Useful tools many people don’t realize exist
+        </h2>
+        <p style={{ textAlign: 'center', color: 'var(--color-text-muted)', marginBottom: '1.5rem', fontSize: '0.92rem' }}>
+          These are especially useful for offices, students, freelancers, and families in Pakistan but are often not searched for directly.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.85rem' }}>
+          {hiddenUseful.map((tool) => (
+            <Link key={tool.id} to={tool.path} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <div style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 14, padding: '1rem', height: '100%' }}>
+                <div style={{ fontWeight: 700, marginBottom: '0.35rem' }}>{tool.icon} {tool.name}</div>
+                <div style={{ color: 'var(--color-text-muted)', fontSize: '0.8rem', lineHeight: 1.55 }}>
+                  {getAccessibilityNote(tool.id)?.simple || tool.description}
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 

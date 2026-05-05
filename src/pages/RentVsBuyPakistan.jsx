@@ -14,9 +14,11 @@ import {
   MetricGrid,
   MetricCard,
   RecommendationBanner,
+  ActionCallout,
   BulletList,
   ScoreBars,
   ComparisonBars,
+  CollapsibleSection,
 } from '../components/decision/DecisionBlocks'
 import {
   fmtCurrency,
@@ -433,6 +435,13 @@ export default function RentVsBuyPakistan() {
             confidence={result.confidence}
             colors={colors}
           />
+          <ActionCallout
+            title="What you should do next"
+            body={result.decisionTrack}
+            accent={result.recommendation === 'Buy' ? '#22c55e' : '#06b6d4'}
+            colors={colors}
+            actions={result.actionSteps.slice(0, 3)}
+          />
           <MetricGrid>
             <MetricCard label="Buy net cost" value={fmtCurrency(result.buyNetCost)} sub={`Owner net worth: ${fmtCurrency(result.ownerNetWorth)}`} accent="#22c55e" colors={colors} />
             <MetricCard label="Rent net cost" value={fmtCurrency(result.rentNetCost)} sub={`Invested reserve: ${fmtCurrency(result.rentInvestedValue)}`} accent="#06b6d4" colors={colors} />
@@ -456,9 +465,13 @@ export default function RentVsBuyPakistan() {
             </div>
           </SectionCard>
 
-          <SectionCard title="Why the recommendation changed" accent={ACCENT} colors={colors}>
+          <CollapsibleSection
+            title="Why the recommendation changed"
+            summary="Open this if you want the main reasons behind the result, not just the headline recommendation."
+            colors={colors}
+          >
             <BulletList items={result.reasons} colors={colors} />
-          </SectionCard>
+          </CollapsibleSection>
 
           <SectionCard title="See the cost gap clearly" subtitle="Shorter bars are financially better here because this chart compares projected net cost under your assumptions." accent={ACCENT} colors={colors}>
             <ComparisonBars
@@ -478,11 +491,20 @@ export default function RentVsBuyPakistan() {
             </MetricGrid>
           </SectionCard>
 
-          <SectionCard title="Decision scores" subtitle="Cost dominates the score. Flexibility and resilience adjust the final ranking." accent={ACCENT} colors={colors}>
+          <CollapsibleSection
+            title="Decision scores"
+            summary="Cost drives most of the result. Open this if you want to see how flexibility and resilience adjusted the final ranking."
+            colors={colors}
+          >
             <ScoreBars scores={{ 'Buy score': result.finalScores.buy, 'Rent score': result.finalScores.rent }} colors={colors} />
-          </SectionCard>
+          </CollapsibleSection>
 
-          <SectionCard title="What to verify next" subtitle="The answer is only as good as the assumptions you put underneath it." accent={ACCENT} colors={colors}>
+          <CollapsibleSection
+            title="What to verify next"
+            summary="Use this before acting on the result. It keeps the tool from turning into false certainty."
+            colors={colors}
+            defaultOpen
+          >
             <BulletList
               items={[
                 'Check two or three actual bank markup offers instead of trusting a generic financing assumption.',
@@ -493,7 +515,7 @@ export default function RentVsBuyPakistan() {
               ]}
               colors={colors}
             />
-          </SectionCard>
+          </CollapsibleSection>
         </div>
       </div>
 

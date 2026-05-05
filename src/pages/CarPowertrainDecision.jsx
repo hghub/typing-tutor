@@ -14,9 +14,11 @@ import {
   MetricGrid,
   MetricCard,
   RecommendationBanner,
+  ActionCallout,
   BulletList,
   ScoreBars,
   ComparisonBars,
+  CollapsibleSection,
 } from '../components/decision/DecisionBlocks'
 import {
   fmtCurrency,
@@ -374,6 +376,13 @@ export default function CarPowertrainDecision() {
             confidence={result.confidence}
             colors={colors}
           />
+          <ActionCallout
+            title="What you should do next"
+            body={result.decisionTrack}
+            accent={result.recommendation === 'hybrid' ? '#22c55e' : result.recommendation === 'ev' ? '#8b5cf6' : '#f97316'}
+            colors={colors}
+            actions={result.actionSteps.slice(0, 3)}
+          />
           <MetricGrid>
             <MetricCard label="Annual distance" value={`${fmtNumber(result.annualKm, 0)} km`} sub="Driving volume strongly changes the winning option." accent={ACCENT} colors={colors} />
             <MetricCard label="Petrol 5y TCO" value={fmtCurrency(result.tco.petrol)} sub={`Monthly run cost: ${fmtCurrency(result.monthlyCosts.petrol)}`} accent="#f97316" colors={colors} />
@@ -395,9 +404,13 @@ export default function CarPowertrainDecision() {
             </div>
           </SectionCard>
 
-          <SectionCard title="Decision trace" accent={ACCENT} colors={colors}>
+          <CollapsibleSection
+            title="Decision trace"
+            summary="Open this if you want to see why the recommendation moved the way it did."
+            colors={colors}
+          >
             <BulletList items={result.reasons} colors={colors} />
-          </SectionCard>
+          </CollapsibleSection>
 
           <SectionCard title="See the ownership gap clearly" subtitle="Shorter bars are better here because the chart compares projected 5-year total cost of ownership." accent={ACCENT} colors={colors}>
             <ComparisonBars
@@ -418,7 +431,11 @@ export default function CarPowertrainDecision() {
             </MetricGrid>
           </SectionCard>
 
-          <SectionCard title="Score comparison" subtitle="Cost is weighted most heavily. Convenience and risk keep the recommendation realistic." accent={ACCENT} colors={colors}>
+          <CollapsibleSection
+            title="Score comparison"
+            summary="Open this if you want to see how cost, convenience, and risk shaped the final ranking."
+            colors={colors}
+          >
             <ScoreBars
               scores={{
                 'Petrol score': result.totalScores.petrol,
@@ -427,9 +444,13 @@ export default function CarPowertrainDecision() {
               }}
               colors={colors}
             />
-          </SectionCard>
+          </CollapsibleSection>
 
-          <SectionCard title="Which path fits which user?" subtitle="The cheapest answer and the least frustrating answer are not always the same." accent={ACCENT} colors={colors}>
+          <CollapsibleSection
+            title="Which path fits which user?"
+            summary="Use this when the numbers are close and you need help matching the result to real-life ownership patterns."
+            colors={colors}
+          >
             <BulletList
               items={[
                 'Petrol often fits lower-mileage users, weak charging setups, and buyers who do not want to pay a large upfront premium yet.',
@@ -439,9 +460,14 @@ export default function CarPowertrainDecision() {
               ]}
               colors={colors}
             />
-          </SectionCard>
+          </CollapsibleSection>
 
-          <SectionCard title="What to verify next" subtitle="Do this before turning the recommendation into a vehicle purchase." accent={ACCENT} colors={colors}>
+          <CollapsibleSection
+            title="What to verify next"
+            summary="Do this before turning the recommendation into a vehicle purchase."
+            colors={colors}
+            defaultOpen
+          >
             <BulletList
               items={[
                 'Use real on-road prices, not idealized brochure pricing.',
@@ -452,7 +478,7 @@ export default function CarPowertrainDecision() {
               ]}
               colors={colors}
             />
-          </SectionCard>
+          </CollapsibleSection>
         </div>
       </div>
 

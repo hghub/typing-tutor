@@ -228,3 +228,60 @@ export function ComparisonBars({ items, colors, accent = '#06b6d4', currency = f
     </div>
   )
 }
+
+export function ActionCallout({ title, body, accent = '#06b6d4', colors, actions = [] }) {
+  return (
+    <div style={{
+      background: `linear-gradient(145deg, ${accent}16, ${colors.card})`,
+      border: `1px solid ${accent}2f`,
+      borderRadius: '1rem',
+      padding: '1rem 1.05rem',
+      display: 'grid',
+      gap: '0.55rem',
+    }}>
+      <div style={{ color: colors.text, fontSize: '1rem', fontWeight: 800 }}>{title}</div>
+      <div style={{ color: colors.textSecondary, lineHeight: 1.6, fontSize: '0.9rem' }}>{body}</div>
+      {actions.length > 0 && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+          {actions.map((action) => (
+            <span
+              key={action}
+              style={{
+                borderRadius: '999px',
+                padding: '0.35rem 0.65rem',
+                border: `1px solid ${accent}26`,
+                background: `${accent}0f`,
+                color: colors.text,
+                fontSize: '0.78rem',
+                fontWeight: 700,
+              }}
+            >
+              {action}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export function CollapsibleSection({ title, summary, colors, children, defaultOpen = false }) {
+  return (
+    <details open={defaultOpen} style={{ border: `1px solid ${colors.border}`, borderRadius: '0.95rem', background: colors.card }}>
+      <summary style={{
+        cursor: 'pointer',
+        listStyle: 'none',
+        padding: '0.9rem 1rem',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0.2rem',
+      }}>
+        <span style={{ color: colors.text, fontWeight: 800, fontSize: '0.9rem' }}>{title}</span>
+        {summary && <span style={{ color: colors.textSecondary, fontSize: '0.8rem', lineHeight: 1.45 }}>{summary}</span>}
+      </summary>
+      <div style={{ padding: '0 1rem 1rem' }}>
+        {children}
+      </div>
+    </details>
+  )
+}

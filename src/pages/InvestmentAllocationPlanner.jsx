@@ -14,8 +14,10 @@ import {
   MetricGrid,
   MetricCard,
   RecommendationBanner,
+  ActionCallout,
   BulletList,
   ScoreBars,
+  CollapsibleSection,
 } from '../components/decision/DecisionBlocks'
 import { clamp, fmtCurrency, fmtPercent, fmtNumber, round } from '../lib/decision'
 
@@ -768,6 +770,13 @@ export default function InvestmentAllocationPlanner() {
             confidence={confidence}
             colors={colors}
           />
+          <ActionCallout
+            title="What you should do next"
+            body={result.decisionTrack}
+            accent={result.emergencyGapAmount > 0 ? '#f59e0b' : recommendation.includes('growth') ? '#22c55e' : ACCENT}
+            colors={colors}
+            actions={result.actionSteps.slice(0, 3)}
+          />
 
           <MetricGrid>
             <MetricCard label="Deployable now" value={fmtCurrency(result.deployNow)} sub="Amount that can realistically work after respecting safety needs." accent="#22c55e" colors={colors} />
@@ -816,9 +825,13 @@ export default function InvestmentAllocationPlanner() {
             </div>
           </SectionCard>
 
-          <SectionCard title="Why this split?" accent={ACCENT} colors={colors}>
+          <CollapsibleSection
+            title="Why this split?"
+            summary="Open this if you want the main reasons behind the recommended allocation."
+            colors={colors}
+          >
             <BulletList items={result.reasons} colors={colors} />
-          </SectionCard>
+          </CollapsibleSection>
 
           <SectionCard title="Pressure-test the allocation" subtitle="These checks show what should change if your horizon, liquidity, or spending pressure changes." accent={ACCENT} colors={colors}>
             <MetricGrid min={220}>
@@ -883,10 +896,9 @@ export default function InvestmentAllocationPlanner() {
           />
         </SectionCard>
 
-        <SectionCard
+        <CollapsibleSection
           title="Tax-aware implementation notes"
-          subtitle="Keep the allocation decision separate from product-level tax assumptions, then verify current treatment before implementing."
-          accent={ACCENT}
+          summary="Open this before implementation if taxes, filer status, or product structure may change your practical net outcome."
           colors={colors}
         >
           <BulletList
@@ -899,13 +911,13 @@ export default function InvestmentAllocationPlanner() {
             ]}
             colors={colors}
           />
-        </SectionCard>
+        </CollapsibleSection>
 
-        <SectionCard
+        <CollapsibleSection
           title="Pakistan category mapping"
-          subtitle="This is the practical bridge between the allocation and the kinds of regulated buckets you would shortlist next."
-          accent={ACCENT}
+          summary="This is the bridge from allocation logic to the regulated buckets you would shortlist next."
           colors={colors}
+          defaultOpen
         >
           <MetricGrid min={240}>
             {Object.entries(result.allocation)
@@ -939,12 +951,11 @@ export default function InvestmentAllocationPlanner() {
                 </div>
               ))}
           </MetricGrid>
-        </SectionCard>
+        </CollapsibleSection>
 
-        <SectionCard
+        <CollapsibleSection
           title="Current Pakistan category reference"
-          subtitle="This reference is based on the category framing visible in the current MUFAP fund directory. Use it to understand the landscape before comparing actual funds."
-          accent={ACCENT}
+          summary="Open this when you want the category landscape behind the mapping, before comparing actual funds."
           colors={colors}
         >
           <div style={{ display: 'grid', gap: '0.75rem' }}>
@@ -966,7 +977,7 @@ export default function InvestmentAllocationPlanner() {
               </div>
             ))}
           </div>
-        </SectionCard>
+        </CollapsibleSection>
 
         <SectionCard
           title="Where this planner is especially useful"
@@ -986,11 +997,11 @@ export default function InvestmentAllocationPlanner() {
           />
         </SectionCard>
 
-        <SectionCard
+        <CollapsibleSection
           title="Shortlisting checklist"
-          subtitle="Once the allocation is clear, this is how to compare actual categories or products without getting distracted by headlines."
-          accent={ACCENT}
+          summary="Use this when you start comparing actual products so you do not get distracted by headline returns."
           colors={colors}
+          defaultOpen
         >
           <BulletList
             items={[
@@ -1003,12 +1014,11 @@ export default function InvestmentAllocationPlanner() {
             ]}
             colors={colors}
           />
-        </SectionCard>
+        </CollapsibleSection>
 
-        <SectionCard
+        <CollapsibleSection
           title="Rebalancing guidance"
-          subtitle="A good allocation is not set once forever. It needs calm maintenance rules."
-          accent={ACCENT}
+          summary="A good allocation needs calm maintenance rules. Open this when you want the upkeep framework."
           colors={colors}
         >
           <BulletList
@@ -1021,7 +1031,7 @@ export default function InvestmentAllocationPlanner() {
             ]}
             colors={colors}
           />
-        </SectionCard>
+        </CollapsibleSection>
       </div>
 
       <div style={{ marginTop: '1rem' }}>

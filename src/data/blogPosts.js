@@ -2919,4 +2919,69 @@ export const BLOG_POSTS = [
 <div class="cta-box"><p>Check how much of your money should stay in safety before you push harder into growth.</p><a href="/tools/investment-allocation-planner-pakistan">Open the planner →</a></div>
 `,
   },
+  {
+    slug: 'how-to-rebalance-an-investment-portfolio-in-pakistan',
+    title: 'How to Rebalance an Investment Portfolio in Pakistan Without Overreacting',
+    description: 'A practical guide to when and why to rebalance a Pakistan portfolio, especially when it mixes liquidity, income, growth, gold, and FX hedge buckets.',
+    hero: '⚖️',
+    category: 'pakistan',
+    readTime: '7 min read',
+    publishDate: '2026-05-05',
+    tags: ['portfolio rebalancing pakistan', 'asset allocation pakistan', 'investment review', 'rebalance portfolio'],
+    content: `
+<h2>Rebalancing Is a Discipline, Not a Panic Button</h2>
+<p>Many investors think rebalancing means reacting to headlines. A better view is simpler: rebalancing means bringing the portfolio back in line with the job each part of the money was supposed to do.</p>
+
+<h2>Why It Matters</h2>
+<p>If one bucket grows too large or if life changes make an old split outdated, the portfolio stops reflecting your real needs. That can quietly turn a balanced plan into an accidental bet.</p>
+
+<h2>When Rebalancing Usually Makes Sense</h2>
+<ul>
+  <li>after large market moves that distort the intended mix</li>
+  <li>after major contributions or withdrawals</li>
+  <li>after life changes like a house plan, education obligation, or retirement timeline shift</li>
+  <li>at a calm scheduled review, often every 6 to 12 months</li>
+</ul>
+
+<h2>What Not to Do</h2>
+<p>Do not rebalance because a social post scared you or because one category had one great month. Rebalance when the role of the money changed or the allocation drifted enough to stop matching your actual plan.</p>
+
+<h2>Use the Allocation First</h2>
+<p>The <a href="/tools/investment-allocation-planner-pakistan">Investment Allocation Planner Pakistan</a> is useful here because it defines the target bucket roles before you start comparing specific products. That gives you something rational to rebalance back toward.</p>
+
+<div class="cta-box"><p>Build the target structure first, then use that structure to review drift calmly.</p><a href="/tools/investment-allocation-planner-pakistan">Open the planner →</a></div>
+`,
+  },
+  {
+    slug: 'single-goal-vs-multi-goal-investing-in-pakistan',
+    title: 'Single-Goal vs Multi-Goal Investing in Pakistan',
+    description: 'Why a family corpus serving several future needs should usually be structured differently from money dedicated to one clear goal.',
+    hero: '🎯',
+    category: 'pakistan',
+    readTime: '7 min read',
+    publishDate: '2026-05-05',
+    tags: ['multi goal investing pakistan', 'family corpus planning', 'asset allocation pakistan', 'investment goals'],
+    content: `
+<h2>One Big Pool, Many Different Jobs</h2>
+<p>A lot of families treat all their investable money as one pool. The problem is that the money often has multiple conflicting jobs: house reserve, education, business backup, retirement growth, and emergency protection.</p>
+
+<h2>Why Single-Goal Money Behaves Differently</h2>
+<p>If money has one clean purpose and one long horizon, it can usually tolerate a cleaner, more growth-capable structure. The plan is simpler because the objective is simpler.</p>
+
+<h2>Why Multi-Goal Money Usually Needs More Structure</h2>
+<p>When the same corpus serves several future needs, the portfolio usually needs more internal safety, more segmentation, and more discipline. Otherwise one urgent goal ends up forcing the wrong part of the money to be sold.</p>
+
+<h2>A Better Way to Think About Multi-Goal Capital</h2>
+<ul>
+  <li>some money is near-term and should stay more defensive</li>
+  <li>some money supports medium-term goals and needs controlled growth</li>
+  <li>some money can remain truly long-horizon and patient</li>
+</ul>
+
+<h2>Use a Planner That Respects Goal Structure</h2>
+<p>The <a href="/tools/investment-allocation-planner-pakistan">Investment Allocation Planner Pakistan</a> now supports both a single-goal mode and a multi-goal family-portfolio mode, so the structure can reflect reality instead of pretending all capital has the same job.</p>
+
+<div class="cta-box"><p>Check whether your corpus should be treated as one goal or several competing goals.</p><a href="/tools/investment-allocation-planner-pakistan">Open the planner →</a></div>
+`,
+  },
 ]

@@ -234,6 +234,23 @@ const BUCKET_COPY = {
   },
 }
 
+const CATEGORY_REFERENCE = {
+  conventional: [
+    { category: 'Money Market', role: 'Safety / liquidity', risk: 'Low', fit: 'Emergency reserve, near-cash parking, very short horizon' },
+    { category: 'Income', role: 'Income / stability', risk: 'Low to medium', fit: 'Lower-volatility compounding and defensive allocation' },
+    { category: 'Fixed Rate / Return', role: 'Stability with defined-return style structures', risk: 'Very low to moderate', fit: 'Users prioritizing predictability over growth' },
+    { category: 'Asset Allocation / Balanced / Fund of Funds', role: 'Balanced growth', risk: 'Medium', fit: 'Mixed-goal users who need some growth without full equity concentration' },
+    { category: 'Dedicated Equity', role: 'Long-term growth', risk: 'High', fit: 'Long horizon capital that can tolerate sharp drawdowns' },
+  ],
+  shariah: [
+    { category: 'Shariah Compliant Money Market', role: 'Safety / liquidity', risk: 'Low', fit: 'Islamic near-cash reserve and emergency allocation' },
+    { category: 'Islamic Income / Sukuk-oriented', role: 'Income / stability', risk: 'Low to medium', fit: 'Shariah-compliant stability and lower-volatility compounding' },
+    { category: 'Shariah Compliant Asset Allocation', role: 'Balanced growth', risk: 'Medium', fit: 'Mixed-goal Shariah portfolio needing some growth with internal balance' },
+    { category: 'Shariah Compliant Fund of Funds', role: 'Balanced to growth depending on mandate', risk: 'Medium to high', fit: 'Users wanting diversified Shariah exposure via managed mix' },
+    { category: 'Shariah Compliant Dedicated Equity', role: 'Long-term growth', risk: 'High', fit: 'Patient capital with genuine tolerance for volatility' },
+  ],
+}
+
 function cloneAlloc(alloc) {
   return Object.fromEntries(Object.entries(alloc).map(([key, value]) => [key, Number(value) || 0]))
 }
@@ -260,6 +277,15 @@ function normalizeAllocation(alloc) {
   const diff = round(100 - Object.values(normalized).reduce((sum, value) => sum + value, 0), 1)
   normalized.balanced = round(normalized.balanced + diff, 1)
   return normalized
+}
+
+function normalizeGoalShares(rawShares) {
+  const total = Math.max(1, rawShares.near + rawShares.medium + rawShares.long)
+  return {
+    near: round((rawShares.near / total) * 100, 1),
+    medium: round((rawShares.medium / total) * 100, 1),
+    long: round((rawShares.long / total) * 100, 1),
+  }
 }
 
 function buildAllocation(inputs) {
@@ -338,6 +364,12 @@ function buildAllocation(inputs) {
   const incomeNeedCovered = inputs.monthlyWithdrawalNeed > 0
     ? Math.min(1, ((buckets.liquidity + buckets.income) / Math.max(1, inputs.monthlyWithdrawalNeed * 24)))
     : 1
+  const goalShares = normalizeGoalShares(inputs.goalShares || { near: 20, medium: 30, long: 50 })
+  const goalBuckets = {
+    near: round((goalShares.near / 100) * investableAmount),
+    medium: round((goalShares.medium / 100) * investableAmount),
+    long: round((goalShares.long / 100) * investableAmount),
+  }
 
   let decisionTitle = 'Use multiple buckets, not one single investment'
   let decisionBody = 'Your money should not all do one job. Some of it must protect liquidity, some should produce stability, and only the longer-horizon portion should carry real market risk.'
@@ -402,6 +434,8 @@ function buildAllocation(inputs) {
   return {
     allocation,
     buckets,
+    goalShares,
+    goalBuckets,
     scores,
     emergencyGapAmount,
     annualWithdrawalRatio,
@@ -460,6 +494,7 @@ export default function InvestmentAllocationPlanner() {
   const [debtPressure, setDebtPressure] = useState('moderate')
   const [incomeStability, setIncomeStability] = useState('normal')
   const [goalMode, setGoalMode] = useState('single')
+  const [goalShares, setGoalShares] = useState({ near: 20, medium: 30, long: 50 })
   const [shariahPreference, setShariahPreference] = useState('yes')
   const [fxPreference, setFxPreference] = useState('medium')
   const [goldPreference, setGoldPreference] = useState('medium')
@@ -478,6 +513,7 @@ export default function InvestmentAllocationPlanner() {
     setDebtPressure(preset.values.debtPressure)
     setIncomeStability(preset.values.incomeStability)
     setGoalMode(preset.values.goalMode || 'single')
+    setGoalShares(preset.values.goalMode === 'multi' ? { near: 25, medium: 35, long: 40 } : { near: 20, medium: 30, long: 50 })
     setFxPreference(preset.values.fxPreference)
     setGoldPreference(preset.values.goldPreference)
   }
@@ -499,6 +535,7 @@ export default function InvestmentAllocationPlanner() {
     debtPressure,
     incomeStability,
     goalMode,
+    goalShares,
     shariahPreference,
     fxPreference,
     goldPreference,
@@ -515,6 +552,7 @@ export default function InvestmentAllocationPlanner() {
     debtPressure,
     incomeStability,
     goalMode,
+    goalShares,
     shariahPreference,
     fxPreference,
     goldPreference,
@@ -535,6 +573,7 @@ export default function InvestmentAllocationPlanner() {
     `Monthly contribution: ${fmtCurrency(monthlyContribution)}`,
     `Goal style: ${GOAL_PROFILES[goal].label}`,
     `Goal structure: ${goalMode === 'multi' ? 'Multiple goals / family portfolio' : 'Single primary goal'}`,
+    goalMode === 'multi' ? `Goal split: Near-term ${result.goalShares.near}% (${fmtCurrency(result.goalBuckets.near)}), Medium-term ${result.goalShares.medium}% (${fmtCurrency(result.goalBuckets.medium)}), Long-term ${result.goalShares.long}% (${fmtCurrency(result.goalBuckets.long)})` : null,
     `Recommendation: ${recommendation}`,
     `Safety bucket: ${result.allocation.liquidity}% (${fmtCurrency(result.buckets.liquidity)})`,
     `Income bucket: ${result.allocation.income}% (${fmtCurrency(result.buckets.income)})`,
@@ -544,7 +583,7 @@ export default function InvestmentAllocationPlanner() {
     `FX hedge: ${result.allocation.usd}% (${fmtCurrency(result.buckets.usd)})`,
     `Decision path: ${result.decisionTitle}`,
     `Notes: ${result.actionSteps.join(' | ')}`,
-  ].join('\n')
+  ].filter(Boolean).join('\n')
 
   const copySummary = async () => {
     try {
@@ -697,6 +736,28 @@ export default function InvestmentAllocationPlanner() {
               </SelectInput>
             </Field>
           </FieldsGrid>
+          {goalMode === 'multi' && (
+            <div style={{ marginTop: '1rem', padding: '1rem', borderRadius: '1rem', border: `1px solid ${colors.border}`, background: colors.card }}>
+              <div style={{ color: colors.text, fontWeight: 800, marginBottom: '0.35rem' }}>Multi-goal split planner</div>
+              <div style={{ color: colors.textSecondary, fontSize: '0.82rem', lineHeight: 1.55, marginBottom: '0.9rem' }}>
+                Split the corpus by job first. This does not replace the allocation engine. It tells the engine how much of the overall money is really serving near-term, medium-term, and long-horizon objectives.
+              </div>
+              <MetricGrid min={220}>
+                <Field label={`Near-term goals (${fmtCurrency(round((goalShares.near / 100) * amount))})`} hint="House purchase reserve, tuition due soon, business cash need, or anything within roughly 1–3 years.">
+                  <SliderInput colors={colors} accent={ACCENT} value={goalShares.near} onChange={(e) => { markCustom(); setGoalShares((prev) => ({ ...prev, near: Number(e.target.value) })) }} min={0} max={100} suffix="%" />
+                </Field>
+                <Field label={`Medium-term goals (${fmtCurrency(round((goalShares.medium / 100) * amount))})`} hint="Goals with a 3–7 year time frame where some growth is useful but deep drawdown risk must stay controlled.">
+                  <SliderInput colors={colors} accent={ACCENT} value={goalShares.medium} onChange={(e) => { markCustom(); setGoalShares((prev) => ({ ...prev, medium: Number(e.target.value) })) }} min={0} max={100} suffix="%" />
+                </Field>
+                <Field label={`Long-term growth (${fmtCurrency(round((goalShares.long / 100) * amount))})`} hint="Capital with the strongest patience window. This is the part that can most honestly carry higher-growth risk.">
+                  <SliderInput colors={colors} accent={ACCENT} value={goalShares.long} onChange={(e) => { markCustom(); setGoalShares((prev) => ({ ...prev, long: Number(e.target.value) })) }} min={0} max={100} suffix="%" />
+                </Field>
+              </MetricGrid>
+              <div style={{ color: colors.textSecondary, fontSize: '0.76rem', marginTop: '0.5rem' }}>
+                The planner normalizes these shares to 100% internally, so they work even if your raw sliders do not sum perfectly.
+              </div>
+            </div>
+          )}
         </SectionCard>
 
         <div style={{ display: 'grid', gap: '1rem' }}>
@@ -823,6 +884,24 @@ export default function InvestmentAllocationPlanner() {
         </SectionCard>
 
         <SectionCard
+          title="Tax-aware implementation notes"
+          subtitle="Keep the allocation decision separate from product-level tax assumptions, then verify current treatment before implementing."
+          accent={ACCENT}
+          colors={colors}
+        >
+          <BulletList
+            items={[
+              'Different products can carry different tax treatment on dividends, gains, holding structures, and filing status, so do not compare two buckets on return alone.',
+              'For income-focused users, post-tax cashflow matters more than headline yield. A high displayed payout is not automatically superior after tax and fee drag.',
+              'For larger corpuses, documentation quality, filer status, and account structure can materially affect the practical net outcome.',
+              'Re-check product-level tax treatment whenever policy changes, filing status changes, or you move from one category into another.',
+              'Use this planner to decide the role of the money first. Then validate current tax treatment on the actual shortlisted product before you allocate capital.',
+            ]}
+            colors={colors}
+          />
+        </SectionCard>
+
+        <SectionCard
           title="Pakistan category mapping"
           subtitle="This is the practical bridge between the allocation and the kinds of regulated buckets you would shortlist next."
           accent={ACCENT}
@@ -863,6 +942,33 @@ export default function InvestmentAllocationPlanner() {
         </SectionCard>
 
         <SectionCard
+          title="Current Pakistan category reference"
+          subtitle="This reference is based on the category framing visible in the current MUFAP fund directory. Use it to understand the landscape before comparing actual funds."
+          accent={ACCENT}
+          colors={colors}
+        >
+          <div style={{ display: 'grid', gap: '0.75rem' }}>
+            {(shariahPreference === 'yes' ? CATEGORY_REFERENCE.shariah : CATEGORY_REFERENCE.conventional).map((row) => (
+              <div key={row.category} style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.9fr 0.7fr 1.4fr', gap: '0.75rem', padding: '0.85rem 0.95rem', borderRadius: '0.9rem', border: `1px solid ${colors.border}`, background: colors.card }}>
+                <div>
+                  <div style={{ color: colors.text, fontWeight: 800, marginBottom: '0.15rem' }}>{row.category}</div>
+                  <div style={{ color: colors.textSecondary, fontSize: '0.78rem' }}>{row.role}</div>
+                </div>
+                <div style={{ color: colors.textSecondary, fontSize: '0.8rem' }}>
+                  <strong style={{ color: colors.text }}>Role:</strong> {row.role}
+                </div>
+                <div style={{ color: colors.textSecondary, fontSize: '0.8rem' }}>
+                  <strong style={{ color: colors.text }}>Risk:</strong> {row.risk}
+                </div>
+                <div style={{ color: colors.textSecondary, fontSize: '0.8rem', lineHeight: 1.5 }}>
+                  <strong style={{ color: colors.text }}>Best fit:</strong> {row.fit}
+                </div>
+              </div>
+            ))}
+          </div>
+        </SectionCard>
+
+        <SectionCard
           title="Where this planner is especially useful"
           subtitle="The same decision engine works for smaller and larger portfolios because the job of the money matters more than the headline amount."
           accent={ACCENT}
@@ -894,6 +1000,24 @@ export default function InvestmentAllocationPlanner() {
               'Watch concentration risk: one manager, one issuer, or one story should not dominate the whole corpus.',
               'For larger corpuses, separate family spending reserve, strategic growth capital, and optional hedge buckets explicitly instead of blending them emotionally.',
               'Revisit tax treatment, documentation, and Shariah screening before final implementation.',
+            ]}
+            colors={colors}
+          />
+        </SectionCard>
+
+        <SectionCard
+          title="Rebalancing guidance"
+          subtitle="A good allocation is not set once forever. It needs calm maintenance rules."
+          accent={ACCENT}
+          colors={colors}
+        >
+          <BulletList
+            items={[
+              'Review the allocation at least every 6 to 12 months even if markets are calm.',
+              'Rebalance sooner if one bucket drifts materially away from its intended role or if the corpus changes sharply after a large contribution or withdrawal.',
+              'Re-check the structure after life changes: house purchase plan, education commitment, business stress, retirement timeline shift, or family obligation jump.',
+              'Do not rebalance based only on headlines or market excitement. Rebalance when the role of the money or the weight of the buckets changes.',
+              'For multi-goal portfolios, review both layers: the goal split itself and the allocation inside the overall plan.',
             ]}
             colors={colors}
           />

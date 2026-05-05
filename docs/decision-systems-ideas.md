@@ -142,6 +142,28 @@ Update cadence:
 - `monthly` for tax assumptions if needed
 - `quarterly` for dollar/PKR sensitivity presets and reserve heuristics
 
+6. `Investment Allocation Planner Pakistan`
+
+Why:
+- strong practical demand from users asking “I have 20 lakh or 1 crore, how should I split it?”
+- naturally fits Rafiqy’s decision-system direction
+- can become a high-trust allocation planner without pretending to be a broker or discretionary advisor
+
+Primary decisions:
+- how much should stay liquid vs invested?
+- how much should go to money market, income, balanced, equity, gold, property reserve, or USD hedge?
+- should I keep it in one place or split it across buckets?
+- what mix fits my horizon, risk tolerance, Shariah preference, and monthly cash needs?
+
+Important framing:
+- build it first as an `allocation planner`, not a “buy this exact stock” recommender
+- show model portfolios and risk tradeoffs
+- let users map allocations to regulated categories and fund types later
+
+Update cadence:
+- `monthly` for MUFAP category assumptions, deposit/yield reference ranges, and inflation/FX heuristics
+- `event-driven` for tax-rule or capital-market policy changes
+
 ### Tier 2: Build After Tier 1
 
 6. `Car Financing vs Cash Decision Tool`

@@ -6,12 +6,33 @@ import ToolsNav from '../components/ToolsNav'
 import ShareBar from '../components/ShareBar'
 import { BLOG_POSTS } from '../data/blogPosts'
 
+const BLOG_CATEGORY_ORDER = ['pakistan', 'language', 'typing', 'finance', 'writing', 'pdf', 'security', 'productivity', 'developer', 'business', 'travel', 'education', 'legal', 'health']
+const FEATURED_POST_SLUGS = [
+  'solar-planner-pakistan',
+  '5kw-solar-system-price-in-pakistan',
+  'pakistan-income-tax-calculator',
+  'urdu-typing-online',
+  'rent-vs-buy-calculator-pakistan-guide',
+  'is-ev-worth-it-in-pakistan',
+  'how-to-evaluate-a-job-offer-in-pakistan',
+  'how-much-tax-should-freelancers-reserve-in-pakistan',
+  'compress-pdf-online',
+  'password-generator-security',
+]
+
 export default function BlogHome() {
   const { isDark, colors } = useTheme()
   const [activeCategory, setActiveCategory] = useState('all')
   const [query, setQuery] = useState('')
 
-  const categories = ['all', ...new Set(BLOG_POSTS.map(p => p.category))]
+  const categories = ['all', ...[...new Set(BLOG_POSTS.map(p => p.category))].sort((a, b) => {
+    const ai = BLOG_CATEGORY_ORDER.indexOf(a)
+    const bi = BLOG_CATEGORY_ORDER.indexOf(b)
+    if (ai === -1 && bi === -1) return a.localeCompare(b)
+    if (ai === -1) return 1
+    if (bi === -1) return -1
+    return ai - bi
+  })]
 
   const q = query.trim().toLowerCase()
   const filtered = BLOG_POSTS.filter(p => {
@@ -21,6 +42,15 @@ export default function BlogHome() {
       p.description?.toLowerCase().includes(q) ||
       p.tags?.some(t => t.toLowerCase().includes(q))
     return matchCat && matchQ
+  }).sort((a, b) => {
+    const ai = FEATURED_POST_SLUGS.indexOf(a.slug)
+    const bi = FEATURED_POST_SLUGS.indexOf(b.slug)
+    if (activeCategory === 'all' && !q && (ai !== -1 || bi !== -1)) {
+      if (ai === -1) return 1
+      if (bi === -1) return -1
+      if (ai !== bi) return ai - bi
+    }
+    return new Date(b.publishDate || 0) - new Date(a.publishDate || 0)
   })
 
   return (

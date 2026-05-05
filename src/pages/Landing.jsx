@@ -6,34 +6,51 @@ import ToolsNav from '../components/ToolsNav'
 import ShareBar from '../components/ShareBar'
 
 const FEATURED_IDS = [
-  'solar-planner', 'rent-vs-buy-pakistan', 'car-powertrain-decision',
-  'salary-offer-evaluator', 'freelance-tax-planner', 'tax-calculator',
-  'typing-tutor', 'urdu-keyboard',
+  'solar-planner', 'urdu-keyboard', 'tax-calculator', 'typing-tutor',
+  'rent-vs-buy-pakistan', 'car-powertrain-decision', 'salary-offer-evaluator', 'freelance-tax-planner',
+]
+
+const FEATURED_POST_SLUGS = [
+  'solar-planner-pakistan',
+  '5kw-solar-system-price-in-pakistan',
+  'pakistan-income-tax-calculator',
+  'urdu-typing-online',
+  'rent-vs-buy-calculator-pakistan-guide',
+  'is-ev-worth-it-in-pakistan',
 ]
 
 const QUICK_ACTIONS = [
   { label: '☀️ Solar Calculator', path: '/tools/solar-planner', desc: 'Solar decision' },
+  { label: '🧮 Tax Calculator', path: '/tools/tax-calculator', desc: 'Pakistan tax' },
+  { label: '🌍 Urdu Keyboard', path: '/tools/urdu-keyboard', desc: 'Type Urdu online' },
+  { label: '⌨️ Typing Tutor', path: '/tools/typing-tutor', desc: 'Improve speed' },
   { label: '🏠 Rent vs Buy', path: '/tools/rent-vs-buy-calculator-pakistan', desc: 'Property decision' },
   { label: '🚗 EV vs Hybrid', path: '/tools/petrol-vs-hybrid-vs-ev', desc: 'Car decision' },
   { label: '💼 Salary Offer', path: '/tools/salary-offer-calculator-pakistan', desc: 'Job decision' },
   { label: '🧾 Freelance Tax', path: '/tools/freelance-tax-planner-pakistan', desc: 'Reserve planner' },
-  { label: '🌍 Urdu Keyboard', path: '/tools/urdu-keyboard', desc: 'Type Urdu online' },
 ]
 
 const WHAT_YOU_CAN_DO = [
-  {
-    icon: '📝',
-    title: 'Write & Format',
-    desc: 'Word counter, text formatter, doc composer, Urdu keyboard — everything for your writing workflow.',
-    tools: ['/tools/word-counter', '/tools/text-cleaner', '/tools/doc-composer'],
-    labels: ['Word Counter', 'Text Formatter', 'Doc Composer'],
-  },
   {
     icon: '🧠',
     title: 'Decision Systems',
     desc: 'Solar, rent vs buy, petrol vs hybrid vs EV, salary offers and freelance reserve planning.',
     tools: ['/tools/solar-planner', '/tools/rent-vs-buy-calculator-pakistan', '/tools/petrol-vs-hybrid-vs-ev'],
     labels: ['Solar Calculator', 'Rent vs Buy', 'EV vs Hybrid'],
+  },
+  {
+    icon: '🌍',
+    title: 'Typing & Urdu',
+    desc: 'Urdu keyboard, multilingual typing tutor and browser tools for everyday writing and practice.',
+    tools: ['/tools/urdu-keyboard', '/tools/typing-tutor', '/tools/word-counter'],
+    labels: ['Urdu Keyboard', 'Typing Tutor', 'Word Counter'],
+  },
+  {
+    icon: '📝',
+    title: 'Write & Format',
+    desc: 'Word counter, text formatter, doc composer, Urdu keyboard — everything for your writing workflow.',
+    tools: ['/tools/word-counter', '/tools/text-cleaner', '/tools/doc-composer'],
+    labels: ['Word Counter', 'Text Formatter', 'Doc Composer'],
   },
   {
     icon: '📄',
@@ -67,7 +84,10 @@ const WHAT_YOU_CAN_DO = [
 
 export default function Landing() {
   const featured = FEATURED_IDS.map(id => TOOLS.find(t => t.id === id)).filter(Boolean)
-  const recentPosts = BLOG_POSTS.slice(-3)
+  const featuredPosts = FEATURED_POST_SLUGS
+    .map(slug => BLOG_POSTS.find(post => post.slug === slug))
+    .filter(Boolean)
+    .slice(0, 3)
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-bg)', color: 'var(--color-text)', fontFamily: 'sans-serif' }}>
@@ -292,12 +312,12 @@ export default function Landing() {
 
       {/* ── From Our Blog ── */}
       <section style={{ padding: '3rem 2rem', maxWidth: 1100, margin: '0 auto' }}>
-        <h2 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.4rem' }}>📖 From Our Blog</h2>
+        <h2 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.4rem' }}>📖 Start With These Guides</h2>
         <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', marginBottom: '2rem' }}>
-          Tips, guides and tool walkthroughs for getting the most out of Rafiqy.
+          The strongest posts for first-time users: Pakistan solar, tax, Urdu typing and decision-system guides.
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: '1.25rem' }}>
-          {recentPosts.map(post => (
+          {featuredPosts.map(post => (
             <Link key={post.slug} to={`/blog/${post.slug}`} style={{ textDecoration: 'none' }}>
               <div
                 style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 12, padding: '1.5rem', height: '100%', boxSizing: 'border-box', transition: 'border-color .2s', cursor: 'pointer' }}

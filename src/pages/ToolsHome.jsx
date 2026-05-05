@@ -10,13 +10,13 @@ import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
 import { getToolScenarioLine } from '../lib/toolUsage'
 
-const FEATURED_IDS = ['solar-planner', 'rent-vs-buy-pakistan', 'car-powertrain-decision', 'salary-offer-evaluator', 'freelance-tax-planner', 'tax-calculator']
+const FEATURED_IDS = ['solar-planner', 'urdu-keyboard', 'typing-tutor', 'tax-calculator', 'compress-pdf', 'data-leak-detector', 'rent-vs-buy-pakistan', 'car-powertrain-decision']
 const LAST_VISIT_KEY = 'typely_last_visit'
 const RECENT_KEY = 'typely_recent_tools'
 const FAVOURITES_KEY = 'typely_favourites'
 const TOP_N = 6
 const CATEGORY_LANDING_LINKS = [
-  { path: '/category/pakistan-tools', label: 'Pakistan Tools', desc: 'Tax, salary, gold and local utilities' },
+  { path: '/category/pakistan-tools', label: 'Pakistan Tools', desc: 'Decision systems, tax, salary and local utilities' },
   { path: '/category/writing-tools', label: 'Writing Tools', desc: 'Urdu, documents, cleanup and word count' },
   { path: '/category/pdf-tools', label: 'PDF Tools', desc: 'Compress, merge, split, convert and OCR' },
   { path: '/category/security-tools', label: 'Privacy Tools', desc: 'Leak detection, encryption and redaction' },
@@ -45,20 +45,20 @@ function toggleFavourite(id) {
 
 // Category display order (matches user spec 1–14)
 const CATEGORY_ORDER = [
-  'typing',       // 1
-  'productivity', // 2
-  'writing',      // 3
-  'language',     // 4
-  'pakistan',     // 5
-  'travel',       // 6
-  'security',     // 7
-  'pdf',          // 8
-  'finance',      // 9
-  'health',       // 10
-  'developer',    // 11
-  'education',    // 12
-  'business',     // 13
-  'legal',        // 14
+  'pakistan',
+  'writing',
+  'language',
+  'pdf',
+  'security',
+  'typing',
+  'finance',
+  'productivity',
+  'developer',
+  'business',
+  'health',
+  'travel',
+  'education',
+  'legal',
 ]
 
 // Tool display order within each category
@@ -67,15 +67,15 @@ const CATEGORY_TOOL_ORDER = {
   productivity:['pomodoro','world-time','daily-planner','habit-tracker','voice-diary','kameti','measurement-tracker','resume-builder','whatsapp-tools'],
   writing:     ['word-counter','text-cleaner','doc-composer','image-suite'],
   language:    ['urdu-keyboard','color-palette'],
-  pakistan:    ['solar-planner','rent-vs-buy-pakistan','car-powertrain-decision','salary-offer-evaluator','freelance-tax-planner','tax-calculator','pk-id-tax-hub','tax-optimizer','kameti','driving-fines','gold-price','salary-slip'],
+  pakistan:    ['solar-planner','tax-calculator','rent-vs-buy-pakistan','car-powertrain-decision','salary-offer-evaluator','freelance-tax-planner','gold-price','pk-id-tax-hub','salary-slip','tax-optimizer','kameti','driving-fines'],
   travel:      ['packing-list','budget-splitter'],
   security:    ['text-encryptor','data-leak-detector','doc-redaction'],
   pdf:         ['compress-pdf','merge-pdf','split-pdf','pdf-convert','doc-converter','text-extractor','pdf-search'],
-  finance:     ['loan-manager','gold-price','currency-converter','expense-analyzer','freelancer-risk','voice-invoice','loan-emi','position-size-calc'],
+  finance:     ['expense-analyzer','loan-manager','loan-emi','currency-converter','position-size-calc','freelancer-risk','voice-invoice'],
   health:      ['drug-checker','symptom-tracker','measurement-tracker'],
   developer:   ['json-formatter','data-transformer','markdown-scraper','log-analyzer','mock-data','schema-mapper','regex-tester','config-converter','trace-correlator'],
   education:   ['student-groups'],
-  business:    ['warranty-tracker','property-comp','refrigerant-calc'],
+  business:    ['warranty-tracker','property-comp','voice-invoice','refrigerant-calc'],
   legal:       ['timeline-builder'],
 }
 

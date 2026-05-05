@@ -6,6 +6,26 @@ import ToolsNav from '../components/ToolsNav'
 import { BLOG_POSTS } from '../data/blogPosts'
 import { getToolScenarioLine } from '../lib/toolUsage'
 
+const CATEGORY_TOOL_PRIORITY = {
+  'pakistan-tools': ['solar-planner','tax-calculator','rent-vs-buy-pakistan','car-powertrain-decision','salary-offer-evaluator','freelance-tax-planner','gold-price','pk-id-tax-hub','salary-slip','tax-optimizer','kameti','driving-fines'],
+  'finance-tools': ['tax-calculator','expense-analyzer','loan-manager','loan-emi','gold-price','currency-converter','salary-slip','position-size-calc','budget-splitter','tax-optimizer'],
+  'writing-tools': ['urdu-keyboard','word-counter','text-cleaner','doc-composer','image-suite'],
+  'pdf-tools': ['compress-pdf','merge-pdf','split-pdf','pdf-convert','doc-converter','text-extractor','pdf-search'],
+  'security-tools': ['data-leak-detector','text-encryptor','doc-redaction','password-generator'],
+  'developer-tools': ['json-formatter','regex-tester','mock-data','data-transformer','config-converter','log-analyzer','schema-mapper','trace-correlator','markdown-scraper'],
+  'productivity-tools': ['typing-tutor','pomodoro','world-time','daily-planner','habit-tracker','voice-diary','resume-builder','unit-converter','age-calculator'],
+  'image-tools': ['image-suite','text-extractor','doc-redaction','doc-converter','pdf-convert'],
+}
+
+const CATEGORY_BLOG_PRIORITY = {
+  'pakistan-tools': ['solar-planner-pakistan','5kw-solar-system-price-in-pakistan','pakistan-income-tax-calculator','rent-vs-buy-calculator-pakistan-guide','is-ev-worth-it-in-pakistan'],
+  'finance-tools': ['pakistan-income-tax-calculator','salary-slip-pakistan','how-to-calculate-emi','gold-price-pakistan-today'],
+  'writing-tools': ['urdu-typing-online','word-count-for-seo','writing-tools'],
+  'pdf-tools': ['compress-pdf-online','pdf-tools-guide'],
+  'security-tools': ['password-generator-security','security-privacy-tools'],
+  'developer-tools': ['developer-tools'],
+}
+
 const CATEGORY_DATA = {
   'productivity-tools': {
     title: 'Productivity Tools Online',
@@ -74,6 +94,17 @@ export default function CategoryPage({ category }) {
   const tools = data.toolIds?.length
     ? TOOLS.filter(t => data.toolIds.includes(t.id))
     : TOOLS.filter(t => categoryIds.includes(t.category))
+  const toolPriority = CATEGORY_TOOL_PRIORITY[category] || []
+  const sortedTools = [...tools].sort((a, b) => {
+    const ai = toolPriority.indexOf(a.id)
+    const bi = toolPriority.indexOf(b.id)
+    if (ai !== -1 || bi !== -1) {
+      if (ai === -1) return 1
+      if (bi === -1) return -1
+      if (ai !== bi) return ai - bi
+    }
+    return a.name.localeCompare(b.name)
+  })
 
   return (
     <div style={{ background: colors.bg, minHeight: '100vh', color: colors.text, fontFamily: 'sans-serif' }}>
@@ -114,7 +145,7 @@ export default function CategoryPage({ category }) {
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
-          {tools.map(tool => (
+          {sortedTools.map(tool => (
             <Link key={tool.id} to={tool.path} style={{ textDecoration: 'none' }}>
               {(() => {
                 const scenarioLine = getToolScenarioLine(tool)
@@ -153,7 +184,20 @@ export default function CategoryPage({ category }) {
 
         {/* Related Blog Posts */}
         {(() => {
-          const related = BLOG_POSTS.filter(p => categoryIds.includes(p.category?.toLowerCase())).slice(0, 3)
+          const related = BLOG_POSTS
+            .filter(p => categoryIds.includes(p.category?.toLowerCase()))
+            .sort((a, b) => {
+              const priority = CATEGORY_BLOG_PRIORITY[category] || []
+              const ai = priority.indexOf(a.slug)
+              const bi = priority.indexOf(b.slug)
+              if (ai !== -1 || bi !== -1) {
+                if (ai === -1) return 1
+                if (bi === -1) return -1
+                if (ai !== bi) return ai - bi
+              }
+              return new Date(b.publishDate || 0) - new Date(a.publishDate || 0)
+            })
+            .slice(0, 4)
           if (!related.length) return null
           return (
             <div style={{ marginTop: '3rem' }}>

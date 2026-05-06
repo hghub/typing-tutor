@@ -153,7 +153,7 @@ const TOOL_SEO = {
     faqs: [
       { q: 'Which tax year does this calculator cover?', a: 'Tax Year 2026 — income earned from July 1, 2025 to June 30, 2026 (FY 2025-26). Slab rates are from the Finance Act 2025.' },
       { q: 'What is the current tax-free income limit in Pakistan?', a: 'For Tax Year 2026, income up to Rs 600,000 per year is tax-free (0% slab) for salaried individuals.' },
-      { q: 'Can I use this for business income?', a: 'Yes. The tool covers both salaried and business individuals. Select the appropriate income type at the top of the calculator.' },
+      { q: 'Can I use this for business income?', a: 'No. This calculator currently estimates salaried-person tax only. If your income is business, self-employed or freelance, use it only as a rough reference and verify separately before relying on the result.' },
       { q: 'What is the surcharge and who pays it?', a: 'A 10% surcharge applies when total tax liability exceeds Rs 1,500,000. Applied on the portion of tax above that threshold, not on income itself.' },
       { q: 'Is this tool approved by FBR?', a: 'This is an unofficial estimation tool for planning purposes. Always verify your final return on the official IRIS portal at iris.fbr.gov.pk.' },
     ],

@@ -315,7 +315,7 @@ export const BLOG_POSTS = [
 
 <h2>2. Key Features at a Glance</h2>
 <ul>
-  <li><strong>Pakistan Tax Calculator:</strong> FBR slab-based income tax for salaried/business income, tax year selector, deductions panel, zakat toggle, monthly breakdown, shareable result link</li>
+  <li><strong>Pakistan Tax Calculator:</strong> FBR slab-based salary income tax for current salaried slabs, deductions panel, monthly planning view, and shareable result summary</li>
   <li><strong>Salary Slip Generator:</strong> gross/net salary computation, EOBI (Rs 370/month), PESSI/SESSI (6% employee contribution), income tax deduction, allowances (house rent, medical, conveyance), PDF export</li>
   <li><strong>Kameti Tracker:</strong> add members, set monthly contribution, auto-rotate draw order, mark payments, send reminders, export rotation schedule</li>
   <li><strong>Gold & Silver Calculator:</strong> live gold price (USD + PKR), manual price fallback, calculate value for tola/gram/kg, local city price context (Karachi, Lahore, Islamabad)</li>
@@ -325,8 +325,8 @@ export const BLOG_POSTS = [
 </ul>
 
 <h2>3. Pakistan Tax Calculator</h2>
-<p>Pakistan's income tax system uses a slab-based structure that changes every budget year, making manual calculations error-prone. Rafiqy's <strong>Pakistan Tax Calculator</strong> is updated for the current FBR tax year and supports both <strong>salaried</strong> and <strong>business income</strong> categories, which attract different rates under Pakistani tax law.</p>
-<p>The <strong>tax year selector</strong> lets you calculate for past years — useful for filing amended returns or comparing tax liability across years. The <strong>deductions panel</strong> allows you to enter allowable deductions such as medical expenses and charitable donations. A <strong>zakat toggle</strong> deducts the standard 2.5 % zakat for eligible individuals. The tool shows a <strong>monthly breakdown</strong> — critical for salaried employees and employers calculating monthly withholding — and a <strong>shareable result link</strong> so you can send your calculation to your accountant or HR department without re-entering data.</p>
+<p>Pakistan's income tax system uses a slab-based structure that changes every budget year, making manual calculations error-prone. Rafiqy's <strong>Pakistan Tax Calculator</strong> is updated for the current FBR tax year and is designed primarily for <strong>salaried income planning</strong>, which is what most payroll users and employees need when checking monthly withholding or annual salary tax.</p>
+<p>The calculator focuses on the decisions salaried users actually care about: annual salary, monthly take-home, bonus impact, current slab effect, VPS contribution, charity credit, and year-over-year comparison. If you earn primarily business or freelance income, you should not treat the salary calculator as a full replacement for business-income tax treatment because that follows a different practical path.</p>
 
 <h2>4. Salary Slip Generator</h2>
 <p>Generating a compliant salary slip in Pakistan requires applying several mandatory deductions correctly. Rafiqy's <strong>Salary Slip Generator</strong> handles all of them automatically. Enter gross salary and the tool computes <strong>EOBI contribution</strong> (Rs 370 per month employee contribution as per current EOBI Act), <strong>PESSI or SESSI contribution</strong> (6 % employee share — PESSI for Punjab, SESSI for Sindh), and the correct <strong>income tax withholding</strong> based on FBR slabs.</p>
@@ -1230,8 +1230,8 @@ export const BLOG_POSTS = [
   },
   {
     slug: 'pakistan-income-tax-calculator',
-    title: 'Pakistan Income Tax 2024–25: How to Calculate Your Tax with the FBR Slabs',
-    description: 'Calculate your Pakistan income tax for 2024-25 using the official FBR slab system. Includes salaried vs business income, zakat deduction, and a free tax calculator.',
+    title: 'Pakistan Income Tax 2025–26: How to Calculate Salary Tax with the FBR Slabs',
+    description: 'Calculate Pakistan salary income tax for 2025-26 using current FBR slabs. Includes salaried tax slabs, bonus impact, common credits, and a free tax calculator.',
     hero: '🇵🇰',
     category: 'pakistan',
     readTime: '7 min read',
@@ -1242,8 +1242,8 @@ export const BLOG_POSTS = [
 <p>Pakistan uses a <strong>progressive tax slab system</strong> administered by the Federal Board of Revenue (FBR). This means your income is divided into brackets, and each bracket is taxed at a different rate — lower income at lower rates, higher income at higher rates. You do not pay the highest applicable rate on your entire income, only on the portion that falls within each bracket.</p>
 <p>Understanding this system is essential before using any <strong>Pakistan income tax calculator</strong> — knowing the logic ensures you can verify calculator results and identify deductions you might be missing.</p>
 
-<h2>FBR Income Tax Slabs for Salaried Individuals (2024–25)</h2>
-<p>The following slabs apply to salaried individuals for the tax year 2024–25 (July 2024 – June 2025):</p>
+<h2>FBR Income Tax Slabs for Salaried Individuals (2025–26)</h2>
+<p>The following slabs apply to salaried individuals for the tax year 2025–26 (July 2025 – June 2026):</p>
 <ul>
   <li><strong>Up to Rs 600,000/year</strong>: 0% (exempt)</li>
   <li><strong>Rs 600,001 – Rs 1,200,000</strong>: 5% on amount exceeding Rs 600,000</li>
@@ -1264,12 +1264,12 @@ export const BLOG_POSTS = [
 </ol>
 <p>Your employer's payroll system (or HR department) should be deducting this amount monthly and depositing it with FBR on your behalf. You can verify the calculation using the <a href="/tools/tax-calculator">Rafiqy Pakistan Tax Calculator</a>.</p>
 
-<h2>Salaried vs Business Income: Key Differences</h2>
-<p>Pakistan taxes salaried and business income under different rules:</p>
+<h2>What This Guide Covers</h2>
+<p>This guide is focused on <strong>salaried income tax</strong>, because that is what the current Rafiqy tax calculator is built to estimate. Pakistan taxes salaried and business income differently in practice, so it helps to keep the scope clear:</p>
 <ul>
-  <li><strong>Salaried income</strong>: Tax is withheld at source by your employer (WHT on salary). You file a simplified return. The slabs above apply.</li>
-  <li><strong>Business income</strong>: Self-employed individuals, sole proprietors, and freelancers are taxed as "business individuals." Different slab rates apply — and you are responsible for quarterly advance tax payments rather than monthly deductions.</li>
-  <li><strong>Freelancers with foreign income</strong>: IT exporters and freelancers receiving foreign remittances receive preferential tax treatment under FBR's IT/ITES policies. Currently, foreign exchange remittances for IT services may be taxed at a reduced fixed rate.</li>
+  <li><strong>Salaried income</strong>: Tax is usually withheld through payroll by your employer. The current Rafiqy salary tax calculator is built for this case.</li>
+  <li><strong>Business income</strong>: Self-employed individuals, sole proprietors, and many freelancers follow a different tax treatment path and should not rely on a salaried-only tool as a final answer.</li>
+  <li><strong>Mixed income</strong>: If you earn both salary and business income, you should verify the treatment carefully before using a simple salary estimate for planning.</li>
 </ul>
 
 <h2>Zakat Deduction</h2>
@@ -1297,7 +1297,7 @@ export const BLOG_POSTS = [
 <p>Being a "filer" (having submitted your return) is important in Pakistan — non-filers face higher withholding tax rates on property transactions, vehicle registration, banking transactions, and more. The cost of not filing often exceeds the time investment of filing.</p>
 <p>After calculating your tax, use the <a href="/tools/salary-slip">Rafiqy Salary Slip Generator</a> to generate a structured pay slip showing your gross income, deductions, and net take-home pay — useful for documentation when filing or applying for loans.</p>
 
-<div class="cta-box"><p>Want to calculate your exact income tax liability for 2024-25 in seconds?</p><a href="/tools/tax-calculator">Calculate Your Tax Free →</a></div>
+<div class="cta-box"><p>Want to estimate your 2025-26 salaried income tax in seconds?</p><a href="/tools/tax-calculator">Open the salary tax calculator →</a></div>
 `,
   },
   {

@@ -4819,4 +4819,31 @@ export const BLOG_POSTS = [
 <div class="cta-box"><p>Calculate the rate before treating the leak like a minor repeat issue.</p><a href="/tools/refrigerant-calc">Open Refrigerant Leak Calculator →</a></div>
 `,
   },
+  {
+    slug: 'how-to-resize-crop-and-clean-images-before-sharing-or-uploading',
+    title: 'How to Resize, Crop, and Clean Images Before Sharing or Uploading',
+    description: 'A practical guide to preparing screenshots, document images, and everyday photos so they are the right size, shape, and quality before sending them anywhere.',
+    hero: '🖼️',
+    category: 'pdf',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['image editor', 'resize image', 'crop image', 'clean screenshot'],
+    content: `
+<h2>Most Shared Images Need a Quick Prep Step</h2>
+<p>People often send screenshots, scanned pages, profile images, or document photos exactly as they were captured, then realize too late that the file is too large, the crop is messy, or the image needs small cleanup first.</p>
+
+<h2>What Usually Needs Fixing</h2>
+<ul>
+  <li>cropping extra edges or unwanted background</li>
+  <li>resizing for forms, uploads, or sharing limits</li>
+  <li>making text or scans easier to read</li>
+  <li>preparing a cleaner version without opening heavy software</li>
+</ul>
+
+<h2>Use a Browser Tool for the Quick Fixes</h2>
+<p>The <a href="/tools/image-suite">Image Suite</a> is useful when you need basic visual cleanup and preparation without leaving the browser. It helps handle the small edits that make an image usable before it goes into a form, a PDF, a chat, or a work document.</p>
+
+<div class="cta-box"><p>Fix the image before sharing it instead of apologizing after.</p><a href="/tools/image-suite">Open Image Suite →</a></div>
+`,
+  },
 ]

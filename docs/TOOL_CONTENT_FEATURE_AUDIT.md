@@ -192,6 +192,14 @@ Priority right now:
   - saved equipment history
   - printable compliance summary
 
+### Image Suite
+- Content status: direct blog coverage added
+- Useful next blog angles:
+  - preparing scanned images for forms and document use
+- Feature gap:
+  - quick presets for profile photo, form upload, and document cleanup
+  - before/after compare view
+
 ---
 
 ## Related New-Tool Opportunities

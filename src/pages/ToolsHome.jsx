@@ -153,7 +153,7 @@ function MarqueeTicker({ tools, isDark, colors }) {
 
       <div style={{
         display: 'flex', gap: 0, width: 'max-content',
-        animation: 'typely-ticker 40s linear infinite',
+        animation: 'typely-ticker 65s linear infinite',
       }}>
         {doubled.map((item, i) => (
           <Link key={i} to={item.path} style={{

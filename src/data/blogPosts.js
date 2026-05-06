@@ -4261,4 +4261,238 @@ export const BLOG_POSTS = [
 <div class="cta-box"><p>Follow the request, not just the loudest log file.</p><a href="/tools/trace-correlator">Open Trace Correlator →</a></div>
 `,
   },
+  {
+    slug: 'how-to-build-an-accessible-color-palette-without-guessing',
+    title: 'How to Build an Accessible Color Palette Without Guessing',
+    description: 'A practical guide to creating cleaner UI color systems with harmony and contrast checks instead of trial and error.',
+    hero: '🎨',
+    category: 'developer',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['color palette', 'wcag contrast', 'design system', 'tailwind colors'],
+    content: `
+<h2>Most Color Problems Are Not About Taste</h2>
+<p>A lot of interface color work goes wrong for a simple reason: people choose colors that look nice in isolation but fail once buttons, text, hover states, and dark backgrounds all interact together.</p>
+
+<h2>What a Better Palette Workflow Looks Like</h2>
+<ul>
+  <li>start from one strong base color</li>
+  <li>generate related harmony options instead of random picks</li>
+  <li>check contrast before you use text on top of them</li>
+  <li>export the final palette into the format your project actually needs</li>
+</ul>
+
+<h2>Why This Tool Helps</h2>
+<p>The <a href="/tools/color-palette">Color Palette Generator</a> does not just throw out pretty swatches. It helps you build complementary, triadic, analogous, or monochrome sets, then check WCAG contrast and export them as CSS variables, JSON, or Tailwind config.</p>
+
+<div class="cta-box"><p>Build the palette once, then use it consistently across the product.</p><a href="/tools/color-palette">Open Color Palette Generator →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-check-cnic-ntn-and-tax-reference-details-in-one-place',
+    title: 'How to Check CNIC, NTN, and Tax Reference Details in One Place',
+    description: 'A practical guide for Pakistani users who need to decode CNIC details, validate NTN or STRN format, and check common tax-reference information faster.',
+    hero: '🇵🇰',
+    category: 'pakistan',
+    readTime: '7 min read',
+    publishDate: '2026-05-06',
+    tags: ['CNIC check', 'NTN validator', 'STRN', 'Pakistan tax reference'],
+    content: `
+<h2>Many Pakistan Tax or ID Tasks Are Small but Annoying</h2>
+<p>Sometimes you are not trying to “do tax” in a big sense. You just need to decode a CNIC, confirm an NTN format, check filer vs non-filer withholding context, or understand which deadline or term matters before you fill a form.</p>
+
+<h2>Why This Gets Messy</h2>
+<ul>
+  <li>the information is split across multiple pages or screenshots</li>
+  <li>people forget what STRN, NTN, ATL, or withholding actually mean</li>
+  <li>simple validation tasks turn into search-engine hopping</li>
+</ul>
+
+<h2>Use One Reference Instead of Guessing</h2>
+<p>The <a href="/tools/pk-id-tax-hub">Pakistan ID & Tax Hub</a> combines CNIC decoding, NTN and STRN validation, filer vs non-filer withholding reference, a tax glossary, and deadline context in one place. It is useful when you need a fast check before payroll, filing, onboarding, vendor setup, or general documentation work.</p>
+
+<div class="cta-box"><p>Do the quick identity or tax-reference check in one place before moving on.</p><a href="/tools/pk-id-tax-hub">Open Pakistan ID & Tax Hub →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-track-money-you-lent-or-borrowed-without-forgetting-payments',
+    title: 'How to Track Money You Lent or Borrowed Without Forgetting Payments',
+    description: 'A practical guide to keeping personal or family loan records clear, especially when partial payments and overdue balances start piling up.',
+    hero: '💰',
+    category: 'finance',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['loan manager', 'borrowed money', 'lent money', 'payment tracker'],
+    content: `
+<h2>Small Loans Become Confusing Faster Than People Expect</h2>
+<p>It starts simply: someone borrows a little money, you pay a part back, another amount gets added, and suddenly nobody is completely sure what the remaining balance is.</p>
+
+<h2>What Usually Goes Wrong</h2>
+<ul>
+  <li>partial payments are remembered loosely, not recorded properly</li>
+  <li>people mix “I lent” and “I borrowed” in one note thread</li>
+  <li>overdue amounts stay vague until they become awkward</li>
+</ul>
+
+<h2>Why a Dedicated Tracker Helps</h2>
+<p>The <a href="/tools/loan-manager">Loan Manager</a> separates money you lent from money you borrowed, records partial payments, and keeps the running balance clear. It is useful for family loans, friend repayments, small business borrowing, and any situation where memory is no longer enough.</p>
+
+<div class="cta-box"><p>Keep the loan relationship clean by keeping the record clean.</p><a href="/tools/loan-manager">Open Loan Manager →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-track-symptoms-with-weather-and-real-life-context',
+    title: 'How to Track Symptoms With Weather and Real-Life Context',
+    description: 'A practical guide to noticing patterns in headaches, pain, fatigue, or flare-ups by logging symptoms alongside conditions around you.',
+    hero: '🩺',
+    category: 'health',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['symptom tracker', 'headache tracking', 'weather symptoms', 'health log'],
+    content: `
+<h2>Symptoms Often Feel Random Until You See the Pattern</h2>
+<p>Many people remember the bad days but miss the pattern behind them. Was the headache worse on hotter days? Did fatigue rise after poor sleep? Did weather pressure shifts line up with pain flare-ups?</p>
+
+<h2>Why Context Matters</h2>
+<p>A symptom note without context is often too thin to be useful later. A better record includes severity, timing, notes, and the surrounding conditions.</p>
+
+<h2>Use a Tracker That Keeps the Context Attached</h2>
+<p>The <a href="/tools/symptom-tracker">Symptom Context Tracker</a> helps log symptoms alongside local weather and pressure so you can spot patterns more clearly before discussing them with a doctor or adjusting your habits.</p>
+
+<div class="cta-box"><p>Track the conditions around the symptom, not just the symptom itself.</p><a href="/tools/symptom-tracker">Open Symptom Context Tracker →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-track-weight-blood-pressure-or-any-measurement-over-time',
+    title: 'How to Track Weight, Blood Pressure, or Any Measurement Over Time',
+    description: 'A practical guide to logging body, health, home, or project measurements so trends become visible instead of staying stuck in scattered notes.',
+    hero: '📏',
+    category: 'health',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['measurement tracker', 'weight log', 'blood pressure tracker', 'trend chart'],
+    content: `
+<h2>Measurements Matter More When You Can See the Trend</h2>
+<p>One reading rarely tells the full story. The useful part appears over time: weight trend, blood pressure changes, room temperature drift, body measurement progress, or any metric you care about repeatedly.</p>
+
+<h2>What Usually Makes Tracking Fail</h2>
+<ul>
+  <li>data ends up in scattered chats, notes, or paper scraps</li>
+  <li>there is no easy chart to show the direction</li>
+  <li>different metrics get mixed together with no structure</li>
+</ul>
+
+<h2>Use a Flexible Tracker Instead of a One-Purpose App</h2>
+<p>The <a href="/tools/measurement-tracker">Measurement Tracker</a> lets you create custom logs for any metric, attach dates and notes, and visualize the trend clearly. It works for health, home, sports, or simple daily tracking.</p>
+
+<div class="cta-box"><p>Turn isolated readings into a trend you can actually use.</p><a href="/tools/measurement-tracker">Open Measurement Tracker →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-convert-csv-json-and-tsv-without-uploading-private-data',
+    title: 'How to Convert CSV, JSON, and TSV Without Uploading Private Data',
+    description: 'A practical guide to converting structured data locally when your files include customer, log, or internal information you should not upload casually.',
+    hero: '🔄',
+    category: 'developer',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['CSV to JSON', 'TSV converter', 'data transformer', 'privacy first data tools'],
+    content: `
+<h2>Data Conversion Is Easy Until the Data Is Sensitive</h2>
+<p>Turning CSV into JSON or TSV into CSV is not conceptually hard. The real issue is trust. Many online converters are fine for test rows, but not for customer records, internal exports, logs, or operational data.</p>
+
+<h2>What a Better Workflow Looks Like</h2>
+<ul>
+  <li>convert locally in the browser</li>
+  <li>preview the output before downloading</li>
+  <li>mask obvious identifiers when needed</li>
+  <li>avoid sending anything to a third-party server</li>
+</ul>
+
+<h2>Use a Local Transformer</h2>
+<p>The <a href="/tools/data-transformer">Privacy-First Data Transformer</a> converts JSON, CSV, and TSV in-browser and even gives you a de-identifier toggle for masking common private fields before reuse or sharing.</p>
+
+<div class="cta-box"><p>Convert the format without giving away the data.</p><a href="/tools/data-transformer">Open Privacy-First Data Transformer →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-convert-env-json-yaml-and-toml-without-breaking-config',
+    title: 'How to Convert .env, JSON, YAML, and TOML Without Breaking Config',
+    description: 'A practical guide to moving config safely between formats when syntax mistakes can break a deployment, script, or local environment.',
+    hero: '⚙️',
+    category: 'developer',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['config converter', 'env to yaml', 'json to toml', 'developer config tools'],
+    content: `
+<h2>Config Conversion Errors Are Usually Small but Costly</h2>
+<p>The dangerous part of config work is how small the mistake can be. One missing quote, one indentation issue, or one environment key handled badly can waste a lot of debugging time.</p>
+
+<h2>When This Happens Most</h2>
+<ul>
+  <li>moving local settings into deployment files</li>
+  <li>converting examples between stack conventions</li>
+  <li>sharing config snippets with teammates</li>
+</ul>
+
+<h2>Use a Converter With Validation</h2>
+<p>The <a href="/tools/config-converter">Config Polyglot Converter</a> helps move between <code>.env</code>, JSON, YAML, and TOML while validating structure and showing errors inline before the broken config reaches your app.</p>
+
+<div class="cta-box"><p>Convert the config before the syntax mistake becomes a deploy problem.</p><a href="/tools/config-converter">Open Config Polyglot Converter →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-compare-two-versions-of-text-and-see-exact-changes',
+    title: 'How to Compare Two Versions of Text and See the Exact Changes',
+    description: 'A practical guide to checking edits in content, contracts, copy, notes, or code snippets without manually scanning line by line.',
+    hero: '⚡',
+    category: 'developer',
+    readTime: '5 min read',
+    publishDate: '2026-05-06',
+    tags: ['text diff', 'compare text', 'see changes', 'copy revisions'],
+    content: `
+<h2>Version Comparison Gets Harder Once the Text Is Similar</h2>
+<p>When two versions are almost the same, your eyes start missing what actually changed. That is true for contracts, drafts, prompts, copy, code snippets, and even notes passed around in chat.</p>
+
+<h2>What a Diff View Helps You Catch</h2>
+<ul>
+  <li>added or removed lines</li>
+  <li>small wording changes inside a line</li>
+  <li>whitespace-only changes that may or may not matter</li>
+  <li>the size of the edit overall</li>
+</ul>
+
+<h2>Use a Side-by-Side Checker</h2>
+<p>The <a href="/tools/text-diff">Text Diff Checker</a> makes the differences visible immediately, with line and inline word highlighting, plus options like ignore whitespace or ignore case when the comparison needs a cleaner view.</p>
+
+<div class="cta-box"><p>Compare the two versions directly instead of rereading both from scratch.</p><a href="/tools/text-diff">Open Text Diff Checker →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-make-fair-student-groups-without-favoritism',
+    title: 'How to Make Fair Student Groups Without Looking Biased',
+    description: 'A practical guide for teachers who want balanced student groups instead of repeating the same pairings or stacking one team unfairly.',
+    hero: '👥',
+    category: 'education',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['student groups', 'classroom grouping', 'teacher tools', 'balanced teams'],
+    content: `
+<h2>Manual Grouping Often Feels Fairer Than It Actually Is</h2>
+<p>Teachers usually remember the obvious classroom dynamics, but once skill level, repeated pairings, and group size all interact together, hand-made grouping can drift into imbalance without anyone intending it.</p>
+
+<h2>What a Better Grouping Process Tries to Protect</h2>
+<ul>
+  <li>mixed ability instead of one strong group and one weak group</li>
+  <li>less repeated pairing across rounds</li>
+  <li>clear group size rules</li>
+  <li>less room for favoritism complaints</li>
+</ul>
+
+<h2>Use a Randomizer With Balance Rules</h2>
+<p>The <a href="/tools/student-groups">Student Group Randomizer</a> is useful when you want balanced classroom groups based on skill levels instead of random luck or manual sorting that eats up teaching time.</p>
+
+<div class="cta-box"><p>Make the groups feel fair because the method is fair.</p><a href="/tools/student-groups">Open Student Group Randomizer →</a></div>
+`,
+  },
 ]

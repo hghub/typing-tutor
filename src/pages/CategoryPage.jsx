@@ -20,14 +20,17 @@ const CATEGORY_TOOL_PRIORITY = {
 }
 
 const CATEGORY_BLOG_PRIORITY = {
-  'pakistan-tools': ['how-to-file-salaried-tax-return-in-pakistan','legal-ways-to-save-salary-tax-in-pakistan','how-tax-shield-optimizer-helps-you-see-what-actually-saves-tax','pakistan-income-tax-calculator','investment-allocation-planner-pakistan-guide','rent-vs-buy-calculator-pakistan-guide','solar-planner-pakistan','is-ev-worth-it-in-pakistan','how-to-run-a-kameti-or-committee-without-confusion'],
+  'pakistan-tools': ['how-to-check-cnic-ntn-and-tax-reference-details-in-one-place','how-to-file-salaried-tax-return-in-pakistan','legal-ways-to-save-salary-tax-in-pakistan','how-tax-shield-optimizer-helps-you-see-what-actually-saves-tax','pakistan-income-tax-calculator','investment-allocation-planner-pakistan-guide','rent-vs-buy-calculator-pakistan-guide','solar-planner-pakistan','is-ev-worth-it-in-pakistan','how-to-run-a-kameti-or-committee-without-confusion'],
   'finance-tools': ['how-much-loan-can-i-afford','should-you-pay-off-a-loan-early','how-to-calculate-emi','how-to-manage-multiple-loans-without-losing-track','how-to-file-salaried-tax-return-in-pakistan','legal-ways-to-save-salary-tax-in-pakistan','how-tax-shield-optimizer-helps-you-see-what-actually-saves-tax','investment-allocation-planner-pakistan-guide'],
   'writing-tools': ['how-to-write-a-clean-letter-or-cv-fast-without-word','how-to-use-urdu-typing-for-whatsapp-cv-and-forms','urdu-typing-online','type-urdu-online-without-inpage','word-count-for-seo','writing-tools'],
   'pdf-tools': ['compress-pdf-online','pdf-tools-guide'],
   'security-tools': ['how-to-check-a-cv-or-document-for-sensitive-data-before-sending','how-to-redact-sensitive-info-before-sharing-documents','password-generator-security','security-privacy-tools'],
-  'developer-tools': ['how-to-format-and-validate-json-before-sharing-or-importing','how-to-read-logs-and-find-errors-faster','how-to-map-fields-between-two-systems-without-confusion','how-to-trace-one-request-across-multiple-services','developer-tools'],
+  'developer-tools': ['how-to-convert-csv-json-and-tsv-without-uploading-private-data','how-to-convert-env-json-yaml-and-toml-without-breaking-config','how-to-build-an-accessible-color-palette-without-guessing','how-to-format-and-validate-json-before-sharing-or-importing','how-to-read-logs-and-find-errors-faster','how-to-map-fields-between-two-systems-without-confusion','how-to-trace-one-request-across-multiple-services','how-to-compare-two-versions-of-text-and-see-exact-changes','developer-tools'],
   'productivity-tools': ['how-to-find-a-good-meeting-time-across-pakistan-dubai-uk-and-us','how-to-split-family-trip-or-friend-expenses','productivity-tools'],
-  'health-tools': ['how-to-check-medicine-interactions-before-taking-two-medicines','health-wellness-tools'],
+  'health-tools': ['how-to-track-symptoms-with-weather-and-real-life-context','how-to-track-weight-blood-pressure-or-any-measurement-over-time','how-to-check-medicine-interactions-before-taking-two-medicines','health-wellness-tools'],
+  'business-tools': ['how-to-track-money-you-lent-or-borrowed-without-forgetting-payments','how-to-use-voice-invoice-for-freelancers-and-small-shops','business-tools'],
+  'travel-tools': ['how-to-find-a-good-meeting-time-across-pakistan-dubai-uk-and-us','how-to-split-family-trip-or-friend-expenses','travel-tools'],
+  'education-tools': ['how-to-make-fair-student-groups-without-favoritism','student-group-randomizer-for-teachers'],
 }
 
 const CATEGORY_DATA = {

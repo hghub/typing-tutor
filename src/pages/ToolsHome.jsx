@@ -145,13 +145,13 @@ function MarqueeTicker({ tools, isDark, colors }) {
     .slice(0, 4)
 
   const items = [
-    ...newTools.map(t => ({ label: `🆕 New · ${t.icon} ${t.name}`, color: '#10b981', path: t.path })),
-    ...flagshipTools.map(t => ({ label: `⭐ Popular · ${t.icon} ${t.name}`, color: '#f59e0b', path: t.path })),
-    ...hiddenUseful.map(t => ({ label: `💡 Useful · ${t.icon} ${t.name}`, color: '#06b6d4', path: t.path })),
-    { label: '🇵🇰 Start with Pakistan Tools', color: '#10b981', path: '/category/pakistan-tools' },
-    { label: '⌨️ Explore Typing & Urdu Tools', color: '#0ea5e9', path: '/category/typing-tools' },
-    { label: '🔒 Browse Privacy & Security Tools', color: '#ef4444', path: '/category/security-tools' },
-    { label: '📄 Open PDF & OCR Tools', color: '#f97316', path: '/category/pdf-tools' },
+    ...newTools.map(t => ({ label: `🆕 New tool · ${t.icon} ${t.name}`, color: '#10b981', path: t.path })),
+    ...flagshipTools.map(t => ({ label: `⭐ Try now · ${t.icon} ${t.name}`, color: '#f59e0b', path: t.path })),
+    ...hiddenUseful.map(t => ({ label: `💡 Solve a real problem · ${t.icon} ${t.name}`, color: '#06b6d4', path: t.path })),
+    { label: '🇵🇰 Start with tax, solar, loans and local-use tools', color: '#10b981', path: '/category/pakistan-tools' },
+    { label: '⌨️ Improve typing or type Urdu online', color: '#0ea5e9', path: '/category/typing-tools' },
+    { label: '🔒 Check leaks, encrypt text and redact documents', color: '#ef4444', path: '/category/security-tools' },
+    { label: '📄 Compress, merge and extract text from PDFs', color: '#f97316', path: '/category/pdf-tools' },
   ]
   const doubled = [...items, ...items]
 

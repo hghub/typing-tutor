@@ -6,6 +6,32 @@ import { latinToUrdu, getAllMappings } from '../data/urduPhoneticMap'
 import { Link } from 'react-router-dom'
 
 const NASTALIQ_URL = 'https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap'
+const USE_CASE_PHRASES = [
+  {
+    label: 'WhatsApp',
+    items: [
+      ['Assalamualaikum, aap kaisay hain?', 'السلام علیکم، آپ کیسے ہیں؟'],
+      ['Shukriya, main theek hoon', 'شکریہ، میں ٹھیک ہوں'],
+      ['Kal miltay hain inshaAllah', 'کل ملتے ہیں ان شاء اللہ'],
+    ],
+  },
+  {
+    label: 'Office / Forms',
+    items: [
+      ['Meherbani farma kar dastakhat kar dein', 'مہربانی فرما کر دستخط کر دیں'],
+      ['Darkhwast baraye tasdeeq', 'درخواست برائے تصدیق'],
+      ['Is ki copy email kar dein', 'اس کی کاپی ای میل کر دیں'],
+    ],
+  },
+  {
+    label: 'School / CV',
+    items: [
+      ['Taleemi asnad saath lagayi gai hain', 'تعلیمی اسناد ساتھ لگائی گئی ہیں'],
+      ['Mujhay Urdu typing ki mashq chahiye', 'مجھے اردو ٹائپنگ کی مشق چاہیے'],
+      ['Main daftar ka tajurba rakhta hoon', 'میں دفتر کا تجربہ رکھتا ہوں'],
+    ],
+  },
+]
 
 export default function UrduKeyboard() {
   const { isDark, colors } = useTheme()
@@ -453,6 +479,57 @@ export default function UrduKeyboard() {
               <span style={{ color: colors.textSecondary }}>→</span>
               <span style={{ ...urduTextStyle, fontSize: '1rem', lineHeight: 1 }}>{u}</span>
             </button>
+          ))}
+        </div>
+      </div>
+
+      <div style={{
+        background: colors.card,
+        border: `1px solid ${colors.border}`,
+        borderRadius: '0.75rem',
+        padding: '1.25rem',
+      }}>
+        <h2 style={{ color: colors.text, fontSize: '0.9rem', fontWeight: 700, margin: '0 0 0.4rem' }}>
+          Ready Phrases by Use Case
+        </h2>
+        <p style={{ color: colors.textSecondary, fontSize: '0.8rem', lineHeight: 1.6, margin: '0 0 0.9rem' }}>
+          Load a common phrase if you want to type Urdu for WhatsApp, office messages, school notes, CV lines or simple forms without thinking from scratch.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.85rem' }}>
+          {USE_CASE_PHRASES.map((group) => (
+            <div key={group.label} style={{
+              background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
+              border: `1px solid ${colors.border}`,
+              borderRadius: '0.7rem',
+              padding: '0.9rem',
+            }}>
+              <div style={{ color: '#f59e0b', fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '0.65rem' }}>
+                {group.label}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+                {group.items.map(([latinPhrase, urduPhrase]) => (
+                  <button
+                    key={latinPhrase}
+                    type="button"
+                    onClick={() => { setLatin(latinPhrase); setUrdu(latinToUrdu(latinPhrase)) }}
+                    style={{
+                      textAlign: 'left',
+                      background: 'transparent',
+                      border: `1px solid ${colors.border}`,
+                      borderRadius: '0.55rem',
+                      padding: '0.55rem 0.65rem',
+                      cursor: 'pointer',
+                      color: colors.text,
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#f59e0b' }}
+                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = colors.border }}
+                  >
+                    <div style={{ fontSize: '0.74rem', color: '#f59e0b', fontWeight: 700, marginBottom: '0.18rem' }}>{latinPhrase}</div>
+                    <div style={{ ...urduTextStyle, fontSize: '0.98rem', lineHeight: 1.6, color: colors.text }}>{urduPhrase}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </div>

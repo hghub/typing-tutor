@@ -20,11 +20,11 @@ const CATEGORY_TOOL_PRIORITY = {
 }
 
 const CATEGORY_BLOG_PRIORITY = {
-  'pakistan-tools': ['solar-planner-pakistan','pakistan-income-tax-calculator','investment-allocation-planner-pakistan-guide','how-much-loan-can-i-afford','rent-vs-buy-calculator-pakistan-guide','is-ev-worth-it-in-pakistan'],
-  'finance-tools': ['how-much-loan-can-i-afford','should-you-pay-off-a-loan-early','how-to-calculate-emi','pakistan-income-tax-calculator','investment-allocation-planner-pakistan-guide','gold-price-pakistan-today'],
-  'writing-tools': ['urdu-typing-online','word-count-for-seo','writing-tools'],
+  'pakistan-tools': ['how-to-file-salaried-tax-return-in-pakistan','legal-ways-to-save-salary-tax-in-pakistan','pakistan-income-tax-calculator','investment-allocation-planner-pakistan-guide','rent-vs-buy-calculator-pakistan-guide','solar-planner-pakistan','is-ev-worth-it-in-pakistan'],
+  'finance-tools': ['how-much-loan-can-i-afford','should-you-pay-off-a-loan-early','how-to-calculate-emi','how-to-file-salaried-tax-return-in-pakistan','legal-ways-to-save-salary-tax-in-pakistan','investment-allocation-planner-pakistan-guide'],
+  'writing-tools': ['how-to-use-urdu-typing-for-whatsapp-cv-and-forms','urdu-typing-online','type-urdu-online-without-inpage','word-count-for-seo','writing-tools'],
   'pdf-tools': ['compress-pdf-online','pdf-tools-guide'],
-  'security-tools': ['password-generator-security','security-privacy-tools'],
+  'security-tools': ['how-to-check-a-cv-or-document-for-sensitive-data-before-sending','how-to-redact-sensitive-info-before-sharing-documents','password-generator-security','security-privacy-tools'],
   'developer-tools': ['developer-tools'],
 }
 

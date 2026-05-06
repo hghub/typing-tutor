@@ -11,6 +11,7 @@ import {
 
 const fmt = (n) => Math.round(n).toLocaleString('en-PK')
 const fmtPct = (n) => (n * 100).toFixed(1) + '%'
+const SALARY_PRESETS = [50000, 100000, 150000, 250000, 500000]
 
 function InfoBox({ children, color = '#f97316', isDark }) {
   return (
@@ -152,6 +153,27 @@ export default function TaxCalculator() {
                   placeholder="e.g. 150000" style={fieldStyle}
                   onFocus={e => e.target.style.borderColor = '#f97316'}
                   onBlur={e => e.target.style.borderColor = colors.border} />
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', marginTop: '0.55rem' }}>
+                  {SALARY_PRESETS.map((amount) => (
+                    <button
+                      key={amount}
+                      type="button"
+                      onClick={() => setMonthlySalary(String(amount))}
+                      style={{
+                        background: monthlySalary === String(amount) ? 'rgba(249,115,22,0.12)' : 'transparent',
+                        border: `1px solid ${monthlySalary === String(amount) ? 'rgba(249,115,22,0.35)' : colors.border}`,
+                        borderRadius: '999px',
+                        padding: '0.28rem 0.65rem',
+                        color: monthlySalary === String(amount) ? '#f97316' : colors.textSecondary,
+                        cursor: 'pointer',
+                        fontSize: '0.76rem',
+                        fontWeight: 600,
+                      }}
+                    >
+                      {amount >= 100000 ? `${amount / 1000}k` : amount.toLocaleString('en-PK')}
+                    </button>
+                  ))}
+                </div>
               </div>
               <div>
                 <label style={labelStyle}>Annual Bonus / Arrears (PKR)</label>

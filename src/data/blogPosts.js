@@ -3606,4 +3606,332 @@ export const BLOG_POSTS = [
 <div class="cta-box"><p>Type Urdu in the browser and copy it anywhere.</p><a href="/tools/urdu-keyboard">Open Urdu Keyboard →</a></div>
 `,
   },
+  {
+    slug: 'how-to-file-salaried-tax-return-in-pakistan',
+    title: 'How to File a Salaried Tax Return in Pakistan Without Guessing',
+    description: 'A practical salaried-person guide to tax filing in Pakistan: what documents to keep ready, what the calculator helps with, and what to verify before filing.',
+    hero: '📁',
+    category: 'pakistan',
+    readTime: '8 min read',
+    publishDate: '2026-05-06',
+    tags: ['tax filing Pakistan', 'salary tax return', 'FBR salaried return', 'Pakistan income tax'],
+    content: `
+<h2>Start With the Right Scope</h2>
+<p>If you are a salaried person in Pakistan, your first tax job is usually not to become a tax expert. It is to make sure your salary, bonus, deductions, tax credits, and withholding numbers are not drifting into mistakes before you file.</p>
+
+<h2>Keep These Things Ready Before Filing</h2>
+<ul>
+  <li>salary certificate or annual income statement from employer</li>
+  <li>monthly salary slips if available</li>
+  <li>bonus or arrears details</li>
+  <li>proof of VPS or pension contribution</li>
+  <li>proof of approved charity donations if you plan to claim a credit</li>
+  <li>banking and withholding information if it affects your final return</li>
+</ul>
+
+<h2>What the Salary Tax Calculator Helps You Check</h2>
+<p>The <a href="/tools/tax-calculator">Rafiqy Pakistan Income Tax Calculator</a> is useful before filing because it helps you sense-check the big moving parts of a salaried return:</p>
+<ul>
+  <li>annual salary versus monthly salary consistency</li>
+  <li>bonus impact on annual tax</li>
+  <li>whether VPS and charity credits materially change the result</li>
+  <li>whether your payroll deduction feels too high or too low for your slab</li>
+</ul>
+
+<h2>What the Tool Is Not</h2>
+<p>The tool is a planning calculator, not the filing portal itself. It is built for salaried tax estimation, not for full business-income treatment or actual IRIS submission.</p>
+
+<h2>A Good Filing Workflow</h2>
+<ol>
+  <li>estimate your salary tax using the calculator</li>
+  <li>compare the result with payroll deductions and annual certificate</li>
+  <li>identify missing pension or charity credits before filing</li>
+  <li>prepare your salary slips and support documents</li>
+  <li>then complete the actual FBR return carefully</li>
+</ol>
+
+<h2>Where Many People Make Avoidable Mistakes</h2>
+<ul>
+  <li>forgetting bonus or arrears effect</li>
+  <li>not checking whether a credit is actually eligible</li>
+  <li>assuming payroll is always correct without checking</li>
+  <li>using a salaried estimate as if it covered business income too</li>
+</ul>
+
+<div class="cta-box"><p>Check your salary tax estimate before you file so your return starts from cleaner numbers.</p><a href="/tools/tax-calculator">Open the salary tax calculator →</a></div>
+`,
+  },
+  {
+    slug: 'legal-ways-to-save-salary-tax-in-pakistan',
+    title: 'Legal Ways to Save Salary Tax in Pakistan Without Playing Games',
+    description: 'A practical guide to lawful salary-tax saving in Pakistan using pension contributions, approved credits, and better preparation instead of guesswork.',
+    hero: '🛡️',
+    category: 'pakistan',
+    readTime: '8 min read',
+    publishDate: '2026-05-06',
+    tags: ['save tax Pakistan', 'salary tax saving', 'tax credits Pakistan', 'VPS tax benefit'],
+    content: `
+<h2>Tax Saving Starts With Understanding the Slab</h2>
+<p>Many people hear “save tax” and start looking for shortcuts. A better starting point is to understand your actual slab and then see which legal credits or deductions are worth using. That is how you avoid both overpaying and pretending every investment magically reduces tax.</p>
+
+<h2>Three Practical Places Salaried People Usually Start</h2>
+<ul>
+  <li><strong>VPS / pension contribution:</strong> often the most obvious structured tax-planning route</li>
+  <li><strong>approved charity credit:</strong> useful when donations already exist and are documented correctly</li>
+  <li><strong>clean payroll checking:</strong> sometimes the “saving” is simply correcting a wrong or overly rough payroll assumption</li>
+</ul>
+
+<h2>What Good Tax Saving Does Not Mean</h2>
+<ul>
+  <li>buying a product only because someone said it “saves tax”</li>
+  <li>locking money somewhere unsuitable just to reduce one year of tax</li>
+  <li>treating an ineligible expense as deductible</li>
+  <li>copying business-income advice into a salary-only case</li>
+</ul>
+
+<h2>Use the Calculator to See the Real Difference</h2>
+<p>The <a href="/tools/tax-calculator">Rafiqy Pakistan Income Tax Calculator</a> already lets salaried users test VPS and approved charity impact directly. That is the practical part: you can see whether the tax reduction is meaningful enough to justify the move, instead of trusting vague sales claims.</p>
+
+<h2>When Tax Saving Is Not Worth Forcing</h2>
+<p>If an investment damages liquidity, does not fit your horizon, or creates a bad product choice, then the tax angle alone is not enough. Saving tax is good. Making a bad money decision to save a smaller amount of tax is not.</p>
+
+<div class="cta-box"><p>Estimate your current salary tax first, then test whether VPS or approved charity changes the outcome enough to matter.</p><a href="/tools/tax-calculator">Check the tax-saving impact →</a></div>
+`,
+  },
+  {
+    slug: 'why-your-salary-tax-deduction-may-look-wrong',
+    title: 'Why Your Salary Tax Deduction May Look Wrong in Pakistan',
+    description: 'A practical guide to why monthly payroll tax can look too high or too low, and how to check it before assuming payroll is right.',
+    hero: '🔎',
+    category: 'pakistan',
+    readTime: '7 min read',
+    publishDate: '2026-05-06',
+    tags: ['salary tax deduction wrong', 'payroll tax Pakistan', 'salary tax check', 'FBR salary tax'],
+    content: `
+<h2>Payroll Is Not Always Wrong — But It Is Not Always Explained Well</h2>
+<p>Many employees notice that their salary tax deduction suddenly jumps and assume something suspicious happened. Sometimes payroll is correct. Sometimes it is using rough assumptions. Either way, you need a cleaner way to check it.</p>
+
+<h2>Common Reasons the Deduction Changes</h2>
+<ul>
+  <li>annual bonus or arrears were added</li>
+  <li>the employer projected a higher yearly salary than you expected</li>
+  <li>the calculation was spread unevenly across the year</li>
+  <li>your credit assumptions were not included</li>
+  <li>a raise pushed part of your income into a higher slab</li>
+</ul>
+
+<h2>What to Compare</h2>
+<ol>
+  <li>monthly gross salary</li>
+  <li>annualized income</li>
+  <li>bonus amount</li>
+  <li>estimated annual tax</li>
+  <li>monthly withholding pattern</li>
+</ol>
+
+<h2>Use a Salary-Only Check First</h2>
+<p>The <a href="/tools/tax-calculator">Rafiqy salary tax calculator</a> is useful here because it focuses on the exact salaried planning case most employees need. Put in the salary, add any bonus, test VPS or charity if relevant, and compare the annual estimate with what payroll is deducting.</p>
+
+<h2>When to Escalate</h2>
+<p>If the deduction still feels materially off after a clean estimate, then ask payroll or HR for the projected annual basis they are using. That usually reveals whether the difference comes from bonus assumptions, missing credits, or simple communication gaps.</p>
+
+<div class="cta-box"><p>Check whether your payroll tax feels wrong because of the slab, the bonus, or the assumptions behind it.</p><a href="/tools/tax-calculator">Compare your salary tax estimate →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-use-urdu-typing-for-whatsapp-cv-and-forms',
+    title: 'How to Use Urdu Typing for WhatsApp, CVs, School Notes, and Forms',
+    description: 'A practical guide to the everyday ways people actually use online Urdu typing: messages, CV lines, notes, forms, posts, and simple office work.',
+    hero: '📝',
+    category: 'language',
+    readTime: '7 min read',
+    publishDate: '2026-05-06',
+    tags: ['Urdu typing use cases', 'Urdu keyboard online', 'type Urdu online', 'Roman Urdu to Urdu'],
+    content: `
+<h2>Most People Do Not Need Urdu Publishing Software</h2>
+<p>They need quick Urdu typing for tasks that already happen every day: WhatsApp messages, school notes, CV lines, office text, invitation wording, or a form field that needs Urdu.</p>
+
+<h2>Where an Online Urdu Keyboard Helps Most</h2>
+<ul>
+  <li><strong>WhatsApp and social posts:</strong> type in Roman Urdu and copy the Urdu output</li>
+  <li><strong>CV or application lines:</strong> add a clean Urdu sentence where needed</li>
+  <li><strong>school notes and notices:</strong> prepare short Urdu text without changing your full keyboard setup</li>
+  <li><strong>simple office work:</strong> draft one Urdu line for a letter, heading, or message</li>
+</ul>
+
+<h2>Why Phonetic Input Matters</h2>
+<p>Many users are comfortable thinking in Urdu but not in a full physical Urdu keyboard layout. That is why phonetic input is so useful. You type familiar English sounds like <strong>kh</strong>, <strong>sh</strong>, and <strong>ch</strong>, and the Urdu output appears automatically.</p>
+
+<h2>When Voice Typing Helps More</h2>
+<p>If the sentence is already in your head in Urdu and you want speed more than letter-by-letter control, voice typing can be faster. For short notes, messages, and first drafts, speaking the sentence is often the easiest way to get the base text out.</p>
+
+<h2>Use the Tool With Real Examples</h2>
+<p>The <a href="/tools/urdu-keyboard">Rafiqy Urdu Keyboard Online</a> already includes phonetic typing, copy-to-clipboard flow, voice typing support in compatible browsers, and ready phrase sections for common use cases like WhatsApp, office text, and school/CV wording.</p>
+
+<div class="cta-box"><p>Type a real Urdu message, note, or line right in the browser and copy it where you need it.</p><a href="/tools/urdu-keyboard">Open Urdu Keyboard →</a></div>
+`,
+  },
+  {
+    slug: 'how-urdu-typing-practice-helps-job-tests-and-office-work',
+    title: 'How Urdu Typing Practice Helps in Job Tests, Office Work, and Faster Everyday Typing',
+    description: 'Why Urdu typing practice matters beyond speed tests: office work, school tasks, forms, and confidence typing without hunting for keys.',
+    hero: '⌨️',
+    category: 'typing',
+    readTime: '7 min read',
+    publishDate: '2026-05-06',
+    tags: ['Urdu typing practice', 'typing tutor Urdu', 'typing speed Urdu', 'office typing'],
+    content: `
+<h2>Typing Practice Is Not Only for Test Scores</h2>
+<p>Many people think typing practice matters only if they are chasing a WPM number. In reality, Urdu and multilingual typing practice matters because slow, hesitant typing keeps interrupting everyday work: drafting notes, replying to messages, filling forms, and switching between English and Urdu comfortably.</p>
+
+<h2>Where Typing Practice Pays Off</h2>
+<ul>
+  <li>job tests and clerical exams</li>
+  <li>office work that mixes English and Urdu</li>
+  <li>school and university notes</li>
+  <li>freelance tasks that involve local-language text</li>
+  <li>less dependence on looking down at the keyboard</li>
+</ul>
+
+<h2>What a Good Typing Tutor Adds</h2>
+<p>A real typing tutor should not only tell you your WPM. It should show which keys slow you down, where your errors happen, and what to practise next. That is what turns “I should improve my typing” into an actual habit.</p>
+
+<h2>Why This Matters for Urdu Too</h2>
+<p>If your work includes Urdu but you keep avoiding it because typing feels awkward, practice changes that. The goal is not to become a champion typist. The goal is to make normal writing feel natural enough that you stop delaying it.</p>
+
+<h2>Use Both Tools Together</h2>
+<p>The <a href="/tools/typing-tutor">Typing Tutor</a> helps you build speed, accuracy, weak-key awareness, and routine. The <a href="/tools/urdu-keyboard">Urdu Keyboard</a> helps you quickly produce Urdu text when you need to type something immediately. Together they cover both practice and real-life use.</p>
+
+<div class="cta-box"><p>Build comfort first, then speed. That is how Urdu typing becomes usable in real work.</p><a href="/tools/typing-tutor">Open Typing Tutor →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-check-a-cv-or-document-for-sensitive-data-before-sending',
+    title: 'How to Check a CV or Document for Sensitive Data Before Sending It',
+    description: 'A practical privacy checklist for scanning CVs, screenshots, notes, and shared files before they accidentally expose secrets or personal data.',
+    hero: '🕵️',
+    category: 'security',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['data leak detector', 'check CV before sending', 'document privacy', 'sensitive data check'],
+    content: `
+<h2>Many Leaks Are Boring, Not Dramatic</h2>
+<p>Most document leaks are not giant breaches. They are everyday mistakes: a CV with too much personal detail, a screenshot that exposes an email or token, a config file pasted into chat, or a note shared publicly without a second check.</p>
+
+<h2>What to Scan Before Sending</h2>
+<ul>
+  <li>email addresses you did not mean to expose</li>
+  <li>phone numbers and CNIC-style identifiers</li>
+  <li>IBAN or banking details</li>
+  <li>tokens, passwords, or connection strings in technical text</li>
+  <li>internal URLs or environment details in screenshots or notes</li>
+</ul>
+
+<h2>Why Manual Checking Fails</h2>
+<p>You usually read your own document for meaning, not for risk patterns. That is why a quick automated pass is useful. It catches the kinds of strings your eyes stop noticing because you are focused on the message, not the leakage.</p>
+
+<h2>Use the Detector Before You Share</h2>
+<p>The <a href="/tools/data-leak-detector">Rafiqy Data Leak Detector</a> is built for exactly this last-minute pass. Paste a CV, snippet, config text, or document content into the tool and it flags risky patterns like credentials, CNICs, emails, IBANs, and internal addresses.</p>
+
+<div class="cta-box"><p>Run a quick privacy scan before the file or text leaves your hands.</p><a href="/tools/data-leak-detector">Open Data Leak Detector →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-extract-text-from-images-and-scanned-notes',
+    title: 'How to Extract Text from Images, Screenshots, and Scanned Notes',
+    description: 'A practical OCR guide for pulling usable text from screenshots, scanned notes, PDFs, and photos without retyping everything manually.',
+    hero: '📷',
+    category: 'pdf',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['text extractor', 'OCR online', 'extract text from image', 'scanned notes OCR'],
+    content: `
+<h2>Retyping Is Usually the Worst Option</h2>
+<p>If the text already exists inside a screenshot, a photo, or a scanned page, retyping it manually is usually the slowest path. OCR is useful because it turns that visual text back into editable text you can search, clean, translate, or reuse.</p>
+
+<h2>Where OCR Is Especially Useful</h2>
+<ul>
+  <li>screenshots of messages or notices</li>
+  <li>scanned notes and photocopies</li>
+  <li>printed forms that need reusable text</li>
+  <li>old PDFs without selectable text</li>
+  <li>receipts, labels, and photographed handouts</li>
+</ul>
+
+<h2>What to Do After Extraction</h2>
+<p>Good OCR is not the final step. Once the text is extracted, you often still want to clean spacing, fix line breaks, or copy only the part you actually need. That is why OCR works best when paired with a text-cleaning step.</p>
+
+<h2>Use the Text Extractor First, Then Clean</h2>
+<p>The <a href="/tools/text-extractor">Rafiqy Text Extractor</a> is built for this exact workflow: pull the text out of the image or scanned content, then move it into the <a href="/tools/text-cleaner">Text Formatter</a> if you need a cleaner final result.</p>
+
+<div class="cta-box"><p>Stop retyping screenshots and scanned notes by hand.</p><a href="/tools/text-extractor">Open Text Extractor →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-redact-sensitive-info-before-sharing-documents',
+    title: 'How to Redact Sensitive Information Before Sharing Documents',
+    description: 'A practical guide to removing names, IDs, prices, and personal details from documents before sending them to clients, vendors, or public channels.',
+    hero: '🧱',
+    category: 'security',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['document redaction', 'hide sensitive info', 'redact PDF or image', 'privacy before sharing'],
+    content: `
+<h2>Deleting Text Is Not the Same as Redacting It</h2>
+<p>Many people think they “removed” sensitive information because they cropped a screenshot or covered a line visually. Real redaction means making sure the hidden information is no longer exposed in the version you share.</p>
+
+<h2>Common Things People Need to Hide</h2>
+<ul>
+  <li>CNIC and phone numbers</li>
+  <li>bank details or invoice references</li>
+  <li>client names and addresses</li>
+  <li>confidential prices or rates</li>
+  <li>internal comments or notes in document snapshots</li>
+</ul>
+
+<h2>Where This Comes Up in Real Life</h2>
+<ul>
+  <li>sending a sample invoice to another client</li>
+  <li>sharing a CV or document screenshot publicly</li>
+  <li>posting a proof image in a WhatsApp group</li>
+  <li>sending a partial contract or letter for review</li>
+</ul>
+
+<h2>Use the Redaction Tool Before the Share Step</h2>
+<p>The <a href="/tools/doc-redaction">Rafiqy Doc Redaction</a> tool is useful when you want a cleaner privacy step before a file or screenshot is sent onward. It helps you prepare a share-safe version instead of trusting a rushed crop or markup.</p>
+
+<div class="cta-box"><p>Make a share-safe version before the document leaves your control.</p><a href="/tools/doc-redaction">Open Doc Redaction →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-use-voice-invoice-for-freelancers-and-small-shops',
+    title: 'How to Use Voice Invoice for Freelancers, Home Businesses, and Small Shops',
+    description: 'A practical guide to speaking invoice details instead of typing everything manually when you need a quick bill or proof of work.',
+    hero: '🎙️',
+    category: 'business',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['voice invoice', 'invoice tool Pakistan', 'freelancer invoice', 'small business billing'],
+    content: `
+<h2>Invoices Often Get Delayed Because They Feel Like Admin Work</h2>
+<p>Freelancers, tutors, clinics, home sellers, and small shops often know what they need to bill for, but still delay the invoice because typing every detail feels like one more task at the end of the day.</p>
+
+<h2>Where Voice Entry Helps</h2>
+<ul>
+  <li>quick service invoices</li>
+  <li>home-business order summaries</li>
+  <li>tuition or lesson billing</li>
+  <li>field-work or site-visit billing</li>
+  <li>simple proof-of-work documents</li>
+</ul>
+
+<h2>Why This Matters</h2>
+<p>If billing is slow, follow-up is slow. If follow-up is slow, cash collection is slow. A lighter invoice workflow helps people who do not want full accounting software but still need a cleaner billing habit.</p>
+
+<h2>Use the Tool as a Fast Draft Layer</h2>
+<p>The <a href="/tools/voice-invoice">Voice Invoice</a> tool is useful when you want to speak line items, service details, or bill context quickly and then clean the draft into a usable invoice instead of typing everything from zero.</p>
+
+<div class="cta-box"><p>Turn spoken billing details into a faster invoice draft.</p><a href="/tools/voice-invoice">Open Voice Invoice →</a></div>
+`,
+  },
 ]

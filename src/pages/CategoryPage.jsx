@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { useTheme } from '../hooks/useTheme'
+import { usePreferences } from '../hooks/usePreferences'
 import { TOOLS } from '../tools/registry'
 import ToolsNav from '../components/ToolsNav'
 import FeedbackButton from '../components/FeedbackButton'
@@ -9,17 +10,26 @@ import { getToolScenarioLine } from '../lib/toolUsage'
 import { getAccessibilityNote } from '../lib/pakistanAccessibility'
 
 const CATEGORY_TOOL_PRIORITY = {
-  'pakistan-tools': ['solar-planner','tax-calculator','investment-allocation-planner','loan-emi','rent-vs-buy-pakistan','car-powertrain-decision','salary-offer-evaluator','freelance-tax-planner','gold-price','pk-id-tax-hub','salary-slip','tax-optimizer','kameti','driving-fines'],
-  'finance-tools': ['loan-emi','tax-calculator','investment-allocation-planner','expense-analyzer','loan-manager','gold-price','currency-converter','salary-slip','position-size-calc','budget-splitter','tax-optimizer'],
-  'writing-tools': ['urdu-keyboard','word-counter','text-cleaner','doc-composer','image-suite'],
+  'typing-tools': ['typing-tutor','urdu-keyboard'],
+  'language-tools': ['urdu-keyboard','typing-tutor','color-palette'],
+  'pakistan-tools': ['urdu-keyboard','typing-tutor','solar-planner','tax-calculator','investment-allocation-planner','loan-emi','rent-vs-buy-pakistan','car-powertrain-decision','salary-offer-evaluator','freelance-tax-planner','gold-price','pk-id-tax-hub','salary-slip','tax-optimizer','kameti','driving-fines'],
+  'finance-tools': ['loan-emi','tax-calculator','investment-allocation-planner','expense-analyzer','loan-manager','gold-price','currency-converter','salary-slip','position-size-calc','budget-splitter','tax-optimizer','voice-invoice','freelancer-risk'],
+  'writing-tools': ['urdu-keyboard','typing-tutor','word-counter','text-cleaner','doc-composer','image-suite'],
   'pdf-tools': ['compress-pdf','merge-pdf','split-pdf','pdf-convert','doc-converter','text-extractor','pdf-search'],
   'security-tools': ['data-leak-detector','text-encryptor','doc-redaction','password-generator'],
   'developer-tools': ['json-formatter','regex-tester','mock-data','data-transformer','config-converter','log-analyzer','schema-mapper','trace-correlator','markdown-scraper'],
-  'productivity-tools': ['typing-tutor','pomodoro','world-time','daily-planner','habit-tracker','voice-diary','resume-builder','unit-converter','age-calculator'],
+  'productivity-tools': ['typing-tutor','pomodoro','world-time','daily-planner','habit-tracker','voice-diary','resume-builder','unit-converter','age-calculator','measurement-tracker','whatsapp-tools'],
+  'business-tools': ['voice-invoice','warranty-tracker','property-comp','refrigerant-calc','freelancer-risk','loan-manager'],
+  'travel-tools': ['packing-list','budget-splitter','currency-converter','world-time'],
+  'health-tools': ['drug-checker','symptom-tracker','measurement-tracker'],
+  'education-tools': ['student-groups','typing-tutor'],
+  'legal-tools': ['timeline-builder','doc-redaction'],
   'image-tools': ['image-suite','text-extractor','doc-redaction','doc-converter','pdf-convert'],
 }
 
 const CATEGORY_BLOG_PRIORITY = {
+  'typing-tools': ['urdu-typing-online','how-urdu-typing-practice-helps-in-job-tests-and-daily-work','type-urdu-online-without-inpage'],
+  'language-tools': ['urdu-typing-online','how-to-use-urdu-typing-for-whatsapp-cv-and-forms','type-urdu-online-without-inpage'],
   'pakistan-tools': ['how-to-check-cnic-ntn-and-tax-reference-details-in-one-place','how-to-file-salaried-tax-return-in-pakistan','legal-ways-to-save-salary-tax-in-pakistan','how-tax-shield-optimizer-helps-you-see-what-actually-saves-tax','pakistan-income-tax-calculator','investment-allocation-planner-pakistan-guide','rent-vs-buy-calculator-pakistan-guide','solar-planner-pakistan','is-ev-worth-it-in-pakistan','how-to-run-a-kameti-or-committee-without-confusion'],
   'finance-tools': ['how-to-see-where-your-money-actually-goes-from-bank-or-wallet-csvs','how-to-track-traffic-fines-before-they-turn-into-a-bigger-problem','how-much-loan-can-i-afford','should-you-pay-off-a-loan-early','how-to-calculate-emi','how-to-manage-multiple-loans-without-losing-track','how-to-file-salaried-tax-return-in-pakistan','legal-ways-to-save-salary-tax-in-pakistan','how-tax-shield-optimizer-helps-you-see-what-actually-saves-tax','investment-allocation-planner-pakistan-guide'],
   'writing-tools': ['how-to-write-a-clean-letter-or-cv-fast-without-word','how-to-use-urdu-typing-for-whatsapp-cv-and-forms','urdu-typing-online','type-urdu-online-without-inpage','word-count-for-seo','writing-tools'],
@@ -31,10 +41,25 @@ const CATEGORY_BLOG_PRIORITY = {
   'business-tools': ['how-to-track-money-you-lent-or-borrowed-without-forgetting-payments','how-to-track-warranties-before-the-claim-window-closes','how-to-spot-risky-freelance-clients-before-you-start-work','how-to-compare-property-values-when-two-houses-are-not-identical','how-to-check-refrigerant-leak-rate-before-a-small-issue-becomes-a-compliance-problem','how-to-use-voice-invoice-for-freelancers-and-small-shops','business-tools'],
   'travel-tools': ['how-to-budget-a-trip-when-prices-are-in-aed-sar-usd-and-pkr','how-to-pack-for-weather-and-travel-documents-without-forgetting-essentials','how-to-find-a-good-meeting-time-across-pakistan-dubai-uk-and-us','how-to-split-family-trip-or-friend-expenses','travel-tools'],
   'education-tools': ['how-to-make-fair-student-groups-without-favoritism','student-group-randomizer-for-teachers'],
+  'legal-tools': ['how-to-redact-sensitive-info-before-sharing-documents','how-to-check-a-cv-or-document-for-sensitive-data-before-sending'],
   'image-tools': ['how-to-resize-crop-and-clean-images-before-sharing-or-uploading','how-to-extract-text-from-images-and-scanned-notes','pdf-tools-guide'],
 }
 
 const CATEGORY_DATA = {
+  'typing-tools': {
+    title: 'Free Typing & Learning Tools Online',
+    metaTitle: 'Free Typing & Learning Tools Online | Rafiqy',
+    metaDesc: 'Practice typing, improve speed, and use Urdu typing tools online. Free browser-based typing and learning tools with no sign-up.',
+    intro: 'Rafiqy’s typing tools help students, job seekers, office workers, and Urdu users type faster and with less friction. Use the typing tutor for practice and weak-key drills, or open the Urdu keyboard when you need to type in Urdu quickly without installing InPage or a separate keyboard.',
+    categories: ['typing'],
+  },
+  'language-tools': {
+    title: 'Free Language & Input Tools Online',
+    metaTitle: 'Free Language & Input Tools Online | Rafiqy',
+    metaDesc: 'Use Urdu typing, input helpers, and language-support tools online. Free browser-based tools for writing and input without extra software.',
+    intro: 'These tools help when your main problem is input, not editing. Type Urdu phonetically, switch between scripts more comfortably, and handle language-focused workflows without extra software installs.',
+    categories: ['language'],
+  },
   'productivity-tools': {
     title: 'Productivity Tools Online',
     metaTitle: 'Free Productivity Tools Online | Rafiqy',
@@ -91,10 +116,46 @@ const CATEGORY_DATA = {
     intro: 'Rafiqy\'s security and privacy tools are designed for users who take their digital safety seriously. Generate cryptographically strong passwords with custom rules, encrypt and decrypt text using AES encryption, compute MD5/SHA hash values for file verification, and protect sensitive data — all without transmitting a single byte to any external server. Every operation runs locally in your browser using the Web Crypto API.',
     categories: ['security'],
   },
+  'business-tools': {
+    title: 'Free Business & Field Work Tools Online',
+    metaTitle: 'Free Business & Field Work Tools Online | Rafiqy',
+    metaDesc: 'Use business tools for invoices, warranties, freelance risk, property comparison and field-work calculations. Free and browser-based.',
+    intro: 'These tools help freelancers, shops, field teams, service businesses, and small operators handle everyday business decisions faster. Track invoices, compare property values, check client risk, and avoid losing money to missed follow-ups or poor estimates.',
+    categories: ['business'],
+  },
+  'travel-tools': {
+    title: 'Free Travel & Trip Planning Tools Online',
+    metaTitle: 'Free Travel & Trip Planning Tools Online | Rafiqy',
+    metaDesc: 'Plan trips, split group costs, convert currencies and track time zones with free browser-based travel tools.',
+    intro: 'Rafiqy’s travel tools help families, groups, remote workers and frequent travellers stay organized. Split shared expenses, pack smarter, compare currencies and plan across time zones without spreadsheet chaos.',
+    categories: ['travel'],
+  },
+  'health-tools': {
+    title: 'Free Health & Wellness Tracking Tools',
+    metaTitle: 'Free Health & Wellness Tools Online | Rafiqy',
+    metaDesc: 'Track symptoms, measurements and medicine interactions with free browser-based health tools.',
+    intro: 'These tools are built for simple personal tracking and safer day-to-day decisions. Check medicine interactions, add symptom context, and track measurements over time without sending private health notes anywhere.',
+    categories: ['health'],
+  },
+  'education-tools': {
+    title: 'Free Education & Teaching Tools Online',
+    metaTitle: 'Free Education & Teaching Tools Online | Rafiqy',
+    metaDesc: 'Use classroom, student-group and typing support tools for schools, tutors and self-learning. Free and browser-based.',
+    intro: 'Rafiqy’s education tools help teachers, tutors, students and school admins handle common classroom problems faster. Create fair student groups, support typing practice, and reduce the manual work around learning tasks.',
+    categories: ['education'],
+  },
+  'legal-tools': {
+    title: 'Free Legal & Research Support Tools Online',
+    metaTitle: 'Free Legal & Research Support Tools Online | Rafiqy',
+    metaDesc: 'Use legal and research support tools for timelines, document cleanup and privacy-sensitive prep work. Free and browser-based.',
+    intro: 'These tools help with structured thinking around records, documents and case-like timelines. They are useful for research, compliance prep, and sensitive document workflows where clarity and privacy matter.',
+    categories: ['legal'],
+  },
 }
 
 export default function CategoryPage({ category }) {
   const { colors } = useTheme()
+  const { prefs } = usePreferences()
   const data = CATEGORY_DATA[category]
   if (!data) return null
 
@@ -114,6 +175,9 @@ export default function CategoryPage({ category }) {
     }
     return a.name.localeCompare(b.name)
   })
+
+  const getDisplayName = (tool) => (prefs.urduLabels && tool.nameUrdu ? tool.nameUrdu : tool.name)
+  const getDisplayTagline = (tool) => (prefs.urduLabels && tool.taglineUrdu ? tool.taglineUrdu : tool.tagline)
 
   return (
     <div style={{ background: colors.bg, minHeight: '100vh', color: colors.text, fontFamily: 'sans-serif' }}>
@@ -176,10 +240,10 @@ export default function CategoryPage({ category }) {
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
                   <span style={{ fontSize: '1.5rem' }}>{tool.icon}</span>
-                  <span style={{ fontWeight: 700, fontSize: '0.95rem' }}>{tool.name}</span>
+                  <span style={{ fontWeight: 700, fontSize: '0.95rem', direction: prefs.urduLabels && tool.nameUrdu ? 'rtl' : 'ltr' }}>{getDisplayName(tool)}</span>
                 </div>
                 <p style={{ color: colors.textSecondary, fontSize: '0.83rem', lineHeight: 1.5, margin: 0 }}>
-                  {tool.tagline}
+                  {getDisplayTagline(tool)}
                 </p>
                 <p style={{ color: colors.textSecondary, fontSize: '0.74rem', lineHeight: 1.55, margin: '0.55rem 0 0', opacity: 0.85 }}>
                   {getAccessibilityNote(tool.id)?.simple || scenarioLine}
@@ -199,10 +263,10 @@ export default function CategoryPage({ category }) {
 
         {/* Related Blog Posts */}
         {(() => {
+          const priority = CATEGORY_BLOG_PRIORITY[category] || []
           const related = BLOG_POSTS
-            .filter(p => categoryIds.includes(p.category?.toLowerCase()))
+            .filter(p => categoryIds.includes(p.category?.toLowerCase()) || priority.includes(p.slug))
             .sort((a, b) => {
-              const priority = CATEGORY_BLOG_PRIORITY[category] || []
               const ai = priority.indexOf(a.slug)
               const bi = priority.indexOf(b.slug)
               if (ai !== -1 || bi !== -1) {

@@ -18,8 +18,8 @@ const FAVOURITES_KEY = 'typely_favourites'
 const CATEGORY_LANDING_LINKS = [
   { path: '/category/pakistan-tools', label: 'Pakistan Tools', desc: 'Tax, solar, investing, loans, salary and local-use tools' },
   { path: '/category/productivity-tools', label: 'Productivity Tools', desc: 'Planning, habits, focus, time and daily workflows' },
-  { path: '/tools#typing', label: 'Typing & Learning', desc: 'Typing tutor, Urdu typing and learning-focused tools' },
-  { path: '/tools#language', label: 'Language & Input', desc: 'Urdu typing, keyboard help and writing input tools' },
+  { path: '/category/typing-tools', label: 'Typing & Learning', desc: 'Typing tutor, Urdu typing and learning-focused tools' },
+  { path: '/category/language-tools', label: 'Language & Input', desc: 'Urdu typing, keyboard help and writing input tools' },
   { path: '/category/writing-tools', label: 'Writing Tools', desc: 'Urdu, documents, cleanup and word count' },
   { path: '/category/pdf-tools', label: 'PDF Tools', desc: 'Compress, merge, split, convert and OCR' },
   { path: '/category/image-tools', label: 'Image & OCR Tools', desc: 'Images, OCR, document visuals and screenshot cleanup' },

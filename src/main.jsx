@@ -203,6 +203,8 @@ createRoot(document.getElementById('root')).render(
 
           {/* Category pages */}
           <Route path="/category/productivity-tools" element={<CategoryPage category="productivity-tools" />} />
+          <Route path="/category/typing-tools" element={<CategoryPage category="typing-tools" />} />
+          <Route path="/category/language-tools" element={<CategoryPage category="language-tools" />} />
           <Route path="/category/finance-tools" element={<CategoryPage category="finance-tools" />} />
           <Route path="/category/pdf-tools" element={<CategoryPage category="pdf-tools" />} />
           <Route path="/category/developer-tools" element={<CategoryPage category="developer-tools" />} />
@@ -210,6 +212,11 @@ createRoot(document.getElementById('root')).render(
           <Route path="/category/writing-tools" element={<CategoryPage category="writing-tools" />} />
           <Route path="/category/image-tools" element={<CategoryPage category="image-tools" />} />
           <Route path="/category/security-tools" element={<CategoryPage category="security-tools" />} />
+          <Route path="/category/business-tools" element={<CategoryPage category="business-tools" />} />
+          <Route path="/category/travel-tools" element={<CategoryPage category="travel-tools" />} />
+          <Route path="/category/health-tools" element={<CategoryPage category="health-tools" />} />
+          <Route path="/category/education-tools" element={<CategoryPage category="education-tools" />} />
+          <Route path="/category/legal-tools" element={<CategoryPage category="legal-tools" />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

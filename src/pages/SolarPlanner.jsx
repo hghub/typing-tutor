@@ -673,6 +673,127 @@ export default function SolarPlanner() {
   return (
     <ToolLayout toolId="solar-planner">
       <div style={{ fontFamily: FONT, maxWidth: '720px', margin: '0 auto', padding: '1rem' }}>
+        {/* Page heading */}
+        <div style={{
+          marginBottom: '1rem',
+          background: 'linear-gradient(135deg, rgba(245,158,11,0.12), rgba(251,146,60,0.06))',
+          border: '1px solid rgba(245,158,11,0.2)',
+          borderRadius: '18px',
+          padding: '1rem',
+        }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gap: '1rem',
+            alignItems: 'center',
+          }}>
+            <div>
+              <h1 style={{
+                fontSize: 'clamp(1.7rem, 3.8vw, 2.2rem)',
+                fontWeight: 800,
+                margin: '0 0 0.4rem',
+                letterSpacing: '-0.02em',
+                lineHeight: 1.15,
+                background: 'linear-gradient(135deg, #fbbf24, #fb923c)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>
+                Pakistan Solar Calculator
+              </h1>
+              <p style={{ margin: '0 0 0.7rem', fontSize: '0.95rem', color: '#cbd5e1', lineHeight: 1.55 }}>
+                Estimate solar system size, cost, savings and payback for Pakistan homes using current market assumptions.
+              </p>
+              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <span style={{ background: '#14532d20', border: '1px solid #14532d60', color: '#86efac', fontSize: '0.72rem', fontWeight: 600, borderRadius: '20px', padding: '0.2rem 0.7rem' }}>✅ Data: {DATA_DATE}</span>
+                <span style={{ background: '#7f1d1d20', border: '1px solid #7f1d1d60', color: '#fca5a5', fontSize: '0.72rem', fontWeight: 600, borderRadius: '20px', padding: '0.2rem 0.7rem' }}>⚠️ Net Billing policy (Dec 2025)</span>
+                <span style={{ background: '#1e3a5f20', border: '1px solid #1e3a5f60', color: '#7dd3fc', fontSize: '0.72rem', fontWeight: 600, borderRadius: '20px', padding: '0.2rem 0.7rem' }}>🇵🇰 Pakistan on-grid rates</span>
+              </div>
+            </div>
+
+            <div style={{
+              minHeight: '170px',
+              borderRadius: '16px',
+              position: 'relative',
+              overflow: 'hidden',
+              background: 'linear-gradient(180deg, #082f49 0%, #0f172a 70%)',
+              border: '1px solid rgba(255,255,255,0.08)',
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: '18px',
+                right: '26px',
+                width: '78px',
+                height: '78px',
+                borderRadius: '50%',
+                background: 'radial-gradient(circle at 35% 35%, #fef08a 0%, #fbbf24 45%, #f97316 100%)',
+                boxShadow: '0 0 35px rgba(251,191,36,0.35)',
+              }} />
+              {[-18, 0, 18, 36, 54, 72].map((offset) => (
+                <div key={offset} style={{
+                  position: 'absolute',
+                  top: `${8 + offset}px`,
+                  left: '16px',
+                  right: '16px',
+                  height: '1px',
+                  background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(125,211,252,0.16) 25%, rgba(125,211,252,0.04) 100%)',
+                }} />
+              ))}
+              <div style={{
+                position: 'absolute',
+                bottom: '18px',
+                left: '24px',
+                width: '150px',
+                height: '74px',
+                background: '#111827',
+                clipPath: 'polygon(0 100%, 18% 52%, 39% 52%, 39% 24%, 59% 24%, 59% 52%, 84% 52%, 100% 100%)',
+              }} />
+              <div style={{
+                position: 'absolute',
+                bottom: '60px',
+                left: '38px',
+                width: '118px',
+                height: '30px',
+                background: 'linear-gradient(135deg, #38bdf8, #0ea5e9)',
+                border: '1px solid rgba(186,230,253,0.35)',
+                boxShadow: '0 10px 20px rgba(14,165,233,0.16)',
+                transform: 'skew(-24deg)',
+              }} />
+              <div style={{
+                position: 'absolute',
+                bottom: '28px',
+                left: '168px',
+                width: '42px',
+                height: '78px',
+                borderRadius: '10px 10px 0 0',
+                background: 'linear-gradient(180deg, #1e293b, #0f172a)',
+                border: '1px solid rgba(255,255,255,0.08)',
+              }} />
+              <div style={{
+                position: 'absolute',
+                bottom: '94px',
+                left: '178px',
+                width: '22px',
+                height: '22px',
+                borderRadius: '50%',
+                background: '#fbbf24',
+                boxShadow: '0 0 18px rgba(251,191,36,0.4)',
+              }} />
+              <div style={{
+                position: 'absolute',
+                bottom: '14px',
+                left: '22px',
+                right: '22px',
+                color: '#cbd5e1',
+                fontSize: '0.76rem',
+                lineHeight: 1.45,
+              }}>
+                Compare bill savings, payback, self-consumption and battery need before you commit.
+              </div>
+            </div>
+          </div>
+        </div>
+
         <FreshnessBanner
           colors={{ text: '#e2e8f0', textSecondary: '#94a3b8' }}
           accent={ACCENT}
@@ -682,33 +803,6 @@ export default function SolarPlanner() {
           estimated="Installer labor, roof complexity, and final DISCO process costs vary by case"
         />
         <PakistanFriendlyGuide toolId="solar-planner" variant="light" />
-
-        {/* Page heading */}
-        <div style={{ marginBottom: '1.25rem' }}>
-          <h1 style={{
-            fontSize: 'clamp(1.6rem, 3.5vw, 2.1rem)',
-            fontWeight: 800,
-            margin: '0 0 0.35rem',
-            letterSpacing: '-0.02em',
-            lineHeight: 1.2,
-            background: 'linear-gradient(135deg, #f59e0b, #fb923c)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-          }}>
-            ☀️ Pakistan Solar Calculator
-          </h1>
-          <p style={{ margin: 0, fontSize: '0.95rem', color: '#94a3b8', lineHeight: 1.5 }}>
-            Estimate solar system size, cost, savings and payback for Pakistan homes — based on April 2026 market rates
-          </p>
-        </div>
-
-        {/* Freshness badges */}
-        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.875rem', flexWrap: 'wrap' }}>
-          <span style={{ background: '#14532d20', border: '1px solid #14532d60', color: '#86efac', fontSize: '0.72rem', fontWeight: 600, borderRadius: '20px', padding: '0.2rem 0.7rem' }}>✅ Data: {DATA_DATE}</span>
-          <span style={{ background: '#7f1d1d20', border: '1px solid #7f1d1d60', color: '#fca5a5', fontSize: '0.72rem', fontWeight: 600, borderRadius: '20px', padding: '0.2rem 0.7rem' }}>⚠️ Net Billing policy (Dec 2025)</span>
-          <span style={{ background: '#1e3a5f20', border: '1px solid #1e3a5f60', color: '#7dd3fc', fontSize: '0.72rem', fontWeight: 600, borderRadius: '20px', padding: '0.2rem 0.7rem' }}>🇵🇰 Pakistan on-grid rates</span>
-        </div>
 
         {/* Step indicator */}
         <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', alignItems: 'center', flexWrap: 'wrap' }}>

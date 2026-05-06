@@ -3934,4 +3934,170 @@ export const BLOG_POSTS = [
 <div class="cta-box"><p>Turn spoken billing details into a faster invoice draft.</p><a href="/tools/voice-invoice">Open Voice Invoice →</a></div>
 `,
   },
+  {
+    slug: 'how-to-manage-multiple-loans-without-losing-track',
+    title: 'How to Manage Multiple Loans Without Losing Track of Payments',
+    description: 'A practical guide to keeping personal, family, or small-business loans organized when one EMI calculator is no longer enough.',
+    hero: '📚',
+    category: 'finance',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['loan manager', 'multiple loans', 'debt tracking', 'payment history'],
+    content: `
+<h2>One Loan Is Math. Multiple Loans Become a System Problem.</h2>
+<p>An EMI calculator helps before or during one loan decision. But once you are dealing with several active loans, partial repayments, informal lending, or borrowed money across different people, the real problem becomes tracking: who is owed what, what was paid, what is still open, and which item is already overdue.</p>
+
+<h2>Where People Usually Start Losing Clarity</h2>
+<ul>
+  <li>payments are noted in chat instead of one place</li>
+  <li>someone remembers the original amount but not the remaining balance</li>
+  <li>partial repayments happen with no running history</li>
+  <li>personal and business borrowing get mixed together</li>
+</ul>
+
+<h2>What a Loan Tracker Should Give You</h2>
+<ul>
+  <li>a clean balance per loan</li>
+  <li>payment history per loan</li>
+  <li>active vs settled status</li>
+  <li>clear separation between money you lent and money you borrowed</li>
+</ul>
+
+<h2>Use EMI for Planning, Manager for Tracking</h2>
+<p>The <a href="/tools/loan-emi">Loan EMI Calculator</a> helps before you borrow or when you want to test affordability. The <a href="/tools/loan-manager">Loan Manager</a> is for the next phase: keeping the real payment record clean once money is already moving.</p>
+
+<div class="cta-box"><p>Stop treating multiple loans like memory work or chat-history work.</p><a href="/tools/loan-manager">Open Loan Manager →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-write-a-clean-letter-or-cv-fast-without-word',
+    title: 'How to Write a Clean Letter, CV Draft, or Simple Document Fast Without Word',
+    description: 'A practical guide to using browser-based document drafting when you need a clean letter, CV section, invoice note, or form-ready text quickly.',
+    hero: '📄',
+    category: 'writing',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['doc composer', 'write letter online', 'CV draft', 'document tool'],
+    content: `
+<h2>Sometimes You Do Not Need a Full Office Suite</h2>
+<p>For many everyday tasks, the goal is not “open heavy software and build a perfect document.” The goal is simpler: write a clean letter, prepare a short CV section, draft an invoice note, or make a document you can export and send.</p>
+
+<h2>Where a Lightweight Composer Helps</h2>
+<ul>
+  <li>cover letters and simple job documents</li>
+  <li>short office letters</li>
+  <li>client notes and invoice summaries</li>
+  <li>draft text that later moves into PDF or Word</li>
+</ul>
+
+<h2>What Makes It Better Than a Blank Page</h2>
+<p>The <a href="/tools/doc-composer">Doc Composer</a> already has structured templates and export flow, so you are not starting from zero every time. That matters when the real goal is speed and clarity, not advanced formatting features.</p>
+
+<h2>Where It Connects With Other Tools</h2>
+<p>Use it with the <a href="/tools/word-counter">Word Counter</a> if you care about length, or with the <a href="/tools/urdu-keyboard">Urdu Keyboard</a> if one part of the document needs Urdu text. That is the advantage of a tool site that is built to work together instead of treating every task in isolation.</p>
+
+<div class="cta-box"><p>Draft the document fast, then export or refine it without opening heavy software.</p><a href="/tools/doc-composer">Open Doc Composer →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-find-a-good-meeting-time-across-pakistan-dubai-uk-and-us',
+    title: 'How to Find a Good Meeting Time Across Pakistan, Dubai, UK, and US',
+    description: 'A practical guide for freelancers, remote teams, and families trying to compare time zones without mental math and missed calls.',
+    hero: '🌍',
+    category: 'productivity',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['world time converter', 'meeting time', 'Pakistan Dubai UK US', 'timezone'],
+    content: `
+<h2>Most Time-Zone Mistakes Are Small but Expensive</h2>
+<p>You do not need a giant calendar disaster for time-zone mistakes to hurt. One missed call, one wrong client meeting, or one early-morning family coordination problem is enough to make the issue feel bigger than it should.</p>
+
+<h2>The Hardest Pattern for Pakistani Users</h2>
+<p>A common combination is Pakistan with one or more of:</p>
+<ul>
+  <li>Dubai or Saudi time</li>
+  <li>UK time</li>
+  <li>US East or Canada time</li>
+</ul>
+<p>The complexity rises further when daylight saving time shifts one region but not another.</p>
+
+<h2>What Makes a Good Meeting-Time Tool Useful</h2>
+<ul>
+  <li>multiple live clocks side by side</li>
+  <li>working-hours overlap, not just raw time</li>
+  <li>quick comparison between Karachi, Dubai, London, Toronto, New York and similar cities</li>
+  <li>a way to explain the result to someone else clearly</li>
+</ul>
+
+<h2>Use the Converter Instead of Guessing</h2>
+<p>The <a href="/tools/world-time">World Time Converter</a> is built for this kind of coordination. It is useful for remote work, international families, overseas admissions calls, and client scheduling when you do not want to keep doing time math manually.</p>
+
+<div class="cta-box"><p>Compare the cities first, then schedule the call with less confusion.</p><a href="/tools/world-time">Open World Time Converter →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-run-a-kameti-or-committee-without-confusion',
+    title: 'How to Run a Kameti or Committee Without Confusion',
+    description: 'A practical guide to tracking turns, payments, and payout order for a kameti so the group stays clear and the records stay trusted.',
+    hero: '🤝',
+    category: 'pakistan',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['kameti tracker', 'committee Pakistan', 'rotating savings', 'kameti record'],
+    content: `
+<h2>A Kameti Works on Trust, but Trust Still Needs Clear Records</h2>
+<p>Kameti or committee systems are common because they are practical and familiar. But once the group grows or payments become irregular, memory and chat threads stop being enough. That is where confusion begins.</p>
+
+<h2>What Usually Goes Wrong</h2>
+<ul>
+  <li>unclear payout order</li>
+  <li>missed payment with no proper record</li>
+  <li>someone thinks their turn changed</li>
+  <li>the total collection for a month is no longer obvious</li>
+</ul>
+
+<h2>What the Tracker Should Make Obvious</h2>
+<ul>
+  <li>who is in the group</li>
+  <li>how much each person owes per cycle</li>
+  <li>whose turn is coming next</li>
+  <li>which payments are complete or still pending</li>
+</ul>
+
+<h2>Use a Tool Instead of a Thread</h2>
+<p>The <a href="/tools/kameti">Kameti Tracker</a> gives you a cleaner structure for members, turns, and payment status so the group can focus on the savings process instead of arguing over memory.</p>
+
+<div class="cta-box"><p>Keep the kameti trusted by keeping the record clean.</p><a href="/tools/kameti">Open Kameti Tracker →</a></div>
+`,
+  },
+  {
+    slug: 'how-tax-shield-optimizer-helps-you-see-what-actually-saves-tax',
+    title: 'How Tax Shield Optimizer Helps You See What Actually Saves Tax',
+    description: 'A practical guide to using the optimizer so tax-saving decisions are based on actual impact, not vague claims or product sales talk.',
+    hero: '🧠',
+    category: 'pakistan',
+    readTime: '7 min read',
+    publishDate: '2026-05-06',
+    tags: ['tax optimizer Pakistan', 'tax shield', 'VPS tax saving', 'salary tax planning'],
+    content: `
+<h2>The Problem With Generic “Save Tax” Advice</h2>
+<p>A lot of tax-saving advice sounds useful until you try to turn it into numbers. People say “invest here” or “buy this policy” without showing what actually changes in your tax bill and whether the move still makes sense for your money overall.</p>
+
+<h2>What the Optimizer Changes</h2>
+<p>The <a href="/tools/tax-optimizer">Tax Shield Optimizer</a> is useful because it turns broad tax-saving talk into a comparison problem:</p>
+<ul>
+  <li>how much budget are you allocating?</li>
+  <li>which bucket saves more tax per rupee?</li>
+  <li>what is the better split across eligible options?</li>
+</ul>
+
+<h2>Why This Matters</h2>
+<p>Sometimes the difference between two tax-saving paths is not intuition. It is math. The useful part is not hearing that a category can help. The useful part is knowing whether it changes your bill enough to matter and how the split should look under your salary level.</p>
+
+<h2>Use It After the Salary Estimate</h2>
+<p>A good flow is simple: first estimate your current salary tax with the <a href="/tools/tax-calculator">Pakistan Tax Calculator</a>, then open the optimizer to test which allowed shield path gives the strongest impact for the money you are considering.</p>
+
+<div class="cta-box"><p>See what really changes your salary tax instead of relying on general claims.</p><a href="/tools/tax-optimizer">Open Tax Shield Optimizer →</a></div>
+`,
+  },
 ]

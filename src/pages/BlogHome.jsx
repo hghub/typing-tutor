@@ -10,37 +10,47 @@ import { BLOG_POSTS } from '../data/blogPosts'
 const BLOG_CATEGORY_ORDER = ['pakistan', 'language', 'typing', 'finance', 'writing', 'pdf', 'security', 'productivity', 'developer', 'business', 'travel', 'education', 'legal', 'health']
 const FEATURED_POST_SLUGS = [
   'solar-planner-pakistan',
+  'how-to-file-salaried-tax-return-in-pakistan',
+  'legal-ways-to-save-salary-tax-in-pakistan',
   '5kw-solar-system-price-in-pakistan',
   'pakistan-income-tax-calculator',
   'how-much-loan-can-i-afford',
   'should-you-pay-off-a-loan-early',
+  'how-to-manage-multiple-loans-without-losing-track',
   'urdu-typing-online',
+  'how-to-use-urdu-typing-for-whatsapp-cv-and-forms',
   'rent-vs-buy-calculator-pakistan-guide',
   'is-ev-worth-it-in-pakistan',
   'how-to-evaluate-a-job-offer-in-pakistan',
   'how-much-tax-should-freelancers-reserve-in-pakistan',
   'investment-allocation-planner-pakistan-guide',
+  'how-tax-shield-optimizer-helps-you-see-what-actually-saves-tax',
   'useful-online-tools-pakistanis-dont-know-exist',
   'how-to-invest-20-lakh-in-pakistan',
   'how-to-invest-5-to-15-crore-in-pakistan',
+  'how-to-check-a-cv-or-document-for-sensitive-data-before-sending',
+  'how-to-extract-text-from-images-and-scanned-notes',
   'compress-pdf-online',
   'password-generator-security',
 ]
 const TOPIC_CHIPS = [
-  'solar calculator pakistan',
-  'loan affordability',
-  'investment planner',
-  'rent vs buy',
-  'urdu typing',
-  'salary slip',
-  'ev vs hybrid',
-  'freelance tax',
+  { label: 'Salary Tax', query: 'salary tax' },
+  { label: 'Urdu Typing', query: 'urdu typing' },
+  { label: 'Solar', query: 'solar' },
+  { label: 'Loans', query: 'loan' },
+  { label: 'Investing', query: 'investment' },
+  { label: 'Rent vs Buy', query: 'rent vs buy' },
+  { label: 'Privacy', query: 'privacy' },
+  { label: 'PDF & OCR', query: 'ocr' },
+  { label: 'Remote Work', query: 'job offer' },
+  { label: 'Voice Invoice', query: 'voice invoice' },
 ]
 
 export default function BlogHome() {
   const { isDark, colors } = useTheme()
   const [activeCategory, setActiveCategory] = useState('all')
   const [query, setQuery] = useState('')
+  const [activeTopic, setActiveTopic] = useState('')
 
   const categories = ['all', ...[...new Set(BLOG_POSTS.map(p => p.category))].sort((a, b) => {
     const ai = BLOG_CATEGORY_ORDER.indexOf(a)
@@ -52,17 +62,22 @@ export default function BlogHome() {
   })]
 
   const q = query.trim().toLowerCase()
+  const tq = activeTopic.trim().toLowerCase()
   const filtered = BLOG_POSTS.filter(p => {
     const matchCat = activeCategory === 'all' || p.category === activeCategory
     const matchQ = !q ||
       p.title.toLowerCase().includes(q) ||
       p.description?.toLowerCase().includes(q) ||
       p.tags?.some(t => t.toLowerCase().includes(q))
-    return matchCat && matchQ
+    const matchTopic = !tq ||
+      p.title.toLowerCase().includes(tq) ||
+      p.description?.toLowerCase().includes(tq) ||
+      p.tags?.some(t => t.toLowerCase().includes(tq))
+    return matchCat && matchQ && matchTopic
   }).sort((a, b) => {
     const ai = FEATURED_POST_SLUGS.indexOf(a.slug)
     const bi = FEATURED_POST_SLUGS.indexOf(b.slug)
-    if (activeCategory === 'all' && !q && (ai !== -1 || bi !== -1)) {
+    if (activeCategory === 'all' && !q && !tq && (ai !== -1 || bi !== -1)) {
       if (ai === -1) return 1
       if (bi === -1) return -1
       if (ai !== bi) return ai - bi
@@ -112,19 +127,21 @@ export default function BlogHome() {
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', justifyContent: 'center', marginTop: '1rem' }}>
               {TOPIC_CHIPS.map(topic => (
-                <span key={topic} style={{
+                <button key={topic.label} onClick={() => setActiveTopic(prev => prev === topic.query ? '' : topic.query)} style={{
                   fontSize: '0.72rem',
                   fontWeight: 700,
                   letterSpacing: '0.04em',
                   textTransform: 'uppercase',
-                  color: '#06b6d4',
-                  background: isDark ? 'rgba(6,182,212,0.12)' : 'rgba(6,182,212,0.08)',
-                  border: '1px solid rgba(6,182,212,0.18)',
+                  color: activeTopic === topic.query ? '#0f172a' : '#06b6d4',
+                  background: activeTopic === topic.query ? '#67e8f9' : (isDark ? 'rgba(6,182,212,0.12)' : 'rgba(6,182,212,0.08)'),
+                  border: activeTopic === topic.query ? '1px solid #67e8f9' : '1px solid rgba(6,182,212,0.18)',
                   borderRadius: '999px',
                   padding: '0.28rem 0.65rem',
+                  cursor: 'pointer',
+                  fontFamily: 'inherit',
                 }}>
-                  {topic}
-                </span>
+                  {topic.label}
+                </button>
               ))}
             </div>
           </div>
@@ -185,10 +202,11 @@ export default function BlogHome() {
           </div>
 
           {/* Results count */}
-          {(q || activeCategory !== 'all') && (
+          {(q || tq || activeCategory !== 'all') && (
             <p style={{ textAlign: 'center', fontSize: '0.82rem', color: colors.muted, marginBottom: '1.25rem', marginTop: '-0.5rem' }}>
               {filtered.length === 0 ? 'No posts found' : `${filtered.length} post${filtered.length === 1 ? '' : 's'} found`}
               {q && <> for <strong style={{ color: colors.textSecondary }}>"{query}"</strong></>}
+              {tq && <> in <strong style={{ color: colors.textSecondary }}>{TOPIC_CHIPS.find(t => t.query === activeTopic)?.label || activeTopic}</strong></>}
             </p>
           )}
 
@@ -274,8 +292,8 @@ export default function BlogHome() {
           ) : (
             <div style={{ textAlign: 'center', padding: '3rem 1rem', color: colors.muted }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>🔍</div>
-              <p style={{ fontSize: '0.95rem', margin: '0 0 1rem' }}>No posts match <strong>"{query}"</strong></p>
-              <button onClick={() => { setQuery(''); setActiveCategory('all') }} style={{
+              <p style={{ fontSize: '0.95rem', margin: '0 0 1rem' }}>No posts match your current search or topic filters.</p>
+              <button onClick={() => { setQuery(''); setActiveCategory('all'); setActiveTopic('') }} style={{
                 padding: '0.5rem 1.25rem', borderRadius: '0.6rem', border: `1px solid ${colors.border}`,
                 background: 'none', color: colors.textSecondary, cursor: 'pointer', fontSize: '0.85rem',
               }}>Clear search</button>

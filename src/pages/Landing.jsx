@@ -9,7 +9,7 @@ import { IMPORTANT_PAKISTAN_TOOL_IDS, USEFUL_HIDDEN_TOOL_IDS, getAccessibilityNo
 
 const FEATURED_IDS = [
   'solar-planner', 'tax-calculator', 'investment-allocation-planner', 'loan-emi',
-  'urdu-keyboard', 'rent-vs-buy-pakistan', 'salary-offer-evaluator', 'freelance-tax-planner',
+  'urdu-keyboard', 'typing-tutor', 'rent-vs-buy-pakistan', 'car-powertrain-decision',
 ]
 
 const FEATURED_POST_SLUGS = [
@@ -17,10 +17,12 @@ const FEATURED_POST_SLUGS = [
   'pakistan-income-tax-calculator',
   'how-much-loan-can-i-afford',
   'investment-allocation-planner-pakistan-guide',
+  'how-to-file-salaried-tax-return-in-pakistan',
   '5kw-solar-system-price-in-pakistan',
   'how-to-invest-20-lakh-in-pakistan',
   'how-to-invest-5-to-15-crore-in-pakistan',
   'urdu-typing-online',
+  'how-to-use-urdu-typing-for-whatsapp-cv-and-forms',
   'rent-vs-buy-calculator-pakistan-guide',
   'is-ev-worth-it-in-pakistan',
 ]
@@ -43,6 +45,8 @@ const WHAT_YOU_CAN_DO = [
     icon: '🧠',
     title: 'Decision Systems',
     desc: 'Solar, rent vs buy, petrol vs hybrid vs EV, salary offers and freelance reserve planning.',
+    browse: '/category/pakistan-tools',
+    browseLabel: 'Browse Pakistan decision tools',
     tools: ['/tools/solar-planner', '/tools/rent-vs-buy-calculator-pakistan', '/tools/petrol-vs-hybrid-vs-ev'],
     labels: ['Solar Calculator', 'Rent vs Buy', 'EV vs Hybrid'],
   },
@@ -50,6 +54,8 @@ const WHAT_YOU_CAN_DO = [
     icon: '🌍',
     title: 'Typing & Urdu',
     desc: 'Urdu keyboard, multilingual typing tutor and browser tools for everyday writing and practice.',
+    browse: '/category/typing-tools',
+    browseLabel: 'Browse typing tools',
     tools: ['/tools/urdu-keyboard', '/tools/typing-tutor', '/tools/word-counter'],
     labels: ['Urdu Keyboard', 'Typing Tutor', 'Word Counter'],
   },
@@ -57,6 +63,8 @@ const WHAT_YOU_CAN_DO = [
     icon: '📝',
     title: 'Write & Format',
     desc: 'Word counter, text formatter, doc composer, Urdu keyboard — everything for your writing workflow.',
+    browse: '/category/writing-tools',
+    browseLabel: 'Browse writing tools',
     tools: ['/tools/word-counter', '/tools/text-cleaner', '/tools/doc-composer'],
     labels: ['Word Counter', 'Text Formatter', 'Doc Composer'],
   },
@@ -64,6 +72,8 @@ const WHAT_YOU_CAN_DO = [
     icon: '📄',
     title: 'PDF Tools',
     desc: 'Compress, merge, split, convert and extract text from PDFs — all in your browser, nothing uploaded.',
+    browse: '/category/pdf-tools',
+    browseLabel: 'Browse PDF tools',
     tools: ['/tools/compress-pdf', '/tools/merge-pdf', '/tools/text-extractor'],
     labels: ['Compress', 'Merge', 'Extract Text'],
   },
@@ -71,6 +81,8 @@ const WHAT_YOU_CAN_DO = [
     icon: '🔒',
     title: 'Privacy & Security',
     desc: 'Check for data leaks, encrypt text, redact sensitive documents — zero server interaction.',
+    browse: '/category/security-tools',
+    browseLabel: 'Browse privacy tools',
     tools: ['/tools/data-leak-detector', '/tools/text-encryptor', '/tools/doc-redaction'],
     labels: ['Leak Detector', 'Encryptor', 'Doc Redaction'],
   },
@@ -78,6 +90,8 @@ const WHAT_YOU_CAN_DO = [
     icon: '🇵🇰',
     title: 'Pakistan Tools',
     desc: 'Tax, solar, investing, salary, loan and local-use tools designed around practical Pakistan needs.',
+    browse: '/category/pakistan-tools',
+    browseLabel: 'Browse Pakistan tools',
     tools: ['/tools/tax-calculator', '/tools/loan-emi', '/tools/gold-price'],
     labels: ['Tax Calculator', 'Loan EMI', 'Gold Price'],
   },
@@ -85,6 +99,8 @@ const WHAT_YOU_CAN_DO = [
     icon: '🛠',
     title: 'Developer Tools',
     desc: 'Regex tester, JSON formatter, mock data generator, config converter — for devs on the go.',
+    browse: '/category/developer-tools',
+    browseLabel: 'Browse developer tools',
     tools: ['/tools/regex-tester', '/tools/json-formatter', '/tools/mock-data'],
     labels: ['Regex Tester', 'JSON Formatter', 'Mock Data'],
   },
@@ -97,7 +113,7 @@ export default function Landing() {
   const featuredPosts = FEATURED_POST_SLUGS
     .map(slug => BLOG_POSTS.find(post => post.slug === slug))
     .filter(Boolean)
-    .slice(0, 3)
+    .slice(0, 4)
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-bg)', color: 'var(--color-text)', fontFamily: 'sans-serif' }}>
@@ -192,6 +208,18 @@ export default function Landing() {
           }}>
             Explore All Tools →
           </Link>
+          <Link to="/blog" style={{
+            background: 'transparent',
+            color: 'var(--color-text)',
+            padding: '0.95rem 1.5rem',
+            borderRadius: 12,
+            textDecoration: 'none',
+            fontWeight: 700,
+            fontSize: '0.95rem',
+            border: '1px solid var(--color-border)',
+          }}>
+            Read Guides
+          </Link>
         </div>
       </section>
 
@@ -252,6 +280,22 @@ export default function Landing() {
               ))}
             </div>
           </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.65rem', justifyContent: 'center', marginBottom: '2rem' }}>
+            {[
+              { label: 'Pakistan Tools', path: '/category/pakistan-tools' },
+              { label: 'Typing & Learning', path: '/category/typing-tools' },
+              { label: 'Writing Tools', path: '/category/writing-tools' },
+              { label: 'PDF Tools', path: '/category/pdf-tools' },
+              { label: 'Privacy Tools', path: '/category/security-tools' },
+              { label: 'Finance Tools', path: '/category/finance-tools' },
+            ].map((item) => (
+              <Link key={item.path} to={item.path} style={{ textDecoration: 'none' }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: 'var(--color-surface)', border: '1px solid var(--color-border)', color: 'var(--color-text)', borderRadius: 999, padding: '0.42rem 0.9rem', fontSize: '0.8rem', fontWeight: 600 }}>
+                  {item.label}
+                </span>
+              </Link>
+            ))}
+          </div>
           <h2 style={{ fontSize: '1.6rem', fontWeight: 700, marginBottom: '0.5rem', textAlign: 'center' }}>
             What you can do with Rafiqy
           </h2>
@@ -272,6 +316,11 @@ export default function Landing() {
                       </span>
                     </Link>
                   ))}
+                </div>
+                <div style={{ marginTop: '0.95rem' }}>
+                  <Link to={cat.browse} style={{ color: 'var(--color-primary)', textDecoration: 'none', fontSize: '0.8rem', fontWeight: 700 }}>
+                    {cat.browseLabel} →
+                  </Link>
                 </div>
               </div>
             ))}

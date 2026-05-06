@@ -4630,4 +4630,193 @@ export const BLOG_POSTS = [
 <div class="cta-box"><p>Judge the client before the project becomes expensive to escape.</p><a href="/tools/freelancer-risk">Open Freelancer Risk Analyzer →</a></div>
 `,
   },
+  {
+    slug: 'how-to-keep-a-private-diary-with-voice-notes-and-searchable-entries',
+    title: 'How to Keep a Private Diary With Voice Notes and Searchable Entries',
+    description: 'A practical guide for people who want to journal quickly without sending personal thoughts to a cloud app or keeping everything trapped in random notes.',
+    hero: '🎙️',
+    category: 'productivity',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['voice diary', 'private journal', 'offline diary', 'Urdu voice notes'],
+    content: `
+<h2>Most Diary Habits Break Because They Feel Slow</h2>
+<p>People often want the reflection benefit of journaling but not the friction of opening a heavy app, typing everything out, or worrying about where those personal thoughts are being stored.</p>
+
+<h2>What Makes a Diary More Usable</h2>
+<ul>
+  <li>voice input when typing feels slow</li>
+  <li>Urdu or English support depending on how you think</li>
+  <li>mood tags so entries are easier to revisit</li>
+  <li>full-text search so ideas do not disappear into a pile</li>
+</ul>
+
+<h2>Use a Private Diary That Stays on Your Device</h2>
+<p>The <a href="/tools/voice-diary">Voice Diary</a> is built for quick, private reflection with speech or typing, mood tagging, search, and export. It is useful for daily journaling, therapy-style reflection, or just getting thoughts out without opening a big note system.</p>
+
+<div class="cta-box"><p>Capture the thought while it is still fresh, then find it again later.</p><a href="/tools/voice-diary">Open Voice Diary →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-plan-a-day-without-rewriting-the-same-task-list-every-morning',
+    title: 'How to Plan a Day Without Rewriting the Same Task List Every Morning',
+    description: 'A practical guide to planning one day at a time while keeping priorities, unfinished work, and weekly follow-through visible.',
+    hero: '📅',
+    category: 'productivity',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['daily planner', 'task planning', 'daily schedule', 'todo routine'],
+    content: `
+<h2>Many To-Do Lists Stay Busy but Not Useful</h2>
+<p>The problem is usually not a lack of tasks. It is that the list keeps growing while unfinished work gets copied around with no structure and no sense of what really matters today.</p>
+
+<h2>What a Better Daily Planner Should Do</h2>
+<ul>
+  <li>focus on one day clearly</li>
+  <li>let you assign priority and time</li>
+  <li>show what is still pending from yesterday</li>
+  <li>make follow-through visible across the week</li>
+</ul>
+
+<h2>Use a Planner Built for Day-by-Day Control</h2>
+<p>The <a href="/tools/daily-planner">Daily Planner</a> helps you manage tasks by day with priorities, categories, and a weekly completion view, so your plan is easier to act on instead of becoming one long backlog.</p>
+
+<div class="cta-box"><p>Plan the day you are actually living, not just the tasks you wish would disappear.</p><a href="/tools/daily-planner">Open Daily Planner →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-build-habits-with-a-heatmap-and-streak-view',
+    title: 'How to Build Habits With a Heatmap and Streak View',
+    description: 'A practical guide to making habits visible enough to maintain, especially when motivation is inconsistent and progress feels too small to notice.',
+    hero: '🔥',
+    category: 'productivity',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['habit tracker', 'streaks', 'heatmap habits', 'daily habits'],
+    content: `
+<h2>Habits Fail Quietly Before They Fail Completely</h2>
+<p>Most people do not stop because one day went badly. They stop because they lose sight of the pattern, then the break turns into a gap, and the gap turns into “I should restart someday.”</p>
+
+<h2>What Helps Habits Feel Real</h2>
+<ul>
+  <li>a visible streak</li>
+  <li>a monthly heatmap you can actually read</li>
+  <li>weekly pattern feedback instead of vague guilt</li>
+  <li>custom habits instead of someone else’s template</li>
+</ul>
+
+<h2>Use a Tracker That Shows the Pattern</h2>
+<p>The <a href="/tools/habit-tracker">Habit Tracker</a> uses streaks, a heatmap calendar, and weekly charts so progress becomes visible enough to support consistency instead of depending only on motivation.</p>
+
+<div class="cta-box"><p>Make the habit visible before expecting it to become automatic.</p><a href="/tools/habit-tracker">Open Habit Tracker →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-track-traffic-fines-before-they-turn-into-a-bigger-problem',
+    title: 'How to Track Traffic Fines Before They Turn Into a Bigger Problem',
+    description: 'A practical guide for Pakistani drivers who want unpaid challans, repeated violations, and license-risk issues to stay visible instead of piling up quietly.',
+    hero: '🚦',
+    category: 'pakistan',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['driving fines', 'challan tracker', 'traffic violations Pakistan', 'license risk'],
+    content: `
+<h2>Traffic Fines Usually Become Stressful Because They Stay Half-Tracked</h2>
+<p>A single fine is simple. The problem starts when payment dates, repeated violations, and suspension risk all live in memory, screenshots, or old messages instead of one record.</p>
+
+<h2>What a Better Tracker Should Keep Clear</h2>
+<ul>
+  <li>what happened and when</li>
+  <li>which fines are still unpaid</li>
+  <li>how much total liability is pending</li>
+  <li>whether the pattern is becoming a bigger license problem</li>
+</ul>
+
+<h2>Use a Fine Tracker Before the Pattern Gets Expensive</h2>
+<p>The <a href="/tools/driving-fines">Driving Fine Tracker</a> helps log violations, monitor unpaid fines, and keep an eye on the broader risk instead of treating each challan like an isolated annoyance.</p>
+
+<div class="cta-box"><p>Track the fines while they are still manageable, not after they pile up.</p><a href="/tools/driving-fines">Open Driving Fine Tracker →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-see-where-your-money-actually-goes-from-bank-or-wallet-csvs',
+    title: 'How to See Where Your Money Actually Goes From Bank or Wallet CSVs',
+    description: 'A practical guide to turning exported transactions into a real spending picture instead of scanning statements line by line.',
+    hero: '💸',
+    category: 'finance',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['expense analyzer', 'bank CSV spending', 'Easypaisa CSV', 'JazzCash analysis'],
+    content: `
+<h2>Most People Have the Data but Not the Picture</h2>
+<p>Bank statements, Easypaisa exports, and JazzCash transaction histories already contain the truth about your spending. The problem is that raw transaction rows do not automatically tell the story clearly enough to act on.</p>
+
+<h2>What a Spending Review Should Make Obvious</h2>
+<ul>
+  <li>which categories eat the most money</li>
+  <li>which merchants appear too often</li>
+  <li>how monthly spending shifts over time</li>
+  <li>whether the feeling about spending matches the data</li>
+</ul>
+
+<h2>Use the CSV Instead of Guessing</h2>
+<p>The <a href="/tools/expense-analyzer">Expense Pattern Analyzer</a> turns exported transaction CSVs into category breakdowns, merchant insights, and monthly trends so you can act on real patterns instead of vague impressions.</p>
+
+<div class="cta-box"><p>Import the transactions once, then see the pattern clearly.</p><a href="/tools/expense-analyzer">Open Expense Pattern Analyzer →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-compare-property-values-when-two-houses-are-not-identical',
+    title: 'How to Compare Property Values When Two Houses Are Not Identical',
+    description: 'A practical guide to adjusting property comparisons instead of assuming one nearby sale price applies cleanly to another house.',
+    hero: '🏠',
+    category: 'business',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['property comp', 'real estate comparison', 'valuation adjustment', 'house price comparison'],
+    content: `
+<h2>Nearby Sale Price Does Not Automatically Mean Equal Value</h2>
+<p>People often compare a property with “a similar one nearby” and stop there. The problem is that similar rarely means identical once bedroom count, bathrooms, area, garage space, and other practical differences enter the picture.</p>
+
+<h2>What a Better Comparison Tries to Do</h2>
+<ul>
+  <li>start from a known comparable sale</li>
+  <li>adjust for the features that are different</li>
+  <li>see the delta clearly instead of arguing loosely</li>
+  <li>understand whether the asking price still makes sense</li>
+</ul>
+
+<h2>Use an Adjuster Instead of Hand-Waving the Differences</h2>
+<p>The <a href="/tools/property-comp">Property Comp Adjuster</a> helps compare a subject property against a comparable sale and estimate how feature differences move the value instead of pretending every nearby property is interchangeable.</p>
+
+<div class="cta-box"><p>Adjust the comparison before you trust the number.</p><a href="/tools/property-comp">Open Property Comp Adjuster →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-check-refrigerant-leak-rate-before-a-small-issue-becomes-a-compliance-problem',
+    title: 'How to Check Refrigerant Leak Rate Before a Small Issue Becomes a Compliance Problem',
+    description: 'A practical guide for HVAC and refrigeration work where added refrigerant needs to be judged against leak-rate thresholds, not just service intuition.',
+    hero: '❄️',
+    category: 'business',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['refrigerant leak calculator', 'HVAC compliance', 'EPA leak rate', 'service log'],
+    content: `
+<h2>Refrigerant Added Is Not Just a Service Note</h2>
+<p>In professional HVAC and refrigeration work, added refrigerant is not only a maintenance detail. It can be an early sign that the system needs a more serious compliance or repair response.</p>
+
+<h2>Why This Decision Cannot Stay Vague</h2>
+<ul>
+  <li>the charge size matters</li>
+  <li>the added amount matters</li>
+  <li>thresholds matter</li>
+  <li>repair timing can matter too</li>
+</ul>
+
+<h2>Use a Leak Calculator Instead of Rough Estimation</h2>
+<p>The <a href="/tools/refrigerant-calc">Refrigerant Leak Calculator</a> helps turn system charge and added refrigerant into a leak-rate percentage so service teams can judge whether the situation is routine or crossing a threshold that needs a stronger response.</p>
+
+<div class="cta-box"><p>Calculate the rate before treating the leak like a minor repeat issue.</p><a href="/tools/refrigerant-calc">Open Refrigerant Leak Calculator →</a></div>
+`,
+  },
 ]

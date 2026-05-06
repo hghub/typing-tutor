@@ -135,6 +135,63 @@ Priority right now:
   - red-flag templates by platform
   - payment-term scoring presets
 
+### Voice Diary
+- Content status: direct blog coverage added
+- Useful next blog angles:
+  - Urdu journaling and private reflection routines
+- Feature gap:
+  - entry templates
+  - reminder prompts
+
+### Daily Planner
+- Content status: direct blog coverage added
+- Useful next blog angles:
+  - planning around study + work together
+- Feature gap:
+  - recurring task templates
+  - simple day-end review
+
+### Habit Tracker
+- Content status: direct blog coverage added
+- Useful next blog angles:
+  - habit stacking for students and professionals
+- Feature gap:
+  - reminder nudges
+  - skip-day handling without breaking momentum
+
+### Driving Fine Tracker
+- Content status: direct blog coverage added
+- Useful next blog angles:
+  - common challan categories and payment workflow
+- Feature gap:
+  - province/city quick reference
+  - due-date reminder notes
+
+### Expense Pattern Analyzer
+- Content status: direct blog coverage added
+- Useful next blog angles:
+  - monthly review routine for salaried users
+  - Easypaisa/JazzCash cleanup before import
+- Feature gap:
+  - custom rule-based merchant categorization
+  - monthly budget target overlays
+
+### Property Comp Adjuster
+- Content status: direct blog coverage added
+- Useful next blog angles:
+  - buyer-side use before negotiation
+- Feature gap:
+  - saved comp sets
+  - printable comparison summary
+
+### Refrigerant Leak Calculator
+- Content status: direct blog coverage added
+- Useful next blog angles:
+  - service log hygiene for repeated visits
+- Feature gap:
+  - saved equipment history
+  - printable compliance summary
+
 ---
 
 ## Related New-Tool Opportunities

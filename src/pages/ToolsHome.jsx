@@ -125,16 +125,33 @@ function TogglePill({ active, onClick, children, activeColor = '#06b6d4', isDark
 
 // ── Marquee Ticker ────────────────────────────────────────────────────────────
 function MarqueeTicker({ tools, isDark, colors }) {
-  const highlight = tools.filter(t => t.addedOn || ['expense-analyzer','data-leak-detector','warranty-tracker','driving-fines','measurement-tracker','text-encryptor'].includes(t.id))
+  const newTools = tools.filter(t => t.addedOn).slice(0, 4)
+  const flagshipTools = [
+    'solar-planner',
+    'tax-calculator',
+    'investment-allocation-planner',
+    'loan-emi',
+    'urdu-keyboard',
+    'typing-tutor',
+    'rent-vs-buy-pakistan',
+    'car-powertrain-decision',
+  ]
+    .map(id => tools.find(t => t.id === id))
+    .filter(Boolean)
+
+  const hiddenUseful = USEFUL_HIDDEN_TOOL_IDS
+    .map(id => tools.find(t => t.id === id))
+    .filter(Boolean)
+    .slice(0, 4)
+
   const items = [
-    ...highlight.filter(t => t.addedOn).map(t => ({ label: `🆕 New · ${t.icon} ${t.name}`, color: '#10b981', path: t.path })),
-    { label: '⭐ Featured · 💸 Expense Analyzer', color: '#f59e0b', path: '/tools/expense-analyzer' },
-    { label: '🔒 Privacy-first · Zero uploads', color: '#06b6d4', path: '/tools' },
-    { label: '⭐ Featured · 🔍 Data Leak Detector', color: '#ef4444', path: '/tools/data-leak-detector' },
-    { label: '📏 Track anything · Measurement Tracker', color: '#0ea5e9', path: '/tools/measurement-tracker' },
-    { label: '🔒 Encrypt your messages privately', color: '#06b6d4', path: '/tools/text-encryptor' },
-    { label: '🚗 Track driving fines & violations', color: '#f97316', path: '/tools/driving-fines' },
-    { label: '📊 68 free tools · No signup needed', color: '#3b82f6', path: '/tools' },
+    ...newTools.map(t => ({ label: `🆕 New · ${t.icon} ${t.name}`, color: '#10b981', path: t.path })),
+    ...flagshipTools.map(t => ({ label: `⭐ Popular · ${t.icon} ${t.name}`, color: '#f59e0b', path: t.path })),
+    ...hiddenUseful.map(t => ({ label: `💡 Useful · ${t.icon} ${t.name}`, color: '#06b6d4', path: t.path })),
+    { label: '🇵🇰 Start with Pakistan Tools', color: '#10b981', path: '/category/pakistan-tools' },
+    { label: '⌨️ Explore Typing & Urdu Tools', color: '#0ea5e9', path: '/category/typing-tools' },
+    { label: '🔒 Browse Privacy & Security Tools', color: '#ef4444', path: '/category/security-tools' },
+    { label: '📄 Open PDF & OCR Tools', color: '#f97316', path: '/category/pdf-tools' },
   ]
   const doubled = [...items, ...items]
 

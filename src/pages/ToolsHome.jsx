@@ -286,6 +286,14 @@ function ToolCard({ tool, colors, isDark, featured = false, urduLabels = false, 
   )
 }
 
+function getDisplayName(tool, urduLabels) {
+  return (urduLabels && tool.nameUrdu) ? tool.nameUrdu : tool.name
+}
+
+function getDisplayTagline(tool, urduLabels) {
+  return (urduLabels && tool.taglineUrdu) ? tool.taglineUrdu : tool.tagline
+}
+
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function ToolsHome() {
   const { isDark, colors } = useTheme()
@@ -502,10 +510,12 @@ export default function ToolsHome() {
                 <div style={{ background: colors.card, border: `1px solid ${colors.border}`, borderRadius: '0.9rem', padding: '1rem', height: '100%' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.45rem' }}>
                     <span style={{ fontSize: '1.35rem' }}>{tool.icon}</span>
-                    <div style={{ color: colors.text, fontWeight: 700, fontSize: '0.9rem' }}>{tool.name}</div>
+                    <div style={{ color: colors.text, fontWeight: 700, fontSize: '0.9rem', direction: prefs.urduLabels && tool.nameUrdu ? 'rtl' : 'ltr' }}>
+                      {getDisplayName(tool, prefs.urduLabels)}
+                    </div>
                   </div>
                   <div style={{ color: colors.textSecondary, fontSize: '0.78rem', lineHeight: 1.55 }}>
-                    {getAccessibilityNote(tool.id)?.simple || getToolScenarioLine(tool)}
+                    {prefs.urduLabels && tool.taglineUrdu ? getDisplayTagline(tool, prefs.urduLabels) : (getAccessibilityNote(tool.id)?.simple || getToolScenarioLine(tool))}
                   </div>
                 </div>
               </Link>
@@ -542,8 +552,8 @@ export default function ToolsHome() {
               <h2 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800, color: colors.text, letterSpacing: '-0.01em' }}>🕐 Recently Used</h2>
             </div>
             <div style={{ display: 'flex', gap: '0.75rem', overflowX: 'auto', paddingBottom: '0.5rem' }}>
-              {recentTools.map(tool => (
-                <Link key={tool.id} to={tool.path} onClick={() => handleVisit(tool.id)} style={{ textDecoration: 'none', flexShrink: 0 }}>
+            {recentTools.map(tool => (
+              <Link key={tool.id} to={tool.path} onClick={() => handleVisit(tool.id)} style={{ textDecoration: 'none', flexShrink: 0 }}>
                   <div style={{
                     display: 'flex', alignItems: 'center', gap: '0.6rem',
                     background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
@@ -555,7 +565,9 @@ export default function ToolsHome() {
                     onMouseLeave={e => { e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'; e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)' }}
                   >
                     <span style={{ fontSize: '1.3rem' }}>{tool.icon}</span>
-                    <span style={{ fontSize: '0.82rem', fontWeight: 600, color: colors.text, whiteSpace: 'nowrap' }}>{tool.name}</span>
+                    <span style={{ fontSize: '0.82rem', fontWeight: 600, color: colors.text, whiteSpace: 'nowrap', direction: prefs.urduLabels && tool.nameUrdu ? 'rtl' : 'ltr' }}>
+                      {getDisplayName(tool, prefs.urduLabels)}
+                    </span>
                   </div>
                 </Link>
               ))}
@@ -620,10 +632,12 @@ export default function ToolsHome() {
                 <div style={{ background: isDark ? 'rgba(255,255,255,0.04)' : '#fff', border: `1px solid ${colors.border}`, borderRadius: '0.9rem', padding: '1rem', height: '100%' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.45rem' }}>
                     <span style={{ fontSize: '1.35rem' }}>{tool.icon}</span>
-                    <div style={{ color: colors.text, fontWeight: 700, fontSize: '0.9rem' }}>{tool.name}</div>
+                    <div style={{ color: colors.text, fontWeight: 700, fontSize: '0.9rem', direction: prefs.urduLabels && tool.nameUrdu ? 'rtl' : 'ltr' }}>
+                      {getDisplayName(tool, prefs.urduLabels)}
+                    </div>
                   </div>
                   <div style={{ color: colors.textSecondary, fontSize: '0.78rem', lineHeight: 1.55 }}>
-                    {getAccessibilityNote(tool.id)?.simple || tool.description}
+                    {prefs.urduLabels && tool.taglineUrdu ? getDisplayTagline(tool, prefs.urduLabels) : (getAccessibilityNote(tool.id)?.simple || tool.description)}
                   </div>
                 </div>
               </Link>

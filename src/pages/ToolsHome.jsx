@@ -63,11 +63,11 @@ const CATEGORY_ORDER = [
 
 // Tool display order within each category
 const CATEGORY_TOOL_ORDER = {
-  typing:      ['typing-tutor'],
+  typing:      ['typing-tutor','urdu-keyboard'],
   productivity:['pomodoro','world-time','daily-planner','habit-tracker','voice-diary','kameti','measurement-tracker','resume-builder','whatsapp-tools'],
-  writing:     ['word-counter','text-cleaner','doc-composer','image-suite'],
-  language:    ['urdu-keyboard','color-palette'],
-  pakistan:    ['solar-planner','tax-calculator','investment-allocation-planner','loan-emi','rent-vs-buy-pakistan','car-powertrain-decision','salary-offer-evaluator','freelance-tax-planner','gold-price','salary-slip','pk-id-tax-hub','tax-optimizer','kameti','driving-fines'],
+  writing:     ['urdu-keyboard','typing-tutor','word-counter','text-cleaner','doc-composer','image-suite'],
+  language:    ['urdu-keyboard','typing-tutor','color-palette'],
+  pakistan:    ['urdu-keyboard','typing-tutor','solar-planner','tax-calculator','investment-allocation-planner','loan-emi','rent-vs-buy-pakistan','car-powertrain-decision','salary-offer-evaluator','freelance-tax-planner','gold-price','salary-slip','pk-id-tax-hub','tax-optimizer','kameti','driving-fines'],
   travel:      ['packing-list','budget-splitter'],
   security:    ['text-encryptor','data-leak-detector','doc-redaction'],
   pdf:         ['compress-pdf','merge-pdf','split-pdf','pdf-convert','doc-converter','text-extractor','pdf-search'],
@@ -77,6 +77,18 @@ const CATEGORY_TOOL_ORDER = {
   education:   ['student-groups'],
   business:    ['warranty-tracker','property-comp','voice-invoice','refrigerant-calc'],
   legal:       ['timeline-builder'],
+}
+
+const CATEGORY_EXTRA_MEMBERSHIPS = {
+  'urdu-keyboard': ['pakistan', 'writing', 'typing'],
+  'typing-tutor': ['pakistan', 'writing', 'language'],
+}
+
+function getCategoryTools(categoryId, tools) {
+  return tools.filter((tool) => {
+    if (tool.category === categoryId) return true
+    return CATEGORY_EXTRA_MEMBERSHIPS[tool.id]?.includes(categoryId)
+  })
 }
 
 // ── "New" badge logic ─────────────────────────────────────────────────────────
@@ -623,7 +635,7 @@ export default function ToolsHome() {
         <div style={{ marginBottom: '2rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center' }}>
           <span style={{ fontSize: '0.75rem', fontWeight: 700, color: colors.textSecondary, letterSpacing: '0.05em', textTransform: 'uppercase', marginRight: '0.25rem' }}>Jump to:</span>
           {TOOL_CATEGORIES.map(cat => {
-            const count = visibleTools.filter(t => t.category === cat.id).length
+            const count = getCategoryTools(cat.id, visibleTools).length
             if (!count) return null
             return (
               <a key={cat.id} href={`#${cat.id}`} style={{ textDecoration: 'none' }}>
@@ -654,7 +666,7 @@ export default function ToolsHome() {
               return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi)
             })
             .map((cat) => {
-            const tools = visibleTools.filter((t) => t.category === cat.id)
+            const tools = getCategoryTools(cat.id, visibleTools)
             if (!tools.length) return null
             // Sort tools within the category per the defined order
             const catOrder = CATEGORY_TOOL_ORDER[cat.id] || []

@@ -4,7 +4,7 @@
  */
 export const SITE = {
   name: 'Rafiqy',
-  tagline: 'Your everyday digital toolbox',
+  tagline: 'Your everyday digital companion',
   url: 'https://rafiqy.app',
   email: '',
   twitter: '@rafiqyapp',

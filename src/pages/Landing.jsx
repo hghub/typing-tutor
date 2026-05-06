@@ -118,15 +118,15 @@ export default function Landing() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-bg)', color: 'var(--color-text)', fontFamily: 'sans-serif' }}>
       <Helmet>
-        <title>Rafiqy | Your Everyday Digital Toolbox</title>
+        <title>Rafiqy | Your Everyday Digital Companion</title>
         <meta name="description" content="Privacy-first browser tools and decision systems for Urdu typing, Pakistan tax, solar, investing, PDFs, writing, and everyday digital work." />
         <link rel="canonical" href="https://rafiqy.app/" />
-        <meta property="og:title" content="Rafiqy | Your Everyday Digital Toolbox" />
+        <meta property="og:title" content="Rafiqy | Your Everyday Digital Companion" />
         <meta property="og:description" content="Privacy-first browser tools and decision systems for Urdu typing, Pakistan tax, solar, investing, PDFs, writing, and everyday digital work." />
         <meta property="og:url" content="https://rafiqy.app/" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Rafiqy | Your Everyday Digital Toolbox" />
+        <meta name="twitter:title" content="Rafiqy | Your Everyday Digital Companion" />
         <meta name="twitter:description" content="Privacy-first browser tools and decision systems for Urdu typing, Pakistan tax, solar, investing, PDFs, writing, and everyday digital work." />
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',

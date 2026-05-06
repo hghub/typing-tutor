@@ -226,19 +226,13 @@ export default function Landing() {
       {/* SEO Intro */}
       <section style={{ maxWidth: 800, margin: '0 auto', padding: '0 2rem 2rem', textAlign: 'center' }}>
         <p style={{ color: 'var(--color-text-muted)', fontSize: '0.92rem', lineHeight: 1.8 }}>
-          Rafiqy is a browser-based toolbox for everyday digital work. Whether you need an <Link to="/tools/urdu-keyboard" style={{ color: 'var(--color-primary)' }}>Urdu keyboard online</Link>, a <Link to="/tools/tax-calculator" style={{ color: 'var(--color-primary)' }}>Pakistan income tax calculator</Link>, a <Link to="/tools/solar-planner" style={{ color: 'var(--color-primary)' }}>solar planning estimate</Link>, or a private <Link to="/tools/compress-pdf" style={{ color: 'var(--color-primary)' }}>PDF tool</Link>, the work happens directly in your browser.
+          Rafiqy is a browser-based platform for practical digital tools and decision support. Whether you need an <Link to="/tools/urdu-keyboard" style={{ color: 'var(--color-primary)' }}>Urdu keyboard online</Link>, a <Link to="/tools/tax-calculator" style={{ color: 'var(--color-primary)' }}>Pakistan income tax calculator</Link>, a <Link to="/tools/solar-planner" style={{ color: 'var(--color-primary)' }}>solar planning estimate</Link>, or a private <Link to="/tools/compress-pdf" style={{ color: 'var(--color-primary)' }}>PDF tool</Link>, the work happens directly in your browser.
         </p>
         <p style={{ color: 'var(--color-text-muted)', fontSize: '0.92rem', lineHeight: 1.8, marginTop: '0.75rem' }}>
-          From{' '}
-          <Link to="/tools/typing-tutor" style={{ color: 'var(--color-primary)' }}>improving your typing speed</Link>,{' '}
-          <Link to="/tools/compress-pdf" style={{ color: 'var(--color-primary)' }}>compressing a PDF</Link>,{' '}
-          <Link to="/tools/solar-planner" style={{ color: 'var(--color-primary)' }}>estimating a home solar system</Link>, or{' '}
-          <Link to="/tools/word-counter" style={{ color: 'var(--color-primary)', marginLeft: 4 }}>counting words</Link>{' '}
-          — Rafiqy has a tool for it. All free, all instant, all private.
+          From <Link to="/tools/typing-tutor" style={{ color: 'var(--color-primary)' }}>improving your typing speed</Link> and <Link to="/tools/compress-pdf" style={{ color: 'var(--color-primary)' }}>compressing a PDF</Link> to <Link to="/tools/solar-planner" style={{ color: 'var(--color-primary)' }}>planning a home solar system</Link> or <Link to="/tools/word-counter" style={{ color: 'var(--color-primary)', marginLeft: 4 }}>counting words</Link>, Rafiqy is built to make everyday digital work faster, simpler, and more private.
         </p>
         <p style={{ color: 'var(--color-text-muted)', fontSize: '0.88rem', lineHeight: 1.75, marginTop: '0.75rem' }}>
-          If you think in simple English or Roman Urdu, you can still find the right tool easily. Search ideas include
-          {' '}<strong>tax kitna banega</strong>, <strong>loan kitna lena chahiye</strong>, <strong>solar lagwana faida hai</strong>, and <strong>urdu mein type karna</strong>.
+          The site is designed to stay accessible even if you search in simple English or Roman Urdu. Common search-style phrases include <strong>tax kitna banega</strong>, <strong>loan kitna lena chahiye</strong>, <strong>solar lagwana faida hai</strong>, and <strong>urdu mein type karna</strong>.
         </p>
       </section>
 

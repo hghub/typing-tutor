@@ -19,11 +19,6 @@ const CATEGORY_TOOL_PRIORITY = {
   'image-tools': ['image-suite','text-extractor','doc-redaction','doc-converter','pdf-convert'],
 }
 
-const CATEGORY_EXTRA_MEMBERSHIPS = {
-  'urdu-keyboard': ['pakistan-tools', 'writing-tools', 'productivity-tools'],
-  'typing-tutor': ['pakistan-tools', 'writing-tools', 'language-tools'],
-}
-
 const CATEGORY_BLOG_PRIORITY = {
   'pakistan-tools': ['how-to-check-cnic-ntn-and-tax-reference-details-in-one-place','how-to-file-salaried-tax-return-in-pakistan','legal-ways-to-save-salary-tax-in-pakistan','how-tax-shield-optimizer-helps-you-see-what-actually-saves-tax','pakistan-income-tax-calculator','investment-allocation-planner-pakistan-guide','rent-vs-buy-calculator-pakistan-guide','solar-planner-pakistan','is-ev-worth-it-in-pakistan','how-to-run-a-kameti-or-committee-without-confusion'],
   'finance-tools': ['how-to-see-where-your-money-actually-goes-from-bank-or-wallet-csvs','how-to-track-traffic-fines-before-they-turn-into-a-bigger-problem','how-much-loan-can-i-afford','should-you-pay-off-a-loan-early','how-to-calculate-emi','how-to-manage-multiple-loans-without-losing-track','how-to-file-salaried-tax-return-in-pakistan','legal-ways-to-save-salary-tax-in-pakistan','how-tax-shield-optimizer-helps-you-see-what-actually-saves-tax','investment-allocation-planner-pakistan-guide'],
@@ -104,9 +99,10 @@ export default function CategoryPage({ category }) {
   if (!data) return null
 
   const categoryIds = data.categories || []
+  const priorityIds = CATEGORY_TOOL_PRIORITY[category] || []
   const tools = data.toolIds?.length
     ? TOOLS.filter(t => data.toolIds.includes(t.id))
-    : TOOLS.filter(t => categoryIds.includes(t.category) || CATEGORY_EXTRA_MEMBERSHIPS[t.id]?.includes(category))
+    : TOOLS.filter(t => categoryIds.includes(t.category) || priorityIds.includes(t.id))
   const toolPriority = CATEGORY_TOOL_PRIORITY[category] || []
   const sortedTools = [...tools].sort((a, b) => {
     const ai = toolPriority.indexOf(a.id)

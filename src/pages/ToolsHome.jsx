@@ -17,10 +17,16 @@ const RECENT_KEY = 'typely_recent_tools'
 const FAVOURITES_KEY = 'typely_favourites'
 const CATEGORY_LANDING_LINKS = [
   { path: '/category/pakistan-tools', label: 'Pakistan Tools', desc: 'Tax, solar, investing, loans, salary and local-use tools' },
+  { path: '/category/productivity-tools', label: 'Productivity Tools', desc: 'Planning, habits, focus, time and daily workflows' },
+  { path: '/tools#typing', label: 'Typing & Learning', desc: 'Typing tutor, Urdu typing and learning-focused tools' },
+  { path: '/tools#language', label: 'Language & Input', desc: 'Urdu typing, keyboard help and writing input tools' },
   { path: '/category/writing-tools', label: 'Writing Tools', desc: 'Urdu, documents, cleanup and word count' },
   { path: '/category/pdf-tools', label: 'PDF Tools', desc: 'Compress, merge, split, convert and OCR' },
+  { path: '/category/image-tools', label: 'Image & OCR Tools', desc: 'Images, OCR, document visuals and screenshot cleanup' },
   { path: '/category/security-tools', label: 'Privacy Tools', desc: 'Leak detection, encryption and redaction' },
   { path: '/category/finance-tools', label: 'Finance Tools', desc: 'Tax, EMI, expense analysis and calculators' },
+  { path: '/category/business-tools', label: 'Business Tools', desc: 'Invoices, warranty, property and field-work helpers' },
+  { path: '/category/travel-tools', label: 'Travel Tools', desc: 'Packing, timing, exchange rates and group spending' },
   { path: '/category/developer-tools', label: 'Developer Tools', desc: 'Regex, JSON, mock data and logs' },
 ]
 
@@ -79,15 +85,11 @@ const CATEGORY_TOOL_ORDER = {
   legal:       ['timeline-builder'],
 }
 
-const CATEGORY_EXTRA_MEMBERSHIPS = {
-  'urdu-keyboard': ['pakistan', 'writing', 'typing'],
-  'typing-tutor': ['pakistan', 'writing', 'language'],
-}
-
 function getCategoryTools(categoryId, tools) {
+  const categoryOrder = CATEGORY_TOOL_ORDER[categoryId] || []
   return tools.filter((tool) => {
     if (tool.category === categoryId) return true
-    return CATEGORY_EXTRA_MEMBERSHIPS[tool.id]?.includes(categoryId)
+    return categoryOrder.includes(tool.id)
   })
 }
 

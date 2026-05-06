@@ -30,6 +30,8 @@ const FEATURED_POST_SLUGS = [
   'how-to-invest-5-to-15-crore-in-pakistan',
   'how-to-check-a-cv-or-document-for-sensitive-data-before-sending',
   'how-to-extract-text-from-images-and-scanned-notes',
+  'how-to-manage-multiple-loans-without-losing-track',
+  'how-to-find-a-good-meeting-time-across-pakistan-dubai-uk-and-us',
   'compress-pdf-online',
   'password-generator-security',
 ]

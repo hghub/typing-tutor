@@ -4100,4 +4100,165 @@ export const BLOG_POSTS = [
 <div class="cta-box"><p>See what really changes your salary tax instead of relying on general claims.</p><a href="/tools/tax-optimizer">Open Tax Shield Optimizer →</a></div>
 `,
   },
+  {
+    slug: 'how-to-clean-messy-text-from-whatsapp-pdfs-and-docs',
+    title: 'How to Clean Messy Text From WhatsApp, PDFs, and Documents',
+    description: 'A practical guide to fixing broken spacing, weird line breaks, pasted formatting, and messy casing before you reuse text anywhere.',
+    hero: '✨',
+    category: 'writing',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['text cleaner', 'text formatter', 'clean pasted text', 'remove extra spaces'],
+    content: `
+<h2>Copied Text Usually Comes With Baggage</h2>
+<p>Text copied from WhatsApp, PDFs, websites, or AI answers often brings hidden mess with it: extra spaces, broken lines, random capitalization, or formatting characters that make it look bad in the next place you paste it.</p>
+
+<h2>Common Problems People Want to Fix</h2>
+<ul>
+  <li>too many spaces</li>
+  <li>every line breaking in the wrong place</li>
+  <li>ALL CAPS or messy casing</li>
+  <li>pasted HTML or markdown noise</li>
+</ul>
+
+<h2>Why a Formatter Saves Time</h2>
+<p>The <a href="/tools/text-cleaner">Text Formatter</a> is useful because it turns a manual cleanup task into a one-click step before the text goes into an email, document, form, note, or post.</p>
+
+<div class="cta-box"><p>Paste messy text once, clean it once, and reuse it properly.</p><a href="/tools/text-cleaner">Open Text Formatter →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-format-and-validate-json-before-sharing-or-importing',
+    title: 'How to Format and Validate JSON Before Sharing or Importing It',
+    description: 'A practical guide to cleaning, validating, and reading JSON so API payloads and config files stop breaking for simple formatting reasons.',
+    hero: '🧾',
+    category: 'developer',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['json formatter', 'validate json', 'pretty print json', 'developer tools'],
+    content: `
+<h2>Bad JSON Wastes Time Fast</h2>
+<p>Sometimes the problem is not the system. It is one missing comma, one bad quote, or a payload so compressed that nobody can read it properly before sending it onward.</p>
+
+<h2>Where This Usually Hurts</h2>
+<ul>
+  <li>API request/response checks</li>
+  <li>config files</li>
+  <li>mock payload reviews</li>
+  <li>copying data into tickets or chats</li>
+</ul>
+
+<h2>What the Formatter Should Do</h2>
+<p>A good JSON tool should pretty-print, validate structure, and let you spot errors before the payload is shared or imported. That is exactly what the <a href="/tools/json-formatter">JSON Formatter</a> is for.</p>
+
+<div class="cta-box"><p>Check the structure before you assume the payload is fine.</p><a href="/tools/json-formatter">Open JSON Formatter →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-read-logs-and-find-errors-faster',
+    title: 'How to Read Logs and Find Errors Faster Without Guessing',
+    description: 'A practical guide to turning noisy logs into something you can actually search, compare, and use while debugging.',
+    hero: '📜',
+    category: 'developer',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['log analyzer', 'debug logs', 'find errors in logs', 'developer tools'],
+    content: `
+<h2>Logs Are Useful Until They Become Noise</h2>
+<p>Many teams already have logs. The problem is finding what matters inside them quickly enough to be useful during debugging.</p>
+
+<h2>What Usually Slows People Down</h2>
+<ul>
+  <li>too much repeated noise</li>
+  <li>hard-to-see errors between info lines</li>
+  <li>timestamps and IDs with no grouping</li>
+  <li>copying logs into chat without structure</li>
+</ul>
+
+<h2>Why an Analyzer Helps</h2>
+<p>The <a href="/tools/log-analyzer">Log Analyzer</a> is meant to make logs easier to scan, group, and search so you can move from “something is wrong” to the actual signal faster.</p>
+
+<div class="cta-box"><p>Stop reading logs like one giant wall of text.</p><a href="/tools/log-analyzer">Open Log Analyzer →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-check-medicine-interactions-before-taking-two-medicines',
+    title: 'How to Check Medicine Interactions Before Taking Two Medicines Together',
+    description: 'A practical guide to checking for obvious medication conflicts before you combine medicines, while still knowing when a doctor or pharmacist is necessary.',
+    hero: '💊',
+    category: 'health',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['drug checker', 'medicine interaction', 'check medicines together', 'health tools'],
+    content: `
+<h2>People Often Combine Medicines Without a Clear Check</h2>
+<p>Sometimes the medicines are prescribed by different doctors. Sometimes one is over-the-counter. Sometimes one is already in the house. That is exactly where basic interaction checking becomes useful.</p>
+
+<h2>What a Basic Check Helps With</h2>
+<ul>
+  <li>spotting obvious conflicts</li>
+  <li>seeing whether a combination deserves more caution</li>
+  <li>knowing when to ask a pharmacist or doctor before proceeding</li>
+</ul>
+
+<h2>What It Should Not Replace</h2>
+<p>A tool is not a prescription decision maker. It is a safety check layer. The <a href="/tools/drug-checker">Drug Interaction Checker</a> is useful for catching common conflict concerns early, not for replacing professional medical advice.</p>
+
+<div class="cta-box"><p>Do the quick safety check before mixing medicines casually.</p><a href="/tools/drug-checker">Open Drug Interaction Checker →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-map-fields-between-two-systems-without-confusion',
+    title: 'How to Map Fields Between Two Systems Without Confusion',
+    description: 'A practical guide to mapping fields between forms, APIs, sheets, or databases when names no longer line up cleanly.',
+    hero: '🗺️',
+    category: 'developer',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['schema mapper', 'field mapping', 'map json fields', 'developer tools'],
+    content: `
+<h2>Different Systems Rarely Name Things the Same Way</h2>
+<p>One system says <code>first_name</code>, another says <code>givenName</code>, a sheet says “Name”, and the API team calls it something else again. That is where mapping work becomes messy.</p>
+
+<h2>Where This Happens Most</h2>
+<ul>
+  <li>API integration work</li>
+  <li>sheet-to-system imports</li>
+  <li>legacy-system migration</li>
+  <li>manual handoff between business and engineering teams</li>
+</ul>
+
+<h2>Why a Mapper Helps</h2>
+<p>The <a href="/tools/schema-mapper">Schema Mapper</a> is useful because it gives structure to a problem that often lives in screenshots, comments, or spreadsheets for too long.</p>
+
+<div class="cta-box"><p>Map the fields clearly before the integration confusion multiplies.</p><a href="/tools/schema-mapper">Open Schema Mapper →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-trace-one-request-across-multiple-services',
+    title: 'How to Trace One Request Across Multiple Services Without Losing the Thread',
+    description: 'A practical guide to following one request or incident across many logs and services when a single-system view is no longer enough.',
+    hero: '🧵',
+    category: 'developer',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['trace correlator', 'microservice tracing', 'request correlation', 'developer tools'],
+    content: `
+<h2>Modern Failures Rarely Stay in One Service</h2>
+<p>A user request may begin in one app, pass through an API layer, touch a queue, and fail in another service entirely. By the time you start reading logs, the problem is no longer local.</p>
+
+<h2>What Makes It Hard</h2>
+<ul>
+  <li>different log formats</li>
+  <li>request IDs scattered across services</li>
+  <li>timestamps that are close but not obvious enough</li>
+  <li>copy-pasting fragments into chats without a clean timeline</li>
+</ul>
+
+<h2>Why Correlation Matters</h2>
+<p>The <a href="/tools/trace-correlator">Trace Correlator</a> is useful when you need to pull one thread through many entries and build a cleaner story of what happened instead of scanning logs blindly service by service.</p>
+
+<div class="cta-box"><p>Follow the request, not just the loudest log file.</p><a href="/tools/trace-correlator">Open Trace Correlator →</a></div>
+`,
+  },
 ]

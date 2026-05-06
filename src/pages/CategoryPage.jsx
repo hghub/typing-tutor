@@ -25,8 +25,9 @@ const CATEGORY_BLOG_PRIORITY = {
   'writing-tools': ['how-to-write-a-clean-letter-or-cv-fast-without-word','how-to-use-urdu-typing-for-whatsapp-cv-and-forms','urdu-typing-online','type-urdu-online-without-inpage','word-count-for-seo','writing-tools'],
   'pdf-tools': ['compress-pdf-online','pdf-tools-guide'],
   'security-tools': ['how-to-check-a-cv-or-document-for-sensitive-data-before-sending','how-to-redact-sensitive-info-before-sharing-documents','password-generator-security','security-privacy-tools'],
-  'developer-tools': ['developer-tools'],
+  'developer-tools': ['how-to-format-and-validate-json-before-sharing-or-importing','how-to-read-logs-and-find-errors-faster','how-to-map-fields-between-two-systems-without-confusion','how-to-trace-one-request-across-multiple-services','developer-tools'],
   'productivity-tools': ['how-to-find-a-good-meeting-time-across-pakistan-dubai-uk-and-us','how-to-split-family-trip-or-friend-expenses','productivity-tools'],
+  'health-tools': ['how-to-check-medicine-interactions-before-taking-two-medicines','health-wellness-tools'],
 }
 
 const CATEGORY_DATA = {

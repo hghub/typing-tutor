@@ -96,41 +96,41 @@ Priority right now:
   - “avoid previous pairing” memory across sessions
 
 ### Markdown Scraper
-- Content gap: still weak direct coverage
-- Recommended next blog:
-  - how to turn a webpage into clean markdown for AI or notes
+- Content status: direct blog coverage added
+- Useful next blog angles:
+  - compare markdown output for note-taking vs AI context
 - Feature gap:
   - paste article HTML and compare output presets
   - keep/remove links toggle
 
 ### Currency Converter
-- Content gap: still weak direct coverage
-- Recommended next blog:
-  - how to budget a trip when prices are in AED, SAR, USD, and PKR
+- Content status: direct blog coverage added
+- Useful next blog angles:
+  - travel-card fee and exchange spread explainer
 - Feature gap:
   - exchange-fee / spread input
   - saved trip budgets
 
 ### Packing List
-- Content gap: still weak direct coverage
-- Recommended next blog:
-  - how to pack for weather and flight docs without forgetting essentials
+- Content status: direct blog coverage added
+- Useful next blog angles:
+  - family travel packing
 - Feature gap:
   - trip-type presets
   - passport/visa/doc checklist block
 
 ### Warranty Tracker
-- Content gap: still weak direct coverage
-- Recommended next blog:
-  - how to track electronics and appliance warranties before they expire
+- Content status: direct blog coverage added
+- Useful next blog angles:
+  - appliance and electronics warranty routines for households
 - Feature gap:
   - calendar export
   - receipt image attachment or note block
 
 ### Freelancer Risk Analyzer
-- Content gap: still weak direct coverage
-- Recommended next blog:
-  - how to spot risky freelance clients before starting work
+- Content status: direct blog coverage added
+- Useful next blog angles:
+  - milestone-payment checklist for direct clients
 - Feature gap:
   - red-flag templates by platform
   - payment-term scoring presets

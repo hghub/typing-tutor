@@ -4495,4 +4495,139 @@ export const BLOG_POSTS = [
 <div class="cta-box"><p>Make the groups feel fair because the method is fair.</p><a href="/tools/student-groups">Open Student Group Randomizer →</a></div>
 `,
   },
+  {
+    slug: 'how-to-turn-a-web-page-into-clean-markdown-for-ai-or-notes',
+    title: 'How to Turn a Web Page Into Clean Markdown for AI or Notes',
+    description: 'A practical guide to stripping noisy pages down into clean markdown that is easier to save, quote, summarize, or feed into AI tools.',
+    hero: '📄',
+    category: 'developer',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['markdown scraper', 'web page to markdown', 'AI context', 'clean html'],
+    content: `
+<h2>Most Web Pages Are Too Noisy for Reuse</h2>
+<p>A useful article can still be painful to reuse because the page includes navigation, repeated links, boilerplate, ads, and layout junk you do not want in notes or AI context.</p>
+
+<h2>What a Better Extraction Looks Like</h2>
+<ul>
+  <li>keep the useful article text</li>
+  <li>strip the page clutter</li>
+  <li>output markdown that is easier to save and review</li>
+  <li>reduce tokens before sending content to an AI tool</li>
+</ul>
+
+<h2>Use a Markdown-Focused Scraper</h2>
+<p>The <a href="/tools/markdown-scraper">LLM-Ready Markdown Scraper</a> is built for exactly this workflow. Paste a URL or HTML, then turn it into cleaner markdown that is easier to summarize, quote, or pass into an LLM without carrying the whole web page with it.</p>
+
+<div class="cta-box"><p>Keep the useful content, not the webpage noise.</p><a href="/tools/markdown-scraper">Open LLM-Ready Markdown Scraper →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-budget-a-trip-when-prices-are-in-aed-sar-usd-and-pkr',
+    title: 'How to Budget a Trip When Prices Are in AED, SAR, USD, and PKR',
+    description: 'A practical guide for Pakistani travelers trying to estimate real trip cost when flights, hotels, shopping, and cash all use different currencies.',
+    hero: '💱',
+    category: 'travel',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['currency converter', 'trip budget', 'AED to PKR', 'travel money'],
+    content: `
+<h2>Trip Budgets Get Messy When the Prices Use Different Currencies</h2>
+<p>Flights may be quoted one way, hotel costs another way, shopping another way, and your own budget still lives in PKR. That is how people underestimate travel spend even before they leave.</p>
+
+<h2>Where the Confusion Usually Starts</h2>
+<ul>
+  <li>hotel prices in AED or USD</li>
+  <li>cash planning in SAR or AED</li>
+  <li>shopping comparisons back in PKR</li>
+  <li>quick mental conversion that ignores the total picture</li>
+</ul>
+
+<h2>Use a Converter While Budgeting, Not After Overspending</h2>
+<p>The <a href="/tools/currency-converter">Currency Converter</a> helps you compare live values across PKR, USD, GBP, AED, SAR, and more while building the budget itself, not after the confusion has already happened.</p>
+
+<div class="cta-box"><p>Convert every major trip cost into the currency you actually think in.</p><a href="/tools/currency-converter">Open Currency Converter →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-pack-for-weather-and-travel-documents-without-forgetting-essentials',
+    title: 'How to Pack for Weather and Travel Documents Without Forgetting Essentials',
+    description: 'A practical guide to packing around forecast, trip type, and key travel documents instead of making the same avoidable omissions every time.',
+    hero: '🧳',
+    category: 'travel',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['packing list', 'travel checklist', 'weather packing', 'trip documents'],
+    content: `
+<h2>Most Packing Mistakes Are Predictable</h2>
+<p>People do not usually forget because they are careless. They forget because they pack from memory, rush the night before, and underestimate how weather and documents change what matters.</p>
+
+<h2>What a Smarter List Should Consider</h2>
+<ul>
+  <li>the forecast for your destination</li>
+  <li>trip length and trip type</li>
+  <li>documents and chargers, not just clothes</li>
+  <li>which items are reusable every trip</li>
+</ul>
+
+<h2>Use a Forecast-Aware Packing Tool</h2>
+<p>The <a href="/tools/packing-list">Smart Packing List</a> starts from destination and travel dates, then helps shape the checklist around the weather and the kind of trip you are taking instead of relying on guesswork.</p>
+
+<div class="cta-box"><p>Pack from a smarter list before the last-minute rush starts.</p><a href="/tools/packing-list">Open Smart Packing List →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-track-warranties-before-the-claim-window-closes',
+    title: 'How to Track Warranties Before the Claim Window Closes',
+    description: 'A practical guide to tracking electronics, appliances, and other purchases so warranty claims do not expire quietly in a drawer.',
+    hero: '🛡️',
+    category: 'business',
+    readTime: '5 min read',
+    publishDate: '2026-05-06',
+    tags: ['warranty tracker', 'product warranty', 'expiry reminder', 'electronics warranty'],
+    content: `
+<h2>Most Warranty Losses Happen Because Nobody Checks in Time</h2>
+<p>The product breaks, the issue is real, but by the time somebody looks for the receipt and remembers the purchase date, the warranty window is already gone.</p>
+
+<h2>What Needs to Stay Visible</h2>
+<ul>
+  <li>purchase date</li>
+  <li>warranty expiry date</li>
+  <li>which items are expiring soon</li>
+  <li>what category the product belongs to</li>
+</ul>
+
+<h2>Use a Tracker Before the Claim Becomes Impossible</h2>
+<p>The <a href="/tools/warranty-tracker">Warranty Tracker</a> helps you keep electronics, appliances, and similar purchases organized with countdowns and status alerts so the useful action happens before the deadline passes.</p>
+
+<div class="cta-box"><p>Track the expiry before you need the claim.</p><a href="/tools/warranty-tracker">Open Warranty Tracker →</a></div>
+`,
+  },
+  {
+    slug: 'how-to-spot-risky-freelance-clients-before-you-start-work',
+    title: 'How to Spot Risky Freelance Clients Before You Start Work',
+    description: 'A practical guide to catching weak payment terms, vague scope, and other warning signs before a freelance project starts going wrong.',
+    hero: '🤝',
+    category: 'business',
+    readTime: '6 min read',
+    publishDate: '2026-05-06',
+    tags: ['freelancer risk', 'client red flags', 'freelance contract', 'payment risk'],
+    content: `
+<h2>Freelance Problems Usually Begin Before the Work Begins</h2>
+<p>Many bad projects do not become risky halfway through. The warning signs are already there at the start: vague payment terms, weak scope, pressure to begin without clarity, or a client source that deserves more caution.</p>
+
+<h2>Common Red Flags to Check Early</h2>
+<ul>
+  <li>unclear milestones or deliverables</li>
+  <li>late or vague payment structure</li>
+  <li>pressure to start before the agreement is solid</li>
+  <li>platform or direct-client context that changes the risk</li>
+</ul>
+
+<h2>Use a Risk Tool Before You Commit</h2>
+<p>The <a href="/tools/freelancer-risk">Freelancer Risk Analyzer</a> helps turn those warning signs into a clearer score with practical advice, so the decision is based on structure instead of only gut feeling.</p>
+
+<div class="cta-box"><p>Judge the client before the project becomes expensive to escape.</p><a href="/tools/freelancer-risk">Open Freelancer Risk Analyzer →</a></div>
+`,
+  },
 ]

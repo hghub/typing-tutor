@@ -181,9 +181,9 @@ const TOOL_SEO = {
   },
 
   'salary-slip': {
-    metaTitle: 'Free Salary Slip Generator Online | Rafiqy',
+    metaTitle: 'Salary Slip Generator | Free Payslip Maker for Pakistan | Rafiqy',
     metaDesc: 'Generate professional salary slips with current salary tax estimation and EOBI deductions. Print or save as PDF. 100% private and browser-based.',
-    heading: 'Free Salary Slip Generator Pakistan — Professional Payslip Maker',
+    heading: 'Salary Slip Generator — Professional Payslip Maker',
     paras: [
       'Create professional salary slips in minutes with Rafiqy\'s Salary Slip Generator. Enter employee details, basic salary, and deductions — the tool generates a formatted, printable salary slip following Pakistani payroll conventions.',
       'The generator automatically calculates provident fund (PF), EOBI, current salary tax estimates, and net take-home pay. Export as PDF or print directly. No account, no subscription, no data uploaded — everything runs in your browser.',
@@ -307,9 +307,9 @@ const TOOL_SEO = {
   },
 
   'pk-id-tax-hub': {
-    metaTitle: 'Pakistan ID & Tax Hub — CNIC Decoder Online | Rafiqy',
-    metaDesc: 'Decode Pakistan CNIC, look up NTN info, check filer status and understand tax obligations. Free, browser-based and fully private.',
-    heading: 'Pakistan ID & Tax Hub — CNIC Decoder, NTN Lookup & Tax Info',
+    metaTitle: 'CNIC Decoder & Tax Hub | Pakistan ID Tools Online | Rafiqy',
+    metaDesc: 'Decode CNIC format, look up NTN guidance, check filer-status steps and understand tax-reference basics. Free, browser-based and fully private for Pakistan users.',
+    heading: 'CNIC Decoder & Tax Hub — Pakistan ID and Tax Reference Tools',
     paras: [
       'Pakistan\'s ID & Tax Hub consolidates multiple Pakistan-specific identity and tax tools in one place. Decode your CNIC to get birth year, gender, and home province. Look up NTN details, check tax filer status, and understand your withholding tax obligations.',
       'The CNIC decoder analyzes the 13-digit National Identity Card number format used by NADRA. It extracts the province code, district code, birth year, and gender without contacting any government server — all logic runs locally.',
@@ -452,7 +452,7 @@ const TOOL_SEO = {
 
   'packing-list': {
     metaTitle: 'Free Smart Packing List Generator Online | Rafiqy',
-    metaDesc: 'Generate a customized packing checklist for any trip. Covers clothes, documents, Pakistan essentials and more. Free, private, offline.',
+    metaDesc: 'Generate a customized packing checklist for any trip. Covers clothes, documents, local essentials and more. Free, private, offline.',
     heading: 'Free Smart Packing List — Never Forget Anything When Traveling',
     paras: [
       'Rafiqy\'s Smart Packing List generates a customized packing checklist based on your destination, trip type, duration, and season. Stop forgetting important items — get a comprehensive list tailored to your specific trip.',
@@ -487,9 +487,9 @@ const TOOL_SEO = {
   },
 
   'drug-checker': {
-    metaTitle: 'Drug Interaction Checker Pakistan — Free Online',
-    metaDesc: 'Check medication interactions for Pakistani brand and generic drugs. Browser-based, private. Always consult your doctor. Free tool.',
-    heading: 'Drug Interaction Checker — Check Medication Safety in Pakistan',
+    metaTitle: 'Drug Interaction Checker — Free Online Medicine Safety Tool | Rafiqy',
+    metaDesc: 'Check medicine interactions for brand and generic drugs with a private browser-based safety tool. Includes Pakistan-relevant medicine naming context. Always consult your doctor.',
+    heading: 'Drug Interaction Checker — Check Medicine Safety Before Combining Drugs',
     paras: [
       'Before taking multiple medications together, it\'s critical to know whether they interact. Some combinations reduce effectiveness, cause side effects, or in rare cases can be dangerous. Rafiqy\'s Drug Interaction Checker lets you check common interactions instantly.',
       'The tool covers hundreds of commonly prescribed medications in Pakistan including antibiotics, antihypertensives, diabetes medications, pain relievers, and psychiatric drugs. Enter drug names and see known interactions, their severity, and what to watch for.',
@@ -829,9 +829,9 @@ const TOOL_SEO = {
   },
 
   'driving-fines': {
-    metaTitle: 'Pakistan Driving Fine Tracker Online | Rafiqy',
-    metaDesc: 'Log and track Pakistan traffic fines by city and authority. Never miss a payment deadline. Free, private, offline-capable.',
-    heading: 'Pakistan Driving Fine Tracker — Log & Track Traffic Violations',
+    metaTitle: 'Driving Fine Tracker | Log Traffic Violations & Deadlines | Rafiqy',
+    metaDesc: 'Log and track traffic fines by city and authority so you do not miss payment deadlines. Free, private, offline-capable and useful for Pakistan drivers.',
+    heading: 'Driving Fine Tracker — Log and Track Traffic Violations',
     paras: [
       'Rafiqy\'s Driving Fine Tracker helps Pakistani drivers log traffic fines, track due dates, and manage payment status across different cities and traffic authorities. Never miss a fine payment deadline again.',
       'Add fines from Islamabad Traffic Police, Punjab Traffic Police, Lahore TEVTA, Karachi Traffic Police, or any other authority. Log the violation type, amount, issue date, and due date. The tool shows outstanding fines and upcoming deadlines.',
@@ -1026,7 +1026,7 @@ const TOOL_SEO = {
   },
   'resume-builder': {
     metaTitle: 'Free Resume Builder Online — Professional CV | Rafiqy',
-    metaDesc: 'Build a professional resume with live preview. ATS-friendly templates for Pakistan. Export to PDF. Free, private, no sign-up needed.',
+    metaDesc: 'Build a professional resume with live preview. ATS-friendly templates for local and international job applications. Export to PDF. Free, private, no sign-up needed.',
     heading: 'Free Resume Builder — Professional CV in Minutes',
     paras: [
       'Rafiqy Resume Builder helps you create a polished, professional resume without any account or subscription. Fill in your details using the structured form and watch your resume take shape in real-time with the live preview panel.',
@@ -1042,9 +1042,9 @@ const TOOL_SEO = {
     ],
   },
   'whatsapp-tools': {
-    metaTitle: 'Free WhatsApp Tools Online — Format & Links | Rafiqy',
-    metaDesc: 'Format WhatsApp messages, create templates and generate wa.me links. Pakistan number support. Free, private, no sign-up needed.',
-    heading: 'WhatsApp Tools — Format, Template & Link Generator for Pakistan',
+    metaTitle: 'WhatsApp Tools — Format Messages, Templates & Links | Rafiqy',
+    metaDesc: 'Format WhatsApp messages, create templates and generate wa.me links. Free, private, no sign-up needed, with Pakistan number support built in.',
+    heading: 'WhatsApp Tools — Format Messages, Templates and wa.me Links',
     paras: [
       'Rafiqy WhatsApp Tools is a free toolkit for power users and small business owners who rely on WhatsApp for communication. Format messages with bold, italic, and strikethrough before sending, so you always get the look right without trial and error.',
       'The Template Builder lets you create reusable message templates with {{variable}} placeholders — perfect for order confirmations, appointment reminders, or bulk outreach. Fill in the variables and copy the final message in seconds.',

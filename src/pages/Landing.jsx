@@ -119,15 +119,15 @@ export default function Landing() {
     <div style={{ minHeight: '100vh', background: 'var(--color-bg)', color: 'var(--color-text)', fontFamily: 'sans-serif' }}>
       <Helmet>
         <title>Rafiqy | Your Everyday Digital Companion</title>
-        <meta name="description" content="Privacy-first browser tools and decision systems for Urdu typing, Pakistan tax, solar, investing, PDFs, writing, and everyday digital work." />
+        <meta name="description" content="Privacy-first browser tools and decision systems for typing, tax, solar, investing, PDFs, writing, and everyday digital work, with strong Pakistan-specific guidance where it matters." />
         <link rel="canonical" href="https://rafiqy.app/" />
         <meta property="og:title" content="Rafiqy | Your Everyday Digital Companion" />
-        <meta property="og:description" content="Privacy-first browser tools and decision systems for Urdu typing, Pakistan tax, solar, investing, PDFs, writing, and everyday digital work." />
+        <meta property="og:description" content="Privacy-first browser tools and decision systems for typing, tax, solar, investing, PDFs, writing, and everyday digital work, with strong Pakistan-specific guidance where it matters." />
         <meta property="og:url" content="https://rafiqy.app/" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Rafiqy | Your Everyday Digital Companion" />
-        <meta name="twitter:description" content="Privacy-first browser tools and decision systems for Urdu typing, Pakistan tax, solar, investing, PDFs, writing, and everyday digital work." />
+        <meta name="twitter:description" content="Privacy-first browser tools and decision systems for typing, tax, solar, investing, PDFs, writing, and everyday digital work, with strong Pakistan-specific guidance where it matters." />
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'WebSite',
@@ -445,7 +445,7 @@ export default function Landing() {
 
       {/* ── Share ── */}
       <div style={{ textAlign: 'center', padding: '0 2rem 1.5rem' }}>
-        <ShareBar url="https://rafiqy.app" title="Rafiqy — Free Privacy-First Online Tools for Pakistan" />
+        <ShareBar url="https://rafiqy.app" title="Rafiqy — Privacy-First Online Tools & Decision Systems" />
       </div>
 
       {/* ── Footer ── */}

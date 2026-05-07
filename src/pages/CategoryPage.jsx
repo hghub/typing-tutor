@@ -70,7 +70,7 @@ const CATEGORY_DATA = {
   'finance-tools': {
     title: 'Free Finance Tools Online',
     metaTitle: 'Free Finance & Tax Calculators Online | Rafiqy',
-    metaDesc: 'Calculate loan EMI, Pakistan income tax, investment allocation, expense tracking, salary slips and more. Free finance tools built for Pakistan. No sign-up.',
+    metaDesc: 'Calculate loan EMI, income tax, investment allocation, expense tracking, salary slips and more. Free finance tools with strong Pakistan-specific guidance where relevant. No sign-up.',
     intro: 'Rafiqy\'s finance tools are designed for Pakistani users who need fast, practical answers. Calculate monthly loan EMI, check tax, split investment money, generate salary slips, track expenses, or compare borrowing decisions — all without sharing your financial data with any server. The important finance tools are written to be understandable even if you search in simpler English or Roman Urdu.',
     categories: ['finance', 'pakistan'],
   },
@@ -90,8 +90,8 @@ const CATEGORY_DATA = {
   },
   'pakistan-tools': {
     title: 'Free Pakistan Online Tools',
-    metaTitle: 'Free Pakistan Tools Online — CNIC, Tax, Gold | Rafiqy',
-    metaDesc: 'Pakistan-specific tools: tax calculator, solar planner, investment allocation, loan EMI, salary tools, CNIC decoder, gold price tracker and more. Free and private.',
+    metaTitle: 'Free Local Money, Urdu & Everyday Tools for Pakistan | Rafiqy',
+    metaDesc: 'Use local tools for tax, solar, investing, loans, salary planning, Urdu input, CNIC reference, gold value and more. Free and private browser tools for Pakistan users.',
     intro: 'Rafiqy was built with Pakistani users in mind. Our Pakistan-specific tools help you calculate tax, judge solar, plan investments, compare renting vs buying, evaluate job offers, check gold price, estimate safer loans, decode CNIC numbers, and manage salary or local planning tasks. The goal is not just calculation, but making the answer easier to understand for everyday users in Pakistan.',
     categories: ['pakistan'],
   },

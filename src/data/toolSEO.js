@@ -142,12 +142,12 @@ const TOOL_SEO = {
   },
 
   'tax-calculator': {
-    metaTitle: 'Pakistan Income Tax Calculator 2025-26 | Salary Tax & FBR Slabs | Rafiqy',
-    metaDesc: 'Estimate Pakistan salary income tax for FY 2025-26 using current FBR slabs. Includes VPS, charity credits and senior rebate. Free and private.',
-    heading: 'Pakistan Income Tax Calculator — Salary Tax Estimate for FY 2025-26',
+    metaTitle: 'Income Tax Calculator | Salary Tax Estimate for Pakistan (2025-26) | Rafiqy',
+    metaDesc: 'Estimate salary income tax using current FBR slabs for FY 2025-26. Check annual tax, monthly impact, VPS, charity credits and senior rebate with a private browser calculator.',
+    heading: 'Income Tax Calculator — Salary Tax Estimate for FY 2025-26',
     paras: [
-      'Estimate your Pakistan income tax for Tax Year 2026 (Financial Year 2025-26) using current salaried slab rates from the Finance Act 2025. This calculator is designed for practical planning: monthly salary in, annual tax and take-home estimate out.',
-      'It covers the main items most salaried users search for: FBR slab-based salary tax, annual bonus impact, VPS pension credit, eligible charity credit, senior rebate rules and year-over-year comparison. It is intended for planning and budgeting, not as an official FBR filing interface.',
+      'Estimate salary income tax using current salaried slab rates for Tax Year 2026 (Financial Year 2025-26). This calculator is designed for practical planning: monthly salary in, annual tax and take-home estimate out, with the tax logic aligned to Pakistan\'s current FBR rules.',
+      'It covers the main items salaried users usually need: slab-based salary tax, annual bonus impact, VPS pension credit, eligible charity credit, senior rebate rules and year-over-year comparison. It is intended for planning and budgeting, not as an official filing interface.',
       'Your inputs stay on your device while the calculator works. Use the result to sense-check payroll deductions, compare tax years, or estimate whether extra pension investment or donations materially change your tax outcome.',
     ],
     faqs: [
@@ -361,9 +361,9 @@ const TOOL_SEO = {
   },
 
   'gold-price': {
-    metaTitle: 'Gold Price in Pakistan Today — Per Tola & Gram in PKR | Rafiqy',
-    metaDesc: 'Live gold price in Pakistan per tola and per gram. 24K ~Rs 346,000/tola, 22K ~Rs 317,000/tola. Free PKR gold calculator with Zakat, making charges & 7-day trend.',
-    heading: 'Gold Price in Pakistan Today — PKR per Tola, Gram & Ounce',
+    metaTitle: 'Gold Price Today | Per Tola & Gram in PKR for Pakistan | Rafiqy',
+    metaDesc: 'Check live gold price today per tola and per gram in PKR. Includes Pakistan market rates, value calculator, Zakat estimate, making charges and 7-day trend.',
+    heading: 'Gold Price Today — PKR per Tola, Gram & Ounce',
     paras: [
       'Check today\'s live gold price in Pakistan in PKR (Pakistani Rupee) per tola, per gram, and per troy ounce. Rates for 24K (pure gold), 22K, 21K, and 18K are shown. As of 2025, 24K gold trades at approximately Rs 335,000-360,000 per tola (Rs 28,700-30,850 per gram), driven by international XAU/USD spot prices and the PKR/USD exchange rate.',
       'Pakistan gold prices are announced daily by the All Pakistan Sarafa Gems & Jewellers Association (APSGJA) and closely follow the London Bullion Market Association (LBMA) benchmark. The built-in value calculator lets you enter any weight in tola, gram, masha, ratti, or troy ounce - and instantly see today\'s PKR market value for your gold.',
@@ -379,9 +379,9 @@ const TOOL_SEO = {
   },
 
   'tax-optimizer': {
-    metaTitle: 'Pakistan Tax Optimizer — Reduce Your Tax Bill | Rafiqy',
-    metaDesc: 'Find legal deductions (VPS, Zakat, donations) to reduce Pakistan income tax. FBR 2025-26 compliant. Free, private, no sign-up needed.',
-    heading: 'Pakistan Tax Shield Optimizer — Legally Reduce Your Tax Bill',
+    metaTitle: 'Tax Optimizer | Legal Ways to Reduce Salary Tax in Pakistan | Rafiqy',
+    metaDesc: 'Find legal tax deductions like VPS, Zakat and donations to reduce salary tax under current Pakistan rules. Private browser planner with FBR-aware logic.',
+    heading: 'Tax Optimizer — Legally Reduce Your Salary Tax Bill',
     paras: [
       'The Tax Shield Optimizer helps Pakistani taxpayers identify legal deductions and allowances that can significantly reduce their income tax liability. Enter your income and the tool shows you every deduction you qualify for under Pakistani tax law.',
       'Deductions covered include: Voluntary Pension Scheme (VPS) contributions, Zakat, charitable donations (Section 60), senior citizen rebate, medical allowance exemptions, house rent allowance, and more.',
@@ -1129,11 +1129,11 @@ const TOOL_SEO = {
     ],
   },
   'rent-vs-buy-pakistan': {
-    metaTitle: 'Rent vs Buy Calculator Pakistan (2026) | Rafiqy',
-    metaDesc: 'Compare renting and buying a home in Pakistan using markup, down payment, property appreciation, rent growth, transfer costs and opportunity cost.',
-    heading: 'Rent vs Buy Calculator Pakistan — Compare the Real Cost of Both Paths',
+    metaTitle: 'Rent vs Buy Calculator | Compare the Real Cost of Both Paths | Rafiqy',
+    metaDesc: 'Compare renting and buying a home using markup, down payment, property appreciation, rent growth, transfer costs and opportunity cost. Built around Pakistan housing realities.',
+    heading: 'Rent vs Buy Calculator — Compare the Real Cost of Both Paths',
     paras: [
-      'Rafiqy\'s Rent vs Buy Pakistan Analyzer is built for one of the most expensive household decisions people make: keep renting, buy now, or wait. Instead of comparing only monthly rent against monthly EMI, it models the fuller picture — down payment, transfer costs, maintenance, property tax, appreciation, and what your capital could have earned if left invested.',
+      'Rafiqy\'s Rent vs Buy Analyzer is built for one of the most expensive household decisions people make: keep renting, buy now, or wait. Instead of comparing only monthly rent against monthly EMI, it models the fuller picture — down payment, transfer costs, maintenance, property tax, appreciation, and what your capital could have earned if left invested.',
       'That matters in Pakistan because transaction friction is high and markup rates can change the math dramatically. A property purchase may look attractive emotionally while still being a weak five-year decision financially if your stay horizon is short or your financing cost is too high.',
       'Use this tool to test scenarios by city, expected stay horizon, appreciation assumptions, and rent growth. It is designed as a decision-support engine, not a sales calculator. The best use is to stress-test the assumptions before locking yourself into a home loan or liquidating savings.',
     ],
@@ -1146,11 +1146,11 @@ const TOOL_SEO = {
     ],
   },
   'salary-offer-evaluator': {
-    metaTitle: 'Salary Offer Calculator Pakistan | After-Tax Job Offer Evaluation | Rafiqy',
-    metaDesc: 'Evaluate a job offer in Pakistan using after-tax salary, commute cost, benefits, remote flexibility, provident fund value and city living-cost pressure.',
-    heading: 'Salary Offer Calculator Pakistan — Decide Whether the Offer Is Actually Better',
+    metaTitle: 'Salary Offer Calculator | After-Tax Job Offer Evaluation | Rafiqy',
+    metaDesc: 'Evaluate a job offer using after-tax salary, commute cost, benefits, remote flexibility, provident fund value and city living-cost pressure. Built for Pakistan payroll realities.',
+    heading: 'Salary Offer Calculator — Decide Whether the Offer Is Actually Better',
     paras: [
-      'A higher salary number does not automatically mean a better job decision. Rafiqy\'s Salary Offer Evaluator Pakistan converts a headline offer into a practical comparison: after-tax cash, commute burden, employer-paid benefits, provident fund support, relocation value, and the city cost baseline you will face after switching.',
+      'A higher salary number does not automatically mean a better job decision. Rafiqy\'s Salary Offer Evaluator converts a headline offer into a practical comparison: after-tax cash, commute burden, employer-paid benefits, provident fund support, relocation value, and the city cost baseline you will face after switching.',
       'This is especially useful when comparing jobs across Karachi, Lahore, Islamabad, Rawalpindi, or a remote setup. A role that looks strong on paper can weaken quickly after tax and commute, while a lower headline salary can still be superior if it gives better flexibility, lower pressure, and more effective compensation.',
       'Use the tool before accepting, rejecting, or renegotiating an offer. It helps you ask better questions: is the base too low, is the commute too expensive, is the medical cover meaningful, and does the role create enough saving capacity after the move?',
     ],
@@ -1163,9 +1163,9 @@ const TOOL_SEO = {
     ],
   },
   'freelance-tax-planner': {
-    metaTitle: 'Freelance Tax Planner Pakistan | Reserve & Cashflow Calculator | Rafiqy',
-    metaDesc: 'Plan monthly tax reserves, emergency runway and safe owner pay as a Pakistan freelancer. Built for irregular income and cashflow discipline.',
-    heading: 'Freelance Tax Planner Pakistan — Reserve First, Spend Second',
+    metaTitle: 'Freelance Tax Planner | Reserve & Cashflow Calculator | Rafiqy',
+    metaDesc: 'Plan monthly tax reserves, emergency runway and safe owner pay as a freelancer. Built for irregular income, cashflow discipline and Pakistan tax realities.',
+    heading: 'Freelance Tax Planner — Reserve First, Spend Second',
     paras: [
       'Freelancers often make the same mistake: they treat gross inflows as spendable income. Rafiqy\'s Freelance Tax and Reserve Planner is designed to stop that by separating revenue into four buckets — business costs, tax reserve, operating reserve, and owner pay.',
       'This matters more in Pakistan because FX swings, client delays, and inconsistent contract flow can turn one weak quarter into a panic period if no reserve structure exists. The planner gives you a monthly reserve target and an emergency-runway target rather than a vague “save more” recommendation.',
@@ -1180,11 +1180,11 @@ const TOOL_SEO = {
     ],
   },
   'investment-allocation-planner': {
-    metaTitle: 'Investment Allocation Planner Pakistan | 20 Lakh to 15 Crore+ | Rafiqy',
-    metaDesc: 'Plan how to invest 20 lakh, 1 crore, 5 crore or more in Pakistan using liquidity, income, balanced, equity, gold and FX hedge buckets. Shariah-aware and risk-aware.',
-    heading: 'Investment Allocation Planner Pakistan — Build the Right Split Before You Pick Products',
+    metaTitle: 'Investment Allocation Planner | 20 Lakh to 15 Crore+ | Rafiqy',
+    metaDesc: 'Plan how to invest 20 lakh, 1 crore, 5 crore or more using liquidity, income, balanced, equity, gold and FX hedge buckets. Built for Pakistan investors and Shariah-aware planning.',
+    heading: 'Investment Allocation Planner — Build the Right Split Before You Pick Products',
     paras: [
-      'Rafiqy’s Investment Allocation Planner Pakistan is designed for one of the most common real-life questions: if you have 20 lakh, 50 lakh, 1 crore, 5 crore, or more, how should you split it sensibly instead of guessing or copying somebody else’s portfolio? The planner turns that lump sum into a multi-bucket allocation covering liquidity, stability, long-term growth, inflation hedges, and optional foreign-currency protection.',
+      'Rafiqy’s Investment Allocation Planner is designed for one of the most common real-life questions: if you have 20 lakh, 50 lakh, 1 crore, 5 crore, or more, how should you split it sensibly instead of guessing or copying somebody else’s portfolio? The planner turns that lump sum into a multi-bucket allocation covering liquidity, stability, long-term growth, inflation hedges, and optional foreign-currency protection.',
       'This is intentionally not a fake “buy this exact fund” recommender. Good investing decisions start with the role of the money: how much must stay liquid, how much can tolerate volatility, how much may need to support future withdrawals, and whether Shariah-compliant implementation matters. The planner handles those tradeoffs before you shortlist actual products.',
       'It is especially useful for Pakistan users who are comparing bank deposits, money-market funds, income funds, balanced funds, equity exposure, gold holdings, and currency hedges without a clean framework. Use it to separate emergency reserves from true investment capital, stress-test the impact of a shorter horizon, and see why one single investment is usually the wrong answer. It also supports multi-goal portfolios, larger family corpuses, and users who need a written summary they can review later.',
     ],
@@ -1200,11 +1200,11 @@ const TOOL_SEO = {
     ],
   },
   'car-powertrain-decision': {
-    metaTitle: 'Petrol vs Hybrid vs EV Cost Calculator Pakistan (2026) | Rafiqy',
-    metaDesc: 'Compare petrol, hybrid and EV ownership in Pakistan using fuel costs, electricity tariffs, charging availability, load shedding, maintenance and resale assumptions.',
-    heading: 'Petrol vs Hybrid vs EV Pakistan — Compare Total Ownership, Convenience and Risk',
+    metaTitle: 'Hybrid vs Petrol Calculator | Compare Petrol, Hybrid and EV Costs | Rafiqy',
+    metaDesc: 'Compare petrol, hybrid and EV ownership costs using fuel, electricity, charging, maintenance and resale assumptions. Built around Pakistan driving, tariff and charging realities.',
+    heading: 'Hybrid vs Petrol Calculator — Compare Petrol, Hybrid and EV Ownership',
     paras: [
-      'The petrol vs hybrid vs EV debate in Pakistan is no longer just about fuel price. It now depends on daily mileage, city-driving share, charging reality, electricity tariff, load shedding, maintenance patterns, and the upfront price premium of each option. This tool combines those factors into one five-year comparison.',
+      'The hybrid vs petrol decision is no longer just about fuel price, and EV makes the comparison even more interesting. It now depends on daily mileage, city-driving share, charging reality, electricity tariff, load shedding, maintenance patterns, and the upfront price premium of each option. This tool combines those factors into one five-year comparison built around Pakistan conditions.',
       'Unlike simplistic vehicle calculators, it does not assume EV convenience is equal everywhere. Charging access and outage reality matter. It also does not assume hybrid is always expensive relative to petrol once city-driving efficiency and resale behavior are considered.',
       'Use it when deciding whether the EV premium is justified, whether hybrid is the safer balance, or whether petrol still makes more sense for your mileage and local infrastructure conditions. The goal is not hype. The goal is a defendable ownership decision.',
     ],
@@ -1217,11 +1217,11 @@ const TOOL_SEO = {
     ],
   },
   'solar-planner': {
-    metaTitle: 'Pakistan Solar Calculator 2026 — System Size, Cost & Payback | Rafiqy',
-    metaDesc: 'Estimate solar system size, cost, savings and payback in Pakistan using your bill, city, appliance load and current net billing assumptions.',
-    heading: 'Pakistan Solar Calculator — Estimate System Size, Cost and Payback',
+    metaTitle: 'Solar Calculator | System Size, Cost & Payback for Pakistan | Rafiqy',
+    metaDesc: 'Estimate solar system size, cost, savings and payback using your bill, city, appliance load and current net billing assumptions. Built for Pakistan homes and tariffs.',
+    heading: 'Solar Calculator — Estimate System Size, Cost and Payback',
     paras: [
-      'Rafiqy\'s Pakistan Solar Calculator helps Pakistani homeowners estimate solar system size, install cost, monthly savings and payback using their current electricity bill, location and appliance load. It is designed for people searching for a solar calculator, solar size calculator or solar savings estimate for Pakistan.',
+      'Rafiqy\'s Solar Calculator helps homeowners estimate solar system size, install cost, monthly savings and payback using their current electricity bill, location and appliance load. It is designed for people searching for a solar calculator, solar size calculator or solar savings estimate, with the assumptions tuned for Pakistan.',
       'The planner uses city-specific sun-hour assumptions and current Pakistan market ranges to show a realistic system recommendation instead of a generic one-size-fits-all number. It also reflects the current net billing environment so exported units are treated differently from self-consumed electricity.',
       'Use it to compare a full net-billing setup against a smaller self-consumption-focused system, understand whether battery storage is worth considering, and get a better starting point before talking to installers.',
       'The result is a planning estimate, not a contractor quote, but it gives you a strong benchmark for system sizing, cost conversations and payback expectations.',

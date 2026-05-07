@@ -1,6 +1,6 @@
 # Rafiqy
 
-Rafiqy is a privacy-first browser tools and decision systems site for everyday digital work. It focuses on Urdu typing, Pakistan tax planning, solar planning, investment allocation, PDFs, writing, and practical browser-based utilities.
+Rafiqy is a privacy-first browser tools and decision systems site for everyday digital work. It focuses on typing, Urdu input, tax planning, solar planning, investing, PDFs, writing, and practical browser-based utilities, with strong Pakistan-specific depth where that context matters.
 
 Key pages:
 - https://rafiqy.app/
@@ -17,6 +17,7 @@ Key pages:
 Guidance:
 - Most tools run locally in the browser.
 - Public content is intended for discovery, summarization, and citation.
-- The homepage positioning is: "Your everyday digital toolbox."
+- The homepage positioning is: "Your everyday digital companion."
+- Many pages are intentionally written to match generic search phrasing first, with Pakistan-specific assumptions and reality layered into the explanation and logic.
 - Tax and solar pages are planning tools, not official government or installer quotes.
 - Investment and decision-system pages are allocation and planning tools, not personalized regulated financial advice.

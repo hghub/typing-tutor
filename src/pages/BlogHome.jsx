@@ -119,22 +119,22 @@ export default function BlogHome() {
   return (
     <>
       <Helmet>
-        <title>Guides & Tips – Pakistan Tools, Solar, Tax, Investing & More | Rafiqy</title>
-        <meta name="description" content="Practical guides, simpler explainers, and decision support content for Pakistan tools, solar, tax, loans, investing, typing, PDFs, productivity, and digital workflows." />
+        <title>Guides & Tips – Solar, Tax, Investing, Typing, PDFs & More | Rafiqy</title>
+        <meta name="description" content="Practical guides, simpler explainers, and decision support content for solar, tax, loans, investing, typing, PDFs, productivity, and digital workflows, with strong Pakistan context where it matters." />
         <link rel="canonical" href="https://rafiqy.app/blog" />
-        <meta property="og:title" content="Guides & Tips – Pakistan Tools, Solar, Tax, Investing & More | Rafiqy" />
-        <meta property="og:description" content="Practical guides, simpler explainers, and decision support content for Pakistan tools, solar, tax, loans, investing, typing, PDFs, productivity, and digital workflows." />
+        <meta property="og:title" content="Guides & Tips – Solar, Tax, Investing, Typing, PDFs & More | Rafiqy" />
+        <meta property="og:description" content="Practical guides, simpler explainers, and decision support content for solar, tax, loans, investing, typing, PDFs, productivity, and digital workflows, with strong Pakistan context where it matters." />
         <meta property="og:url" content="https://rafiqy.app/blog" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Guides & Tips – Pakistan Tools, Solar, Tax, Investing & More | Rafiqy" />
-        <meta name="twitter:description" content="Practical guides, simpler explainers, and decision support content for Pakistan tools, solar, tax, loans, investing, typing, PDFs, productivity, and digital workflows." />
+        <meta name="twitter:title" content="Guides & Tips – Solar, Tax, Investing, Typing, PDFs & More | Rafiqy" />
+        <meta name="twitter:description" content="Practical guides, simpler explainers, and decision support content for solar, tax, loans, investing, typing, PDFs, productivity, and digital workflows, with strong Pakistan context where it matters." />
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
           'name': 'Rafiqy Blog',
           'url': 'https://rafiqy.app/blog',
-          'description': 'Practical guides, simpler explainers, and decision support content to help people in Pakistan and beyond use digital tools with more confidence.'
+          'description': 'Practical guides, simpler explainers, and decision support content to help people use digital tools with more confidence, including strong Pakistan-specific guidance where relevant.'
         })}</script>
       </Helmet>
 

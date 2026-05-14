@@ -699,10 +699,10 @@ export default function SolarPlanner() {
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
               }}>
-                Pakistan Solar Calculator
+                Solar Calculator
               </h1>
               <p style={{ margin: '0 0 0.7rem', fontSize: '0.95rem', color: '#cbd5e1', lineHeight: 1.55 }}>
-                Estimate solar system size, cost, savings and payback for Pakistan homes using current market assumptions.
+                Estimate solar system size, install cost, monthly savings and payback for Pakistan homes using current market assumptions, city sun hours and net billing reality.
               </p>
               <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                 <span style={{ background: '#14532d20', border: '1px solid #14532d60', color: '#86efac', fontSize: '0.72rem', fontWeight: 600, borderRadius: '20px', padding: '0.2rem 0.7rem' }}>✅ Data: {DATA_DATE}</span>
@@ -803,6 +803,74 @@ export default function SolarPlanner() {
           estimated="Installer labor, roof complexity, and final DISCO process costs vary by case"
         />
         <PakistanFriendlyGuide toolId="solar-planner" variant="light" />
+
+        <div style={{ ...card, marginBottom: '1.2rem', background: '#111827', border: '1px solid #1f2937' }}>
+          <h2 style={{ color: '#f8fafc', margin: '0 0 0.55rem', fontSize: '1rem' }}>
+            What this solar calculator helps you decide
+          </h2>
+          <p style={{ color: '#94a3b8', fontSize: '0.82rem', lineHeight: 1.7, margin: '0 0 0.9rem' }}>
+            Use this solar system calculator when you want more than a rough installer guess. It helps you estimate the right solar size from your bill or load, compare install cost against monthly savings, see how net billing changes the economics, and decide whether a smaller self-consumption setup or a battery-ready path makes more sense.
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.65rem', marginBottom: '0.95rem' }}>
+            {[
+              ['System size', 'Estimate the kW range your home likely needs.'],
+              ['Cost range', 'See economy, mid-tier and premium install ranges.'],
+              ['Payback', 'Understand how long recovery may actually take.'],
+              ['Battery need', 'See whether outages and self-use justify storage.'],
+            ].map(([title, note]) => (
+              <div key={title} style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '0.75rem 0.85rem' }}>
+                <div style={{ color: '#e2e8f0', fontSize: '0.8rem', fontWeight: 700, marginBottom: '0.25rem' }}>{title}</div>
+                <div style={{ color: '#64748b', fontSize: '0.73rem', lineHeight: 1.55 }}>{note}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.65rem' }}>
+            <a href="/blog/how-much-solar-do-i-need-for-a-20000-bill-in-pakistan" style={{ textDecoration: 'none', background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '0.8rem 0.9rem' }}>
+              <div style={{ color: '#7dd3fc', fontSize: '0.8rem', fontWeight: 700, lineHeight: 1.4, marginBottom: '0.2rem' }}>Solar for a PKR 20,000 bill</div>
+              <div style={{ color: '#64748b', fontSize: '0.72rem', lineHeight: 1.55 }}>See the typical size range and what pushes it up or down.</div>
+            </a>
+            <a href="/blog/how-much-solar-do-i-need-for-a-30000-bill-in-pakistan" style={{ textDecoration: 'none', background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '0.8rem 0.9rem' }}>
+              <div style={{ color: '#7dd3fc', fontSize: '0.8rem', fontWeight: 700, lineHeight: 1.4, marginBottom: '0.2rem' }}>Solar for a PKR 30,000 bill</div>
+              <div style={{ color: '#64748b', fontSize: '0.72rem', lineHeight: 1.55 }}>Compare when 5kW is enough and when 6–7kW becomes more realistic.</div>
+            </a>
+            <a href="/blog/smaller-solar-system-vs-net-billing-pakistan" style={{ textDecoration: 'none', background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '0.8rem 0.9rem' }}>
+              <div style={{ color: '#7dd3fc', fontSize: '0.8rem', fontWeight: 700, lineHeight: 1.4, marginBottom: '0.2rem' }}>Smaller solar vs full net billing</div>
+              <div style={{ color: '#64748b', fontSize: '0.72rem', lineHeight: 1.55 }}>Useful if your daytime usage is limited and export value feels weak.</div>
+            </a>
+          </div>
+        </div>
+
+        <div style={{ ...card, marginBottom: '1.2rem', background: '#111827', border: '1px solid #1f2937' }}>
+          <h2 style={{ color: '#f8fafc', margin: '0 0 0.55rem', fontSize: '1rem' }}>
+            How this solar estimate is calculated
+          </h2>
+          <p style={{ color: '#94a3b8', fontSize: '0.82rem', lineHeight: 1.7, margin: '0 0 0.75rem' }}>
+            This page uses a visible planning formula rather than a black-box quote. We estimate daily usage from your bill or appliance load, divide by city sun hours, apply a real-world derating factor, then calculate savings based on self-consumption, exported units, tariff assumptions, and current net billing conditions.
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.65rem', marginBottom: '0.85rem' }}>
+            <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '0.75rem 0.85rem' }}>
+              <div style={{ color: '#e2e8f0', fontSize: '0.79rem', fontWeight: 700, marginBottom: '0.2rem' }}>Sizing formula</div>
+              <div style={{ color: '#64748b', fontSize: '0.72rem', lineHeight: 1.55 }}>Daily load ÷ sun hours ÷ 0.80 derate = recommended system size range.</div>
+            </div>
+            <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '0.75rem 0.85rem' }}>
+              <div style={{ color: '#e2e8f0', fontSize: '0.79rem', fontWeight: 700, marginBottom: '0.2rem' }}>Savings logic</div>
+              <div style={{ color: '#64748b', fontSize: '0.72rem', lineHeight: 1.55 }}>Self-used solar is valued at your import tariff. Exported solar is valued at the current buyback rate.</div>
+            </div>
+            <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '0.75rem 0.85rem' }}>
+              <div style={{ color: '#e2e8f0', fontSize: '0.79rem', fontWeight: 700, marginBottom: '0.2rem' }}>Cost range</div>
+              <div style={{ color: '#64748b', fontSize: '0.72rem', lineHeight: 1.55 }}>Installed cost uses current PKR-per-watt ranges plus optional net billing meter/process cost.</div>
+            </div>
+            <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '0.75rem 0.85rem' }}>
+              <div style={{ color: '#e2e8f0', fontSize: '0.79rem', fontWeight: 700, marginBottom: '0.2rem' }}>Payback</div>
+              <div style={{ color: '#64748b', fontSize: '0.72rem', lineHeight: 1.55 }}>Payback uses annual savings and panel degradation to avoid unrealistically flat assumptions.</div>
+            </div>
+          </div>
+          <p style={{ color: '#64748b', fontSize: '0.72rem', lineHeight: 1.6, margin: 0 }}>
+            Reference context: current solar planning in Pakistan should be checked against{' '}
+            <a href="https://nepra.org.pk/" target="_blank" rel="noopener noreferrer" style={{ color: '#7dd3fc' }}>NEPRA policy</a>{' '}
+            and your DISCO’s latest application process. Market price ranges should still be verified with 2–3 installer quotes before committing.
+          </p>
+        </div>
 
         {/* Step indicator */}
         <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', alignItems: 'center', flexWrap: 'wrap' }}>

@@ -1806,8 +1806,8 @@ export const BLOG_POSTS = [
   },
   {
     slug: 'solar-planner-pakistan',
-    title: 'Solar Calculator Guide: Real Costs, Net Billing, Battery Prices & Payback',
-    description: 'A practical solar calculator guide covering install costs, net billing, meter fees, battery prices, right-sizing and payback, with current Pakistan assumptions.',
+    title: 'Solar Calculator Guide: System Size, Cost, Net Billing & Payback',
+    description: 'A practical solar calculator guide covering system size, install cost, net billing, meter fees, battery prices, right-sizing and payback with current Pakistan assumptions.',
     hero: '☀️',
     category: 'pakistan',
     readTime: '12 min read',
@@ -2048,8 +2048,8 @@ export const BLOG_POSTS = [
   },
   {
     slug: 'smaller-solar-system-vs-net-billing-pakistan',
-    title: 'Should You Start With a Smaller Solar System?',
-    description: 'A practical guide to deciding between a full net-billing solar setup and a smaller self-consumption-focused system, with Pakistan export-value reality in mind.',
+    title: 'Smaller Solar System vs Full Net Billing: Which Is Smarter?',
+    description: 'A practical guide to deciding between a full net-billing solar setup and a smaller self-consumption-focused system when export value is weak.',
     hero: '☀️',
     category: 'pakistan',
     readTime: '7 min read',
@@ -2104,8 +2104,8 @@ export const BLOG_POSTS = [
   },
   {
     slug: 'should-you-add-a-battery-to-solar-in-pakistan',
-    title: 'Should You Add a Battery to Solar Now or Later?',
-    description: 'A practical guide to deciding whether battery storage should be part of your solar system now, later, or not at all.',
+    title: 'Solar Battery Guide: Add Battery Now, Later, or Not Yet?',
+    description: 'A practical guide to deciding whether battery storage should be part of your solar system now, later, or not at all, based on outages, export value, and backup need.',
     hero: '🔋',
     category: 'pakistan',
     readTime: '7 min read',
@@ -2645,8 +2645,8 @@ export const BLOG_POSTS = [
   },
   {
     slug: '5kw-solar-system-price-in-pakistan',
-    title: '5kW Solar System Price Guide: What You Actually Need to Budget',
-    description: 'A practical 2026 guide to 5kW solar system pricing, including equipment quality, net billing costs, battery choices, and when 5kW is enough for a Pakistan household.',
+    title: '5kW Solar System Price Guide: Cost, Inverter Quality & Hidden Fees',
+    description: 'A practical 2026 guide to 5kW solar system pricing, including equipment quality, net billing costs, battery choices, and when 5kW is enough.',
     hero: '☀️',
     category: 'pakistan',
     readTime: '8 min read',
@@ -2709,8 +2709,8 @@ export const BLOG_POSTS = [
   },
   {
     slug: '10kw-solar-system-price-in-pakistan',
-    title: '10kW Solar System Price Guide: When a Bigger System Really Pays Off',
-    description: 'A practical guide to 10kW solar system pricing, including who should consider it, what hidden costs matter, and when 10kW becomes too much for a Pakistan home.',
+    title: '10kW Solar System Price Guide: When a Bigger System Pays Off',
+    description: 'A practical guide to 10kW solar system pricing, including who should consider it, what hidden costs matter, and when 10kW becomes too much for a home.',
     hero: '🔆',
     category: 'pakistan',
     readTime: '8 min read',
@@ -2774,7 +2774,7 @@ export const BLOG_POSTS = [
   {
     slug: 'how-much-solar-do-i-need-for-a-20000-bill-in-pakistan',
     title: 'How Much Solar Do I Need for a 20,000 Bill?',
-    description: 'A practical guide to sizing solar for a PKR 20,000 monthly electricity bill, including what changes the answer beyond the bill itself in Pakistan homes.',
+    description: 'A practical guide to sizing solar for a PKR 20,000 monthly electricity bill, including units, city sun hours, daytime usage and net billing effects.',
     hero: '💡',
     category: 'pakistan',
     readTime: '7 min read',
@@ -2830,7 +2830,7 @@ export const BLOG_POSTS = [
   {
     slug: 'how-much-solar-do-i-need-for-a-30000-bill-in-pakistan',
     title: 'How Much Solar Do I Need for a 30,000 Bill?',
-    description: 'A practical sizing guide for households with a PKR 30,000 monthly electricity bill, including when 5kW is enough and when you may need more in Pakistan conditions.',
+    description: 'A practical sizing guide for households with a PKR 30,000 monthly electricity bill, including when 5kW is enough and when 6–7kW becomes more realistic.',
     hero: '📈',
     category: 'pakistan',
     readTime: '7 min read',
@@ -2886,8 +2886,8 @@ export const BLOG_POSTS = [
   },
   {
     slug: 'hybrid-vs-on-grid-solar-in-pakistan',
-    title: 'Hybrid vs On-Grid Solar: Which One Should You Actually Choose?',
-    description: 'A practical guide to deciding between hybrid and on-grid solar based on load shedding, battery timing, export value, and upgrade flexibility in Pakistan.',
+    title: 'Hybrid vs On-Grid Solar: Which One Should You Choose?',
+    description: 'A practical guide to deciding between hybrid and on-grid solar based on load shedding, battery timing, export value, and upgrade flexibility.',
     hero: '🔌',
     category: 'pakistan',
     readTime: '8 min read',

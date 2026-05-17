@@ -267,12 +267,26 @@ Implement in this order to reduce risk.
 - add prerender build flow
 - verify output for a few routes only
 
+This phase is a pilot by design. Do not expand route coverage until these few routes are confirmed working in raw HTML and after hydration.
+
 Initial verification routes:
 - `/`
 - `/tools`
 - `/blog`
 - `/tools/solar-planner`
 - `/tools/tax-calculator`
+
+Current status:
+- implemented in the repo with:
+  - `scripts/prerender-routes.mjs`
+  - `scripts/prerender.mjs`
+  - `package.json` build flow
+- pilot raw HTML verification passed for:
+  - title
+  - meta description
+  - canonical
+  - H1
+- next step is route expansion, not rethinking the approach
 
 ## Phase 2: all core content pages
 

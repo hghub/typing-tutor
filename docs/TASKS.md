@@ -23,7 +23,18 @@ This is now the main architecture task because:
 
 First execution order:
 1. prerender infrastructure for selected routes
-2. homepage / tools / blog / category pages
+   - pilot routes implemented and validated:
+     - `/`
+     - `/tools`
+     - `/blog`
+     - `/tools/solar-planner`
+     - `/tools/tax-calculator`
+   - raw HTML verification passed for pilot pages:
+     - single title
+     - single meta description
+     - single canonical
+     - H1 present
+2. expand prerender coverage to homepage / tools / blog / category pages
 3. all decision-system pages
    - preserve the existing solar SEO improvements during rollout
    - verify solar route/source after prerender before widening further

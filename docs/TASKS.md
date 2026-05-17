@@ -11,6 +11,24 @@ This file should be updated whenever:
 
 ## Current Priorities
 
+### 0. Implement the prerender rollout plan
+
+Next major technical priority:
+- implement `docs/PRERENDER_ROLLOUT_PLAN.md`
+
+This is now the main architecture task because:
+- crawl tools still miss route-level HTML on important pages
+- route identity and content visibility must stop depending on client rendering alone
+- decision systems need hybrid prerender + hydration
+
+First execution order:
+1. prerender infrastructure for selected routes
+2. homepage / tools / blog / category pages
+3. all decision-system pages
+   - preserve the existing solar SEO improvements during rollout
+   - verify solar route/source after prerender before widening further
+4. other key Pakistan-first tools
+
 ### 1. Query-driven SEO tuning
 
 Next best work should be driven by:
@@ -41,6 +59,13 @@ When touching any existing page, check:
 - is Pakistan context layered in naturally?
 - is the wording too narrow for how users actually search?
 - were blog tags / topic chips / category surfacing also kept aligned?
+- does the page follow the full strategic-tool landing pattern:
+  - route-specific metadata
+  - one canonical
+  - H1 + value statement
+  - trust/methodology block where relevant
+  - support-cluster links
+- is the tool still easy to start using near the top, without forcing too much reading first?
 
 ### 3. Deepen strongest decision-system clusters based on evidence
 
@@ -158,6 +183,7 @@ Also check:
 ### Keep
 - `docs/CODEX_CONTEXT.md`
 - `docs/TASKS.md`
+- `docs/PRERENDER_ROLLOUT_PLAN.md`
 
 ### Going forward
 - add durable rules to `CODEX_CONTEXT.md`

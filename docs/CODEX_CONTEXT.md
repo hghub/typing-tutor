@@ -60,6 +60,16 @@ The strongest current strategic direction is:
 - Do not remove Pakistan-specific logic just to chase generic ranking.
 - Do not stuff `Pakistan` mechanically into every title.
 - Keep one clear canonical URL per tool.
+- For every strategic tool page, preserve the full SEO landing-page pattern:
+  - one canonical only
+  - route-specific title and meta description
+  - H1 that matches the main query intent
+  - clear early value statement
+  - visible “what this helps you decide/do” section
+  - visible methodology / trust / assumptions section where relevant
+  - freshness / update cues for time-sensitive tools
+  - early internal links into the support-guide cluster
+  - related blogs written to reinforce the same query cluster
 - When adding or updating a tool/blog, also review:
   - blog tags
   - blog filters/topic chips
@@ -102,8 +112,12 @@ Guide density rule:
 - Prioritize:
   - H1 first
   - clear value statement
+  - tool interaction above long explanation
   - actionable guidance
   - collapsible advanced detail when needed
+- Important UX rule:
+  - the user should be able to start using the tool quickly without reading a long essay first
+  - explanations like methodology, deeper FAQs, how it works, and support content should usually come below the core tool interaction or after a short intro/trust layer
 
 ## 4. Architecture That Should Stay Stable
 
@@ -138,6 +152,11 @@ Important implementation notes:
 - do not preserve hardcoded tool counts in docs unless they are intentionally updated
 - some discovery surfaces use curated cross-listing logic on top of the primary tool category
 - category pages and `/tools` discovery should stay aligned when categories or tool placement change
+- rendering strategy is now defined in `docs/PRERENDER_ROLLOUT_PLAN.md`
+- stable rule:
+  - content/discovery pages should be fully prerendered
+  - important tool pages should be prerendered and then hydrated
+  - all major decision-system pages are included in that hybrid prerender model
 
 ## 5. Standard Workflow For Any New Tool
 

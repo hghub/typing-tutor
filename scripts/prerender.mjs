@@ -157,6 +157,11 @@ async function prerenderRoute(browser, route) {
         if (rel === 'manifest') return 'link:manifest'
         return null
       })
+
+      const ogTitle = document.head.querySelector('meta[property="og:title"]')?.getAttribute('content')?.trim()
+      if (ogTitle) {
+        document.title = ogTitle
+      }
     })
 
     const html = (await page.content()).replace(/^<!DOCTYPE html>\s*/i, '')

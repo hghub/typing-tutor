@@ -138,6 +138,8 @@ Key files:
   - tool SEO metadata, headings, paragraphs, FAQs
 - `src/data/blogPosts.js`
   - all blog content
+- `docs/BLOG_PUBLISHING_PLAYBOOK.md`
+  - blog publishing rules, including MuleSoft technical posts and DOCX intake workflow
 - `src/components/ToolLayout.jsx`
   - shared SEO/meta/related-tools wrapper for most tools
 - `public/sitemap.xml`
@@ -260,6 +262,13 @@ Avoid:
   - planning/not-official boundaries
   - current high-level positioning
 
+### Technical blogs
+
+- MuleSoft has a dedicated blog category: `mulesoft`.
+- Technical posts must use proper H2/H3 structure, tables where useful, and `<pre><code class="language-...">` for code blocks.
+- If the user provides DOCX source drafts, treat them as source material and convert them into clean blog content instead of publishing raw converted HTML.
+- Current behavior, version-specific claims, or official platform details should be checked against official documentation before publishing.
+
 ## 8. Stable Operations Rules
 
 High-risk freshness clusters:
@@ -280,6 +289,14 @@ Decision systems and Pakistan-first money tools need regular review for:
 Search Console and GA4 should guide later tuning once enough data exists.
 
 When stable product/SEO/process learning emerges from implementation work, add it back here so future sessions inherit it automatically.
+
+Build validation now includes:
+- `npm run build`
+- Vite production build
+- prerender for selected routes
+- build QA checks for route SEO basics and blog content structure
+
+`npm run lint` remains useful but is not yet the deploy gate because the older app has existing lint debt that should be cleaned up separately.
 
 ## 9. Current Important Clusters
 

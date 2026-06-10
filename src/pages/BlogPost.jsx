@@ -167,6 +167,12 @@ export default function BlogPost() {
         .blog-content a:hover { text-decoration: underline; }
         .blog-content strong { font-weight: 700; }
         .blog-content code { font-family: monospace; background: rgba(0,0,0,0.08); padding: 0.1rem 0.3rem; border-radius: 3px; font-size: 0.9em; }
+        .blog-content pre { margin: 1.25rem 0; padding: 1rem; overflow-x: auto; border-radius: 0.65rem; background: ${isDark ? '#020617' : '#0f172a'}; border: 1px solid ${isDark ? 'rgba(148,163,184,0.22)' : 'rgba(15,23,42,0.18)'}; color: #e2e8f0; line-height: 1.65; }
+        .blog-content pre code { display: block; background: transparent; padding: 0; color: inherit; font-size: 0.86rem; white-space: pre; }
+        .blog-content blockquote { margin: 1.25rem 0; padding: 0.85rem 1rem; border-left: 3px solid #06b6d4; background: ${isDark ? 'rgba(6,182,212,0.08)' : 'rgba(6,182,212,0.06)'}; color: ${colors.textSecondary}; border-radius: 0.45rem; }
+        .blog-content table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: 0.9rem; overflow: hidden; }
+        .blog-content th, .blog-content td { border: 1px solid ${colors.border}; padding: 0.65rem 0.75rem; text-align: left; vertical-align: top; }
+        .blog-content th { background: ${isDark ? 'rgba(148,163,184,0.1)' : 'rgba(15,23,42,0.05)'}; font-weight: 700; }
         .toc-link { display: block; font-size: 0.8rem; padding: 0.3rem 0.6rem; border-radius: 0.4rem; border-left: 2px solid transparent; text-decoration: none; transition: all 0.15s; line-height: 1.4; }
         .toc-link:hover { background: rgba(6,182,212,0.08); color: #06b6d4 !important; }
         .toc-link.active { border-left-color: #06b6d4; background: rgba(6,182,212,0.1); color: #06b6d4 !important; font-weight: 600; }

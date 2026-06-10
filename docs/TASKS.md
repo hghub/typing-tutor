@@ -96,7 +96,24 @@ Possible future improvements inside top clusters:
 - better checklists
 - more support guides around actual user queries
 
-### 4. Maintain one useful blog per tool minimum
+### 4. Add MuleSoft technical blog publishing workflow
+
+MuleSoft needs a dedicated technical blog track.
+
+Current status:
+- category support added as `mulesoft`
+- blog topic chip added
+- technical code/table/blockquote styling added to blog posts
+- publishing rules documented in `docs/BLOG_PUBLISHING_PLAYBOOK.md`
+- build QA now checks blog metadata and MuleSoft code-block formatting
+
+Next when content is available:
+- publish first MuleSoft post from user-provided content or DOCX source
+- add it to `src/data/blogPosts.js`
+- add strong title, description, tags, and internal links
+- add it to prerender once blog route expansion starts
+
+### 5. Maintain one useful blog per tool minimum
 
 This baseline has been largely achieved.
 
@@ -104,7 +121,7 @@ Ongoing rule:
 - if a tool is important and its blog feels weak, outdated, or too generic, improve it
 - if a tool gains a new feature or use case, consider whether the related blog should also be updated
 
-### 5. Continue Pakistan-friendly accessibility where it adds value
+### 6. Continue Pakistan-friendly accessibility where it adds value
 
 For important Pakistan-first tools:
 - keep plain-language guidance current
@@ -116,7 +133,7 @@ Use:
 - light guide for mostly obvious tools
 - no guide for self-explanatory utilities
 
-### 6. Watch for feature-gap opportunities
+### 7. Watch for feature-gap opportunities
 
 When reviewing tools, always notice:
 - `content gap`
@@ -195,6 +212,7 @@ Also check:
 - `docs/CODEX_CONTEXT.md`
 - `docs/TASKS.md`
 - `docs/PRERENDER_ROLLOUT_PLAN.md`
+- `docs/BLOG_PUBLISHING_PLAYBOOK.md`
 
 ### Going forward
 - add durable rules to `CODEX_CONTEXT.md`

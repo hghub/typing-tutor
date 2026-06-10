@@ -34,3 +34,8 @@ dist-ssr
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Source drafts for future publishing workflows
+content-inbox/**/*.docx
+content-inbox/**/*.tmp
+content-inbox/**/*.zip

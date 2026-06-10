@@ -7,7 +7,7 @@ import ShareBar from '../components/ShareBar'
 import FeedbackButton from '../components/FeedbackButton'
 import { BLOG_POSTS } from '../data/blogPosts'
 
-const BLOG_CATEGORY_ORDER = ['pakistan', 'language', 'typing', 'finance', 'writing', 'pdf', 'security', 'productivity', 'developer', 'business', 'travel', 'education', 'legal', 'health']
+const BLOG_CATEGORY_ORDER = ['pakistan', 'language', 'typing', 'finance', 'writing', 'pdf', 'security', 'productivity', 'mulesoft', 'developer', 'business', 'travel', 'education', 'legal', 'health']
 const FEATURED_POST_SLUGS = [
   'solar-planner-pakistan',
   'how-to-file-salaried-tax-return-in-pakistan',
@@ -67,6 +67,7 @@ const TOPIC_CHIPS = [
   { label: 'PDF & OCR', query: 'ocr' },
   { label: 'Images', query: 'image' },
   { label: 'Developer Data', query: 'json' },
+  { label: 'MuleSoft', query: 'mulesoft' },
   { label: 'Health Checks', query: 'symptom' },
   { label: 'Classroom', query: 'student' },
   { label: 'Travel Money', query: 'trip' },

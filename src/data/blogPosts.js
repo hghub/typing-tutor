@@ -1,5 +1,96 @@
 export const BLOG_POSTS = [
   {
+    slug: 'mulesoft-client-id-secret-401-nginx-ingress',
+    title: 'MuleSoft 401 with Client ID and Secret Behind NGINX Ingress',
+    description: 'A practical MuleSoft troubleshooting guide for when client_id and client_secret work in one environment but fail with 401 Unauthorized behind NGINX ingress.',
+    hero: '🔌',
+    category: 'mulesoft',
+    section: 'integration',
+    readTime: '6 min read',
+    publishDate: '2026-06-10',
+    tags: ['MuleSoft', 'Client ID Enforcement', 'NGINX ingress', '401 Unauthorized', 'Runtime Fabric', 'API Manager'],
+    content: `
+<h2>The Problem</h2>
+<p>We faced a MuleSoft API issue where the same <code>client_id</code> and <code>client_secret</code> worked correctly in one production environment, but returned <code>401 Unauthorized</code> in another environment.</p>
+<p>The API was deployed successfully, the request payload was simple, and the same credentials were known to be valid. That made the first suspicion obvious: API Manager configuration.</p>
+
+<h2>What We Checked First</h2>
+<p>Before looking at the network layer, we checked the usual MuleSoft and API Manager causes:</p>
+<ul>
+  <li>wrong <code>api.id</code></li>
+  <li>missing client application contract</li>
+  <li>failed API autodiscovery</li>
+  <li>policy deployment issue</li>
+  <li>incorrect client credentials</li>
+</ul>
+<p>The Mule runtime logs confirmed that the Client ID Enforcement policy was being applied successfully:</p>
+
+<pre><code class="language-text">Applied policy client-id-enforcement... to API... in application...</code></pre>
+
+<p>That log line matters because it tells us the API was paired with API Manager and the policy itself was active.</p>
+
+<h2>The Request Looked Correct</h2>
+<p>The request also looked valid. It was sending both headers expected by the Client ID Enforcement policy:</p>
+
+<pre><code class="language-bash">curl --location 'https://&lt;host&gt;/&lt;api&gt;/v1/integrationTasks' \\
+  --header 'client_id: &lt;client-id&gt;' \\
+  --header 'client_secret: &lt;client-secret&gt;' \\
+  --header 'Content-Type: application/json' \\
+  --data '{}'</code></pre>
+
+<p>At this point, the issue did not look like a simple Mule application bug or a missing API Manager contract.</p>
+
+<h2>The Real Cause: NGINX Was Dropping Underscore Headers</h2>
+<p>The failing environment was behind NGINX ingress. By default, NGINX can ignore or drop headers that contain underscores. MuleSoft Client ID Enforcement commonly uses headers named <code>client_id</code> and <code>client_secret</code>.</p>
+<p>Because those headers include underscores, they were not reaching the Mule application in the failing environment. From MuleSoft/API Manager's point of view, the request arrived without credentials, so the policy correctly returned <code>401 Unauthorized</code>.</p>
+
+<blockquote>
+  <p>If credentials work in one MuleSoft environment but fail in another, do not only compare Mule configuration. Also compare ingress, proxy, and load balancer behavior.</p>
+</blockquote>
+
+<h2>The Fix</h2>
+<p>The fix was to update the NGINX ingress controller ConfigMap so underscore headers are allowed and not treated as invalid.</p>
+
+<pre><code class="language-yaml">data:
+  enable-underscores-in-headers: "true"
+  ignore-invalid-headers: "false"</code></pre>
+
+<p>After applying the ConfigMap change and restarting the ingress controller, the same curl request started working.</p>
+
+<h2>How to Diagnose This Faster Next Time</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Check</th>
+      <th>What it tells you</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Policy applied in Mule logs</td>
+      <td>API autodiscovery and policy attachment are likely working.</td>
+    </tr>
+    <tr>
+      <td>Same credentials work elsewhere</td>
+      <td>Client app contract and credentials may be valid.</td>
+    </tr>
+    <tr>
+      <td>Headers visible at Mule runtime</td>
+      <td>Ingress and proxy layers are passing credentials through.</td>
+    </tr>
+    <tr>
+      <td>NGINX underscore settings</td>
+      <td><code>client_id</code> and <code>client_secret</code> may be dropped before Mule sees them.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Key Lesson</h2>
+<p>When MuleSoft client credentials work in one environment but fail with <code>401 Unauthorized</code> in another, the problem is not always API Manager. Proxies, load balancers, and ingress controllers can silently modify, block, or drop headers before they ever reach the Mule runtime.</p>
+<p>For MuleSoft APIs behind NGINX ingress, especially on Runtime Fabric or Kubernetes-style deployments, always verify whether underscore headers like <code>client_id</code> and <code>client_secret</code> are allowed.</p>
+`,
+  },
+  {
     slug: 'typing-learning',
     title: 'The Complete Guide to Learning Typing with Typely',
     description: 'Master touch typing from scratch with Typely — covering WPM tests, per-key analysis, finger speed breakdown, slow-key drills, challenge modes, Focus Mode, and every feature built to make you faster.',

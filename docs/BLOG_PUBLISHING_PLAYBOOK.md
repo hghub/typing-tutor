@@ -25,10 +25,22 @@ Each post must include:
 - `description`
 - `hero`
 - `category`
+- optional `section` when the automatic route section is not correct
 - `readTime`
 - `publishDate`
 - `tags`
 - `content`
+
+Canonical blog URLs must use the sectioned route helper:
+- MuleSoft / integration content: `/blog/integration/<slug>`
+- decision, comparison, money, planning, and calculator guides: `/blog/decision-support/<slug>`
+- practical tool/how-to guides: `/blog/utilities/<slug>`
+
+Do not hardcode internal blog links as `/blog/<slug>`.
+Do not add legacy redirects or a second blog post route pattern by default. The site should have one canonical post pattern:
+- `/blog/<section>/<slug>`
+
+If an old public URL must be preserved later, document the migration reason first and keep canonical tags, sitemap, and internal links on the sectioned URL only.
 
 ## 3. MuleSoft Blog Category
 
@@ -108,7 +120,8 @@ If the user places `.docx` drafts in a folder:
 - convert lists and tables properly
 - rewrite unclear sections for readability
 - add SEO title, description, tags, and internal links
-- validate with `npm run build`
+- start `npm run dev` and give the local review URL first
+- run full build/QA only after content review, before commit/deploy
 
 Recommended source folder if needed:
 - `content-inbox/mulesoft/`
@@ -150,9 +163,15 @@ The QA script checks:
 - blog posts have required metadata
 - blog posts have H2 structure
 - MuleSoft posts use proper fenced code block HTML when code examples are present
+- blog sitemap/source links use only the sectioned URL pattern
+- legacy `/blog/<slug>` and `/blogs/tools/<slug>` routes are not present
 
 Use:
 - `npm run build`
+
+For fast content review:
+- `npm run dev`
+- open the sectioned local URL, for example `/blog/integration/<slug>`
 
 For lint-only work:
 - `npm run lint`
@@ -160,4 +179,3 @@ For lint-only work:
 Current note:
 - lint is still a separate cleanup track because older app code has existing lint debt.
 - build QA is the active deploy gate for SEO/prerender/blog integrity.
-

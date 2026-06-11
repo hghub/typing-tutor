@@ -1,13 +1,8 @@
 import { StrictMode, lazy, Suspense, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import GoogleAnalytics from './components/GoogleAnalytics'
-
-function BlogPostRedirect() {
-  const { slug } = useParams()
-  return <Navigate to={`/blog/${slug}`} replace />
-}
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -195,8 +190,10 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/freelance-tax-planner-pakistan" element={<FreelanceTaxPlanner />} />
           <Route path="/tools/investment-allocation-planner-pakistan" element={<InvestmentAllocationPlanner />} />
           <Route path="/blog" element={<BlogHome />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-          <Route path="/blogs/tools/:slug" element={<BlogPostRedirect />} />
+          <Route path="/blog/integration" element={<BlogHome section="integration" />} />
+          <Route path="/blog/decision-support" element={<BlogHome section="decision-support" />} />
+          <Route path="/blog/utilities" element={<BlogHome section="utilities" />} />
+          <Route path="/blog/:section/:slug" element={<BlogPost />} />
           <Route path="/about" element={<About />} />
           <Route path="/help" element={<Help />} />
           <Route path="/privacy" element={<Privacy />} />

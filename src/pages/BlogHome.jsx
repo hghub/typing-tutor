@@ -6,9 +6,11 @@ import ToolsNav from '../components/ToolsNav'
 import ShareBar from '../components/ShareBar'
 import FeedbackButton from '../components/FeedbackButton'
 import { BLOG_POSTS } from '../data/blogPosts'
+import { BLOG_SECTIONS, getBlogPostPath, getBlogSection } from '../data/blogRoutes'
 
 const BLOG_CATEGORY_ORDER = ['pakistan', 'language', 'typing', 'finance', 'writing', 'pdf', 'security', 'productivity', 'mulesoft', 'developer', 'business', 'travel', 'education', 'legal', 'health']
 const FEATURED_POST_SLUGS = [
+  'mulesoft-client-id-secret-401-nginx-ingress',
   'solar-planner-pakistan',
   'how-to-file-salaried-tax-return-in-pakistan',
   'legal-ways-to-save-salary-tax-in-pakistan',
@@ -78,11 +80,12 @@ const TOPIC_CHIPS = [
   { label: 'Voice Invoice', query: 'voice invoice' },
 ]
 
-export default function BlogHome() {
+export default function BlogHome({ section }) {
   const { isDark, colors } = useTheme()
   const [activeCategory, setActiveCategory] = useState('all')
   const [query, setQuery] = useState('')
   const [activeTopic, setActiveTopic] = useState('')
+  const activeSection = section && BLOG_SECTIONS[section] ? BLOG_SECTIONS[section] : null
 
   const categories = ['all', ...[...new Set(BLOG_POSTS.map(p => p.category))].sort((a, b) => {
     const ai = BLOG_CATEGORY_ORDER.indexOf(a)
@@ -96,6 +99,7 @@ export default function BlogHome() {
   const q = query.trim().toLowerCase()
   const tq = activeTopic.trim().toLowerCase()
   const filtered = BLOG_POSTS.filter(p => {
+    const matchSection = !activeSection || getBlogSection(p).path === activeSection.path
     const matchCat = activeCategory === 'all' || p.category === activeCategory
     const matchQ = !q ||
       p.title.toLowerCase().includes(q) ||
@@ -105,7 +109,7 @@ export default function BlogHome() {
       p.title.toLowerCase().includes(tq) ||
       p.description?.toLowerCase().includes(tq) ||
       p.tags?.some(t => t.toLowerCase().includes(tq))
-    return matchCat && matchQ && matchTopic
+    return matchSection && matchCat && matchQ && matchTopic
   }).sort((a, b) => {
     const ai = FEATURED_POST_SLUGS.indexOf(a.slug)
     const bi = FEATURED_POST_SLUGS.indexOf(b.slug)
@@ -120,12 +124,12 @@ export default function BlogHome() {
   return (
     <>
       <Helmet>
-        <title>Guides & Tips – Solar, Tax, Investing, Typing, PDFs & More | Rafiqy</title>
-        <meta name="description" content="Practical guides, simpler explainers, and decision support content for solar, tax, loans, investing, typing, PDFs, productivity, and digital workflows, with strong Pakistan context where it matters." />
-        <link rel="canonical" href="https://rafiqy.app/blog" />
-        <meta property="og:title" content="Guides & Tips – Solar, Tax, Investing, Typing, PDFs & More | Rafiqy" />
-        <meta property="og:description" content="Practical guides, simpler explainers, and decision support content for solar, tax, loans, investing, typing, PDFs, productivity, and digital workflows, with strong Pakistan context where it matters." />
-        <meta property="og:url" content="https://rafiqy.app/blog" />
+        <title>{activeSection ? `${activeSection.label} Guides | Rafiqy Blog` : 'Guides & Tips – Solar, Tax, Investing, Typing, PDFs & More | Rafiqy'}</title>
+        <meta name="description" content={activeSection?.description || 'Practical guides, simpler explainers, and decision support content for solar, tax, loans, investing, typing, PDFs, productivity, and digital workflows, with strong Pakistan context where it matters.'} />
+        <link rel="canonical" href={`https://rafiqy.app/blog${activeSection ? `/${activeSection.path}` : ''}`} />
+        <meta property="og:title" content={activeSection ? `${activeSection.label} Guides | Rafiqy Blog` : 'Guides & Tips – Solar, Tax, Investing, Typing, PDFs & More | Rafiqy'} />
+        <meta property="og:description" content={activeSection?.description || 'Practical guides, simpler explainers, and decision support content for solar, tax, loans, investing, typing, PDFs, productivity, and digital workflows, with strong Pakistan context where it matters.'} />
+        <meta property="og:url" content={`https://rafiqy.app/blog${activeSection ? `/${activeSection.path}` : ''}`} />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Guides & Tips – Solar, Tax, Investing, Typing, PDFs & More | Rafiqy" />
@@ -133,9 +137,9 @@ export default function BlogHome() {
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
-          'name': 'Rafiqy Blog',
-          'url': 'https://rafiqy.app/blog',
-          'description': 'Practical guides, simpler explainers, and decision support content to help people use digital tools with more confidence, including strong Pakistan-specific guidance where relevant.'
+          'name': activeSection ? `Rafiqy ${activeSection.label} Guides` : 'Rafiqy Blog',
+          'url': `https://rafiqy.app/blog${activeSection ? `/${activeSection.path}` : ''}`,
+          'description': activeSection?.description || 'Practical guides, simpler explainers, and decision support content to help people use digital tools with more confidence, including strong Pakistan-specific guidance where relevant.'
         })}</script>
       </Helmet>
 
@@ -150,13 +154,21 @@ export default function BlogHome() {
           textAlign: 'center',
         }}>
           <div style={{ maxWidth: '720px', margin: '0 auto' }}>
-            <div style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>📝</div>
+            <div style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>{activeSection?.path === 'integration' ? '🔌' : activeSection?.path === 'decision-support' ? '🧭' : '📝'}</div>
             <h1 style={{ fontSize: 'clamp(2rem, 4.5vw, 3rem)', fontWeight: 800, margin: '0 0 0.75rem', letterSpacing: '-0.02em', lineHeight: 1.2, background: 'linear-gradient(135deg, #06b6d4, #3b82f6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              Learn Smarter Ways to Use Digital Tools
+              {activeSection ? `${activeSection.label} Guides` : 'Learn Smarter Ways to Use Digital Tools'}
             </h1>
             <p style={{ fontSize: '1.1rem', color: colors.textSecondary, lineHeight: 1.7, margin: 0 }}>
-              Practical guides, simpler explainers, and decision support content to help people in Pakistan and beyond use digital tools with more confidence.
+              {activeSection?.description || 'Practical guides, simpler explainers, and decision support content to help people in Pakistan and beyond use digital tools with more confidence.'}
             </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center', marginTop: '1rem' }}>
+              <Link to="/blog" style={{ color: !activeSection ? '#0f172a' : '#06b6d4', background: !activeSection ? '#67e8f9' : (isDark ? 'rgba(6,182,212,0.12)' : 'rgba(6,182,212,0.08)'), border: '1px solid rgba(6,182,212,0.22)', borderRadius: '999px', padding: '0.32rem 0.75rem', textDecoration: 'none', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>All</Link>
+              {Object.values(BLOG_SECTIONS).map(item => (
+                <Link key={item.path} to={`/blog/${item.path}`} style={{ color: activeSection?.path === item.path ? '#0f172a' : '#06b6d4', background: activeSection?.path === item.path ? '#67e8f9' : (isDark ? 'rgba(6,182,212,0.12)' : 'rgba(6,182,212,0.08)'), border: '1px solid rgba(6,182,212,0.22)', borderRadius: '999px', padding: '0.32rem 0.75rem', textDecoration: 'none', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  {item.label}
+                </Link>
+              ))}
+            </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', justifyContent: 'center', marginTop: '1rem' }}>
               {TOPIC_CHIPS.map(topic => (
                 <button key={topic.label} onClick={() => setActiveTopic(prev => prev === topic.query ? '' : topic.query)} style={{
@@ -234,7 +246,7 @@ export default function BlogHome() {
           </div>
 
           {/* Results count */}
-          {(q || tq || activeCategory !== 'all') && (
+          {(q || tq || activeCategory !== 'all' || activeSection) && (
             <p style={{ textAlign: 'center', fontSize: '0.82rem', color: colors.muted, marginBottom: '1.25rem', marginTop: '-0.5rem' }}>
               {filtered.length === 0 ? 'No posts found' : `${filtered.length} post${filtered.length === 1 ? '' : 's'} found`}
               {q && <> for <strong style={{ color: colors.textSecondary }}>"{query}"</strong></>}
@@ -252,7 +264,7 @@ export default function BlogHome() {
             {filtered.map(post => (
               <Link
                 key={post.slug}
-                to={`/blog/${post.slug}`}
+                to={getBlogPostPath(post)}
                 style={{ textDecoration: 'none' }}
               >
                 <article

@@ -344,14 +344,14 @@ Required solar SEO elements to preserve:
 
 Required solar support-cluster routes to preserve and prerender:
 
-- `/blog/solar-planner-pakistan`
-- `/blog/smaller-solar-system-vs-net-billing-pakistan`
-- `/blog/should-you-add-a-battery-to-solar-in-pakistan`
-- `/blog/5kw-solar-system-price-in-pakistan`
-- `/blog/10kw-solar-system-price-in-pakistan`
-- `/blog/how-much-solar-do-i-need-for-a-20000-bill-in-pakistan`
-- `/blog/how-much-solar-do-i-need-for-a-30000-bill-in-pakistan`
-- `/blog/hybrid-vs-on-grid-solar-in-pakistan`
+- `/blog/decision-support/solar-planner-pakistan`
+- `/blog/decision-support/smaller-solar-system-vs-net-billing-pakistan`
+- `/blog/decision-support/should-you-add-a-battery-to-solar-in-pakistan`
+- `/blog/decision-support/5kw-solar-system-price-in-pakistan`
+- `/blog/decision-support/10kw-solar-system-price-in-pakistan`
+- `/blog/decision-support/how-much-solar-do-i-need-for-a-20000-bill-in-pakistan`
+- `/blog/decision-support/how-much-solar-do-i-need-for-a-30000-bill-in-pakistan`
+- `/blog/decision-support/hybrid-vs-on-grid-solar-in-pakistan`
 
 When solar is verified after prerender, check:
 - raw HTML source shows solar title, description, H1, and headings

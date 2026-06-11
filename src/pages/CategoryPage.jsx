@@ -6,6 +6,7 @@ import { TOOLS } from '../tools/registry'
 import ToolsNav from '../components/ToolsNav'
 import FeedbackButton from '../components/FeedbackButton'
 import { BLOG_POSTS } from '../data/blogPosts'
+import { getBlogPostPath } from '../data/blogRoutes'
 import { getToolScenarioLine } from '../lib/toolUsage'
 import { getAccessibilityNote } from '../lib/pakistanAccessibility'
 
@@ -285,7 +286,7 @@ export default function CategoryPage({ category }) {
               </h2>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px,1fr))', gap: '0.75rem' }}>
                 {related.map(post => (
-                  <Link key={post.slug} to={`/blog/${post.slug}`} style={{ textDecoration: 'none' }}>
+                  <Link key={post.slug} to={getBlogPostPath(post)} style={{ textDecoration: 'none' }}>
                     <div style={{
                       background: colors.surface,
                       border: `1px solid ${colors.border}`,

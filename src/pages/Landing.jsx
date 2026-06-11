@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { TOOLS } from '../tools/registry'
 import { BLOG_POSTS } from '../data/blogPosts'
+import { getBlogPostPath } from '../data/blogRoutes'
 import ToolsNav from '../components/ToolsNav'
 import ShareBar from '../components/ShareBar'
 import FeedbackButton from '../components/FeedbackButton'
@@ -413,7 +414,7 @@ export default function Landing() {
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: '1.25rem' }}>
           {featuredPosts.map(post => (
-            <Link key={post.slug} to={`/blog/${post.slug}`} style={{ textDecoration: 'none' }}>
+            <Link key={post.slug} to={getBlogPostPath(post)} style={{ textDecoration: 'none' }}>
               <div
                 style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 12, padding: '1.5rem', height: '100%', boxSizing: 'border-box', transition: 'border-color .2s', cursor: 'pointer' }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--color-primary)' }}

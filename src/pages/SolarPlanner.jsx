@@ -825,15 +825,15 @@ export default function SolarPlanner() {
             ))}
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.65rem' }}>
-            <a href="/blog/how-much-solar-do-i-need-for-a-20000-bill-in-pakistan" style={{ textDecoration: 'none', background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '0.8rem 0.9rem' }}>
+            <a href="/blog/decision-support/how-much-solar-do-i-need-for-a-20000-bill-in-pakistan" style={{ textDecoration: 'none', background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '0.8rem 0.9rem' }}>
               <div style={{ color: '#7dd3fc', fontSize: '0.8rem', fontWeight: 700, lineHeight: 1.4, marginBottom: '0.2rem' }}>Solar for a PKR 20,000 bill</div>
               <div style={{ color: '#64748b', fontSize: '0.72rem', lineHeight: 1.55 }}>See the typical size range and what pushes it up or down.</div>
             </a>
-            <a href="/blog/how-much-solar-do-i-need-for-a-30000-bill-in-pakistan" style={{ textDecoration: 'none', background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '0.8rem 0.9rem' }}>
+            <a href="/blog/decision-support/how-much-solar-do-i-need-for-a-30000-bill-in-pakistan" style={{ textDecoration: 'none', background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '0.8rem 0.9rem' }}>
               <div style={{ color: '#7dd3fc', fontSize: '0.8rem', fontWeight: 700, lineHeight: 1.4, marginBottom: '0.2rem' }}>Solar for a PKR 30,000 bill</div>
               <div style={{ color: '#64748b', fontSize: '0.72rem', lineHeight: 1.55 }}>Compare when 5kW is enough and when 6–7kW becomes more realistic.</div>
             </a>
-            <a href="/blog/smaller-solar-system-vs-net-billing-pakistan" style={{ textDecoration: 'none', background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '0.8rem 0.9rem' }}>
+            <a href="/blog/decision-support/smaller-solar-system-vs-net-billing-pakistan" style={{ textDecoration: 'none', background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '0.8rem 0.9rem' }}>
               <div style={{ color: '#7dd3fc', fontSize: '0.8rem', fontWeight: 700, lineHeight: 1.4, marginBottom: '0.2rem' }}>Smaller solar vs full net billing</div>
               <div style={{ color: '#64748b', fontSize: '0.72rem', lineHeight: 1.55 }}>Useful if your daytime usage is limited and export value feels weak.</div>
             </a>
@@ -1479,11 +1479,11 @@ export default function SolarPlanner() {
               </p>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.65rem' }}>
                 {[
-                  { href: '/blog/5kw-solar-system-price-in-pakistan', label: '5kW Solar System Price in Pakistan', note: 'What a common household setup should really cost' },
-                  { href: '/blog/10kw-solar-system-price-in-pakistan', label: '10kW Solar System Price in Pakistan', note: 'When a larger system is justified and when it is not' },
-                  { href: '/blog/how-much-solar-do-i-need-for-a-20000-bill-in-pakistan', label: 'Solar for a PKR 20,000 Bill', note: 'Right-sizing for moderate household bills' },
-                  { href: '/blog/how-much-solar-do-i-need-for-a-30000-bill-in-pakistan', label: 'Solar for a PKR 30,000 Bill', note: 'When 5kW is enough and when you need more' },
-                  { href: '/blog/hybrid-vs-on-grid-solar-in-pakistan', label: 'Hybrid vs On-Grid Solar', note: 'Choose the inverter path that fits your backup plan' },
+                  { href: '/blog/decision-support/5kw-solar-system-price-in-pakistan', label: '5kW Solar System Price in Pakistan', note: 'What a common household setup should really cost' },
+                  { href: '/blog/decision-support/10kw-solar-system-price-in-pakistan', label: '10kW Solar System Price in Pakistan', note: 'When a larger system is justified and when it is not' },
+                  { href: '/blog/decision-support/how-much-solar-do-i-need-for-a-20000-bill-in-pakistan', label: 'Solar for a PKR 20,000 Bill', note: 'Right-sizing for moderate household bills' },
+                  { href: '/blog/decision-support/how-much-solar-do-i-need-for-a-30000-bill-in-pakistan', label: 'Solar for a PKR 30,000 Bill', note: 'When 5kW is enough and when you need more' },
+                  { href: '/blog/decision-support/hybrid-vs-on-grid-solar-in-pakistan', label: 'Hybrid vs On-Grid Solar', note: 'Choose the inverter path that fits your backup plan' },
                 ].map(item => (
                   <a
                     key={item.href}

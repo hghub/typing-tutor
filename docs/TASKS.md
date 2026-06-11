@@ -106,9 +106,15 @@ Current status:
 - technical code/table/blockquote styling added to blog posts
 - publishing rules documented in `docs/BLOG_PUBLISHING_PLAYBOOK.md`
 - build QA now checks blog metadata and MuleSoft code-block formatting
+- blog URL taxonomy is now sectioned and single-pattern only:
+  - `/blog/integration/<slug>`
+  - `/blog/decision-support/<slug>`
+  - `/blog/utilities/<slug>`
+- do not reintroduce flat `/blog/<slug>` posts or redirect fallbacks
+- sitemap, canonical tags, share URLs, internal links, and docs must all use the sectioned URL helper
 
 Next when content is available:
-- publish first MuleSoft post from user-provided content or DOCX source
+- publish MuleSoft posts from user-provided content or DOCX source
 - add it to `src/data/blogPosts.js`
 - add strong title, description, tags, and internal links
 - add it to prerender once blog route expansion starts

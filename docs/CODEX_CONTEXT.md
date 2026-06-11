@@ -76,6 +76,20 @@ The strongest current strategic direction is:
   - category discovery
   - internal anchors
   - homepage/tools/blog surfacing if the cluster is important
+- Blog URL taxonomy:
+  - Integration/MuleSoft posts use `/blog/integration/<slug>`
+  - decision/comparison/planning posts use `/blog/decision-support/<slug>`
+  - practical utility guides use `/blog/utilities/<slug>`
+  - do not create or keep flat `/blog/<slug>` post URLs
+  - do not add redirect fallback routes for old blog URL patterns unless the user explicitly asks for a migration exception
+  - internal links, share URLs, canonical tags, and sitemap entries must use the sectioned URL
+
+### Engineering Discipline
+
+- Treat discovered architecture, SEO, design, accessibility, or workflow issues as reusable system improvements, not one-time fixes.
+- When a task exposes a better pattern, update code helpers, QA checks, and docs so future small tasks follow the same standard automatically.
+- Avoid parallel patterns for the same concern. One canonical implementation should drive rendering, links, metadata, sitemap, and docs.
+- Do not leave hidden compatibility behavior such as redirects, duplicate routes, or old URL patterns unless there is an explicit migration decision.
 
 ### Content
 

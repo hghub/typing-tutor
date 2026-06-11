@@ -13,6 +13,7 @@ import { usePreferences } from '../hooks/usePreferences'
 import { TOOLS } from '../tools/registry'
 import TOOL_SEO from '../data/toolSEO'
 import { BLOG_POSTS } from '../data/blogPosts'
+import { getBlogPostPath } from '../data/blogRoutes'
 
 function LoadingSpinner({ colors }) {
   return (
@@ -183,7 +184,7 @@ export default function ToolLayout({ toolId, children }) {
             </h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px,1fr))', gap: '0.75rem' }}>
               {related.map(post => (
-                <Link key={post.slug} to={`/blog/${post.slug}`} style={{ textDecoration: 'none' }}>
+                <Link key={post.slug} to={getBlogPostPath(post)} style={{ textDecoration: 'none' }}>
                   <div style={{
                     background: colors.surface,
                     border: `1px solid ${colors.border}`,

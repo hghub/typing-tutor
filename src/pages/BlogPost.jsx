@@ -5,6 +5,7 @@ import { useTheme } from '../hooks/useTheme'
 import ToolsNav from '../components/ToolsNav'
 import ShareBar from '../components/ShareBar'
 import { BLOG_POSTS } from '../data/blogPosts'
+import { getBlogPostPath, getBlogPostUrl, getBlogSection } from '../data/blogRoutes'
 
 function slugify(text) {
   return text.replace(/<[^>]+>/g, '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
@@ -76,12 +77,14 @@ function TocTree({ tree, activeId, colors, onClickItem }) {
 }
 
 export default function BlogPost() {
-  const { slug } = useParams()
+  const { section, slug } = useParams()
   const { isDark, colors } = useTheme()
   const [activeId, setActiveId] = useState('')
   const [tocOpen, setTocOpen] = useState(false)
 
-  const post = BLOG_POSTS.find(p => p.slug === slug)
+  const rawPost = BLOG_POSTS.find(p => p.slug === slug)
+  const rawPostSection = rawPost ? getBlogSection(rawPost) : null
+  const post = rawPost && section === rawPostSection.path ? rawPost : null
   const headings = useHeadings(post?.content ?? '')
   const processedContent = useMemo(() => post ? processContent(post.content) : '', [post])
 
@@ -112,6 +115,9 @@ export default function BlogPost() {
     )
   }
 
+  const postSection = rawPostSection
+  const canonicalUrl = getBlogPostUrl(post)
+
   const related = BLOG_POSTS.filter(p => p.slug !== slug && p.category === post.category).slice(0, 3)
   const fallbackRelated = related.length < 3
     ? [...related, ...BLOG_POSTS.filter(p => p.slug !== slug && !related.includes(p)).slice(0, 3 - related.length)]
@@ -125,10 +131,10 @@ export default function BlogPost() {
       <Helmet>
         <title>{post.title} | Rafiqy Blog</title>
         <meta name="description" content={post.description} />
-        <link rel="canonical" href={`https://rafiqy.app/blog/${post.slug}`} />
+        <link rel="canonical" href={canonicalUrl} />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.description} />
-        <meta property="og:url" content={`https://rafiqy.app/blog/${post.slug}`} />
+        <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="Rafiqy" />
         <meta name="twitter:card" content="summary" />
@@ -140,7 +146,7 @@ export default function BlogPost() {
           "headline": post.title,
           "description": post.description,
           "datePublished": post.publishDate,
-          "mainEntityOfPage": `https://rafiqy.app/blog/${post.slug}`,
+          "mainEntityOfPage": canonicalUrl,
           "author": { "@type": "Organization", "name": "Rafiqy", "url": "https://rafiqy.app" },
           "publisher": {
             "@type": "Organization",
@@ -151,7 +157,7 @@ export default function BlogPost() {
               "url": "https://rafiqy.app/icons/favicon-32.png"
             }
           },
-          "url": `https://rafiqy.app/blog/${post.slug}`
+          "url": canonicalUrl
         })}</script>
       </Helmet>
 
@@ -238,7 +244,7 @@ export default function BlogPost() {
             <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
               <div style={{ fontSize: '4rem', marginBottom: '1rem', lineHeight: 1 }}>{post.hero}</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center', marginBottom: '1rem', flexWrap: 'wrap' }}>
-                <span style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#06b6d4', background: isDark ? 'rgba(6,182,212,0.12)' : 'rgba(6,182,212,0.08)', padding: '0.25rem 0.75rem', borderRadius: '999px' }}>{post.category}</span>
+                <Link to={`/blog/${postSection.path}`} style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#06b6d4', background: isDark ? 'rgba(6,182,212,0.12)' : 'rgba(6,182,212,0.08)', padding: '0.25rem 0.75rem', borderRadius: '999px', textDecoration: 'none' }}>{postSection.label}</Link>
                 <span style={{ fontSize: '0.8rem', color: colors.muted }}>· {post.readTime}</span>
                 <span style={{ fontSize: '0.8rem', color: colors.muted }}>· {new Date(post.publishDate).toLocaleDateString('en-PK', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
               </div>
@@ -260,7 +266,7 @@ export default function BlogPost() {
 
             {/* Share bar */}
             <ShareBar
-              url={`https://rafiqy.app/blog/${post.slug}`}
+              url={canonicalUrl}
               title={`${post.title} | Rafiqy`}
             />
 
@@ -276,7 +282,7 @@ export default function BlogPost() {
                 <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: colors.text, marginBottom: '1rem' }}>Related Guides</h2>
                 <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))' }}>
                   {fallbackRelated.map(rel => (
-                    <Link key={rel.slug} to={`/blog/${rel.slug}`} style={{ textDecoration: 'none' }}>
+                    <Link key={rel.slug} to={getBlogPostPath(rel)} style={{ textDecoration: 'none' }}>
                       <div style={{ background: colors.card, border: `1px solid ${colors.border}`, borderRadius: '0.75rem', padding: '1rem', transition: 'border-color 0.2s ease' }}
                         onMouseEnter={e => e.currentTarget.style.borderColor = '#06b6d4'}
                         onMouseLeave={e => e.currentTarget.style.borderColor = colors.border}

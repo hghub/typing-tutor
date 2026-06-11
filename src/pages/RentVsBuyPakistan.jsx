@@ -527,11 +527,11 @@ export default function RentVsBuyPakistan() {
           >
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.7rem' }}>
               {[
-                { href: '/blog/rent-vs-buy-calculator-pakistan-guide', label: 'Rent vs Buy Pakistan Guide', note: 'The full decision framework behind the tool' },
-                { href: '/blog/should-i-buy-a-house-or-keep-renting-in-pakistan', label: 'Should I Buy a House or Keep Renting?', note: 'A clean first-pass decision for primary residence' },
-                { href: '/blog/home-loan-vs-rent-in-pakistan', label: 'Home Loan vs Rent in Pakistan', note: 'Why EMI-only thinking is too shallow' },
-                { href: '/blog/how-long-should-you-stay-before-buying-a-house-in-pakistan', label: 'How Long Should You Stay Before Buying?', note: 'Use stay horizon to avoid the wrong purchase timing' },
-                { href: '/blog/what-down-payment-makes-buying-safer-in-pakistan', label: 'What Down Payment Makes Buying Safer?', note: 'Liquidity discipline before ownership' },
+                { href: '/blog/decision-support/rent-vs-buy-calculator-pakistan-guide', label: 'Rent vs Buy Pakistan Guide', note: 'The full decision framework behind the tool' },
+                { href: '/blog/decision-support/should-i-buy-a-house-or-keep-renting-in-pakistan', label: 'Should I Buy a House or Keep Renting?', note: 'A clean first-pass decision for primary residence' },
+                { href: '/blog/decision-support/home-loan-vs-rent-in-pakistan', label: 'Home Loan vs Rent in Pakistan', note: 'Why EMI-only thinking is too shallow' },
+                { href: '/blog/decision-support/how-long-should-you-stay-before-buying-a-house-in-pakistan', label: 'How Long Should You Stay Before Buying?', note: 'Use stay horizon to avoid the wrong purchase timing' },
+                { href: '/blog/decision-support/what-down-payment-makes-buying-safer-in-pakistan', label: 'What Down Payment Makes Buying Safer?', note: 'Liquidity discipline before ownership' },
               ].map((item) => (
                 <a
                   key={item.href}

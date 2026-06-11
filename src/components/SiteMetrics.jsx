@@ -21,7 +21,7 @@ function ensureGtag() {
   window.__rafiqyGaLoaded = true
 }
 
-export default function GoogleAnalytics() {
+export default function SiteMetrics() {
   const location = useLocation()
 
   useEffect(() => {

@@ -2,7 +2,7 @@ import { StrictMode, lazy, Suspense, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
-import GoogleAnalytics from './components/GoogleAnalytics'
+import SiteMetrics from './components/SiteMetrics'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -109,7 +109,7 @@ createRoot(document.getElementById('root')).render(
     <HelmetProvider>
     <BrowserRouter>
       <ScrollToTop />
-      <GoogleAnalytics />
+      <SiteMetrics />
       <Suspense fallback={fallback}>
                         <Routes>
           {/* Landing page */}

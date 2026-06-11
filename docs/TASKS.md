@@ -127,6 +127,28 @@ Ongoing rule:
 - if a tool is important and its blog feels weak, outdated, or too generic, improve it
 - if a tool gains a new feature or use case, consider whether the related blog should also be updated
 
+### 5a. Split blog content into scalable per-post files
+
+Current issue:
+- all blog posts still live in one large `src/data/blogPosts.js`
+- this is becoming hard to edit, review, and publish safely
+
+Target architecture:
+- keep sectioned URLs from the canonical blog route system:
+  - `/blog/integration/<slug>`
+  - `/blog/decision-support/<slug>`
+  - `/blog/utilities/<slug>`
+- move full article content into one file per post
+- keep lightweight metadata/index data separate for blog listing, filters, sitemap, and prerender route discovery
+- load individual post content on demand when the user opens a post
+- preserve SEO/prerender support so important posts still produce crawlable HTML
+
+Implementation notes:
+- use one shared route helper for links, canonical URLs, sitemap URLs, and share URLs
+- do not reintroduce flat `/blog/<slug>` URLs
+- migration should be done carefully in batches with QA after each batch
+- first prove the pattern with the new MuleSoft post, then migrate remaining posts
+
 ### 6. Continue Pakistan-friendly accessibility where it adds value
 
 For important Pakistan-first tools:

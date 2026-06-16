@@ -6,10 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build:app": "vite build",
-    "playwright:install": "playwright install --with-deps chromium",
     "prerender": "node scripts/prerender.mjs",
     "qa:build": "node scripts/qa-build.mjs",
-    "build": "npm run build:app && npm run playwright:install && npm run prerender && npm run qa:build",
+    "build": "npm run build:app && npm run prerender && npm run qa:build",
     "lint": "eslint .",
     "preview": "vite preview"
   },

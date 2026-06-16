@@ -173,6 +173,10 @@ Important implementation notes:
   - content/discovery pages should be fully prerendered
   - important tool pages should be prerendered and then hydrated
   - all major decision-system pages are included in that hybrid prerender model
+- Vercel deployment rule:
+  - `scripts/prerender.mjs` must stay browserless/static in the normal Vercel build path
+  - do not rely on Playwright/Chromium or `apt-get` during Vercel builds
+  - if browser-based rendering is needed later, run it in a supported CI/build environment and publish static output before Vercel deploy
 
 ## 5. Standard Workflow For Any New Tool
 
@@ -307,7 +311,7 @@ When stable product/SEO/process learning emerges from implementation work, add i
 Build validation now includes:
 - `npm run build`
 - Vite production build
-- prerender for selected routes
+- browserless static prerender for selected routes
 - build QA checks for route SEO basics and blog content structure
 
 `npm run lint` remains useful but is not yet the deploy gate because the older app has existing lint debt that should be cleaned up separately.

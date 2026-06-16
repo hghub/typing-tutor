@@ -1,204 +1,154 @@
 import path from 'node:path'
-import http from 'node:http'
-import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
-import { constants as fsConstants } from 'node:fs'
-import { chromium } from '@playwright/test'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { PILOT_PRERENDER_ROUTES } from './prerender-routes.mjs'
 
 const DIST_DIR = path.resolve('dist')
-const HOST = '127.0.0.1'
-const PORT = 4173
-const BASE_URL = `http://${HOST}:${PORT}`
 const SHELL_HTML_PATH = path.join(DIST_DIR, 'index.html')
+
+const ROUTES = {
+  '/': {
+    title: 'Rafiqy | Your Everyday Digital Companion',
+    description: 'Privacy-first browser tools and decision systems for typing, tax, solar, investing, PDFs, writing, and everyday digital work, with strong Pakistan-specific guidance where it matters.',
+    canonical: 'https://rafiqy.app/',
+    h1: 'Your everyday digital toolbox for faster work online',
+    intro: 'A simple, fast, and secure collection of tools for productivity, learning, finance, and daily digital tasks.',
+    links: [
+      ['Open tools', '/tools'],
+      ['Read guides', '/blog'],
+      ['Solar calculator', '/tools/solar-planner'],
+      ['Income tax calculator', '/tools/tax-calculator'],
+    ],
+  },
+  '/tools': {
+    title: 'Free Online Tools for Pakistan, Typing, PDF & Privacy | Rafiqy',
+    description: 'Browse 68 free browser-based tools for Urdu typing, Pakistan tax, solar planning, investment allocation, PDFs, writing, productivity, developer work and privacy-first tasks.',
+    canonical: 'https://rafiqy.app/tools',
+    h1: 'All Your Daily Tools in One Place',
+    intro: 'Rafiqy tools help you get everyday tasks done faster, from typing and productivity to finance, writing, privacy, and file management.',
+    links: [
+      ['Pakistan tools', '/category/pakistan-tools'],
+      ['Finance tools', '/category/finance-tools'],
+      ['PDF tools', '/category/pdf-tools'],
+      ['Developer tools', '/category/developer-tools'],
+      ['Blog guides', '/blog'],
+    ],
+  },
+  '/blog': {
+    title: 'Guides & Tips - Solar, Tax, Investing, Typing, PDFs & More | Rafiqy',
+    description: 'Practical guides, simpler explainers, and decision support content for solar, tax, loans, investing, typing, PDFs, productivity, and digital workflows, with strong Pakistan context where it matters.',
+    canonical: 'https://rafiqy.app/blog',
+    h1: 'Learn Smarter Ways to Use Digital Tools',
+    intro: 'Practical guides, simpler explainers, and decision support content to help people in Pakistan and beyond use digital tools with more confidence.',
+    links: [
+      ['Integration guides', '/blog/integration'],
+      ['Decision support guides', '/blog/decision-support'],
+      ['Utility guides', '/blog/utilities'],
+      ['Solar guide', '/blog/decision-support/solar-planner-pakistan'],
+    ],
+  },
+  '/tools/solar-planner': {
+    title: 'Solar Calculator - Estimate System Size, Cost & Payback | Rafiqy',
+    description: 'Estimate solar system size, installation cost, monthly savings and payback for your electricity bill with Pakistan-focused assumptions and net billing context.',
+    canonical: 'https://rafiqy.app/tools/solar-planner',
+    h1: 'Solar Calculator',
+    intro: 'Estimate system size, cost, savings, payback, net billing impact, and battery need before you talk to an installer.',
+    links: [
+      ['5kW solar system price guide', '/blog/decision-support/5kw-solar-system-price-in-pakistan'],
+      ['10kW solar system price guide', '/blog/decision-support/10kw-solar-system-price-in-pakistan'],
+      ['Hybrid vs on-grid solar', '/blog/decision-support/hybrid-vs-on-grid-solar-in-pakistan'],
+      ['All tools', '/tools'],
+    ],
+  },
+  '/tools/tax-calculator': {
+    title: 'Income Tax Calculator | Salary Tax Estimate for Pakistan (2025-26) | Rafiqy',
+    description: 'Estimate salary income tax using current FBR slabs for FY 2025-26. Check annual tax, monthly impact, VPS, charity credits and senior rebate with a private browser calculator.',
+    canonical: 'https://rafiqy.app/tools/tax-calculator',
+    h1: 'Pakistan Income Tax Calculator',
+    intro: 'Estimate salary tax for FY 2025-26, monthly deduction impact, and planning scenarios with browser-based privacy.',
+    links: [
+      ['Tax filing guide', '/blog/decision-support/how-to-file-salaried-tax-return-in-pakistan'],
+      ['Legal ways to save salary tax', '/blog/decision-support/legal-ways-to-save-salary-tax-in-pakistan'],
+      ['Tax shield optimizer', '/tools/tax-optimizer'],
+      ['All finance tools', '/category/finance-tools'],
+    ],
+  },
+}
 
 function routeToFile(route) {
   if (route === '/') return path.join(DIST_DIR, 'index.html')
-  const cleaned = route.replace(/^\//, '')
-  return path.join(DIST_DIR, cleaned, 'index.html')
+  return path.join(DIST_DIR, route.replace(/^\//, ''), 'index.html')
 }
 
-async function ensureServerReady(url, attempts = 80) {
-  for (let i = 0; i < attempts; i += 1) {
-    try {
-      const res = await fetch(url)
-      if (res.ok) return
-    } catch {}
-    await new Promise(resolve => setTimeout(resolve, 250))
-  }
-  throw new Error(`Preview server did not become ready at ${url}`)
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
 }
 
-function contentTypeFor(filePath) {
-  const ext = path.extname(filePath).toLowerCase()
-  const map = {
-    '.html': 'text/html; charset=utf-8',
-    '.js': 'application/javascript; charset=utf-8',
-    '.mjs': 'application/javascript; charset=utf-8',
-    '.css': 'text/css; charset=utf-8',
-    '.json': 'application/json; charset=utf-8',
-    '.svg': 'image/svg+xml',
-    '.png': 'image/png',
-    '.jpg': 'image/jpeg',
-    '.jpeg': 'image/jpeg',
-    '.ico': 'image/x-icon',
-    '.webmanifest': 'application/manifest+json; charset=utf-8',
-    '.txt': 'text/plain; charset=utf-8',
-    '.woff2': 'font/woff2',
-  }
-  return map[ext] || 'application/octet-stream'
+function buildHead(meta) {
+  const title = escapeHtml(meta.title)
+  const description = escapeHtml(meta.description)
+  const canonical = escapeHtml(meta.canonical)
+  return `
+    <title>${title}</title>
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="${canonical}">
+    <meta property="og:title" content="${title}">
+    <meta property="og:description" content="${description}">
+    <meta property="og:url" content="${canonical}">
+    <meta name="twitter:title" content="${title}">
+    <meta name="twitter:description" content="${description}">`
 }
 
-async function resolveDistPath(urlPath) {
-  const cleanPath = decodeURIComponent(urlPath.split('?')[0])
-  const normalized = cleanPath === '/' ? '/index.html' : cleanPath
-  const candidate = path.join(DIST_DIR, normalized.replace(/^\//, ''))
+function buildBody(meta) {
+  const links = meta.links
+    .map(([label, href]) => `<li><a href="${escapeHtml(href)}">${escapeHtml(label)}</a></li>`)
+    .join('')
 
-  try {
-    await access(candidate, fsConstants.F_OK)
-    const candidateStat = await stat(candidate)
-    if (candidateStat.isDirectory()) {
-      const nestedIndex = path.join(candidate, 'index.html')
-      await access(nestedIndex, fsConstants.F_OK)
-      return nestedIndex
-    }
-    return candidate
-  } catch {}
-
-  try {
-    const nestedIndex = path.join(candidate, 'index.html')
-    await access(nestedIndex, fsConstants.F_OK)
-    return nestedIndex
-  } catch {}
-
-  return null
+  return `
+    <main data-prerender-route="${escapeHtml(meta.canonical)}" style="max-width: 920px; margin: 0 auto; padding: 3rem 1.25rem; font-family: system-ui, sans-serif; line-height: 1.65;">
+      <h1>${escapeHtml(meta.h1)}</h1>
+      <p>${escapeHtml(meta.intro)}</p>
+      <nav aria-label="Important links">
+        <ul>${links}</ul>
+      </nav>
+      <p>This page is enhanced by the Rafiqy app after loading. The core title, description, heading and links are available in this static HTML for search engines and no-JavaScript crawlers.</p>
+    </main>`
 }
 
-async function startPreviewServer() {
-  const shellHtml = await readFile(SHELL_HTML_PATH)
-
-  const server = http.createServer(async (req, res) => {
-    try {
-      const filePath = await resolveDistPath(req.url || '/')
-      const body = filePath ? await readFile(filePath) : shellHtml
-      res.statusCode = 200
-      res.setHeader('Content-Type', contentTypeFor(filePath || SHELL_HTML_PATH))
-      res.end(body)
-    } catch (error) {
-      res.statusCode = 500
-      res.setHeader('Content-Type', 'text/plain; charset=utf-8')
-      res.end(`Preview server error: ${error.message}`)
-    }
-  })
-
-  await new Promise((resolve, reject) => {
-    server.once('error', reject)
-    server.listen(PORT, HOST, resolve)
-  })
-
-  await ensureServerReady(BASE_URL)
-  return server
+function removeManagedHead(html) {
+  return html
+    .replace(/<title>[\s\S]*?<\/title>/i, '')
+    .replace(/<meta\s+name=["']description["'][^>]*>/gi, '')
+    .replace(/<link\s+rel=["']canonical["'][^>]*>/gi, '')
+    .replace(/<meta\s+property=["']og:title["'][^>]*>/gi, '')
+    .replace(/<meta\s+property=["']og:description["'][^>]*>/gi, '')
+    .replace(/<meta\s+property=["']og:url["'][^>]*>/gi, '')
+    .replace(/<meta\s+name=["']twitter:title["'][^>]*>/gi, '')
+    .replace(/<meta\s+name=["']twitter:description["'][^>]*>/gi, '')
 }
 
-async function launchBrowser() {
-  try {
-    return await chromium.launch({ channel: 'msedge', headless: true })
-  } catch {
-    return chromium.launch({ headless: true })
-  }
-}
+function renderRoute(shellHtml, route) {
+  const meta = ROUTES[route]
+  if (!meta) throw new Error(`Missing prerender metadata for ${route}`)
 
-async function prerenderRoute(browser, route) {
-  const context = await browser.newContext({ serviceWorkers: 'block' })
-  const page = await context.newPage()
-  const consoleErrors = []
-  const pageErrors = []
+  const html = removeManagedHead(shellHtml)
+    .replace('</head>', `${buildHead(meta)}\n  </head>`)
+    .replace(/<div id="root">[\s\S]*?<\/div>/i, `<div id="root">${buildBody(meta)}</div>`)
 
-  page.on('console', (msg) => {
-    if (msg.type() === 'error') consoleErrors.push(msg.text())
-  })
-  page.on('pageerror', (error) => {
-    pageErrors.push(error.message)
-  })
-
-  try {
-    console.log(`rendering ${route}...`)
-    await page.goto(`${BASE_URL}${route}`, { waitUntil: 'networkidle' })
-    await page.waitForFunction(
-      () => {
-        const root = document.getElementById('root')
-        return !!root && root.innerHTML.trim().length > 0
-      },
-      { timeout: 15000 },
-    )
-    await page.waitForTimeout(400)
-
-    await page.evaluate(() => {
-      const dedupeKeepLast = (selector, keyFn) => {
-        const nodes = Array.from(document.head.querySelectorAll(selector))
-        const seen = new Set()
-        for (let i = nodes.length - 1; i >= 0; i -= 1) {
-          const node = nodes[i]
-          const key = keyFn(node)
-          if (!key) continue
-          if (seen.has(key)) {
-            node.remove()
-          } else {
-            seen.add(key)
-          }
-        }
-      }
-
-      dedupeKeepLast('title', () => 'title')
-      dedupeKeepLast('meta[name]', (node) => `meta:name:${node.getAttribute('name')?.toLowerCase()}`)
-      dedupeKeepLast('meta[property]', (node) => `meta:property:${node.getAttribute('property')?.toLowerCase()}`)
-      dedupeKeepLast('link[rel]', (node) => {
-        const rel = node.getAttribute('rel')?.toLowerCase()
-        if (rel === 'canonical') return 'link:canonical'
-        if (rel === 'manifest') return 'link:manifest'
-        return null
-      })
-
-      const ogTitle = document.head.querySelector('meta[property="og:title"]')?.getAttribute('content')?.trim()
-      if (ogTitle) {
-        document.title = ogTitle
-      }
-    })
-
-    const html = (await page.content()).replace(/^<!DOCTYPE html>\s*/i, '')
-    const outputFile = routeToFile(route)
-    await mkdir(path.dirname(outputFile), { recursive: true })
-    await writeFile(outputFile, `<!DOCTYPE html>\n${html}`, 'utf8')
-    console.log(`prerendered ${route} -> ${path.relative(process.cwd(), outputFile)}`)
-  } catch (error) {
-    const currentHtml = await page.content().catch(() => '')
-    console.error(`Failed to prerender ${route}`)
-    if (pageErrors.length) console.error(`page errors for ${route}:`, pageErrors)
-    if (consoleErrors.length) console.error(`console errors for ${route}:`, consoleErrors)
-    if (currentHtml) {
-      const debugFile = path.join(DIST_DIR, '__prerender-debug.html')
-      await writeFile(debugFile, currentHtml, 'utf8')
-      console.error(`saved debug HTML to ${path.relative(process.cwd(), debugFile)}`)
-    }
-    throw error
-  } finally {
-    await context.close()
-  }
+  return html
 }
 
 async function main() {
-  const server = await startPreviewServer()
-  let browser
+  const shellHtml = await readFile(SHELL_HTML_PATH, 'utf8')
 
-  try {
-    browser = await launchBrowser()
-    for (const route of PILOT_PRERENDER_ROUTES) {
-      await prerenderRoute(browser, route)
-    }
-  } finally {
-    if (browser) await browser.close()
-    if (server) {
-      await new Promise(resolve => server.close(resolve))
-    }
+  for (const route of PILOT_PRERENDER_ROUTES) {
+    const outputFile = routeToFile(route)
+    await mkdir(path.dirname(outputFile), { recursive: true })
+    await writeFile(outputFile, renderRoute(shellHtml, route), 'utf8')
+    console.log(`prerendered ${route} -> ${path.relative(process.cwd(), outputFile)}`)
   }
 }
 

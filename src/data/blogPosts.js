@@ -1,93 +1,158 @@
 export const BLOG_POSTS = [
   {
     slug: 'mulesoft-client-id-secret-401-nginx-ingress',
-    title: 'MuleSoft 401 with Client ID and Secret Behind NGINX Ingress',
-    description: 'A practical MuleSoft troubleshooting guide for when client_id and client_secret work in one environment but fail with 401 Unauthorized behind NGINX ingress.',
+    title: 'When MuleSoft Client ID Enforcement Returns 401 Behind NGINX Ingress',
+    description: 'A real-world Runtime Fabric troubleshooting guide for MuleSoft 401 errors caused by NGINX ingress dropping client_id and client_secret headers before policy enforcement.',
     hero: '🔌',
     category: 'mulesoft',
     section: 'integration',
     readTime: '6 min read',
-    publishDate: '2026-06-10',
-    tags: ['MuleSoft', 'Client ID Enforcement', 'NGINX ingress', '401 Unauthorized', 'Runtime Fabric', 'API Manager'],
+    publishDate: '2026-06-16',
+    tags: ['MuleSoft', 'Runtime Fabric', 'NGINX Ingress', 'Kubernetes', 'API Security', 'Alibaba Cloud ACK', 'Troubleshooting'],
     content: `
-<h2>The Problem</h2>
-<p>We faced a MuleSoft API issue where the same <code>client_id</code> and <code>client_secret</code> worked correctly in one production environment, but returned <code>401 Unauthorized</code> in another environment.</p>
-<p>The API was deployed successfully, the request payload was simple, and the same credentials were known to be valid. That made the first suspicion obvious: API Manager configuration.</p>
+<p><strong>Enterprise integration • API security • Kubernetes</strong></p>
+<p>A <code>401 Unauthorized</code> response usually sends teams straight to API Manager, client credentials, or application code. In this incident, all three were healthy. The failure was introduced earlier in the request path, where an NGINX ingress controller silently discarded the credential headers before MuleSoft could evaluate them.</p>
 
-<h2>What We Checked First</h2>
-<p>Before looking at the network layer, we checked the usual MuleSoft and API Manager causes:</p>
+<h2>Why This Case Matters</h2>
+<p>The incident shows why enterprise API troubleshooting must follow the complete request path, not only the API runtime. A valid Client ID Enforcement policy can produce the correct <code>401</code> response even when the actual defect sits in ingress configuration.</p>
+
+<h2>The Environment</h2>
+<p>The same MuleSoft API was deployed to two production Runtime Fabric environments:</p>
 <ul>
-  <li>wrong <code>api.id</code></li>
-  <li>missing client application contract</li>
-  <li>failed API autodiscovery</li>
-  <li>policy deployment issue</li>
-  <li>incorrect client credentials</li>
+  <li><strong>Shore production:</strong> MuleSoft Runtime Fabric deployed on Alibaba Cloud Container Service for Kubernetes (ACK).</li>
+  <li><strong>Ship production:</strong> MuleSoft Runtime Fabric deployed on a self-hosted, on-premises Kubernetes cluster.</li>
 </ul>
-<p>The Mule runtime logs confirmed that the Client ID Enforcement policy was being applied successfully:</p>
+<p>Both deployments referenced the same managed API instance through the same API Manager <code>api.id</code>. The same client application credentials worked in the shore environment. On the ship endpoint, however, an equivalent request returned <code>401 Unauthorized</code>.</p>
 
-<pre><code class="language-text">Applied policy client-id-enforcement... to API... in application...</code></pre>
-
-<p>That log line matters because it tells us the API was paired with API Manager and the policy itself was active.</p>
-
-<h2>The Request Looked Correct</h2>
-<p>The request also looked valid. It was sending both headers expected by the Client ID Enforcement policy:</p>
-
-<pre><code class="language-bash">curl --location 'https://&lt;host&gt;/&lt;api&gt;/v1/integrationTasks' \\
+<pre><code class="language-bash">curl --location 'https://&lt;ship-host&gt;/reservation-mgr-exp-api/v1/integration-tasks' \\
   --header 'client_id: &lt;client-id&gt;' \\
   --header 'client_secret: &lt;client-secret&gt;' \\
   --header 'Content-Type: application/json' \\
   --data '{}'</code></pre>
 
-<p>At this point, the issue did not look like a simple Mule application bug or a missing API Manager contract.</p>
+<h2>The First Investigation Path</h2>
+<p>The initial checks focused on the most common MuleSoft causes:</p>
+<ul>
+  <li>incorrect or environment-specific API Manager <code>api.id</code></li>
+  <li>missing, rejected, or revoked client application contract</li>
+  <li>failed API autodiscovery or control-plane pairing</li>
+  <li>Client ID Enforcement policy not deployed</li>
+  <li>old, malformed, or incorrectly injected client credentials</li>
+</ul>
+<p>The runtime logs eliminated a major branch of that investigation:</p>
 
-<h2>The Real Cause: NGINX Was Dropping Underscore Headers</h2>
-<p>The failing environment was behind NGINX ingress. By default, NGINX can ignore or drop headers that contain underscores. MuleSoft Client ID Enforcement commonly uses headers named <code>client_id</code> and <code>client_secret</code>.</p>
-<p>Because those headers include underscores, they were not reaching the Mule application in the failing environment. From MuleSoft/API Manager's point of view, the request arrived without credentials, so the policy correctly returned <code>401 Unauthorized</code>.</p>
+<pre><code class="language-text">Applied policy client-id-enforcement... to API... in application...</code></pre>
+
+<p>This confirmed that the managed API was discovered and that the Client ID Enforcement policy had been attached to the application. A nearby <code>policy shut down normally</code> entry was part of the normal stop/start and policy-redeployment sequence, not evidence of a policy crash.</p>
 
 <blockquote>
-  <p>If credentials work in one MuleSoft environment but fail in another, do not only compare Mule configuration. Also compare ingress, proxy, and load balancer behavior.</p>
+  <p><strong>Diagnostic principle:</strong> do not interpret an isolated shutdown line without its surrounding lifecycle events. Correlate policy stop, policy apply, application startup, pod restart, and request timestamps before concluding that a policy is unstable.</p>
 </blockquote>
 
-<h2>The Fix</h2>
-<p>The fix was to update the NGINX ingress controller ConfigMap so underscore headers are allowed and not treated as invalid.</p>
+<h2>The Root Cause: Headers Were Lost at Ingress</h2>
+<p>The key difference between the two environments was the ingress path. The ship Runtime Fabric environment used the Kubernetes community ingress-nginx controller. The Client ID Enforcement policy was configured with MuleSoft's default credential headers:</p>
 
-<pre><code class="language-yaml">data:
+<pre><code class="language-http">client_id: &lt;client-id&gt;
+client_secret: &lt;client-secret&gt;</code></pre>
+
+<p>Those names contain underscores. NGINX treats underscore-containing request headers according to the <code>underscores_in_headers</code> directive, which is off by default. In the affected environment, the ingress controller did not forward the two credential headers upstream. The Mule application therefore received a request without the values required by the policy.</p>
+<p>The resulting <code>401</code> was technically correct: MuleSoft rejected the request because the credentials were absent at the point of policy evaluation. The misleading part was that the original client request did contain them.</p>
+
+<h2>The Configuration Change</h2>
+<p>The ingress-nginx controller ConfigMap was updated at controller scope, not on the individual application Ingress resource:</p>
+
+<pre><code class="language-yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+data:
   enable-underscores-in-headers: "true"
   ignore-invalid-headers: "false"</code></pre>
 
-<p>After applying the ConfigMap change and restarting the ingress controller, the same curl request started working.</p>
+<p>After the ConfigMap was applied and the ingress controller was reloaded or restarted, the same request reached Runtime Fabric with both headers intact and the Client ID Enforcement policy validated the client application successfully.</p>
 
-<h2>How to Diagnose This Faster Next Time</h2>
+<blockquote>
+  <p><strong>Security note:</strong> use the narrowest configuration change that solves the problem. Enabling underscore headers is the setting directly related to <code>client_id</code> and <code>client_secret</code>. Disabling invalid-header filtering is broader and should be retained only when testing proves it is required, after security review. An alternative is to configure the policy and consumers to use hyphenated custom headers.</p>
+</blockquote>
+
+<h2>A Faster Diagnostic Sequence</h2>
+<p>This sequence separates policy, credential, routing, and ingress problems with fewer assumptions:</p>
 <table>
   <thead>
     <tr>
       <th>Check</th>
-      <th>What it tells you</th>
+      <th>What it proves</th>
+      <th>Next action</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Policy applied in Mule logs</td>
-      <td>API autodiscovery and policy attachment are likely working.</td>
+      <td>Confirm policy <code>Applied</code> log</td>
+      <td>API autodiscovery and policy attachment are operating.</td>
+      <td>Move from deployment checks to request-path validation.</td>
     </tr>
     <tr>
-      <td>Same credentials work elsewhere</td>
-      <td>Client app contract and credentials may be valid.</td>
+      <td>Run the same credentials against both endpoints</td>
+      <td>Separates credential validity from environment-specific behavior.</td>
+      <td>Compare ingress, DNS, routes, and upstream services.</td>
     </tr>
     <tr>
-      <td>Headers visible at Mule runtime</td>
-      <td>Ingress and proxy layers are passing credentials through.</td>
+      <td>Test the internal service or pod path</td>
+      <td>Bypasses the external ingress layer.</td>
+      <td>If internal works, inspect ingress, load balancer, or proxy configuration.</td>
     </tr>
     <tr>
-      <td>NGINX underscore settings</td>
-      <td><code>client_id</code> and <code>client_secret</code> may be dropped before Mule sees them.</td>
+      <td>Inspect generated NGINX configuration</td>
+      <td>Confirms whether underscore headers are accepted.</td>
+      <td>Validate controller ConfigMap and reload status.</td>
+    </tr>
+    <tr>
+      <td>Verify headers at the closest safe upstream point</td>
+      <td>Shows whether values survive every hop.</td>
+      <td>Never log complete secrets; log presence, length, or a one-way hash only.</td>
     </tr>
   </tbody>
 </table>
 
-<h2>Key Lesson</h2>
-<p>When MuleSoft client credentials work in one environment but fail with <code>401 Unauthorized</code> in another, the problem is not always API Manager. Proxies, load balancers, and ingress controllers can silently modify, block, or drop headers before they ever reach the Mule runtime.</p>
-<p>For MuleSoft APIs behind NGINX ingress, especially on Runtime Fabric or Kubernetes-style deployments, always verify whether underscore headers like <code>client_id</code> and <code>client_secret</code> are allowed.</p>
+<h2>Architecture Lessons Beyond This Incident</h2>
+<h3>Treat ingress as part of API security</h3>
+<p>Authentication behavior depends on every hop that carries identity data. API governance must include load balancers, WAFs, ingress controllers, service meshes, and reverse proxies, not only the gateway policy.</p>
+
+<h3>Compare the whole path, not only the deployment artifact</h3>
+<p>Two Runtime Fabric environments can run the same Mule application and API policy but behave differently because their Kubernetes, ingress, TLS termination, DNS, or network controls differ.</p>
+
+<h3>Prefer explicit, portable header conventions</h3>
+<p>Hyphenated HTTP header names are generally less likely to encounter intermediary compatibility issues. MuleSoft's policy supports custom header names, allowing teams to standardize a safer contract where change control permits.</p>
+
+<h3>Separate proof from assumption</h3>
+<p>A <code>401</code> proves that an authentication control rejected the request. It does not, by itself, prove that the caller supplied bad credentials. Validate whether the credentials reached the enforcement point.</p>
+
+<h2>How Rafiqy Frames Problems Like This</h2>
+<p>Rafiqy is not simply a collection of technical posts. It is a practical knowledge and delivery platform for teams working across enterprise integration, APIs, automation, and AI-enabled engineering. Cases like this are documented to turn isolated production incidents into reusable design guidance, diagnostic playbooks, and stronger platform standards.</p>
+<p>For integration and platform teams, the lasting value is not only the ConfigMap change. It is the improved operating model: trace the full request path, distinguish policy behavior from transport behavior, capture evidence at each layer, and feed the lesson back into architecture and deployment standards.</p>
+
+<blockquote>
+  <p><strong>Rafiqy takeaway:</strong> reliable enterprise integration comes from understanding how application logic, API governance, Kubernetes infrastructure, and security controls behave as one system, not as separate teams and tools.</p>
+</blockquote>
+
+<h2>Production Checklist</h2>
+<ul>
+  <li>Confirm which component terminates TLS and which component first receives the HTTP headers.</li>
+  <li>Compare API Manager <code>api.id</code>, contract status, and policy configuration across environments.</li>
+  <li>Validate the ingress class and the exact controller ConfigMap used by that class.</li>
+  <li>Check whether client credentials are expected in default headers, custom headers, query parameters, or HTTP Basic Authentication.</li>
+  <li>Test through both the external ingress path and an internal service path.</li>
+  <li>Avoid logging client secrets; rotate any credential exposed during troubleshooting.</li>
+  <li>Manage the final controller setting through Helm, GitOps, or the platform's source of truth so that upgrades do not overwrite it.</li>
+</ul>
+
+<h2>Official References</h2>
+<ul>
+  <li>MuleSoft: Client ID Enforcement Policy</li>
+  <li>ingress-nginx: Controller ConfigMap options</li>
+  <li>NGINX: <code>ngx_http_core_module</code> directives</li>
+</ul>
 `,
   },
   {

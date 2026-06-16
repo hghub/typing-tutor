@@ -24,7 +24,7 @@ export const BLOG_POSTS = [
 </ul>
 <p>Both deployments referenced the same managed API instance through the same API Manager <code>api.id</code>. The same client application credentials worked in the shore environment. On the ship endpoint, however, an equivalent request returned <code>401 Unauthorized</code>.</p>
 
-<pre><code class="language-bash">curl --location 'https://&lt;ship-host&gt;/reservation-mgr-exp-api/v1/integration-tasks' \\
+<pre><code class="language-bash">curl --location 'https://&lt;host&gt;/&lt;api&gt;/v1/integrationTasks' \\
   --header 'client_id: &lt;client-id&gt;' \\
   --header 'client_secret: &lt;client-secret&gt;' \\
   --header 'Content-Type: application/json' \\
@@ -149,9 +149,9 @@ data:
 
 <h2>Official References</h2>
 <ul>
-  <li>MuleSoft: Client ID Enforcement Policy</li>
-  <li>ingress-nginx: Controller ConfigMap options</li>
-  <li>NGINX: <code>ngx_http_core_module</code> directives</li>
+  <li><a href="https://docs.mulesoft.com/mule-gateway/policies-included-client-id-enforcement" target="_blank" rel="noopener noreferrer">MuleSoft: Client ID Enforcement Policy</a></li>
+  <li><a href="https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/" target="_blank" rel="noopener noreferrer">ingress-nginx: Controller ConfigMap options</a></li>
+  <li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#underscores_in_headers" target="_blank" rel="noopener noreferrer">NGINX: <code>underscores_in_headers</code> directive</a></li>
 </ul>
 `,
   },

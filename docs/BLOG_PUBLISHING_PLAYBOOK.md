@@ -25,6 +25,28 @@ Generated app data is written to:
 - `scripts/generated/blogPrerenderData.mjs`
 
 Do not edit generated files directly. Edit the markdown source in `content/blog/`.
+
+## Where to place and edit blog files
+
+- Place new blog source files under `content/blog/` in the correct section folder:
+  - `content/blog/integration/`
+  - `content/blog/decision-support/`
+  - `content/blog/utilities/`
+- Edit the `.md` file directly if you need to change wording, headings, tags, description, or article body.
+- Example editable source:
+  - `content/blog/integration/mulesoft-client-id-secret-401-nginx-ingress.md`
+- Do not edit generated files under:
+  - `src/data/blogIndex.js`
+  - `src/data/blogContent/`
+  - `scripts/generated/`
+- Local workflow after editing:
+  - `npm run dev` for normal local work
+  - or `npm run blog:sync` if you only want to refresh generated blog data
+- Recommended editors:
+  - VS Code
+  - Cursor
+  - Notepad++
+  - plain Notepad if needed
 Edit the markdown source file instead.
 
 Each post frontmatter must include:

@@ -16,20 +16,27 @@ Every blog must:
 
 ## 2. Blog Data Location
 
-All published posts currently live in:
+Blog authoring source now lives in:
+- `content/blog/<section>/<slug>.md`
+
+Generated app data is written to:
 - `src/data/blogPosts.js`
 
-Each post must include:
+Do not edit `src/data/blogPosts.js` directly.
+Edit the markdown source file instead.
+
+Each post frontmatter must include:
 - `slug`
 - `title`
 - `description`
 - `hero`
 - `category`
-- optional `section` when the automatic route section is not correct
+- `section`
 - `readTime`
 - `publishDate`
 - `tags`
-- `content`
+
+The markdown body should contain the actual article content.
 
 Canonical blog URLs must use the sectioned route helper:
 - MuleSoft / integration content: `/blog/integration/<slug>`
@@ -82,14 +89,14 @@ Avoid:
 
 Do not paste code as plain paragraphs.
 
-Use:
+Use fenced markdown code blocks:
 
-```html
-<pre><code class="language-xml">
-&lt;flow name="example-flow"&gt;
-  &lt;logger message="Hello Mule" /&gt;
-&lt;/flow&gt;
-</code></pre>
+```md
+```xml
+<flow name="example-flow">
+  <logger message="Hello Mule" />
+</flow>
+```
 ```
 
 Recommended language classes:
@@ -102,9 +109,9 @@ Recommended language classes:
 - `language-java`
 
 Use inline code only for short identifiers:
-- `<code>payload</code>`
-- `<code>vars.customerId</code>`
-- `<code>HTTP:CONNECTIVITY</code>`
+- `` `payload` ``
+- `` `vars.customerId` ``
+- `` `HTTP:CONNECTIVITY` ``
 
 Use tables for comparisons, checklists, and mappings.
 
@@ -116,10 +123,11 @@ If the user places `.docx` drafts in a folder:
 - treat the DOCX as source material, not final publishable HTML
 - extract and clean the structure
 - convert headings to H2/H3
-- convert code examples into `<pre><code class="language-...">`
+- convert code examples into fenced markdown blocks with language tags
 - convert lists and tables properly
 - rewrite unclear sections for readability
 - add SEO title, description, tags, and internal links
+- publish the final post as `content/blog/<section>/<slug>.md`
 - start `npm run dev` and give the local review URL first
 - run full build/QA only after content review, before commit/deploy
 
@@ -154,6 +162,7 @@ Every MuleSoft post should include:
 ## 7. QA Rules
 
 Build now runs:
+- blog sync from markdown source
 - app build
 - prerender
 - build QA checks
@@ -172,6 +181,10 @@ Use:
 For fast content review:
 - `npm run dev`
 - open the sectioned local URL, for example `/blog/integration/<slug>`
+
+If you edit markdown source while the dev server is not picking it up yet:
+- rerun `npm run dev`
+- or run `npm run blog:sync` and then refresh/restart as needed
 
 For lint-only work:
 - `npm run lint`

@@ -111,6 +111,7 @@ Current status:
 - blog topic chip added
 - technical code/table/blockquote styling added to blog posts
 - publishing rules documented in `docs/BLOG_PUBLISHING_PLAYBOOK.md`
+- markdown-per-post authoring is now implemented under `content/blog/`
 - build QA now checks blog metadata and MuleSoft code-block formatting
 - blog URL taxonomy is now sectioned and single-pattern only:
   - `/blog/integration/<slug>`
@@ -136,25 +137,25 @@ Ongoing rule:
 ### 5a. Split blog content into scalable per-post files
 
 Current issue:
-- all blog posts still live in one large `src/data/blogPosts.js`
-- this is becoming hard to edit, review, and publish safely
+- resolved for authoring source:
+  - blog posts now live as one markdown file per post under `content/blog/`
 
 Target architecture:
 - keep sectioned URLs from the canonical blog route system:
   - `/blog/integration/<slug>`
   - `/blog/decision-support/<slug>`
   - `/blog/utilities/<slug>`
-- move full article content into one file per post
-- keep lightweight metadata/index data separate for blog listing, filters, sitemap, and prerender route discovery
-- load individual post content on demand when the user opens a post
+- keep generated app data separate from authoring source
 - preserve SEO/prerender support so important posts still produce crawlable HTML
 
 Implementation notes:
 - use one shared route helper for links, canonical URLs, sitemap URLs, and share URLs
 - do not reintroduce flat `/blog/<slug>` URLs
-- migration should be done carefully in batches with QA after each batch
-- prerender support for sectioned blog URLs is now working across all current posts
-- next step is still to split content files for maintainability, not because routing/prerender is blocked
+- `scripts/sync-blog-posts.mjs` is now the bridge from markdown source to generated app data
+- `npm run dev` and `npm run build` already sync blog content automatically
+
+Next improvement inside this track:
+- consider lighter metadata-only listing + on-demand post content loading later if bundle size becomes a problem
 
 ### 6. Continue Pakistan-friendly accessibility where it adds value
 

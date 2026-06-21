@@ -39,3 +39,6 @@ dist-ssr
 content-inbox/**/*.docx
 content-inbox/**/*.tmp
 content-inbox/**/*.zip
+
+# Local migration scratch files
+.tmp-blog-posts-legacy.mjs

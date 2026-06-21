@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build:app": "vite build",
+    "blog:sync": "node scripts/sync-blog-posts.mjs",
+    "dev": "npm run blog:sync && vite",
+    "build:app": "npm run blog:sync && vite build",
     "prerender": "node scripts/prerender.mjs",
     "qa:build": "node scripts/qa-build.mjs",
     "build": "npm run build:app && npm run prerender && npm run qa:build",

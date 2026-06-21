@@ -152,8 +152,12 @@ Key files:
   - tool SEO metadata, headings, paragraphs, FAQs
 - `src/data/categoryPages.js`
   - shared category-page metadata and priority ordering for UI + prerender
+- `content/blog/`
+  - source-of-truth blog posts as one markdown file per post
 - `src/data/blogPosts.js`
-  - all blog content
+  - generated blog data for the app; do not edit directly
+- `scripts/sync-blog-posts.mjs`
+  - syncs markdown blog source into generated app data
 - `docs/BLOG_PUBLISHING_PLAYBOOK.md`
   - blog publishing rules, including MuleSoft technical posts and DOCX intake workflow
 - `src/components/ToolLayout.jsx`
@@ -184,10 +188,14 @@ Important implementation notes:
     - all category pages
     - all current blog posts
     - strategic tool and decision-system routes
-- Vercel deployment rule:
+  - Vercel deployment rule:
   - `scripts/prerender.mjs` must stay browserless/static in the normal Vercel build path
   - do not rely on Playwright/Chromium or `apt-get` during Vercel builds
   - if browser-based rendering is needed later, run it in a supported CI/build environment and publish static output before Vercel deploy
+- blog authoring rule:
+  - edit markdown files under `content/blog/`, not `src/data/blogPosts.js`
+  - `npm run dev` and `npm run build` now run blog sync automatically
+  - one post per file is the stable content workflow going forward
 
 ## 5. Standard Workflow For Any New Tool
 
@@ -216,7 +224,7 @@ Default checklist:
   - local/Pakistan context second
 
 5. Add at least one related, need-based blog
-- `src/data/blogPosts.js`
+- `content/blog/<section>/<slug>.md`
 - do not add hollow content
 - update relevant tags/topic chips/related-guide priority if the new content creates or strengthens a cluster
 

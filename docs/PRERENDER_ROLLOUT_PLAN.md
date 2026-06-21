@@ -247,7 +247,8 @@ Every important tool needs one stable page-specific SEO definition in:
 
 ### Rule 3
 Every important blog must exist as real content in:
-- `src/data/blogPosts.js`
+- `src/data/blogIndex.js`
+- `scripts/generated/blogPrerenderData.mjs`
 
 ### Rule 4
 When a route is strategic, it must be on the prerender list.

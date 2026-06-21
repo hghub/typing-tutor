@@ -5,7 +5,7 @@ import { usePreferences } from '../hooks/usePreferences'
 import { TOOLS } from '../tools/registry'
 import ToolsNav from '../components/ToolsNav'
 import FeedbackButton from '../components/FeedbackButton'
-import { BLOG_POSTS } from '../data/blogPosts'
+import { BLOG_INDEX } from '../data/blogIndex'
 import { getBlogPostPath } from '../data/blogRoutes'
 import { CATEGORY_BLOG_PRIORITY, CATEGORY_DATA, CATEGORY_TOOL_PRIORITY } from '../data/categoryPages'
 import { getToolScenarioLine } from '../lib/toolUsage'
@@ -122,7 +122,7 @@ export default function CategoryPage({ category }) {
         {/* Related Blog Posts */}
         {(() => {
           const priority = CATEGORY_BLOG_PRIORITY[category] || []
-          const related = BLOG_POSTS
+          const related = BLOG_INDEX
             .filter(p => categoryIds.includes(p.category?.toLowerCase()) || priority.includes(p.slug))
             .sort((a, b) => {
               const ai = priority.indexOf(a.slug)

@@ -154,8 +154,12 @@ Key files:
   - shared category-page metadata and priority ordering for UI + prerender
 - `content/blog/`
   - source-of-truth blog posts as one markdown file per post
-- `src/data/blogPosts.js`
-  - generated blog data for the app; do not edit directly
+- `src/data/blogIndex.js`
+  - generated blog metadata index for listings, links, and discovery; do not edit directly
+- `src/data/blogContent/`
+  - generated per-post article modules; do not edit directly
+- `scripts/generated/blogPrerenderData.mjs`
+  - generated build-only blog dataset with full article HTML for prerender and QA; do not edit directly
 - `scripts/sync-blog-posts.mjs`
   - syncs markdown blog source into generated app data
 - `docs/BLOG_PUBLISHING_PLAYBOOK.md`
@@ -193,9 +197,13 @@ Important implementation notes:
   - do not rely on Playwright/Chromium or `apt-get` during Vercel builds
   - if browser-based rendering is needed later, run it in a supported CI/build environment and publish static output before Vercel deploy
 - blog authoring rule:
-  - edit markdown files under `content/blog/`, not `src/data/blogPosts.js`
+  - edit markdown files under `content/blog/`, not generated files under `src/data/blog*` or `scripts/generated/`
   - `npm run dev` and `npm run build` now run blog sync automatically
   - one post per file is the stable content workflow going forward
+  - stable runtime pattern:
+    - listing/discovery pages use `BLOG_INDEX`
+    - article pages lazy-load one generated content module per post
+    - prerender/QA use the build-only generated blog dataset
 
 ## 5. Standard Workflow For Any New Tool
 

@@ -113,6 +113,7 @@ Current status:
 - publishing rules documented in `docs/BLOG_PUBLISHING_PLAYBOOK.md`
 - markdown-per-post authoring is now implemented under `content/blog/`
 - build QA now checks blog metadata and MuleSoft code-block formatting
+- runtime now uses a generated metadata index plus per-post content modules instead of shipping one giant blog payload
 - blog URL taxonomy is now sectioned and single-pattern only:
   - `/blog/integration/<slug>`
   - `/blog/decision-support/<slug>`
@@ -122,7 +123,7 @@ Current status:
 
 Next when content is available:
 - publish MuleSoft posts from user-provided content or DOCX source
-- add it to `src/data/blogPosts.js`
+- add it under `content/blog/integration/`
 - add strong title, description, tags, and internal links
 - add it to prerender once blog route expansion starts
 
@@ -134,28 +135,19 @@ Ongoing rule:
 - if a tool is important and its blog feels weak, outdated, or too generic, improve it
 - if a tool gains a new feature or use case, consider whether the related blog should also be updated
 
-### 5a. Split blog content into scalable per-post files
+### 5a. Keep blog architecture scalable
 
-Current issue:
-- resolved for authoring source:
-  - blog posts now live as one markdown file per post under `content/blog/`
+Current stable architecture:
+- source of truth: one markdown file per post under `content/blog/`
+- generated runtime metadata: `src/data/blogIndex.js`
+- generated runtime article modules: `src/data/blogContent/`
+- generated build-only article dataset: `scripts/generated/blogPrerenderData.mjs`
 
-Target architecture:
-- keep sectioned URLs from the canonical blog route system:
-  - `/blog/integration/<slug>`
-  - `/blog/decision-support/<slug>`
-  - `/blog/utilities/<slug>`
-- keep generated app data separate from authoring source
-- preserve SEO/prerender support so important posts still produce crawlable HTML
-
-Implementation notes:
+Rules:
 - use one shared route helper for links, canonical URLs, sitemap URLs, and share URLs
 - do not reintroduce flat `/blog/<slug>` URLs
-- `scripts/sync-blog-posts.mjs` is now the bridge from markdown source to generated app data
-- `npm run dev` and `npm run build` already sync blog content automatically
-
-Next improvement inside this track:
-- consider lighter metadata-only listing + on-demand post content loading later if bundle size becomes a problem
+- do not hand-edit generated files
+- keep prerender and QA wired to the same canonical content source
 
 ### 6. Continue Pakistan-friendly accessibility where it adds value
 

@@ -12,7 +12,7 @@ import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
 import { TOOLS } from '../tools/registry'
 import TOOL_SEO from '../data/toolSEO'
-import { BLOG_POSTS } from '../data/blogPosts'
+import { BLOG_INDEX } from '../data/blogIndex'
 import { getBlogPostPath } from '../data/blogRoutes'
 
 function LoadingSpinner({ colors }) {
@@ -158,7 +158,7 @@ export default function ToolLayout({ toolId, children }) {
       {/* Related Blog Posts */}
       {tool && (() => {
         const toolTags = tool.tags || []
-        const related = BLOG_POSTS
+        const related = BLOG_INDEX
           .filter(p =>
             p.category?.toLowerCase() === tool.category ||
             p.tags?.some(t => toolTags.includes(t)) ||

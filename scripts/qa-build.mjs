@@ -1,7 +1,8 @@
 import path from 'node:path'
 import { readFile } from 'node:fs/promises'
 import { PRERENDER_ROUTES } from './prerender-routes.mjs'
-import { BLOG_POSTS } from '../src/data/blogPosts.js'
+import { BLOG_INDEX } from '../src/data/blogIndex.js'
+import { BLOG_POSTS } from './generated/blogPrerenderData.mjs'
 import { BLOG_SECTIONS, getBlogPostPath, getBlogPostUrl } from '../src/data/blogRoutes.js'
 
 const DIST_DIR = path.resolve('dist')
@@ -113,7 +114,7 @@ async function main() {
 
   checkBlogPosts()
   await checkBlogRoutes()
-  console.log(`QA passed: ${PRERENDER_ROUTES.length} prerendered routes and ${BLOG_POSTS.length} blog posts checked`)
+  console.log(`QA passed: ${PRERENDER_ROUTES.length} prerendered routes and ${BLOG_INDEX.length} blog posts checked`)
 }
 
 main().catch(error => {

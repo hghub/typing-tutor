@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { TOOLS } from '../tools/registry'
-import { BLOG_POSTS } from '../data/blogPosts'
+import { BLOG_INDEX } from '../data/blogIndex'
 import { getBlogPostPath } from '../data/blogRoutes'
 import ToolsNav from '../components/ToolsNav'
 import ShareBar from '../components/ShareBar'
@@ -112,7 +112,7 @@ export default function Landing() {
   const pakistanHighlights = IMPORTANT_PAKISTAN_TOOL_IDS.map(id => TOOLS.find(t => t.id === id)).filter(Boolean).slice(0, 4)
   const hiddenUseful = USEFUL_HIDDEN_TOOL_IDS.map(id => TOOLS.find(t => t.id === id)).filter(Boolean).slice(0, 4)
   const featuredPosts = FEATURED_POST_SLUGS
-    .map(slug => BLOG_POSTS.find(post => post.slug === slug))
+    .map(slug => BLOG_INDEX.find(post => post.slug === slug))
     .filter(Boolean)
     .slice(0, 4)
 

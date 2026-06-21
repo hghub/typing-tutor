@@ -20,9 +20,11 @@ Blog authoring source now lives in:
 - `content/blog/<section>/<slug>.md`
 
 Generated app data is written to:
-- `src/data/blogPosts.js`
+- `src/data/blogIndex.js`
+- `src/data/blogContent/`
+- `scripts/generated/blogPrerenderData.mjs`
 
-Do not edit `src/data/blogPosts.js` directly.
+Do not edit generated files directly. Edit the markdown source in `content/blog/`.
 Edit the markdown source file instead.
 
 Each post frontmatter must include:

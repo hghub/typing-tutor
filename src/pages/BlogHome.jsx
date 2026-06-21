@@ -5,7 +5,7 @@ import { useTheme } from '../hooks/useTheme'
 import ToolsNav from '../components/ToolsNav'
 import ShareBar from '../components/ShareBar'
 import FeedbackButton from '../components/FeedbackButton'
-import { BLOG_POSTS } from '../data/blogPosts'
+import { BLOG_INDEX } from '../data/blogIndex'
 import { BLOG_SECTIONS, getBlogPostPath, getBlogSection } from '../data/blogRoutes'
 
 const BLOG_CATEGORY_ORDER = ['pakistan', 'language', 'typing', 'finance', 'writing', 'pdf', 'security', 'productivity', 'mulesoft', 'developer', 'business', 'travel', 'education', 'legal', 'health']
@@ -87,7 +87,7 @@ export default function BlogHome({ section }) {
   const [activeTopic, setActiveTopic] = useState('')
   const activeSection = section && BLOG_SECTIONS[section] ? BLOG_SECTIONS[section] : null
 
-  const categories = ['all', ...[...new Set(BLOG_POSTS.map(p => p.category))].sort((a, b) => {
+  const categories = ['all', ...[...new Set(BLOG_INDEX.map(p => p.category))].sort((a, b) => {
     const ai = BLOG_CATEGORY_ORDER.indexOf(a)
     const bi = BLOG_CATEGORY_ORDER.indexOf(b)
     if (ai === -1 && bi === -1) return a.localeCompare(b)
@@ -98,7 +98,7 @@ export default function BlogHome({ section }) {
 
   const q = query.trim().toLowerCase()
   const tq = activeTopic.trim().toLowerCase()
-  const filtered = BLOG_POSTS.filter(p => {
+  const filtered = BLOG_INDEX.filter(p => {
     const matchSection = !activeSection || getBlogSection(p).path === activeSection.path
     const matchCat = activeCategory === 'all' || p.category === activeCategory
     const matchQ = !q ||

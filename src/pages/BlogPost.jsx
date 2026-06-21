@@ -4,7 +4,8 @@ import { Helmet } from 'react-helmet-async'
 import { useTheme } from '../hooks/useTheme'
 import ToolsNav from '../components/ToolsNav'
 import ShareBar from '../components/ShareBar'
-import { BLOG_POSTS } from '../data/blogPosts'
+import { BLOG_INDEX } from '../data/blogIndex'
+import { loadBlogPostContent } from '../data/blogContent'
 import { getBlogPostPath, getBlogPostUrl, getBlogSection } from '../data/blogRoutes'
 
 function slugify(text) {
@@ -81,12 +82,43 @@ export default function BlogPost() {
   const { isDark, colors } = useTheme()
   const [activeId, setActiveId] = useState('')
   const [tocOpen, setTocOpen] = useState(false)
+  const [content, setContent] = useState(null)
+  const [contentLoaded, setContentLoaded] = useState(false)
 
-  const rawPost = BLOG_POSTS.find(p => p.slug === slug)
+  const rawPost = BLOG_INDEX.find(p => p.slug === slug)
   const rawPostSection = rawPost ? getBlogSection(rawPost) : null
   const post = rawPost && section === rawPostSection.path ? rawPost : null
-  const headings = useHeadings(post?.content ?? '')
-  const processedContent = useMemo(() => post ? processContent(post.content) : '', [post])
+  const headings = useHeadings(content ?? '')
+  const processedContent = useMemo(() => content ? processContent(content) : '', [content])
+
+  useEffect(() => {
+    let active = true
+    setContent(null)
+    setContentLoaded(false)
+
+    if (!post) {
+      setContentLoaded(true)
+      return undefined
+    }
+
+    loadBlogPostContent(post.slug)
+      .then(result => {
+        if (active) {
+          setContent(result)
+          setContentLoaded(true)
+        }
+      })
+      .catch(() => {
+        if (active) {
+          setContent(null)
+          setContentLoaded(true)
+        }
+      })
+
+    return () => {
+      active = false
+    }
+  }, [post])
 
   useEffect(() => {
     if (!headings.length) return
@@ -101,7 +133,7 @@ export default function BlogPost() {
     return () => observer.disconnect()
   }, [headings])
 
-  if (!post) {
+  if (!post || (contentLoaded && !content)) {
     return (
       <>
         <ToolsNav />
@@ -118,9 +150,9 @@ export default function BlogPost() {
   const postSection = rawPostSection
   const canonicalUrl = getBlogPostUrl(post)
 
-  const related = BLOG_POSTS.filter(p => p.slug !== slug && p.category === post.category).slice(0, 3)
+  const related = BLOG_INDEX.filter(p => p.slug !== slug && p.category === post.category).slice(0, 3)
   const fallbackRelated = related.length < 3
-    ? [...related, ...BLOG_POSTS.filter(p => p.slug !== slug && !related.includes(p)).slice(0, 3 - related.length)]
+    ? [...related, ...BLOG_INDEX.filter(p => p.slug !== slug && !related.includes(p)).slice(0, 3 - related.length)]
     : related
 
   const tocTree = useMemo(() => buildTocTree(headings), [headings])
@@ -260,7 +292,11 @@ export default function BlogPost() {
             <hr style={{ border: 'none', borderTop: `1px solid ${colors.border}`, margin: '2rem 0' }} />
 
             {/* Content */}
-            <div className="blog-content" dangerouslySetInnerHTML={{ __html: processedContent }} style={{ color: colors.text, lineHeight: 1.8, fontSize: '1rem' }} />
+            {!contentLoaded ? (
+              <div style={{ color: colors.textSecondary, padding: '1rem 0' }}>Loading article…</div>
+            ) : (
+              <div className="blog-content" dangerouslySetInnerHTML={{ __html: processedContent }} style={{ color: colors.text, lineHeight: 1.8, fontSize: '1rem' }} />
+            )}
 
             <hr style={{ border: 'none', borderTop: `1px solid ${colors.border}`, margin: '2.5rem 0' }} />
 

@@ -1,5 +1,6 @@
 import TOOL_SEO from '../src/data/toolSEO.js'
-import { BLOG_POSTS } from '../src/data/blogPosts.js'
+import { BLOG_INDEX } from '../src/data/blogIndex.js'
+import { BLOG_POSTS } from './generated/blogPrerenderData.mjs'
 import { BLOG_SECTIONS, getBlogPostPath, getBlogPostUrl, getBlogSection } from '../src/data/blogRoutes.js'
 import { CATEGORY_BLOG_PRIORITY, CATEGORY_DATA, CATEGORY_TOOL_PRIORITY } from '../src/data/categoryPages.js'
 import { TOOLS } from '../src/tools/registry.js'
@@ -137,7 +138,7 @@ function buildHead(page) {
 
 function renderHomePage(route) {
   const featuredTools = FEATURED_TOOL_IDS.map(id => TOOLS.find(tool => tool.id === id)).filter(Boolean)
-  const featuredPosts = HOME_FEATURED_POST_SLUGS.map(slug => BLOG_POSTS.find(post => post.slug === slug)).filter(Boolean)
+  const featuredPosts = HOME_FEATURED_POST_SLUGS.map(slug => BLOG_INDEX.find(post => post.slug === slug)).filter(Boolean)
   return `
     <main class="prerender-shell" data-prerender-route="${escapeHtml(route)}">
       <span class="eyebrow">Privacy-first browser tools</span>
@@ -177,7 +178,7 @@ function renderToolsHome(route) {
 
 function renderBlogHome(route, sectionPath = null) {
   const sectionData = sectionPath ? BLOG_SECTIONS[sectionPath] : null
-  const posts = BLOG_POSTS
+  const posts = BLOG_INDEX
     .filter(post => !sectionData || getBlogSection(post).path === sectionData.path)
     .sort((a, b) => new Date(b.publishDate || 0) - new Date(a.publishDate || 0))
     .slice(0, 18)
@@ -226,7 +227,7 @@ function getCategoryTools(slug) {
 function renderCategoryPage(route, slug) {
   const data = CATEGORY_DATA[slug]
   const tools = getCategoryTools(slug)
-  const relatedPosts = BLOG_POSTS
+  const relatedPosts = BLOG_INDEX
     .filter(post => {
       const priority = CATEGORY_BLOG_PRIORITY[slug] || []
       const categoryIds = data.categories || []
@@ -247,7 +248,7 @@ function renderCategoryPage(route, slug) {
 function getRelatedBlogsForTool(tool) {
   const toolTags = new Set(tool.tags || [])
   return uniqueBy(
-    BLOG_POSTS
+    BLOG_INDEX
       .filter(post => post.category?.toLowerCase() === tool.category || (post.tags || []).some(tag => toolTags.has(tag)))
       .sort((a, b) => {
         const overlap = (post) => (post.tags || []).filter(tag => toolTags.has(tag)).length
@@ -303,7 +304,7 @@ function renderToolPage(route, tool) {
 
 function renderBlogPostPage(route, post) {
   const postSection = getBlogSection(post)
-  const related = BLOG_POSTS
+  const related = BLOG_INDEX
     .filter(candidate => candidate.slug !== post.slug && getBlogSection(candidate).path === postSection.path)
     .slice(0, 4)
 

@@ -33,7 +33,7 @@ import AchievementToast from './components/AchievementToast'
 import InstallBanner from './components/InstallBanner'
 import EmojiPopup from './components/EmojiPopup'
 import ToolSEOFooter from './components/ToolSEOFooter'
-import { BLOG_POSTS } from './data/blogPosts'
+import { BLOG_INDEX } from './data/blogIndex'
 import { getBlogPostPath } from './data/blogRoutes'
 import TOOL_SEO from './data/toolSEO'
 
@@ -1088,7 +1088,7 @@ function App() {
 
       {/* Related blog posts */}
       {(() => {
-        const related = BLOG_POSTS.filter(p =>
+        const related = BLOG_INDEX.filter(p =>
           p.category?.toLowerCase() === 'typing' || p.tags?.some(t => ['typing','urdu','learning','productivity'].includes(t?.toLowerCase()))
         ).slice(0, 3)
         if (!related.length) return null

@@ -1,4 +1,4 @@
-import { BLOG_POSTS } from '../src/data/blogPosts.js'
+import { BLOG_INDEX } from '../src/data/blogIndex.js'
 import { BLOG_SECTIONS, getBlogPostPath } from '../src/data/blogRoutes.js'
 import { CATEGORY_DATA } from '../src/data/categoryPages.js'
 import { TOOLS } from '../src/tools/registry.js'
@@ -22,7 +22,7 @@ const CORE_CONTENT_ROUTES = [
 
 const BLOG_SECTION_ROUTES = Object.values(BLOG_SECTIONS).map(section => `/blog/${section.path}`)
 const CATEGORY_ROUTES = Object.keys(CATEGORY_DATA).map(slug => `/category/${slug}`)
-const BLOG_POST_ROUTES = BLOG_POSTS.map(post => getBlogPostPath(post))
+const BLOG_POST_ROUTES = BLOG_INDEX.map(post => getBlogPostPath(post))
 
 const STRATEGIC_TOOL_IDS = [
   'typing-tutor',

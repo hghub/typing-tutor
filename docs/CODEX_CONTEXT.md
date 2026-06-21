@@ -150,6 +150,8 @@ Key files:
   - single source of truth for tool definitions and base categories
 - `src/data/toolSEO.js`
   - tool SEO metadata, headings, paragraphs, FAQs
+- `src/data/categoryPages.js`
+  - shared category-page metadata and priority ordering for UI + prerender
 - `src/data/blogPosts.js`
   - all blog content
 - `docs/BLOG_PUBLISHING_PLAYBOOK.md`
@@ -173,6 +175,15 @@ Important implementation notes:
   - content/discovery pages should be fully prerendered
   - important tool pages should be prerendered and then hydrated
   - all major decision-system pages are included in that hybrid prerender model
+- current implementation:
+  - `scripts/prerender-routes.mjs` defines the selected prerender set
+  - `scripts/prerender-content.mjs` builds route HTML from shared content/data sources
+  - prerender coverage currently includes:
+    - core static pages
+    - blog index + section pages
+    - all category pages
+    - all current blog posts
+    - strategic tool and decision-system routes
 - Vercel deployment rule:
   - `scripts/prerender.mjs` must stay browserless/static in the normal Vercel build path
   - do not rely on Playwright/Chromium or `apt-get` during Vercel builds
@@ -313,6 +324,9 @@ Build validation now includes:
 - Vite production build
 - browserless static prerender for selected routes
 - build QA checks for route SEO basics and blog content structure
+- current QA baseline:
+  - 149 prerendered routes verified
+  - 109 blog posts verified
 
 `npm run lint` remains useful but is not yet the deploy gate because the older app has existing lint debt that should be cleaned up separately.
 

@@ -1,6 +1,6 @@
 import path from 'node:path'
 import { readFile } from 'node:fs/promises'
-import { PILOT_PRERENDER_ROUTES } from './prerender-routes.mjs'
+import { PRERENDER_ROUTES } from './prerender-routes.mjs'
 import { BLOG_POSTS } from '../src/data/blogPosts.js'
 import { BLOG_SECTIONS, getBlogPostPath, getBlogPostUrl } from '../src/data/blogRoutes.js'
 
@@ -107,13 +107,13 @@ async function checkBlogRoutes() {
 }
 
 async function main() {
-  for (const route of PILOT_PRERENDER_ROUTES) {
+  for (const route of PRERENDER_ROUTES) {
     await checkPrerenderRoute(route)
   }
 
   checkBlogPosts()
   await checkBlogRoutes()
-  console.log(`QA passed: ${PILOT_PRERENDER_ROUTES.length} prerendered routes and ${BLOG_POSTS.length} blog posts checked`)
+  console.log(`QA passed: ${PRERENDER_ROUTES.length} prerendered routes and ${BLOG_POSTS.length} blog posts checked`)
 }
 
 main().catch(error => {

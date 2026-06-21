@@ -23,22 +23,28 @@ This is now the main architecture task because:
 
 First execution order:
 1. prerender infrastructure for selected routes
-   - pilot routes implemented and validated:
-     - `/`
-     - `/tools`
-     - `/blog`
-     - `/tools/solar-planner`
-     - `/tools/tax-calculator`
-   - raw HTML verification passed for pilot pages:
-     - single title
-     - single meta description
-     - single canonical
-     - H1 present
+   - done
 2. expand prerender coverage to homepage / tools / blog / category pages
+   - done
 3. all decision-system pages
-   - preserve the existing solar SEO improvements during rollout
-   - verify solar route/source after prerender before widening further
+   - done for the current strategic set
+   - solar SEO improvements preserved through the new prerender layer
 4. other key Pakistan-first tools
+   - current selected-route prerender now covers:
+     - core static pages
+     - all category pages
+     - all blog section pages
+     - all current blog posts
+     - strategic tool and decision-system routes
+
+Current rollout status:
+- build now prerenders 149 routes
+- build QA verifies the full selected route set, not only the original pilot
+- route HTML is generated from shared data sources via `scripts/prerender-content.mjs`
+
+Next prerender-related work:
+- improve the quality/depth of static prerender bodies for the most important hybrid tool pages where helpful
+- decide whether any additional strategic tools should join the selected prerender set as they become stronger clusters
 
 ### 1. Query-driven SEO tuning
 
@@ -147,7 +153,8 @@ Implementation notes:
 - use one shared route helper for links, canonical URLs, sitemap URLs, and share URLs
 - do not reintroduce flat `/blog/<slug>` URLs
 - migration should be done carefully in batches with QA after each batch
-- first prove the pattern with the new MuleSoft post, then migrate remaining posts
+- prerender support for sectioned blog URLs is now working across all current posts
+- next step is still to split content files for maintainability, not because routing/prerender is blocked
 
 ### 6. Continue Pakistan-friendly accessibility where it adds value
 

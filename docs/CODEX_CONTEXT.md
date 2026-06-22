@@ -341,8 +341,8 @@ Build validation now includes:
 - browserless static prerender for selected routes
 - build QA checks for route SEO basics and blog content structure
 - current QA baseline:
-  - 149 prerendered routes verified
-  - 109 blog posts verified
+  - 150 prerendered routes verified
+  - 110 blog posts verified
 
 `npm run lint` remains useful but is not yet the deploy gate because the older app has existing lint debt that should be cleaned up separately.
 

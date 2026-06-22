@@ -38,7 +38,7 @@ First execution order:
      - strategic tool and decision-system routes
 
 Current rollout status:
-- build now prerenders 149 routes
+- build now prerenders 150 routes
 - build QA verifies the full selected route set, not only the original pilot
 - route HTML is generated from shared data sources via `scripts/prerender-content.mjs`
 
@@ -110,6 +110,9 @@ Current status:
 - category support added as `mulesoft`
 - blog topic chip added
 - technical code/table/blockquote styling added to blog posts
+- two production-quality Integration posts are now available:
+  - `mulesoft-client-id-secret-401-nginx-ingress`
+  - `circuit-breaker-vs-retry-vs-timeout`
 - publishing rules documented in `docs/BLOG_PUBLISHING_PLAYBOOK.md`
 - markdown-per-post authoring is now implemented under `content/blog/`
 - build QA now checks blog metadata and MuleSoft code-block formatting
@@ -121,7 +124,7 @@ Current status:
 - do not reintroduce flat `/blog/<slug>` posts or redirect fallbacks
 - sitemap, canonical tags, share URLs, internal links, and docs must all use the sectioned URL helper
 
-Next when content is available:
+Next when new content is available:
 - publish MuleSoft posts from user-provided content or DOCX source
 - add it under `content/blog/integration/`
 - add strong title, description, tags, and internal links

@@ -3,6 +3,26 @@
 
 export const BLOG_INDEX = [
   {
+    "slug": "circuit-breaker-vs-retry-vs-timeout",
+    "title": "Circuit Breaker vs Retry vs Timeout: A Practical Guide to Resilient APIs",
+    "description": "Learn when to use timeouts, retries, and circuit breakers together without causing retry storms, duplicate transactions, or cascading API failures.",
+    "hero": "🛡️",
+    "category": "mulesoft",
+    "section": "integration",
+    "readTime": "9 min read",
+    "publishDate": "2026-06-22",
+    "tags": [
+      "API Resilience",
+      "Circuit Breaker",
+      "Retry",
+      "Timeout",
+      "MuleSoft",
+      "Mule 4",
+      "Integration Architecture",
+      "API-Led Connectivity"
+    ]
+  },
+  {
     "slug": "mulesoft-client-id-secret-401-nginx-ingress",
     "title": "When MuleSoft Client ID Enforcement Returns 401 Behind NGINX Ingress",
     "description": "A real-world Runtime Fabric troubleshooting guide for MuleSoft 401 errors caused by NGINX ingress dropping client_id and client_secret headers before policy enforcement.",

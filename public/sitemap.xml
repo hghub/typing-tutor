@@ -138,7 +138,11 @@
   <url><loc>https://rafiqy.app/category/legal-tools</loc><lastmod>2026-05-07</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
 
   <!-- Blog listing -->
-  <url><loc>https://rafiqy.app/blog</loc><lastmod>2026-06-10</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/blog</loc><lastmod>2026-06-22</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/blog/integration</loc><lastmod>2026-06-22</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/blog/decision-support</loc><lastmod>2026-06-22</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/blog/utilities</loc><lastmod>2026-06-22</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/blog/integration/circuit-breaker-vs-retry-vs-timeout</loc><lastmod>2026-06-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/integration/mulesoft-client-id-secret-401-nginx-ingress</loc><lastmod>2026-06-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
   <!-- Blog posts -->

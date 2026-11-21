@@ -25,6 +25,10 @@ const CATEGORY_ROUTES = Object.keys(CATEGORY_DATA).map(slug => `/category/${slug
 const BLOG_POST_ROUTES = BLOG_INDEX.map(post => getBlogPostPath(post))
 
 const STRATEGIC_TOOL_IDS = [
+  'community-fund-demo',
+  'order-review-demo',
+  'migration-evidence-demo',
+  'stock-planner',
   'typing-tutor',
   'solar-planner',
   'tax-calculator',

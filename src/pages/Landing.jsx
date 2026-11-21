@@ -1,464 +1,60 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { TOOLS } from '../tools/registry'
 import { BLOG_INDEX } from '../data/blogIndex'
 import { getBlogPostPath } from '../data/blogRoutes'
+import { CATEGORY_DATA } from '../data/categoryPages'
+import { HOME_META, HOME_CATEGORIES, HOME_STARTERS, HOME_DEMOS, HOME_GUIDES, HOME_FAQS } from '../data/homepage'
+import { searchTools } from '../lib/toolSearch'
 import ToolsNav from '../components/ToolsNav'
-import ShareBar from '../components/ShareBar'
-import FeedbackButton from '../components/FeedbackButton'
-import { IMPORTANT_PAKISTAN_TOOL_IDS, USEFUL_HIDDEN_TOOL_IDS, getAccessibilityNote } from '../lib/pakistanAccessibility'
+import './Landing.css'
 
-const FEATURED_IDS = [
-  'solar-planner', 'tax-calculator', 'investment-allocation-planner', 'loan-emi',
-  'urdu-keyboard', 'typing-tutor', 'rent-vs-buy-pakistan', 'car-powertrain-decision',
-]
-
-const FEATURED_POST_SLUGS = [
-  'solar-planner-pakistan',
-  'pakistan-income-tax-calculator',
-  'how-much-loan-can-i-afford',
-  'investment-allocation-planner-pakistan-guide',
-  'how-to-file-salaried-tax-return-in-pakistan',
-  '5kw-solar-system-price-in-pakistan',
-  'how-to-invest-20-lakh-in-pakistan',
-  'how-to-invest-5-to-15-crore-in-pakistan',
-  'urdu-typing-online',
-  'how-to-use-urdu-typing-for-whatsapp-cv-and-forms',
-  'rent-vs-buy-calculator-pakistan-guide',
-  'is-ev-worth-it-in-pakistan',
-]
-
-const QUICK_ACTIONS = [
-  { label: '☀️ Solar Calculator', path: '/tools/solar-planner', desc: 'Solar decision' },
-  { label: '🧮 Tax Calculator', path: '/tools/tax-calculator', desc: 'Pakistan tax' },
-  { label: '📈 Invest Planner', path: '/tools/investment-allocation-planner-pakistan', desc: 'Asset allocation' },
-  { label: '🏦 Loan EMI', path: '/tools/loan-emi', desc: 'Borrowing decision' },
-  { label: '🌍 Urdu Keyboard', path: '/tools/urdu-keyboard', desc: 'Type Urdu online' },
-  { label: '⌨️ Typing Tutor', path: '/tools/typing-tutor', desc: 'Improve speed' },
-  { label: '🏠 Rent vs Buy', path: '/tools/rent-vs-buy-calculator-pakistan', desc: 'Property decision' },
-  { label: '🚗 EV vs Hybrid', path: '/tools/petrol-vs-hybrid-vs-ev', desc: 'Car decision' },
-  { label: '💼 Salary Offer', path: '/tools/salary-offer-calculator-pakistan', desc: 'Job decision' },
-  { label: '🧾 Freelance Tax', path: '/tools/freelance-tax-planner-pakistan', desc: 'Reserve planner' },
-]
-
-const WHAT_YOU_CAN_DO = [
-  {
-    icon: '🧠',
-    title: 'Decision Systems',
-    desc: 'Solar, rent vs buy, petrol vs hybrid vs EV, salary offers and freelance reserve planning.',
-    browse: '/category/pakistan-tools',
-    browseLabel: 'Browse Pakistan decision tools',
-    tools: ['/tools/solar-planner', '/tools/rent-vs-buy-calculator-pakistan', '/tools/petrol-vs-hybrid-vs-ev'],
-    labels: ['Solar Calculator', 'Rent vs Buy', 'EV vs Hybrid'],
-  },
-  {
-    icon: '🌍',
-    title: 'Typing & Urdu',
-    desc: 'Urdu keyboard, multilingual typing tutor and browser tools for everyday writing and practice.',
-    browse: '/category/typing-tools',
-    browseLabel: 'Browse typing tools',
-    tools: ['/tools/urdu-keyboard', '/tools/typing-tutor', '/tools/word-counter'],
-    labels: ['Urdu Keyboard', 'Typing Tutor', 'Word Counter'],
-  },
-  {
-    icon: '📝',
-    title: 'Write & Format',
-    desc: 'Word counter, text formatter, doc composer, Urdu keyboard — everything for your writing workflow.',
-    browse: '/category/writing-tools',
-    browseLabel: 'Browse writing tools',
-    tools: ['/tools/word-counter', '/tools/text-cleaner', '/tools/doc-composer'],
-    labels: ['Word Counter', 'Text Formatter', 'Doc Composer'],
-  },
-  {
-    icon: '📄',
-    title: 'PDF Tools',
-    desc: 'Compress, merge, split, convert and extract text from PDFs — all in your browser, nothing uploaded.',
-    browse: '/category/pdf-tools',
-    browseLabel: 'Browse PDF tools',
-    tools: ['/tools/compress-pdf', '/tools/merge-pdf', '/tools/text-extractor'],
-    labels: ['Compress', 'Merge', 'Extract Text'],
-  },
-  {
-    icon: '🔒',
-    title: 'Privacy & Security',
-    desc: 'Check for data leaks, encrypt text, redact sensitive documents — zero server interaction.',
-    browse: '/category/security-tools',
-    browseLabel: 'Browse privacy tools',
-    tools: ['/tools/data-leak-detector', '/tools/text-encryptor', '/tools/doc-redaction'],
-    labels: ['Leak Detector', 'Encryptor', 'Doc Redaction'],
-  },
-  {
-    icon: '🇵🇰',
-    title: 'Pakistan Tools',
-    desc: 'Tax, solar, investing, salary, loan and local-use tools designed around practical Pakistan needs.',
-    browse: '/category/pakistan-tools',
-    browseLabel: 'Browse Pakistan tools',
-    tools: ['/tools/tax-calculator', '/tools/loan-emi', '/tools/gold-price'],
-    labels: ['Tax Calculator', 'Loan EMI', 'Gold Price'],
-  },
-  {
-    icon: '🛠',
-    title: 'Developer Tools',
-    desc: 'Regex tester, JSON formatter, mock data generator, config converter — for devs on the go.',
-    browse: '/category/developer-tools',
-    browseLabel: 'Browse developer tools',
-    tools: ['/tools/regex-tester', '/tools/json-formatter', '/tools/mock-data'],
-    labels: ['Regex Tester', 'JSON Formatter', 'Mock Data'],
-  },
-]
-
+const byId = id => TOOLS.find(tool => tool.id === id)
 export default function Landing() {
-  const featured = FEATURED_IDS.map(id => TOOLS.find(t => t.id === id)).filter(Boolean)
-  const pakistanHighlights = IMPORTANT_PAKISTAN_TOOL_IDS.map(id => TOOLS.find(t => t.id === id)).filter(Boolean).slice(0, 4)
-  const hiddenUseful = USEFUL_HIDDEN_TOOL_IDS.map(id => TOOLS.find(t => t.id === id)).filter(Boolean).slice(0, 4)
-  const featuredPosts = FEATURED_POST_SLUGS
-    .map(slug => BLOG_INDEX.find(post => post.slug === slug))
-    .filter(Boolean)
-    .slice(0, 4)
-
-  return (
-    <div style={{ minHeight: '100vh', background: 'var(--color-bg)', color: 'var(--color-text)', fontFamily: 'sans-serif' }}>
-      <Helmet>
-        <title>Rafiqy | Your Everyday Digital Companion</title>
-        <meta name="description" content="Privacy-first browser tools and decision systems for typing, tax, solar, investing, PDFs, writing, and everyday digital work, with strong Pakistan-specific guidance where it matters." />
-        <link rel="canonical" href="https://rafiqy.app/" />
-        <meta property="og:title" content="Rafiqy | Your Everyday Digital Companion" />
-        <meta property="og:description" content="Privacy-first browser tools and decision systems for typing, tax, solar, investing, PDFs, writing, and everyday digital work, with strong Pakistan-specific guidance where it matters." />
-        <meta property="og:url" content="https://rafiqy.app/" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Rafiqy | Your Everyday Digital Companion" />
-        <meta name="twitter:description" content="Privacy-first browser tools and decision systems for typing, tax, solar, investing, PDFs, writing, and everyday digital work, with strong Pakistan-specific guidance where it matters." />
-        <script type="application/ld+json">{JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'WebSite',
-          'name': 'Rafiqy',
-          'url': 'https://rafiqy.app',
-          'description': 'Privacy-first browser tools and decision systems for typing, Urdu input, Pakistan tax planning, solar estimates, investing, PDFs, writing, and everyday digital work.'
-        })}</script>
-        <script type="application/ld+json">{JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'FAQPage',
-          'mainEntity': [
-            {
-              '@type': 'Question',
-              'name': 'Are these tools really free?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, all tools on Rafiqy are free to use. There is no sign-up requirement for the core browser tools.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Does my data stay private?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes. Most tools run directly in your browser, so your files and inputs are processed locally unless a page clearly says it uses live external data.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Do the tools work offline?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Many tools keep working once loaded because they run in the browser, but tools that depend on live rates or online lookups still need an internet connection.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Which tools are most useful for Pakistan users?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Popular Pakistan-focused tools include the income tax calculator, solar planner, Urdu keyboard, and the newer decision systems like rent vs buy and salary offer evaluation.'
-              }
-            }
-          ]
-        })}</script>
-      </Helmet>
-
-      {/* ── Nav ── */}
-      <ToolsNav />
-
-      {/* ── Hero ── */}
-      <section style={{ textAlign: 'center', padding: '5rem 2rem 3rem' }}>
-        <div style={{ display: 'inline-block', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)', borderRadius: 999, padding: '0.3rem 1rem', fontSize: '0.8rem', color: 'var(--color-primary)', marginBottom: '1.5rem' }}>
-          🔒 Files never leave your browser · 100% Private · No sign-up
+  const [query, setQuery] = useState('')
+  const matches = query.trim().length >= 2 ? searchTools(TOOLS, query) : []
+  const guides = HOME_GUIDES.map(slug => BLOG_INDEX.find(post => post.slug === slug)).filter(Boolean)
+  return <div className="rafiqy-home">
+    <Helmet>
+      <title>{HOME_META.title}</title><meta name="description" content={HOME_META.description} />
+      <link rel="canonical" href="https://rafiqy.app/" />
+      <meta property="og:title" content={HOME_META.title} /><meta property="og:description" content={HOME_META.description} />
+      <meta property="og:url" content="https://rafiqy.app/" /><meta property="og:type" content="website" />
+      <meta name="twitter:card" content="summary" /><meta name="twitter:title" content={HOME_META.title} /><meta name="twitter:description" content={HOME_META.description} />
+      <script type="application/ld+json">{JSON.stringify({'@context':'https://schema.org','@type':'WebSite', name:'Rafiqy',url:'https://rafiqy.app/',description:HOME_META.description})}</script>
+      <script type="application/ld+json">{JSON.stringify({'@context':'https://schema.org','@type':'FAQPage',mainEntity:HOME_FAQS.map(faq=>({'@type':'Question',name:faq.q,acceptedAnswer:{'@type':'Answer',text:faq.a}}))})}</script>
+    </Helmet>
+    <a className="home-skip" href="#main-content">Skip to content</a>
+    <ToolsNav />
+    <main id="main-content">
+      <section className="home-hero home-container">
+        <div className="home-hero-copy">
+          <p className="home-eyebrow">A practical companion for work & everyday life</p>
+          <h1>Find the right tool.<br /><span>Make everyday work easier.</span></h1>
+          <p className="home-lead">Useful tools for documents, writing and decisions. Working demos for better business workflows. One clear place to start.</p>
+          <div className="home-actions"><a className="home-button home-primary" href="#categories">Browse by category</a><a className="home-button" href="#business">Explore business demos</a></div>
+          <p className="home-hero-note">Free browser tools · Pakistan & international use · English / اردو on selected tools</p>
         </div>
-        <h1 style={{ fontSize: 'clamp(2rem, 4.5vw, 3rem)', fontWeight: 800, margin: '0 0 1rem', lineHeight: 1.2, letterSpacing: '-0.02em', background: 'linear-gradient(135deg, #06b6d4, #3b82f6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-          Your everyday digital toolbox<br />
-          for faster work online
-        </h1>
-        <p style={{ color: 'var(--color-text-muted)', fontSize: '1.15rem', maxWidth: 580, margin: '0 auto 0.5rem' }}>
-          A simple, fast, and secure collection of tools for productivity, learning, finance, and daily digital tasks.
-        </p>
-        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.85rem', maxWidth: 520, margin: '0 auto 2.5rem', opacity: 0.65, fontStyle: 'italic' }}>
-          A simple digital companion for everyday tasks.
-        </p>
-        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link to="/tools" style={{
-            background: 'linear-gradient(135deg, #06b6d4, #3b82f6)',
-            color: '#ffffff',
-            padding: '0.95rem 2.5rem',
-            borderRadius: 12,
-            textDecoration: 'none',
-            fontWeight: 800,
-            fontSize: '1rem',
-            boxShadow: '0 14px 32px rgba(6,182,212,0.28)',
-            border: '1px solid rgba(125,211,252,0.35)',
-            letterSpacing: '0.01em',
-          }}>
-            Explore All Tools →
-          </Link>
-          <Link to="/blog" style={{
-            background: 'transparent',
-            color: 'var(--color-text)',
-            padding: '0.95rem 1.5rem',
-            borderRadius: 12,
-            textDecoration: 'none',
-            fontWeight: 700,
-            fontSize: '0.95rem',
-            border: '1px solid var(--color-border)',
-          }}>
-            Read Guides
-          </Link>
-        </div>
+        <section className="home-search-panel" role="search" aria-labelledby="search-heading">
+          <p className="home-eyebrow">Start with what you need</p><h2 id="search-heading">What would you like to do?</h2>
+          <label htmlFor="home-tool-search">Search tools and tasks</label>
+          <input id="home-tool-search" type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Try PDF, Urdu, tax, stock or JSON" autoComplete="off" aria-describedby="home-search-help" aria-controls="home-search-results" />
+          <p id="home-search-help" className="home-small">English and Roman Urdu task phrases work too. Search stays on this page.</p>
+          {query.trim().length >= 2 ? <div id="home-search-results"><p role="status" className="home-small">{matches.length ? `${matches.length} matching tools${matches.length > 5 ? ' · showing the first 5' : ''}` : 'No matching tools. Try a shorter task or browse a category.'}</p><ul className="home-search-results">{matches.slice(0,5).map(tool=><li key={tool.id}><Link to={tool.path}><span aria-hidden="true">{tool.icon}</span><span>{tool.name}</span></Link></li>)}</ul><Link className="home-text-link" to="/tools">Browse the complete tool directory</Link></div> : <div id="home-search-results"><div className="home-search-picks">{['compress-pdf','urdu-keyboard','stock-planner'].map(id=><Link key={id} to={byId(id).path}>{byId(id).name}</Link>)}</div><Link className="home-text-link" to="/tools">View all {TOOLS.length} tools</Link></div>}
+        </section>
       </section>
-
-      {/* SEO Intro */}
-      <section style={{ maxWidth: 800, margin: '0 auto', padding: '0 2rem 2rem', textAlign: 'center' }}>
-        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.92rem', lineHeight: 1.8 }}>
-          Rafiqy is a browser-based platform for practical digital tools and decision support. Whether you need an <Link to="/tools/urdu-keyboard" style={{ color: 'var(--color-primary)' }}>Urdu keyboard online</Link>, a <Link to="/tools/tax-calculator" style={{ color: 'var(--color-primary)' }}>Pakistan income tax calculator</Link>, a <Link to="/tools/solar-planner" style={{ color: 'var(--color-primary)' }}>solar planning estimate</Link>, or a private <Link to="/tools/compress-pdf" style={{ color: 'var(--color-primary)' }}>PDF tool</Link>, the work happens directly in your browser.
-        </p>
-        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.92rem', lineHeight: 1.8, marginTop: '0.75rem' }}>
-          From <Link to="/tools/typing-tutor" style={{ color: 'var(--color-primary)' }}>improving your typing speed</Link> and <Link to="/tools/compress-pdf" style={{ color: 'var(--color-primary)' }}>compressing a PDF</Link> to <Link to="/tools/solar-planner" style={{ color: 'var(--color-primary)' }}>planning a home solar system</Link> or <Link to="/tools/word-counter" style={{ color: 'var(--color-primary)', marginLeft: 4 }}>counting words</Link>, Rafiqy is built to make everyday digital work faster, simpler, and more private.
-        </p>
-        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.88rem', lineHeight: 1.75, marginTop: '0.75rem' }}>
-          The site is designed to stay accessible even if you search in simple English or Roman Urdu. Common search-style phrases include <strong>tax kitna banega</strong>, <strong>loan kitna lena chahiye</strong>, <strong>solar lagwana faida hai</strong>, and <strong>urdu mein type karna</strong>.
-        </p>
+      <nav className="home-jumps home-container" aria-label="On this page"><a href="#categories">Categories</a><a href="#starting-points">Starting points</a><a href="#business">Business demos</a><a href="#guides">Practical guides</a></nav>
+      <section id="categories" className="home-section home-container">
+        <div className="home-section-heading"><div><p className="home-eyebrow">Choose a task, not a long list</p><h2>Everything in the right place</h2></div><Link className="home-text-link" to="/tools">Full tool directory</Link></div>
+        <div className="home-category-grid">{HOME_CATEGORIES.map(group=><article className="home-category" key={group.slug}><span className="home-category-icon" aria-hidden="true">{group.icon}</span><h3><Link to={`/category/${group.slug}`}>{group.label}</Link></h3><p>{group.description}</p><ul>{group.tools.map(id=><li key={id}><Link to={byId(id).path}>{byId(id).name}</Link></li>)}</ul><Link className="home-category-browse" to={`/category/${group.slug}`}>Browse category</Link></article>)}</div>
+        <details className="home-all-categories"><summary>More categories: typing, images, travel, education and more</summary><div>{Object.entries(CATEGORY_DATA).map(([slug,data])=><Link key={slug} to={`/category/${slug}`}>{data.title.replace(/^Free /,'').replace(/ Online$/,'')}</Link>)}</div></details>
       </section>
-
-      {/* ── Quick Actions ── */}
-      <section style={{ padding: '0 2rem 3rem', maxWidth: 900, margin: '0 auto' }}>
-        <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.75rem', textAlign: 'center' }}>
-          Jump right in
-        </p>
-        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-          {QUICK_ACTIONS.map(qa => (
-            <Link key={qa.path} to={qa.path} style={{ textDecoration: 'none' }}>
-              <div style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 999, padding: '0.5rem 1.1rem', fontSize: '0.9rem', fontWeight: 600, color: 'var(--color-text)', whiteSpace: 'nowrap', transition: 'border-color .15s, color .15s' }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.color = 'var(--color-primary)' }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--color-border)'; e.currentTarget.style.color = 'var(--color-text)' }}>
-                {qa.label}
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ── What You Can Do ── */}
-      <section style={{ padding: '3rem 2rem', background: 'var(--color-surface)', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ marginBottom: '2rem', background: 'var(--color-bg)', border: '1px solid var(--color-border)', borderRadius: 18, padding: '1.2rem 1.25rem' }}>
-            <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-primary)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.55rem' }}>
-              Pakistan-first starting points
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem' }}>
-              {pakistanHighlights.map((tool) => (
-                <Link key={tool.id} to={tool.path} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <div style={{ border: '1px solid var(--color-border)', borderRadius: 14, padding: '0.9rem 1rem', background: 'var(--color-surface)' }}>
-                    <div style={{ fontWeight: 700, marginBottom: '0.35rem' }}>{tool.icon} {tool.name}</div>
-                    <div style={{ color: 'var(--color-text-muted)', fontSize: '0.8rem', lineHeight: 1.55 }}>
-                      {getAccessibilityNote(tool.id)?.simple || tool.description}
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.65rem', justifyContent: 'center', marginBottom: '2rem' }}>
-            {[
-              { label: 'Pakistan Tools', path: '/category/pakistan-tools' },
-              { label: 'Typing & Learning', path: '/category/typing-tools' },
-              { label: 'Writing Tools', path: '/category/writing-tools' },
-              { label: 'PDF Tools', path: '/category/pdf-tools' },
-              { label: 'Privacy Tools', path: '/category/security-tools' },
-              { label: 'Finance Tools', path: '/category/finance-tools' },
-            ].map((item) => (
-              <Link key={item.path} to={item.path} style={{ textDecoration: 'none' }}>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: 'var(--color-surface)', border: '1px solid var(--color-border)', color: 'var(--color-text)', borderRadius: 999, padding: '0.42rem 0.9rem', fontSize: '0.8rem', fontWeight: 600 }}>
-                  {item.label}
-                </span>
-              </Link>
-            ))}
-          </div>
-          <h2 style={{ fontSize: '1.6rem', fontWeight: 700, marginBottom: '0.5rem', textAlign: 'center' }}>
-            What you can do with Rafiqy
-          </h2>
-          <p style={{ textAlign: 'center', color: 'var(--color-text-muted)', marginBottom: '2.5rem', fontSize: '0.95rem' }}>
-            No clutter. No distractions. Just useful tools — all running in your browser.
-          </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(300px,1fr))', gap: '1.25rem' }}>
-            {WHAT_YOU_CAN_DO.map(cat => (
-              <div key={cat.title} style={{ background: 'var(--color-bg)', border: '1px solid var(--color-border)', borderRadius: 12, padding: '1.5rem' }}>
-                <div style={{ fontSize: '1.75rem', marginBottom: '0.5rem' }}>{cat.icon}</div>
-                <div style={{ fontWeight: 700, fontSize: '1rem', marginBottom: '0.4rem' }}>{cat.title}</div>
-                <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginBottom: '1rem', lineHeight: 1.5 }}>{cat.desc}</div>
-                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                  {cat.tools.map((path, i) => (
-                    <Link key={path} to={path} style={{ textDecoration: 'none' }}>
-                      <span style={{ fontSize: '0.75rem', background: 'rgba(6,182,212,0.1)', color: 'var(--color-primary)', border: '1px solid rgba(6,182,212,0.25)', borderRadius: 999, padding: '0.2rem 0.65rem', fontWeight: 500 }}>
-                        {cat.labels[i]}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-                <div style={{ marginTop: '0.95rem' }}>
-                  <Link to={cat.browse} style={{ color: 'var(--color-primary)', textDecoration: 'none', fontSize: '0.8rem', fontWeight: 700 }}>
-                    {cat.browseLabel} →
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-          <Link to="/tools" style={{ color: 'var(--color-primary)', fontWeight: 600, textDecoration: 'none' }}>
-            Browse all 68 tools →
-          </Link>
-          </div>
-        </div>
-      </section>
-
-      <section style={{ padding: '0 2rem 3rem', maxWidth: 1100, margin: '0 auto' }}>
-        <h2 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '0.5rem', textAlign: 'center' }}>
-          Useful tools many people don’t realize exist
-        </h2>
-        <p style={{ textAlign: 'center', color: 'var(--color-text-muted)', marginBottom: '1.5rem', fontSize: '0.92rem' }}>
-          These are especially useful for offices, students, freelancers, and families in Pakistan but are often not searched for directly.
-        </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.85rem' }}>
-          {hiddenUseful.map((tool) => (
-            <Link key={tool.id} to={tool.path} style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 14, padding: '1rem', height: '100%' }}>
-                <div style={{ fontWeight: 700, marginBottom: '0.35rem' }}>{tool.icon} {tool.name}</div>
-                <div style={{ color: 'var(--color-text-muted)', fontSize: '0.8rem', lineHeight: 1.55 }}>
-                  {getAccessibilityNote(tool.id)?.simple || tool.description}
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Featured Tools ── */}
-      <section style={{ padding: '3rem 2rem', maxWidth: 1100, margin: '0 auto' }}>
-        <h2 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1.5rem' }}>
-          Popular tools
-        </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(220px,1fr))', gap: '1rem' }}>
-          {featured.map(tool => (
-            <Link key={tool.id} to={tool.path} style={{ textDecoration: 'none' }}>
-              <div
-                style={{ background: 'var(--color-surface)', border: tool.id === 'typing-tutor' ? '2px solid var(--color-primary)' : '1px solid var(--color-border)', borderRadius: 12, padding: '1.25rem', transition: 'border-color .2s', cursor: 'pointer', position: 'relative' }}
-                onMouseEnter={e => { if (tool.id !== 'typing-tutor') e.currentTarget.style.borderColor = 'var(--color-primary)' }}
-                onMouseLeave={e => { if (tool.id !== 'typing-tutor') e.currentTarget.style.borderColor = 'var(--color-border)' }}>
-                {tool.id === 'typing-tutor' && (
-                  <span style={{ position: 'absolute', top: 10, right: 10, fontSize: '0.65rem', background: 'var(--color-primary)', color: '#0f172a', borderRadius: 999, padding: '0.15rem 0.5rem', fontWeight: 700 }}>
-                    FLAGSHIP
-                  </span>
-                )}
-                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{tool.icon}</div>
-                <div style={{ fontWeight: 600, color: 'var(--color-text)', marginBottom: '0.25rem' }}>{tool.name}</div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>{tool.tagline}</div>
-              </div>
-            </Link>
-          ))}
-        </div>
-        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-          <Link to="/tools" style={{ color: 'var(--color-primary)', textDecoration: 'none', fontWeight: 600 }}>
-            View all 68 tools →
-          </Link>
-        </div>
-      </section>
-
-      {/* ── Companion strip ── */}
-      <section style={{ background: 'var(--color-surface)', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)', padding: '2.5rem 2rem' }}>
-        <div style={{ maxWidth: 900, margin: '0 auto' }}>
-          <h2 style={{ textAlign: 'center', fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.5rem' }}>
-            Your simple digital companion
-          </h2>
-          <p style={{ textAlign: 'center', color: 'var(--color-text-muted)', fontSize: '0.9rem', marginBottom: '2rem' }}>
-            A digital toolbox built to help you get everyday tasks done — fast, free, and private.
-          </p>
-          <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-            {[
-              ['🔒', 'Zero Uploads', 'All processing happens in your browser — documents, data, everything.'],
-              ['📵', 'Privacy-first', 'No content uploads or fingerprinting on tool pages. Your files and text stay yours.'],
-              ['⚡', 'Instant Results', 'No server round-trips — results appear in milliseconds.'],
-              ['🌐', 'Works Offline', 'Once loaded, most tools work without an internet connection.'],
-            ].map(([icon, title, desc]) => (
-              <div key={title} style={{ textAlign: 'center', minWidth: 190, maxWidth: 210 }}>
-                <div style={{ fontSize: '1.75rem' }}>{icon}</div>
-                <div style={{ fontWeight: 600, marginTop: '0.5rem', marginBottom: '0.25rem' }}>{title}</div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', lineHeight: 1.5 }}>{desc}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── From Our Blog ── */}
-      <section style={{ padding: '3rem 2rem', maxWidth: 1100, margin: '0 auto' }}>
-        <h2 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.4rem' }}>📖 Start With These Guides</h2>
-        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', marginBottom: '2rem' }}>
-          The strongest posts for first-time users: Pakistan solar, tax, Urdu typing and decision-system guides.
-        </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: '1.25rem' }}>
-          {featuredPosts.map(post => (
-            <Link key={post.slug} to={getBlogPostPath(post)} style={{ textDecoration: 'none' }}>
-              <div
-                style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 12, padding: '1.5rem', height: '100%', boxSizing: 'border-box', transition: 'border-color .2s', cursor: 'pointer' }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--color-primary)' }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--color-border)' }}
-              >
-                <div style={{ fontSize: '2rem', marginBottom: '0.6rem' }}>{post.hero}</div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.6rem', flexWrap: 'wrap' }}>
-                  <span style={{ fontSize: '0.68rem', background: 'rgba(6,182,212,0.1)', color: 'var(--color-primary)', border: '1px solid rgba(6,182,212,0.25)', borderRadius: 999, padding: '0.15rem 0.6rem', fontWeight: 600, textTransform: 'capitalize' }}>
-                    {post.category}
-                  </span>
-                  <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>{post.readTime}</span>
-                </div>
-                <div style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--color-text)', marginBottom: '0.4rem', lineHeight: 1.4 }}>
-                  {post.title}
-                </div>
-                <div style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', lineHeight: 1.55 }}>
-                  {post.description.length > 100 ? post.description.slice(0, 100) + '…' : post.description}
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-          <Link to="/blog" style={{ color: 'var(--color-primary)', fontWeight: 600, textDecoration: 'none' }}>
-            Read all articles →
-          </Link>
-        </div>
-      </section>
-
-      {/* ── Share ── */}
-      <div style={{ textAlign: 'center', padding: '0 2rem 1.5rem' }}>
-        <ShareBar url="https://rafiqy.app" title="Rafiqy — Privacy-First Online Tools & Decision Systems" />
-      </div>
-
-      {/* ── Footer ── */}
-      <footer style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-text-muted)', fontSize: '0.8rem' }}>
-        <Link to="/tools" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', marginRight: '1rem' }}>Tools</Link>
-        <Link to="/blog" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', marginRight: '1rem' }}>Blog</Link>
-        <Link to="/help" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', marginRight: '1rem' }}>Help</Link>
-        <Link to="/about" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', marginRight: '1rem' }}>About</Link>
-        <span>© {new Date().getFullYear()} Rafiqy — A simple digital companion for everyday tasks</span>
-      </footer>
-      <FeedbackButton />
-    </div>
-  )
+      <section id="starting-points" className="home-section home-container"><div className="home-section-heading"><div><p className="home-eyebrow">A few useful starting points</p><h2>Get something done today</h2></div><p>Everyday tasks, with a direct route to the tool.</p></div><div className="home-starter-grid">{HOME_STARTERS.map(item=><Link className="home-starter" key={item.id} to={byId(item.id).path}><span className="home-small">{item.category}</span><h3>{item.label}</h3><p>{item.description}</p></Link>)}</div></section>
+      <section id="business" className="home-business"><div className="home-container"><div className="home-section-heading"><div><p className="home-eyebrow">For businesses & integration teams</p><h2>Small demos. Real workflow questions.</h2></div><Link className="home-text-link" to="/category/business-tools">All business tools</Link></div><p className="home-business-intro">Explore how stock planning, order review and integration checks could fit around your existing systems. Start with a focused problem and a measurable pilot.</p><div className="home-demo-grid">{HOME_DEMOS.map(item=><Link className="home-demo" key={item.id} to={byId(item.id).path}><span className="home-demo-label">{item.type}</span><h3>{item.label}</h3><p>{item.description}</p><span className="home-text-link">Open demo</span></Link>)}</div><div className="home-business-note"><p>These demos use synthetic examples. Live POS/ERP connections, private AI workers and implementation services require separate scoping; no autonomous purchasing or real project migration is enabled.</p><Link to="/about">About Rafiqy</Link></div></div></section>
+      <section id="guides" className="home-section home-container"><div className="home-section-heading"><div><p className="home-eyebrow">Understand the problem, then use the tool</p><h2>Practical guides for the next step</h2></div><Link className="home-text-link" to="/blog">All guides</Link></div><div className="home-guide-grid">{guides.map(post=><Link className="home-guide" key={post.slug} to={getBlogPostPath(post)}><span className="home-small">{post.section === 'integration' ? 'Integration' : 'Practical guide'} · {post.readTime}</span><h3>{post.title}</h3><p>{post.description}</p><span className="home-text-link">Read guide</span></Link>)}</div></section>
+      <section className="home-section home-container home-faq"><div><p className="home-eyebrow">Good to know</p><h2>Clear expectations, useful results.</h2><p>Review assumptions, data handling and limitations on each tool before using the result.</p><Link className="home-text-link" to="/privacy">Privacy information</Link></div><div>{HOME_FAQS.map(faq=><details key={faq.q}><summary>{faq.q}</summary><p>{faq.a}</p></details>)}</div></section>
+    </main>
+    <footer className="home-footer home-container"><Link className="home-footer-brand" to="/">Rafiqy</Link><p>Useful tools. Clearer decisions. Better workflows.</p><nav aria-label="Footer"><Link to="/tools">All tools</Link><Link to="/category/business-tools">Business tools</Link><Link to="/blog">Guides</Link><Link to="/about">About</Link><Link to="/help">Help</Link><Link to="/privacy">Privacy</Link></nav><small>© {new Date().getFullYear()} Rafiqy</small></footer>
+  </div>
 }
-

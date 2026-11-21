@@ -59,9 +59,9 @@ const WHO_FOR = [
 
 const PRINCIPLES = [
   { icon: '🔒', title: 'No login required', desc: 'Every tool works without an account. Ever.' },
-  { icon: '🌐', title: 'Works offline', desc: 'Installed as a PWA, it runs even without internet.' },
+  { icon: '🌐', title: 'Offline browser tools', desc: 'Previously cached browser tools can work offline. Cloud data and sync require a connection.' },
   { icon: '🇵🇰', title: 'Local context built-in', desc: 'PKR, Urdu, FBR tax brackets, local drug names — not an afterthought.' },
-  { icon: '⚡', title: 'Browser-only processing', desc: 'Your data never leaves your device. No uploads, no servers.' },
+  { icon: '⚡', title: 'Browser-first processing', desc: 'Many tools process inputs locally. Tools with cloud sync or online services send requests off-device; check their notes before entering private information.' },
   { icon: '🆓', title: 'Always free', desc: 'No premium tier, no paywalls, no ads. Just tools.' },
 ]
 

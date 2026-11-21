@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { TOOLS } from '../tools/registry'
 import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
+import './ToolsNav.css'
 
 const DATA_KEYS = [
   'typely_diary','typely_driving_fines','typely_expense_history',
@@ -137,156 +138,43 @@ export default function ToolsNav({ rightExtras }) {
   const { isDark, toggleTheme, colors } = useTheme()
   const { pathname } = useLocation()
   const [showSettings, setShowSettings] = useState(false)
-
-  // Find the active tool based on current path (for breadcrumb)
-  const currentTool = TOOLS.find(t =>
-    pathname !== '/tools' && (pathname === t.path || pathname.startsWith(t.path + '/'))
-  )
-
-  const btnStyle = (active = false) => ({
-    background: active ? (isDark ? 'rgba(6,182,212,0.12)' : 'rgba(6,182,212,0.08)') : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)'),
-    border: `1px solid ${active ? '#06b6d4' : colors.border}`,
-    color: active ? '#06b6d4' : colors.text,
-    width: '32px', height: '32px', borderRadius: '8px', cursor: 'pointer',
-    fontSize: '0.95rem', display: 'flex', alignItems: 'center', justifyContent: 'center',
-    flexShrink: 0, transition: 'all 0.2s ease',
-  })
-
-  return (
-    <nav
-      aria-label="Rafiqy navigation"
-      style={{
-        background: isDark ? 'rgba(15,23,42,0.95)' : 'rgba(255,255,255,0.95)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        borderBottom: `1px solid ${colors.border}`,
-        position: 'sticky', top: 0, zIndex: 100,
-      }}
-    >
-      <div style={{
-        maxWidth: '1140px', margin: '0 auto', padding: '0 1.25rem',
-        display: 'flex', alignItems: 'center', gap: '0.5rem', height: '52px',
-      }}>
-
-        {/* ── Brand ── */}
-        <Link to="/" style={{
-          display: 'flex', alignItems: 'center', gap: '0.4rem',
-          fontWeight: 800, fontSize: '1rem', textDecoration: 'none',
-          background: 'linear-gradient(to right, #06b6d4, #3b82f6)',
-          WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text', flexShrink: 0,
-        }}>
-          ⚡ Rafiqy
-        </Link>
-
-        {/* ── Breadcrumb (on individual tool pages) ── */}
-        {currentTool && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', marginLeft: '0.25rem' }}>
-            <span style={{ color: colors.border, fontSize: '1.1rem', lineHeight: 1 }}>/</span>
-            <Link to="/tools" style={{
-              fontSize: '0.8rem', color: colors.textSecondary, textDecoration: 'none',
-              padding: '0.3rem 0.5rem', borderRadius: '0.4rem', transition: 'color 0.15s',
-              fontWeight: 500,
-            }}
-              onMouseEnter={e => e.currentTarget.style.color = colors.text}
-              onMouseLeave={e => e.currentTarget.style.color = colors.textSecondary}
-            >All Tools</Link>
-            <span style={{ color: colors.border, fontSize: '1.1rem', lineHeight: 1 }}>/</span>
-            <span style={{
-              fontSize: '0.8rem', fontWeight: 700, color: colors.text,
-              display: 'flex', alignItems: 'center', gap: '0.3rem',
-            }}>
-              <span>{currentTool.icon}</span>
-              <span>{currentTool.name}</span>
-            </span>
-          </div>
-        )}
-
-        {/* ── Spacer ── */}
-        <div style={{ flex: 1 }} />
-
-        {/* ── Right Controls ── */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', flexShrink: 0 }}>
-          {rightExtras && (
-            <>
-              {rightExtras}
-              <div style={{ width: '1px', height: '20px', background: colors.border, margin: '0 0.1rem' }} />
-            </>
-          )}
-
-          <Link to="/tools" style={{
-            fontSize: '0.82rem', fontWeight: pathname === '/tools' ? 700 : 500,
-            color: pathname === '/tools' ? '#06b6d4' : colors.textSecondary,
-            textDecoration: 'none', padding: '0.4rem 0.65rem', borderRadius: '0.4rem',
-            transition: 'color 0.15s', whiteSpace: 'nowrap',
-          }}
-            onMouseEnter={e => { if (pathname !== '/tools') e.currentTarget.style.color = colors.text }}
-            onMouseLeave={e => { if (pathname !== '/tools') e.currentTarget.style.color = colors.textSecondary }}
-          >Tools</Link>
-
-          <Link to="/blog" style={{
-            fontSize: '0.82rem', fontWeight: pathname.startsWith('/blog') ? 700 : 500,
-            color: pathname.startsWith('/blog') ? '#06b6d4' : colors.textSecondary,
-            textDecoration: 'none', padding: '0.4rem 0.65rem', borderRadius: '0.4rem',
-            transition: 'color 0.15s', whiteSpace: 'nowrap',
-          }}
-            onMouseEnter={e => { if (!pathname.startsWith('/blog')) e.currentTarget.style.color = colors.text }}
-            onMouseLeave={e => { if (!pathname.startsWith('/blog')) e.currentTarget.style.color = colors.textSecondary }}
-          >Blog</Link>
-
-          <Link to="/help" style={{
-            fontSize: '0.82rem', fontWeight: pathname === '/help' ? 700 : 500,
-            color: pathname === '/help' ? '#06b6d4' : colors.textSecondary,
-            textDecoration: 'none', padding: '0.4rem 0.65rem', borderRadius: '0.4rem',
-            transition: 'color 0.15s', whiteSpace: 'nowrap',
-          }}
-            onMouseEnter={e => { if (pathname !== '/help') e.currentTarget.style.color = colors.text }}
-            onMouseLeave={e => { if (pathname !== '/help') e.currentTarget.style.color = colors.textSecondary }}
-          >Help</Link>
-
-          <Link to="/privacy" style={{
-            fontSize: '0.82rem', fontWeight: pathname === '/privacy' ? 700 : 500,
-            color: pathname === '/privacy' ? '#06b6d4' : colors.textSecondary,
-            textDecoration: 'none', padding: '0.4rem 0.65rem', borderRadius: '0.4rem',
-            transition: 'color 0.15s', whiteSpace: 'nowrap',
-          }}
-            onMouseEnter={e => { if (pathname !== '/privacy') e.currentTarget.style.color = colors.text }}
-            onMouseLeave={e => { if (pathname !== '/privacy') e.currentTarget.style.color = colors.textSecondary }}
-          >Privacy</Link>
-
-          <Link to="/about" style={{
-            fontSize: '0.82rem', fontWeight: pathname === '/about' ? 700 : 500,
-            color: pathname === '/about' ? '#06b6d4' : colors.textSecondary,
-            textDecoration: 'none', padding: '0.4rem 0.65rem', borderRadius: '0.4rem',
-            transition: 'color 0.15s', whiteSpace: 'nowrap',
-          }}
-            onMouseEnter={e => { if (pathname !== '/about') e.currentTarget.style.color = colors.text }}
-            onMouseLeave={e => { if (pathname !== '/about') e.currentTarget.style.color = colors.textSecondary }}
-          >About</Link>
-
-          <button
-            onClick={toggleTheme}
-            title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            style={btnStyle()}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = '#06b6d4' }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = colors.border }}
-          >{isDark ? '☀️' : '🌙'}</button>
-
-          <div style={{ position: 'relative', flexShrink: 0 }}>
-            <button
-              onClick={() => setShowSettings(s => !s)}
-              title="Preferences"
-              style={btnStyle(showSettings)}
-              onMouseEnter={e => { if (!showSettings) e.currentTarget.style.borderColor = '#06b6d4' }}
-              onMouseLeave={e => { if (!showSettings) e.currentTarget.style.borderColor = colors.border }}
-            >⚙️</button>
-            {showSettings && (
-              <SettingsPopover colors={colors} isDark={isDark} onClose={() => setShowSettings(false)} />
-            )}
-          </div>
-        </div>
-
+  const [menuOpen, setMenuOpen] = useState(false)
+  const menuButton = useRef(null)
+  const currentTool = TOOLS.find(tool => pathname === tool.path)
+  useEffect(() => {
+    const close = event => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false); setShowSettings(false)
+        menuButton.current?.focus()
+      }
+    }
+    document.addEventListener('keydown', close)
+    return () => document.removeEventListener('keydown', close)
+  }, [])
+  const links = [
+    { path: '/tools', label: 'All tools' },
+    { path: '/category/business-tools', label: 'Business' },
+    { path: '/blog', label: 'Guides' },
+    { path: '/about', label: 'About' },
+    { path: '/help', label: 'Help' },
+    { path: '/privacy', label: 'Privacy' },
+  ]
+  return <nav className="rafiqy-nav" aria-label="Rafiqy navigation" style={{ '--nav-bg': isDark ? '#0f172af5' : '#fffffff5', '--nav-text': colors.text, '--nav-muted': colors.textSecondary, '--nav-border': colors.border }}>
+    <div className="rafiqy-nav-inner">
+      <Link className="rafiqy-brand" to="/" onClick={() => setMenuOpen(false)}>Rafiqy<span className="rafiqy-brand-dot" aria-hidden="true">.</span></Link>
+      <button className="rafiqy-menu-button" ref={menuButton} aria-expanded={menuOpen} aria-controls="rafiqy-primary-links" onClick={() => { setMenuOpen(!menuOpen); setShowSettings(false) }}>{menuOpen ? 'Close menu' : 'Menu'}</button>
+      <div id="rafiqy-primary-links" className={`rafiqy-nav-links ${menuOpen ? 'is-open' : ''}`}>
+        {links.map(link => <Link key={link.path} to={link.path} aria-current={pathname === link.path || (link.path === '/blog' && pathname.startsWith('/blog/')) ? 'page' : undefined} onClick={() => setMenuOpen(false)}>{link.label}</Link>)}
       </div>
-    </nav>
-  )
+      <div className="rafiqy-nav-controls">
+        {rightExtras}
+        <button onClick={toggleTheme} aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'} title={isDark ? 'Switch to light theme' : 'Switch to dark theme'}>{isDark ? '☀' : '☾'}</button>
+        <div style={{ position: 'relative' }}>
+          <button onClick={() => { setShowSettings(!showSettings); setMenuOpen(false) }} aria-label="Preferences" aria-expanded={showSettings} title="Preferences">⚙</button>
+          {showSettings && <SettingsPopover colors={colors} isDark={isDark} onClose={() => setShowSettings(false)} />}
+        </div>
+      </div>
+    </div>
+    {currentTool && <div className="rafiqy-breadcrumb"><Link to="/tools">All tools</Link><span aria-hidden="true">/</span><span>{currentTool.name}</span></div>}
+  </nav>
 }

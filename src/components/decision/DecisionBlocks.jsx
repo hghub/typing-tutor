@@ -36,6 +36,7 @@ export function DecisionHero({ accent, title, eyebrow, description, colors, chil
 export function SectionCard({ title, accent, colors, children, subtitle }) {
   return (
     <section style={{
+      minWidth: 0,
       background: colors.card,
       border: `1px solid ${colors.border}`,
       borderRadius: '1rem',
@@ -71,7 +72,7 @@ export function SectionCard({ title, accent, colors, children, subtitle }) {
 
 export function FieldsGrid({ children, min = 220 }) {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: `repeat(auto-fit, minmax(${min}px, 1fr))`, gap: '0.9rem' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: `repeat(auto-fit, minmax(min(100%, ${min}px), 1fr))`, gap: '0.9rem' }}>
       {children}
     </div>
   )
@@ -79,7 +80,7 @@ export function FieldsGrid({ children, min = 220 }) {
 
 export function Field({ label, hint, children }) {
   return (
-    <label style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+    <label style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', minWidth: 0 }}>
       <span style={{ fontSize: '0.8rem', fontWeight: 700, opacity: 0.92 }}>{label}</span>
       {children}
       {hint && <span style={{ fontSize: '0.74rem', opacity: 0.72, lineHeight: 1.45 }}>{hint}</span>}
@@ -89,13 +90,14 @@ export function Field({ label, hint, children }) {
 
 const baseInputStyle = (colors) => ({
   width: '100%',
+  minWidth: 0,
   boxSizing: 'border-box',
   background: colors.input ?? colors.bg,
   border: `1px solid ${colors.inputBorder ?? colors.border}`,
   color: colors.text,
   borderRadius: '0.75rem',
   padding: '0.7rem 0.8rem',
-  fontSize: '0.92rem',
+  fontSize: '1rem',
   outline: 'none',
 })
 
@@ -126,7 +128,7 @@ export function SliderInput({ colors, value, onChange, min, max, step = 1, suffi
 
 export function MetricGrid({ children, min = 170 }) {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: `repeat(auto-fit, minmax(${min}px, 1fr))`, gap: '0.8rem' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: `repeat(auto-fit, minmax(min(100%, ${min}px), 1fr))`, gap: '0.8rem' }}>
       {children}
     </div>
   )
@@ -135,6 +137,8 @@ export function MetricGrid({ children, min = 170 }) {
 export function MetricCard({ label, value, sub, accent, colors }) {
   return (
     <div style={{
+      minWidth: 0,
+      overflowWrap: 'anywhere',
       background: `linear-gradient(180deg, ${accent}10, ${colors.card})`,
       border: `1px solid ${accent}28`,
       borderRadius: '0.95rem',
@@ -206,7 +210,7 @@ export function ScoreBars({ scores, colors }) {
   )
 }
 
-export function ComparisonBars({ items, colors, accent = '#06b6d4', currency = false }) {
+export function ComparisonBars({ items, colors, accent = '#06b6d4' }) {
   const max = Math.max(...items.map((item) => Number(item.value) || 0), 1)
   return (
     <div style={{ display: 'grid', gap: '0.7rem' }}>

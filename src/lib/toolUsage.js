@@ -1,4 +1,4 @@
-import { getAccessibilityNote } from './pakistanAccessibility'
+import { getAccessibilityNote } from './pakistanAccessibility.js'
 
 export function getToolUseCases(tool) {
   const map = {

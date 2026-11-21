@@ -3,7 +3,7 @@
   <!-- Core pages -->
   <url>
     <loc>https://rafiqy.app/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-11-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -41,9 +41,9 @@
   <url><loc>https://rafiqy.app/tools/urdu-keyboard</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
   <!-- Finance -->
-  <url><loc>https://rafiqy.app/tools/tax-calculator</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rafiqy.app/tools/tax-calculator</loc><lastmod>2026-11-16</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://rafiqy.app/tools/loan-emi</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://rafiqy.app/tools/salary-slip</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/salary-slip</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/tools/expense-analyzer</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://rafiqy.app/tools/loan-manager</loc><lastmod>2026-04-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/tools/gold-price</loc><lastmod>2026-04-17</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
@@ -114,10 +114,10 @@
   <url><loc>https://rafiqy.app/tools/password-generator</loc><lastmod>2026-04-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://rafiqy.app/tools/qr-generator</loc><lastmod>2026-04-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://rafiqy.app/tools/solar-planner</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://rafiqy.app/tools/rent-vs-buy-calculator-pakistan</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://rafiqy.app/tools/rent-vs-buy-calculator-pakistan</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://rafiqy.app/tools/petrol-vs-hybrid-vs-ev</loc><lastmod>2026-05-04</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://rafiqy.app/tools/salary-offer-calculator-pakistan</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://rafiqy.app/tools/freelance-tax-planner-pakistan</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rafiqy.app/tools/salary-offer-calculator-pakistan</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rafiqy.app/tools/freelance-tax-planner-pakistan</loc><lastmod>2026-11-16</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://rafiqy.app/tools/investment-allocation-planner-pakistan</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
 
   <!-- Category Pages -->
@@ -159,14 +159,14 @@
   <url><loc>https://rafiqy.app/blog/decision-support/how-much-loan-can-i-afford</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/should-you-pay-off-a-loan-early</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/how-to-manage-multiple-loans-without-losing-track</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://rafiqy.app/blog/decision-support/pakistan-tools-guide</loc><lastmod>2026-04-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://rafiqy.app/blog/decision-support/pakistan-income-tax-calculator</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/decision-support/pakistan-tools-guide</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/decision-support/pakistan-income-tax-calculator</loc><lastmod>2026-11-16</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/how-to-file-salaried-tax-return-in-pakistan</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/legal-ways-to-save-salary-tax-in-pakistan</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/why-your-salary-tax-deduction-may-look-wrong</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/how-tax-shield-optimizer-helps-you-see-what-actually-saves-tax</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://rafiqy.app/blog/decision-support/salary-slip-pakistan</loc><lastmod>2026-04-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://rafiqy.app/blog/decision-support/salary-slip-simple-guide-pakistan</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/blog/decision-support/salary-slip-pakistan</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rafiqy.app/blog/decision-support/salary-slip-simple-guide-pakistan</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/gold-price-pakistan-today</loc><lastmod>2026-04-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/how-to-check-gold-value-in-pakistan</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/utilities/security-privacy-tools</loc><lastmod>2026-04-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -229,7 +229,7 @@
   <url><loc>https://rafiqy.app/blog/decision-support/how-much-solar-do-i-need-for-a-20000-bill-in-pakistan</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/how-much-solar-do-i-need-for-a-30000-bill-in-pakistan</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/hybrid-vs-on-grid-solar-in-pakistan</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://rafiqy.app/blog/decision-support/rent-vs-buy-calculator-pakistan-guide</loc><lastmod>2026-05-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/blog/decision-support/rent-vs-buy-calculator-pakistan-guide</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/when-renting-is-better-than-buying-in-pakistan</loc><lastmod>2026-05-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/should-i-buy-a-house-or-keep-renting-in-pakistan</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/home-loan-vs-rent-in-pakistan</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -238,14 +238,14 @@
   <url><loc>https://rafiqy.app/blog/decision-support/how-to-run-a-kameti-or-committee-without-confusion</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/is-ev-worth-it-in-pakistan</loc><lastmod>2026-05-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/hybrid-vs-petrol-car-cost-pakistan</loc><lastmod>2026-05-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://rafiqy.app/blog/decision-support/how-to-evaluate-a-job-offer-in-pakistan</loc><lastmod>2026-05-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://rafiqy.app/blog/decision-support/when-a-higher-salary-is-not-a-better-job-offer</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://rafiqy.app/blog/decision-support/how-to-negotiate-a-job-offer-in-pakistan</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://rafiqy.app/blog/decision-support/should-you-take-a-job-in-another-city-in-pakistan</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://rafiqy.app/blog/decision-support/how-much-tax-should-freelancers-reserve-in-pakistan</loc><lastmod>2026-05-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://rafiqy.app/blog/decision-support/how-much-emergency-runway-should-freelancers-keep</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://rafiqy.app/blog/decision-support/how-much-should-freelancers-pay-themselves-in-pakistan</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://rafiqy.app/blog/decision-support/how-to-separate-tax-and-business-reserves-as-a-freelancer</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/blog/decision-support/how-to-evaluate-a-job-offer-in-pakistan</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/blog/decision-support/when-a-higher-salary-is-not-a-better-job-offer</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/blog/decision-support/how-to-negotiate-a-job-offer-in-pakistan</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/blog/decision-support/should-you-take-a-job-in-another-city-in-pakistan</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/blog/decision-support/how-much-tax-should-freelancers-reserve-in-pakistan</loc><lastmod>2026-11-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/blog/decision-support/how-much-emergency-runway-should-freelancers-keep</loc><lastmod>2026-11-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/blog/decision-support/how-much-should-freelancers-pay-themselves-in-pakistan</loc><lastmod>2026-11-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/blog/decision-support/how-to-separate-tax-and-business-reserves-as-a-freelancer</loc><lastmod>2026-11-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/investment-allocation-planner-pakistan-guide</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/how-to-invest-20-lakh-in-pakistan</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/how-to-invest-1-crore-in-pakistan</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -254,6 +254,20 @@
   <url><loc>https://rafiqy.app/blog/decision-support/emergency-fund-before-investing-in-pakistan</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/how-to-rebalance-an-investment-portfolio-in-pakistan</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://rafiqy.app/blog/decision-support/single-goal-vs-multi-goal-investing-in-pakistan</loc><lastmod>2026-05-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://rafiqy.app/tools/stock-planner</loc><lastmod>2026-11-16</lastmod></url>
+  <url><loc>https://rafiqy.app/blog/decision-support/how-to-prioritize-stock-reorders</loc><lastmod>2026-11-16</lastmod></url>
+  <url>
+    <loc>https://rafiqy.app/blog/decision-support/freelancing-in-the-ai-era</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+<url><loc>https://rafiqy.app/tools/order-review-demo</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://rafiqy.app/tools/migration-evidence-demo</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://rafiqy.app/blog/integration/purchase-order-review-before-erp-import</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://rafiqy.app/blog/integration/integration-migration-needs-behaviour-tests</loc><lastmod>2026-11-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://rafiqy.app/tools/community-fund-demo</loc><lastmod>2026-11-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+<url><loc>https://rafiqy.app/blog/decision-support/manage-shared-service-contributions</loc><lastmod>2026-11-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
 
 

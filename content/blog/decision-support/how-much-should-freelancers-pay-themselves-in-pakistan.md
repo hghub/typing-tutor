@@ -9,6 +9,11 @@ readTime: 7 min read
 publishDate: 2026-05-05
 tags: ["freelancer owner pay Pakistan","freelance reserve planner","freelancer income discipline"]
 ---
+
+## Planner Update — 16 November 2026
+
+The planner requires your separately assessed annual tax cash budget and splits it over twelve months. It no longer uses salary slabs for freelance receipts. Operating and household reserves remain separate allocations; see the [tax-budget guide](/blog/decision-support/how-much-tax-should-freelancers-reserve-in-pakistan) for the calculation and payment-timing limits.
+
 ## Owner Pay Is the Output, Not the Starting Point
 
 Freelancers often treat business inflow as personal salary too early. That creates a false sense of income and leaves the business exposed when tax, client delays, or weak months arrive.
@@ -18,7 +23,7 @@ Freelancers often treat business inflow as personal salary too early. That creat
 1. separate tax reserve
 2. separate operating reserve
 3. keep building emergency runway
-4. then decide what owner pay is actually safe
+4. then decide what remains for owner withdrawals
 
 ## Why This Matters
 
@@ -39,6 +44,6 @@ A safer owner-pay rule protects the business first and gives you a number you ca
 
 The [Freelance Tax and Reserve Planner](/tools/freelance-tax-planner-pakistan) estimates a suggested owner-pay number only after reserve needs are separated. That makes it much more useful than treating monthly revenue as salary.
 
-See what your business can safely pay you after proper reserve discipline.
+Compare remaining owner cash with your household needs and other obligations.
 
 Open the planner →

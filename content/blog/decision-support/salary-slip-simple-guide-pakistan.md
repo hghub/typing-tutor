@@ -18,7 +18,7 @@ When people ask about a salary slip, they usually mean something simple: **mera 
 - **Basic salary:** the core part of your salary on which many deductions are based
 - **Allowances:** house rent, medical, conveyance, or other support added on top
 - **Tax:** the income-tax amount deducted for the month
-- **EOBI / social security:** mandatory payroll deductions where applicable
+- **Employee deductions:** confirm the applicable amounts with payroll; employer-only contributions must not automatically reduce employee pay
 - **Net salary:** the amount you actually receive
 
 ## Why People Get Confused
@@ -34,8 +34,8 @@ Many employees look only at the gross salary and assume that is the real income.
 
 ## Use a Generator If You Need a Clean Version
 
-If your office gives informal salary messages or you need a structured document for records, visa, or loan use, the [Salary Slip Generator](/tools/salary-slip) creates a printable version with the major deductions and fields laid out clearly.
+If your office gives informal salary messages or you need a structured document for records, visa, or loan use, the [Salary Slip Generator](/tools/salary-slip) creates a draft from your entered earnings and payroll-confirmed deductions. Tax and employee EOBI require explicit values, including zero if applicable; they are not calculated automatically. Other employee deductions can be totalled with a clear label. The tool blocks missing/invalid amounts and deductions above gross earnings. Employer review and authorization are required; a generated draft does not prove employment or payment.
 
-Understand your net salary better or generate a clean pay slip in minutes.
+Inputs stay in page memory and are lost on reload. The print button opens a browser print dialog, where supported browsers offer Save as PDF. No employee templates, direct PDF file or image export are provided. See the [detailed payroll draft guide](/blog/decision-support/salary-slip-pakistan) for a synthetic example and dated source notes.
 
 Open Salary Slip Generator →

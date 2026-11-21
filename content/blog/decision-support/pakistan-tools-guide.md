@@ -16,7 +16,7 @@ Most financial and productivity tools are built with the US or European market i
 ## 2. Key Features at a Glance
 
 - **Pakistan Tax Calculator:** FBR slab-based salary income tax for current salaried slabs, deductions panel, monthly planning view, and shareable result summary
-- **Salary Slip Generator:** gross/net salary computation, EOBI (Rs 370/month), PESSI/SESSI (6% employee contribution), income tax deduction, allowances (house rent, medical, conveyance), PDF export
+- **Salary Slip Generator:** printable draft with entered earnings, payroll-confirmed tax and employee EOBI, optional other deductions and validated gross-to-net totals; no automatic statutory calculation.
 - **Kameti Tracker:** add members, set monthly contribution, auto-rotate draw order, mark payments, send reminders, export rotation schedule
 - **Gold & Silver Calculator:** live gold price (USD + PKR), manual price fallback, calculate value for tola/gram/kg, local city price context (Karachi, Lahore, Islamabad)
 - **Tax Shield Optimizer:** Section 62 (mutual funds), 63 (life insurance), 64 (pension) deduction analysis, exact tax saving per rupee, optimal allocation across instruments
@@ -31,9 +31,9 @@ The calculator focuses on the decisions salaried users actually care about: annu
 
 ## 4. Salary Slip Generator
 
-Generating a compliant salary slip in Pakistan requires applying several mandatory deductions correctly. Rafiqy's **Salary Slip Generator** handles all of them automatically. Enter gross salary and the tool computes **EOBI contribution** (Rs 370 per month employee contribution as per current EOBI Act), **PESSI or SESSI contribution** (6 % employee share — PESSI for Punjab, SESSI for Sindh), and the correct **income tax withholding** based on FBR slabs.
+The [Salary Slip Generator](/tools/salary-slip) prepares a draft from entered payroll amounts. Tax and employee EOBI must be supplied explicitly by the user, including zero when applicable. It does not compute statutory rates, provincial social security or provident fund, verify payment, save employee templates or certify compliance.
 
-Standard **allowances** — house rent allowance, medical allowance, and conveyance allowance — can be entered individually and are reflected in the gross-to-net breakdown. The finished salary slip **exports to PDF** in a format that meets standard HR and audit requirements. Whether you are an HR manager processing payroll for a small team or an employee verifying your own deductions, this tool removes the spreadsheet complexity entirely.
+Enter allowances separately and reconcile gross earnings minus confirmed employee deductions. Employer-only costs must not automatically reduce net pay. The employer must review and authorize any issued record. Printing opens a browser window; Save as PDF depends on the print dialog. For the worked example and scope reviewed21November2026, read the [salary-slip guide](/blog/decision-support/salary-slip-pakistan).
 
 ## 5. Kameti Tracker
 

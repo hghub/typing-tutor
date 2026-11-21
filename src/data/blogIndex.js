@@ -3,6 +3,96 @@
 
 export const BLOG_INDEX = [
   {
+    "slug": "manage-shared-service-contributions",
+    "title": "Monthly Street Contributions: Separate Collection Problems From Budget Gaps",
+    "description": "A practical way to reconcile shared guard or cleaner costs, partial contributions, agreed reductions and excess receipts without confusing promises with cash.",
+    "hero": "🏘️",
+    "category": "business",
+    "section": "decision-support",
+    "readTime": "5 min read",
+    "publishDate": "2026-11-18",
+    "tags": [
+      "community fund",
+      "contributions",
+      "shared services",
+      "monthly budget",
+      "synthetic demo"
+    ]
+  },
+  {
+    "slug": "integration-migration-needs-behaviour-tests",
+    "title": "Integration Migration: Why Converted Code Needs Behaviour Tests",
+    "description": "Separate conversion coverage from behavioural evidence using fixtures, null handling, unsupported features and explicit compiler and runtime results.",
+    "hero": "🧪",
+    "category": "developer",
+    "section": "integration",
+    "readTime": "6 min read",
+    "publishDate": "2026-11-17",
+    "tags": [
+      "migration",
+      "integration",
+      "DataWeave",
+      "Ballerina",
+      "contract tests",
+      "synthetic demo"
+    ]
+  },
+  {
+    "slug": "purchase-order-review-before-erp-import",
+    "title": "Purchase Order Automation: Check the Exceptions Before ERP Import",
+    "description": "A practical workflow for matching customer order lines, handling price and unit exceptions, and approving a sales-order draft before integration.",
+    "hero": "🧾",
+    "category": "business",
+    "section": "integration",
+    "readTime": "6 min read",
+    "publishDate": "2026-11-17",
+    "tags": [
+      "purchase order",
+      "order review",
+      "integration",
+      "ERP",
+      "catalogue",
+      "synthetic demo"
+    ]
+  },
+  {
+    "slug": "freelancing-in-the-ai-era",
+    "title": "Freelancing in the AI Era: From Coding Tasks to Business Outcomes",
+    "description": "A practical guide to AI-era freelancing: choose a useful niche, build evidence, use coding agents responsibly, package a paid pilot and prepare in 30 days.",
+    "hero": "🛠️",
+    "category": "business",
+    "section": "decision-support",
+    "readTime": "11 min read",
+    "publishDate": "2026-11-16",
+    "tags": [
+      "AI freelancing",
+      "freelancing",
+      "AI integration",
+      "automation",
+      "software development",
+      "business"
+    ]
+  },
+  {
+    "slug": "how-to-prioritize-stock-reorders",
+    "title": "What Should You Reorder First? Stock, Incoming Orders and Supplier Delays",
+    "description": "Plan stock reorders, avoid duplicate purchasing and check shelf life. Test simple demand forecasts and explore custom ML, AI assistance and POS integration.",
+    "hero": "📦",
+    "category": "business",
+    "section": "decision-support",
+    "readTime": "9 min read",
+    "publishDate": "2026-11-16",
+    "tags": [
+      "inventory",
+      "stock",
+      "reorder",
+      "bakery",
+      "pizza",
+      "business",
+      "integration"
+    ]
+  },
+  {
     "slug": "circuit-breaker-vs-retry-vs-timeout",
     "title": "Circuit Breaker vs Retry vs Timeout: A Practical Guide to Resilient APIs",
     "description": "Learn when to use timeouts, retries, and circuit breakers together without causing retry storms, duplicate transactions, or cascading API failures.",
@@ -1469,12 +1559,12 @@ export const BLOG_INDEX = [
   },
   {
     "slug": "salary-slip-pakistan",
-    "title": "Salary Slip Guide: EOBI, PESSI, Tax & Net Pay Explained",
-    "description": "Learn what goes on a salary slip — EOBI, PESSI/SESSI deductions, income tax, and net pay. Includes a worked example built around Pakistan payroll conventions.",
+    "title": "Salary Slip Guide: Reconcile Payroll Deductions Before Printing",
+    "description": "Prepare a payslip draft from confirmed payroll amounts, understand gross-to-net arithmetic, and keep tax estimates separate from recorded deductions.",
     "hero": "💼",
     "category": "pakistan",
     "section": "decision-support",
-    "readTime": "7 min read",
+    "readTime": "4 min read",
     "publishDate": "2025-09-09",
     "tags": [
       "salary slip Pakistan",
@@ -1502,12 +1592,12 @@ export const BLOG_INDEX = [
   },
   {
     "slug": "pakistan-income-tax-calculator",
-    "title": "Income Tax Calculator Guide: How to Calculate Salary Tax with FBR Slabs (2025-26)",
-    "description": "Calculate salary income tax for 2025-26 using current FBR slabs. Includes salaried tax brackets, bonus impact, common credits, and a free calculator built for Pakistan payroll reality.",
-    "hero": "🇵🇰",
-    "category": "pakistan",
+    "title": "Pakistan Salary Tax 2026–27: Choose the Right Year Before Calculating",
+    "description": "Understand TY 2027 salary slabs, the withdrawn salaried surcharge, bonus impact and a comparison with FY 2025–26 before personal credits or payroll adjustments.",
+    "hero": "🧮",
+    "category": "finance",
     "section": "decision-support",
-    "readTime": "7 min read",
+    "readTime": "5 min read",
     "publishDate": "2025-09-07",
     "tags": [
       "Pakistan income tax",

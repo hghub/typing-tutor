@@ -1,82 +1,70 @@
 ---
 slug: pakistan-income-tax-calculator
-title: Income Tax Calculator Guide: How to Calculate Salary Tax with FBR Slabs (2025-26)
-description: Calculate salary income tax for 2025-26 using current FBR slabs. Includes salaried tax brackets, bonus impact, common credits, and a free calculator built for Pakistan payroll reality.
-hero: 🇵🇰
-category: pakistan
+title: Pakistan Salary Tax 2026–27: Choose the Right Year Before Calculating
+description: Understand TY 2027 salary slabs, the withdrawn salaried surcharge, bonus impact and a comparison with FY 2025–26 before personal credits or payroll adjustments.
+hero: 🧮
+category: finance
 section: decision-support
-readTime: 7 min read
+readTime: 5 min read
 publishDate: 2025-09-07
 tags: ["Pakistan income tax","FBR tax slabs","tax calculator Pakistan","salaried income tax"]
 ---
-## How Pakistan's Income Tax System Works
 
-Pakistan uses a **progressive tax slab system** administered by the Federal Board of Revenue (FBR). This means your income is divided into brackets, and each bracket is taxed at a different rate — lower income at lower rates, higher income at higher rates. You do not pay the highest applicable rate on your entire income, only on the portion that falls within each bracket.
+Updated and source-checked: **16 November 2026**. The original publication date is retained above.
 
-Understanding this system is essential before using any **Pakistan income tax calculator** — knowing the logic ensures you can verify calculator results and identify deductions you might be missing.
+## Start With When You Earned The Income
 
-## FBR Income Tax Slabs for Salaried Individuals (2025–26)
+A calculator can show a plausible number using the wrong year's rules. In Pakistan, the normal Tax Year 2027 corresponds to **1 July 2026 through 30 June 2027**, or FY 2026–27. TY 2026 corresponds to the preceding financial year.
 
-The following slabs apply to salaried individuals for the tax year 2025–26 (July 2025 – June 2026):
+The [Rafiqy Salary Tax Calculator](/tools/tax-calculator) defaults to TY 2027 and keeps TY 2026 as a historical option. Choose the earning period before entering income. Do not use the year in which you happen to prepare a return as a substitute for the income period.
 
-- **Up to Rs 600,000/year**: 0% (exempt)
-- **Rs 600,001 – Rs 1,200,000**: 5% on amount exceeding Rs 600,000
-- **Rs 1,200,001 – Rs 2,200,000**: Rs 30,000 + 15% on amount exceeding Rs 1,200,000
-- **Rs 2,200,001 – Rs 3,200,000**: Rs 180,000 + 25% on amount exceeding Rs 2,200,000
-- **Rs 3,200,001 – Rs 4,100,000**: Rs 430,000 + 30% on amount exceeding Rs 3,200,000
-- **Above Rs 4,100,000**: Rs 700,000 + 35% on amount exceeding Rs 4,100,000
+## Salary Slabs For FY 2026–27
 
-*Note: Tax slabs are updated annually in the federal budget. Always verify the current year's slabs on the FBR website or use an updated calculator.*
+The following salary table is set out in FBR Circular 02 of 2026–27, dated 8 September 2026, page 4, item 7:
 
-## Worked Example: Annual Salary of Rs 1,800,000
+| Annual taxable salary (PKR) | Base income tax (PKR) |
+| --- | --- |
+| Up to 600,000 | 0 |
+| Above 600,000 to 1,200,000 | 1% of the amount above 600,000 |
+| Above 1,200,000 to 2,200,000 | 6,000 + 11% above 1,200,000 |
+| Above 2,200,000 to 3,200,000 | 116,000 + 20% above 2,200,000 |
+| Above 3,200,000 to 4,100,000 | 316,000 + 25% above 3,200,000 |
+| Above 4,100,000 to 5,600,000 | 541,000 + 29% above 4,100,000 |
+| Above 5,600,000 to 7,000,000 | 976,000 + 32% above 5,600,000 |
+| Above 7,000,000 | 1,424,000 + 35% above 7,000,000 |
 
-Let's calculate the tax for someone earning Rs 1,800,000 per year (Rs 150,000/month):
+Item 8 of the same circular explains that Finance Act 2026 withdrew the **9% surcharge for salaried individuals**. It does not remove the surcharge for other individuals and associations of persons.
 
-1. First Rs 600,000: **Rs 0** (exempt)
-2. Next Rs 600,000 (from Rs 600,001 to Rs 1,200,000): 5% × Rs 600,000 = **Rs 30,000**
-3. Remaining Rs 600,000 (from Rs 1,200,001 to Rs 1,800,000): Rs 30,000 + 15% × Rs 600,000 = Rs 30,000 + Rs 90,000 = **Rs 120,000**
-4. **Total tax: Rs 120,000/year = Rs 10,000/month**
+Official source: [FBR Circular 02 of 2026–27](https://download1.fbr.gov.pk/Docs/202698139527880CircularNo.2of2026-27.pdf). The applicable law takes precedence over any calculator or summary.
 
-Your employer's payroll system (or HR department) should be deducting this amount monthly and depositing it with FBR on your behalf. You can verify the calculation using the [Rafiqy Pakistan Tax Calculator](/tools/tax-calculator).
+## A Raise Does Not Reprice Your Entire Salary
 
-## What This Guide Covers
+The marginal percentage applies to income above the threshold in its row. It does not apply to every rupee you earned.
 
-This guide is focused on **salaried income tax**, because that is what the current Rafiqy tax calculator is built to estimate. Pakistan taxes salaried and business income differently in practice, so it helps to keep the scope clear:
+For an illustrative annual taxable salary of PKR 3,000,000, the TY 2027 calculation is PKR 116,000 plus 20% of PKR 800,000, giving PKR 276,000 before credits and adjustments. Dividing by 12 gives a planning average of PKR 23,000 per month.
 
-- **Salaried income**: Tax is usually withheld through payroll by your employer. The current Rafiqy salary tax calculator is built for this case.
-- **Business income**: Self-employed individuals, sole proprietors, and many freelancers follow a different tax treatment path and should not rely on a salaried-only tool as a final answer.
-- **Mixed income**: If you earn both salary and business income, you should verify the treatment carefully before using a simple salary estimate for planning.
+The calculator shows its threshold, fixed amount, marginal rate and surcharge separately so you can check the arithmetic. Fractional amounts immediately above a slab boundary remain taxable under the next slab rather than falling into a gap.
 
-## Zakat Deduction
+## Bonuses And Monthly Deductions Need Care
 
-Muslim taxpayers in Pakistan are subject to Zakat deduction at source on certain financial assets. Zakat is calculated at **2.5% of savings account balances** that exceed the Nisab threshold (approximately Rs 90,000–100,000, tied to silver prices) on the first of Ramadan. This is deducted automatically by banks.
+Enter monthly taxable salary for a steady twelve-month scenario, then enter an additional annual taxable bonus separately. If a bonus is already included in the monthly figure, adding it again overstates income.
 
-Zakat paid can be claimed as a deduction against your taxable income when filing your annual tax return — reducing your net taxable income and therefore your income tax liability. Keep records of any Zakat paid during the year.
+The monthly figure is annual estimated tax divided by twelve. Payroll may withhold a different amount after a bonus, a job change, earlier deductions or an adjustment. Likewise, the average after-tax income spreads the annual bonus across twelve months; it is not a promise about the cash in a particular payslip.
 
-## Common Deductions People Miss
+For variable salary or a partial employment year, first reconcile actual taxable annual amounts with payroll rather than blindly multiplying one payslip by twelve.
 
-Many salaried individuals overpay tax because they do not claim all available deductions:
+## Keep Historical Rules And Personal Credits Separate
 
-- **Medical allowance**: Up to 10% of basic salary as medical allowance may be exempt from tax if properly structured in your salary package
-- **Provident fund contributions**: Employer contributions to recognized provident funds are generally exempt
-- **Education expenses**: Tuition fee payments to educational institutions may qualify for tax credits under certain conditions
-- **Donations to approved organizations**: Donations to FBR-approved non-profits and charities can be claimed as deductions
-- **Mortgage interest**: Interest paid on housing loans for owner-occupied properties may qualify for a tax credit
+TY 2026 retains its own table and the historical 9% salary surcharge above PKR 10 million annual taxable income. The calculator's comparison uses identical income under both years' rules; it does not know your actual prior-year earnings.
 
-Use the [Rafiqy Tax Shield Calculator](/tools/tax-optimizer) to see which deductions apply to your situation and how much tax they save you.
+Historical source: [FBR Income Tax Ordinance, amended to 31 July 2025](https://download1.fbr.gov.pk/Docs/2025881983148210Income-Tax-Ordinance%2C-2001-Amended-upto-31.07.2025.pdf), salary table and section 4AB.
 
-## How to File Your Tax Return
+The current calculator deliberately reports tax **before personal credits and rebates**. It does not apply pension, donation, senior or teacher concessions simply because a checkbox was selected. Eligibility and supporting evidence need their own year-specific assessment.
 
-Filing your annual income tax return in Pakistan is done through FBR's IRIS portal (iris.fbr.gov.pk). Key deadlines:
+This version covers salary-only scenarios up to PKR 100 million annual taxable income. Mixed income, freelance/business income, special regimes, higher-income cases, withholding adjustments and other payroll deductions are outside its scope. Use a qualified adviser for those cases.
 
-- **Salaried individuals**: Return due by September 30 each year for the previous tax year (July–June)
-- **Business individuals**: Same deadline — September 30
-- **Companies**: December 31
+## Check Without Uploading A Payslip
 
-Being a "filer" (having submitted your return) is important in Pakistan — non-filers face higher withholding tax rates on property transactions, vehicle registration, banking transactions, and more. The cost of not filing often exceeds the time investment of filing.
+The tool accepts numbers and calculates in page memory. It does not require your name, CNIC, payslip, employer credentials or tax return, and it does not save salary entries to a database.
 
-After calculating your tax, use the [Rafiqy Salary Slip Generator](/tools/salary-slip) to generate a structured pay slip showing your gross income, deductions, and net take-home pay — useful for documentation when filing or applying for loans.
-
-Want to estimate your 2025-26 salaried income tax in seconds?
-
-Open the salary tax calculator →
+[Open the Salary Tax Calculator](/tools/tax-calculator) and choose the correct income period first.

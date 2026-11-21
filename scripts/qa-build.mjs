@@ -108,6 +108,14 @@ async function checkBlogRoutes() {
 }
 
 async function main() {
+  // Verify the shipped worker, not only the source configuration.
+  const worker = await readFile(path.join(DIST_DIR, 'sw.js'), 'utf8')
+  const cleanup = await readFile(path.join(DIST_DIR, 'sw-cache-cleanup.js'), 'utf8')
+  if (!worker.includes('/sw-cache-cleanup.js') || !worker.includes('NetworkOnly') || !worker.includes('no-store') || worker.includes('NetworkFirst') || worker.includes('supabase-cache')) {
+    throw new Error('Service worker privacy QA failed: verify network-only API handling and legacy cleanup wiring')
+  }
+  if (cleanup !== await readFile('public/sw-cache-cleanup.js', 'utf8')) throw new Error('Service worker cleanup artifact differs from reviewed source')
+
   for (const route of PRERENDER_ROUTES) {
     await checkPrerenderRoute(route)
   }

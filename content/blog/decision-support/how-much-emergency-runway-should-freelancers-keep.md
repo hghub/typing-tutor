@@ -9,6 +9,11 @@ readTime: 6 min read
 publishDate: 2026-05-05
 tags: ["freelance tax planner","freelancer emergency fund","freelancer cashflow","reserve planning"]
 ---
+
+## Planner Update — 16 November 2026
+
+The planner calculates household runway from uncommitted funds divided by household costs. Tax funding is separate and requires an entered budget; it is not inferred from freelance revenue. Zero household costs produce no runway estimate. The [tax-budget guide](/blog/decision-support/how-much-tax-should-freelancers-reserve-in-pakistan) explains the full allocation.
+
 ## Freelancer Risk Is Not the Same as Salary Risk
 
 A salaried employee with stable payroll can survive with less buffer than an independent worker whose clients may delay payment, pause contracts, or disappear entirely.
@@ -26,11 +31,11 @@ When runway is weak, every delayed invoice creates stress. That stress pushes ba
 
 ## A Practical Baseline
 
-For many freelancers, **six months** is a reasonable starting runway target. But the right number depends on your reality:
+Compare several runway scenarios rather than treating one target as universally appropriate:
 
-- **3–4 months:** lower-risk case, more stable client base, lower family pressure
-- **6 months:** solid baseline for many freelancers
-- **9–12 months:** higher-risk case, unstable clients, dependents, or lumpy revenue
+- **3–4 months:** a shorter scenario to stress-test against payment delays
+- **6 months:** an intermediate scenario to compare with your recovery time
+- **9–12 months:** a longer scenario whose funding cost also needs review
 
 ## Signs You Need More Runway, Not Less
 

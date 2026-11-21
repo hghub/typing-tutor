@@ -3,7 +3,7 @@ import ToolLayout from '../components/ToolLayout'
 import DisclaimerBlock from '../components/DisclaimerBlock'
 import { useTheme } from '../hooks/useTheme'
 import { calcFullTax, SLABS_2526 } from '../data/taxData'
-import FreshnessBanner from '../components/decision/FreshnessBanner'
+import './SalaryOfferEvaluator.css'
 import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 import {
   DecisionHero,
@@ -23,8 +23,6 @@ import {
 } from '../components/decision/DecisionBlocks'
 import {
   fmtCurrency,
-  fmtPercent,
-  costScoresFromTotals,
   weightedScore,
   confidenceFromGap,
   topTwoByLowest,
@@ -136,10 +134,10 @@ function evaluateOffer(inputs) {
   ]
 
   const reasons = []
-  reasons.push(`Estimated take-home after salary tax and commute is ${fmtCurrency(netAnnualCash)} per year.`)
+  reasons.push(`Historical-rule cash estimate after salary tax and commute is ${fmtCurrency(netAnnualCash)} per year.`)
   reasons.push(`When employer-paid benefits, provident fund support, and relocation value are included, the offer is worth about ${fmtCurrency(totalAnnualValue)} annually.`)
   if (discretionaryAnnual > 0) {
-    reasons.push(`Against a ${CITY_COSTS[inputs.city].label} living-cost baseline, you still keep about ${fmtCurrency(discretionaryAnnual)} per year for saving, investing, or family goals.`)
+    reasons.push(`Against a ${CITY_COSTS[inputs.city].label} living-cost baseline, the illustrative package value exceeds that budget by ${fmtCurrency(discretionaryAnnual)}. This includes non-cash and one-time value; it is not a savings forecast.`)
   } else {
     reasons.push(`Against the selected city-cost baseline, the offer leaves very little buffer. That weakens the switch case unless the role has much stronger future upside.`)
   }
@@ -218,17 +216,16 @@ export default function SalaryOfferEvaluator() {
         description="Turn a salary offer into an actual decision. Compare after-tax income, commute, benefits, provident fund support, remote flexibility, and city living-cost pressure."
         colors={colors}
       />
-      <FreshnessBanner
-        colors={colors}
-        accent={ACCENT}
-        lastUpdated="May 2026"
-        cadence="Monthly for tax-year-sensitive logic, quarterly for city-cost baselines"
-        refreshed="Current salaried tax logic, baseline city-cost assumptions, and benefit modeling defaults"
-        estimated="Your actual payroll structure, allowances, and employer wording may change the final result"
-      />
+      <section className="offer-scope" aria-label="Tax period and model limits" style={{ borderColor: colors.border, color: colors.textSecondary }}>
+        <strong style={{ color: colors.text }}>Historical salary estimate: TY 2026 · FY 2025–26</strong>
+        <p>This offer tool still uses rules for income earned 1 July 2025–30 June 2026. It has not been migrated to TY 2027 and should not be used to estimate current FY 2026–27 payroll. No automatic tax or city-cost refresh is connected.</p>
+        <p>For the year-specific base salary estimate, use the <a href="/tools/tax-calculator">main salary-tax calculator</a>, then ask payroll to confirm the treatment of bonuses and benefits. City budgets and benefit values here are illustrative assumptions; scores are heuristic weights, not probabilities.</p>
+        <p>Package value includes non-cash benefits, provident fund and one-time relocation. The package-minus-budget figure is not spendable cash or a savings forecast.</p>
+        <small>Disclosure reviewed 18 November 2026. FBR's <a href="https://www.fbr.gov.pk/withholding-tax-rate-card/174298/174301" target="_blank" rel="noopener noreferrer">rate-card index</a> lists TY 2027 separately; this review does not certify this tool's historical payroll calculation.</small>
+      </section>
       <PakistanFriendlyGuide toolId="salary-offer-evaluator" />
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.05fr) minmax(320px, 0.95fr)', gap: '1rem' }}>
+      <div className="offer-layout">
         <SectionCard title="New offer inputs" subtitle="Model the full value of the offer, not just the headline monthly salary." accent={ACCENT} colors={colors}>
           <FieldsGrid>
             <Field label="Target city" hint="This affects living-cost pressure. Use the city where the role will actually operate.">
@@ -291,7 +288,6 @@ export default function SalaryOfferEvaluator() {
             accent={result.recommendation === 'Take the offer' ? '#22c55e' : '#f59e0b'}
             title={result.recommendation}
             body={result.reasons[0]}
-            confidence={result.confidence}
             colors={colors}
           />
           <ActionCallout
@@ -302,10 +298,10 @@ export default function SalaryOfferEvaluator() {
             actions={result.actionSteps.slice(0, 3)}
           />
           <MetricGrid>
-            <MetricCard label="Annual gross" value={fmtCurrency(result.annualGross)} sub={`Estimated salary tax: ${fmtCurrency(result.tax)}`} accent={ACCENT} colors={colors} />
-            <MetricCard label="Take-home after commute" value={fmtCurrency(result.netAnnualCash)} sub="Cash available before employer-paid benefits." accent="#22c55e" colors={colors} />
+            <MetricCard label="Annual gross" value={fmtCurrency(result.annualGross)} sub={`Historical FY 2025–26 estimate: ${fmtCurrency(result.tax)}`} accent={ACCENT} colors={colors} />
+            <MetricCard label="Take-home after commute" value={fmtCurrency(result.netAnnualCash)} sub="Historical salary rules; excludes other payroll deductions." accent="#22c55e" colors={colors} />
             <MetricCard label="Benefits + PF value" value={fmtCurrency(result.annualBenefitValue + result.annualPensionValue + relocationSupport)} sub="Medical, fuel, other benefits, provident fund, and relocation." accent="#06b6d4" colors={colors} />
-            <MetricCard label="Discretionary buffer" value={fmtCurrency(result.discretionaryAnnual)} sub={`Versus ${CITY_COSTS[city].label} baseline living costs.`} accent="#0ea5e9" colors={colors} />
+            <MetricCard label="Package value minus example budget" value={fmtCurrency(result.discretionaryAnnual)} sub={`Includes non-cash and one-time value; ${CITY_COSTS[city].label} budget is illustrative.`} accent="#0ea5e9" colors={colors} />
           </MetricGrid>
 
           <SectionCard title="Decision path" subtitle={result.decisionTrack} accent={ACCENT} colors={colors}>
@@ -343,7 +339,7 @@ export default function SalaryOfferEvaluator() {
       <div style={{ marginTop: '1rem' }}>
         <DisclaimerBlock
           type="tax"
-          overrideBodyEn="This evaluator uses current salaried tax logic and baseline living-cost assumptions. Verify final compensation structure, payroll deductions, and benefit wording before making a switch."
+          overrideBodyEn="This evaluator still uses historical FY 2025–26 salary rules, not current FY 2026–27 payroll rules. City costs are examples. Non-cash benefits and one-time relocation are not disposable income. Use the main year-specific salary calculator and verify payroll and contract terms separately."
         />
       </div>
     </ToolLayout>

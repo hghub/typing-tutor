@@ -75,7 +75,7 @@ export default function CategoryPage({ category }) {
           {data.intro}
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: '1rem' }}>
           {sortedTools.map(tool => (
             <Link key={tool.id} to={tool.path} style={{ textDecoration: 'none', color: 'inherit' }}>
               {(() => {
@@ -115,7 +115,7 @@ export default function CategoryPage({ category }) {
 
         <div style={{ marginTop: '3rem', textAlign: 'center' }}>
           <Link to="/tools" style={{ color: '#f59e0b', fontWeight: 600, textDecoration: 'none' }}>
-            ← Browse all 68 tools
+            Browse all {TOOLS.length} tools
           </Link>
         </div>
 

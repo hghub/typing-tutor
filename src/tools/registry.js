@@ -23,6 +23,104 @@ export const TOOL_CATEGORIES = [
 ]
 
 export const TOOLS = [
+{
+  "id": "community-fund-demo",
+  "name": "Shared Services Fund Demo",
+  "nameUrdu": "مشترکہ خدمات فنڈ ڈیمو",
+  "tagline": "Separate unpaid contributions from a budget shortfall",
+  "description": "Synthetic monthly guard/cleaning contribution worksheet. Reconcile entered receipts, agreed reductions, protected excess payments and approved costs. No payment processing or live ledger.",
+  "icon": "🏘️",
+  "path": "/tools/community-fund-demo",
+  "color": "#0891b2",
+  "category": "business",
+  "tags": [
+    "community fund",
+    "contributions",
+    "shared services",
+    "monthly budget",
+    "synthetic demo"
+  ],
+  "related": [
+    "kameti",
+    "order-review-demo"
+  ],
+  "features": [
+    "Separate collection timing from a structural budget gap",
+    "Protect excess receipts from being treated as available money",
+    "English/Urdu aggregate summaries without member references",
+    "Synthetic page-memory workflow; no payment or messaging connector"
+  ]
+},
+{
+  "id": "order-review-demo",
+  "name": "Purchase Order Review Demo",
+  "nameUrdu": "پرچیز آرڈر جائزہ ڈیمو",
+  "tagline": "Resolve order exceptions before ERP import",
+  "description": "Synthetic rule-based order review: inspect source lines, resolve catalogue ambiguity, check prices and totals, block duplicate references and export an approved draft CSV. No AI or ERP connection.",
+  "icon": "🧾",
+  "path": "/tools/order-review-demo",
+  "color": "#0891b2",
+  "category": "business",
+  "tags": [
+    "purchase order",
+    "order review",
+    "integration",
+    "catalogue",
+    "ERP",
+    "synthetic demo"
+  ],
+  "related": [
+    "migration-evidence-demo",
+    "stock-planner"
+  ],
+  "features": [
+    "Editable synthetic order text and source-line evidence",
+    "Catalogue mapping, price review, subtotal and duplicate checks",
+    "Explicit review before local CSV export",
+    "Custom document intake, private AI and ERP integration options"
+  ]
+},
+{
+  "id": "migration-evidence-demo",
+  "name": "Migration Evidence Lab",
+  "nameUrdu": "مائیگریشن جانچ ڈیمو",
+  "tagline": "Find behavioural differences before calling it migrated",
+  "description": "Run synthetic browser mapping comparisons, expose a null-default regression and test its correction. Inspect illustrative code and an evidence report with unsupported gaps. No compiler or runtime execution.",
+  "icon": "🧪",
+  "path": "/tools/migration-evidence-demo",
+  "color": "#0891b2",
+  "category": "developer",
+  "tags": [
+    "migration",
+    "integration",
+    "DataWeave",
+    "Ballerina",
+    "contract tests",
+    "synthetic demo"
+  ],
+  "related": [
+    "order-review-demo",
+    "schema-mapper",
+    "trace-correlator"
+  ],
+  "features": [
+    "Editable synthetic fixtures and output differences",
+    "Missing, null, false, zero and empty-string cases",
+    "Evidence report with explicit compiler/runtime not-run status",
+    "Scoped migration verification and private-model consulting options"
+  ]
+},
+  {
+    id: 'stock-planner', name: 'Stock & Replenishment Planner',
+    nameUrdu: 'اسٹاک اور خریداری منصوبہ ساز',
+    tagline: 'Find shortages before ordering more',
+    description: 'Check shortages and late deliveries, test seven-day forecasts from daily history, and plan draft reorders under pack and shelf-life constraints. Explore custom POS/ERP and AI options.',
+    icon: '📦', path: '/tools/stock-planner', color: '#14b8a6', category: 'business',
+    tags: ['inventory', 'stock', 'reorder', 'forecast', 'bakery', 'pizza', 'business', 'integration'],
+    related: ['voice-invoice', 'expense-analyzer'],
+    features: ['Critical stock, late deliveries and draft reorder quantities', 'Seven-day statistical forecasts with historical model comparison', 'Pack, minimum-order and shelf-life review warnings', 'Downloadable brief and scoped ML/LLM integration options'],
+  },
+
   {
     id: 'typing-tutor',
     name: 'Typing Tutor',
@@ -117,17 +215,17 @@ export const TOOLS = [
     id: 'tax-calculator',
     name: 'Pakistan Tax Calculator',
     nameUrdu: 'پاکستان ٹیکس کیلکولیٹر',
-    tagline: 'Estimate your income tax & find savings',
-    taglineUrdu: 'آمدنی ٹیکس کا تخمینہ لگائیں اور بچت ڈھونڈیں',
-    description: 'Calculate your salary tax under Finance Act 2025. See your tax shields (VPS, charity, health) and how much you can legally save.',
+    tagline: 'Check salary tax for the right financial year',
+    taglineUrdu: 'درست مالی سال کے مطابق تنخواہ ٹیکس کا تخمینہ',
+    description: 'Estimate salary tax for FY 2026–27 and FY 2025–26 with year-specific slabs, surcharge treatment, bonus impact and visible calculations.',
     icon: '🧮',
     path: '/tools/tax-calculator',
     color: '#f97316',
     category: 'pakistan',
-    tags: ['tax', 'pakistan', 'salary', 'fbr', '2025', 'income tax'],
+    tags: ['tax', 'pakistan', 'salary', 'fbr', '2026', '2027', 'income tax'],
     related: ['tax-optimizer', 'doc-composer', 'word-counter'],
     region: 'pk',
-    features: ['Pakistan salary tax under Finance Act 2025', 'Tax shields: VPS (Sec 63), Life Insurance (Sec 62), Charity (Sec 61)', 'Effective tax rate and monthly take-home', 'Filer and non-filer rate support'],
+    features: ['FY 2026–27 and historical FY 2025–26 salary slabs', 'Year-specific salary surcharge treatment', 'Effective rate, bonus impact and monthly averages', 'Visible calculation before personal credits and rebates'],
   },
   {
     id: 'rent-vs-buy-pakistan',
@@ -150,18 +248,18 @@ export const TOOLS = [
     id: 'salary-offer-evaluator',
     name: 'Salary Offer Evaluator Pakistan',
     nameUrdu: 'سیلری آفر ایویلیویٹر پاکستان',
-    tagline: 'Decide if a new offer is really better after tax and city costs',
+    tagline: 'Compare packages with historical FY 2025–26 tax assumptions',
     taglineUrdu: 'ٹیکس اور شہر کے خرچ کے بعد نئی آفر واقعی بہتر ہے یا نہیں',
-    description: 'Turn salary offers into decisions by factoring in take-home pay, commute, benefits, provident fund support, relocation, and city living-cost pressure.',
+    description: 'Historical FY 2025–26 tax estimate; current-year payroll is not implemented. Turn salary offers into decisions by factoring in take-home pay, commute, benefits, provident fund support, relocation, and city living-cost pressure.',
     icon: '💼',
     path: '/tools/salary-offer-calculator-pakistan',
-    color: '#6366f1',
+    color: '#06b6d4',
     category: 'pakistan',
     region: 'pk',
     addedOn: '2026-05-04',
     tags: ['salary offer', 'pakistan jobs', 'take home salary', 'career decision', 'tax'],
     related: ['tax-calculator', 'salary-slip', 'freelance-tax-planner'],
-    features: ['After-tax compensation view using Pakistan salary tax logic', 'Compares offer value versus current role', 'Includes benefits, commute, relocation and remote-work flexibility', 'Scores affordability, flexibility and growth support'],
+    features: ['Historical FY 2025–26 salary-tax estimate; current-year update pending', 'Compares offer value versus current role', 'Includes benefits, commute, relocation and remote-work flexibility', 'Scores affordability, flexibility and growth support'],
   },
   {
     id: 'freelance-tax-planner',
@@ -169,7 +267,7 @@ export const TOOLS = [
     nameUrdu: 'فری لانس ٹیکس اور ریزرو پلانر',
     tagline: 'Decide how much to reserve, spend and keep as runway',
     taglineUrdu: 'کتنا بچانا، خرچ کرنا اور رن وے کے لیے رکھنا ہے فیصلہ کریں',
-    description: 'A planning engine for freelancers who need monthly tax reserves, operating reserves and emergency runway instead of vague budgeting advice.',
+    description: 'Allocate a separately entered tax cash budget, business costs and reserves. See withdrawal capacity, household gaps and stress-case shortfalls; no freelancer tax rate is inferred.',
     icon: '🧾',
     path: '/tools/freelance-tax-planner-pakistan',
     color: '#f97316',
@@ -178,7 +276,7 @@ export const TOOLS = [
     addedOn: '2026-05-04',
     tags: ['freelance tax', 'reserve planner', 'pakistan freelancers', 'cashflow', 'tax planning'],
     related: ['tax-calculator', 'expense-analyzer', 'salary-offer-evaluator'],
-    features: ['Monthly tax reserve guidance', 'Operating reserve target based on revenue volatility', 'Emergency runway planning for freelancers', 'Suggested owner pay after reserves and business costs'],
+    features: ['Explicit annual tax budget; no salary-slab assumption', 'User-selected operating reserve and household runway', 'Visible allocation and household shortfalls', '20% receipts stress test with fixed baseline allocations'],
   },
   {
     id: 'investment-allocation-planner',
@@ -233,9 +331,9 @@ export const TOOLS = [
     id: 'salary-slip',
     name: 'Salary Slip Generator',
     nameUrdu: 'تنخواہ سلپ جنریٹر',
-    tagline: 'Printable salary slip with FBR tax & EOBI',
-    taglineUrdu: 'ایف بی آر ٹیکس اور ای او بی آئی کے ساتھ تنخواہ سلپ',
-    description: 'Generate a professional printable salary slip with current salaried tax estimation and EOBI deductions. No data ever leaves your device.',
+    tagline: 'Printable draft from entered payroll amounts',
+    taglineUrdu: 'درج شدہ تنخواہ اور کٹوتیوں سے سلپ کا مسودہ',
+    description: 'Reconcile entered earnings, tax and employee EOBI deductions into a printable draft for employer review. No automatic statutory calculations or saved employee templates.',
     icon: '🧾',
     path: '/tools/salary-slip',
     color: '#10b981',
@@ -243,7 +341,7 @@ export const TOOLS = [
     region: 'pk',
     tags: ['salary', 'payslip', 'salary slip', 'eobi', 'income tax', 'pakistan', 'hr', 'payroll'],
     related: ['tax-calculator', 'loan-emi', 'expense-analyzer'],
-    features: ['EOBI auto-calc (employee 1%, employer 5%)', 'Current FY 2025-26 salary tax estimation', 'Printable A4 slip — print or save as PDF', 'Company info, designation, custom allowances'],
+    features: ['Explicit payroll-supplied tax and employee EOBI', 'Validated gross-to-net arithmetic', 'Browser print / Save as PDF draft', 'Page-memory inputs; no employee templates'],
   },
   {
     id: 'world-time',

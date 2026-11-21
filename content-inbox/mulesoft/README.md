@@ -8,6 +8,6 @@ Accepted source format:
 Rules:
 - DOCX drafts are source material only.
 - DOCX files are ignored by git.
-- Published posts still belong in `src/data/blogPosts.js`.
+- Editable post source belongs in `content/blog/integration/`; generated blog data is maintained by `npm run blog:sync`.
 - Follow `docs/BLOG_PUBLISHING_PLAYBOOK.md` when converting drafts into posts.
 

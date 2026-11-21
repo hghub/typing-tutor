@@ -1,8 +1,10 @@
+import { useToolLanguage } from '../hooks/useToolLanguage'
+import { UrduRentView } from '../components/UrduToolViews'
 import { useMemo, useState } from 'react'
+import './RentVsBuyPakistan.css'
 import ToolLayout from '../components/ToolLayout'
 import DisclaimerBlock from '../components/DisclaimerBlock'
 import { useTheme } from '../hooks/useTheme'
-import FreshnessBanner from '../components/decision/FreshnessBanner'
 import PakistanFriendlyGuide from '../components/PakistanFriendlyGuide'
 import {
   DecisionHero,
@@ -21,216 +23,14 @@ import {
   ComparisonBars,
   CollapsibleSection,
 } from '../components/decision/DecisionBlocks'
-import {
-  fmtCurrency,
-  fmtNumber,
-  fmtPercent,
-  calcEMI,
-  remainingLoanBalance,
-  futureValue,
-  growingSeriesPayment,
-  costScoresFromTotals,
-  weightedScore,
-  confidenceFromGap,
-  topTwoByLowest,
-  round,
-} from '../lib/decision'
+import { fmtCurrency } from '../lib/decision'
+import { CITY_PRESETS, SCENARIO_PRESETS, rentVsBuyDecision } from '../lib/rentVsBuy'
 
 const ACCENT = '#14b8a6'
 
-const CITY_PRESETS = {
-  karachi: { label: 'Karachi', annualHomeGrowth: 12, annualRentGrowth: 11, propertyTaxPct: 0.2, transferCostPct: 7, maintenancePct: 1.1, markupRate: 18 },
-  lahore: { label: 'Lahore', annualHomeGrowth: 11, annualRentGrowth: 10, propertyTaxPct: 0.18, transferCostPct: 6.5, maintenancePct: 1.0, markupRate: 17.5 },
-  islamabad: { label: 'Islamabad', annualHomeGrowth: 10, annualRentGrowth: 9, propertyTaxPct: 0.18, transferCostPct: 6.5, maintenancePct: 1.0, markupRate: 17.25 },
-  rawalpindi: { label: 'Rawalpindi', annualHomeGrowth: 10, annualRentGrowth: 9, propertyTaxPct: 0.18, transferCostPct: 6.5, maintenancePct: 1.0, markupRate: 17.25 },
-  other: { label: 'Other city', annualHomeGrowth: 9, annualRentGrowth: 8, propertyTaxPct: 0.15, transferCostPct: 6, maintenancePct: 0.9, markupRate: 17 },
-}
-
-const SCENARIO_PRESETS = [
-  { id: 'young-professional', label: 'Young professional', note: 'Short stay, flexibility matters', city: 'karachi', propertyPrice: 25000000, monthlyRent: 90000, yearsToStay: 4, downPaymentPct: 20, mortgageYears: 15, investmentReturnPct: 14 },
-  { id: 'family-settle', label: 'Family settle-down', note: 'Longer stay, ownership case stronger', city: 'lahore', propertyPrice: 42000000, monthlyRent: 140000, yearsToStay: 9, downPaymentPct: 30, mortgageYears: 15, investmentReturnPct: 13 },
-  { id: 'wait-and-save', label: 'Wait and save', note: 'Markup pressure is too high right now', city: 'islamabad', propertyPrice: 50000000, monthlyRent: 170000, yearsToStay: 5, downPaymentPct: 20, mortgageYears: 15, investmentReturnPct: 15 },
-]
-
-function rentVsBuyDecision(inputs) {
-  const cityPreset = CITY_PRESETS[inputs.city]
-  const propertyPrice = Number(inputs.propertyPrice) || 0
-  const monthlyRent = Number(inputs.monthlyRent) || 0
-  const yearsToStay = Number(inputs.yearsToStay) || 0
-  const downPaymentPct = Number(inputs.downPaymentPct) || 0
-  const annualMarkupRate = Number(inputs.annualMarkupRate) || 0
-  const mortgageYears = Number(inputs.mortgageYears) || 0
-  const annualRentGrowth = Number(inputs.annualRentGrowth) || 0
-  const annualHomeGrowth = Number(inputs.annualHomeGrowth) || 0
-  const annualMaintenancePct = Number(inputs.annualMaintenancePct) || 0
-  const propertyTaxPct = Number(inputs.propertyTaxPct) || 0
-  const transferCostPct = Number(inputs.transferCostPct) || 0
-  const investmentReturnPct = Number(inputs.investmentReturnPct) || 0
-
-  const downPayment = propertyPrice * (downPaymentPct / 100)
-  const financedAmount = Math.max(0, propertyPrice - downPayment)
-  const emi = calcEMI(financedAmount, annualMarkupRate, mortgageYears)
-  const monthsInView = Math.max(12, Math.round(yearsToStay * 12))
-  const totalEmiPaid = emi * monthsInView
-  const remainingBalance = remainingLoanBalance(financedAmount, annualMarkupRate, mortgageYears, monthsInView)
-  const appreciatedValue = propertyPrice * (1 + annualHomeGrowth / 100) ** yearsToStay
-  const sellingCost = appreciatedValue * (transferCostPct / 100)
-  const ownerMaintenance = propertyPrice * (annualMaintenancePct / 100) * yearsToStay
-  const ownerTax = propertyPrice * (propertyTaxPct / 100) * yearsToStay
-  const ownerCashOut = downPayment + totalEmiPaid + ownerMaintenance + ownerTax + propertyPrice * (transferCostPct / 100)
-  const saleProceeds = appreciatedValue - sellingCost - remainingBalance
-  const buyNetCost = ownerCashOut - saleProceeds
-  const ownerNetWorth = saleProceeds
-
-  const rentingCashOut = growingSeriesPayment(monthlyRent, annualRentGrowth, yearsToStay)
-  const investmentPrincipal = downPayment + propertyPrice * (transferCostPct / 100)
-  const monthlySavingsVsBuy = Math.max(0, emi + ownerMaintenance / 12 + ownerTax / 12 - monthlyRent)
-  const rentInvestedValue = futureValue(investmentPrincipal, investmentReturnPct, yearsToStay, monthlySavingsVsBuy)
-  const rentNetCost = rentingCashOut - rentInvestedValue
-  const renterNetWorth = rentInvestedValue
-
-  const totals = { buy: buyNetCost, rent: rentNetCost }
-  const [best, second] = topTwoByLowest(totals)
-  const costScores = costScoresFromTotals(totals)
-  const scores = {
-    buy: {
-      cost: costScores.buy,
-      flexibility: yearsToStay >= 7 ? 74 : yearsToStay >= 5 ? 63 : 45,
-      resilience: cityPreset.annualHomeGrowth >= annualRentGrowth ? 76 : 61,
-    },
-    rent: {
-      cost: costScores.rent,
-      flexibility: yearsToStay <= 5 ? 88 : yearsToStay <= 7 ? 74 : 56,
-      resilience: investmentReturnPct >= annualHomeGrowth ? 72 : 60,
-    },
-  }
-  const finalScores = {
-    buy: weightedScore(scores.buy, { cost: 0.6, flexibility: 0.2, resilience: 0.2 }),
-    rent: weightedScore(scores.rent, { cost: 0.6, flexibility: 0.2, resilience: 0.2 }),
-  }
-
-  const recommendation = finalScores.buy >= finalScores.rent ? 'Buy' : 'Rent'
-  const confidence = confidenceFromGap(best[1], second[1])
-  const breakEvenYears = annualHomeGrowth > annualRentGrowth
-    ? round((transferCostPct + downPaymentPct / 2) / Math.max(1, annualHomeGrowth - annualRentGrowth), 1)
-    : null
-
-  const betterMarkupRate = Math.max(8, annualMarkupRate - 2)
-  const betterMarkupEmi = calcEMI(financedAmount, betterMarkupRate, mortgageYears)
-  const betterMarkupOwnerCashOut = downPayment + betterMarkupEmi * monthsInView + ownerMaintenance + ownerTax + propertyPrice * (transferCostPct / 100)
-  const betterMarkupBuyNetCost = betterMarkupOwnerCashOut - saleProceeds
-
-  const lowerGrowthAppreciated = propertyPrice * (1 + Math.max(0, annualHomeGrowth - 3) / 100) ** yearsToStay
-  const lowerGrowthSaleProceeds = lowerGrowthAppreciated - (lowerGrowthAppreciated * (transferCostPct / 100)) - remainingBalance
-  const lowerGrowthBuyNetCost = ownerCashOut - lowerGrowthSaleProceeds
-
-  const shortStayYears = Math.max(2, yearsToStay - 2)
-  const shortStayMonths = Math.max(12, Math.round(shortStayYears * 12))
-  const shortStayEmiPaid = emi * shortStayMonths
-  const shortStayBalance = remainingLoanBalance(financedAmount, annualMarkupRate, mortgageYears, shortStayMonths)
-  const shortStayValue = propertyPrice * (1 + annualHomeGrowth / 100) ** shortStayYears
-  const shortStaySaleProceeds = shortStayValue - shortStayValue * (transferCostPct / 100) - shortStayBalance
-  const shortStayBuyNetCost = downPayment + shortStayEmiPaid + propertyPrice * (annualMaintenancePct / 100) * shortStayYears + propertyPrice * (propertyTaxPct / 100) * shortStayYears + propertyPrice * (transferCostPct / 100) - shortStaySaleProceeds
-  const shortStayRentNetCost = growingSeriesPayment(monthlyRent, annualRentGrowth, shortStayYears) - futureValue(investmentPrincipal, investmentReturnPct, shortStayYears, monthlySavingsVsBuy)
-
-  let decisionTitle = 'Compare both paths carefully'
-  let decisionBody = 'The current assumptions are close enough that your stay horizon, markup, and opportunity cost of capital matter more than one headline number.'
-  let decisionTrack = 'Before committing, check how easily the decision flips when financing or appreciation assumptions move.'
-  const actionSteps = []
-
-  if (recommendation === 'Buy' && confidence >= 0.75) {
-    decisionTitle = 'Buying looks defendable if you stay the course'
-    decisionBody = 'Your current assumptions support ownership, but the buy case depends on holding long enough to absorb transfer friction and markup.'
-    decisionTrack = 'The key risk is not monthly affordability alone. It is whether you actually remain in the property long enough.'
-    actionSteps.push('Stress-test the deal against a lower appreciation assumption before finalizing.')
-    actionSteps.push('Preserve emergency liquidity even after the down payment.')
-    actionSteps.push('Use this result to challenge broker or bank optimism, not to skip due diligence.')
-  } else if (recommendation === 'Buy') {
-    decisionTitle = 'Buying can work, but only with disciplined assumptions'
-    decisionBody = 'The buy case is present, but it is not wide enough to ignore financing pressure or the risk of moving earlier than planned.'
-    decisionTrack = 'A slightly better markup or a longer horizon may be what makes ownership clearly stronger.'
-    actionSteps.push('Try negotiating markup or increasing down payment before signing.')
-    actionSteps.push('If you may move in under five years, renting may still be safer.')
-    actionSteps.push('Do not treat emotional comfort as proof that the numbers are strong enough.')
-  } else if (yearsToStay <= 5) {
-    decisionTitle = 'Renting is likely the smarter near-term move'
-    decisionBody = 'Your stay horizon is short enough that transaction friction, down-payment lockup, and resale uncertainty weaken the ownership case.'
-    decisionTrack = 'This is especially true if your job, city, or family needs may still change.'
-    actionSteps.push('Keep capital liquid while your location and timeline remain uncertain.')
-    actionSteps.push('Re-run the scenario if your expected stay horizon extends materially.')
-    actionSteps.push('Use the monthly savings and down payment gap as an investing discipline, not as idle cash.')
-  } else {
-    decisionTitle = 'Rent now or renegotiate the buy case'
-    decisionBody = 'Under the current assumptions, renting preserves optionality and capital more effectively than buying.'
-    decisionTrack = 'The decision may improve if markup falls, down payment rises, or the property candidate itself becomes more attractive.'
-    actionSteps.push('Test the same property with a stronger financing offer before deciding it is unaffordable.')
-    actionSteps.push('Separate the desire to own from the quality of this specific property decision.')
-    actionSteps.push('Watch whether appreciation assumptions are doing too much work in the buy case.')
-  }
-
-  const sensitivity = [
-    {
-      label: `If markup drops to ${betterMarkupRate}%`,
-      impact: fmtCurrency(betterMarkupBuyNetCost),
-      detail: `Buy-side net cost changes by ${fmtCurrency(buyNetCost - betterMarkupBuyNetCost)} under a modestly better financing case.`,
-      tone: betterMarkupBuyNetCost < buyNetCost ? '#86efac' : '#fbbf24',
-    },
-    {
-      label: `If appreciation is 3 points lower`,
-      impact: fmtCurrency(lowerGrowthBuyNetCost),
-      detail: `This shows how much of the buy case depends on property-growth optimism in ${cityPreset.label}.`,
-      tone: lowerGrowthBuyNetCost > buyNetCost ? '#fbbf24' : '#86efac',
-    },
-    {
-      label: `If you move in ${shortStayYears} years instead`,
-      impact: recommendation === 'Buy'
-        ? `Buy ${fmtCurrency(shortStayBuyNetCost)} vs Rent ${fmtCurrency(shortStayRentNetCost)}`
-        : `Rent ${fmtCurrency(shortStayRentNetCost)} vs Buy ${fmtCurrency(shortStayBuyNetCost)}`,
-      detail: 'Stay horizon is usually the fastest way to flip a property decision.',
-      tone: shortStayBuyNetCost < shortStayRentNetCost ? '#86efac' : '#fbbf24',
-    },
-  ]
-
-  const reasons = []
-  if (recommendation === 'Buy') {
-    reasons.push(`Projected owner net worth after ${yearsToStay} years is ${fmtCurrency(ownerNetWorth)} versus ${fmtCurrency(renterNetWorth)} if you rent and invest the difference.`)
-    reasons.push(`Property appreciation baseline is ${fmtPercent(annualHomeGrowth / 100)} per year in ${cityPreset.label}, which outpaces the rent-growth baseline of ${fmtPercent(annualRentGrowth / 100)}.`)
-  } else {
-    reasons.push(`Renting keeps your upfront capital free. Investing the down payment and avoided buying costs grows to about ${fmtCurrency(rentInvestedValue)} over ${yearsToStay} years.`)
-    reasons.push(`Your planned stay is ${yearsToStay} years, which may be too short to absorb transfer costs, maintenance, and markup efficiently.`)
-  }
-  reasons.push(`Monthly mortgage estimate is ${fmtCurrency(emi)}. Initial down payment requirement is ${fmtCurrency(downPayment)}.`)
-  if (breakEvenYears) reasons.push(`A rough break-even horizon under these assumptions is about ${breakEvenYears} years.`)
-
-  return {
-    cityLabel: cityPreset.label,
-    downPayment,
-    emi,
-    totalEmiPaid,
-    remainingBalance,
-    appreciatedValue,
-    buyNetCost,
-    rentNetCost,
-    ownerNetWorth,
-    renterNetWorth,
-    rentingCashOut,
-    rentInvestedValue,
-    monthlySavingsVsBuy,
-    recommendation,
-    confidence,
-    finalScores,
-    reasons,
-    breakEvenYears,
-    decisionTitle,
-    decisionBody,
-    decisionTrack,
-    actionSteps,
-    sensitivity,
-  }
-}
-
 export default function RentVsBuyPakistan() {
   const { colors } = useTheme()
+  const { isUrdu } = useToolLanguage()
   const [scenarioPreset, setScenarioPreset] = useState('custom')
   const [copyState, setCopyState] = useState('idle')
   const [city, setCity] = useState('karachi')
@@ -295,7 +95,14 @@ export default function RentVsBuyPakistan() {
     propertyTaxPct, transferCostPct, investmentReturnPct,
   ])
 
-  const summaryText = [
+  const summaryText = isUrdu ? [
+    'رفیقی: کرایہ یا خریداری کا خلاصہ',
+    `مکان کی قیمت: ${fmtCurrency(propertyPrice)}؛ ماہانہ کرایہ: ${fmtCurrency(monthlyRent)}؛ قیام: ${yearsToStay} سال`,
+    `ماڈل کا رجحان: ${result.recommendation === 'Buy' ? 'خریداری' : 'کرایہ'}`,
+    `خریداری کی خالص متوقع لاگت: ${fmtCurrency(result.buyNetCost)}؛ کرایے کی خالص لاگت: ${fmtCurrency(result.rentNetCost)}`,
+    `ماہانہ قسط: ${fmtCurrency(result.emi)}؛ ابتدائی ادائیگی: ${fmtCurrency(result.downPayment)}`,
+    'اعداد مفروضوں پر مبنی ہیں؛ اصل ریٹ، فیس، نقد ذخیرہ، قیام اور قیمتوں کی غیر یقینی صورتِ حال الگ تصدیق کریں۔ یہ مالی مشورہ یا یقینی نتیجہ نہیں۔',
+  ].join('\n') : [
     'Rafiqy Rent vs Buy Pakistan Summary',
     `City: ${result.cityLabel}`,
     `Property price: ${fmtCurrency(propertyPrice)}`,
@@ -334,6 +141,7 @@ export default function RentVsBuyPakistan() {
     URL.revokeObjectURL(url)
   }
 
+  if (isUrdu) return <ToolLayout toolId="rent-vs-buy-pakistan"><UrduRentView {...{ colors, city, applyCity, applyScenario, result, copySummary, downloadSummary, copyState }} values={{ propertyPrice, monthlyRent, yearsToStay, downPaymentPct, annualMarkupRate, mortgageYears, annualRentGrowth, annualHomeGrowth, annualMaintenancePct, propertyTaxPct, transferCostPct, investmentReturnPct }} setters={{ propertyPrice: value => { markCustom(); setPropertyPrice(value) }, monthlyRent: value => { markCustom(); setMonthlyRent(value) }, yearsToStay: value => { markCustom(); setYearsToStay(value) }, downPaymentPct: value => { markCustom(); setDownPaymentPct(value) }, annualMarkupRate: value => { markCustom(); setAnnualMarkupRate(value) }, mortgageYears: value => { markCustom(); setMortgageYears(value) }, annualRentGrowth: value => { markCustom(); setAnnualRentGrowth(value) }, annualHomeGrowth: value => { markCustom(); setAnnualHomeGrowth(value) }, annualMaintenancePct: value => { markCustom(); setAnnualMaintenancePct(value) }, propertyTaxPct: value => { markCustom(); setPropertyTaxPct(value) }, transferCostPct: value => { markCustom(); setTransferCostPct(value) }, investmentReturnPct: value => { markCustom(); setInvestmentReturnPct(value) } }} /></ToolLayout>
   return (
     <ToolLayout toolId="rent-vs-buy-pakistan">
       <DecisionHero
@@ -343,21 +151,18 @@ export default function RentVsBuyPakistan() {
         description="Compare renting and buying with Pakistan-style assumptions: down payment, markup, transfer costs, rent growth, property appreciation, maintenance, and the opportunity cost of your capital."
         colors={colors}
       />
-      <FreshnessBanner
-        colors={colors}
-        accent={ACCENT}
-        lastUpdated="May 2026"
-        cadence="Monthly for markup assumptions, quarterly for city baselines"
-        refreshed="City presets, markup defaults, maintenance and transfer-friction assumptions"
-        estimated="Property appreciation and rent-growth assumptions still vary by micro-market and area"
-      />
+      <SectionCard title="Illustrative assumptions, not live market rates" accent={ACCENT} colors={colors}>
+        <p style={{ margin: 0, lineHeight: 1.65 }}>Method and wording reviewed 17 November 2026. City presets are editable examples, not verified city averages, bank offers or current tax rates. Replace them with dated quotes and costs for your own property. No scheduled market-data refresh is connected.</p>
+        <p style={{ marginBottom: 0, lineHeight: 1.65 }}>This simplified model invests a fixed, nonnegative first-year monthly cost gap. It does not adjust that contribution as rent rises or after the mortgage ends, fund rent-side deficits, or model investment tax and fees. Scores are heuristic weights, not probabilities. A break-even year is not calculated.</p>
+        <a href="https://www.bankalfalah.com/personal-banking/loans/hybrid-home-finance/" target="_blank" rel="noopener noreferrer">Example lender product terms (not a rate feed)</a>
+      </SectionCard>
       <PakistanFriendlyGuide toolId="rent-vs-buy-pakistan" />
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.05fr) minmax(320px, 0.95fr)', gap: '1rem' }}>
-        <SectionCard title="Scenario inputs" subtitle="Start with a city preset, then adjust assumptions to match your actual situation." accent={ACCENT} colors={colors}>
+      <div className="rent-buy-layout">
+        <SectionCard title="Scenario inputs" subtitle="Start with an illustrative city example, then enter your own dated quotes and assumptions." accent={ACCENT} colors={colors}>
           <div style={{ marginBottom: '1rem' }}>
-            <div style={{ color: colors.text, fontWeight: 700, marginBottom: '0.55rem', fontSize: '0.88rem' }}>Start from a real-life housing scenario</div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.55rem' }}>
+            <div style={{ color: colors.text, fontWeight: 700, marginBottom: '0.55rem', fontSize: '0.88rem' }}>Start from an illustrative housing scenario</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 180px), 1fr))', gap: '0.55rem' }}>
               {SCENARIO_PRESETS.map((preset) => (
                 <button
                   key={preset.id}
@@ -380,12 +185,12 @@ export default function RentVsBuyPakistan() {
             </div>
           </div>
           <FieldsGrid>
-            <Field label="City preset" hint="Loads default growth, markup, and friction assumptions. Override them if your area behaves differently.">
+            <Field label="City preset" hint="Loads illustrative assumptions, not verified city rates. Replace every rate with your own evidence.">
               <SelectInput colors={colors} value={city} onChange={(e) => { markCustom(); applyCity(e.target.value) }}>
                 {Object.entries(CITY_PRESETS).map(([value, preset]) => <option key={value} value={value}>{preset.label}</option>)}
               </SelectInput>
             </Field>
-            <Field label="Property price (PKR)" hint="Use the actual all-in purchase price you would negotiate, not an aspirational listing.">
+            <Field label="Property price (PKR)" hint="Enter the negotiated property price excluding transaction costs, which are modelled separately.">
               <NumberInput colors={colors} value={propertyPrice} onChange={(e) => { markCustom(); setPropertyPrice(Number(e.target.value) || 0) }} />
             </Field>
             <Field label="Monthly rent (PKR)" hint="Use the rent for a genuinely comparable home, not a smaller or older alternative.">
@@ -422,19 +227,18 @@ export default function RentVsBuyPakistan() {
                 <Field label="Property tax / holding cost" hint="Include recurring ownership friction, not only formal tax.">
                   <SliderInput colors={colors} accent={ACCENT} value={propertyTaxPct} onChange={(e) => { markCustom(); setPropertyTaxPct(Number(e.target.value)) }} min={0} max={1} step={0.05} suffix="%" />
                 </Field>
-                <Field label="Transfer + selling friction" hint="Registry, agent cuts, legal work, and resale friction should all live here.">
+                <Field label="Transfer + selling friction" hint="This same assumed percentage is charged on purchase price at entry and projected sale value at exit. It is not a statutory tax rate.">
                   <SliderInput colors={colors} accent={ACCENT} value={transferCostPct} onChange={(e) => { markCustom(); setTransferCostPct(Number(e.target.value)) }} min={3} max={10} step={0.25} suffix="%" />
                 </Field>
               </FieldsGrid>
             </SectionCard>
         </SectionCard>
 
-        <div style={{ display: 'grid', gap: '1rem' }}>
+        <div className="rent-buy-results" style={{ display: 'grid', gap: '1rem' }}>
           <RecommendationBanner
             accent={result.recommendation === 'Buy' ? '#22c55e' : '#06b6d4'}
             title={`${result.recommendation} looks stronger under the current assumptions`}
             body={result.reasons[0]}
-            confidence={result.confidence}
             colors={colors}
           />
           <ActionCallout
@@ -448,9 +252,8 @@ export default function RentVsBuyPakistan() {
             <MetricCard label="Buy net cost" value={fmtCurrency(result.buyNetCost)} sub={`Owner net worth: ${fmtCurrency(result.ownerNetWorth)}`} accent="#22c55e" colors={colors} />
             <MetricCard label="Rent net cost" value={fmtCurrency(result.rentNetCost)} sub={`Invested reserve: ${fmtCurrency(result.rentInvestedValue)}`} accent="#06b6d4" colors={colors} />
             <MetricCard label="Monthly EMI" value={fmtCurrency(result.emi)} sub={`Down payment: ${fmtCurrency(result.downPayment)}`} accent={ACCENT} colors={colors} />
-            <MetricCard label="Break-even horizon" value={result.breakEvenYears ? `${result.breakEvenYears} yrs` : 'Watch assumptions'} sub="Longer stays usually improve the buy case." accent="#0ea5e9" colors={colors} />
             <MetricCard label="Owner upfront cash" value={fmtCurrency(result.downPayment)} sub="This is the cash that gets locked immediately before recurring costs." accent="#f59e0b" colors={colors} />
-            <MetricCard label="Rent-side invested reserve" value={fmtCurrency(result.rentInvestedValue)} sub="Shows what the down payment and monthly gap can become if you stay disciplined." accent="#14b8a6" colors={colors} />
+            <MetricCard label="Rent-side invested reserve" value={fmtCurrency(result.rentInvestedValue)} sub="Uses the fixed first-year monthly gap throughout; future returns are uncertain." accent="#14b8a6" colors={colors} />
           </MetricGrid>
 
           <SectionCard title="Decision path" subtitle={result.decisionTrack} accent={ACCENT} colors={colors}>
@@ -525,7 +328,7 @@ export default function RentVsBuyPakistan() {
             accent={ACCENT}
             colors={colors}
           >
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.7rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))', gap: '0.7rem' }}>
               {[
                 { href: '/blog/decision-support/rent-vs-buy-calculator-pakistan-guide', label: 'Rent vs Buy Pakistan Guide', note: 'The full decision framework behind the tool' },
                 { href: '/blog/decision-support/should-i-buy-a-house-or-keep-renting-in-pakistan', label: 'Should I Buy a House or Keep Renting?', note: 'A clean first-pass decision for primary residence' },

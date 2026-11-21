@@ -10,7 +10,7 @@ function ScrollToTop() {
   return null
 }
 import './index.css'
-import App from './App.jsx'
+const App = lazy(() => import('./App.jsx'))
 
 // Tool pages — lazy-loaded, each is its own JS chunk
 const Landing       = lazy(() => import('./pages/Landing.jsx'))
@@ -78,6 +78,10 @@ const PasswordGenerator = lazy(() => import('./pages/PasswordGenerator.jsx'))
 const QRGenerator    = lazy(() => import('./pages/QRGenerator.jsx'))
 const SolarPlanner   = lazy(() => import('./pages/SolarPlanner.jsx'))
 const RentVsBuyPakistan = lazy(() => import('./pages/RentVsBuyPakistan.jsx'))
+const StockPlanner = lazy(() => import('./pages/StockPlanner.jsx'))
+const CommunityFundDemo = lazy(() => import('./pages/CommunityFundDemo.jsx'))
+const OrderReviewDemo = lazy(() => import('./pages/OrderReviewDemo.jsx'))
+const MigrationEvidenceDemo = lazy(() => import('./pages/MigrationEvidenceDemo.jsx'))
 const CarPowertrainDecision = lazy(() => import('./pages/CarPowertrainDecision.jsx'))
 const SalaryOfferEvaluator = lazy(() => import('./pages/SalaryOfferEvaluator.jsx'))
 const FreelanceTaxPlanner = lazy(() => import('./pages/FreelanceTaxPlanner.jsx'))
@@ -185,6 +189,10 @@ createRoot(document.getElementById('root')).render(
           <Route path="/tools/qr-generator" element={<QRGenerator />} />
           <Route path="/tools/solar-planner" element={<SolarPlanner />} />
           <Route path="/tools/rent-vs-buy-calculator-pakistan" element={<RentVsBuyPakistan />} />
+          <Route path="/tools/stock-planner" element={<StockPlanner />} />
+          <Route path="/tools/community-fund-demo" element={<CommunityFundDemo />} />
+          <Route path="/tools/order-review-demo" element={<OrderReviewDemo />} />
+          <Route path="/tools/migration-evidence-demo" element={<MigrationEvidenceDemo />} />
           <Route path="/tools/petrol-vs-hybrid-vs-ev" element={<CarPowertrainDecision />} />
           <Route path="/tools/salary-offer-calculator-pakistan" element={<SalaryOfferEvaluator />} />
           <Route path="/tools/freelance-tax-planner-pakistan" element={<FreelanceTaxPlanner />} />

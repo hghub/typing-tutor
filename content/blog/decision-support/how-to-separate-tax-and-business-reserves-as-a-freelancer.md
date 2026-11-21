@@ -9,6 +9,11 @@ readTime: 6 min read
 publishDate: 2026-05-05
 tags: ["freelancer tax reserve","business reserve freelancer","freelance cashflow Pakistan"]
 ---
+
+## Planner Update — 16 November 2026
+
+The planner requires your separately assessed annual tax cash budget and splits it over twelve months. It no longer uses salary slabs for freelance receipts. Operating and household reserves remain separate allocations; see the [tax-budget guide](/blog/decision-support/how-much-tax-should-freelancers-reserve-in-pakistan) for the calculation and payment-timing limits.
+
 ## One Pool of Money Creates Confusion
 
 When freelancer cash all sits in one mental bucket, it becomes too easy to spend tax money, ignore operating volatility, and overestimate what is truly available for personal use.
@@ -32,7 +37,7 @@ Separate buckets reduce stress and improve decisions. You stop reacting to the t
 
 ## Use a Reserve Planner First
 
-The [Freelance Tax and Reserve Planner](/tools/freelance-tax-planner-pakistan) helps turn this into a monthly plan: how much goes to tax, how much stays in operating reserve, how much should build emergency runway, and how much is safer owner pay.
+The [Freelance Tax and Reserve Planner](/tools/freelance-tax-planner-pakistan) helps turn this into a monthly plan: how much goes to tax, how much stays in operating reserve, how much should build emergency runway, and how much is remaining owner cash.
 
 Build a cleaner reserve structure before another strong month tricks you into overspending.
 

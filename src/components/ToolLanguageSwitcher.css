@@ -1,0 +1,14 @@
+.tool-language-switch { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-bottom: 1rem; }
+.tool-language-switch button { font: inherit; font-size: 1rem; border: 1px solid; border-radius: .6rem; padding: .45rem .85rem; cursor: pointer; }
+.tool-language-switch button:focus-visible { outline: 2px solid #06b6d4; outline-offset: 3px; }
+.tool-language-switch button[aria-pressed="true"] { font-weight: 800; }
+.urdu-tool { display: grid; gap: 1rem; min-width: 0; line-height: 1.9; font-family: "Noto Naskh Arabic", "Noto Nastaliq Urdu", system-ui, sans-serif; overflow-wrap: anywhere; }
+.urdu-tool input[type="number"], .urdu-tool textarea { direction: ltr; text-align: left; }
+.urdu-tool select { font: inherit; }
+.urdu-tool a { color: #0891b2; text-decoration: underline; }
+.urdu-tool button { font: inherit; cursor: pointer; }
+.urdu-tool .urdu-actions { display: flex; flex-wrap: wrap; gap: .6rem; }
+.urdu-tool .urdu-actions button { color: inherit; background: transparent; border: 1px solid #0891b2; border-radius: .6rem; padding: .5rem .8rem; }
+.urdu-tool bdi { font-family: system-ui, sans-serif; }
+
+.urdu-tool input:focus-visible, .urdu-tool select:focus-visible, .urdu-tool textarea:focus-visible, .urdu-tool button:focus-visible { outline: 2px solid #0891b2 !important; outline-offset: 3px; }

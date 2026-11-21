@@ -6,6 +6,7 @@ const PREFS_EVENT = 'typely-prefs-change'
 const DEFAULTS = {
   showPkTools: true,   // show Pakistan-specific tools in ToolsHome
   urduLabels: false,   // show Urdu names/taglines on tool cards + Urdu disclaimers
+  toolLanguage: 'en',  // core tool workflow language; separate from card-label preference
   cloudSync: false,    // sync data to cloud; when false, localStorage only (opt-in)
 }
 

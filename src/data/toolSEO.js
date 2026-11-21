@@ -3,6 +3,94 @@
 // Used by ToolLayout to auto-inject descriptions + FAQ sections.
 
 const TOOL_SEO = {
+"community-fund-demo": {
+  "metaTitle": "Monthly Contribution & Shared Services Fund Demo | Rafiqy",
+  "metaDesc": "Check whether entered street contributions cover approved guard or cleaning costs. Protect excess receipts and distinguish collection gaps from budget shortfalls.",
+  "heading": "Shared Services Fund — Check This Month Before Collecting More",
+  "paras": [
+    "This synthetic single-month worksheet compares agreed contributions with entered receipts and approved service costs. It separates current outstanding contributions from a budget that remains underfunded even after full collection.",
+    "Opening cash is assumed unrestricted. Excess receipts are protected instead of automatically treated as donations or next-month income. All figures are illustrative; this is not a payment processor or an accounting ledger.",
+    "The interface runs in page memory and provides a template-based English or Urdu aggregate summary with opening, closing and unrestricted cash, protected excess and both gaps. Recorded amounts are not independently verified balances. No AI, database, public member list, notification or banking connector is enabled."
+  ],
+  "faqs": [
+    {
+      "q": "Is this a rotating savings committee?",
+      "a": "No. This worksheet funds shared service costs such as a guard or cleaning; it does not allocate a rotating payout. The separate kameti tool covers a different workflow."
+    },
+    {
+      "q": "Does receiving more money close the budget gap?",
+      "a": "Extra receipts above a member’s net agreed contribution remain protected and unallocated here. The structural gap compares agreed current contributions plus opening unrestricted cash with approved expenses."
+    },
+    {
+      "q": "Are reminders or AI connected?",
+      "a": "No. The displayed explanations are deterministic templates. A future private assistant could draft evidence-based explanations or reminders, subject to permissions and review. It would not change financial records or send messages automatically."
+    },
+    {
+      "q": "Can it handle actual resident payments?",
+      "a": "Use invented examples only. This demo does not verify receipts, preserve history, handle refunds/arrears, process payments or enforce multi-user access. A live implementation needs reviewed controls and an audit trail."
+    }
+  ]
+},
+"order-review-demo": {
+  "metaTitle": "Purchase Order Review Demo | Synthetic Integration Workflow | Rafiqy",
+  "metaDesc": "Synthetic rule-based order review: inspect source lines, resolve catalogue ambiguity, check prices and totals, block duplicate references and export an approved draft CSV. No AI or ERP connection.",
+  "heading": "Purchase Order Review Demo — Inspect the Workflow Before a Pilot",
+  "paras": [
+    "Synthetic rule-based order review: inspect source lines, resolve catalogue ambiguity, check prices and totals, block duplicate references and export an approved draft CSV. No AI or ERP connection.",
+    "All examples are invented. Processing runs in page memory; no document upload, external model, database or live connector is enabled. These demos serve Pakistan and international buyers evaluating a narrowly scoped integration pilot."
+  ],
+  "faqs": [
+    {
+      "q": "Is Ollama or an AI model connected?",
+      "a": "No. This is a working deterministic synthetic workflow. A private-model implementation requires separately approved infrastructure, benchmark data, security controls and cost evaluation."
+    },
+    {
+      "q": "Can I use customer documents or production code?",
+      "a": "Use synthetic examples here. No private intake, tenant storage or production connector is configured. A real pilot needs an agreed data-handling arrangement."
+    },
+    {
+      "q": "Does the CSV create a sales order?",
+      "a": "No. It is a local synthetic draft for inspection. Resolve all shown exceptions and explicitly approve before exporting. Nothing is sent to an ERP."
+    }
+  ]
+},
+"migration-evidence-demo": {
+  "metaTitle": "Migration Evidence Lab | Synthetic Integration Workflow | Rafiqy",
+  "metaDesc": "Run synthetic browser mapping comparisons, expose a null-default regression and test its correction. Inspect illustrative code and an evidence report with unsupported gaps. No compiler or runtime execution.",
+  "heading": "Migration Evidence Lab — Inspect the Workflow Before a Pilot",
+  "paras": [
+    "Run synthetic browser mapping comparisons, expose a null-default regression and test its correction. Inspect illustrative code and an evidence report with unsupported gaps. No compiler or runtime execution.",
+    "All examples are invented. Processing runs in page memory; no document upload, external model, database or live connector is enabled. These demos serve Pakistan and international buyers evaluating a narrowly scoped integration pilot."
+  ],
+  "faqs": [
+    {
+      "q": "Is Ollama or an AI model connected?",
+      "a": "No. This is a working deterministic synthetic workflow. A private-model implementation requires separately approved infrastructure, benchmark data, security controls and cost evaluation."
+    },
+    {
+      "q": "Can I use customer documents or production code?",
+      "a": "Use synthetic examples here. No private intake, tenant storage or production connector is configured. A real pilot needs an agreed data-handling arrangement."
+    },
+    {
+      "q": "Does passing prove a successful MuleSoft to Ballerina migration?",
+      "a": "No. Checks execute bounded JavaScript interpreters only. Illustrative source and target snippets are not compiled or run. Real migration requires version-specific tool execution, compiler checks and isolated runtime regression tests."
+    }
+  ]
+},
+  'stock-planner': {
+    metaTitle: 'Stock Planner & Demand Forecast Lab | Reorder Scenarios | Rafiqy',
+    metaDesc: 'Check shortages, late orders and supplier packs. Test seven-day demand forecasts against sales history and explore custom POS, ML and AI-assisted inventory workflows.',
+    heading: 'Stock & Replenishment Planner — What Should You Order Next?',
+    paras: ['Compare current available stock with expected usage and supplier lead times. See which items may run out, whether existing deliveries arrive in time and what additional quantity a purchasing plan suggests.', 'Use editable pizza, bakery and retail examples, then replace assumptions with your own quantities in consistent units. Prices are illustrative inputs, not live rates. All planning runs in the page memory; entries are not uploaded or saved by this tool.', 'The planner counts confirmed incoming orders once, rounds new quantities to supplier constraints and flags shelf-life mismatches. A separate seven-day forecast lab compares three statistical baselines on chronological test windows. Advanced ML, an LLM assistant, direct connectors and automated purchasing are custom options to scope; they are not enabled in this demo.'],
+    faqs: [
+      { q: 'Why can an item be critical with zero additional order suggested?', a: 'A confirmed order may cover the target quantity but arrive after current stock runs out. Review expedited delivery or a branch transfer before placing a duplicate order.' },
+      { q: 'What forecasting works in this version?', a: 'The browser lab accepts 42–366 consecutive daily quantities for one item and compares a repeated weekly pattern, a recent 14-day mean and simple exponential smoothing. It selects the lowest historical mean absolute error on eight overlapping seven-day test windows. This is a small statistical comparison, not an LLM service or a guarantee of future accuracy.' },
+      { q: 'What additional AI or inventory capabilities can be built?', a: 'A custom pilot can evaluate ETS/SARIMA, intermittent-demand models, feature-based ML or time-series foundation models against baselines. An LLM can explain validated results, retrieve permitted supplier terms and prepare drafts. Batch expiry, recipe conversion, branch transfers and constrained purchasing require additional data, integration and review; they are not live demo features.' },
+      { q: 'Can this connect to my POS or ERP?', a: 'Direct connections are not enabled in this version. The downloaded brief helps define item identifiers, units, reservations and purchase-order data for a custom integration discussion.' },
+      { q: 'Does my inventory leave my device?', a: 'This planner keeps entries in page memory and only creates a local text download when requested. Entries are lost on reload. Optional site feedback is a separate feature.' },
+    ],
+  },
+
   'typing-tutor': {
     metaTitle: 'Free Typing Tutor Online | English, Urdu, Arabic, Persian | Rafiqy',
     metaDesc: 'Practice typing online in English, Urdu, Arabic and Persian with WPM tracking, accuracy feedback, drills, weak-key analysis and custom passages. No sign-up.',
@@ -142,20 +230,20 @@ const TOOL_SEO = {
   },
 
   'tax-calculator': {
-    metaTitle: 'Income Tax Calculator | Salary Tax Estimate for Pakistan (2025-26) | Rafiqy',
-    metaDesc: 'Estimate salary income tax using current FBR slabs for FY 2025-26. Check annual tax, monthly impact, VPS, charity credits and senior rebate with a private browser calculator.',
-    heading: 'Income Tax Calculator — Salary Tax Estimate for FY 2025-26',
+    metaTitle: 'Pakistan Salary Tax Calculator 2026–27 (TY 2027) | Rafiqy',
+    metaDesc: 'Estimate Pakistan salary tax for FY 2026–27 or FY 2025–26. Check verified salary slabs, bonus impact, monthly averages and the year-specific surcharge before personal credits.',
+    heading: 'Salary Tax Calculator — FY 2026–27 and Historical FY 2025–26',
     paras: [
-      'Estimate salary income tax using current salaried slab rates for Tax Year 2026 (Financial Year 2025-26). This calculator is designed for practical planning: monthly salary in, annual tax and take-home estimate out, with the tax logic aligned to Pakistan\'s current FBR rules.',
-      'It covers the main items salaried users usually need: slab-based salary tax, annual bonus impact, VPS pension credit, eligible charity credit, senior rebate rules and year-over-year comparison. It is intended for planning and budgeting, not as an official filing interface.',
-      'Your inputs stay on your device while the calculator works. Use the result to sense-check payroll deductions, compare tax years, or estimate whether extra pension investment or donations materially change your tax outcome.',
+      'Choose the income period before estimating salary tax. Tax Year 2027 covers 1 July 2026 to 30 June 2027; Tax Year 2026 covers the preceding financial year. The calculator keeps their salary slabs and surcharge rules separate.',
+      'Enter taxable monthly salary and an additional annual bonus to see base income tax, an average monthly amount, effective rate and an identical-income comparison between the two years. The marginal rate applies only above its slab threshold.',
+      'This version is for salary-only cases up to PKR 100 million annual taxable income. Personal credits, rebates, mixed income, special regimes and payroll adjustments require separate assessment. Inputs remain in page memory; no return is submitted.',
     ],
     faqs: [
-      { q: 'Which tax year does this calculator cover?', a: 'Tax Year 2026 — income earned from July 1, 2025 to June 30, 2026 (FY 2025-26). Slab rates are from the Finance Act 2025.' },
-      { q: 'What is the current tax-free income limit in Pakistan?', a: 'For Tax Year 2026, income up to Rs 600,000 per year is tax-free (0% slab) for salaried individuals.' },
-      { q: 'Can I use this for business income?', a: 'No. This calculator currently estimates salaried-person tax only. If your income is business, self-employed or freelance, use it only as a rough reference and verify separately before relying on the result.' },
-      { q: 'What is the surcharge and who pays it?', a: 'A 10% surcharge applies when total tax liability exceeds Rs 1,500,000. Applied on the portion of tax above that threshold, not on income itself.' },
-      { q: 'Is this tool approved by FBR?', a: 'This is an unofficial estimation tool for planning purposes. Always verify your final return on the official IRIS portal at iris.fbr.gov.pk.' },
+      { q: 'Which tax years are supported?', a: 'TY 2027 (FY 2026–27) is the default. Historical TY 2026 (FY 2025–26) remains available. Choose the period when the salary was earned.' },
+      { q: 'What is the tax-free salary threshold for TY 2027?', a: 'The salary table starts with a zero-rate band up to PKR 600,000 annual taxable income. The estimate does not determine whether allowances or other income are exempt.' },
+      { q: 'Does the 9% salaried surcharge still apply?', a: 'Finance Act 2026 withdrew it for salaried individuals. The historical TY 2026 estimate applies 9% of base tax when annual taxable salary exceeds PKR 10 million. This is not a general exemption for business income.' },
+      { q: 'Are pension, donation or teacher credits included?', a: 'No. This is an estimate before personal credits or rebates. Eligibility must be checked for the selected year and circumstances; unavailable concessions must not reduce the estimate.' },
+      { q: 'Is the monthly figure my payroll deduction?', a: 'It is annual estimated tax divided by 12. Bonus timing, previous deductions, job changes, credits and payroll adjustments can change actual withholding. This is an unofficial tool, not an FBR filing service.' },
     ],
   },
 
@@ -181,20 +269,20 @@ const TOOL_SEO = {
   },
 
   'salary-slip': {
-    metaTitle: 'Salary Slip Generator | Free Payslip Maker for Pakistan | Rafiqy',
-    metaDesc: 'Generate professional salary slips with current salary tax estimation and EOBI deductions. Print or save as PDF. 100% private and browser-based.',
-    heading: 'Salary Slip Generator — Professional Payslip Maker',
+    metaTitle: 'Salary Slip Draft Generator | Enter Payroll Deductions | Rafiqy',
+    metaDesc: 'Prepare a printable salary-slip draft from entered earnings, tax and employee EOBI deductions. Check gross-to-net totals before employer review. No automatic tax calculation.',
+    heading: 'Salary Slip Generator — Reconcile Entered Payroll Amounts',
     paras: [
-      'Create professional salary slips in minutes with Rafiqy\'s Salary Slip Generator. Enter employee details, basic salary, and deductions — the tool generates a formatted, printable salary slip following Pakistani payroll conventions.',
-      'The generator automatically calculates provident fund (PF), EOBI, current salary tax estimates, and net take-home pay. Export as PDF or print directly. No account, no subscription, no data uploaded — everything runs in your browser.',
-      'Ideal for small business owners, HR departments, freelancers, and contractors who need to issue payslips without expensive payroll software. Supports PKR formatting and Pakistani company details.',
+      'Enter earnings and payroll-confirmed employee deductions for one month. The tool adds and subtracts those amounts; it does not determine taxable salary, statutory liability or employer contributions.',
+      'Tax and employee EOBI require explicit values, including zero if applicable. Missing or invalid amounts and deductions above gross pay block the preview and print action. Use the separate year-specific salary calculator for a base estimate.',
+      'Inputs are held in page memory without employee templates or automatic saving. Printing opens a browser window; Save as PDF depends on the browser print dialog. Employer review and authorization are required before using a draft as a record.',
     ],
     faqs: [
-      { q: 'What deductions are calculated automatically?', a: 'The generator calculates Provident Fund (PF at 8.33% of basic), EOBI contribution, income tax based on current FBR slabs, and any custom deductions you add.' },
-      { q: 'Can I save or reuse employee templates?', a: 'Yes. Employee profiles are saved in your browser\'s localStorage. Load a saved profile to generate next month\'s payslip in seconds.' },
-      { q: 'What format can I export the salary slip in?', a: 'Export as PDF (for email/printing) or download as an image. The output follows a professional Pakistani payslip format.' },
-      { q: 'Is this compliant with Pakistani labour law?', a: 'The calculations follow standard Pakistani payroll conventions and current FBR tax rates. Always verify with a qualified HR or tax professional for compliance.' },
-      { q: 'Is employee data stored on a server?', a: 'No. All employee data is stored only in your browser\'s localStorage. Nothing is uploaded or transmitted.' },
+      { q: 'Are tax, EOBI or provident fund calculated automatically?', a: 'No. Enter payroll-confirmed tax and employee EOBI amounts. Other deductions can be entered with a clear label. Employer-only costs must not be deducted from employee pay.' },
+      { q: 'Are employee templates saved?', a: 'No. This page uses in-memory form state, which is lost on reload. It does not save employee profiles to localStorage or a database.' },
+      { q: 'How do I export a draft?', a: 'Use Print / Save PDF after all amounts are valid. A browser print window opens. There is no image export or direct PDF download.' },
+      { q: 'Is this an authorized or legally compliant payslip?', a: 'The output is a draft, not proof of employment, payment or compliance. The responsible employer or payroll professional must check deductions, required fields and authorization.' },
+      { q: 'Can I estimate salary tax separately?', a: 'Yes. The separate salary tax calculator labels its supported tax years and base-estimate limitations. A planning estimate may differ from actual monthly withholding and should not be silently copied into a payslip.' },
     ],
   },
 
@@ -1135,48 +1223,52 @@ const TOOL_SEO = {
     paras: [
       'Rafiqy\'s Rent vs Buy Analyzer is built for one of the most expensive household decisions people make: keep renting, buy now, or wait. Instead of comparing only monthly rent against monthly EMI, it models the fuller picture — down payment, transfer costs, maintenance, property tax, appreciation, and what your capital could have earned if left invested.',
       'That matters in Pakistan because transaction friction is high and markup rates can change the math dramatically. A property purchase may look attractive emotionally while still being a weak five-year decision financially if your stay horizon is short or your financing cost is too high.',
-      'Use this tool to test scenarios by city, expected stay horizon, appreciation assumptions, and rent growth. It is designed as a decision-support engine, not a sales calculator. The best use is to stress-test the assumptions before locking yourself into a home loan or liquidating savings.',
+      'City presets are illustrative examples, not verified averages or live bank/tax rates. The simplified model keeps the first-year positive monthly investment gap fixed throughout the stay; it does not fund rent-side deficits or adjust contributions for rising rent or loan maturity. Use it to explore assumptions, not establish affordability or a precise crossover year. It is designed as a decision-support engine, not a sales calculator. The best use is to stress-test the assumptions before locking yourself into a home loan or liquidating savings.',
     ],
     faqs: [
       { q: 'What does this rent vs buy calculator include?', a: 'It includes monthly rent, property price, down payment, mortgage markup, stay horizon, transfer costs, maintenance, property tax, home-price growth, rent growth, and the return you could earn by investing your down payment instead.' },
       { q: 'Why is stay horizon so important?', a: 'Buying usually becomes stronger over longer holding periods because the upfront friction of transfer fees, down payment lock-up, and maintenance gets spread across more years. Short horizons often favor renting.' },
       { q: 'Does this use official mortgage rates?', a: 'No. It uses adjustable planning assumptions. Markup and financing terms vary by bank, profile, and product. Always compare this tool\'s baseline against an actual sanction or indicative term sheet.' },
       { q: 'Can this tell me exactly which city will appreciate more?', a: 'No. Appreciation assumptions are scenario inputs, not guarantees. The tool helps you test whether your buy case remains strong even if appreciation is lower than expected.' },
+      { q: 'Are the scores probabilities or is a break-even year calculated?', a: 'No. Scores are heuristic weights, not calibrated probabilities. No validated break-even calculation is provided. Review actual cash flows and financing terms separately.' },
+      { q: 'How are transaction costs applied?', a: 'The entered percentage is applied separately to the purchase price at entry and projected property value at sale. It is a combined planning assumption, not an implemented statutory tax calculation.' },
       { q: 'Is this financial advice?', a: 'No. It is a structured comparison tool for planning. You should verify financing terms, transaction costs, and your risk tolerance before making a property decision.' },
     ],
   },
   'salary-offer-evaluator': {
     metaTitle: 'Salary Offer Calculator | After-Tax Job Offer Evaluation | Rafiqy',
-    metaDesc: 'Evaluate a job offer using after-tax salary, commute cost, benefits, remote flexibility, provident fund value and city living-cost pressure. Built for Pakistan payroll realities.',
+    metaDesc: 'Compare salary packages, commute and benefits using historical FY 2025–26 tax assumptions. Current FY 2026–27 payroll is not implemented here.',
     heading: 'Salary Offer Calculator — Decide Whether the Offer Is Actually Better',
     paras: [
+      'Disclosure reviewed 18 November 2026: this evaluator still uses historical TY 2026 / FY 2025–26 salary rules. It has not been migrated to TY 2027 / FY 2026–27. City budgets are illustrative, and no automatic tax or cost feed is connected.',
       'A higher salary number does not automatically mean a better job decision. Rafiqy\'s Salary Offer Evaluator converts a headline offer into a practical comparison: after-tax cash, commute burden, employer-paid benefits, provident fund support, relocation value, and the city cost baseline you will face after switching.',
       'This is especially useful when comparing jobs across Karachi, Lahore, Islamabad, Rawalpindi, or a remote setup. A role that looks strong on paper can weaken quickly after tax and commute, while a lower headline salary can still be superior if it gives better flexibility, lower pressure, and more effective compensation.',
       'Use the tool before accepting, rejecting, or renegotiating an offer. It helps you ask better questions: is the base too low, is the commute too expensive, is the medical cover meaningful, and does the role create enough saving capacity after the move?',
     ],
     faqs: [
-      { q: 'What does this salary offer evaluator include?', a: 'It includes gross monthly salary, annual bonus, commute cost, remote work flexibility, employer-paid benefits, provident fund support, relocation value, and an after-tax estimate using current salaried tax logic.' },
+      { q: 'What does this salary offer evaluator include?', a: 'It includes gross monthly salary, annual bonus, commute cost, remote work flexibility, employer-paid benefits, provident fund support, relocation value, and a historical FY 2025–26 salary-tax estimate. It does not implement current FY 2026–27 payroll.' },
+      { q: 'Is package value the same as money I can spend?', a: 'No. The model includes non-cash benefits, provident fund and one-time relocation alongside cash. Its package-minus-budget figure is not disposable income or a forecast of savings. Scores are heuristic weights, not probabilities.' },
       { q: 'Does it replace an employment contract review?', a: 'No. It helps you compare the economics and practical quality of an offer. You should still review contract clauses, probation terms, leave policy, bonuses, notice period, and benefit wording separately.' },
       { q: 'Why compare city cost baselines?', a: 'Because a job that requires moving to a more expensive city can reduce your true saving power even when salary looks better. The city baseline helps translate salary into actual breathing room.' },
       { q: 'Can I compare the offer to my current role?', a: 'Yes. The tool includes a benchmark section for your current annual value and role quality scores so you can compare switch value more honestly.' },
-      { q: 'Is this updated for the latest tax year?', a: 'It uses the current salaried tax logic configured in Rafiqy. Compensation decisions should still be verified against actual payroll treatment from the employer.' },
+      { q: 'Is this updated for the latest tax year?', a: 'No. This tool is still pinned to TY 2026 / FY 2025–26 (income earned 1 July 2025–30 June 2026). Use the main year-specific salary-tax calculator for its supported periods and verify actual payroll separately.' },
     ],
   },
   'freelance-tax-planner': {
-    metaTitle: 'Freelance Tax Planner | Reserve & Cashflow Calculator | Rafiqy',
-    metaDesc: 'Plan monthly tax reserves, emergency runway and safe owner pay as a freelancer. Built for irregular income, cashflow discipline and Pakistan tax realities.',
-    heading: 'Freelance Tax Planner — Reserve First, Spend Second',
+    metaTitle: 'Freelance Tax Budget & Reserve Planner | Cash Allocation | Rafiqy',
+    metaDesc: 'Allocate an entered tax budget, business costs and cash reserves. Check owner withdrawals, household runway and shortfalls without applying salary-tax slabs.',
+    heading: 'Freelance Reserve Planner — Enter a Tax Budget, Then Plan Cash',
     paras: [
-      'Freelancers often make the same mistake: they treat gross inflows as spendable income. Rafiqy\'s Freelance Tax and Reserve Planner is designed to stop that by separating revenue into four buckets — business costs, tax reserve, operating reserve, and owner pay.',
-      'This matters more in Pakistan because FX swings, client delays, and inconsistent contract flow can turn one weak quarter into a panic period if no reserve structure exists. The planner gives you a monthly reserve target and an emergency-runway target rather than a vague “save more” recommendation.',
-      'Use this when you want to decide how much to keep liquid, how much to pay yourself, and whether your current runway is strong enough before you increase lifestyle spending or hire help.',
+      'Freelance receipts are not automatically available for personal spending. This planner allocates monthly business payments, a separately entered annual tax cash budget, an operating reserve and household-fund top-ups.',
+      'It does not calculate freelance tax liability or infer a tax rate from receipts. Results remain unavailable until a tax budget is entered explicitly. A zero budget is a user assumption, not a finding of zero liability.',
+      'Compare cash left for withdrawals with household needs, inspect unfunded allocations and test a 20% receipts drop while keeping baseline allocations fixed. Inputs remain in page memory. Tax payment dates and final obligations require separate assessment.',
     ],
     faqs: [
-      { q: 'What does this freelance planner actually calculate?', a: 'It estimates monthly tax reserve, operating reserve, emergency-fund top-up, and a suggested owner pay figure after those reserves and your core business costs.' },
-      { q: 'Is this an official tax filing tool?', a: 'No. It is a reserve-planning tool. Freelancers can be taxed differently depending on filing structure, business setup, documented expenses, and current law. Confirm your actual filing treatment separately.' },
-      { q: 'Why separate tax reserve from operating reserve?', a: 'Because they solve different risks. Tax reserve protects you from year-end liability. Operating reserve protects you from delayed clients, slow months, and business shocks.' },
-      { q: 'How many months of emergency runway should a freelancer target?', a: 'Six months is a good baseline for many independent workers. More volatile client mixes may justify nine to twelve months.' },
-      { q: 'Can this help me decide whether I am paying myself too much?', a: 'Yes. The suggested owner pay output is specifically meant to show whether personal withdrawals are starving tax and reserve discipline.' },
+      { q: 'Does this calculate freelancer tax?', a: 'No. Enter an annual tax cash-funding budget determined separately. Salary slabs are not applied to freelance revenue. Review earning periods, classification, prior payments and withholding with your adviser.' },
+      { q: 'What does monthly tax funding mean?', a: 'It is your entered annual tax budget divided by 12. This cash allocation is not a statutory instalment schedule, a deduction or proof that all tax has been paid.' },
+      { q: 'Is the displayed owner cash safe to spend?', a: 'It is the arithmetic remainder after the specified allocations only. Other obligations are not modelled. The planner separately shows allocation shortfalls and gaps against household needs.' },
+      { q: 'What happens when receipts fall?', a: 'The 20% stress scenario holds business costs and all baseline reserve allocations fixed. It shows remaining owner cash and unfunded allocations without pretending to recalculate tax liability.' },
+      { q: 'Is a particular runway target recommended?', a: 'You choose the target months and build period. The examples are scenario inputs, not universal financial recommendations or probability forecasts.' },
     ],
   },
   'investment-allocation-planner': {

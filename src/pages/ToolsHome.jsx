@@ -37,7 +37,7 @@ function addRecent(id) {
   try {
     const prev = getRecent().filter(x => x !== id)
     localStorage.setItem(RECENT_KEY, JSON.stringify([id, ...prev].slice(0, 5)))
-  } catch {}
+  } catch { /* Recent-tool preferences are optional when storage is unavailable. */ }
 }
 function getFavourites() {
   try { return JSON.parse(localStorage.getItem(FAVOURITES_KEY) || '[]') } catch { return [] }
@@ -124,7 +124,7 @@ function TogglePill({ active, onClick, children, activeColor = '#06b6d4', isDark
 }
 
 // ── Marquee Ticker ────────────────────────────────────────────────────────────
-function MarqueeTicker({ tools, isDark, colors }) {
+function MarqueeTicker({ tools, isDark }) {
   const newTools = tools.filter(t => t.addedOn).slice(0, 4)
   const flagshipTools = [
     'solar-planner',
@@ -377,15 +377,15 @@ export default function ToolsHome() {
 
       <Helmet>
         <title>Free Online Tools for Pakistan, Typing, PDF & Privacy | Rafiqy</title>
-        <meta name="description" content="Browse 68 free browser-based tools for Urdu typing, Pakistan tax, solar planning, investment allocation, PDFs, writing, productivity, developer work and privacy-first tasks." />
+        <meta name="description" content={`Browse ${TOOLS.length} free browser-based tools for Urdu typing, Pakistan tax, solar planning, investment allocation, PDFs, writing, productivity, developer work and privacy-first tasks.`} />
         <link rel="canonical" href="https://rafiqy.app/tools" />
         <meta property="og:title" content="Free Online Tools for Pakistan, Typing, PDF & Privacy | Rafiqy" />
-        <meta property="og:description" content="Browse 68 free browser-based tools for Urdu typing, Pakistan tax, solar planning, investment allocation, PDFs, writing, productivity, developer work and privacy-first tasks." />
+        <meta property="og:description" content={`Browse ${TOOLS.length} free browser-based tools for Urdu typing, Pakistan tax, solar planning, investment allocation, PDFs, writing, productivity, developer work and privacy-first tasks.`} />
         <meta property="og:url" content="https://rafiqy.app/tools" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Free Online Tools for Pakistan, Typing, PDF & Privacy | Rafiqy" />
-        <meta name="twitter:description" content="Browse 68 free browser-based tools for Urdu typing, Pakistan tax, solar planning, investment allocation, PDFs, writing, productivity, developer work and privacy-first tasks." />
+        <meta name="twitter:description" content={`Browse ${TOOLS.length} free browser-based tools for Urdu typing, Pakistan tax, solar planning, investment allocation, PDFs, writing, productivity, developer work and privacy-first tasks.`} />
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',

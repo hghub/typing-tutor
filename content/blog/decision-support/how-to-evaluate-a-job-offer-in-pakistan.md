@@ -9,6 +9,9 @@ readTime: 7 min read
 publishDate: 2026-05-04
 tags: ["salary offer calculator Pakistan","job offer evaluation Pakistan","take home salary Pakistan"]
 ---
+
+**Tool scope reviewed 18 November 2026:** The linked Salary Offer Evaluator still uses historical TY 2026 / FY 2025–26 salary rules, for income earned 1 July 2025–30 June 2026. It has not been migrated to current FY 2026–27 payroll. Use the [main year-specific salary-tax calculator](/tools/tax-calculator) for its supported periods and ask payroll to confirm your actual treatment. City budgets are illustrative; no live cost feed is connected.
+
 ## Do Not Judge the Offer by Monthly Salary Alone
 
 A role that pays more on paper can still leave you worse off after tax, commute, relocation, and city cost differences. That is why smart professionals compare **effective compensation**, not just the headline gross salary.
@@ -44,3 +47,10 @@ The [Salary Offer Evaluator Pakistan](/tools/salary-offer-calculator-pakistan) h
 Turn the offer into an actual decision instead of a guess.
 
 Evaluate the offer →
+
+
+## Separate Cash, Benefits And One-Time Support
+
+Compare recurring after-tax cash against a household budget you have checked yourself. Keep insurance cover, provident fund and one-time relocation support in separate columns. They may have value, but cannot all be spent each month. The evaluator's package-minus-example-budget result is not a savings forecast, and its weighted scores are not probabilities. Avoid counting an allowance twice if it is already included in gross salary.
+
+FBR's [official withholding rate-card index](https://www.fbr.gov.pk/withholding-tax-rate-card/174298/174301), checked 18 November 2026, lists TY 2027 as current and TY 2026 among previous years. The detailed circular and current rate-card PDFs could not be retrieved during this review. No new tax rates or eligibility claims are asserted here. Current-year migration remains a separate source-verification task.

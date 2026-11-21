@@ -4,7 +4,6 @@
  * Appears fixed on the right-center of every page.
  */
 import { useState, useEffect } from 'react'
-import { supabase } from '../utils/supabase'
 import { useTheme } from '../hooks/useTheme'
 
 const TYPES = [
@@ -23,6 +22,7 @@ export default function FeedbackButton() {
   const [message, setMessage] = useState('')
   const [sent, setSent]       = useState(false)
   const [sending, setSending] = useState(false)
+  const [sendError, setSendError] = useState('')
   // Offset the tab button so it clears the OS scrollbar
   const [scrollbarW, setScrollbarW] = useState(0)
 
@@ -42,17 +42,20 @@ export default function FeedbackButton() {
   const handleSubmit = async () => {
     if (!message.trim()) return
     setSending(true)
+    setSendError('')
     try {
-      await supabase.from('app_feedback').insert({
+      const { supabase } = await import('../utils/supabase')
+      const { error } = await supabase.from('app_feedback').insert({
         name: name.trim() || 'Anonymous',
         email: email.trim() || null,
         type,
         message: message.trim(),
       })
+      if (error) throw error
       setSent(true)
       setTimeout(() => { setOpen(false); reset() }, 2000)
     } catch {
-      // fail silently — user sees send button again
+      setSendError('Your message was not sent. Please try again later.')
     } finally {
       setSending(false)
     }
@@ -160,6 +163,7 @@ export default function FeedbackButton() {
               </div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
+                {sendError && <p role="alert">{sendError}</p>}
                 {/* Type pills */}
                 <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
                   {TYPES.map(t => (

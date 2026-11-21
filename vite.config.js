@@ -2,6 +2,14 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
+// API responses may contain private records. No CacheStorage or HTTP-cache fallback.
+export const SUPABASE_RUNTIME_ROUTE = {
+  urlPattern: /^https:\/\/[a-z0-9.-]+\.supabase\.co\//i,
+  method: 'GET',
+  handler: 'NetworkOnly',
+  options: { fetchOptions: { cache: 'no-store' } },
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -27,17 +35,8 @@ export default defineConfig({
       workbox: {
         // Cache all static assets + the app shell
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
-        // Cache Supabase API calls for offline fallback (passages still work)
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/.*\.supabase\.co\/.*/i,
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'supabase-cache',
-              expiration: { maxEntries: 50, maxAgeSeconds: 60 * 60 * 24 },
-            },
-          },
-        ],
+        importScripts: ['/sw-cache-cleanup.js'],
+        runtimeCaching: [SUPABASE_RUNTIME_ROUTE],
       },
     }),
   ],

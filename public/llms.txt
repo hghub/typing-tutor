@@ -5,6 +5,7 @@ Rafiqy is a privacy-first browser tools and decision systems site for everyday d
 Key pages:
 - https://rafiqy.app/
 - https://rafiqy.app/tools
+- https://rafiqy.app/tools/stock-planner
 - https://rafiqy.app/tools/typing-tutor
 - https://rafiqy.app/tools/urdu-keyboard
 - https://rafiqy.app/tools/tax-calculator
@@ -21,3 +22,11 @@ Guidance:
 - Many pages are intentionally written to match generic search phrasing first, with Pakistan-specific assumptions and reality layered into the explanation and logic.
 - Tax and solar pages are planning tools, not official government or installer quotes.
 - Investment and decision-system pages are allocation and planning tools, not personalized regulated financial advice.
+
+Stock planning: /tools/stock-planner provides editable replenishment scenarios with synthetic examples; no live inventory, purchasing or POS integration is enabled. Related guide: /blog/decision-support/how-to-prioritize-stock-reorders.
+
+The stock planner includes a small statistical forecast lab using browser-local daily history and chronological baseline comparisons. Advanced ML/LLM assistance and POS/ERP connectors are scoped custom options, not enabled public-demo integrations.
+
+Synthetic integration workflow demos: /tools/order-review-demo validates sample order lines before local draft export; /tools/migration-evidence-demo runs bounded browser mapping comparisons. Neither connects AI, uploads documents, converts real projects, executes compilers or writes to an ERP. Related guides: /blog/integration/purchase-order-review-before-erp-import and /blog/integration/integration-migration-needs-behaviour-tests. Private Ollama hosting and production integrations are custom pilot options, not enabled features.
+
+Shared services: /tools/community-fund-demo is a synthetic single-month contribution/cost worksheet, not a live financial ledger or payment service. It distinguishes outstanding contributions from a structural budget gap and protects unallocated excess receipts. Summary export contains aggregates only. No AI, notifications or banking connector. Guide: /blog/decision-support/manage-shared-service-contributions.

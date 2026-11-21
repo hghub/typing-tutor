@@ -8,6 +8,8 @@ import FeedbackButton from './FeedbackButton'
 import ToolHelpDialog from './ToolHelpDialog'
 import ToolSEOFooter from './ToolSEOFooter'
 import ShareBar from './ShareBar'
+import ToolLanguageSwitcher from './ToolLanguageSwitcher'
+import { BILINGUAL_TOOLS } from '../hooks/useToolLanguage'
 import { useTheme } from '../hooks/useTheme'
 import { usePreferences } from '../hooks/usePreferences'
 import { TOOLS } from '../tools/registry'
@@ -95,6 +97,7 @@ export default function ToolLayout({ toolId, children }) {
       <ToolsNav />
 
       <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '2rem 1rem' }}>
+        {BILINGUAL_TOOLS.includes(toolId) && <ToolLanguageSwitcher colors={colors} />}
         {/* Tool header row with "About this tool" hint */}
         {tool && (
           <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.5rem' }}>
@@ -182,7 +185,7 @@ export default function ToolLayout({ toolId, children }) {
             <h3 style={{ color: colors.text, fontSize: '1rem', fontWeight: 700, marginBottom: '1rem' }}>
               📖 Related Guides
             </h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px,1fr))', gap: '0.75rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 260px),1fr))', gap: '0.75rem' }}>
               {related.map(post => (
                 <Link key={post.slug} to={getBlogPostPath(post)} style={{ textDecoration: 'none' }}>
                   <div style={{

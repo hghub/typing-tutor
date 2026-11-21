@@ -4,15 +4,15 @@ import { BLOG_POSTS } from './generated/blogPrerenderData.mjs'
 import { BLOG_SECTIONS, getBlogPostPath, getBlogPostUrl, getBlogSection } from '../src/data/blogRoutes.js'
 import { CATEGORY_BLOG_PRIORITY, CATEGORY_DATA, CATEGORY_TOOL_PRIORITY } from '../src/data/categoryPages.js'
 import { TOOLS } from '../src/tools/registry.js'
+import { HOME_META, HOME_CATEGORIES, HOME_STARTERS, HOME_DEMOS, HOME_GUIDES, HOME_FAQS } from '../src/data/homepage.js'
 
 const SITE_URL = 'https://rafiqy.app'
 const FEATURED_TOOL_IDS = ['solar-planner', 'tax-calculator', 'investment-allocation-planner', 'loan-emi', 'urdu-keyboard', 'typing-tutor', 'rent-vs-buy-pakistan', 'car-powertrain-decision']
-const HOME_FEATURED_POST_SLUGS = ['solar-planner-pakistan', 'pakistan-income-tax-calculator', 'how-much-loan-can-i-afford', 'investment-allocation-planner-pakistan-guide', 'urdu-typing-online', 'rent-vs-buy-calculator-pakistan-guide']
 
 const STATIC_PAGES = {
   '/': {
-    title: 'Rafiqy | Your Everyday Digital Companion',
-    description: 'Privacy-first browser tools and decision systems for typing, tax, solar, investing, PDFs, writing, and everyday digital work, with strong Pakistan-specific guidance where it matters.',
+    title: HOME_META.title,
+    description: HOME_META.description,
     type: 'home',
   },
   '/tools': {
@@ -137,26 +137,19 @@ function buildHead(page) {
 }
 
 function renderHomePage(route) {
-  const featuredTools = FEATURED_TOOL_IDS.map(id => TOOLS.find(tool => tool.id === id)).filter(Boolean)
-  const featuredPosts = HOME_FEATURED_POST_SLUGS.map(slug => BLOG_INDEX.find(post => post.slug === slug)).filter(Boolean)
-  return `
-    <main class="prerender-shell" data-prerender-route="${escapeHtml(route)}">
-      <span class="eyebrow">Privacy-first browser tools</span>
-      <h1>Your everyday digital toolbox for faster work online</h1>
-      <p class="lead">A simple, fast, and secure collection of tools for productivity, learning, finance, and daily digital tasks.</p>
-      <p class="mini">A simple digital companion for everyday tasks.</p>
-      <div class="tool-actions">
-        <a class="primary" href="/tools">Explore all tools</a>
-        <a class="secondary" href="/blog">Read guides</a>
-      </div>
-      ${section('What Rafiqy helps with', `
-        <p>Rafiqy is a browser-based platform for practical digital tools and decision support. Whether you need an Urdu keyboard online, a Pakistan income tax calculator, a solar planning estimate, or a private PDF tool, the work happens directly in your browser.</p>
-        <p>From improving your typing speed and compressing a PDF to planning a home solar system or counting words, Rafiqy is built to make everyday digital work faster, simpler, and more private.</p>
-        <p>The site is designed to stay accessible even if you search in simple English or Roman Urdu. Common search-style phrases include <strong>tax kitna banega</strong>, <strong>loan kitna lena chahiye</strong>, <strong>solar lagwana faida hai</strong>, and <strong>urdu mein type karna</strong>.</p>
-      `)}
-      ${section('Start with these high-value tools', list(featuredTools.map(tool => linkItem(`${tool.icon} ${tool.name}`, tool.path, tool.tagline || tool.description))))}
-      ${section('Popular guide cluster', list(featuredPosts.map(post => linkItem(post.title, getBlogPostPath(post), post.description))))}
-    </main>`
+  const tool = id => TOOLS.find(item => item.id === id)
+  const guides = HOME_GUIDES.map(slug => BLOG_INDEX.find(post => post.slug === slug)).filter(Boolean)
+  return `<main class="prerender-shell" data-prerender-route="${escapeHtml(route)}">
+    <h1>${escapeHtml(HOME_META.heading)}</h1><p class="lead">${escapeHtml(HOME_META.description)}</p>
+    <nav aria-label="Homepage"><a href="/tools">Full tool directory</a> · <a href="/category/business-tools">Business tools</a> · <a href="/blog">Guides</a></nav>
+    <section id="categories"><h2>Everything in the right place</h2>${HOME_CATEGORIES.map(group => `<section><h3><a href="/category/${escapeHtml(group.slug)}">${escapeHtml(group.label)}</a></h3><p>${escapeHtml(group.description)}</p>${list(group.tools.map(id => linkItem(tool(id).name, tool(id).path)))}</section>`).join('')}</section>
+    ${section('All categories', list(Object.entries(CATEGORY_DATA).map(([slug, data]) => linkItem(data.title, `/category/${slug}`))))}
+    <section id="starting-points"><h2>Get something done today</h2>${list(HOME_STARTERS.map(item => linkItem(item.label, tool(item.id).path, item.description)))}</section>
+    <section id="business"><h2>Small demos. Real workflow questions.</h2>${list(HOME_DEMOS.map(item => linkItem(item.label, tool(item.id).path, `${item.type}: ${item.description}`)))}<p>Synthetic examples; live connectors and private AI require separate implementation. No autonomous purchasing or real project migration is enabled.</p><a href="/about">About Rafiqy</a></section>
+    <section id="guides"><h2>Practical guides for the next step</h2>${list(guides.map(post => linkItem(post.title, getBlogPostPath(post), post.description)))}</section>
+    ${section('Clear expectations, useful results.', HOME_FAQS.map(faq => `<details><summary>${escapeHtml(faq.q)}</summary><p>${escapeHtml(faq.a)}</p></details>`).join(''))}
+    <nav aria-label="Footer"><a href="/tools">All tools</a> · <a href="/blog">Guides</a> · <a href="/help">Help</a> · <a href="/privacy">Privacy</a></nav>
+  </main>`
 }
 
 function renderToolsHome(route) {

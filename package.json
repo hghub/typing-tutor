@@ -11,6 +11,8 @@
     "qa:build": "node scripts/qa-build.mjs",
     "build": "npm run build:app && npm run prerender && npm run qa:build",
     "lint": "eslint .",
+    "test:stock": "node --test scripts/tests/stock*.test.mjs",
+    "test:planning": "node --test scripts/tests/*.test.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

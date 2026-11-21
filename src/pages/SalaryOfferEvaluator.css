@@ -1,0 +1,6 @@
+.offer-layout { display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr); gap: 1rem; }
+.offer-layout > * { min-width: 0; overflow-wrap: anywhere; }
+.offer-scope { padding: 1rem; margin-bottom: 1rem; border: 1px solid; border-left: 4px solid #0891b2; border-radius: .75rem; line-height: 1.65; overflow-wrap: anywhere; }
+.offer-scope p { margin: .5rem 0; }
+.offer-scope a:focus-visible { outline: 3px solid #0891b2; outline-offset: 3px; }
+@media (max-width: 900px) { .offer-layout { grid-template-columns: minmax(0,1fr); } }

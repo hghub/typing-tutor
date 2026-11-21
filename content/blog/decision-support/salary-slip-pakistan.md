@@ -1,88 +1,59 @@
 ---
 slug: salary-slip-pakistan
-title: Salary Slip Guide: EOBI, PESSI, Tax & Net Pay Explained
-description: Learn what goes on a salary slip — EOBI, PESSI/SESSI deductions, income tax, and net pay. Includes a worked example built around Pakistan payroll conventions.
+title: Salary Slip Guide: Reconcile Payroll Deductions Before Printing
+description: Prepare a payslip draft from confirmed payroll amounts, understand gross-to-net arithmetic, and keep tax estimates separate from recorded deductions.
 hero: 💼
 category: pakistan
 section: decision-support
-readTime: 7 min read
+readTime: 4 min read
 publishDate: 2025-09-09
 tags: ["salary slip Pakistan","EOBI","PESSI","income tax Pakistan","payroll Pakistan"]
 ---
-## What Is a Salary Slip and Why Does It Matter?
+## A Salary Slip Starts With Payroll Records
 
-A **salary slip** (also called a pay slip or pay stub) is a formal document issued by an employer each month that details an employee's earnings and deductions for that pay period. In Pakistan, salary slips serve multiple practical purposes beyond just showing take-home pay:
+A payslip explains earnings and employee deductions for a specific period. Its appearance alone does not prove employment, payment or compliance. The responsible employer must review and authorize the record. A self-generated draft is not a substitute for the evidence requested by a bank, landlord or visa authority; confirm their requirements separately.
 
-- Required for visa applications (UK, Schengen, US all require proof of salary)
-- Used by banks for loan eligibility assessment
-- Required for renting property in many cities
-- Needed for income tax filing and verification
-- Useful for EOBI and PESSI record verification
+The [Salary Slip Generator](/tools/salary-slip) now prepares a draft from entered payroll amounts. It does not automatically calculate tax, EOBI, provincial social security or provident fund. This scope was reviewed on21November2026. The earlier automatic tax calculation and fixed EOBI cap were removed rather than presented as current payroll rules.
 
-Understanding each component of a **salary slip in Pakistan** ensures you know exactly what you are earning, what is being deducted, and whether the deductions are correct.
+## Keep Earnings And Deductions Separate
 
-## Components of a Pakistani Salary Slip
+Enter basic salary and each actual allowance separately. Their sum is gross earnings for this draft. The name of an allowance does not establish whether it is taxable or exempt. Do not assume a universal salary split or exemption percentage.
 
-### Earnings (Gross Pay)
+Enter the employee income-tax withholding and employee EOBI deduction confirmed by payroll. Both fields require an explicit amount, including zero when applicable. Additional confirmed employee deductions can be totalled under a clear label. Employer-only contributions belong in the employer's records and must not automatically reduce employee pay.
 
-Pakistani salary structures typically include multiple allowance components:
+Eligibility, contribution bases, provincial rules, exemptions, adjustments and employer policies need separate verification. No EOBI, PESSI/SESSI or provident-fund rate is asserted by this guide. Ask the payroll professional which rules and period support each deduction.
 
-- **Basic salary**: The foundation of your pay package. Usually 40–60% of gross pay. All deductions are calculated as a percentage of basic salary.
-- **House Rent Allowance (HRA)**: Typically 40–50% of basic salary. Partially exempt from income tax if you are living in rented accommodation.
-- **Medical allowance**: Usually Rs 5,000–15,000/month or 10% of basic. Often tax-exempt up to specified limits.
-- **Conveyance allowance**: Transport reimbursement, commonly Rs 3,000–8,000/month.
-- **Other allowances**: Utility, telephone, meal, or special allowances depending on the company.
+## A Synthetic Arithmetic Example
 
-### Deductions
+| Entered item | PKR |
+| --- | --- |
+| Basic salary | 200,000 |
+| House rent allowance | 30,000 |
+| Medical allowance | 10,000 |
+| Conveyance | 10,000 |
+| Gross earnings | 250,000 |
+| Payroll-supplied income tax | 23,000 |
+| Payroll-supplied employee EOBI | 0 |
+| Other confirmed employee deductions | 10,000 |
+| Total deductions | 33,000 |
+| Draft net pay | 217,000 |
 
-- **Income tax (WHT)**: Withheld at source by the employer based on your annual projected income and the applicable FBR tax slab.
-- **EOBI contribution**: Employee share is **Rs 370/month** (fixed). Employer contributes an additional Rs 1,110/month to the Employees' Old-Age Benefits Institution fund.
-- **PESSI (Punjab) / SESSI (Sindh)**: Employees working in Punjab are covered by PESSI; in Sindh by SESSI. The employee contribution is **6% of basic salary**, deducted monthly. This funds medical treatment and other social security benefits.
-- **Provident fund**: Where applicable, 8.33% of basic salary. Not all companies offer this.
+These are invented inputs, not a tax or EOBI calculation. The draft reconciles250,000 minus33,000. Zero EOBI is an explicit example value, not an eligibility decision. If deductions exceed gross earnings, reconcile the records rather than issuing a negative-pay draft.
 
-## Worked Example: Rs 80,000 Gross Salary
+## Estimate Tax Separately From Recorded Withholding
 
-Let us build a complete salary slip for an employee in Lahore earning Rs 80,000 gross monthly:
+The [year-specific salary tax calculator](/tools/tax-calculator) provides a base planning estimate with stated limitations. Actual monthly withholding can differ because of payroll adjustments, variable earnings, prior deductions and applicable treatment. This generator does not infer taxable income from the total allowances or silently copy a planning estimate into a record.
 
-### Earnings Breakdown
+Primary reference checked21November2026: [FBR's current and previous withholding rate-card index](https://www.fbr.gov.pk/withholding-tax-rate-card/174298/174301) lists TY2027 as current and TY2026 as previous. Its [TY2027 rate card](https://download1.fbr.gov.pk/Docs/202681113864992WithholdingTaxRatesCard2027.pdf), updated through30June2026 under Finance Act2026, was retrieved and its salary table reviewed on pages1–2. The card itself says the statute prevails. The previously referenced circular download timed out today; no new numeric tax rules were added to this generator or guide.
 
-- Basic salary: Rs 40,000 (50% of gross)
-- House Rent Allowance: Rs 20,000 (50% of basic)
-- Medical allowance: Rs 10,000
-- Conveyance allowance: Rs 6,000
-- Utility allowance: Rs 4,000
-- **Gross salary: Rs 80,000**
+## Review Before Printing
 
-### Deductions Breakdown
+Check the pay period, employee and company details, allowance breakdown, deductions and net amount against the underlying payroll records. A printable footer keeps the draft status and calculation limits visible. Names and labels are text, not executable markup. Missing or invalid amounts prevent printing; explicitly enter zero where appropriate.
 
-- **Income tax**: Annual salary = Rs 80,000 × 12 = Rs 9,60,000. Using 2024–25 FBR slabs: Rs 30,000 + 15% of (Rs 9,60,000 − Rs 12,00,000 excess over Rs 600,000). Wait — Rs 9,60,000 falls in the Rs 600,001–Rs 1,200,000 slab. Tax = 5% × (Rs 9,60,000 − Rs 6,00,000) = 5% × Rs 3,60,000 = Rs 18,000/year = **Rs 1,500/month**
-- **EOBI**: **Rs 370/month** (fixed regardless of salary)
-- **PESSI**: 6% of basic = 6% × Rs 40,000 = **Rs 2,400/month**
-- **Total deductions: Rs 4,270/month**
+Print opens a browser window. Save as PDF is an option in supported browser print dialogs, not a direct PDF or image export. Allow the window if it is blocked, then review the print preview. Actual mobile and print-dialog verification remains pending for this prepared version.
 
-### Net Pay
+## Protect Employee Information
 
-**Net take-home pay: Rs 80,000 − Rs 4,270 = Rs 75,730/month**
+The form uses page-memory state and loses inputs on reload. It has no saved employee profiles, database connector or email delivery. A downloaded or printed copy can still contain sensitive details: review its recipient and keep it private. Use synthetic information when testing the public tool.
 
-## EOBI: What Your Rs 370 Pays For
-
-EOBI (Employees' Old-Age Benefits Institution) provides a pension to registered workers upon retirement. The current benefit is a monthly pension of Rs 10,000–15,000 for eligible retirees. While the pension amount seems modest, registration as an EOBI contributor is also required for certain government benefits and establishes your formal employment record.
-
-Both employer and employee registration with EOBI is mandatory for companies with 5+ employees. Your salary slip should show your EOBI registration number.
-
-## PESSI vs SESSI: Provincial Social Security
-
-- **PESSI (Punjab Employees Social Security Institution)**: Covers workers in Punjab with wages up to Rs 25,000/month basic (registration threshold). Provides free medical treatment at PESSI hospitals for registered workers and their families.
-- **SESSI (Sindh Employees Social Security Institution)**: Equivalent in Sindh with similar coverage and contribution structure.
-
-The 6% employee contribution is deducted from basic salary only, not from allowances. Employers contribute an additional 6% of basic salary to the social security fund.
-
-## Generating a Salary Slip
-
-If your company does not issue formal pay slips, or if you are self-employed and need to generate one for loan or visa applications, use the [Rafiqy Salary Slip Generator](/tools/salary-slip). Enter your earnings breakdown and applicable deductions, and it produces a professionally formatted salary slip PDF that includes all mandatory fields.
-
-For accurate tax deduction amounts, use the [Rafiqy Tax Calculator](/tools/tax-calculator) to determine the correct monthly WHT before entering it on your salary slip.
-
-Need a professionally formatted Pakistani salary slip with all statutory deductions calculated?
-
-Generate Salary Slip Free →
+For a real payroll workflow, define authorized staff access, employee isolation, payroll-source integration, correction history and employer approval before adding storage or notifications. A clean draft is useful; it does not replace those controls.

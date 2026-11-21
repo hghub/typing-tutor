@@ -1,0 +1,4 @@
+.freelance-reserve-layout { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 1rem; margin-bottom: 1rem; }
+.freelance-reserve-layout > * { min-width: 0; overflow-wrap: anywhere; }
+.freelance-reserve-layout input:focus-visible { outline: 2px solid #f97316 !important; outline-offset: 2px; }
+@media (max-width: 900px) { .freelance-reserve-layout { grid-template-columns: minmax(0, 1fr); } }

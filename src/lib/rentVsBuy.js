@@ -41,6 +41,8 @@ export function rentVsBuyDecision(inputs) {
   const investmentReturnPct = Number(inputs.investmentReturnPct) || 0
 
   const downPayment = propertyPrice * (downPaymentPct / 100)
+  const purchaseCosts = propertyPrice * (transferCostPct / 100)
+  const ownerUpfrontCash = downPayment + purchaseCosts
   const financedAmount = Math.max(0, propertyPrice - downPayment)
   const emi = calcEMI(financedAmount, annualMarkupRate, mortgageYears)
   const monthsInView = Math.max(12, Math.round(yearsToStay * 12))
@@ -57,7 +59,7 @@ export function rentVsBuyDecision(inputs) {
   const ownerNetWorth = saleProceeds
 
   const rentingCashOut = growingSeriesPayment(monthlyRent, annualRentGrowth, yearsToStay)
-  const investmentPrincipal = downPayment + propertyPrice * (transferCostPct / 100)
+  const investmentPrincipal = ownerUpfrontCash
   // Simplification: invest a fixed, nonnegative first-year monthly cost gap.
   const monthlySavingsVsBuy = Math.max(0, emi + propertyPrice * (annualMaintenancePct + propertyTaxPct) / 100 / 12 - monthlyRent)
   const rentInvestedValue = futureValue(investmentPrincipal, investmentReturnPct, yearsToStay, monthlySavingsVsBuy)
@@ -180,6 +182,8 @@ export function rentVsBuyDecision(inputs) {
   return {
     cityLabel: cityPreset.label,
     downPayment,
+    purchaseCosts,
+    ownerUpfrontCash,
     emi,
     totalEmiPaid,
     remainingBalance,

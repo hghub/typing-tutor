@@ -13,7 +13,7 @@ const DATA_KEYS = [
   'typely_symptoms','typely_warranties','typely_worldtime_pins',
 ]
 
-function SettingsPopover({ colors, isDark, onClose }) {
+function SettingsPopover({ colors, isDark, onClose, triggerRef }) {
   const { prefs, togglePref } = usePreferences()
   const ref = useRef(null)
   const importRef = useRef(null)
@@ -53,81 +53,87 @@ function SettingsPopover({ colors, isDark, onClose }) {
   }
 
   useEffect(() => {
-    const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) onClose() }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
-  }, [onClose])
+    const handler = (e) => {
+      if (ref.current && !ref.current.contains(e.target) && !triggerRef.current?.contains(e.target)) onClose(false)
+    }
+    document.addEventListener('pointerdown', handler)
+    return () => document.removeEventListener('pointerdown', handler)
+  }, [onClose, triggerRef])
+
+  useEffect(() => { ref.current?.querySelector('button')?.focus() }, [])
 
   const rows = [
-    { key: 'cloudSync',   icon: prefs.cloudSync ? '☁️' : '📴', label: 'Cloud Sync',     desc: prefs.cloudSync ? 'Data saved to cloud' : 'Local only',    color: '#06b6d4' },
+    { key: 'cloudSync',   icon: prefs.cloudSync ? '☁️' : '📴', label: 'Cloud Sync',     desc: prefs.cloudSync ? 'Requested for supported tools' : 'Sync preference off',    color: '#06b6d4' },
     { key: 'showPkTools', icon: '🇵🇰',                          label: 'Pakistan Tools', desc: prefs.showPkTools ? 'Visible' : 'Hidden',                  color: '#10b981' },
     { key: 'urduLabels',  icon: 'اردو',                          label: 'Urdu Labels',   desc: prefs.urduLabels ? 'Tool cards in Urdu' : 'English labels', color: '#f59e0b' },
   ]
 
   return (
-    <div ref={ref} style={{
+    <div ref={ref} id="rafiqy-preferences" role="dialog" aria-labelledby="rafiqy-preferences-title" className="rafiqy-preferences" style={{
       position: 'absolute', right: 0, top: 'calc(100% + 8px)',
       background: isDark ? '#1e293b' : '#fff',
       border: `1px solid ${isDark ? '#334155' : '#e2e8f0'}`,
       borderRadius: '0.75rem',
       boxShadow: isDark ? '0 8px 32px rgba(0,0,0,0.5)' : '0 8px 32px rgba(0,0,0,0.12)',
-      padding: '0.75rem', minWidth: '230px', zIndex: 200,
+      padding: '0.75rem', width: 'min(290px, calc(100vw - 2rem))', maxHeight: 'min(34rem, calc(100dvh - 5rem))', overflowY: 'auto', zIndex: 200,
     }}>
-      <div style={{ fontSize: '0.7rem', fontWeight: 700, color: colors.textSecondary, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '0.6rem', padding: '0 0.25rem' }}>
-        Preferences
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem', marginBottom: '0.6rem' }}>
+        <h2 id="rafiqy-preferences-title" style={{ margin: 0, fontSize: '1rem', color: colors.text }}>Preferences</h2>
+        <button type="button" aria-label="Close preferences" onClick={() => onClose(true)}>Close</button>
       </div>
       {rows.map(({ key, icon, label, desc, color }) => (
-        <div key={key} onClick={() => togglePref(key)} style={{
+        <button key={key} type="button" role="switch" aria-checked={Boolean(prefs[key])} aria-labelledby={`preference-${key}-label`} aria-describedby={`preference-${key}-description`} onClick={() => togglePref(key)} style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '0.55rem 0.5rem', borderRadius: '0.5rem', cursor: 'pointer',
+          width: '100%', gap: '0.75rem', textAlign: 'left', padding: '0.55rem 0.5rem', borderRadius: '0.5rem', cursor: 'pointer', marginBottom: '0.35rem',
           transition: 'background 0.15s ease',
           background: prefs[key] ? `${color}12` : 'transparent',
         }}
           onMouseEnter={(e) => { e.currentTarget.style.background = prefs[key] ? `${color}20` : (isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)') }}
           onMouseLeave={(e) => { e.currentTarget.style.background = prefs[key] ? `${color}12` : 'transparent' }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem' }}>
-            <span style={{ fontSize: '1rem', lineHeight: 1 }}>{icon}</span>
-            <div>
-              <div style={{ fontSize: '0.83rem', fontWeight: 600, color: colors.text, lineHeight: 1.2 }}>{label}</div>
-              <div style={{ fontSize: '0.72rem', color: colors.textSecondary, marginTop: '0.1rem' }}>{desc}</div>
-            </div>
-          </div>
-          <div style={{
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', minWidth: 0 }}>
+            <span aria-hidden="true" style={{ fontSize: '1rem', lineHeight: 1 }}>{icon}</span>
+            <span>
+              <span id={`preference-${key}-label`} style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: colors.text, lineHeight: 1.2 }}>{label}</span>
+              <span id={`preference-${key}-description`} style={{ display: 'block', fontSize: '0.875rem', color: colors.textSecondary, marginTop: '0.2rem' }}>{desc}</span>
+            </span>
+          </span>
+          <span aria-hidden="true" style={{
             width: '36px', height: '20px', borderRadius: '10px',
             background: prefs[key] ? color : (isDark ? '#334155' : '#cbd5e1'),
             position: 'relative', flexShrink: 0, transition: 'background 0.2s ease',
           }}>
-            <div style={{
+            <span style={{
               position: 'absolute', top: '2px', left: prefs[key] ? '18px' : '2px',
               width: '16px', height: '16px', borderRadius: '50%',
               background: '#fff', transition: 'left 0.2s ease',
               boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
             }} />
-          </div>
-        </div>
+          </span>
+        </button>
       ))}
+      <p style={{ fontSize: '0.875rem', color: colors.textSecondary, lineHeight: 1.5 }}>Cloud sync depends on each tool and its connection. This setting does not confirm a successful save or provide account security.</p>
 
       {/* ── Data Backup ── */}
       <div style={{ borderTop: `1px solid ${isDark ? '#334155' : '#e2e8f0'}`, marginTop: '0.5rem', paddingTop: '0.6rem' }}>
-        <div style={{ fontSize: '0.7rem', fontWeight: 700, color: colors.textSecondary, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '0.5rem', padding: '0 0.25rem' }}>
+        <div style={{ fontSize: '0.875rem', fontWeight: 700, color: colors.textSecondary, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '0.5rem', padding: '0 0.25rem' }}>
           Data Backup
         </div>
         <div style={{ display: 'flex', gap: '0.4rem' }}>
           <button onClick={handleExportAll} style={{
             flex: 1, padding: '0.45rem 0.5rem', borderRadius: '0.5rem', border: `1px solid ${isDark ? '#334155' : '#e2e8f0'}`,
             background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)', color: colors.text,
-            fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.3rem',
-          }}>⬇️ Export All</button>
+            fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.3rem',
+          }}>Export local data</button>
           <button onClick={() => importRef.current?.click()} style={{
             flex: 1, padding: '0.45rem 0.5rem', borderRadius: '0.5rem', border: `1px solid ${isDark ? '#334155' : '#e2e8f0'}`,
             background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)', color: colors.text,
-            fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.3rem',
-          }}>⬆️ Import</button>
+            fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.3rem',
+          }}>Import</button>
           <input ref={importRef} type="file" accept=".json" onChange={handleImportAll} style={{ display: 'none' }} />
         </div>
-        <div style={{ fontSize: '0.68rem', color: colors.textSecondary, marginTop: '0.4rem', padding: '0 0.25rem', lineHeight: 1.4 }}>
-          Move all your data to another device
+        <div style={{ fontSize: '0.875rem', color: colors.textSecondary, marginTop: '0.4rem', padding: '0 0.25rem', lineHeight: 1.4 }}>
+          Covers listed local tool records only; cloud records and page-only drafts are not included. Keep exports private.
         </div>
       </div>
     </div>
@@ -140,17 +146,20 @@ export default function ToolsNav({ rightExtras }) {
   const [showSettings, setShowSettings] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const menuButton = useRef(null)
+  const settingsButton = useRef(null)
   const currentTool = TOOLS.find(tool => pathname === tool.path)
   useEffect(() => {
     const close = event => {
-      if (event.key === 'Escape') {
+      if (event.key === 'Escape' && (menuOpen || showSettings)) {
+        event.preventDefault()
         setMenuOpen(false); setShowSettings(false)
-        menuButton.current?.focus()
+        const trigger = showSettings ? settingsButton.current : menuButton.current
+        if (trigger?.getClientRects().length) trigger.focus()
       }
     }
     document.addEventListener('keydown', close)
     return () => document.removeEventListener('keydown', close)
-  }, [])
+  }, [menuOpen, showSettings])
   const links = [
     { path: '/tools', label: 'All tools' },
     { path: '/category/business-tools', label: 'Business' },
@@ -170,8 +179,8 @@ export default function ToolsNav({ rightExtras }) {
         {rightExtras}
         <button onClick={toggleTheme} aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'} title={isDark ? 'Switch to light theme' : 'Switch to dark theme'}>{isDark ? '☀' : '☾'}</button>
         <div style={{ position: 'relative' }}>
-          <button onClick={() => { setShowSettings(!showSettings); setMenuOpen(false) }} aria-label="Preferences" aria-expanded={showSettings} title="Preferences">⚙</button>
-          {showSettings && <SettingsPopover colors={colors} isDark={isDark} onClose={() => setShowSettings(false)} />}
+          <button ref={settingsButton} onClick={() => { setShowSettings(!showSettings); setMenuOpen(false) }} aria-label="Preferences" aria-expanded={showSettings} aria-controls="rafiqy-preferences" aria-haspopup="dialog" title="Preferences">⚙</button>
+          {showSettings && <SettingsPopover colors={colors} isDark={isDark} triggerRef={settingsButton} onClose={restoreFocus => { setShowSettings(false); if (restoreFocus) settingsButton.current?.focus() }} />}
         </div>
       </div>
     </div>

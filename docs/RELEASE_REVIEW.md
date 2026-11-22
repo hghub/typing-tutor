@@ -238,3 +238,6 @@ This is a cash-planning scenario, not a tax-liability calculation. Confirm your 
 ## Approval boundary
 
 These are review drafts, not publishing instructions. Approval must identify the final tested commit and selected caption. Resolve any material revisions and obtain fresh approval before the related public action. No lead-collection or email-delivery capability is implied by these drafts.
+# Latest focused review — 22 November 2026
+
+See [USABILITY_REVIEW_2026-11-22.md](USABILITY_REVIEW_2026-11-22.md) for the rental upfront-cash correction, accessible navigation/preferences, actual narrow CSS viewport evidence,83 tests/build checks, source links, final held rental caption and remaining release gates. Base remote review snapshot bd6681d already contains earlier unpublished dependencies. Approval of this small diff alone must not publish those dependencies. No public release or social publication occurred.

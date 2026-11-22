@@ -101,6 +101,8 @@ export default function RentVsBuyPakistan() {
     `ماڈل کا رجحان: ${result.recommendation === 'Buy' ? 'خریداری' : 'کرایہ'}`,
     `خریداری کی خالص متوقع لاگت: ${fmtCurrency(result.buyNetCost)}؛ کرایے کی خالص لاگت: ${fmtCurrency(result.rentNetCost)}`,
     `ماہانہ قسط: ${fmtCurrency(result.emi)}؛ ابتدائی ادائیگی: ${fmtCurrency(result.downPayment)}`,
+    `خریداری کے ابتدائی اخراجات کا مفروضہ: ${fmtCurrency(result.purchaseCosts)}؛ خریداری کے وقت کل نقد: ${fmtCurrency(result.ownerUpfrontCash)}`,
+    'کل نقد میں ابتدائی ادائیگی اور خریداری کے مفروضہ اخراجات شامل ہیں؛ ہنگامی ذخیرہ اور غیر درج شدہ اخراجات شامل نہیں۔',
     'اعداد مفروضوں پر مبنی ہیں؛ اصل ریٹ، فیس، نقد ذخیرہ، قیام اور قیمتوں کی غیر یقینی صورتِ حال الگ تصدیق کریں۔ یہ مالی مشورہ یا یقینی نتیجہ نہیں۔',
   ].join('\n') : [
     'Rafiqy Rent vs Buy Pakistan Summary',
@@ -113,6 +115,8 @@ export default function RentVsBuyPakistan() {
     `Rent net cost: ${fmtCurrency(result.rentNetCost)}`,
     `Monthly EMI: ${fmtCurrency(result.emi)}`,
     `Down payment: ${fmtCurrency(result.downPayment)}`,
+    `Assumed purchase costs: ${fmtCurrency(result.purchaseCosts)}`,
+    `Owner upfront cash: ${fmtCurrency(result.ownerUpfrontCash)} (down payment plus assumed purchase costs; excludes emergency reserve and unentered costs)`,
     result.breakEvenYears ? `Break-even horizon: ${result.breakEvenYears} years` : null,
     `Decision path: ${result.decisionTitle}`,
     `Action steps: ${result.actionSteps.join(' | ')}`,
@@ -152,7 +156,7 @@ export default function RentVsBuyPakistan() {
         colors={colors}
       />
       <SectionCard title="Illustrative assumptions, not live market rates" accent={ACCENT} colors={colors}>
-        <p style={{ margin: 0, lineHeight: 1.65 }}>Method and wording reviewed 17 November 2026. City presets are editable examples, not verified city averages, bank offers or current tax rates. Replace them with dated quotes and costs for your own property. No scheduled market-data refresh is connected.</p>
+        <p style={{ margin: 0, lineHeight: 1.65 }}>Method and wording reviewed 22 November 2026. City presets are editable examples, not verified city averages, bank offers or current tax rates. Replace them with dated quotes and costs for your own property. No scheduled market-data refresh is connected.</p>
         <p style={{ marginBottom: 0, lineHeight: 1.65 }}>This simplified model invests a fixed, nonnegative first-year monthly cost gap. It does not adjust that contribution as rent rises or after the mortgage ends, fund rent-side deficits, or model investment tax and fees. Scores are heuristic weights, not probabilities. A break-even year is not calculated.</p>
         <a href="https://www.bankalfalah.com/personal-banking/loans/hybrid-home-finance/" target="_blank" rel="noopener noreferrer">Example lender product terms (not a rate feed)</a>
       </SectionCard>
@@ -252,7 +256,7 @@ export default function RentVsBuyPakistan() {
             <MetricCard label="Buy net cost" value={fmtCurrency(result.buyNetCost)} sub={`Owner net worth: ${fmtCurrency(result.ownerNetWorth)}`} accent="#22c55e" colors={colors} />
             <MetricCard label="Rent net cost" value={fmtCurrency(result.rentNetCost)} sub={`Invested reserve: ${fmtCurrency(result.rentInvestedValue)}`} accent="#06b6d4" colors={colors} />
             <MetricCard label="Monthly EMI" value={fmtCurrency(result.emi)} sub={`Down payment: ${fmtCurrency(result.downPayment)}`} accent={ACCENT} colors={colors} />
-            <MetricCard label="Owner upfront cash" value={fmtCurrency(result.downPayment)} sub="This is the cash that gets locked immediately before recurring costs." accent="#f59e0b" colors={colors} />
+            <MetricCard label="Owner upfront cash" value={fmtCurrency(result.ownerUpfrontCash)} sub={`Down payment plus ${fmtCurrency(result.purchaseCosts)} assumed purchase costs. Emergency reserves and unentered fees are additional.`} accent="#f59e0b" colors={colors} />
             <MetricCard label="Rent-side invested reserve" value={fmtCurrency(result.rentInvestedValue)} sub="Uses the fixed first-year monthly gap throughout; future returns are uncertain." accent="#14b8a6" colors={colors} />
           </MetricGrid>
 

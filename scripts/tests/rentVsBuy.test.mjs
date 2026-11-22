@@ -6,6 +6,17 @@ import { remainingLoanBalance } from '../../src/lib/decision.js'
 const base = { city: 'karachi', propertyPrice: 12000000, monthlyRent: 10000, yearsToStay: 5, downPaymentPct: 25, annualMarkupRate: 12, mortgageYears: 10, annualRentGrowth: 0, annualHomeGrowth: 0, annualMaintenancePct: 1.2, propertyTaxPct: 0.6, transferCostPct: 5, investmentReturnPct: 0 }
 const near = (actual, expected) => assert.ok(Math.abs(actual - expected) < 0.01, `${actual} != ${expected}`)
 
+test('upfront purchase cash includes entry costs once and keeps the reserve separate', () => {
+  const r = rentVsBuyDecision(base)
+  near(r.downPayment, 3000000)
+  near(r.purchaseCosts, 600000)
+  near(r.ownerUpfrontCash, 3600000)
+  // With no investment return, projected reserve is initial cash plus monthly contributions.
+  near(r.rentInvestedValue - r.monthlySavingsVsBuy * 60, r.ownerUpfrontCash)
+  near(rentVsBuyDecision({ ...base, transferCostPct: 0 }).ownerUpfrontCash, 3000000)
+  near(rentVsBuyDecision({ ...base, downPaymentPct: 100 }).ownerUpfrontCash, 12600000)
+})
+
 test('annual holding costs become monthly costs, independently of stay horizon', () => {
   const five = rentVsBuyDecision(base)
   const eight = rentVsBuyDecision({ ...base, yearsToStay: 8 })

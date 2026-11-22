@@ -1231,7 +1231,7 @@ const TOOL_SEO = {
       { q: 'Does this use official mortgage rates?', a: 'No. It uses adjustable planning assumptions. Markup and financing terms vary by bank, profile, and product. Always compare this tool\'s baseline against an actual sanction or indicative term sheet.' },
       { q: 'Can this tell me exactly which city will appreciate more?', a: 'No. Appreciation assumptions are scenario inputs, not guarantees. The tool helps you test whether your buy case remains strong even if appreciation is lower than expected.' },
       { q: 'Are the scores probabilities or is a break-even year calculated?', a: 'No. Scores are heuristic weights, not calibrated probabilities. No validated break-even calculation is provided. Review actual cash flows and financing terms separately.' },
-      { q: 'How are transaction costs applied?', a: 'The entered percentage is applied separately to the purchase price at entry and projected property value at sale. It is a combined planning assumption, not an implemented statutory tax calculation.' },
+      { q: 'How are transaction costs applied?', a: 'The entered percentage is applied separately to the purchase price at entry and projected property value at sale. Owner upfront cash includes the down payment plus those assumed entry costs; emergency reserves and unentered fees remain additional. This is a planning assumption, not an implemented statutory tax calculation.' },
       { q: 'Is this financial advice?', a: 'No. It is a structured comparison tool for planning. You should verify financing terms, transaction costs, and your risk tolerance before making a property decision.' },
     ],
   },

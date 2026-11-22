@@ -7,10 +7,10 @@ category: pakistan
 section: decision-support
 readTime: 8 min read
 publishDate: 2026-05-04
-updatedDate: 2026-11-17
+updatedDate: 2026-11-22
 tags: ["rent vs buy calculator Pakistan","rent vs buy","home loan Pakistan","property decision"]
 ---
-**Methodology review: 17 November 2026.** Illustrative inputs; no live market-rate feed.
+**Methodology and upfront-cash display review: 22 November 2026.** Illustrative inputs; no live market-rate feed.
 
 ## Why This Decision Goes Wrong So Often
 
@@ -81,7 +81,9 @@ The [Rafiqy Rent vs Buy Pakistan Analyzer](/tools/rent-vs-buy-calculator-pakista
 
 ## What The Current Model Assumes
 
-**Method and wording reviewed 17 November 2026.** This is a methodology review date, not a claim that city rates were refreshed. All city presets are illustrative, editable inputs. They are not verified market averages, bank offers, statutory tax calculations or a connected rate feed.
+**Method and wording reviewed 22 November 2026.** This is a methodology review date, not a claim that city rates were refreshed. All city presets are illustrative, editable inputs. They are not verified market averages, bank offers, statutory tax calculations or a connected rate feed.
+
+**Owner upfront cash means down payment plus assumed purchase costs.** For an illustrative PKR 35 million property, a 25% down payment is PKR 8.75 million; a 7% entry-cost assumption adds PKR 2.45 million, making the displayed upfront amount PKR 11.2 million. Those percentages are examples, not a lender offer or tax schedule. Keep an emergency reserve and any unentered fees separately; the card is not a complete affordability assessment. The same initial amount is already included once in the rent-side investment comparison.
 
 The model divides annual maintenance and holding costs by 12 when estimating a first-year monthly savings gap. A longer planned stay should not multiply that monthly expense. Mortgage payments stop at the entered loan maturity; lower-markup sensitivity also recalculates the outstanding loan balance.
 

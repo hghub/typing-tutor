@@ -11,6 +11,15 @@ This file should be updated whenever:
 
 ## Current Priorities
 
+### 22 November 2026 — rental cash display and navigation accessibility
+
+- GitHub source synchronization is now working: remote review codex/rafiqy-homepage-navigation is bd6681d and matches the earlier local b40e890 tree. New local codex/rafiqy-usability-review starts from that remote snapshot, preserving the older local history. Main remains stale6c4651a; approved production32484f5 deployment metadata rechecked READY22Nov. Keep the codex/* deployment guard; do not force-push divergent local history or deploy main.
+- Corrected Owner upfront cash to include assumed entry costs already present in the calculation; explicit shared output, English/Urdu cards and summaries, paired guide/FAQ/sitemap agree. Added independent numeric regression (83 total tests). No new rate/tax-law number or fresh-market assertion.
+- Preferences now keyboard-operable labelled switches, bounded nonmodal dialog/Close, scoped Escape/focus restore, trigger-safe pointer dismissal; cloud and backup copy no longer claims successful save/all-data coverage. No cloud sync enabled, backup import/export or customer records used.
+- Actual340px CSS viewport via browser400% zoom: homepage/rental widths337, rental one305px column; desktop1363px/home1348. Narrow menu navigation and keyboard/focus checks, both themes, rental input preservation and both-language cash summary checks pass. Device emulation is blocked; no bypass. Not physical-phone/touch/download/print/installed-worker evidence.83 tests/scoped lint/diff/full buildQA159routes115posts pass. Exact review, remaining gates, dated primary sources and final held rental caption in USABILITY_REVIEW_2026-11-22.md.
+- Supabase search22Nov: available but not installed. Live metadata-only review still blocked; unconditional repository SQL is not proof deployed/exposed. Lead/email monitoring unconfigured; Facebook unconfirmed/unaccessed. No liveDB/customer access/production merge/push/deploy/publicpreview/post/spend. Earlier unpublished dependencies still require exact combined approval or isolation before publication.
+- Next useful cleanup observed during directory QA: ToolsHome's blanket No Uploads/offline/No Login claims and hard-coded category count need bounded per-tool wording. Keep the existing quality queue; do not start a new app before prior gates.
+
 ### Homepage/navigation — direct user request21November2026
 
 - New local codex/rafiqy-homepage-navigation based on clean8d1f9e4, preserving all prior unpublished work. Rebuilt homepage with local shared-vocabulary search, eight task categories/full15-category directory, six starters, four labelled demos, guides/FAQs/footer and responsive shared navigation. Registry-driven destinations/counts; matching static homepage prerender/metadata. No invented live integration/AI/privacy claims.

@@ -504,3 +504,8 @@ Homepage architecture (prepared21November2026):
 - src/lib/toolSearch.js owns shared scoring for home and SmartSearch. Tool-name matches should rank ahead of incidental descriptive keywords. Home query stays in local component state, not URLs/analytics/storage.
 - Shared ToolsNav provides responsive menu, theme/preferences and breadcrumbs. Keep direct destinations useful on desktop and mobile. Actual phone/menu QA is separate from desktop screenshot checks.
 - Keep optional backend initialization off unrelated page load: Typing Tutor is lazy, existing feedback client imports on submission, and backend error responses must not be called successful delivery. This does not repair authorization or configure private enquiry monitoring.
+
+Navigation/rental follow-up22November2026:
+- Preferences are labelled native-button switches in a nonmodal dialog. Keep trigger-safe pointer dismissal, bounded scrolling and focus restoration for open panels; Escape must not steal focus from unrelated inputs. Cloud-sync preference state is not proof of saved data or authentication, and the local backup covers only its explicit key list.
+- Rental ownerUpfrontCash equals downPayment plus assumed purchaseCosts and is the same initial capital already used by the renter-investment projection. Show each amount distinctly in English/Urdu and exported summaries; emergency reserves and unentered fees stay additional. Do not add entry costs a second time to the existing cost projection.
+- Browser zoom can produce an observed narrow CSS viewport; record measured widths/zoom and do not call it a physical-phone/device-emulation check. DevTools organization restrictions were respected.

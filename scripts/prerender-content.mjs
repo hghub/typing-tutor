@@ -1,3 +1,4 @@
+import { DIRECTORY_META, DIRECTORY_CATEGORIES } from '../src/data/toolsDirectory.js'
 import TOOL_SEO from '../src/data/toolSEO.js'
 import { BLOG_INDEX } from '../src/data/blogIndex.js'
 import { BLOG_POSTS } from './generated/blogPrerenderData.mjs'
@@ -16,8 +17,8 @@ const STATIC_PAGES = {
     type: 'home',
   },
   '/tools': {
-    title: 'Free Online Tools for Pakistan, Typing, PDF & Privacy | Rafiqy',
-    description: 'Browse free browser-based tools for Urdu typing, Pakistan tax, solar planning, investment allocation, PDFs, writing, productivity, developer work and privacy-first tasks.',
+    title: DIRECTORY_META.title,
+    description: DIRECTORY_META.description,
     type: 'tools-home',
   },
   '/blog': {
@@ -154,18 +155,19 @@ function renderHomePage(route) {
 
 function renderToolsHome(route) {
   const featuredTools = FEATURED_TOOL_IDS.map(id => TOOLS.find(tool => tool.id === id)).filter(Boolean)
-  const categoryLinks = Object.entries(CATEGORY_DATA).map(([slug, data]) => ({ label: data.title, href: `/category/${slug}`, desc: data.metaDesc }))
+  const categoryLinks = DIRECTORY_CATEGORIES
   return `
     <main class="prerender-shell" data-prerender-route="${escapeHtml(route)}">
       <span class="eyebrow">Tools directory</span>
-      <h1>All Your Daily Tools in One Place</h1>
-      <p class="lead">Browse Rafiqy’s browser-based tools for typing, writing, finance, privacy, documents, and Pakistan-first everyday workflows.</p>
+      <h1>${escapeHtml(DIRECTORY_META.heading)}</h1>
+      <p class="lead">${escapeHtml(DIRECTORY_META.description)}</p>
       <div class="tool-actions">
         <a class="primary" href="/category/pakistan-tools">Browse Pakistan tools</a>
         <a class="secondary" href="/blog">Open blog guides</a>
       </div>
-      ${section('Browse by need', `<ul class="card-grid">${categoryLinks.map(item => linkItem(item.label, item.href, item.desc)).join('')}</ul>`)}
+      ${section('Browse by need', `<ul class="card-grid">${categoryLinks.map(item => linkItem(item.label, item.path, item.desc)).join('')}</ul>`)}
       ${section('Flagship tools', `<ul class="card-grid">${featuredTools.map(tool => linkItem(`${tool.icon} ${tool.name}`, tool.path, tool.description)).join('')}</ul>`)}
+      ${section('Before entering private information', `<p>${escapeHtml(DIRECTORY_META.notice)}</p><p><a href="/privacy">Privacy information</a> · <a href="/help">Storage and tool help</a></p>`)}
     </main>`
 }
 
@@ -365,16 +367,16 @@ function renderHelpPage(route) {
     <main class="prerender-shell" data-prerender-route="${escapeHtml(route)}">
       <span class="eyebrow">Help and FAQ</span>
       <h1>How Rafiqy works</h1>
-      <p class="lead">Everything runs in your browser. No account, no uploads, no tracking. This page covers storage, cloud sync, Urdu support, Pakistan tools and common questions.</p>
+      <p class="lead">${escapeHtml(DIRECTORY_META.notice)}</p>
       ${section('Privacy and storage', list([
-        '<li>Most tool data is saved only in your browser local storage.</li>',
+        '<li>Some tools use local browser storage; page-only drafts are not automatically saved.</li>',
         '<li>If multiple people share the same browser profile, they may see the same saved data.</li>',
         '<li>Export backups before clearing browser data.</li>',
       ]))}
       ${section('Cloud sync and backup', list([
         '<li>Cloud sync is optional and off by default.</li>',
-        '<li>Export and import remain the safest way to move local data between devices.</li>',
-        '<li>Recovery codes only matter for tools that explicitly support cloud sync.</li>',
+        '<li>Export local data covers listed local records, not cloud records or page-only drafts. Keep exports private.</li>',
+        '<li>Treat recovery identifiers as private; they do not replace verified server access controls.</li>',
       ]))}
       ${section('Pakistan and Urdu support', list([
         '<li>Pakistan-first tools include tax, salary, solar, loans, investment planning and ID reference helpers.</li>',

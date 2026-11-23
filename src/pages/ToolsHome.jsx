@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { TOOLS, TOOL_CATEGORIES } from '../tools/registry'
+import { DIRECTORY_META, DIRECTORY_CATEGORIES } from '../data/toolsDirectory'
 import ToolsNav from '../components/ToolsNav'
 import SmartSearch from '../components/SmartSearch'
 import FeedbackButton from '../components/FeedbackButton'
@@ -15,20 +16,6 @@ const FEATURED_IDS = ['solar-planner', 'tax-calculator', 'investment-allocation-
 const LAST_VISIT_KEY = 'typely_last_visit'
 const RECENT_KEY = 'typely_recent_tools'
 const FAVOURITES_KEY = 'typely_favourites'
-const CATEGORY_LANDING_LINKS = [
-  { path: '/category/pakistan-tools', label: 'Pakistan Tools', desc: 'Tax, solar, investing, loans, salary and local-use tools' },
-  { path: '/category/productivity-tools', label: 'Productivity Tools', desc: 'Planning, habits, focus, time and daily workflows' },
-  { path: '/category/typing-tools', label: 'Typing & Learning', desc: 'Typing tutor, Urdu typing and learning-focused tools' },
-  { path: '/category/language-tools', label: 'Language & Input', desc: 'Urdu typing, keyboard help and writing input tools' },
-  { path: '/category/writing-tools', label: 'Writing Tools', desc: 'Urdu, documents, cleanup and word count' },
-  { path: '/category/pdf-tools', label: 'PDF Tools', desc: 'Compress, merge, split, convert and OCR' },
-  { path: '/category/image-tools', label: 'Image & OCR Tools', desc: 'Images, OCR, document visuals and screenshot cleanup' },
-  { path: '/category/security-tools', label: 'Privacy Tools', desc: 'Leak detection, encryption and redaction' },
-  { path: '/category/finance-tools', label: 'Finance Tools', desc: 'Tax, EMI, expense analysis and calculators' },
-  { path: '/category/business-tools', label: 'Business Tools', desc: 'Invoices, warranty, property and field-work helpers' },
-  { path: '/category/travel-tools', label: 'Travel Tools', desc: 'Packing, timing, exchange rates and group spending' },
-  { path: '/category/developer-tools', label: 'Developer Tools', desc: 'Regex, JSON, mock data and logs' },
-]
 
 function getRecent() {
   try { return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]') } catch { return [] }
@@ -49,7 +36,7 @@ function toggleFavourite(id) {
   return next
 }
 
-// Category display order (matches user spec 1–14)
+// Primary tool group display order; browse topics are a separate directory.
 const CATEGORY_ORDER = [
   'pakistan',
   'writing',
@@ -358,7 +345,7 @@ export default function ToolsHome() {
     .filter(Boolean)
 
   const totalTools = visibleTools.length
-  const totalCategories = TOOL_CATEGORIES.length
+  const totalCategories = DIRECTORY_CATEGORIES.length
 
   return (
     <div style={{ background: colors.bg, minHeight: '100vh', color: colors.text, fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
@@ -376,22 +363,22 @@ export default function ToolsHome() {
       <ToolsNav />
 
       <Helmet>
-        <title>Free Online Tools for Pakistan, Typing, PDF & Privacy | Rafiqy</title>
-        <meta name="description" content={`Browse ${TOOLS.length} free browser-based tools for Urdu typing, Pakistan tax, solar planning, investment allocation, PDFs, writing, productivity, developer work and privacy-first tasks.`} />
+        <title>{DIRECTORY_META.title}</title>
+        <meta name="description" content={DIRECTORY_META.description} />
         <link rel="canonical" href="https://rafiqy.app/tools" />
-        <meta property="og:title" content="Free Online Tools for Pakistan, Typing, PDF & Privacy | Rafiqy" />
-        <meta property="og:description" content={`Browse ${TOOLS.length} free browser-based tools for Urdu typing, Pakistan tax, solar planning, investment allocation, PDFs, writing, productivity, developer work and privacy-first tasks.`} />
+        <meta property="og:title" content={DIRECTORY_META.title} />
+        <meta property="og:description" content={DIRECTORY_META.description} />
         <meta property="og:url" content="https://rafiqy.app/tools" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Free Online Tools for Pakistan, Typing, PDF & Privacy | Rafiqy" />
-        <meta name="twitter:description" content={`Browse ${TOOLS.length} free browser-based tools for Urdu typing, Pakistan tax, solar planning, investment allocation, PDFs, writing, productivity, developer work and privacy-first tasks.`} />
+        <meta name="twitter:title" content={DIRECTORY_META.title} />
+        <meta name="twitter:description" content={DIRECTORY_META.description} />
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
           'name': 'Rafiqy Tools',
           'url': 'https://rafiqy.app/tools',
-          'description': 'A collection of free browser-based tools for typing, Pakistan tax, solar planning, PDFs, writing, productivity, developer work and privacy-first tasks.'
+          'description': DIRECTORY_META.description
         })}</script>
       </Helmet>
 
@@ -403,11 +390,11 @@ export default function ToolsHome() {
           <div style={{ position: 'absolute', top: '-40px', left: '50%', transform: 'translateX(-50%)', width: '600px', height: '300px', pointerEvents: 'none', background: isDark ? 'radial-gradient(ellipse at center, #06b6d414 0%, transparent 70%)' : 'radial-gradient(ellipse at center, #06b6d40a 0%, transparent 70%)', borderRadius: '50%' }} />
 
           <div style={{ display: 'inline-block', background: 'linear-gradient(135deg, #06b6d422, #3b82f622)', border: '1px solid #06b6d444', borderRadius: '2rem', padding: '0.3rem 1rem', fontSize: '0.78rem', fontWeight: 700, color: '#06b6d4', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '1.1rem' }}>
-            🔒 Privacy-first · Browser-native
+            Tools for work & everyday life
           </div>
 
           <h1 style={{ fontSize: 'clamp(2rem, 4.5vw, 3rem)', fontWeight: 800, background: 'linear-gradient(135deg, #06b6d4, #3b82f6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', margin: '0 0 0.8rem', letterSpacing: '-0.02em', lineHeight: 1.15 }}>
-            All Your Daily Tools in One Place
+            {DIRECTORY_META.heading}
           </h1>
 
           <p style={{ color: colors.textSecondary, fontSize: '1.05rem', maxWidth: '580px', margin: '0 auto 2rem', lineHeight: 1.6 }}>
@@ -431,10 +418,8 @@ export default function ToolsHome() {
           {/* Stats row */}
           <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '1.75rem' }}>
             {[
-              { value: `${totalTools}+`, label: 'Free Tools' },
-              { value: `${totalCategories}`, label: 'Categories' },
-              { value: 'Zero', label: 'Signups Needed' },
-              { value: '100%', label: 'Browser-based' },
+              { value: `${totalTools}`, label: 'Tools shown' },
+              { value: `${totalCategories}`, label: 'Browse topics' },
             ].map(({ value, label }) => (
               <div key={label} style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#06b6d4', lineHeight: 1 }}>{value}</div>
@@ -446,10 +431,10 @@ export default function ToolsHome() {
           {/* Trust badges */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', justifyContent: 'center', marginBottom: '1.5rem' }}>
             {[
-              { icon: '🔒', label: 'No Uploads', desc: 'runs in browser' },
-              { icon: '⚡', label: 'Runs Locally', desc: 'works offline' },
-              { icon: '🧠', label: 'Fast & Free', desc: 'no hidden fees' },
-              { icon: '🚫', label: 'No Login', desc: 'ever' },
+              { icon: '📄', label: 'File tools', desc: 'check processing details' },
+              { icon: '🌐', label: 'Online features', desc: 'may need a connection' },
+              { icon: 'اردو', label: 'Selected tools', desc: 'English / اردو' },
+              { icon: '▦', label: 'Business demos', desc: 'synthetic examples' },
             ].map(({ icon, label, desc }) => (
               <div key={label} style={{
                 display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
@@ -495,8 +480,8 @@ export default function ToolsHome() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
             <h2 style={{ margin: 0, fontSize: '1rem', fontWeight: 800, color: colors.text, letterSpacing: '-0.01em' }}>Browse by Need</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '0.85rem' }}>
-            {CATEGORY_LANDING_LINKS.map(link => (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 220px), 1fr))', gap: '0.85rem' }}>
+            {DIRECTORY_CATEGORIES.map(link => (
               <Link key={link.path} to={link.path} style={{ textDecoration: 'none' }}>
                 <div style={{
                   background: isDark ? 'rgba(255,255,255,0.04)' : '#fff',
@@ -523,7 +508,7 @@ export default function ToolsHome() {
           <p style={{ margin: '0 0 1rem', color: colors.textSecondary, fontSize: '0.88rem', lineHeight: 1.65, maxWidth: '760px' }}>
             These are the tools most likely to solve practical Pakistani day-to-day decisions: tax, solar, loans, salary, investing, Urdu typing, and job or car choices.
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '0.85rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 240px), 1fr))', gap: '0.85rem' }}>
             {pakistanPriorityTools.map((tool) => (
               <Link key={tool.id} to={tool.path} style={{ textDecoration: 'none' }} onClick={() => handleVisit(tool.id)}>
                 <div style={{ background: colors.card, border: `1px solid ${colors.border}`, borderRadius: '0.9rem', padding: '1rem', height: '100%' }}>
@@ -554,7 +539,7 @@ export default function ToolsHome() {
               <h2 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800, color: colors.text, letterSpacing: '-0.01em' }}>❤️ My Favourites</h2>
               <span style={{ fontSize: '0.72rem', fontWeight: 600, color: '#ef4444', background: '#ef444418', border: '1px solid #ef444433', borderRadius: '1rem', padding: '0.15rem 0.55rem' }}>{favouriteTools.length} saved</span>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 200px), 1fr))', gap: '1rem' }}>
               {favouriteTools.map(tool => (
                 <ToolCard key={tool.id} tool={tool} colors={colors} isDark={isDark}
                   urduLabels={prefs.urduLabels} isNew={isNewTool(tool, lastVisit)}
@@ -598,9 +583,9 @@ export default function ToolsHome() {
         <section style={{ marginBottom: '3.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
             <h2 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800, color: colors.text, letterSpacing: '-0.01em' }}>⭐ Featured Tools</h2>
-            <span style={{ fontSize: '0.72rem', fontWeight: 600, color: '#f59e0b', background: '#f59e0b18', border: '1px solid #f59e0b33', borderRadius: '1rem', padding: '0.15rem 0.55rem' }}>Most Popular</span>
+            <span style={{ fontSize: '0.72rem', fontWeight: 600, color: '#f59e0b', background: '#f59e0b18', border: '1px solid #f59e0b33', borderRadius: '1rem', padding: '0.15rem 0.55rem' }}>Selected starting points</span>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.25rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: '1.25rem' }}>
             {featuredTools.map(tool => (
               <ToolCard key={tool.id} tool={tool} colors={colors} isDark={isDark} featured
                 urduLabels={prefs.urduLabels} isNew={isNewTool(tool, lastVisit)}
@@ -625,12 +610,12 @@ export default function ToolsHome() {
                     <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#f97316', background: '#f9731618', border: '1px solid #f9731633', borderRadius: '1rem', padding: '0.2rem 0.55rem', letterSpacing: '0.05em' }}>⭐ FEATURED</span>
                   </div>
                   <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: colors.text, margin: '0 0 0.4rem', lineHeight: 1.3 }}>PDF Tools Suite</h3>
-                  <p style={{ fontSize: '0.83rem', color: '#f97316', fontWeight: 600, margin: '0 0 0.5rem', lineHeight: 1.4 }}>7 PDF tools — compress, merge, split, convert & more</p>
+                  <p style={{ fontSize: '0.83rem', color: '#f97316', fontWeight: 600, margin: '0 0 0.5rem', lineHeight: 1.4 }}>PDF tools for everyday documents</p>
                   <p style={{ fontSize: '0.8rem', color: colors.textSecondary, margin: 0, lineHeight: 1.55, flex: 1 }}>
-                    Compress, merge, split, convert, extract text (OCR), search, and redact PDFs — all in your browser, nothing uploaded.
+                    Compress, merge, split, convert and work with document text. Check each tool's supported formats, processing details and limitations before choosing a file.
                   </p>
                   <div style={{ marginTop: 'auto', paddingTop: '1rem', display: 'flex', alignItems: 'center', gap: '0.35rem', color: '#f97316', fontSize: '0.8rem', fontWeight: 600, opacity: 0.8 }}>
-                    View all PDF tools →
+                    View PDF tools
                   </div>
                 </div>
               </div>
@@ -645,7 +630,7 @@ export default function ToolsHome() {
           <p style={{ margin: '0 0 1rem', color: colors.textSecondary, fontSize: '0.88rem', lineHeight: 1.65, maxWidth: '780px' }}>
             These tools solve real problems for offices, students, freelancers, and families in Pakistan, but many users do not realize such browser tools exist until they see an example.
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '0.9rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 240px), 1fr))', gap: '0.9rem' }}>
             {hiddenUsefulTools.map((tool) => (
               <Link key={tool.id} to={tool.path} style={{ textDecoration: 'none' }} onClick={() => handleVisit(tool.id)}>
                 <div style={{ background: isDark ? 'rgba(255,255,255,0.04)' : '#fff', border: `1px solid ${colors.border}`, borderRadius: '0.9rem', padding: '1rem', height: '100%' }}>
@@ -723,7 +708,7 @@ export default function ToolsHome() {
                     </span>
                   )}
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 260px), 1fr))', gap: '1rem' }}>
                   {sortedTools.map((tool) => (
                     <ToolCard key={tool.id} tool={tool} colors={colors} isDark={isDark}
                       urduLabels={prefs.urduLabels} isNew={isNewTool(tool, lastVisit)}
@@ -736,42 +721,30 @@ export default function ToolsHome() {
         </div>
       </main>
 
-      {/* SEO Paragraph */}
-      <div style={{ maxWidth: '700px', margin: '3rem auto 0', textAlign: 'center', padding: '0 1rem' }}>
-        <p style={{ color: colors.textSecondary, fontSize: '0.88rem', lineHeight: 1.75 }}>
-          Rafiqy is a simple digital toolbox for everyday online tasks. From productivity timers and finance calculators to PDF utilities and writing tools — everything is built to be fast, free, and accessible from any device. No uploads, no accounts, no distractions.
+      <section aria-labelledby="directory-data-heading" style={{ maxWidth: '800px', margin: '2rem auto', padding: '1.25rem', borderTop: `1px solid ${colors.border}` }}>
+        <h2 id="directory-data-heading" style={{ fontSize: '1.1rem' }}>Before entering private information</h2>
+        <p style={{ color: colors.textSecondary, fontSize: '1rem', lineHeight: 1.7 }}>{DIRECTORY_META.notice}</p>
+        <p style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', fontSize: '1rem' }}>
+          <Link to="/privacy">Privacy information</Link>
+          <Link to="/help">Storage and tool help</Link>
         </p>
-      </div>
-
-      {/* ── Trust Strip ── */}
-      <div style={{ borderTop: `1px solid ${colors.border}`, marginTop: '3rem', padding: '1.5rem 1rem', background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.02)' }}>
-        <div style={{ maxWidth: '700px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: '1.5rem', justifyContent: 'center', alignItems: 'center' }}>
-          {[
-            { icon: '🔒', text: '100% client-side processing' },
-            { icon: '🚫', text: 'No login required' },
-            { icon: '💾', text: 'No data stored on servers' },
-            { icon: '🎯', text: 'No ads. No tracking.' },
-          ].map(({ icon, text }) => (
-            <div key={text} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', color: colors.textSecondary, fontWeight: 500 }}>
-              <span>{icon}</span><span>{text}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      </section>
 
       <FeedbackButton />
 
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1.5rem 1rem' }}>
-        <ShareBar url="https://rafiqy.app/tools" title="Rafiqy — 68 Free Online Tools for Pakistan" />
+        <ShareBar url="https://rafiqy.app/tools" title={DIRECTORY_META.title} />
       </div>
 
       <footer style={{ textAlign: 'center', padding: '1rem', color: colors.textSecondary, fontSize: '0.75rem', borderTop: `1px solid ${colors.border}` }}>
-        © {new Date().getFullYear()} Rafiqy · Privacy-first browser tools &nbsp;·&nbsp;
+        © {new Date().getFullYear()} Rafiqy · Tools for work and everyday life &nbsp;·&nbsp;
         <Link to="/blog" style={{ color: 'inherit', textDecoration: 'underline' }}>Blog</Link>
         &nbsp;·&nbsp;
         <Link to="/help" style={{ color: 'inherit', textDecoration: 'underline' }}>Help</Link>
         &nbsp;·&nbsp;
         <Link to="/about" style={{ color: 'inherit', textDecoration: 'underline' }}>About</Link>
+        &nbsp;·&nbsp;
+        <Link to="/privacy" style={{ color: 'inherit', textDecoration: 'underline' }}>Privacy</Link>
       </footer>
     </div>
   )

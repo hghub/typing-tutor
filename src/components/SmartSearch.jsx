@@ -99,19 +99,20 @@ export default function SmartSearch({ isDark, colors }) {
         <span style={{ fontSize: '1.1rem', opacity: 0.45, flexShrink: 0, userSelect: 'none' }}>🔍</span>
         <input
           ref={inputRef}
+          aria-label="Search tools and tasks"
           value={query}
           onChange={handleChange}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           placeholder={PLACEHOLDER_HINTS[hintIdx]}
           style={{
-            flex: 1, border: 'none', outline: 'none',
+            flex: 1, minWidth: 0, border: 'none', outline: 'none',
             background: 'transparent', color: colors.text,
             fontSize: '1rem', padding: '0.95rem 0', fontFamily: 'inherit',
           }}
         />
         {query ? (
-          <button onClick={handleClear} style={{
+          <button aria-label="Clear tool search" onClick={handleClear} style={{
             background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)',
             border: 'none', cursor: 'pointer', color: colors.textSecondary,
             fontSize: '0.8rem', width: 24, height: 24, borderRadius: '50%',

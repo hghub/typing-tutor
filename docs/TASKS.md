@@ -11,6 +11,14 @@ This file should be updated whenever:
 
 ## Current Priorities
 
+### 23 November2026 — directory/help accuracy and reflow
+
+- Continued clean02bf4a4 in new codex/rafiqy-directory-review; prior work preserved. Corrected ToolsHome blanket privacy/offline/server/login/tracking promises and unverified popularity label, exact shown-tool count/share wording, shared directory meta/data notice/all15 topic links for React/static HTML. Previous14 category count was registry-derived primary groups, not hard-coded; displayed browse-topic count now matches15 links. All shrinking grids and SmartSearch stable labels/min-width fix are bounded discovery changes, not a new app.
+- Coordinated linked Help backup/cloud/storage/recovery/offline/feedback wording, filename/export scope and shrinkable grids. Random IDs/preferences are not server authorization or successful backup. Neither this copy nor source SQL proves live access controls; broader category/privacy/security-guide claims remain pending.
+-83 tests/scoped lint/diff/buildQA159routes115posts pass; independent static metadata/notice/15link parity check passes. Actual directory browser1363/document1348,340/document337 at400%zoom,272/document269 at500%zoom, JSON-first search/clear, Pakistanfilter72→60→72, both themes, canonical typing category destination and back passed. Final Help copy/layout source/build checked, not visually verified. Physical-phone/device-emulation/download/print/worker checks remain open.
+- Production metadata rechecked23Nov READY for approved dpl_AKEhcGpFGBMazQ289m6biR8T1puN; mainstill6c4651a stale. Keep codex/* auto-deployment guard. Exact review/source URLs/final held caption in DIRECTORY_REVIEW_2026-11-23.md; inherited unapproved dependencies require exact combined approval or isolation. No production/defaultpush/merge/deploy/publicpreview/FB/DB/customeraccess/model/spend.
+- Supabase freshsearch23Nov available/notinstalled, metadata-only review blocked; repository SQL unconditionals are not proof deployed/leak. Lead/email monitoring unconfigured. Next maintenance priority is substantive solar/tax/rate correctness, not another directory redesign or new app.
+
 ### 22 November 2026 — rental cash display and navigation accessibility
 
 - GitHub source synchronization is now working: remote review codex/rafiqy-homepage-navigation is bd6681d and matches the earlier local b40e890 tree. New local codex/rafiqy-usability-review starts from that remote snapshot, preserving the older local history. Main remains stale6c4651a; approved production32484f5 deployment metadata rechecked READY22Nov. Keep the codex/* deployment guard; do not force-push divergent local history or deploy main.

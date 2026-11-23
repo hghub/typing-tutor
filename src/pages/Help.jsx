@@ -1,3 +1,4 @@
+import { DIRECTORY_META } from '../data/toolsDirectory'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
@@ -97,7 +98,7 @@ export default function Help() {
             How Rafiqy works
           </h1>
           <p style={{ fontSize: '1rem', color: colors.textSecondary, margin: '0 0 1.5rem', lineHeight: 1.65, maxWidth: '580px' }}>
-            Everything runs in your browser. No account, no uploads, no tracking. Here's what you need to know about your data, privacy, and settings.
+            {DIRECTORY_META.notice}
           </p>
 
           {/* Jump nav */}
@@ -118,43 +119,43 @@ export default function Help() {
 
         {/* ── Privacy & Storage ── */}
         <Section id="privacy" icon="🔒" title="Privacy & Storage" colors={colors} isDark={isDark}>
-          <div style={{ display: 'grid', gap: '0.85rem', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', marginBottom: '1.25rem' }}>
+          <div style={{ display: 'grid', gap: '0.85rem', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))', marginBottom: '1.25rem' }}>
             <Card icon="💾" title="Saved on this device only" color="#06b6d4" isDark={isDark} colors={colors}
-              body="All your data (loans, habits, diary entries, fines, etc.) is saved in your browser's localStorage. Nothing is ever sent to a server unless you explicitly turn on Cloud Sync." />
-            <Card icon="🚫" title="No account or login needed" color="#10b981" isDark={isDark} colors={colors}
-              body="Rafiqy never asks you to sign up or log in. All tools work immediately, anonymously, and locally." />
+              body="Some tools save selected records in browser storage; others keep inputs only until you leave the page. Online services, feedback and optional sync can send data to a backend. Check the individual tool." />
+            <Card icon="🚫" title="Check each feature" color="#10b981" isDark={isDark} colors={colors}
+              body="Many tools can be opened directly. Cloud-connected or future private features have separate connection and access requirements; a random browser identifier does not prove authorization." />
             <Card icon="👥" title="Shared browser warning" color="#f59e0b" isDark={isDark} colors={colors}
               body="If multiple people use the same browser profile, they can see each other's data. Use a private/incognito window for personal records, or use separate browser profiles." />
             <Card icon="🧹" title="Clearing your data" color="#ef4444" isDark={isDark} colors={colors}
-              body='Clearing browser storage or cookies will permanently delete your Rafiqy data. Always export a backup first via ⚙️ → "Export All" before clearing your browser.' />
+              body='Clearing site storage can remove local saved records. Export supported local data before clearing it and keep the backup private. Page-only drafts and cloud records need separate handling.' />
           </div>
 
           <div style={{ background: isDark ? 'rgba(6,182,212,0.07)' : 'rgba(6,182,212,0.05)', border: '1px solid rgba(6,182,212,0.25)', borderRadius: '0.75rem', padding: '1rem 1.25rem', fontSize: '0.83rem', color: colors.textSecondary, lineHeight: 1.65 }}>
-            <strong style={{ color: '#06b6d4' }}>💡 Best practice:</strong> Export a backup regularly via the <strong style={{ color: colors.text }}>⚙️ gear icon → Export All</strong>. Store the <code style={{ background: isDark ? '#334155' : '#f1f5f9', padding: '0.1rem 0.35rem', borderRadius: '0.3rem', fontSize: '0.8rem' }}>Rafiqy-backup-*.json</code> file somewhere safe (cloud drive, email to yourself).
+            <strong style={{ color: '#06b6d4' }}>💡 Best practice:</strong> Export a backup regularly via the <strong style={{ color: colors.text }}>⚙️ gear icon → Export local data</strong>. Store the <code style={{ background: isDark ? '#334155' : '#f1f5f9', padding: '0.1rem 0.35rem', borderRadius: '0.3rem', fontSize: '0.8rem' }}>typely-backup-*.json</code> file in a private location with appropriate access controls. Do not put personal backups in public repositories or posts.
           </div>
         </Section>
 
         {/* ── Cloud Sync & Backup ── */}
         <Section id="sync" icon="☁️" title="Cloud Sync & Backup" colors={colors} isDark={isDark}>
-          <div style={{ display: 'grid', gap: '0.85rem', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', marginBottom: '1.25rem' }}>
+          <div style={{ display: 'grid', gap: '0.85rem', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))', marginBottom: '1.25rem' }}>
             <Card icon="📴" title="Cloud Sync is OFF by default" color="#64748b" isDark={isDark} colors={colors}
-              body="Cloud Sync is disabled by default to protect your privacy. Your data stays local unless you opt in. Enable it in ⚙️ → Cloud Sync toggle." />
+              body="The Cloud Sync preference starts off. Enabling it requests sync for tools that support it; it does not confirm a connection, a successful backup or secure access controls." />
             <Card icon="☁️" title="When Cloud Sync is ON" color="#06b6d4" isDark={isDark} colors={colors}
-              body="Data from tools like Loan Manager, Habit Tracker, Voice Diary, Kameti and Daily Planner syncs to a secure anonymous cloud session — identified only by a random ID, no email needed." />
-            <Card icon="⬇️" title="Export All — move to another device" color="#0ea5e9" isDark={isDark} colors={colors}
-              body='Click ⚙️ → "Export All" to download a single JSON backup of all your tool data. Then open Rafiqy on any other browser/device, click ⚙️ → "Import" and pick that file.' />
+              body="Supporting tools may send selected records to the configured backend. A session or recovery identifier is not a substitute for server-enforced authorization. Live access controls have not been verified in this review." />
+            <Card icon="⬇️" title="Export supported local data" color="#0ea5e9" isDark={isDark} colors={colors}
+              body='Use Preferences → Export local data for the listed local records, then Import on the destination browser. This does not include cloud records, every preference or page-only drafts. Review the file and destination first.' />
             <Card icon="🔑" title="Recovery / Session Code" color="#f97316" isDark={isDark} colors={colors}
-              body="Some tools show a Recovery Code (a random UUID). This code links your local browser to your cloud session. It only works for cloud sync — it does NOT transfer your localStorage data to another device." />
+              body="Some tools use a recovery or session identifier for cloud records. Treat it as private. It does not copy local browser storage and does not establish that backend access controls or recovery have been verified." />
           </div>
 
           <div style={{ background: isDark ? 'rgba(245,158,11,0.07)' : 'rgba(245,158,11,0.05)', border: '1px solid rgba(245,158,11,0.3)', borderRadius: '0.75rem', padding: '1rem 1.25rem', fontSize: '0.83rem', color: colors.textSecondary, lineHeight: 1.65 }}>
-            <strong style={{ color: '#f59e0b' }}>⚠️ Cloud Sync off + Recovery Code:</strong> If Cloud Sync is <em>off</em>, the Recovery Code shown in tools cannot restore data on another device — because nothing has been backed up to the cloud. Use <strong style={{ color: colors.text }}>Export All</strong> instead.
+            <strong style={{ color: '#f59e0b' }}>Cloud sync and recovery are separate:</strong> A recovery identifier does not copy local browser records. Turning sync off does not erase earlier cloud records or prove that no records exist there. Use <strong style={{ color: colors.text }}>Export local data</strong> for supported local records; page-only drafts need a separate copy.
           </div>
         </Section>
 
         {/* ── Pakistan Tools ── */}
         <Section id="pk-tools" icon="🇵🇰" title="Pakistan Tools" colors={colors} isDark={isDark}>
-          <div style={{ display: 'grid', gap: '0.85rem', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', marginBottom: '1.25rem' }}>
+          <div style={{ display: 'grid', gap: '0.85rem', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))', marginBottom: '1.25rem' }}>
             <Card icon="🇵🇰" title="What are Pakistan Tools?" color="#10b981" isDark={isDark} colors={colors}
               body="Pakistan Tools are tools designed specifically for Pakistani users — including Tax Calculator (FBR slabs), CNIC/NTN validator, Salary Slip Generator, Gold Price (local rates), Kameti tracker, and more." />
             <Card icon="👁️" title="Showing / hiding Pakistan Tools" color="#10b981" isDark={isDark} colors={colors}
@@ -166,7 +167,7 @@ export default function Help() {
 
         {/* ── Urdu ── */}
         <Section id="urdu" icon="اردو" title="Urdu Language Support" colors={colors} isDark={isDark}>
-          <div style={{ display: 'grid', gap: '0.85rem', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', marginBottom: '1rem' }}>
+          <div style={{ display: 'grid', gap: '0.85rem', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))', marginBottom: '1rem' }}>
             <Card icon="🔤" title="Urdu Labels toggle" color="#f59e0b" isDark={isDark} colors={colors}
               body="Enable ⚙️ → Urdu Labels to see tool names and taglines in Urdu on the tools grid. Only tools with Urdu translations will show Urdu — others remain in English." />
             <Card icon="⌨️" title="Urdu Keyboard tool" color="#f59e0b" isDark={isDark} colors={colors}
@@ -180,13 +181,13 @@ export default function Help() {
         <Section id="faq" icon="❓" title="Frequently Asked Questions" colors={colors} isDark={isDark}>
           <div>
             {[
-              { q: 'Does Rafiqy work offline?', a: 'Yes. Most tools work fully offline once the page has loaded. A few tools that fetch live data (currency rates, gold prices, weather) require an internet connection for fresh data, but still load the UI offline.' },
-              { q: 'Will my data survive if I close the browser?', a: 'Yes — data is saved in localStorage which persists across browser sessions. It will only be lost if you clear browser data/cookies, or uninstall the browser.' },
-              { q: 'Can I use Rafiqy on multiple devices?', a: 'Yes. Use ⚙️ → Export All on your current device to download a backup file, then on the new device go to ⚙️ → Import and pick that file. All your data will be restored instantly.' },
-              { q: 'What is the Recovery Code shown in some tools?', a: 'It\'s a random anonymous session ID used for optional cloud sync. It\'s NOT a password and it does NOT transfer your data unless Cloud Sync is turned ON. For moving data between devices, use Export/Import instead.' },
-              { q: 'Is my data shared with anyone?', a: 'No. All tool processing is done entirely in your browser. No data is sent to any server unless you explicitly enable Cloud Sync. Even then, it\'s tied only to an anonymous random ID — no email, no name.' },
-              { q: 'Why do some tools show "Saved on this device only"?', a: 'This message reminds you that your data is in this browser only, not backed up to the cloud. It appears in tools that store significant personal data (fines, loans, diary, habits). You can dismiss it by enabling Cloud Sync or just ignoring it — your data is safe locally.' },
-              { q: 'How do I report a bug or suggest a feature?', a: 'Use the feedback button (💬 floating at the bottom of every page) to send us a quick 👍/👎 or a written note. We read all feedback.' },
+              { q: "Does Rafiqy work offline?", a: "Offline availability varies by tool, loaded assets and browser storage. Online data and cloud features need a connection. Loading or installing the site does not guarantee offline operation; test with non-sensitive examples first." },
+              { q: "Will my data survive if I close the browser?", a: "Some tools save records in localStorage, which can persist across browser sessions. Page-only drafts may disappear. Clearing storage, private browsing, browser limits or errors can cause loss; do not assume every input was saved." },
+              { q: "Can I use Rafiqy on multiple devices?", a: "For supported local records, use Preferences → Export local data and then Import on the destination browser. Cloud records and page-only drafts are outside that backup. Review the destination and keep the file private." },
+              { q: "What is the Recovery Code shown in some tools?", a: "It is an identifier used by certain cloud features. Treat it as private; it does not transfer local storage or replace server-enforced authorization. Connection and recovery must be verified for the specific tool." },
+              { q: "Is my data shared with anyone?", a: "Data handling varies. Online lookups, optional cloud sync and submitted feedback can contact backend services. Review the tool details and privacy information before entering private content." },
+              { q: "Why do some tools show \"Saved on this device only\"?", a: "That message describes local storage for the relevant tool, not a verified cloud backup or a security guarantee. Other users of the browser profile may see local records. Do not enable sync just to dismiss a warning." },
+              { q: "How do I report a bug or suggest a feature?", a: "Use the feedback button and check the submission result. Include a synthetic example and omit passwords, personal records and private documents. A submission attempt is not proof it was received or reviewed." },
               { q: 'Can I install Rafiqy as an app?', a: 'Yes! Rafiqy is a PWA (Progressive Web App). In Chrome/Edge, look for the install icon in the address bar. On mobile, use "Add to Home Screen" in your browser menu.' },
             ].map(item => (
               <FAQ key={item.q} q={item.q} a={item.a} colors={colors} isDark={isDark} />

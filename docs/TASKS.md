@@ -536,3 +536,7 @@ Also check:
 - add rolling next steps to `TASKS.md`
 - avoid recreating a large docs sprawl unless there is a very specific need
 - at the end of a meaningful batch, check whether these two files need a short refresh
+
+### Solar correctness prepared24November2026
+
+Guarded `codex/rafiqy-solar-review` based35acd585: same-route quote-based replacement, explicit synthetic assumptions, no fake current price/export/GST/brand data; self-use/export separation, all entered costs, maintenance/degradation/replacement and sustained recovery audit. Eight paired guides+SEO/FAQs/registry/sitemap updated with dated official NEPRA instruments.91tests and scoped lint/buildQA159routes115posts; actual desktop/340CSSzoom inputs/themes/export/loadcap/copy/download event/main-guide checks. See SOLAR_REVIEW_2026-11-24.md for limits and final caption. No release/social approval. Preserve codex guard and isolate solar-only approval from inherited unpublished work. Supabase metadata remains unavailable; no customer access. Continue bounded tax/finance-rate correctness and remaining device/printing/worker/demo QA; no new app.

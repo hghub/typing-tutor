@@ -3,7 +3,7 @@ import { getAccessibilityNote } from './pakistanAccessibility.js'
 export function getToolUseCases(tool) {
   const map = {
     'solar-planner': [
-      'deciding whether solar is worth it for your current electricity bill',
+      'comparing a written solar quote against measured kWh and daytime use',
       'comparing full net billing against a smaller self-consumption setup',
       'shortlisting installer quotes with your own cost and payback baseline',
     ],

@@ -23,7 +23,7 @@ export const USEFUL_HIDDEN_TOOL_IDS = [
 
 export const ACCESSIBILITY_NOTES = {
   'solar-planner': {
-    simple: 'Best when you want to know whether solar lagwana faida deta hai for your current bill and usage pattern.',
+    simple: 'Compare solar quotes using measured units, daytime use and your own cost assumptions; starting numbers are illustrative.',
     romanUrdu: ['solar lagwana faida hai', 'bill ke hisaab se solar', 'solar kitne kw ka hona chahiye', 'net billing faida'],
     commonNeed: 'Many users are really asking: meri current bijli bill ke liye kaunsa solar size sahi rahega?',
   },

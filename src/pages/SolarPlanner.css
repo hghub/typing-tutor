@@ -1,0 +1,9 @@
+.solar-planner { line-height: 1.65; }
+.solar-planner p { margin: 0; }
+.solar-planner button { min-height: 44px; padding: .65rem 1rem; border: 1px solid var(--solar-border); border-radius: .7rem; background: var(--solar-card); color: inherit; font: inherit; font-weight: 650; cursor: pointer; }
+.solar-planner button:hover { border-color: #b97707; }
+.solar-planner :is(button,input,select,summary,a):focus-visible { outline: 3px solid #b97707; outline-offset: 3px; }
+.solar-planner summary { cursor: pointer; padding-block: .55rem; }
+.solar-planner table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+.solar-planner :is(th,td) { text-align: right; padding: .6rem; border-bottom: 1px solid var(--solar-border); white-space: nowrap; }
+.solar-planner caption { text-align: left; }

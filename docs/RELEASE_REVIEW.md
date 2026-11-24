@@ -244,3 +244,7 @@ See [USABILITY_REVIEW_2026-11-22.md](USABILITY_REVIEW_2026-11-22.md) for the ren
 # Directory/help review — 23 November2026
 
 See [DIRECTORY_REVIEW_2026-11-23.md](DIRECTORY_REVIEW_2026-11-23.md) for exact directory/help copy, shared metadata/topic discovery, search reflow fix, browser/source/build evidence, final held Facebook caption and remaining gates. Base02bf4a4 already contains earlier unapproved dependencies. No production or posting approval is implied.
+
+## 24 November 2026 — solar correctness batch held
+
+See `docs/SOLAR_REVIEW_2026-11-24.md` for the quote-based engine, eight coordinated guides, exact scope removals, primary NEPRA instruments/effective dates, 91-test/build/browser evidence and final held solar caption. Guarded branch `codex/rafiqy-solar-review` inherits the earlier unapproved batches; solar-only approval must isolate its diff onto approved production source, or review the exact combined tree. No release or post approval inferred.

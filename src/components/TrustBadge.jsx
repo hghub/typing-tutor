@@ -1,6 +1,6 @@
 import { useTheme } from '../hooks/useTheme'
 
-export default function TrustBadge() {
+export default function TrustBadge({ text }) {
   const { colors } = useTheme()
   return (
     <div style={{
@@ -18,7 +18,7 @@ export default function TrustBadge() {
         borderRadius: '2rem',
         padding: '0.35rem 0.9rem',
       }}>
-        🔒 All processing is local — your text never leaves your browser
+        {text ?? '🔒 All processing is local — your text never leaves your browser'}
       </span>
     </div>
   )

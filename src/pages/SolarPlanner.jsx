@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import ToolLayout from '../components/ToolLayout'
 import { useTheme } from '../hooks/useTheme'
 import { DecisionHero, SectionCard, FieldsGrid, Field, NumberInput, SelectInput, MetricGrid, MetricCard } from '../components/decision/DecisionBlocks'
+import { deleteSolarDraft, loadSolarDraft, saveSolarDraft } from '../lib/solarDraft'
 import { downloadDemo } from '../lib/downloadDemo'
 import { SOLAR_SAMPLE, planSolar, solarSummary } from '../lib/solarPlanner'
 import { SOLAR_REVIEW_DATE, SOLAR_SOURCES, SOLAR_POLICY_NOTES } from '../data/solarPolicy'
@@ -28,6 +29,32 @@ export default function SolarPlanner() {
   const { colors } = useTheme()
   const [input, setInput] = useState({ ...SOLAR_SAMPLE })
   const [status, setStatus] = useState('')
+  const [draftBusy, setDraftBusy] = useState(false)
+  const [draftStatus, setDraftStatus] = useState('')
+  async function manageDraft(action) {
+    setDraftBusy(true)
+    setDraftStatus('')
+    try {
+      if (action === 'save') {
+        await saveSolarDraft(input)
+        setDraftStatus('Draft saved in this browser.')
+      } else if (action === 'load') {
+        const draft = await loadSolarDraft()
+        if (draft) {
+          setInput(draft)
+          setStatus('')
+        }
+        setDraftStatus(draft ? 'Draft reopened.' : 'No draft saved in this browser.')
+      } else {
+        await deleteSolarDraft()
+        setDraftStatus('Saved draft deleted. Your current inputs are still open.')
+      }
+    } catch {
+      setDraftStatus('Could not access the draft. Check browser storage settings and try again.')
+    } finally {
+      setDraftBusy(false)
+    }
+  }
   let report, error
   try { report = planSolar(input) } catch (e) { error = e.message }
   const update = (key, value) => { setStatus(''); setInput(prev => ({ ...prev, [key]: value })) }
@@ -38,11 +65,20 @@ export default function SolarPlanner() {
   return <ToolLayout toolId="solar-planner"><div className="solar-planner" style={{ '--solar-border': colors.border, '--solar-card': colors.card, display: 'grid', gap: '1rem', minWidth: 0, overflowWrap: 'anywhere', color: colors.text }}>
     <DecisionHero colors={colors} accent={accent} eyebrow="PAKISTAN · QUOTE-BASED PLANNING" title="Compare solar costs with the electricity you can use" description="Separate avoided import charges, export credit and all entered upfront costs. Test your installer quote without treating an estimated saving as a guaranteed bill reduction." />
     <SectionCard colors={colors} accent={accent} title="Start with an illustrative scenario">
-      <p>Every starting number is synthetic, including price, sunlight and tariff inputs. Replace it with evidence before using the result. Inputs stay in this page's memory; this calculator does not upload or save them. Reloading resets the scenario. Other site features have their own data handling.</p>
+      <p>Every starting number is synthetic, including price, sunlight and tariff inputs. Replace it with evidence before using the result. The form starts with the example on each visit. Use the optional draft controls to reopen your own figures.</p>
       <button type="button" onClick={() => { setInput({ ...SOLAR_SAMPLE }); setStatus('Illustrative scenario restored.') }}>Reset illustrative scenario</button>
       <Field label="Export treatment"><SelectInput colors={colors} value={input.exportMode} onChange={e => update('exportMode', e.target.value)}><option value="none">No export value — surplus unvalued / curtailed</option><option value="net-billing">New net-billing estimate — verify export rate</option></SelectInput></Field>
       <p>Existing pre-9 February 2026 agreement? Confirm its protected billing terms and expiry with the licensee. Neither mode models legacy net metering. No-export value is a financial assumption, not permission to connect or bypass approval.</p>
       <FieldsGrid>{fields.map(([key, label, hint]) => <Field key={key} label={label} hint={hint}><NumberInput colors={colors} value={input[key]} min={['systemKw', 'sunHours'].includes(key) ? 0.1 : ['quote', 'replacementYear', 'deratePct'].includes(key) ? 1 : 0} step={key === 'replacementYear' ? 1 : 'any'} onChange={e => update(key, e.target.value)} /></Field>)}</FieldsGrid>
+    </SectionCard>
+    <SectionCard colors={colors} accent={accent} title="Draft on this device">
+      <p>Save one scenario in this browser profile. Saving replaces the previous draft. Reopening replaces the form values. On a shared device, anyone using this profile can reopen the draft.</p>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.8rem' }}>
+        <button type="button" disabled={draftBusy || !report} onClick={() => manageDraft('save')}>Save on this device</button>
+        <button type="button" disabled={draftBusy} onClick={() => manageDraft('load')}>Reopen saved draft</button>
+        <button type="button" disabled={draftBusy} onClick={() => manageDraft('delete')}>Delete saved draft</button>
+      </div>
+      <p role="status">{draftStatus}</p>
     </SectionCard>
     <SectionCard colors={colors} accent={accent} title="Scenario result">
       {error ? <p role="alert">{error} Results and exports are unavailable until inputs are valid.</p> : <>

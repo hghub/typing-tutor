@@ -45,7 +45,7 @@ Related guides: [5 kW quote checklist](/blog/decision-support/5kw-solar-system-p
 
 ## Before using the estimate
 
-Use the [Solar Planner](/tools/solar-planner) with measured monthly kWh, a written installed quote, an avoidable import-energy charge and a documented export rate if applicable. Starting numbers are synthetic; they are not market prices, guaranteed yield or a tariff lookup. Inputs remain in page memory for this calculator; reloading resets them. Do not enter personal account details.
+Use the [Solar Planner](/tools/solar-planner) with measured monthly kWh, a written installed quote, an avoidable import-energy charge and a documented export rate if applicable. Starting numbers are synthetic; they are not market prices, guaranteed yield or a tariff lookup. The form resets on reload. To reuse a scenario, explicitly save one draft on this device, then reopen it in the same browser profile. You can delete it from the planner. Do not enter personal account details.
 
 The scenario repeats a 30-day month twelve times, with annual generation decline. It separates self-use from export, includes additional connection and battery costs once, deducts annual maintenance and one optional replacement expense, and displays all 30 annual cashflows. Sustained cost recovery is the first end-of-year point that remains recovered through year 30. It can be **not reached**. No financing, discounting, inflation, tax eligibility, future tariff changes, hourly battery dispatch or complete electricity bill is calculated. A roof/electrical design and the applicable agreement need qualified review.
 

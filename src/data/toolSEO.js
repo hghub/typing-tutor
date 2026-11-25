@@ -467,20 +467,20 @@ const TOOL_SEO = {
   },
 
   'tax-optimizer': {
-    metaTitle: 'Tax Optimizer | Legal Ways to Reduce Salary Tax in Pakistan | Rafiqy',
-    metaDesc: 'Find legal tax deductions like VPS, Zakat and donations to reduce salary tax under current Pakistan rules. Private browser planner with FBR-aware logic.',
-    heading: 'Tax Optimizer — Legally Reduce Your Salary Tax Bill',
+    metaTitle: 'Tax Credit Planner | Pension & Donation Scenarios | Rafiqy',
+    metaDesc: 'Check one reviewed pension or donation credit with explicit tax/income bases, contribution caps and eligibility assumptions. Normal TY 2027; no insurance allocation.',
+    heading: 'Tax-credit arithmetic with explicit assumptions',
     paras: [
-      'The Tax Shield Optimizer helps Pakistani taxpayers identify legal deductions and allowances that can significantly reduce their income tax liability. Enter your income and the tool shows you every deduction you qualify for under Pakistani tax law.',
-      'Deductions covered include: Voluntary Pension Scheme (VPS) contributions, Zakat, charitable donations (Section 60), senior citizen rebate, medical allowance exemptions, house rent allowance, and more.',
-      'Compare your tax before and after applying all available shields. For many salaried individuals, proper use of VPS and charitable deductions can reduce tax by 20-40%. All calculations follow FBR rules for Tax Year 2026.',
+      'The Tax Credit Planner replaces the former automatic shield allocation with one reviewed section 63 pension or section 61 donation scenario. It does not determine personal eligibility, recommend products or calculate salary slabs.',
+      'Enter taxable income and assessed tax before Part X credits for normal TY 2027, 1 July 2026–30 June 2027. The formula applies the reviewed tax-to-income ratio to a qualifying capped payment. A credit is not a deduction from taxable income, cash received or a guaranteed refund.',
+      'FBR consolidation amended through 30 June 2026, reviewed 25 November 2026: section 62 is omitted by Finance Act 2022. No life-insurance credit, combined-return calculation, other credits, AOP-member or special-year treatment is supplied.',
     ],
     faqs: [
-      { q: 'What is a tax shield?', a: 'A tax shield is any legally allowed deduction or exemption that reduces your taxable income. Examples include VPS contributions, Zakat, and charitable donations under Section 60 of the Income Tax Ordinance.' },
-      { q: 'How much can I save with VPS?', a: 'Salaried individuals can deduct up to Rs 500,000 per year invested in a Voluntary Pension Scheme from taxable income. At a 23% marginal rate, that\'s up to Rs 115,000 saved in taxes.' },
-      { q: 'Is Zakat tax-deductible in Pakistan?', a: 'Yes. Zakat paid is deductible from income under Section 60 of the Income Tax Ordinance 2001. Keep receipts from recognized Zakat collection institutions.' },
-      { q: 'Who qualifies for the senior citizen tax rebate?', a: 'Individuals aged 60 years or above qualify for a 50% rebate on income tax payable (subject to conditions). This is a significant benefit for retired salaried individuals.' },
-      { q: 'Are these calculations FBR-approved?', a: 'The calculations follow the official Income Tax Ordinance 2001 and Finance Act 2025 provisions. For final tax planning, always consult a registered tax consultant.' },
+      { q: 'Does this optimizer recommend an investment split?', a: 'No. It calculates one reviewed pension or donation scenario at a time. Product suitability, liquidity and personal eligibility require separate review.' },
+      { q: 'Why is the insurance credit no longer included?', a: 'The official FBR consolidation amended through 30 June 2026 marks section 62 as omitted by Finance Act 2022. Historical footnotes reproducing it do not restore a current credit.' },
+      { q: 'Are contribution limits the same as the tax saved?', a: 'No. The implemented payment limits are 20% of taxable income for pension and 30% or 15% for individual non-associate-only or associate-only donations. The credit uses assessed tax divided by taxable income, multiplied by qualifying capped payment.' },
+      { q: 'What donation cases are excluded?', a: 'Mixed or unknown relationships, non-cash gifts and payment methods outside the consolidated crossed-cheque condition need separate assessment in this version. Recipient status and other eligibility conditions must be checked.' },
+      { q: 'Is the result a refund or spendable cash?', a: 'No. It is an illustrative reduction for one credit before other credits, withholding and filing adjustments. The contribution remains a cash commitment. Unused-credit and refund treatment must be reviewed separately.' },
     ],
   },
 

@@ -248,3 +248,7 @@ See [DIRECTORY_REVIEW_2026-11-23.md](DIRECTORY_REVIEW_2026-11-23.md) for exact d
 ## 24 November 2026 — solar correctness batch held
 
 See `docs/SOLAR_REVIEW_2026-11-24.md` for the quote-based engine, eight coordinated guides, exact scope removals, primary NEPRA instruments/effective dates, 91-test/build/browser evidence and final held solar caption. Guarded branch `codex/rafiqy-solar-review` inherits the earlier unapproved batches; solar-only approval must isolate its diff onto approved production source, or review the exact combined tree. No release or post approval inferred.
+
+## 25 November 2026 — tax-credit correctness batch held
+
+See `docs/TAX_CREDIT_REVIEW_2026-11-25.md` for the replacement of obsolete insurance/automatic allocation with one reviewed pension/donation credit at a time, exact source pages/period/limits, coordinated guides,99tests/build/browser evidence and final held caption. Branch `codex/rafiqy-tax-credit-review` inherits all previous unpublished work; isolate a tax-only batch from approved production source or review the exact combined source before deployment. No website/post approval inferred.

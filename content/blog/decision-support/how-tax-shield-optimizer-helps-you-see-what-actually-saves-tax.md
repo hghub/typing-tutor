@@ -1,34 +1,58 @@
 ---
 slug: how-tax-shield-optimizer-helps-you-see-what-actually-saves-tax
-title: How Tax Shield Optimizer Helps You See What Actually Saves Tax
-description: A practical guide to using the optimizer so tax-saving decisions are based on actual impact, not vague claims or product sales talk.
+title: Tax Credit Planner: Check a Reviewed Pension or Donation Scenario
+description: Check one reviewed pension or donation credit with explicit tax-year, contribution caps, eligibility assumptions and source limits.
 hero: 🧠
 category: pakistan
 section: decision-support
 readTime: 7 min read
 publishDate: 2026-05-06
-tags: ["tax optimizer Pakistan","tax shield","VPS tax saving","salary tax planning"]
+tags: ["tax", "optimizer", "tax credit", "vps", "charity", "pension", "donation", "tax optimizer Pakistan"]
 ---
-## The Problem With Generic “Save Tax” Advice
+## Check a credit without buying a tax-saving promise
 
-A lot of tax-saving advice sounds useful until you try to turn it into numbers. People say “invest here” or “buy this policy” without showing what actually changes in your tax bill and whether the move still makes sense for your money overall.
+A contribution and a tax credit are different amounts. A pension payment can commit money for a long period; a donation gives money away. A credit may reduce tax, but it does not turn either payment into immediate cash or investment profit. Start with evidence and the right income period before comparing a product or a claim.
 
-## What the Optimizer Changes
+The [Tax Credit Planner](/tools/tax-optimizer), formerly presented as the Tax Shield Optimizer, now calculates **one pension or donation scenario at a time**. The previous automatic VPS/insurance/charity allocation has been removed. It did not establish eligibility and included an obsolete section 62 insurance credit. No optimal split or product recommendation replaces it.
 
-The [Tax Shield Optimizer](/tools/tax-optimizer) is useful because it turns broad tax-saving talk into a comparison problem:
+## Choose the year and reviewed bases
 
-- how much budget are you allocating?
-- which bucket saves more tax per rupee?
-- what is the better split across eligible options?
+The prepared planner covers the **normal Tax Year 2027: 1 July 2026–30 June 2027**, using the FBR consolidation amended through **30 June 2026**, checked **25 November 2026**. These are the selected income period, consolidation date and review date. They do not mean every provision first became effective in 2026. Check subsequent amendments and your own circumstances before filing.
 
-## Why This Matters
+Enter the reviewed taxable income B and assessed tax A before Part X credits for that same year. B is not necessarily gross salary, total receipts or bank deposits. A is not withholding paid, a refund balance or monthly take-home. The [salary calculator](/tools/tax-calculator) provides a separate salary-only base estimate, not the personal tax assessment required for a return. Do not copy its result into A without checking applicability.
 
-Sometimes the difference between two tax-saving paths is not intuition. It is math. The useful part is not hearing that a category can help. The useful part is knowing whether it changes your bill enough to matter and how the split should look under your salary level.
+This limited planner excludes companies, special tax years, AOP-member adjustments, mixed-income complications and other credits. If the tax bases or credit interactions need adjustment, have them assessed separately. A checkbox records a scenario assumption, not an FBR approval or verification by Rafiqy.
 
-## Use It After the Salary Estimate
+## Follow the formula
 
-A good flow is simple: first estimate your current salary tax with the [Pakistan Tax Calculator](/tools/tax-calculator), then open the optimizer to test which allowed shield path gives the strongest impact for the money you are considering.
+Sections 61 and 63 use **(A ÷ B) × C**, where C is the qualifying payment limited by the relevant contribution cap. This is a credit against tax, not an instruction to subtract the payment from taxable income or multiply it by the highest marginal salary rate.
 
-See what really changes your salary tax instead of relying on general claims.
+| Single scenario | Limit used for C in this planner | Eligibility still needs review |
+| --- | --- | --- |
+| Approved pension contribution, section 63 | Lesser of entered qualifying contribution or 20% of taxable income | Eligible person, qualifying income, approved fund, payment in the year and excluded transfers |
+| Qualifying donation to non-associate recipient(s) only, section 61 | Lesser of entered qualifying donation or 30% of taxable income for an individual | Recipient status, relationship, payment method, year and supporting evidence |
+| Qualifying donation to associate recipient(s) only, section 61 | Lesser of entered qualifying donation or 15% of taxable income for an individual | The same checks, including the reviewed associate relationship |
 
-Open Tax Shield Optimizer →
+The planner excludes mixed associate/non-associate donations rather than guessing a combined cap. Non-cash gifts and unverified payment methods also need separate assessment. The consolidated text in section 61(4) requires a cash donation to be paid by crossed cheque drawn on a bank. Do not assume any charity receipt or any transfer method establishes eligibility.
+
+For section 63, an existing balance transferred from the employment pension/annuity/occupational saving schemes described in subsection (3) does not qualify. The historical additional age-based contribution provision ended by 30 June 2019; this planner does not apply it. Fund approval and eligible-person conditions remain essential.
+
+## A synthetic calculation you can reproduce
+
+Assume, solely for the example, reviewed taxable income B of PKR 3,000,000, tax A of PKR 276,000 and a qualifying pension contribution of PKR 300,000. The 20% contribution cap is PKR 600,000, so C is PKR 300,000. The illustrative credit is 276,000 ÷ 3,000,000 × 300,000 = **PKR 27,600**. Tax after this one credit is **PKR 248,400**, before other credits, withholding and filing adjustments.
+
+The PKR 300,000 contribution remains a cash commitment. PKR 27,600 is not cash already received or a guaranteed refund. No salary slab or tax eligibility was inferred from those example numbers. Load the example to check the arithmetic, then confirm its assumptions separately; it is not a real taxpayer record.
+
+If the payment were PKR 1,000,000, the same pension scenario would use only PKR 600,000 as C and show PKR 400,000 above the model cap. That excess is not automatically a deductible amount or a carryforward. Section 65 generally prevents unused Part X credit from being refunded or moved to another year, with separate AOP-member provisions outside this tool.
+
+## Read the outputs and preserve the limits
+
+The result displays the cap, amount used, amount above the cap, illustrative credit, tax after this single credit and full contribution. BigInt minor-unit arithmetic avoids binary money drift. The contribution cap is rounded down to a paisa and the illustrative credit is rounded half-up to a paisa; this is a planning convention, not prescribed filing rounding. An invalid amount, missing confirmation or unsupported relationship suppresses results and exports.
+
+Copy or download the text scenario if useful. It carries the income period, entered amounts, formula and exclusions. The calculator requests no names, CNICs, account details, documents or free-text evidence; entries stay in page memory and reset on reload. Other website features, such as feedback and external links, have separate behavior. Do not put private taxpayer records into feedback.
+
+## Verify the source and the decision
+
+The [official FBR consolidated Ordinance](https://download1.fbr.gov.pk/Docs/2026724177725705IncomeTaxOrdinanace2001.pdf) covers section 61 on printed pages 120–121, the section 62 omission note on printed page 122, section 63 on printed pages 123–124, and section 65 on printed pages 128–129. PDF page numbers are 19 higher than these printed page numbers. Historical footnotes reproduce omitted provisions; read the current operative text and amendment notes together.
+
+Section 62 is marked omitted by **Finance Act 2022**. An old insurance or mutual-fund example is not evidence of a current credit. This planner also does not calculate Zakat, housing, senior/teacher benefits, a combined return or refund settlement. For the wider decision process, read [legal salary-tax planning](/blog/decision-support/legal-ways-to-save-salary-tax-in-pakistan).

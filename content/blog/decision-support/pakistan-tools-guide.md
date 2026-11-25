@@ -19,7 +19,7 @@ Most financial and productivity tools are built with the US or European market i
 - **Salary Slip Generator:** printable draft with entered earnings, payroll-confirmed tax and employee EOBI, optional other deductions and validated gross-to-net totals; no automatic statutory calculation.
 - **Kameti Tracker:** add members, set monthly contribution, auto-rotate draw order, mark payments, send reminders, export rotation schedule
 - **Gold & Silver Calculator:** live gold price (USD + PKR), manual price fallback, calculate value for tola/gram/kg, local city price context (Karachi, Lahore, Islamabad)
-- **Tax Shield Optimizer:** Section 62 (mutual funds), 63 (life insurance), 64 (pension) deduction analysis, exact tax saving per rupee, optimal allocation across instruments
+- **Tax Credit Planner:** one reviewed pension or donation scenario with explicit tax/income bases, qualifying-payment limits and evidence assumptions; no insurance allocation or automatic eligibility decision.
 - **Pakistan ID & Tax Hub:** CNIC province/division/gender/year decoder, NTN lookup helper, driving fine categories by province, penalty amounts
 - **Driving Fine Tracker:** log fines by category, track payment status and due dates, by province (Punjab, Sindh, KPK, Balochistan), calculate total outstanding
 
@@ -27,7 +27,7 @@ Most financial and productivity tools are built with the US or European market i
 
 Pakistan's income tax system uses a slab-based structure that changes every budget year, making manual calculations error-prone. Rafiqy's **Pakistan Tax Calculator** is updated for the current FBR tax year and is designed primarily for **salaried income planning**, which is what most payroll users and employees need when checking monthly withholding or annual salary tax.
 
-The calculator focuses on the decisions salaried users actually care about: annual salary, monthly take-home, bonus impact, current slab effect, VPS contribution, charity credit, and year-over-year comparison. If you earn primarily business or freelance income, you should not treat the salary calculator as a full replacement for business-income tax treatment because that follows a different practical path.
+The calculator focuses on the decisions salaried users actually care about: annual salary, monthly take-home, bonus impact, current slab effect and year-over-year base-rule comparison before personal credits. If you earn primarily business or freelance income, you should not treat the salary calculator as a full replacement for business-income tax treatment because that follows a different practical path.
 
 ## 4. Salary Slip Generator
 
@@ -49,7 +49,7 @@ Enter any weight in **tola** (the traditional South Asian unit), **grams**, or *
 
 ## 7. Tax Shield Optimizer & Pakistan ID Hub
 
-Many salaried Pakistanis pay more tax than necessary simply because they are unaware of the investment-linked tax deductions available under the Income Tax Ordinance. The **Tax Shield Optimizer** maps your income against three key sections: **Section 62** (investment in mutual funds — up to 20 % of taxable income deductible), **Section 63** (life insurance premiums), and **Section 64** (contributions to approved pension funds). For each section, it shows the **exact tax saving per rupee invested** at your marginal rate, and recommends the **optimal allocation** across all three instruments to maximise your total tax shield without exceeding statutory limits.
+The [Tax Credit Planner](/tools/tax-optimizer), formerly described here as the Tax Shield Optimizer, compares one reviewed pension contribution (section 63) or qualifying donation (section 61). It requires the taxable-income and assessed-tax bases and explicit scenario confirmations; it does not decide eligibility or allocate a budget to products. The previous section 62 insurance/mutual-fund and section 64 pension descriptions were incorrect. FBR's consolidation amended through30June2026 marks section62 omitted byFinanceAct2022 and section64 omitted byFinanceAct2015. Source review25November2026 is limited to the credit cluster, not this entire directory's financial/regulatory claims. Read the [credit guide](/blog/decision-support/how-tax-shield-optimizer-helps-you-see-what-actually-saves-tax) for exact sources and exclusions.
 
 The **Pakistan ID & Tax Hub** provides a set of reference utilities: the **CNIC decoder** reads the structure of a 13-digit CNIC to tell you the province, division, gender code, and registration year encoded in the number — useful for data validation and HR processes. An **NTN lookup helper** guides you through the FBR portal lookup process. Driving fine categories and penalty amounts by province are also included, giving you a quick reference before visiting a traffic court.
 

@@ -147,7 +147,7 @@ export default function ToolLayout({ toolId, children }) {
       </main>
 
       <RelatedTools toolId={toolId} />
-      <TrustBadge text={toolId === 'solar-planner' ? 'Solar scenario arithmetic runs in this page; feedback and external links are separate.' : undefined} />
+      <TrustBadge text={toolId === 'solar-planner' ? 'Solar scenario arithmetic runs in this page; feedback and external links are separate.' : toolId === 'tax-optimizer' ? 'Tax-credit scenario arithmetic runs in this page; eligibility is not verified. Feedback is separate.' : undefined} />
       <FeedbackButton />
 
       {helpOpen && <ToolHelpDialog toolId={toolId} onClose={() => setHelpOpen(false)} />}

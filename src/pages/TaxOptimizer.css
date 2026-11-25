@@ -1,0 +1,8 @@
+.tax-credit-planner { display: grid; gap: 1rem; min-width: 0; line-height: 1.65; overflow-wrap: anywhere; }
+.tax-credit-planner p { margin: 0; }
+.tax-credit-actions { display: flex; flex-wrap: wrap; gap: .8rem; }
+.tax-credit-planner button { min-height: 44px; border: 1px solid var(--credit-border); background: var(--credit-card); color: inherit; border-radius: .7rem; font: inherit; font-weight: 650; padding: .65rem 1rem; cursor: pointer; }
+.tax-credit-planner :is(button,input,select,a):focus-visible { outline: 3px solid #059669; outline-offset: 3px; }
+.tax-credit-check { display: flex; align-items: flex-start; gap: .7rem; cursor: pointer; }
+.tax-credit-check input { width: 1.25rem; height: 1.25rem; flex-shrink: 0; margin-top: .25rem; accent-color: #059669; }
+.tax-credit-notice { padding: .8rem; border: 1px solid var(--credit-border); border-radius: .7rem; }

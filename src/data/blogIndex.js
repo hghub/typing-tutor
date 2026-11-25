@@ -133,18 +133,22 @@ export const BLOG_INDEX = [
   },
   {
     "slug": "how-tax-shield-optimizer-helps-you-see-what-actually-saves-tax",
-    "title": "How Tax Shield Optimizer Helps You See What Actually Saves Tax",
-    "description": "A practical guide to using the optimizer so tax-saving decisions are based on actual impact, not vague claims or product sales talk.",
+    "title": "Tax Credit Planner: Check a Reviewed Pension or Donation Scenario",
+    "description": "Check one reviewed pension or donation credit with explicit tax-year, contribution caps, eligibility assumptions and source limits.",
     "hero": "🧠",
     "category": "pakistan",
     "section": "decision-support",
     "readTime": "7 min read",
     "publishDate": "2026-05-06",
     "tags": [
-      "tax optimizer Pakistan",
-      "tax shield",
-      "VPS tax saving",
-      "salary tax planning"
+      "tax",
+      "optimizer",
+      "tax credit",
+      "vps",
+      "charity",
+      "pension",
+      "donation",
+      "tax optimizer Pakistan"
     ]
   },
   {
@@ -293,18 +297,21 @@ export const BLOG_INDEX = [
   },
   {
     "slug": "legal-ways-to-save-salary-tax-in-pakistan",
-    "title": "Legal Ways to Save Salary Tax Without Playing Games",
-    "description": "A practical guide to lawful salary-tax saving using pension contributions, approved credits, and better preparation instead of guesswork under Pakistan tax rules.",
+    "title": "Legal Salary-Tax Planning: Evidence Before Product Claims",
+    "description": "Separate salary estimates, deductions, credits and cash commitments; verify current FBR provisions before acting on tax-saving claims.",
     "hero": "🛡️",
     "category": "pakistan",
     "section": "decision-support",
     "readTime": "8 min read",
     "publishDate": "2026-05-06",
     "tags": [
-      "save tax Pakistan",
-      "salary tax saving",
-      "tax credits Pakistan",
-      "VPS tax benefit"
+      "tax",
+      "tax credit",
+      "vps",
+      "charity",
+      "pension",
+      "donation",
+      "salary tax planning"
     ]
   },
   {
